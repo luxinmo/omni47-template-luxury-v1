@@ -1,12 +1,11 @@
 import { useState, useMemo, useCallback } from "react";
-import { Plus, Pencil, Trash2, CheckSquare, Square, Check } from "lucide-react";
+import { Plus, Pencil, Trash2, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -51,7 +50,8 @@ const TownDetailPage = ({
   onBackToCountries, onBackToProvinces, onBackToTowns, onEditZone,
 }: TownDetailPageProps) => {
   const [locations, setLocations] = useState<LocationNode[]>(mockLocations);
-  const [selectedZones, setSelectedZones] = useState<Set<string>>(new Set());
+  // Zone visibility toggles — default ALL OFF
+  const [visibleZones, setVisibleZones] = useState<Set<string>>(new Set());
   const [focusedZoneId, setFocusedZoneId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState("zones");
   const [drawMode, setDrawMode] = useState(false);
@@ -77,26 +77,38 @@ const TownDetailPage = ({
     [locations, townId],
   );
 
+  // Only show zones that are toggled ON
   const mapPolygons: MapPolygon[] = useMemo(
-    () => zones.filter((z) => z.geojson).map((z, i) => ({
-      id: z.id,
-      name: z.name,
-      geojson: z.geojson!,
-      color: PALETTE[i % PALETTE.length],
-      highlighted: selectedZones.has(z.id),
-    })),
-    [zones, selectedZones],
+    () => zones
+      .filter((z) => z.geojson && visibleZones.has(z.id))
+      .map((z, i) => ({
+        id: z.id,
+        name: z.name,
+        geojson: z.geojson!,
+        color: PALETTE[i % PALETTE.length],
+        highlighted: false,
+      })),
+    [zones, visibleZones],
   );
 
-  const toggleZone = (id: string) => {
-    setSelectedZones((prev) => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n; });
-    setFocusedZoneId(id);
+  // Toggle zone visibility
+  const toggleZoneVisibility = (id: string) => {
+    setVisibleZones((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+        setFocusedZoneId(id);
+      }
+      return next;
+    });
   };
-  const selectAll = () => setSelectedZones(new Set(zones.map((z) => z.id)));
-  const clearAll = () => { setSelectedZones(new Set()); setFocusedZoneId(null); };
 
-  const handlePolygonClick = useCallback((id: string) => { toggleZone(id); }, []);
-  const handlePolygonDblClick = useCallback((id: string) => { onEditZone(id); }, [onEditZone]);
+  // Map polygon click = go to zone edit
+  const handlePolygonClick = useCallback((id: string) => {
+    onEditZone(id);
+  }, [onEditZone]);
 
   const handleDrawComplete = useCallback((geo: string) => {
     setDrawnGeo(geo); setDrawMode(false); setAdding(true); setActiveTab("zones");
@@ -115,7 +127,7 @@ const TownDetailPage = ({
 
   const handleDeleteZone = (id: string) => {
     setLocations((prev) => prev.filter((n) => n.id !== id));
-    setSelectedZones((prev) => { const n = new Set(prev); n.delete(id); return n; });
+    setVisibleZones((prev) => { const n = new Set(prev); n.delete(id); return n; });
   };
 
   return (
@@ -141,40 +153,38 @@ const TownDetailPage = ({
 
           {/* ZONES TAB */}
           <TabsContent value="zones" className="flex-1 min-h-0 mt-0 flex flex-col">
-            <div className="flex items-center gap-1 px-3 py-1.5 shrink-0">
-              <Button variant="ghost" size="sm" className="h-6 text-[10px] gap-1" onClick={selectAll}>
-                <CheckSquare className="h-3 w-3" /> All
-              </Button>
-              <Button variant="ghost" size="sm" className="h-6 text-[10px] gap-1" onClick={clearAll}>
-                <Square className="h-3 w-3" /> Clear
-              </Button>
-            </div>
-
-            <ScrollArea className="flex-1 min-h-0 px-3">
+            <ScrollArea className="flex-1 min-h-0 px-3 pt-2">
               <div className="space-y-0.5 pb-3">
-                {zones.map((z) => (
-                  <div
-                    key={z.id}
-                    className={`flex items-center gap-2 rounded-lg px-2.5 py-1.5 transition-colors ${
-                      selectedZones.has(z.id) ? "bg-primary/5" : "hover:bg-accent"
-                    }`}
-                  >
-                    <Checkbox checked={selectedZones.has(z.id)} onCheckedChange={() => toggleZone(z.id)} />
-                    <span className={`h-1.5 w-1.5 rounded-full ${z.active ? "bg-emerald-500" : "bg-muted-foreground/30"}`} />
-                    <span className="flex-1 text-[12px] font-medium text-foreground truncate">{z.name}</span>
-                    {z.geojson ? (
-                      <Badge className="text-[8px] bg-emerald-500/10 text-emerald-700 border-emerald-500/20">Geo</Badge>
-                    ) : (
-                      <Badge variant="secondary" className="text-[8px]">—</Badge>
-                    )}
-                    <Button variant="ghost" size="icon" className="h-5 w-5" onClick={() => onEditZone(z.id)}>
-                      <Pencil className="h-2.5 w-2.5" />
-                    </Button>
-                    <Button variant="ghost" size="icon" className="h-5 w-5 text-destructive" onClick={() => handleDeleteZone(z.id)}>
-                      <Trash2 className="h-2.5 w-2.5" />
-                    </Button>
-                  </div>
-                ))}
+                {zones.map((z) => {
+                  const isVisible = visibleZones.has(z.id);
+                  return (
+                    <div
+                      key={z.id}
+                      className={`flex items-center gap-2 rounded-lg px-2.5 py-1.5 transition-colors ${
+                        isVisible ? "bg-primary/5" : "hover:bg-accent"
+                      }`}
+                    >
+                      <Switch
+                        checked={isVisible}
+                        onCheckedChange={() => toggleZoneVisibility(z.id)}
+                        className="scale-[0.7]"
+                      />
+                      <span className={`h-1.5 w-1.5 rounded-full ${z.active ? "bg-emerald-500" : "bg-muted-foreground/30"}`} />
+                      <span className="flex-1 text-[12px] font-medium text-foreground truncate">{z.name}</span>
+                      {z.geojson ? (
+                        <Badge className="text-[8px] bg-emerald-500/10 text-emerald-700 border-emerald-500/20">Geo</Badge>
+                      ) : (
+                        <Badge variant="secondary" className="text-[8px]">—</Badge>
+                      )}
+                      <Button variant="ghost" size="icon" className="h-5 w-5" onClick={() => onEditZone(z.id)}>
+                        <Pencil className="h-2.5 w-2.5" />
+                      </Button>
+                      <Button variant="ghost" size="icon" className="h-5 w-5 text-destructive" onClick={() => handleDeleteZone(z.id)}>
+                        <Trash2 className="h-2.5 w-2.5" />
+                      </Button>
+                    </div>
+                  );
+                })}
 
                 {zones.length === 0 && !adding && (
                   <p className="text-[11px] text-muted-foreground text-center py-4">No zones</p>
@@ -254,11 +264,9 @@ const TownDetailPage = ({
           focusedPolygonId={focusedZoneId}
           drawMode={drawMode}
           onPolygonClick={handlePolygonClick}
-          onPolygonDblClick={handlePolygonDblClick}
           onDrawComplete={handleDrawComplete}
           onCancelDraw={() => setDrawMode(false)}
         >
-          {/* Floating map controls */}
           {!drawMode && (
             <>
               <Button

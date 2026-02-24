@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback } from "react";
-import { Plus, Pencil } from "lucide-react";
+import { Plus, Pencil, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { LocationNode } from "./types";
 import { mockLocations } from "./mock-data";
-import LocationSidebar, { SidebarHeader, SidebarBody, SidebarFooter } from "./shared/LocationSidebar";
+import LocationSidebar, { SidebarHeader, SidebarBody } from "./shared/LocationSidebar";
 import LocationBreadcrumb from "./shared/LocationBreadcrumb";
 import MapPanel, { MapPolygon } from "./shared/MapPanel";
 
@@ -46,15 +46,24 @@ const ProvincesPage = ({ countryId, onBack, onSelectProvince }: ProvincesPagePro
     [provinces, selectedId, locations],
   );
 
-  const handleSidebarClick = (id: string) => { setSelectedId(id); setFocusId(id); };
+  // Sidebar: click = highlight + fly
+  const handleSidebarClick = (id: string) => {
+    setSelectedId(id);
+    setFocusId(id);
+  };
 
-  const handlePolygonClick = useCallback((id: string) => { setSelectedId(id); setFocusId(id); }, []);
-  const handlePolygonDblClick = useCallback((id: string) => { onSelectProvince(id); }, [onSelectProvince]);
+  // Map polygon: if already highlighted → enter, otherwise highlight
+  const handlePolygonClick = useCallback((id: string) => {
+    if (id === selectedId) {
+      onSelectProvince(id);
+    } else {
+      setSelectedId(id);
+      setFocusId(id);
+    }
+  }, [selectedId, onSelectProvince]);
 
   const handleDrawComplete = useCallback((geojson: string) => {
-    setDrawnGeo(geojson);
-    setDrawMode(false);
-    setAdding(true);
+    setDrawnGeo(geojson); setDrawMode(false); setAdding(true);
   }, []);
 
   const handleSave = () => {
@@ -86,7 +95,6 @@ const ProvincesPage = ({ countryId, onBack, onSelectProvince }: ProvincesPagePro
         </SidebarHeader>
 
         <SidebarBody>
-          {/* Inline add form */}
           {adding && (
             <div className="rounded-lg border border-border bg-muted/30 p-3 space-y-2.5 mb-2">
               <div className="space-y-1">
@@ -108,27 +116,33 @@ const ProvincesPage = ({ countryId, onBack, onSelectProvince }: ProvincesPagePro
           <div className="space-y-0.5">
             {provinces.map((p) => {
               const townCount = locations.filter((n) => n.parentId === p.id).length;
+              const isSelected = selectedId === p.id;
               return (
-                <button
-                  key={p.id}
-                  onClick={() => handleSidebarClick(p.id)}
-                  onDoubleClick={() => onSelectProvince(p.id)}
-                  className={`group flex w-full items-center gap-2 rounded-lg px-3 py-2 text-[13px] transition-all ${
-                    selectedId === p.id
-                      ? "bg-primary/8 text-foreground font-medium ring-1 ring-primary/20"
-                      : "text-muted-foreground hover:bg-accent hover:text-foreground"
-                  }`}
-                >
-                  <span className={`h-2 w-2 rounded-full shrink-0 ${p.active ? "bg-emerald-500" : "bg-muted-foreground/30"}`} />
-                  <span className="flex-1 text-left truncate">{p.name}</span>
-                  <Badge variant="secondary" className="text-[9px] shrink-0">{townCount}</Badge>
+                <div key={p.id} className={`group flex w-full items-center gap-2 rounded-lg px-3 py-2 text-[13px] transition-all ${
+                  isSelected
+                    ? "bg-primary/8 text-foreground font-medium ring-1 ring-primary/20"
+                    : "text-muted-foreground hover:bg-accent hover:text-foreground"
+                }`}>
+                  <button
+                    className="flex flex-1 items-center gap-2 min-w-0"
+                    onClick={() => handleSidebarClick(p.id)}
+                  >
+                    <span className={`h-2 w-2 rounded-full shrink-0 ${p.active ? "bg-emerald-500" : "bg-muted-foreground/30"}`} />
+                    <span className="flex-1 text-left truncate">{p.name}</span>
+                    <Badge variant="secondary" className="text-[9px] shrink-0">{townCount}</Badge>
+                  </button>
                   <Pencil className="h-3 w-3 opacity-0 group-hover:opacity-50 shrink-0 transition-opacity" />
-                </button>
+                  {isSelected && (
+                    <button onClick={() => onSelectProvince(p.id)} className="shrink-0 text-primary hover:text-primary/80 transition-colors" title="Enter province">
+                      <ChevronRight className="h-4 w-4" />
+                    </button>
+                  )}
+                </div>
               );
             })}
           </div>
           <p className="text-[10px] text-muted-foreground text-center mt-4">
-            Double-click a province to enter
+            Click to highlight · Click polygon on map to enter
           </p>
         </SidebarBody>
       </LocationSidebar>
@@ -141,7 +155,6 @@ const ProvincesPage = ({ countryId, onBack, onSelectProvince }: ProvincesPagePro
           focusedPolygonId={focusId}
           drawMode={drawMode}
           onPolygonClick={handlePolygonClick}
-          onPolygonDblClick={handlePolygonDblClick}
           onDrawComplete={handleDrawComplete}
           onCancelDraw={() => setDrawMode(false)}
         >

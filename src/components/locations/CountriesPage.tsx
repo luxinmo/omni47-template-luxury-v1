@@ -1,8 +1,7 @@
 import { useState, useMemo, useCallback } from "react";
-import { Plus } from "lucide-react";
+import { Plus, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Switch } from "@/components/ui/switch";
 import { LocationNode } from "./types";
 import { mockLocations } from "./mock-data";
 import LocationSidebar, { SidebarHeader, SidebarBody } from "./shared/LocationSidebar";
@@ -41,14 +40,15 @@ const CountriesPage = ({ onSelectCountry }: CountriesPageProps) => {
     setFocusId(id);
   };
 
+  // Map click: if already highlighted → enter, otherwise highlight
   const handlePolygonClick = useCallback((id: string) => {
-    setSelectedId(id);
-    setFocusId(id);
-  }, []);
-
-  const handlePolygonDblClick = useCallback((id: string) => {
-    onSelectCountry(id);
-  }, [onSelectCountry]);
+    if (id === selectedId) {
+      onSelectCountry(id);
+    } else {
+      setSelectedId(id);
+      setFocusId(id);
+    }
+  }, [selectedId, onSelectCountry]);
 
   return (
     <div className="flex-1 flex min-h-0 overflow-hidden">
@@ -67,7 +67,6 @@ const CountriesPage = ({ onSelectCountry }: CountriesPageProps) => {
               <button
                 key={c.id}
                 onClick={() => handleSidebarClick(c.id)}
-                onDoubleClick={() => onSelectCountry(c.id)}
                 className={`flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-[13px] transition-all ${
                   selectedId === c.id
                     ? "bg-primary/8 text-foreground font-medium ring-1 ring-primary/20"
@@ -80,16 +79,18 @@ const CountriesPage = ({ onSelectCountry }: CountriesPageProps) => {
                   {c.childrenCount} prov
                 </Badge>
                 <span className={`h-1.5 w-1.5 rounded-full shrink-0 ${c.active ? "bg-emerald-500" : "bg-muted-foreground/30"}`} />
+                {selectedId === c.id && (
+                  <ChevronRight className="h-3.5 w-3.5 text-primary shrink-0" />
+                )}
               </button>
             ))}
           </div>
           <p className="text-[10px] text-muted-foreground text-center mt-4 px-2">
-            Click to select · Double-click to enter
+            Click to select · Click polygon on map to enter
           </p>
         </SidebarBody>
       </LocationSidebar>
 
-      {/* Map */}
       <div className="flex-1 min-w-0">
         <MapPanel
           polygons={mapPolygons}
@@ -97,7 +98,6 @@ const CountriesPage = ({ onSelectCountry }: CountriesPageProps) => {
           zoom={4}
           focusedPolygonId={focusId}
           onPolygonClick={handlePolygonClick}
-          onPolygonDblClick={handlePolygonDblClick}
         />
       </div>
     </div>
