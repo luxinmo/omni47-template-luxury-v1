@@ -79,6 +79,7 @@ const Index = () => {
             location={editingLocation}
             parentName={parentNode?.name}
             parentLevel={parentNode ? parentNode.level : null}
+            parentGeojson={parentNode?.geojson ?? null}
             level={locationFormLevel}
             onBack={() => setView("locations")}
           />

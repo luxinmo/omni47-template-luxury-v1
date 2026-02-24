@@ -14,6 +14,7 @@ interface LocationDetailPageProps {
   location?: LocationNode | null;
   parentName?: string;
   parentLevel?: LocationLevel | null;
+  parentGeojson?: string | null;
   level: LocationLevel;
   onBack: () => void;
   onSave?: (data: Partial<LocationNode>) => void;
@@ -23,7 +24,7 @@ const toSafeName = (name: string) =>
   name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
-const LocationDetailPage = ({ location, parentName, parentLevel, level, onBack, onSave }: LocationDetailPageProps) => {
+const LocationDetailPage = ({ location, parentName, parentLevel, parentGeojson, level, onBack, onSave }: LocationDetailPageProps) => {
   const isEdit = !!location;
 
   const [name, setName] = useState(location?.name ?? "");
@@ -43,7 +44,6 @@ const LocationDetailPage = ({ location, parentName, parentLevel, level, onBack, 
   const [rawGeoOpen, setRawGeoOpen] = useState(false);
   const [importGeoOpen, setImportGeoOpen] = useState(false);
   const [importGeoText, setImportGeoText] = useState("");
-  const [editingMap, setEditingMap] = useState(false);
   const [drawingOnMap, setDrawingOnMap] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -83,6 +83,9 @@ const LocationDetailPage = ({ location, parentName, parentLevel, level, onBack, 
     setDrawingOnMap(false);
   };
 
+  // Show parent boundary for province, town, zone
+  const showParentBoundary = level !== "country" && parentGeojson;
+
   const FlagSelector = ({ active: activeLangCode, onChange, data }: {
     active: string; onChange: (code: string) => void; data: Record<string, string>;
   }) => (
@@ -106,15 +109,15 @@ const LocationDetailPage = ({ location, parentName, parentLevel, level, onBack, 
 
   return (
     <div className="flex-1 overflow-auto">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-6 space-y-5">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-6 space-y-5">
         {/* Back */}
         <button onClick={onBack}
           className="flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors">
           <ArrowLeft className="h-3.5 w-3.5" /> Back to locations
         </button>
 
-        {/* Two column layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr,380px] gap-6">
+        {/* Two column layout — true 50/50 */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* LEFT — Form */}
           <div className="rounded-xl border border-border bg-card shadow-card p-5 sm:p-7 space-y-6">
             {/* Level badge + title */}
@@ -226,20 +229,28 @@ const LocationDetailPage = ({ location, parentName, parentLevel, level, onBack, 
             <div className="rounded-xl border border-border bg-card shadow-card p-4 space-y-3">
               <div className="flex items-center justify-between">
                 <h3 className="text-[13px] font-semibold text-foreground">Geometry</h3>
-                {geoType && (
-                  <Badge className="text-[10px] bg-emerald-500/10 text-emerald-700 border-emerald-500/20">
-                    {geoType}
-                  </Badge>
-                )}
+                <div className="flex items-center gap-2">
+                  {showParentBoundary && (
+                    <Badge variant="outline" className="text-[9px] gap-1 text-muted-foreground">
+                      Parent boundary shown
+                    </Badge>
+                  )}
+                  {geoType && (
+                    <Badge className="text-[10px] bg-emerald-500/10 text-emerald-700 border-emerald-500/20">
+                      {geoType}
+                    </Badge>
+                  )}
+                </div>
               </div>
 
               {/* Map */}
-              <div className="relative rounded-xl overflow-hidden border border-border">
+              <div className="relative rounded-xl overflow-hidden border border-border" style={{ minHeight: 500 }}>
                 <LocationMap
                   geometry={geojson || undefined}
+                  parentGeojson={showParentBoundary ? parentGeojson : undefined}
                   center={[40, -3]}
                   zoom={6}
-                  height="400px"
+                  height="500px"
                   drawMode={drawingOnMap}
                   onDrawComplete={handleDrawComplete}
                   onCancelDraw={() => setDrawingOnMap(false)}
