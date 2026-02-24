@@ -1,9 +1,7 @@
 import { useState } from "react";
 import AppSidebar from "@/components/AppSidebar";
 import HeaderBar from "@/components/HeaderBar";
-import ContactsListPage from "@/components/ContactsListPage";
-import AddContactPage from "@/components/AddContactPage";
-import ContactDetailPage from "@/components/ContactDetailPage";
+import { ContactsListPage, AddContactPage, ContactDetailPage } from "@/components/contacts";
 import PropertiesPage from "@/components/PropertiesPage";
 import PropertyDetailPage from "@/components/PropertyDetailPage";
 import AddPropertyPage from "@/components/AddPropertyPage";
