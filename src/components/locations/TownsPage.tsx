@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback } from "react";
-import { Plus, Pencil } from "lucide-react";
+import { Plus, Pencil, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -49,9 +49,20 @@ const TownsPage = ({ countryId, provinceId, onBackToCountries, onBackToProvinces
     [towns, selectedId, locations],
   );
 
-  const handleSidebarClick = (id: string) => { setSelectedId(id); setFocusId(id); };
-  const handlePolygonClick = useCallback((id: string) => { setSelectedId(id); setFocusId(id); }, []);
-  const handlePolygonDblClick = useCallback((id: string) => { onSelectTown(id); }, [onSelectTown]);
+  // Sidebar: first click = highlight, arrow or second click = enter
+  const handleSidebarClick = (id: string) => {
+    if (selectedId === id) {
+      onSelectTown(id);
+    } else {
+      setSelectedId(id);
+      setFocusId(id);
+    }
+  };
+
+  // Map polygon click = navigate directly
+  const handlePolygonClick = useCallback((id: string) => {
+    onSelectTown(id);
+  }, [onSelectTown]);
 
   const handleDrawComplete = useCallback((geojson: string) => {
     setDrawnGeo(geojson); setDrawMode(false); setAdding(true);
@@ -108,27 +119,31 @@ const TownsPage = ({ countryId, provinceId, onBackToCountries, onBackToProvinces
           <div className="space-y-0.5">
             {towns.map((t) => {
               const zoneCount = locations.filter((n) => n.parentId === t.id).length;
+              const isSelected = selectedId === t.id;
               return (
-                <button
-                  key={t.id}
-                  onClick={() => handleSidebarClick(t.id)}
-                  onDoubleClick={() => onSelectTown(t.id)}
-                  className={`group flex w-full items-center gap-2 rounded-lg px-3 py-2 text-[13px] transition-all ${
-                    selectedId === t.id
-                      ? "bg-primary/8 text-foreground font-medium ring-1 ring-primary/20"
-                      : "text-muted-foreground hover:bg-accent hover:text-foreground"
-                  }`}
-                >
-                  <span className={`h-2 w-2 rounded-full shrink-0 ${t.active ? "bg-emerald-500" : "bg-muted-foreground/30"}`} />
-                  <span className="flex-1 text-left truncate">{t.name}</span>
-                  <Badge variant="secondary" className="text-[9px] shrink-0">{zoneCount}</Badge>
+                <div key={t.id} className={`group flex w-full items-center gap-2 rounded-lg px-3 py-2 text-[13px] transition-all ${
+                  isSelected
+                    ? "bg-primary/8 text-foreground font-medium ring-1 ring-primary/20"
+                    : "text-muted-foreground hover:bg-accent hover:text-foreground"
+                }`}>
+                  <button
+                    className="flex flex-1 items-center gap-2 min-w-0"
+                    onClick={() => handleSidebarClick(t.id)}
+                  >
+                    <span className={`h-2 w-2 rounded-full shrink-0 ${t.active ? "bg-emerald-500" : "bg-muted-foreground/30"}`} />
+                    <span className="flex-1 text-left truncate">{t.name}</span>
+                    <Badge variant="secondary" className="text-[9px] shrink-0">{zoneCount}</Badge>
+                  </button>
                   <Pencil className="h-3 w-3 opacity-0 group-hover:opacity-50 shrink-0 transition-opacity" />
-                </button>
+                  <button onClick={() => onSelectTown(t.id)} className="shrink-0 text-muted-foreground hover:text-primary transition-colors" title="Enter town">
+                    <ChevronRight className="h-4 w-4" />
+                  </button>
+                </div>
               );
             })}
           </div>
           <p className="text-[10px] text-muted-foreground text-center mt-4">
-            Double-click a town to enter
+            Click name to highlight · Click arrow or polygon to enter
           </p>
         </SidebarBody>
       </LocationSidebar>
@@ -142,7 +157,6 @@ const TownsPage = ({ countryId, provinceId, onBackToCountries, onBackToProvinces
           focusedPolygonId={focusId}
           drawMode={drawMode}
           onPolygonClick={handlePolygonClick}
-          onPolygonDblClick={handlePolygonDblClick}
           onDrawComplete={handleDrawComplete}
           onCancelDraw={() => setDrawMode(false)}
         >

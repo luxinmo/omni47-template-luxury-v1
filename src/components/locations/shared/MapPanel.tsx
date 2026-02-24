@@ -21,7 +21,6 @@ interface MapPanelProps {
   drawMode?: boolean;
   focusedPolygonId?: string | null;
   onPolygonClick?: (id: string) => void;
-  onPolygonDblClick?: (id: string) => void;
   onDrawComplete?: (geojson: string) => void;
   onCancelDraw?: () => void;
   children?: React.ReactNode;
@@ -40,7 +39,7 @@ const MapPanel = ({
   drawMode = false,
   focusedPolygonId,
   onPolygonClick,
-  onPolygonDblClick,
+  
   onDrawComplete,
   onCancelDraw,
   children,
@@ -129,10 +128,6 @@ const MapPanel = ({
         layer.bindTooltip(p.name, { sticky: true });
 
         layer.on("click", () => onPolygonClick?.(p.id));
-        layer.on("dblclick", (e) => {
-          L.DomEvent.stopPropagation(e as any);
-          onPolygonDblClick?.(p.id);
-        });
 
         // Hover effect
         layer.on("mouseover", () => {
