@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback } from "react";
-import { ChevronRight, Search, MapPin, Plus, Pencil, Trash2, Map, List } from "lucide-react";
+import { ChevronRight, Search, MapPin, Plus, Pencil, Trash2, Map, List, CheckSquare, Square } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -9,6 +9,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import { LocationNode, LEVEL_LABELS, CHILD_LEVEL, LEVEL_COLORS } from "./types";
 import { mockLocations } from "./mock-data";
 import LocationMap from "./LocationMap";
@@ -18,7 +19,6 @@ interface LocationsPageProps {
   onEdit?: (location: LocationNode) => void;
 }
 
-/* ─── Palette for map polygons ─── */
 const PALETTE = [
   "#3b82f6", "#8b5cf6", "#f59e0b", "#10b981", "#ef4444",
   "#ec4899", "#06b6d4", "#84cc16", "#f97316", "#6366f1",
@@ -92,6 +92,8 @@ const LocationsPage = ({ onAdd, onEdit }: LocationsPageProps) => {
   const [drawnGeoJSON, setDrawnGeoJSON] = useState<string>("");
   const [newZoneName, setNewZoneName] = useState("");
   const [newZoneActive, setNewZoneActive] = useState(true);
+  const [selectedZones, setSelectedZones] = useState<Set<string>>(new Set());
+  const [focusedZoneId, setFocusedZoneId] = useState<string | null>(null);
 
   const toggleExpand = (id: string) => {
     setExpanded((prev) => {
@@ -107,6 +109,8 @@ const LocationsPage = ({ onAdd, onEdit }: LocationsPageProps) => {
     () => selected ? locations.filter((n) => n.parentId === selected).sort((a, b) => a.order - b.order) : [],
     [selected, locations],
   );
+
+  const isTownSelected = selectedNode?.level === "town";
 
   const rootNodes = useMemo(
     () => locations.filter((n) => n.parentId === null).sort((a, b) => a.order - b.order),
@@ -126,21 +130,45 @@ const LocationsPage = ({ onAdd, onEdit }: LocationsPageProps) => {
     try { return JSON.parse(geojson).type as string; } catch { return null; }
   };
 
-  // Map polygons for children
+  // Map polygons for children (standard view)
   const mapPolygons = useMemo(() =>
     children.filter((c) => c.geojson).map((c, i) => ({
       id: c.id,
       name: c.name,
       geojson: c.geojson!,
       color: PALETTE[i % PALETTE.length],
+      highlighted: selectedZones.has(c.id),
     })),
-    [children],
+    [children, selectedZones],
   );
 
+  // Zone selection handlers
+  const toggleZoneSelection = (id: string) => {
+    setSelectedZones((prev) => {
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
+      return next;
+    });
+    setFocusedZoneId(id);
+  };
+
+  const selectAllZones = () => {
+    setSelectedZones(new Set(children.map((c) => c.id)));
+  };
+
+  const deselectAllZones = () => {
+    setSelectedZones(new Set());
+    setFocusedZoneId(null);
+  };
+
   const handleMapPolygonClick = useCallback((id: string) => {
-    const loc = locations.find((l) => l.id === id);
-    if (loc) onEdit?.(loc);
-  }, [locations, onEdit]);
+    if (isTownSelected) {
+      toggleZoneSelection(id);
+    } else {
+      const loc = locations.find((l) => l.id === id);
+      if (loc) onEdit?.(loc);
+    }
+  }, [locations, onEdit, isTownSelected]);
 
   const handleDrawComplete = useCallback((geojson: string) => {
     setDrawnGeoJSON(geojson);
@@ -174,6 +202,12 @@ const LocationsPage = ({ onAdd, onEdit }: LocationsPageProps) => {
     setDrawnGeoJSON("");
   };
 
+  // Reset zone selection when selected node changes
+  useMemo(() => {
+    setSelectedZones(new Set());
+    setFocusedZoneId(null);
+  }, [selected]);
+
   return (
     <div className="flex-1 overflow-hidden flex flex-col">
       {/* Header */}
@@ -186,7 +220,7 @@ const LocationsPage = ({ onAdd, onEdit }: LocationsPageProps) => {
 
       {/* Body */}
       <div className="flex flex-1 min-h-0">
-        {/* Tree panel - fixed 280px */}
+        {/* Tree panel */}
         <div className="w-[280px] shrink-0 border-r border-border flex flex-col">
           <div className="p-3 border-b border-border">
             <div className="relative">
@@ -241,7 +275,7 @@ const LocationsPage = ({ onAdd, onEdit }: LocationsPageProps) => {
                 </div>
               </div>
 
-              {/* Tabs: List | Map */}
+              {/* Tabs */}
               {childLevel ? (
                 <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col min-h-0">
                   <div className="px-4 sm:px-6 pt-3">
@@ -343,31 +377,126 @@ const LocationsPage = ({ onAdd, onEdit }: LocationsPageProps) => {
                   {/* MAP TAB */}
                   <TabsContent value="map" className="flex-1 min-h-0 mt-0 relative">
                     <div className="absolute inset-0 p-4 sm:p-6">
-                      <div className="h-full rounded-xl border border-border overflow-hidden relative">
-                        <LocationMap
-                          polygons={mapPolygons}
-                          onPolygonClick={handleMapPolygonClick}
-                          drawMode={drawMode}
-                          onDrawComplete={handleDrawComplete}
-                          onCancelDraw={() => setDrawMode(false)}
-                          height="100%"
-                        />
-                        {/* Floating draw button */}
-                        {!drawMode && (
-                          <Button size="sm" className="absolute bottom-4 right-4 z-[1000] gap-1.5 shadow-lg"
-                            onClick={() => setDrawMode(true)}>
-                            <Plus className="h-3.5 w-3.5" />
-                            Draw new {LEVEL_LABELS[childLevel].toLowerCase()}
-                          </Button>
-                        )}
-                        {drawMode && (
-                          <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1000] bg-card border border-border rounded-lg px-4 py-2 shadow-lg">
-                            <p className="text-[12px] text-muted-foreground">
-                              Click to add points. <strong>Double-click</strong> to finish.
-                            </p>
+                      {isTownSelected ? (
+                        /* Town view: zone list + map side by side */
+                        <div className="h-full flex gap-4">
+                          {/* Zone list (40%) */}
+                          <div className="w-[40%] shrink-0 flex flex-col rounded-xl border border-border bg-card overflow-hidden">
+                            <div className="flex items-center justify-between px-3 py-2 border-b border-border">
+                              <span className="text-[12px] font-semibold text-foreground">
+                                Zones ({children.length})
+                              </span>
+                              <div className="flex gap-1">
+                                <Button size="sm" variant="ghost" className="h-6 text-[10px] px-2"
+                                  onClick={selectAllZones}>Select all</Button>
+                                <Button size="sm" variant="ghost" className="h-6 text-[10px] px-2"
+                                  onClick={deselectAllZones}>Deselect</Button>
+                              </div>
+                            </div>
+                            <ScrollArea className="flex-1">
+                              <div className="p-1.5 space-y-0.5">
+                                {children.map((zone, i) => {
+                                  const isChecked = selectedZones.has(zone.id);
+                                  const geo = geoType(zone.geojson);
+                                  return (
+                                    <div
+                                      key={zone.id}
+                                      className={`flex items-center gap-2 rounded-lg px-2.5 py-2 cursor-pointer transition-colors ${
+                                        isChecked ? "bg-primary/5" : "hover:bg-accent"
+                                      }`}
+                                      onClick={() => toggleZoneSelection(zone.id)}
+                                    >
+                                      <Checkbox
+                                        checked={isChecked}
+                                        onCheckedChange={() => toggleZoneSelection(zone.id)}
+                                        className="shrink-0"
+                                      />
+                                      <div
+                                        className="h-2.5 w-2.5 rounded-sm shrink-0"
+                                        style={{ backgroundColor: PALETTE[i % PALETTE.length] }}
+                                      />
+                                      <span className="flex-1 text-[12px] font-medium text-foreground truncate">
+                                        {zone.name}
+                                      </span>
+                                      {geo ? (
+                                        <Badge className="text-[9px] bg-emerald-500/10 text-emerald-700 border-emerald-500/20 shrink-0">
+                                          GeoJSON
+                                        </Badge>
+                                      ) : (
+                                        <Badge variant="secondary" className="text-[9px] shrink-0">None</Badge>
+                                      )}
+                                      <Button variant="ghost" size="icon" className="h-6 w-6 shrink-0"
+                                        onClick={(e) => { e.stopPropagation(); onEdit?.(zone); }}>
+                                        <Pencil className="h-3 w-3" />
+                                      </Button>
+                                    </div>
+                                  );
+                                })}
+                                {children.length === 0 && (
+                                  <p className="text-[11px] text-muted-foreground text-center py-6">No zones yet</p>
+                                )}
+                              </div>
+                            </ScrollArea>
                           </div>
-                        )}
-                      </div>
+
+                          {/* Map (60%) */}
+                          <div className="flex-1 rounded-xl border border-border overflow-hidden relative">
+                            <LocationMap
+                              polygons={mapPolygons}
+                              boundaryGeojson={selectedNode.geojson}
+                              onPolygonClick={handleMapPolygonClick}
+                              focusedPolygonId={focusedZoneId}
+                              drawMode={drawMode}
+                              onDrawComplete={handleDrawComplete}
+                              onCancelDraw={() => setDrawMode(false)}
+                              height="100%"
+                            />
+                            {!drawMode && (
+                              <Button size="sm" className="absolute bottom-4 right-4 z-[1000] gap-1.5 shadow-lg"
+                                onClick={() => setDrawMode(true)}>
+                                <Plus className="h-3.5 w-3.5" />
+                                Draw new zone
+                              </Button>
+                            )}
+                            {drawMode && (
+                              <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1000] bg-card border border-border rounded-lg px-4 py-2 shadow-lg">
+                                <p className="text-[12px] text-muted-foreground">
+                                  Click to add points. <strong>Double-click</strong> to finish.
+                                </p>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      ) : (
+                        /* Standard map view */
+                        <div className="h-full rounded-xl border border-border overflow-hidden relative">
+                          <LocationMap
+                            polygons={mapPolygons}
+                            onPolygonClick={(id) => {
+                              const loc = locations.find((l) => l.id === id);
+                              if (loc) onEdit?.(loc);
+                            }}
+                            drawMode={drawMode}
+                            onDrawComplete={handleDrawComplete}
+                            onCancelDraw={() => setDrawMode(false)}
+                            height="100%"
+                          />
+                          {!drawMode && (
+                            <Button size="sm" className="absolute bottom-4 right-4 z-[1000] gap-1.5 shadow-lg"
+                              onClick={() => setDrawMode(true)}>
+                              <Plus className="h-3.5 w-3.5" />
+                              Draw new {LEVEL_LABELS[childLevel].toLowerCase()}
+                            </Button>
+                          )}
+                          {drawMode && (
+                            <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1000] bg-card border border-border rounded-lg px-4 py-2 shadow-lg">
+                              <p className="text-[12px] text-muted-foreground">
+                                Click to add points. <strong>Double-click</strong> to finish.
+                              </p>
+                            </div>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </TabsContent>
                 </Tabs>
