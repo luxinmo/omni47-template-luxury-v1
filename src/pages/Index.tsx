@@ -21,11 +21,6 @@ const PlaceholderPage = ({ title }: { title: string }) => (
       <h1 className="text-2xl font-semibold text-foreground tracking-tight">{title}</h1>
       <p className="text-sm text-muted-foreground mt-1">Esta sección se configurará próximamente</p>
     </div>
-    <div className="px-4 sm:px-8">
-      <div className="rounded-xl border border-dashed border-border bg-card/50 h-64 flex items-center justify-center">
-        <p className="text-sm text-muted-foreground">Contenido próximamente</p>
-      </div>
-    </div>
   </div>
 );
 
@@ -34,10 +29,10 @@ const Index = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [selectedContactId, setSelectedContactId] = useState<string>("1");
 
-  // Location drill-down state
-  const [locCountryId, setLocCountryId] = useState<string>("");
-  const [locProvinceId, setLocProvinceId] = useState<string>("");
-  const [locTownId, setLocTownId] = useState<string>("");
+  // Location drill-down
+  const [locCountryId, setLocCountryId] = useState("");
+  const [locProvinceId, setLocProvinceId] = useState("");
+  const [locTownId, setLocTownId] = useState("");
   const [locZoneId, setLocZoneId] = useState<string | null>(null);
 
   const sidebarView = (() => {
@@ -46,11 +41,6 @@ const Index = () => {
     if (view.startsWith("loc-")) return "locations";
     return view;
   })();
-
-  const handleViewContact = (id: string) => {
-    setSelectedContactId(id);
-    setView("contact-detail");
-  };
 
   return (
     <div className="flex h-screen w-full overflow-hidden">
@@ -70,25 +60,19 @@ const Index = () => {
         {view === "properties" && <PropertiesPage onViewProperty={() => setView("property-detail")} onAddProperty={() => setView("add-property")} />}
         {view === "property-detail" && <PropertyDetailPage onBack={() => setView("properties")} />}
         {view === "add-property" && <AddPropertyPage onBack={() => setView("properties")} />}
-        {view === "contacts" && <ContactsListPage onAddContact={() => setView("add-contact")} onViewContact={handleViewContact} />}
+        {view === "contacts" && <ContactsListPage onAddContact={() => setView("add-contact")} onViewContact={(id) => { setSelectedContactId(id); setView("contact-detail"); }} />}
         {view === "add-contact" && <AddContactPage onBack={() => setView("contacts")} />}
         {view === "contact-detail" && <ContactDetailPage contactId={selectedContactId} onBack={() => setView("contacts")} onEdit={() => setView("add-contact")} />}
         {view === "agencies" && <PlaceholderPage title="Agencias" />}
 
-        {/* Location drill-down */}
         {view === "loc-countries" && (
-          <CountriesPage
-            onSelectCountry={(id) => { setLocCountryId(id); setView("loc-provinces"); }}
-            onAddCountry={() => {}}
-            onEditCountry={() => {}}
-          />
+          <CountriesPage onSelectCountry={(id) => { setLocCountryId(id); setView("loc-provinces"); }} />
         )}
         {view === "loc-provinces" && (
           <ProvincesPage
             countryId={locCountryId}
             onBack={() => setView("loc-countries")}
             onSelectProvince={(id) => { setLocProvinceId(id); setView("loc-towns"); }}
-            onEditProvince={() => {}}
           />
         )}
         {view === "loc-towns" && (
@@ -98,7 +82,6 @@ const Index = () => {
             onBackToCountries={() => setView("loc-countries")}
             onBackToProvinces={() => setView("loc-provinces")}
             onSelectTown={(id) => { setLocTownId(id); setView("loc-town-detail"); }}
-            onEditTown={() => {}}
           />
         )}
         {view === "loc-town-detail" && (
@@ -110,7 +93,6 @@ const Index = () => {
             onBackToProvinces={() => setView("loc-provinces")}
             onBackToTowns={() => setView("loc-towns")}
             onEditZone={(zoneId) => { setLocZoneId(zoneId); setView("loc-zone-form"); }}
-            onAddZone={() => { setLocZoneId(null); setView("loc-zone-form"); }}
           />
         )}
         {view === "loc-zone-form" && (

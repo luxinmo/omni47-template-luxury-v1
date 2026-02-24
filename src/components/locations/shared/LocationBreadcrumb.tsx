@@ -1,4 +1,4 @@
-import { ChevronRight, MapPin } from "lucide-react";
+import { ChevronLeft, ChevronRight, MapPin } from "lucide-react";
 
 export interface BreadcrumbSegment {
   label: string;
@@ -9,28 +9,30 @@ interface LocationBreadcrumbProps {
   segments: BreadcrumbSegment[];
 }
 
-const LocationBreadcrumb = ({ segments }: LocationBreadcrumbProps) => (
-  <nav className="flex items-center gap-1.5 text-[13px]">
-    <MapPin className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
-    {segments.map((seg, i) => {
-      const isLast = i === segments.length - 1;
-      return (
-        <span key={i} className="flex items-center gap-1.5">
-          {i > 0 && <ChevronRight className="h-3 w-3 text-muted-foreground/50 shrink-0" />}
-          {isLast ? (
-            <span className="font-medium text-foreground truncate max-w-[200px]">{seg.label}</span>
-          ) : (
-            <button
-              onClick={seg.onClick}
-              className="text-muted-foreground hover:text-foreground transition-colors truncate max-w-[160px]"
+const LocationBreadcrumb = ({ segments }: LocationBreadcrumbProps) => {
+  if (segments.length <= 1) return null;
+
+  return (
+    <nav className="flex items-center gap-1 text-[12px] mb-2">
+      <button
+        onClick={segments[segments.length - 2]?.onClick}
+        className="flex items-center gap-0.5 text-muted-foreground hover:text-foreground transition-colors"
+      >
+        <ChevronLeft className="h-3 w-3" />
+        {segments.slice(0, -1).map((seg, i) => (
+          <span key={i} className="flex items-center gap-0.5">
+            {i > 0 && <ChevronRight className="h-2.5 w-2.5 text-muted-foreground/40" />}
+            <span
+              className={seg.onClick ? "hover:underline cursor-pointer" : ""}
+              onClick={(e) => { if (seg.onClick) { e.stopPropagation(); seg.onClick(); } }}
             >
               {seg.label}
-            </button>
-          )}
-        </span>
-      );
-    })}
-  </nav>
-);
+            </span>
+          </span>
+        ))}
+      </button>
+    </nav>
+  );
+};
 
 export default LocationBreadcrumb;
