@@ -2,13 +2,16 @@ import { useState } from "react";
 import AppSidebar from "@/components/AppSidebar";
 import HeaderBar from "@/components/HeaderBar";
 import { ContactsListPage, AddContactPage, ContactDetailPage } from "@/components/contacts";
+import { LocationsPage, LocationFormPage } from "@/components/locations";
+import { LocationNode, LocationLevel } from "@/components/locations/types";
+import { mockLocations } from "@/components/locations/mock-data";
 import PropertiesPage from "@/components/PropertiesPage";
 import PropertyDetailPage from "@/components/PropertyDetailPage";
 import AddPropertyPage from "@/components/AddPropertyPage";
 import UsersPage from "@/components/UsersPage";
 import ComponentsPage from "@/components/ComponentsPage";
 
-type View = "dashboard" | "properties" | "property-detail" | "add-property" | "contacts" | "add-contact" | "contact-detail" | "agencies" | "users" | "company" | "settings" | "components";
+type View = "dashboard" | "properties" | "property-detail" | "add-property" | "contacts" | "add-contact" | "contact-detail" | "agencies" | "users" | "company" | "settings" | "components" | "locations" | "location-form";
 
 const PlaceholderPage = ({ title }: { title: string }) => (
   <div className="flex-1 overflow-auto">
@@ -28,8 +31,11 @@ const Index = () => {
   const [view, setView] = useState<View>("properties");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [selectedContactId, setSelectedContactId] = useState<string>("1");
+  const [editingLocation, setEditingLocation] = useState<LocationNode | null>(null);
+  const [locationFormParentId, setLocationFormParentId] = useState<string | null>(null);
+  const [locationFormLevel, setLocationFormLevel] = useState<LocationLevel>("country");
 
-  const sidebarView = ["add-contact", "contact-detail"].includes(view) ? "contacts" : (["property-detail", "add-property"].includes(view) ? "properties" : view);
+  const sidebarView = ["add-contact", "contact-detail"].includes(view) ? "contacts" : (["property-detail", "add-property", "location-form"].includes(view) ? (view === "location-form" ? "locations" : "properties") : view);
 
   const handleViewContact = (id: string) => {
     setSelectedContactId(id);
@@ -65,6 +71,30 @@ const Index = () => {
           />
         )}
         {view === "agencies" && <PlaceholderPage title="Agencias" />}
+        {view === "locations" && (
+          <LocationsPage
+            onAdd={(parentId, level) => {
+              setEditingLocation(null);
+              setLocationFormParentId(parentId);
+              setLocationFormLevel(level as LocationLevel);
+              setView("location-form");
+            }}
+            onEdit={(loc) => {
+              setEditingLocation(loc);
+              setLocationFormLevel(loc.level);
+              setLocationFormParentId(loc.parentId);
+              setView("location-form");
+            }}
+          />
+        )}
+        {view === "location-form" && (
+          <LocationFormPage
+            location={editingLocation}
+            parentName={locationFormParentId ? mockLocations.find((l) => l.id === locationFormParentId)?.name : undefined}
+            level={locationFormLevel}
+            onBack={() => setView("locations")}
+          />
+        )}
         {view === "components" && <ComponentsPage />}
         {view === "users" && <UsersPage />}
         {view === "company" && <PlaceholderPage title="Empresa" />}
