@@ -3,10 +3,11 @@ import AppSidebar from "@/components/AppSidebar";
 import HeaderBar from "@/components/HeaderBar";
 import ContactsListPage from "@/components/ContactsListPage";
 import AddContactPage from "@/components/AddContactPage";
+import ContactDetailPage from "@/components/ContactDetailPage";
 import PropertiesPage from "@/components/PropertiesPage";
 import UsersPage from "@/components/UsersPage";
 
-type View = "dashboard" | "properties" | "contacts" | "add-contact" | "agencies" | "users" | "company" | "settings";
+type View = "dashboard" | "properties" | "contacts" | "add-contact" | "contact-detail" | "agencies" | "users" | "company" | "settings";
 
 const PlaceholderPage = ({ title }: { title: string }) => (
   <div className="flex-1 overflow-auto">
@@ -25,8 +26,14 @@ const PlaceholderPage = ({ title }: { title: string }) => (
 const Index = () => {
   const [view, setView] = useState<View>("contacts");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [selectedContactId, setSelectedContactId] = useState<string>("1");
 
-  const sidebarView = view === "add-contact" ? "contacts" : view;
+  const sidebarView = ["add-contact", "contact-detail"].includes(view) ? "contacts" : view;
+
+  const handleViewContact = (id: string) => {
+    setSelectedContactId(id);
+    setView("contact-detail");
+  };
 
   return (
     <div className="flex h-screen w-full overflow-hidden">
@@ -40,8 +47,20 @@ const Index = () => {
         <HeaderBar onMenuToggle={() => setSidebarOpen(true)} />
         {view === "dashboard" && <PlaceholderPage title="Dashboard" />}
         {view === "properties" && <PropertiesPage />}
-        {view === "contacts" && <ContactsListPage onAddContact={() => setView("add-contact")} />}
+        {view === "contacts" && (
+          <ContactsListPage
+            onAddContact={() => setView("add-contact")}
+            onViewContact={handleViewContact}
+          />
+        )}
         {view === "add-contact" && <AddContactPage onBack={() => setView("contacts")} />}
+        {view === "contact-detail" && (
+          <ContactDetailPage
+            contactId={selectedContactId}
+            onBack={() => setView("contacts")}
+            onEdit={() => setView("add-contact")}
+          />
+        )}
         {view === "agencies" && <PlaceholderPage title="Agencias" />}
         {view === "users" && <UsersPage />}
         {view === "company" && <PlaceholderPage title="Empresa" />}
