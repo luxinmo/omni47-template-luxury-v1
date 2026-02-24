@@ -71,7 +71,7 @@ const AddContactPage = ({ onBack }: AddContactPageProps) => {
 
   return (
     <div className="flex-1 overflow-auto">
-      <div className="max-w-[600px] mx-auto px-4 sm:px-6 py-4 sm:py-6 space-y-5">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-4 sm:py-6 space-y-5">
         <button
           onClick={onBack}
           className="flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors"
