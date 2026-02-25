@@ -30,15 +30,25 @@ const ProvincesPage = ({ countryId, onBack, onSelectProvince }: ProvincesPagePro
   const [newActive, setNewActive] = useState(true);
   const [drawnGeo, setDrawnGeo] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [editGeo, setEditGeo] = useState("");
 
   const isEditing = !!editingId;
   const editingNode = editingId ? locations.find((n) => n.id === editingId) : null;
+  const actualEditGeo = isEditing ? (editGeo || editingNode?.geojson || "") : "";
 
   const country = locations.find((n) => n.id === countryId);
   const provinces = useMemo(
     () => locations.filter((n) => n.parentId === countryId && n.level === "province").sort((a, b) => a.order - b.order),
     [locations, countryId],
   );
+
+  // Child reference polygons when editing: show regions of the edited province
+  const childRefPolygons: MapPolygon[] = useMemo(() => {
+    if (!isEditing || !editingId) return [];
+    return locations.filter((n) => n.parentId === editingId && n.geojson).map((n) => ({
+      id: n.id, name: n.name, geojson: n.geojson!, color: "#9ca3af", highlighted: false,
+    }));
+  }, [isEditing, editingId, locations]);
 
   const mapPolygons: MapPolygon[] = useMemo(
     () => isEditing ? [] : provinces.filter((p) => p.geojson).map((p, i) => ({
@@ -52,22 +62,31 @@ const ProvincesPage = ({ countryId, onBack, onSelectProvince }: ProvincesPagePro
   );
 
   const handleSidebarClick = (id: string) => {
-    setSelectedId(id);
-    setFocusId(id);
-  };
-
-  const handlePolygonClick = useCallback((id: string) => {
-    if (id === selectedId) {
+    if (selectedId === id) {
       onSelectProvince(id);
     } else {
       setSelectedId(id);
       setFocusId(id);
     }
-  }, [selectedId, onSelectProvince]);
+  };
+
+  const handlePolygonClick = useCallback((id: string) => {
+    onSelectProvince(id);
+  }, [onSelectProvince]);
 
   const handleDrawComplete = useCallback((geojson: string) => {
-    setDrawnGeo(geojson); setDrawMode(false); setAdding(true);
-  }, []);
+    if (isEditing) {
+      setEditGeo(geojson);
+    } else {
+      setDrawnGeo(geojson); setDrawMode(false); setAdding(true);
+    }
+  }, [isEditing]);
+
+  const startEditing = (id: string) => {
+    const node = locations.find((n) => n.id === id);
+    setEditingId(id);
+    setEditGeo(node?.geojson ?? "");
+  };
 
   const handleSave = () => {
     if (!newName.trim()) return;
@@ -75,9 +94,15 @@ const ProvincesPage = ({ countryId, onBack, onSelectProvince }: ProvincesPagePro
     setLocations((prev) => [...prev, {
       id: `prov-${Date.now()}`, parentId: countryId, level: "province" as const, name: newName, safeName,
       names: { en: newName }, slugs: { en: safeName }, active: newActive, order: provinces.length + 1,
-      geojson: drawnGeo, childrenCount: 0,
+      geojson: drawnGeo || null, childrenCount: 0,
     }]);
     setAdding(false); setNewName(""); setDrawnGeo("");
+  };
+
+  const handleDelete = () => {
+    if (!editingId) return;
+    setLocations((prev) => prev.filter((n) => n.id !== editingId && n.parentId !== editingId));
+    setEditingId(null);
   };
 
   return (
@@ -92,6 +117,10 @@ const ProvincesPage = ({ countryId, onBack, onSelectProvince }: ProvincesPagePro
             level="province"
             onClose={() => setEditingId(null)}
             onSave={() => setEditingId(null)}
+            onDelete={handleDelete}
+            geojson={actualEditGeo}
+            onGeojsonChange={setEditGeo}
+            onStartDraw={() => setDrawMode(true)}
           />
         ) : (
           <>
@@ -147,7 +176,7 @@ const ProvincesPage = ({ countryId, onBack, onSelectProvince }: ProvincesPagePro
                         <Badge variant="secondary" className="text-[9px] shrink-0">{regionCount}</Badge>
                       </button>
                       <button
-                        onClick={(e) => { e.stopPropagation(); setEditingId(p.id); }}
+                        onClick={(e) => { e.stopPropagation(); startEditing(p.id); }}
                         className="shrink-0 text-muted-foreground hover:text-foreground opacity-0 group-hover:opacity-100 transition-opacity"
                         title="Edit province"
                       >
@@ -163,7 +192,7 @@ const ProvincesPage = ({ countryId, onBack, onSelectProvince }: ProvincesPagePro
                 })}
               </div>
               <p className="text-[10px] text-muted-foreground text-center mt-4">
-                Click to highlight · Click polygon on map to enter
+                Click to highlight · Click arrow or polygon to enter
               </p>
             </SidebarBody>
           </>
@@ -173,17 +202,18 @@ const ProvincesPage = ({ countryId, onBack, onSelectProvince }: ProvincesPagePro
       <div className="flex-1 min-w-0" style={{ transition: 'width 300ms ease' }}>
         <MapPanel
           polygons={mapPolygons}
-          geometry={isEditing ? editingNode?.geojson ?? undefined : undefined}
+          geometry={isEditing ? actualEditGeo || undefined : undefined}
           boundaryGeojson={isEditing ? country?.geojson : undefined}
+          referencePolygons={childRefPolygons}
           center={[40, -3]}
           zoom={6}
           focusedPolygonId={focusId}
-          drawMode={!isEditing && drawMode}
+          drawMode={drawMode}
           onPolygonClick={isEditing ? undefined : handlePolygonClick}
           onDrawComplete={handleDrawComplete}
           onCancelDraw={() => setDrawMode(false)}
         >
-          {!isEditing && drawMode && (
+          {drawMode && (
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-[1000] bg-card border border-border rounded-lg px-4 py-2 shadow-lg flex items-center gap-3">
               <p className="text-[11px] text-muted-foreground">Click points to draw · double-click to finish</p>
               <Button size="sm" variant="ghost" className="h-6 text-[11px]" onClick={() => setDrawMode(false)}>Cancel</Button>

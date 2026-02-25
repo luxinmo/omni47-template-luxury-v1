@@ -7,6 +7,11 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel,
+  AlertDialogContent, AlertDialogDescription, AlertDialogFooter,
+  AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { LocationNode } from "./types";
 import { mockLocations } from "./mock-data";
 import { SidebarHeader } from "./shared/LocationSidebar";
@@ -45,8 +50,8 @@ const MunicipalityDetailPage = ({
   const [newActive, setNewActive] = useState(true);
   const [drawnGeo, setDrawnGeo] = useState("");
 
-  // Edit mode for the municipality itself
   const [editingMunicipality, setEditingMunicipality] = useState(false);
+  const [editMuniGeo, setEditMuniGeo] = useState("");
 
   const country = locations.find((n) => n.id === countryId);
   const province = locations.find((n) => n.id === provinceId);
@@ -57,39 +62,42 @@ const MunicipalityDetailPage = ({
     [locations, municipalityId],
   );
 
+  const actualMuniGeo = editingMunicipality ? (editMuniGeo || municipality?.geojson || "") : "";
+
   const mapPolygons: MapPolygon[] = useMemo(
     () => editingMunicipality ? [] : boroughs
       .filter((b) => b.geojson && visibleBoroughs.has(b.id))
       .map((b, i) => ({
-        id: b.id,
-        name: b.name,
-        geojson: b.geojson!,
-        color: PALETTE[i % PALETTE.length],
-        highlighted: false,
+        id: b.id, name: b.name, geojson: b.geojson!, color: PALETTE[i % PALETTE.length], highlighted: false,
       })),
     [boroughs, visibleBoroughs, editingMunicipality],
   );
 
+  // When editing municipality, show boroughs as child references
+  const childRefPolygons: MapPolygon[] = useMemo(() => {
+    if (!editingMunicipality) return [];
+    return boroughs.filter((b) => b.geojson).map((b) => ({
+      id: b.id, name: b.name, geojson: b.geojson!, color: "#9ca3af", highlighted: false,
+    }));
+  }, [editingMunicipality, boroughs]);
+
   const toggleBoroughVisibility = (id: string) => {
     setVisibleBoroughs((prev) => {
       const next = new Set(prev);
-      if (next.has(id)) {
-        next.delete(id);
-      } else {
-        next.add(id);
-        setFocusedBoroughId(id);
-      }
+      if (next.has(id)) { next.delete(id); } else { next.add(id); setFocusedBoroughId(id); }
       return next;
     });
   };
 
-  const handlePolygonClick = useCallback((id: string) => {
-    onEditBorough(id);
-  }, [onEditBorough]);
+  const handlePolygonClick = useCallback((id: string) => { onEditBorough(id); }, [onEditBorough]);
 
   const handleDrawComplete = useCallback((geo: string) => {
-    setDrawnGeo(geo); setDrawMode(false); setAdding(true); setActiveTab("boroughs");
-  }, []);
+    if (editingMunicipality) {
+      setEditMuniGeo(geo);
+    } else {
+      setDrawnGeo(geo); setDrawMode(false); setAdding(true); setActiveTab("boroughs");
+    }
+  }, [editingMunicipality]);
 
   const handleSaveBorough = () => {
     if (!newName.trim()) return;
@@ -107,9 +115,13 @@ const MunicipalityDetailPage = ({
     setVisibleBoroughs((prev) => { const n = new Set(prev); n.delete(id); return n; });
   };
 
+  const startEditingMunicipality = () => {
+    setEditingMunicipality(true);
+    setEditMuniGeo(municipality?.geojson ?? "");
+  };
+
   return (
     <div className="flex-1 flex min-h-0 overflow-hidden relative">
-      {/* Left panel — dynamic width */}
       {!mapFullscreen && (
         <div
           className="shrink-0 border-r border-border flex flex-col bg-card overflow-hidden"
@@ -121,6 +133,9 @@ const MunicipalityDetailPage = ({
               level="municipality"
               onClose={() => setEditingMunicipality(false)}
               onSave={() => setEditingMunicipality(false)}
+              geojson={actualMuniGeo}
+              onGeojsonChange={setEditMuniGeo}
+              onStartDraw={() => setDrawMode(true)}
             />
           ) : (
             <>
@@ -135,7 +150,7 @@ const MunicipalityDetailPage = ({
                 <div className="flex items-center justify-between mt-1">
                   <h2 className="text-[15px] font-semibold text-foreground">{municipality?.name}</h2>
                   <div className="flex items-center gap-1">
-                    <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => setEditingMunicipality(true)} title="Edit municipality">
+                    <Button variant="ghost" size="icon" className="h-6 w-6" onClick={startEditingMunicipality} title="Edit municipality">
                       <Pencil className="h-3 w-3" />
                     </Button>
                     <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => setMapFullscreen(true)} title="Expand map">
@@ -159,17 +174,8 @@ const MunicipalityDetailPage = ({
                       {boroughs.map((b) => {
                         const isVisible = visibleBoroughs.has(b.id);
                         return (
-                          <div
-                            key={b.id}
-                            className={`flex items-center gap-2 rounded-lg px-2.5 py-1.5 transition-colors ${
-                              isVisible ? "bg-primary/5" : "hover:bg-accent"
-                            }`}
-                          >
-                            <Switch
-                              checked={isVisible}
-                              onCheckedChange={() => toggleBoroughVisibility(b.id)}
-                              className="scale-[0.7]"
-                            />
+                          <div key={b.id} className={`flex items-center gap-2 rounded-lg px-2.5 py-1.5 transition-colors ${isVisible ? "bg-primary/5" : "hover:bg-accent"}`}>
+                            <Switch checked={isVisible} onCheckedChange={() => toggleBoroughVisibility(b.id)} className="scale-[0.7]" />
                             <span className={`h-1.5 w-1.5 rounded-full ${b.active ? "bg-emerald-500" : "bg-muted-foreground/30"}`} />
                             <span className="flex-1 text-[12px] font-medium text-foreground truncate">{b.name}</span>
                             {b.geojson ? (
@@ -180,9 +186,27 @@ const MunicipalityDetailPage = ({
                             <Button variant="ghost" size="icon" className="h-5 w-5" onClick={() => onEditBorough(b.id)}>
                               <Pencil className="h-2.5 w-2.5" />
                             </Button>
-                            <Button variant="ghost" size="icon" className="h-5 w-5 text-destructive" onClick={() => handleDeleteBorough(b.id)}>
-                              <Trash2 className="h-2.5 w-2.5" />
-                            </Button>
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button variant="ghost" size="icon" className="h-5 w-5 text-destructive">
+                                  <Trash2 className="h-2.5 w-2.5" />
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>Delete borough</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    Are you sure you want to delete <strong>{b.name}</strong>? This action cannot be undone.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                  <AlertDialogAction onClick={() => handleDeleteBorough(b.id)} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+                                    Delete
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
                           </div>
                         );
                       })}
@@ -224,7 +248,7 @@ const MunicipalityDetailPage = ({
                 <TabsContent value="info" className="flex-1 min-h-0 mt-0 overflow-auto">
                   <div className="p-3 space-y-4">
                     <Button variant="outline" size="sm" className="w-full gap-1 text-[11px] h-8"
-                      onClick={() => setEditingMunicipality(true)}>
+                      onClick={startEditingMunicipality}>
                       <Pencil className="h-3 w-3" /> Edit municipality details
                     </Button>
                     <div className="space-y-2 text-[11px] text-muted-foreground">
@@ -242,16 +266,16 @@ const MunicipalityDetailPage = ({
         </div>
       )}
 
-      {/* MAP */}
       <div className="flex-1 min-w-0" style={{ transition: 'width 300ms ease' }}>
         <MapPanel
           polygons={editingMunicipality ? [] : mapPolygons}
-          geometry={editingMunicipality ? municipality?.geojson ?? undefined : undefined}
+          geometry={editingMunicipality ? actualMuniGeo || undefined : undefined}
           boundaryGeojson={editingMunicipality ? region?.geojson : municipality?.geojson}
+          referencePolygons={childRefPolygons}
           center={[40, -3]}
           zoom={6}
           focusedPolygonId={editingMunicipality ? null : focusedBoroughId}
-          drawMode={!editingMunicipality && drawMode}
+          drawMode={drawMode}
           onPolygonClick={editingMunicipality ? undefined : handlePolygonClick}
           onDrawComplete={handleDrawComplete}
           onCancelDraw={() => setDrawMode(false)}
@@ -261,12 +285,9 @@ const MunicipalityDetailPage = ({
               <Button size="sm" variant="secondary" className="h-7 text-[10px] shadow-md gap-1" onClick={() => setMapFullscreen(false)}>
                 <Minimize2 className="h-3 w-3" /> Exit fullscreen
               </Button>
-              <Button
-                size="sm"
-                variant={boroughsPanelPosition === "side" ? "default" : "secondary"}
+              <Button size="sm" variant={boroughsPanelPosition === "side" ? "default" : "secondary"}
                 className="h-7 text-[10px] shadow-md gap-1"
-                onClick={() => setBoroughsPanelPosition(boroughsPanelPosition === "side" ? "top" : "side")}
-              >
+                onClick={() => setBoroughsPanelPosition(boroughsPanelPosition === "side" ? "top" : "side")}>
                 <PanelLeft className="h-3 w-3" /> {boroughsPanelPosition === "side" ? "Boroughs → Top" : "Boroughs → Side"}
               </Button>
             </div>
@@ -313,15 +334,10 @@ const MunicipalityDetailPage = ({
                     {boroughs.map((b) => {
                       const isVisible = visibleBoroughs.has(b.id);
                       return (
-                        <button
-                          key={b.id}
-                          onClick={() => toggleBoroughVisibility(b.id)}
+                        <button key={b.id} onClick={() => toggleBoroughVisibility(b.id)}
                           className={`flex items-center gap-1 rounded-md px-2 py-1 text-[10px] font-medium transition-colors border ${
-                            isVisible
-                              ? "bg-primary/10 border-primary/30 text-foreground"
-                              : "bg-muted/50 border-border text-muted-foreground hover:bg-accent"
-                          }`}
-                        >
+                            isVisible ? "bg-primary/10 border-primary/30 text-foreground" : "bg-muted/50 border-border text-muted-foreground hover:bg-accent"
+                          }`}>
                           <span className={`h-1.5 w-1.5 rounded-full ${b.active ? "bg-emerald-500" : "bg-muted-foreground/30"}`} />
                           {b.name}
                         </button>
@@ -335,24 +351,12 @@ const MunicipalityDetailPage = ({
           )}
 
           {!mapFullscreen && !editingMunicipality && !drawMode && (
-            <>
-              <Button
-                size="sm"
-                variant="secondary"
-                className="absolute top-14 left-3 z-[1000] h-7 text-[10px] shadow-md gap-1"
-              >
-                <Pencil className="h-3 w-3" /> Edit boundary
-              </Button>
-              <Button
-                size="sm"
-                className="absolute bottom-4 right-4 z-[1000] gap-1 text-[11px] shadow-lg"
-                onClick={() => setDrawMode(true)}
-              >
-                <Plus className="h-3 w-3" /> Draw borough
-              </Button>
-            </>
+            <Button size="sm" className="absolute bottom-4 right-4 z-[1000] gap-1 text-[11px] shadow-lg"
+              onClick={() => setDrawMode(true)}>
+              <Plus className="h-3 w-3" /> Draw borough
+            </Button>
           )}
-          {!editingMunicipality && drawMode && (
+          {drawMode && (
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-[1000] bg-card border border-border rounded-lg px-4 py-2 shadow-lg flex items-center gap-3">
               <p className="text-[11px] text-muted-foreground">Click points · double-click to finish</p>
               <Button size="sm" variant="ghost" className="h-6 text-[11px]" onClick={() => setDrawMode(false)}>Cancel</Button>
