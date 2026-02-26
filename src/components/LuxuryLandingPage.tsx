@@ -26,6 +26,14 @@ const SERVICES = [
 
 const CONTACT = { email: "hello@prestigeestates.com", phone: "+34 600 000 000", city: "Marbella, Spain" };
 
+/* ─── Hero slides ─── */
+const HERO_SLIDES = [
+  { image: heroImg, headline: "Where Luxury Meets Home", sub: "Exclusive properties for those who demand the extraordinary" },
+  { image: prop1, headline: "Elevated Urban Living", sub: "Penthouses and residences in the world's most coveted addresses" },
+  { image: prop2, headline: "Coastal Perfection", sub: "Beachfront estates crafted for an unparalleled lifestyle" },
+  { image: prop3, headline: "Mountain Retreats", sub: "Private sanctuaries surrounded by nature's grandeur" },
+];
+
 /* ─── Scroll-aware hook ─── */
 function useScrolled(threshold = 60) {
   const [scrolled, setScrolled] = useState(false);
@@ -72,6 +80,14 @@ const FadeIn = ({ children, className = "", delay = 0 }: { children: React.React
 
 const LuxuryLandingPage = () => {
   const scrolled = useScrolled();
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <div className="flex-1 overflow-auto bg-white text-luxury-black font-sans" style={{ fontFamily: "'Inter', sans-serif" }}>
@@ -106,31 +122,43 @@ const LuxuryLandingPage = () => {
         </div>
       </nav>
 
-      {/* ─── HERO ─── */}
+      {/* ─── HERO SLIDESHOW ─── */}
       <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
-        {/* Parallax BG */}
-        <div className="absolute inset-0">
-          <img src={heroImg} alt="Luxury property" className="w-full h-full object-cover scale-110" style={{ transform: "scale(1.1)" }} />
-          <div className="absolute inset-0 bg-gradient-to-b from-luxury-black/70 via-luxury-black/50 to-luxury-black" />
-        </div>
+        {/* Sliding images */}
+        {HERO_SLIDES.map((slide, i) => (
+          <div
+            key={i}
+            className="absolute inset-0 transition-opacity duration-[1.5s] ease-in-out"
+            style={{ opacity: currentSlide === i ? 1 : 0 }}
+          >
+            <img
+              src={slide.image}
+              alt={slide.headline}
+              className="w-full h-full object-cover"
+              style={{ transform: currentSlide === i ? "scale(1.05)" : "scale(1)", transition: "transform 6s ease-out" }}
+            />
+          </div>
+        ))}
+        {/* Lighter overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-luxury-black/40 via-luxury-black/20 to-luxury-black/60" />
 
         <div className="relative z-10 text-center max-w-4xl px-6">
           <FadeIn>
-            <p className="text-[11px] md:text-[13px] tracking-[0.35em] uppercase text-luxury-gold/80 mb-6">
+            <p className="text-[11px] md:text-[13px] tracking-[0.35em] uppercase text-luxury-gold mb-6">
               The World's Finest Properties
             </p>
           </FadeIn>
           <FadeIn delay={0.15}>
             <h1
-              className="text-4xl sm:text-5xl md:text-7xl font-bold leading-[1.1] mb-6"
+              className="text-4xl sm:text-5xl md:text-7xl font-bold leading-[1.1] mb-6 text-white drop-shadow-lg"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
-              {HERO_HEADLINE}
+              {HERO_SLIDES[currentSlide].headline}
             </h1>
           </FadeIn>
           <FadeIn delay={0.3}>
-            <p className="text-base md:text-lg text-luxury-cream/60 max-w-xl mx-auto mb-10 leading-relaxed">
-              {HERO_SUBHEADLINE}
+            <p className="text-base md:text-lg text-white/70 max-w-xl mx-auto mb-10 leading-relaxed drop-shadow">
+              {HERO_SLIDES[currentSlide].sub}
             </p>
           </FadeIn>
           <FadeIn delay={0.45}>
@@ -138,15 +166,28 @@ const LuxuryLandingPage = () => {
               <button className="bg-luxury-gold text-luxury-black text-[12px] tracking-[0.15em] uppercase font-semibold px-8 py-3.5 hover:bg-luxury-gold/90 transition-all duration-300 flex items-center gap-2">
                 Explore Properties <ArrowRight className="w-4 h-4" />
               </button>
-              <button className="border border-luxury-cream/30 text-luxury-cream text-[12px] tracking-[0.15em] uppercase px-8 py-3.5 hover:border-luxury-gold hover:text-luxury-gold transition-all duration-300">
+              <button className="border border-white/40 text-white text-[12px] tracking-[0.15em] uppercase px-8 py-3.5 hover:border-luxury-gold hover:text-luxury-gold transition-all duration-300 backdrop-blur-sm">
                 Book a Private Tour
               </button>
             </div>
           </FadeIn>
         </div>
 
+        {/* Slide indicators */}
+        <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+          {HERO_SLIDES.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentSlide(i)}
+              className={`h-[3px] rounded-full transition-all duration-500 ${
+                currentSlide === i ? "w-8 bg-luxury-gold" : "w-4 bg-white/30 hover:bg-white/50"
+              }`}
+            />
+          ))}
+        </div>
+
         {/* Scroll indicator */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-luxury-cream/40 animate-bounce">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40 animate-bounce">
           <span className="text-[10px] tracking-[0.2em] uppercase">Scroll</span>
           <ChevronDown className="w-4 h-4" />
         </div>
