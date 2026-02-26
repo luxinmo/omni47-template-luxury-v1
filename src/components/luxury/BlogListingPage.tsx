@@ -334,35 +334,37 @@ const BlogListingPage = () => {
           {/* ─── FEATURED POST ─── */}
           {featuredPost && activeCategory === "all" && searchQuery === "" && (
             <FadeIn delay={0.2}>
-              <Link to={`/blog/${featuredPost.id}`} className="group block mb-10 md:mb-14">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 lg:gap-8 overflow-hidden">
-                  <div className="lg:col-span-7 relative overflow-hidden aspect-[16/9] lg:aspect-auto lg:min-h-[420px]">
-                    <img src={featuredPost.image} alt={featuredPost.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                    <div className="absolute top-4 left-4">
-                      <span className="bg-white text-luxury-black text-[10px] tracking-[0.15em] uppercase font-medium px-3 py-1.5">{FEATURED_LABEL}</span>
+              <div className="mb-12 md:mb-16 border-b border-neutral-100 pb-12 md:pb-16">
+                <Link to={`/blog/${featuredPost.id}`} className="group block">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center">
+                    <div className="relative overflow-hidden aspect-[4/3]">
+                      <img src={featuredPost.image} alt={featuredPost.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    </div>
+                    <div className="flex flex-col justify-center">
+                      <div className="flex items-center gap-3 mb-4">
+                        <span className="bg-luxury-black text-white text-[9px] tracking-[0.18em] uppercase font-medium px-3 py-1">{FEATURED_LABEL}</span>
+                        <span className="text-[10px] tracking-[0.18em] uppercase text-luxury-black/35 font-medium">{getCategoryLabel(featuredPost.category)}</span>
+                      </div>
+                      <h2 className="text-2xl md:text-3xl lg:text-[2.2rem] font-light text-luxury-black font-serif tracking-tight leading-[1.2] group-hover:text-luxury-black/70 transition-colors duration-300">
+                        {featuredPost.title}
+                      </h2>
+                      <p className="text-[13.5px] text-luxury-black/45 font-light mt-4 leading-[1.8] line-clamp-3 lg:line-clamp-4">{featuredPost.excerpt}</p>
+                      <div className="flex items-center gap-3 mt-6 text-[11px] text-luxury-black/35 font-light">
+                        <span>{featuredPost.author}</span>
+                        <span className="w-[3px] h-[3px] bg-luxury-black/15 rounded-full" />
+                        <span>{featuredPost.date}</span>
+                        <span className="w-[3px] h-[3px] bg-luxury-black/15 rounded-full" />
+                        <span>{featuredPost.readTime} {MIN_READ_SUFFIX}</span>
+                      </div>
+                      <div className="mt-7">
+                        <span className="text-[11px] tracking-[0.15em] uppercase text-luxury-black/60 font-medium group-hover:text-luxury-black transition-colors duration-300 inline-flex items-center gap-2 border-b border-luxury-black/20 pb-0.5">
+                          {READ_MORE} <ArrowRight className="w-3.5 h-3.5" />
+                        </span>
+                      </div>
                     </div>
                   </div>
-                  <div className="lg:col-span-5 flex flex-col justify-center py-6 lg:py-8">
-                    <span className="text-[10px] tracking-[0.2em] uppercase text-luxury-black/35 font-medium">{getCategoryLabel(featuredPost.category)}</span>
-                    <h2 className="text-xl md:text-2xl lg:text-3xl font-light text-luxury-black font-serif tracking-tight leading-snug mt-2 group-hover:text-luxury-black/70 transition-colors duration-300">
-                      {featuredPost.title}
-                    </h2>
-                    <p className="text-[13px] text-luxury-black/45 font-light mt-3 leading-relaxed line-clamp-3">{featuredPost.excerpt}</p>
-                    <div className="flex items-center gap-3 mt-5 text-[11px] text-luxury-black/35 font-light">
-                      <span>{featuredPost.author}</span>
-                      <span className="w-0.5 h-0.5 bg-luxury-black/20 rounded-full" />
-                      <span>{featuredPost.date}</span>
-                      <span className="w-0.5 h-0.5 bg-luxury-black/20 rounded-full" />
-                      <span>{featuredPost.readTime} {MIN_READ_SUFFIX}</span>
-                    </div>
-                    <div className="mt-6">
-                      <span className="text-[11px] tracking-[0.15em] uppercase text-luxury-black/60 font-medium group-hover:text-luxury-black transition-colors duration-300 flex items-center gap-2">
-                        {READ_MORE} <ArrowRight className="w-3.5 h-3.5" />
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </Link>
+                </Link>
+              </div>
             </FadeIn>
           )}
 
