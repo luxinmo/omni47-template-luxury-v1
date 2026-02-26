@@ -125,7 +125,7 @@ const LuxuryLandingPage = () => {
           {/* Left nav links */}
           <div className="hidden lg:flex items-center gap-8">
             {NAV_LEFT.map((l) => (
-              <a key={l} href="#" className={`text-[12.5px] tracking-[0.14em] uppercase font-medium transition-colors duration-300 ${scrolled ? "text-luxury-black/70 hover:text-luxury-black" : "text-white/90 hover:text-white"}`}>{l}</a>
+              <a key={l} href="#" className={`text-[12.5px] tracking-[0.14em] uppercase font-medium transition-colors duration-300 ${scrolled ? "text-luxury-black/80 hover:text-luxury-black" : "text-white hover:text-white"}`}>{l}</a>
             ))}
           </div>
 
@@ -142,7 +142,7 @@ const LuxuryLandingPage = () => {
           {/* Right nav links */}
           <div className="hidden lg:flex items-center gap-8">
             {NAV_RIGHT.map((l) => (
-              <a key={l} href="#" className={`text-[12.5px] tracking-[0.14em] uppercase font-medium transition-colors duration-300 ${scrolled ? "text-luxury-black/70 hover:text-luxury-black" : "text-white/90 hover:text-white"}`}>{l}</a>
+              <a key={l} href="#" className={`text-[12.5px] tracking-[0.14em] uppercase font-medium transition-colors duration-300 ${scrolled ? "text-luxury-black/80 hover:text-luxury-black" : "text-white hover:text-white"}`}>{l}</a>
             ))}
           </div>
 
