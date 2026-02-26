@@ -309,7 +309,10 @@ const LuxuryPropertyListing = () => {
         <div className="flex items-center justify-between mb-6">
           <div>
             <h1 className="text-xl md:text-2xl font-light text-luxury-black font-serif tracking-tight">Luxury Homes in Ibiza & Costa Blanca</h1>
-            <p className="text-[12px] text-luxury-black/45 font-light mt-1">{PROPERTIES.length} listings</p>
+            <p className="text-[13px] text-luxury-black/55 font-light mt-2 max-w-3xl leading-relaxed">
+              Discover the finest selection of luxury villas, penthouses, fincas and new-build properties across Ibiza and the Costa Blanca. From beachfront estates with panoramic sea views to exclusive golf-side residences, explore hand-picked homes curated for the most discerning buyers.
+            </p>
+            <p className="text-[12px] text-luxury-black/45 font-light mt-2">{PROPERTIES.length} listings</p>
           </div>
           <div className="flex items-center gap-2">
             <span className="text-[12px] text-luxury-black/45 font-light">Sort:</span>
@@ -325,7 +328,70 @@ const LuxuryPropertyListing = () => {
             <PropertyCard key={p.id} property={p} />
           ))}
         </div>
+
+        {/* ─── PAGINATION ─── */}
+        <div className="mt-10 flex flex-col items-center gap-5">
+          <button className="border border-neutral-300 text-luxury-black/70 text-[13px] px-16 py-3 rounded-full hover:bg-luxury-black hover:text-white transition-all duration-300">
+            Next
+          </button>
+          <div className="flex items-center gap-1.5">
+            {[1, 2, 3].map((n) => (
+              <button key={n} className={`w-8 h-8 text-[13px] rounded-full transition-all duration-200 ${n === 1 ? "border border-luxury-black text-luxury-black font-medium" : "text-luxury-black/50 hover:text-luxury-black"}`}>
+                {n}
+              </button>
+            ))}
+            <span className="text-luxury-black/30 px-1">…</span>
+            <button className="w-8 h-8 text-[13px] text-luxury-black/50 hover:text-luxury-black rounded-full">50</button>
+            <button className="w-8 h-8 text-luxury-black/40 hover:text-luxury-black flex items-center justify-center">
+              <ChevronDown className="w-4 h-4 -rotate-90" />
+            </button>
+          </div>
+          <p className="text-[12px] text-luxury-black/40 font-light">1–6 of {PROPERTIES.length} homes for sale</p>
+        </div>
       </main>
+
+      {/* ─── POPULAR LOCATIONS ─── */}
+      <section className="max-w-[1400px] mx-auto px-6 lg:px-10 py-10 border-t border-neutral-100">
+        <h2 className="text-xl font-light text-luxury-black font-serif tracking-tight mb-6">Explore Popular Locations</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-3">
+          {[
+            "Ibiza Town", "Santa Eulalia", "San José", "Es Cubells",
+            "Cala Jondal", "Talamanca", "Marina Botafoch", "San Antonio",
+            "Jávea", "Altea", "Moraira", "Calpe",
+            "Dénia", "Benidorm", "Alicante", "Torrevieja",
+            "Orihuela Costa", "Villajoyosa",
+          ].map((loc) => (
+            <a key={loc} href="#" className="text-[13px] text-luxury-black/60 hover:text-luxury-black font-light transition-colors duration-200">
+              {loc}
+            </a>
+          ))}
+        </div>
+      </section>
+
+      {/* ─── NEWSLETTER (horizontal) ─── */}
+      <section className="border-t border-neutral-100">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div>
+              <h2 className="text-xl md:text-2xl font-light text-luxury-black font-serif tracking-tight">Get Luxury Trends & Tips</h2>
+              <p className="text-[13px] text-luxury-black/55 font-light mt-2 leading-relaxed">
+                Receive our top luxury picks and tips from our experts delivered to your inbox each week.
+              </p>
+            </div>
+            <div>
+              <form className="flex flex-col gap-3" onSubmit={(e) => e.preventDefault()}>
+                <input type="email" placeholder="Your email address" className="w-full border border-neutral-300 px-4 py-3 text-[13px] text-luxury-black placeholder:text-luxury-black/30 focus:outline-none focus:border-luxury-black/40 transition-colors" />
+                <button type="submit" className="bg-luxury-black text-white text-[12px] tracking-[0.1em] uppercase py-3 w-full hover:bg-luxury-black/85 transition-all duration-300">
+                  Subscribe to Newsletter
+                </button>
+              </form>
+              <p className="text-[10px] text-luxury-black/35 mt-2 font-light uppercase tracking-wide">
+                By sharing your email, you agree to our <a href="#" className="underline">Terms of Use</a> and <a href="#" className="underline">Privacy</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ─── FOOTER ─── */}
       <footer className="bg-luxury-black">
