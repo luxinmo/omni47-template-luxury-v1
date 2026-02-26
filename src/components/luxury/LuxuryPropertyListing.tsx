@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Search, SlidersHorizontal, X, ChevronDown, ChevronRight, Bed, Bath, Maximize, MapPin, Heart, Mail } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { Search, SlidersHorizontal, X, ChevronDown, ChevronRight, Bed, Bath, Maximize, MapPin, Heart, Mail, Eye, Mountain, Waves as WavesIcon, Trees, Flower2, Car, Home, Dumbbell, Wine, Tv, ThermometerSun, Lock, Fence } from "lucide-react";
 import heroImg from "@/assets/luxury-hero.jpg";
 import prop1 from "@/assets/luxury-property-1.jpg";
 import prop2 from "@/assets/luxury-property-2.jpg";
@@ -12,7 +12,171 @@ const BRAND_NAME = "PRESTIGE ESTATES";
 
 const NAV_LEFT = ["Home", "Properties", "Rentals"];
 const NAV_RIGHT = ["About", "Guides & Blog", "Message Us"];
-const FILTER_CHIPS = ["Type", "Price", "Beds", "Amenities", "New Builds"];
+
+/* ─── Filter Dropdown Hook ─── */
+function useDropdown() {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const handler = (e: MouseEvent) => { if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false); };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+  return { open, setOpen, ref };
+}
+
+/* ─── Filter Dropdown Components ─── */
+const TYPE_OPTIONS = [
+  { label: "Villa", sub: "All types" },
+  { label: "Penthouse", sub: "All types" },
+  { label: "Apartment", sub: "All types" },
+  { label: "Finca", sub: null },
+  { label: "Land", sub: null },
+  { label: "New Build", sub: null },
+];
+
+const AMENITY_GROUPS = [
+  { title: "View", items: ["Panoramic View", "Sea View", "Mountain View", "Golf View"] },
+  { title: "Outdoor", items: ["Garden", "Pool", "Terrace", "Garage", "Balcony", "Private Beach"] },
+  { title: "Indoor", items: ["Air Conditioning", "Fireplace", "Gym", "Wine Cellar", "Cinema", "Elevator", "Jacuzzi", "Sauna", "Smart Home"] },
+];
+
+const TypeDropdown = () => {
+  const { open, setOpen, ref } = useDropdown();
+  const [selected, setSelected] = useState<string[]>([]);
+  const toggle = (v: string) => setSelected((p) => p.includes(v) ? p.filter((x) => x !== v) : [...p, v]);
+  return (
+    <div ref={ref} className="relative shrink-0">
+      <button onClick={() => setOpen(!open)} className={`flex items-center gap-1 border text-[12px] px-4 py-1.5 rounded-full transition-all duration-200 shrink-0 ${selected.length > 0 ? "border-luxury-black bg-luxury-black text-white" : "border-neutral-200 text-luxury-black/65 hover:border-luxury-black/30"}`}>
+        Type {selected.length > 0 && <span className="bg-white text-luxury-black text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-medium">{selected.length}</span>} <ChevronDown className="w-3 h-3" />
+      </button>
+      {open && (
+        <div className="absolute top-full left-0 mt-2 bg-white border border-neutral-200 rounded-sm shadow-lg w-[300px] py-2 z-50">
+          {TYPE_OPTIONS.map((t) => (
+            <label key={t.label} className="flex items-center justify-between px-4 py-2.5 cursor-pointer hover:bg-neutral-50 transition-colors">
+              <div className="flex items-center gap-3">
+                <input type="checkbox" checked={selected.includes(t.label)} onChange={() => toggle(t.label)} className="w-4 h-4 border-neutral-300 rounded-sm accent-luxury-black" />
+                <span className="text-[14px] text-luxury-black/80">{t.label}</span>
+              </div>
+              {t.sub && <span className="text-[12px] text-luxury-black/35 flex items-center gap-1">{t.sub} <ChevronDown className="w-3 h-3" /></span>}
+            </label>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+const PriceDropdown = () => {
+  const { open, setOpen, ref } = useDropdown();
+  return (
+    <div ref={ref} className="relative shrink-0">
+      <button onClick={() => setOpen(!open)} className="flex items-center gap-1 border border-neutral-200 text-[12px] text-luxury-black/65 px-4 py-1.5 rounded-full hover:border-luxury-black/30 transition-all duration-200">
+        Price <ChevronDown className="w-3 h-3" />
+      </button>
+      {open && (
+        <div className="absolute top-full left-0 mt-2 bg-white border border-neutral-200 rounded-sm shadow-lg w-[340px] p-5 z-50">
+          <div className="mb-4">
+            <div className="w-full h-1 bg-luxury-black rounded-full relative">
+              <div className="absolute -left-1 -top-1.5 w-4 h-4 bg-white border-2 border-luxury-black rounded-full cursor-pointer" />
+              <div className="absolute -right-1 -top-1.5 w-4 h-4 bg-white border-2 border-luxury-black rounded-full cursor-pointer" />
+            </div>
+          </div>
+          <div className="flex gap-3 mb-3">
+            <div className="flex-1 relative">
+              <input type="text" placeholder="€ No Min" className="w-full border border-neutral-200 px-3 py-2.5 text-[13px] text-luxury-black focus:outline-none focus:border-luxury-black/30" />
+              <button className="absolute right-2 top-1/2 -translate-y-1/2 text-luxury-black/25 hover:text-luxury-black/50"><X className="w-3.5 h-3.5" /></button>
+            </div>
+            <div className="flex-1 relative">
+              <input type="text" placeholder="€ No Max" className="w-full border border-neutral-200 px-3 py-2.5 text-[13px] text-luxury-black focus:outline-none focus:border-luxury-black/30" />
+              <button className="absolute right-2 top-1/2 -translate-y-1/2 text-luxury-black/25 hover:text-luxury-black/50"><X className="w-3.5 h-3.5" /></button>
+            </div>
+          </div>
+          <label className="flex items-center gap-2.5 cursor-pointer">
+            <input type="checkbox" className="w-4 h-4 border-neutral-300 rounded-sm accent-luxury-black" />
+            <span className="text-[13px] text-luxury-black/70">Hide "Price on Request" listings</span>
+          </label>
+        </div>
+      )}
+    </div>
+  );
+};
+
+const BedsDropdown = () => {
+  const { open, setOpen, ref } = useDropdown();
+  const [selected, setSelected] = useState("Any");
+  return (
+    <div ref={ref} className="relative shrink-0">
+      <button onClick={() => setOpen(!open)} className={`flex items-center gap-1 border text-[12px] px-4 py-1.5 rounded-full transition-all duration-200 ${selected !== "Any" ? "border-luxury-black bg-luxury-black text-white" : "border-neutral-200 text-luxury-black/65 hover:border-luxury-black/30"}`}>
+        Beds {selected !== "Any" && <span className="text-[10px]">{selected}</span>} <ChevronDown className="w-3 h-3" />
+      </button>
+      {open && (
+        <div className="absolute top-full left-0 mt-2 bg-white border border-neutral-200 rounded-sm shadow-lg w-[320px] p-5 z-50">
+          <div className="flex gap-1">
+            {["Any", "1+", "2+", "3+", "4+", "5+"].map((b) => (
+              <button key={b} onClick={() => setSelected(b)} className={`flex-1 py-2 text-[13px] border transition-all duration-200 ${selected === b ? "bg-luxury-black text-white border-luxury-black" : "border-neutral-200 text-luxury-black/60 hover:border-luxury-black/30"}`}>
+                {b}
+              </button>
+            ))}
+          </div>
+          <label className="flex items-center gap-2.5 mt-3 cursor-pointer">
+            <input type="checkbox" className="w-4 h-4 border-neutral-300 rounded-sm accent-luxury-black" />
+            <span className="text-[13px] text-luxury-black/70">Use exact match</span>
+          </label>
+        </div>
+      )}
+    </div>
+  );
+};
+
+const AmenitiesDropdown = () => {
+  const { open, setOpen, ref } = useDropdown();
+  const [selected, setSelected] = useState<string[]>([]);
+  const toggle = (v: string) => setSelected((p) => p.includes(v) ? p.filter((x) => x !== v) : [...p, v]);
+  return (
+    <div ref={ref} className="relative shrink-0">
+      <button onClick={() => setOpen(!open)} className={`flex items-center gap-1 border text-[12px] px-4 py-1.5 rounded-full transition-all duration-200 ${selected.length > 0 ? "border-luxury-black bg-luxury-black text-white" : "border-neutral-200 text-luxury-black/65 hover:border-luxury-black/30"}`}>
+        Amenities {selected.length > 0 && <span className="bg-white text-luxury-black text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-medium">{selected.length}</span>} <ChevronDown className="w-3 h-3" />
+      </button>
+      {open && (
+        <div className="absolute top-full left-0 mt-2 bg-white border border-neutral-200 rounded-sm shadow-lg w-[480px] max-h-[420px] overflow-y-auto p-5 z-50">
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-[11px] text-luxury-black/40 uppercase tracking-wide">Select amenities</span>
+            {selected.length > 0 && <button onClick={() => setSelected([])} className="text-[12px] text-luxury-black/50 hover:text-luxury-black">Clear all</button>}
+          </div>
+          {AMENITY_GROUPS.map((group) => (
+            <div key={group.title} className="mb-5 last:mb-0">
+              <h4 className="text-[14px] font-medium text-luxury-black mb-3">{group.title}</h4>
+              <div className="flex flex-wrap gap-2">
+                {group.items.map((item) => (
+                  <button
+                    key={item}
+                    onClick={() => toggle(item)}
+                    className={`flex items-center gap-1.5 border rounded-full px-3.5 py-1.5 text-[12px] transition-all duration-200 ${selected.includes(item) ? "border-luxury-black bg-luxury-black text-white" : "border-neutral-200 text-luxury-black/60 hover:border-luxury-black/40"}`}
+                  >
+                    {item}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+const NewBuildsChip = () => {
+  const [active, setActive] = useState(false);
+  return (
+    <button
+      onClick={() => setActive(!active)}
+      className={`text-[12px] px-4 py-1.5 rounded-full transition-all duration-200 shrink-0 border ${active ? "border-luxury-black bg-luxury-black text-white" : "border-neutral-200 text-luxury-black/65 hover:border-luxury-black/30"}`}
+    >
+      New Builds
+    </button>
+  );
+};
 
 const PROPERTIES = [
   {
@@ -299,7 +463,7 @@ const LuxuryPropertyListing = () => {
           </div>
 
           {/* Search + filter chips row */}
-          <div className="flex items-center gap-3 pb-3 overflow-x-auto">
+          <div className="flex items-center gap-3 pb-3">
             {/* Search */}
             <div className="hidden md:flex items-center shrink-0">
               <div className="relative">
@@ -322,11 +486,11 @@ const LuxuryPropertyListing = () => {
             >
               <SlidersHorizontal className="w-3.5 h-3.5" /> Filters
             </button>
-            {FILTER_CHIPS.map((chip) => (
-              <button key={chip} className="flex items-center gap-1 border border-neutral-200 text-[12px] text-luxury-black/65 px-4 py-1.5 rounded-full hover:border-luxury-black/30 transition-all duration-200 shrink-0">
-                {chip} <ChevronDown className="w-3 h-3" />
-              </button>
-            ))}
+            <TypeDropdown />
+            <PriceDropdown />
+            <BedsDropdown />
+            <AmenitiesDropdown />
+            <NewBuildsChip />
             <button className="flex items-center gap-1.5 border border-neutral-300 text-[12px] text-luxury-black/50 px-4 py-1.5 rounded-full hover:border-luxury-black/30 transition-all duration-200 shrink-0">
               <Search className="w-3 h-3" /> Save search
             </button>
