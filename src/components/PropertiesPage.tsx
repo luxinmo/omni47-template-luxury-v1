@@ -3,6 +3,7 @@ import { Plus, ArrowUpDown, Download, Globe, GlobeIcon, Share2, Printer, Tag, X,
 import { Button } from "@/components/ui/button";
 import PropertyCard, { PropertyData } from "@/components/properties/PropertyCard";
 import PropertySearchFilters, { FilterState, defaultFilters } from "@/components/properties/PropertySearchFilters";
+import PropertyFilterSidebar, { SidebarFilters, defaultSidebarFilters } from "@/components/properties/PropertyFilterSidebar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import property1 from "@/assets/property-1.jpg";
 import property2 from "@/assets/property-2.jpg";
@@ -84,7 +85,7 @@ const BulkActionsBar = ({ count, onClear, onAction }: { count: number; onClear: 
         Publicar en web
       </Button>
       <Button variant="ghost" size="sm" className="h-8 text-xs gap-1.5" onClick={() => onAction("unpublish-web")}>
-        <GlobeIcon className="h-3.5 w-3.5 text-red-500" />
+        <GlobeIcon className="h-3.5 w-3.5 text-destructive" />
         Despublicar
       </Button>
       <Button variant="ghost" size="sm" className="h-8 text-xs gap-1.5" onClick={() => onAction("share")}>
@@ -111,6 +112,7 @@ const BulkActionsBar = ({ count, onClear, onAction }: { count: number; onClear: 
 
 const PropertiesPage = ({ onViewProperty, onAddProperty }: { onViewProperty?: () => void; onAddProperty?: () => void }) => {
   const [filters, setFilters] = useState<FilterState>(defaultFilters);
+  const [sidebarFilters, setSidebarFilters] = useState<SidebarFilters>(defaultSidebarFilters);
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
   const [sortBy, setSortBy] = useState("updatedAt-desc");
   const [sortOpen, setSortOpen] = useState(false);
@@ -124,7 +126,6 @@ const PropertiesPage = ({ onViewProperty, onAddProperty }: { onViewProperty?: ()
   };
 
   const sortedProperties = useMemo(() => {
-    // Simple demo sort — real app would parse dates/prices
     return [...demoProperties];
   }, [sortBy]);
 
@@ -189,9 +190,10 @@ const PropertiesPage = ({ onViewProperty, onAddProperty }: { onViewProperty?: ()
         </div>
       )}
 
-      {/* Property List */}
-      <div className="px-8 pb-10">
-        <div className="space-y-4">
+      {/* Main content: cards + sidebar */}
+      <div className="px-8 pb-10 flex gap-6">
+        {/* Property List — centered with max-width */}
+        <div className="flex-1 min-w-0 max-w-5xl space-y-4">
           {sortedProperties.map((p) => (
             <PropertyCard
               key={p.id}
@@ -202,6 +204,9 @@ const PropertiesPage = ({ onViewProperty, onAddProperty }: { onViewProperty?: ()
             />
           ))}
         </div>
+
+        {/* Right Sidebar */}
+        <PropertyFilterSidebar filters={sidebarFilters} onChange={setSidebarFilters} />
       </div>
     </div>
   );

@@ -1,0 +1,182 @@
+import { useState } from "react";
+import { Tag, User, Circle, Home, Globe, Ban, EyeOff, ChevronDown, Plus, Minus } from "lucide-react";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+
+/* ─── Filter chip with include / exclude toggle ─── */
+type FilterMode = "off" | "include" | "exclude";
+
+interface FilterChip {
+  label: string;
+  mode: FilterMode;
+}
+
+const FilterChipButton = ({ chip, onToggle }: { chip: FilterChip; onToggle: () => void }) => {
+  const base = "inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1 text-[11px] font-medium transition-all cursor-pointer select-none";
+  const styles: Record<FilterMode, string> = {
+    off: "border-border bg-card text-muted-foreground hover:bg-accent",
+    include: "border-emerald-300 bg-emerald-50 text-emerald-700",
+    exclude: "border-red-300 bg-red-50 text-red-700",
+  };
+
+  return (
+    <button onClick={onToggle} className={`${base} ${styles[chip.mode]}`}>
+      {chip.mode === "include" && <Plus className="h-3 w-3" />}
+      {chip.mode === "exclude" && <Minus className="h-3 w-3" />}
+      {chip.label}
+    </button>
+  );
+};
+
+/* ─── Filter section ─── */
+const FilterSection = ({
+  icon: Icon,
+  title,
+  chips,
+  onToggle,
+  defaultOpen = true,
+}: {
+  icon: React.ElementType;
+  title: string;
+  chips: FilterChip[];
+  onToggle: (label: string) => void;
+  defaultOpen?: boolean;
+}) => {
+  const activeCount = chips.filter(c => c.mode !== "off").length;
+
+  return (
+    <Collapsible defaultOpen={defaultOpen}>
+      <CollapsibleTrigger className="flex items-center justify-between w-full py-2 text-[12px] font-semibold text-muted-foreground uppercase tracking-wider hover:text-foreground transition-colors">
+        <span className="flex items-center gap-2">
+          <Icon className="h-3.5 w-3.5" />
+          {title}
+          {activeCount > 0 && (
+            <span className="text-[9px] bg-primary text-primary-foreground rounded-full px-1.5 py-0.5 normal-case tracking-normal">
+              {activeCount}
+            </span>
+          )}
+        </span>
+        <ChevronDown className="h-3.5 w-3.5" />
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <div className="flex flex-wrap gap-1.5 pb-3">
+          {chips.map((chip) => (
+            <FilterChipButton key={chip.label} chip={chip} onToggle={() => onToggle(chip.label)} />
+          ))}
+        </div>
+      </CollapsibleContent>
+    </Collapsible>
+  );
+};
+
+/* ─── Main Sidebar ─── */
+export interface SidebarFilters {
+  tags: FilterChip[];
+  users: FilterChip[];
+  availability: FilterChip[];
+  operation: FilterChip[];
+  portals: FilterChip[];
+  restrictedPortals: FilterChip[];
+  offMarket: FilterChip[];
+}
+
+const cycleMode = (current: FilterMode): FilterMode => {
+  if (current === "off") return "include";
+  if (current === "include") return "exclude";
+  return "off";
+};
+
+export const defaultSidebarFilters: SidebarFilters = {
+  tags: [
+    { label: "A+", mode: "off" },
+    { label: "A.A", mode: "off" },
+    { label: "B.B+", mode: "off" },
+    { label: "Premium", mode: "off" },
+    { label: "Lujo", mode: "off" },
+    { label: "Inversión", mode: "off" },
+    { label: "Reforma", mode: "off" },
+  ],
+  users: [
+    { label: "Carlos García", mode: "off" },
+    { label: "Ana Martínez", mode: "off" },
+    { label: "Pedro López", mode: "off" },
+    { label: "María Sánchez", mode: "off" },
+    { label: "Luis Fernández", mode: "off" },
+  ],
+  availability: [
+    { label: "Disponible", mode: "off" },
+    { label: "Reservado", mode: "off" },
+    { label: "Vendido", mode: "off" },
+    { label: "Alquilado", mode: "off" },
+    { label: "Bajo oferta", mode: "off" },
+  ],
+  operation: [
+    { label: "Venta", mode: "off" },
+    { label: "Alquiler", mode: "off" },
+    { label: "Traspaso", mode: "off" },
+  ],
+  portals: [
+    { label: "Idealista", mode: "off" },
+    { label: "Fotocasa", mode: "off" },
+    { label: "Kyero", mode: "off" },
+    { label: "ThinkSpain", mode: "off" },
+    { label: "Green-Acres", mode: "off" },
+    { label: "Inmobilioscout24", mode: "off" },
+  ],
+  restrictedPortals: [
+    { label: "Con restricciones", mode: "off" },
+    { label: "Sin restricciones", mode: "off" },
+  ],
+  offMarket: [
+    { label: "Off-market", mode: "off" },
+    { label: "En mercado", mode: "off" },
+  ],
+};
+
+const PropertyFilterSidebar = ({
+  filters,
+  onChange,
+}: {
+  filters: SidebarFilters;
+  onChange: (f: SidebarFilters) => void;
+}) => {
+  const toggleChip = (section: keyof SidebarFilters, label: string) => {
+    onChange({
+      ...filters,
+      [section]: filters[section].map((c) =>
+        c.label === label ? { ...c, mode: cycleMode(c.mode) } : c
+      ),
+    });
+  };
+
+  const activeTotal = Object.values(filters).flat().filter(c => c.mode !== "off").length;
+
+  return (
+    <div className="w-56 shrink-0 space-y-0.5 sticky top-8">
+      <div className="flex items-center justify-between pb-2 border-b border-border mb-2">
+        <span className="text-sm font-semibold text-foreground">Filtros</span>
+        {activeTotal > 0 && (
+          <button
+            onClick={() => onChange(defaultSidebarFilters)}
+            className="text-[11px] font-medium text-primary hover:underline"
+          >
+            Limpiar ({activeTotal})
+          </button>
+        )}
+      </div>
+
+      <p className="text-[10px] text-muted-foreground pb-2">
+        Clic: <span className="text-emerald-600 font-medium">incluir</span> → <span className="text-red-500 font-medium">excluir</span> → desactivar
+      </p>
+
+      <FilterSection icon={Tag} title="Etiquetas" chips={filters.tags} onToggle={(l) => toggleChip("tags", l)} />
+      <FilterSection icon={User} title="Agente" chips={filters.users} onToggle={(l) => toggleChip("users", l)} />
+      <FilterSection icon={Circle} title="Disponibilidad" chips={filters.availability} onToggle={(l) => toggleChip("availability", l)} />
+      <FilterSection icon={Home} title="Operación" chips={filters.operation} onToggle={(l) => toggleChip("operation", l)} />
+      <FilterSection icon={Globe} title="Portales" chips={filters.portals} onToggle={(l) => toggleChip("portals", l)} />
+      <FilterSection icon={Ban} title="Restricciones" chips={filters.restrictedPortals} onToggle={(l) => toggleChip("restrictedPortals", l)} defaultOpen={false} />
+      <FilterSection icon={EyeOff} title="Visibilidad" chips={filters.offMarket} onToggle={(l) => toggleChip("offMarket", l)} defaultOpen={false} />
+    </div>
+  );
+};
+
+export default PropertyFilterSidebar;
