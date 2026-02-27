@@ -1,5 +1,5 @@
 import { useState, useMemo, useRef, useEffect, useCallback } from "react";
-import { MapPin, Navigation, Search, X, ChevronRight, ChevronDown } from "lucide-react";
+import { MapPin, Navigation, Search, X, ChevronRight, ChevronDown, Check } from "lucide-react";
 import { mockLocations } from "@/components/locations/mock-data";
 
 /* ── Shared helpers ── */
@@ -314,7 +314,7 @@ type GroupedMunicipality = {
   autoExpanded: boolean;
 };
 
-type SelectedLocation = { id: string; name: string; type: string };
+type SelectedLocation = { id: string; name: string; type: string; parentId?: string };
 
 const MAX_CHIPS = 3;
 
@@ -324,6 +324,7 @@ export const VariantECollapsible = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
+  const [selectedExpandedIds, setSelectedExpandedIds] = useState<Set<string>>(new Set());
   const [selected, setSelected] = useState<SelectedLocation[]>([]);
 
   useEffect(() => {
@@ -336,6 +337,47 @@ export const VariantECollapsible = () => {
 
   const selectedIds = useMemo(() => new Set(selected.map((s) => s.id)), [selected]);
 
+  // Build selected municipalities with their zones for the "Selected" section
+  const selectedMuniGroups = useMemo(() => {
+    const groups: { id: string; name: string; path: string; zones: { id: string; name: string; selected: boolean }[] }[] = [];
+    const muniIds = new Set<string>();
+
+    // Collect selected municipalities
+    selected.forEach((s) => {
+      if (s.type === "City") muniIds.add(s.id);
+    });
+
+    // Collect parent munis of selected zones
+    selected.forEach((s) => {
+      if (s.type === "Zone" && s.parentId) muniIds.add(s.parentId);
+    });
+
+    muniIds.forEach((muniId) => {
+      const muni = mockLocations.find((l) => l.id === muniId);
+      if (!muni) return;
+      const allZones = mockLocations.filter((l) => l.parentId === muniId && l.level === "borough" && l.active);
+      const isMuniSelected = selectedIds.has(muniId);
+      groups.push({
+        id: muniId,
+        name: muni.name,
+        path: buildSubtitle(muniId),
+        zones: allZones.map((z) => ({
+          id: z.id,
+          name: z.name,
+          selected: isMuniSelected || selectedIds.has(z.id),
+        })),
+      });
+    });
+
+    // Standalone selected (country, province)
+    return groups;
+  }, [selected, selectedIds]);
+
+  const standaloneSelected = useMemo(
+    () => selected.filter((s) => s.type !== "City" && s.type !== "Zone"),
+    [selected],
+  );
+
   const { standalone, municipalities } = useMemo(() => {
     if (!query.trim()) return { standalone: [], municipalities: [] };
     const q = query.toLowerCase().trim();
@@ -345,13 +387,13 @@ export const VariantECollapsible = () => {
 
     // Step 1: municipalities
     const matchingMunis = mockLocations.filter(
-      (loc) => loc.active && loc.level === "municipality" && !selectedIds.has(loc.id) &&
+      (loc) => loc.active && loc.level === "municipality" &&
         (loc.name.toLowerCase().includes(q) || Object.values(loc.names).some((n) => n.toLowerCase().includes(q)))
     );
 
     matchingMunis.forEach((muni) => {
       const children = mockLocations
-        .filter((l) => l.parentId === muni.id && l.level === "borough" && l.active && !selectedIds.has(l.id))
+        .filter((l) => l.parentId === muni.id && l.level === "borough" && l.active)
         .map((l) => ({
           id: l.id, name: l.name, path: buildPath(l.id),
           type: LEVEL_DISPLAY[l.level] || l.level, parentName: muni.name,
@@ -365,7 +407,7 @@ export const VariantECollapsible = () => {
     // Step 2: zones (only if no municipality matched)
     if (matchingMunis.length === 0) {
       const matchingZones = mockLocations.filter(
-        (loc) => loc.active && loc.level === "borough" && !selectedIds.has(loc.id) &&
+        (loc) => loc.active && loc.level === "borough" &&
           (loc.name.toLowerCase().includes(q) || Object.values(loc.names).some((n) => n.toLowerCase().includes(q)))
       ).slice(0, 12);
 
@@ -411,13 +453,20 @@ export const VariantECollapsible = () => {
   const toggleExpand = (id: string) => {
     setExpandedIds((prev) => {
       const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
+      if (next.has(id)) next.delete(id); else next.add(id);
       return next;
     });
   };
 
-  const addSelection = (item: { id: string; name: string; type: string }) => {
+  const toggleSelectedExpand = (id: string) => {
+    setSelectedExpandedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+  };
+
+  const addSelection = (item: SelectedLocation) => {
     if (!selectedIds.has(item.id)) {
       setSelected((prev) => [...prev, item]);
     }
@@ -429,10 +478,51 @@ export const VariantECollapsible = () => {
     setSelected((prev) => prev.filter((s) => s.id !== id));
   };
 
-  const visibleChips = selected.slice(0, MAX_CHIPS);
-  const extraCount = selected.length - MAX_CHIPS;
+  const toggleZone = (zoneId: string, zoneName: string, parentId: string) => {
+    if (selectedIds.has(zoneId)) {
+      removeSelection(zoneId);
+    } else {
+      setSelected((prev) => [...prev, { id: zoneId, name: zoneName, type: "Zone", parentId }]);
+    }
+  };
+
+  const toggleMuniSelection = (muniId: string, muniName: string) => {
+    if (selectedIds.has(muniId)) {
+      // Deselect muni and all its zones
+      const zoneIds = mockLocations.filter((l) => l.parentId === muniId && l.level === "borough").map((l) => l.id);
+      setSelected((prev) => prev.filter((s) => s.id !== muniId && !zoneIds.includes(s.id)));
+    } else {
+      // Select municipality (implies all zones)
+      const zoneIds = mockLocations.filter((l) => l.parentId === muniId && l.level === "borough").map((l) => l.id);
+      setSelected((prev) => {
+        const without = prev.filter((s) => !zoneIds.includes(s.id));
+        return [...without, { id: muniId, name: muniName, type: "City" }];
+      });
+    }
+    setQuery("");
+    inputRef.current?.focus();
+  };
+
+  // Chip display
+  const chipItems = useMemo(() => {
+    const chips: { id: string; label: string }[] = [];
+    selectedMuniGroups.forEach((g) => {
+      const isMuniSelected = selectedIds.has(g.id);
+      const selectedZoneCount = g.zones.filter((z) => z.selected).length;
+      if (isMuniSelected) {
+        chips.push({ id: g.id, label: g.name });
+      } else if (selectedZoneCount > 0) {
+        chips.push({ id: g.id, label: `${g.name} (${selectedZoneCount})` });
+      }
+    });
+    standaloneSelected.forEach((s) => chips.push({ id: s.id, label: s.name }));
+    return chips;
+  }, [selectedMuniGroups, standaloneSelected, selectedIds]);
+
+  const visibleChips = chipItems.slice(0, MAX_CHIPS);
+  const extraCount = chipItems.length - MAX_CHIPS;
   const hasResults = standalone.length > 0 || municipalities.length > 0;
-  const showDropdown = open && (query.trim() || selected.length > 0);
+  const showDropdown = open;
 
   return (
     <div ref={containerRef} className="relative">
@@ -442,14 +532,14 @@ export const VariantECollapsible = () => {
         onClick={() => { inputRef.current?.focus(); setOpen(true); }}
       >
         <MapPin className="w-4 h-4 text-muted-foreground shrink-0" />
-        {visibleChips.map((item) => (
+        {visibleChips.map((chip) => (
           <span
-            key={item.id}
+            key={chip.id}
             className="inline-flex items-center gap-1 bg-muted text-foreground text-[11px] font-medium rounded-full pl-2.5 pr-1.5 py-0.5 whitespace-nowrap shrink-0"
           >
-            {item.name}
+            {chip.label}
             <button
-              onClick={(e) => { e.stopPropagation(); removeSelection(item.id); }}
+              onClick={(e) => { e.stopPropagation(); removeSelection(chip.id); }}
               className="text-muted-foreground/50 hover:text-foreground transition-colors"
             >
               <X className="w-3 h-3" />
@@ -477,16 +567,82 @@ export const VariantECollapsible = () => {
 
       {/* Dropdown */}
       {showDropdown && (
-        <div className="absolute top-full left-0 right-0 mt-1.5 bg-card rounded-xl border border-border shadow-lg z-50 overflow-hidden max-h-[400px] overflow-y-auto min-w-[340px]">
-          {/* Selected summary */}
-          {selected.length > 0 && (
+        <div className="absolute top-full left-0 right-0 mt-1.5 bg-card rounded-xl border border-border shadow-lg z-50 overflow-hidden max-h-[420px] overflow-y-auto min-w-[340px]">
+
+          {/* ── Selected municipalities with expandable zones ── */}
+          {selectedMuniGroups.length > 0 && (
             <div className="border-b border-border">
-              <div className="px-4 pt-2.5 pb-1.5">
-                <span className="text-[11px] font-semibold text-muted-foreground/60 uppercase tracking-wider">Selected ({selected.length})</span>
+              <div className="px-4 pt-2.5 pb-1">
+                <span className="text-[11px] font-semibold text-muted-foreground/60 uppercase tracking-wider">Selected</span>
               </div>
-              {selected.map((item) => (
+              {selectedMuniGroups.map((group) => {
+                const isExp = selectedExpandedIds.has(group.id);
+                const isMuniSelected = selectedIds.has(group.id);
+                const selectedZoneCount = group.zones.filter((z) => z.selected).length;
+                const totalZones = group.zones.length;
+
+                return (
+                  <div key={group.id}>
+                    <div className="flex items-center w-full hover:bg-muted/50 transition-colors">
+                      {/* Checkbox for muni */}
+                      <button
+                        onClick={() => toggleMuniSelection(group.id, group.name)}
+                        className="flex items-center gap-3 flex-1 px-4 py-2 text-left min-w-0"
+                      >
+                        <div className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-colors ${
+                          isMuniSelected
+                            ? "bg-foreground border-foreground"
+                            : selectedZoneCount > 0
+                              ? "bg-foreground/50 border-foreground/50"
+                              : "border-border"
+                        }`}>
+                          {(isMuniSelected || selectedZoneCount > 0) && <Check className="w-3 h-3 text-background" />}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-sm font-medium text-foreground truncate">{group.name}</div>
+                          <div className="text-xs text-muted-foreground truncate">{group.path}</div>
+                        </div>
+                        {isMuniSelected && (
+                          <span className="text-[10px] text-muted-foreground/50 font-medium shrink-0">All zones</span>
+                        )}
+                        {!isMuniSelected && selectedZoneCount > 0 && (
+                          <span className="text-[10px] text-muted-foreground/50 font-medium shrink-0">{selectedZoneCount}/{totalZones}</span>
+                        )}
+                      </button>
+                      {totalZones > 0 && (
+                        <button
+                          onClick={(e) => { e.stopPropagation(); toggleSelectedExpand(group.id); }}
+                          className="flex items-center gap-0.5 px-3 py-2 text-muted-foreground/50 hover:text-foreground transition-colors shrink-0"
+                        >
+                          {!isExp && <span className="text-[10px] text-muted-foreground/40 font-medium">{totalZones}</span>}
+                          {isExp ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+                        </button>
+                      )}
+                    </div>
+                    {/* Expanded zones with checkboxes */}
+                    {isExp && group.zones.map((zone) => (
+                      <button
+                        key={zone.id}
+                        onClick={() => toggleZone(zone.id, zone.name, group.id)}
+                        className="flex items-center gap-3 w-full pl-11 pr-4 py-1.5 text-left hover:bg-muted/50 transition-colors"
+                      >
+                        <div className={`w-3.5 h-3.5 rounded border flex items-center justify-center shrink-0 transition-colors ${
+                          zone.selected ? "bg-foreground border-foreground" : "border-border"
+                        }`}>
+                          {zone.selected && <Check className="w-2.5 h-2.5 text-background" />}
+                        </div>
+                        <span className="text-[13px] text-foreground truncate flex-1">{zone.name}</span>
+                      </button>
+                    ))}
+                  </div>
+                );
+              })}
+              {/* Standalone selected */}
+              {standaloneSelected.map((item) => (
                 <div key={item.id} className="flex items-center gap-3 w-full px-4 py-1.5 hover:bg-muted/50 transition-colors">
-                  <MapPin className="w-3.5 h-3.5 text-muted-foreground/50 shrink-0" />
+                  <div className="w-4 h-4 rounded border bg-foreground border-foreground flex items-center justify-center shrink-0">
+                    <Check className="w-3 h-3 text-background" />
+                  </div>
                   <span className="text-[13px] text-foreground truncate flex-1">{item.name}</span>
                   <span className="text-[10px] text-muted-foreground/50 font-medium shrink-0">{item.type}</span>
                   <button onClick={() => removeSelection(item.id)} className="text-muted-foreground/30 hover:text-foreground transition-colors shrink-0">
@@ -502,7 +658,7 @@ export const VariantECollapsible = () => {
             <span className="text-sm text-foreground">Search near me</span>
           </button>
 
-          {/* Standalone results */}
+          {/* ── Search results ── */}
           {standalone.map((item) => (
             <button key={item.id} onClick={() => addSelection(item)} className="flex items-center gap-3 w-full px-4 py-2.5 text-left hover:bg-muted/50 transition-colors">
               <Search className="w-4 h-4 text-muted-foreground/40 shrink-0" />
@@ -514,16 +670,23 @@ export const VariantECollapsible = () => {
             </button>
           ))}
 
-          {/* Municipality groups */}
           {municipalities.map((muni) => {
             const isExpanded = expandedIds.has(muni.id);
             const hasChildren = muni.children.length > 0;
+            const isMuniAlreadySelected = selectedIds.has(muni.id);
 
             return (
               <div key={muni.id}>
                 <div className="flex items-center w-full hover:bg-muted/50 transition-colors">
-                  <button onClick={() => addSelection({ id: muni.id, name: muni.name, type: muni.type })} className="flex items-center gap-3 flex-1 px-4 py-2.5 text-left min-w-0">
-                    <MapPin className="w-4 h-4 text-muted-foreground/50 shrink-0" />
+                  <button
+                    onClick={() => toggleMuniSelection(muni.id, muni.name)}
+                    className="flex items-center gap-3 flex-1 px-4 py-2.5 text-left min-w-0"
+                  >
+                    <div className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-colors ${
+                      isMuniAlreadySelected ? "bg-foreground border-foreground" : "border-border"
+                    }`}>
+                      {isMuniAlreadySelected && <Check className="w-3 h-3 text-background" />}
+                    </div>
                     <div className="flex-1 min-w-0">
                       <div className="text-sm font-medium text-foreground truncate">{muni.name}</div>
                       <div className="text-xs text-muted-foreground truncate">{muni.path}</div>
@@ -535,25 +698,30 @@ export const VariantECollapsible = () => {
                       onClick={(e) => { e.stopPropagation(); toggleExpand(muni.id); }}
                       className="flex items-center gap-0.5 px-3 py-2.5 text-muted-foreground/50 hover:text-foreground transition-colors shrink-0"
                     >
-                      {!isExpanded && (
-                        <span className="text-[10px] text-muted-foreground/40 font-medium">{muni.children.length}</span>
-                      )}
+                      {!isExpanded && <span className="text-[10px] text-muted-foreground/40 font-medium">{muni.children.length}</span>}
                       {isExpanded ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
                     </button>
                   )}
                 </div>
 
-                {isExpanded && muni.children.map((child) => (
-                  <button
-                    key={child.id}
-                    onClick={() => addSelection({ id: child.id, name: child.name, type: child.type })}
-                    className="flex items-center gap-3 w-full pl-11 pr-4 py-2 text-left hover:bg-muted/50 transition-colors"
-                  >
-                    <Search className="w-3.5 h-3.5 text-muted-foreground/30 shrink-0" />
-                    <span className="text-sm text-foreground truncate flex-1">{child.name}</span>
-                    <span className="text-[11px] text-muted-foreground/60 font-medium shrink-0">{child.type}</span>
-                  </button>
-                ))}
+                {isExpanded && muni.children.map((child) => {
+                  const isZoneSelected = selectedIds.has(child.id) || isMuniAlreadySelected;
+                  return (
+                    <button
+                      key={child.id}
+                      onClick={() => toggleZone(child.id, child.name, muni.id)}
+                      className="flex items-center gap-3 w-full pl-11 pr-4 py-2 text-left hover:bg-muted/50 transition-colors"
+                    >
+                      <div className={`w-3.5 h-3.5 rounded border flex items-center justify-center shrink-0 transition-colors ${
+                        isZoneSelected ? "bg-foreground border-foreground" : "border-border"
+                      }`}>
+                        {isZoneSelected && <Check className="w-2.5 h-2.5 text-background" />}
+                      </div>
+                      <span className="text-sm text-foreground truncate flex-1">{child.name}</span>
+                      <span className="text-[11px] text-muted-foreground/60 font-medium shrink-0">{child.type}</span>
+                    </button>
+                  );
+                })}
               </div>
             );
           })}
