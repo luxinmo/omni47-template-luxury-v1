@@ -9,6 +9,7 @@ import {
   VariantBFullPath,
   VariantCGrouped,
   VariantDBadge,
+  VariantECollapsible,
 } from "@/components/demos/LocationSearchDemos";
 
 const initialOwners: SearchableSelectOption[] = [
@@ -43,11 +44,23 @@ const ComponentsPage = () => {
       </div>
 
       <div className="px-4 sm:px-8 pb-10 space-y-8 max-w-3xl">
-        {/* ── Location Search Variants ── */}
+        {/* ── NEW: Variant E — Collapsible ── */}
+        <ComponentBlock label="Component: Location Search — Variant E: Collapsible Groups ⭐">
+          <div className="p-6 space-y-4">
+            <p className="text-sm text-muted-foreground">
+              <strong>Recommended.</strong> Search "altea" → municipality with expand arrow (collapsed). Search "galera" → auto-expands Altea showing matching zone. Try also: "playa", "cala", "calpe".
+            </p>
+            <div className="min-h-[420px]">
+              <VariantECollapsible />
+            </div>
+          </div>
+        </ComponentBlock>
+
+        {/* ── Previous variants ── */}
         <ComponentBlock label="Component: Location Search — Variant A: Two Lines">
           <div className="p-6 space-y-4">
             <p className="text-sm text-muted-foreground">
-              Name in <strong>bold</strong> on first line, full path in gray below. Clearest hierarchy view — recommended.
+              Name in <strong>bold</strong> on first line, full path in gray below. Clearest hierarchy view.
             </p>
             <div className="min-h-[320px]">
               <VariantATwoLines />

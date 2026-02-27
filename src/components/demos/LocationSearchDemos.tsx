@@ -1,5 +1,5 @@
 import { useState, useMemo, useRef, useEffect, useCallback } from "react";
-import { MapPin, Navigation, Search, X } from "lucide-react";
+import { MapPin, Navigation, Search, X, ChevronRight, ChevronDown } from "lucide-react";
 import { mockLocations } from "@/components/locations/mock-data";
 
 /* ── Shared helpers ── */
@@ -31,7 +31,7 @@ const getParentName = (locationId: string): string => {
   return parent?.name ?? "";
 };
 
-const searchLocations = (query: string): LocationItem[] => {
+const searchLocations = (query: string, limit = 8): LocationItem[] => {
   if (!query.trim()) return [];
   const q = query.toLowerCase();
   return mockLocations
@@ -40,7 +40,7 @@ const searchLocations = (query: string): LocationItem[] => {
       if (loc.name.toLowerCase().includes(q)) return true;
       return Object.values(loc.names).some((n) => n.toLowerCase().includes(q));
     })
-    .slice(0, 8)
+    .slice(0, limit)
     .map((loc) => ({
       id: loc.id,
       name: loc.name,
@@ -276,6 +276,163 @@ export const VariantDBadge = () => {
           </button>
         ))}
         {results.length === 0 && (
+          <div className="px-4 py-4 text-center text-xs text-muted-foreground">No locations found</div>
+        )}
+      </div>
+    </DemoWrapper>
+  );
+};
+
+/* ════════════════════════════════════════
+   VARIANT E — Collapsible Grouped (Final)
+   ════════════════════════════════════════ */
+
+type GroupedMunicipality = {
+  id: string;
+  name: string;
+  path: string;
+  type: string;
+  children: LocationItem[];
+  autoExpanded: boolean;
+};
+
+export const VariantECollapsible = () => {
+  const [query, setQuery] = useState("altea");
+  const [open, setOpen] = useState(true);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
+
+  const { standalone, municipalities } = useMemo(() => {
+    const results = searchLocations(query, 20);
+
+    const standaloneItems: LocationItem[] = [];
+    const muniMap: Record<string, GroupedMunicipality> = {};
+
+    results.forEach((item) => {
+      if (item.type === "Zone") {
+        const parentMuni = mockLocations.find((l) => l.id === mockLocations.find((z) => z.id === item.id)?.parentId);
+        if (parentMuni) {
+          if (!muniMap[parentMuni.id]) {
+            muniMap[parentMuni.id] = {
+              id: parentMuni.id,
+              name: parentMuni.name,
+              path: buildPath(parentMuni.id),
+              type: "City",
+              children: [],
+              autoExpanded: true,
+            };
+          }
+          muniMap[parentMuni.id].children.push(item);
+          muniMap[parentMuni.id].autoExpanded = true;
+        }
+      } else if (item.type === "City") {
+        if (!muniMap[item.id]) {
+          const children = mockLocations
+            .filter((l) => l.parentId === item.id && l.level === "borough" && l.active)
+            .map((l) => ({
+              id: l.id,
+              name: l.name,
+              path: buildPath(l.id),
+              type: LEVEL_DISPLAY[l.level] || l.level,
+              parentName: item.name,
+            }));
+          muniMap[item.id] = {
+            id: item.id,
+            name: item.name,
+            path: item.path,
+            type: item.type,
+            children,
+            autoExpanded: false,
+          };
+        }
+      } else {
+        standaloneItems.push(item);
+      }
+    });
+
+    return { standalone: standaloneItems, municipalities: Object.values(muniMap) };
+  }, [query]);
+
+  useEffect(() => {
+    const autoIds = municipalities.filter((m) => m.autoExpanded).map((m) => m.id);
+    setExpandedIds(new Set(autoIds));
+  }, [query]);
+
+  const toggleExpand = (id: string) => {
+    setExpandedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  return (
+    <DemoWrapper {...{ query, setQuery, inputRef, containerRef, open, setOpen }}>
+      <div className="absolute top-full left-0 right-0 mt-1.5 bg-card rounded-xl border border-border shadow-lg z-50 overflow-hidden max-h-[400px] overflow-y-auto">
+        <button className="flex items-center gap-3 w-full px-4 py-3 text-left hover:bg-muted/50 transition-colors border-b border-border">
+          <Navigation className="w-4 h-4 text-muted-foreground" />
+          <span className="text-sm text-foreground">Search near me</span>
+        </button>
+
+        {standalone.map((item) => (
+          <button key={item.id} className="flex items-center gap-3 w-full px-4 py-2.5 text-left hover:bg-muted/50 transition-colors">
+            <Search className="w-4 h-4 text-muted-foreground/40 shrink-0" />
+            <div className="flex-1 min-w-0">
+              <div className="text-sm font-medium text-foreground truncate">{item.name}</div>
+              <div className="text-xs text-muted-foreground truncate">{item.path}</div>
+            </div>
+            <span className="text-[11px] text-muted-foreground/60 font-medium shrink-0">{item.type}</span>
+          </button>
+        ))}
+
+        {municipalities.map((muni) => {
+          const isExpanded = expandedIds.has(muni.id);
+          const hasChildren = muni.children.length > 0;
+
+          return (
+            <div key={muni.id}>
+              <div className="flex items-center w-full hover:bg-muted/50 transition-colors">
+                <button className="flex items-center gap-3 flex-1 px-4 py-2.5 text-left min-w-0">
+                  <MapPin className="w-4 h-4 text-muted-foreground/50 shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm font-medium text-foreground truncate">{muni.name}</div>
+                    <div className="text-xs text-muted-foreground truncate">{muni.path}</div>
+                  </div>
+                  <span className="text-[11px] text-muted-foreground/60 font-medium shrink-0">{muni.type}</span>
+                </button>
+                {hasChildren && (
+                  <button
+                    onClick={(e) => { e.stopPropagation(); toggleExpand(muni.id); }}
+                    className="flex items-center gap-0.5 px-3 py-2.5 text-muted-foreground/50 hover:text-foreground transition-colors shrink-0"
+                  >
+                    {!isExpanded && (
+                      <span className="text-[10px] text-muted-foreground/40 font-medium">{muni.children.length}</span>
+                    )}
+                    {isExpanded
+                      ? <ChevronDown className="w-4 h-4" />
+                      : <ChevronRight className="w-4 h-4" />
+                    }
+                  </button>
+                )}
+              </div>
+
+              {isExpanded && muni.children.map((child) => (
+                <button
+                  key={child.id}
+                  className="flex items-center gap-3 w-full pl-11 pr-4 py-2 text-left hover:bg-muted/50 transition-colors"
+                >
+                  <Search className="w-3.5 h-3.5 text-muted-foreground/30 shrink-0" />
+                  <span className="text-sm text-foreground truncate flex-1">{child.name}</span>
+                  <span className="text-[11px] text-muted-foreground/60 font-medium shrink-0">{child.type}</span>
+                </button>
+              ))}
+            </div>
+          );
+        })}
+
+        {standalone.length === 0 && municipalities.length === 0 && (
           <div className="px-4 py-4 text-center text-xs text-muted-foreground">No locations found</div>
         )}
       </div>
