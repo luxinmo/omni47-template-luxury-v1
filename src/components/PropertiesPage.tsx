@@ -1,10 +1,11 @@
 import { useState, useMemo } from "react";
-import { Plus, ArrowUpDown, Download, Globe, GlobeIcon, Share2, Printer, Tag, X, ChevronDown, Check } from "lucide-react";
+import { Plus, ArrowUpDown, Download, Globe, GlobeIcon, Share2, Printer, Tag, X, ChevronDown, Check, SlidersHorizontal, Star, Circle, Home, Ban, EyeOff, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import PropertyCard, { PropertyData } from "@/components/properties/PropertyCard";
 import PropertySearchFilters, { FilterState, defaultFilters } from "@/components/properties/PropertySearchFilters";
 import PropertyFilterSidebar, { SidebarFilters, defaultSidebarFilters } from "@/components/properties/PropertyFilterSidebar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import property1 from "@/assets/property-1.jpg";
 import property2 from "@/assets/property-2.jpg";
 import property3 from "@/assets/property-3.jpg";
@@ -72,39 +73,40 @@ const sortOptions = [
 
 /* ─── Bulk Actions Bar ─── */
 const BulkActionsBar = ({ count, onClear, onAction }: { count: number; onClear: () => void; onAction: (action: string) => void }) => (
-  <div className="flex items-center gap-3 bg-primary/5 border border-primary/20 rounded-lg px-4 py-2.5 animate-in slide-in-from-top-2 duration-200">
-    <span className="text-sm font-medium text-foreground">{count} seleccionada{count > 1 ? "s" : ""}</span>
-    <div className="h-4 w-px bg-border" />
-    <div className="flex items-center gap-1">
-      <Button variant="ghost" size="sm" className="h-8 text-xs gap-1.5" onClick={() => onAction("export-portals")}>
+  <div className="flex items-center gap-3 bg-primary/5 border border-primary/20 rounded-lg px-3 sm:px-4 py-2.5 animate-in slide-in-from-top-2 duration-200 overflow-x-auto">
+    <span className="text-sm font-medium text-foreground whitespace-nowrap">{count} sel.</span>
+    <div className="h-4 w-px bg-border shrink-0" />
+    <div className="flex items-center gap-1 shrink-0">
+      <Button variant="ghost" size="sm" className="h-8 text-xs gap-1.5 whitespace-nowrap" onClick={() => onAction("export-portals")}>
         <Download className="h-3.5 w-3.5" />
-        Exportar a portales
+        <span className="hidden sm:inline">Exportar a portales</span>
+        <span className="sm:hidden">Exportar</span>
       </Button>
-      <Button variant="ghost" size="sm" className="h-8 text-xs gap-1.5" onClick={() => onAction("publish-web")}>
+      <Button variant="ghost" size="sm" className="h-8 text-xs gap-1.5 whitespace-nowrap" onClick={() => onAction("publish-web")}>
         <Globe className="h-3.5 w-3.5" />
-        Publicar en web
+        <span className="hidden sm:inline">Publicar en web</span>
+        <span className="sm:hidden">Publicar</span>
       </Button>
-      <Button variant="ghost" size="sm" className="h-8 text-xs gap-1.5" onClick={() => onAction("unpublish-web")}>
+      <Button variant="ghost" size="sm" className="h-8 text-xs gap-1.5 whitespace-nowrap hidden sm:inline-flex" onClick={() => onAction("unpublish-web")}>
         <GlobeIcon className="h-3.5 w-3.5 text-destructive" />
         Despublicar
       </Button>
-      <Button variant="ghost" size="sm" className="h-8 text-xs gap-1.5" onClick={() => onAction("share")}>
+      <Button variant="ghost" size="sm" className="h-8 text-xs gap-1.5 whitespace-nowrap" onClick={() => onAction("share")}>
         <Share2 className="h-3.5 w-3.5" />
-        Compartir
+        <span className="hidden sm:inline">Compartir</span>
       </Button>
-      <Button variant="ghost" size="sm" className="h-8 text-xs gap-1.5" onClick={() => onAction("print-pdf")}>
+      <Button variant="ghost" size="sm" className="h-8 text-xs gap-1.5 whitespace-nowrap hidden sm:inline-flex" onClick={() => onAction("print-pdf")}>
         <Printer className="h-3.5 w-3.5" />
         Imprimir PDF
       </Button>
-      <Button variant="ghost" size="sm" className="h-8 text-xs gap-1.5" onClick={() => onAction("add-tag")}>
+      <Button variant="ghost" size="sm" className="h-8 text-xs gap-1.5 whitespace-nowrap" onClick={() => onAction("add-tag")}>
         <Tag className="h-3.5 w-3.5" />
-        Añadir etiqueta
+        <span className="hidden sm:inline">Etiqueta</span>
       </Button>
     </div>
-    <div className="ml-auto">
+    <div className="ml-auto shrink-0">
       <Button variant="ghost" size="sm" className="h-8 text-xs gap-1" onClick={onClear}>
         <X className="h-3.5 w-3.5" />
-        Deseleccionar
       </Button>
     </div>
   </div>
@@ -132,34 +134,35 @@ const PropertiesPage = ({ onViewProperty, onAddProperty }: { onViewProperty?: ()
   const currentSortLabel = sortOptions.find(o => o.value === sortBy)?.label ?? "Ordenar";
 
   return (
-    <div className="flex-1 overflow-auto">
+    <div className="flex-1 overflow-auto pb-20 xl:pb-0">
       {/* Header */}
-      <div className="px-8 pt-8 pb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="px-4 sm:px-8 pt-6 sm:pt-8 pb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold text-foreground tracking-tight">Propiedades</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">Propiedades</h1>
           <p className="text-sm text-muted-foreground mt-1">Catálogo de propiedades inmobiliarias</p>
         </div>
         <Button className="gap-2 shrink-0" onClick={onAddProperty}>
           <Plus className="h-4 w-4" />
-          Nueva propiedad
+          <span className="hidden sm:inline">Nueva propiedad</span>
+          <span className="sm:hidden">Nueva</span>
         </Button>
       </div>
 
       {/* Search Filters Bar */}
-      <div className="px-8 pb-4">
+      <div className="px-4 sm:px-8 pb-4">
         <PropertySearchFilters filters={filters} onChange={setFilters} />
       </div>
 
       {/* Results bar + Sort */}
-      <div className="px-8 pb-3">
+      <div className="px-4 sm:px-8 pb-3">
         <div className="flex items-center justify-between">
-          <p className="text-[12px] text-muted-foreground">{demoProperties.length} propiedades encontradas</p>
+          <p className="text-[12px] text-muted-foreground">{demoProperties.length} propiedades</p>
 
           <Popover open={sortOpen} onOpenChange={setSortOpen}>
             <PopoverTrigger asChild>
               <Button variant="outline" size="sm" className="h-8 text-xs gap-1.5">
                 <ArrowUpDown className="h-3.5 w-3.5" />
-                {currentSortLabel}
+                <span className="hidden sm:inline">{currentSortLabel}</span>
                 <ChevronDown className="h-3 w-3" />
               </Button>
             </PopoverTrigger>
@@ -181,7 +184,7 @@ const PropertiesPage = ({ onViewProperty, onAddProperty }: { onViewProperty?: ()
 
       {/* Bulk Actions */}
       {selectedIds.size > 0 && (
-        <div className="px-8 pb-3">
+        <div className="px-4 sm:px-8 pb-3">
           <BulkActionsBar
             count={selectedIds.size}
             onClear={() => setSelectedIds(new Set())}
@@ -191,7 +194,7 @@ const PropertiesPage = ({ onViewProperty, onAddProperty }: { onViewProperty?: ()
       )}
 
       {/* Main content: cards + sidebar */}
-      <div className="px-8 pb-10 flex justify-center gap-6">
+      <div className="px-4 sm:px-8 pb-10 flex justify-center gap-6">
         {/* Property List — centered */}
         <div className="w-full max-w-4xl space-y-4">
           {sortedProperties.map((p) => (
@@ -205,10 +208,56 @@ const PropertiesPage = ({ onViewProperty, onAddProperty }: { onViewProperty?: ()
           ))}
         </div>
 
-        {/* Right Sidebar — hidden on small screens */}
+        {/* Right Sidebar — hidden below xl */}
         <div className="hidden xl:block">
           <PropertyFilterSidebar filters={sidebarFilters} onChange={setSidebarFilters} />
         </div>
+      </div>
+
+      {/* Mobile bottom filter bar — visible below xl */}
+      <div className="fixed bottom-0 left-0 right-0 xl:hidden z-40 bg-card border-t border-border px-3 py-2 flex items-center justify-center gap-2 overflow-x-auto">
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="outline" size="sm" className="h-9 text-xs gap-1.5 shrink-0">
+              <SlidersHorizontal className="h-3.5 w-3.5" />
+              Filtros
+              {Object.values(sidebarFilters).flat().filter(c => c.mode !== "off").length > 0 && (
+                <span className="bg-primary text-primary-foreground rounded-full px-1.5 py-0.5 text-[9px]">
+                  {Object.values(sidebarFilters).flat().filter(c => c.mode !== "off").length}
+                </span>
+              )}
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="bottom" className="max-h-[80vh] overflow-y-auto">
+            <SheetHeader>
+              <SheetTitle>Filtros</SheetTitle>
+            </SheetHeader>
+            <div className="pt-4">
+              <PropertyFilterSidebar filters={sidebarFilters} onChange={setSidebarFilters} />
+            </div>
+          </SheetContent>
+        </Sheet>
+
+        <Button variant="ghost" size="sm" className="h-9 text-xs gap-1.5 shrink-0">
+          <Tag className="h-3.5 w-3.5" />
+          Etiquetas
+        </Button>
+        <Button variant="ghost" size="sm" className="h-9 text-xs gap-1.5 shrink-0">
+          <User className="h-3.5 w-3.5" />
+          Agente
+        </Button>
+        <Button variant="ghost" size="sm" className="h-9 text-xs gap-1.5 shrink-0">
+          <Star className="h-3.5 w-3.5" />
+          Valoración
+        </Button>
+        <Button variant="ghost" size="sm" className="h-9 text-xs gap-1.5 shrink-0">
+          <Circle className="h-3.5 w-3.5" />
+          Estado
+        </Button>
+        <Button variant="ghost" size="sm" className="h-9 text-xs gap-1.5 shrink-0">
+          <Globe className="h-3.5 w-3.5" />
+          Portales
+        </Button>
       </div>
     </div>
   );

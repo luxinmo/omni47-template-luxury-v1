@@ -190,9 +190,9 @@ const PropertyCard = ({ property, onClick, selected, onSelect }: PropertyCardPro
       onClick={onClick}
       className={`rounded-xl border bg-card hover:shadow-elevated transition-all duration-200 cursor-pointer overflow-hidden group ${selected ? "border-primary ring-2 ring-primary/20" : "border-border"}`}
     >
-      <div className="flex">
+      <div className="flex flex-col sm:flex-row">
         {/* Image */}
-        <div className="w-60 shrink-0 relative overflow-hidden">
+        <div className="w-full sm:w-60 h-48 sm:h-auto shrink-0 relative overflow-hidden">
           <img
             src={p.image}
             alt={p.title}
@@ -221,10 +221,10 @@ const PropertyCard = ({ property, onClick, selected, onSelect }: PropertyCardPro
         </div>
 
         {/* Details */}
-        <div className="flex-1 min-w-0 px-5 py-3.5 flex flex-col">
+        <div className="flex-1 min-w-0 px-4 sm:px-5 py-3 sm:py-3.5 flex flex-col">
           {/* Top row */}
-          <div className="flex items-center justify-between mb-2">
-            <div className="flex items-center gap-3">
+          <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
+            <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
               <Checkbox
                 className="h-4 w-4"
                 checked={selected}
@@ -245,13 +245,15 @@ const PropertyCard = ({ property, onClick, selected, onSelect }: PropertyCardPro
               {p.collaboration && (
                 <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 border border-emerald-200 px-2 py-0.5 text-[10px] font-medium text-emerald-700">
                   <Handshake className="h-3 w-3" />
-                  MLS{p.collaborationAgency ? ` - ${p.collaborationAgency}` : ""}
+                  <span className="hidden sm:inline">MLS{p.collaborationAgency ? ` - ${p.collaborationAgency}` : ""}</span>
+                  <span className="sm:hidden">MLS</span>
                 </span>
               )}
               {p.isCollaborator && (
                 <span className="inline-flex items-center gap-1 rounded-full bg-indigo-50 border border-indigo-200 px-2 py-0.5 text-[10px] font-medium text-indigo-600">
                   <Users className="h-3 w-3" />
-                  Compartido MLS
+                  <span className="hidden sm:inline">Compartido MLS</span>
+                  <span className="sm:hidden">MLS</span>
                 </span>
               )}
               {webFeatured && webActive && (
@@ -270,11 +272,11 @@ const PropertyCard = ({ property, onClick, selected, onSelect }: PropertyCardPro
           </div>
 
           {/* Price row */}
-          <div className="flex items-baseline gap-2.5 mb-1">
+          <div className="flex items-baseline gap-2 sm:gap-2.5 mb-1 flex-wrap">
             {p.priceOnRequest ? (
-              <span className="text-xl font-bold text-foreground tracking-tight">Consultar precio</span>
+              <span className="text-lg sm:text-xl font-bold text-foreground tracking-tight">Consultar precio</span>
             ) : (
-              <span className="text-xl font-bold text-foreground tracking-tight">{p.price}</span>
+              <span className="text-lg sm:text-xl font-bold text-foreground tracking-tight">{p.price}</span>
             )}
             {hasPriceDrop && !p.priceOnRequest && (
               <span className="inline-flex items-center gap-1 text-[12px] text-red-500 font-medium">
@@ -292,7 +294,7 @@ const PropertyCard = ({ property, onClick, selected, onSelect }: PropertyCardPro
           </div>
 
           {/* Stats */}
-          <div className="flex items-center gap-5 text-[13px] mb-2.5">
+          <div className="flex items-center gap-3 sm:gap-5 text-[13px] mb-2.5 flex-wrap">
             <span className="text-muted-foreground flex items-center gap-1.5">
               <Bed className="h-3.5 w-3.5" strokeWidth={1.5} />
               <span className="font-medium text-foreground">{p.beds}</span> hab.
@@ -313,12 +315,12 @@ const PropertyCard = ({ property, onClick, selected, onSelect }: PropertyCardPro
           </div>
 
           {/* Description */}
-          <p className="text-[12px] text-muted-foreground line-clamp-2 leading-relaxed max-w-2xl italic">
+          <p className="text-[12px] text-muted-foreground line-clamp-2 leading-relaxed max-w-2xl italic hidden sm:block">
             {p.description}
           </p>
 
           {/* Tags row */}
-          <div className="flex items-center gap-2 mt-auto pt-2">
+          <div className="flex items-center gap-2 mt-auto pt-2 flex-wrap">
             {(p.tags ?? []).map((tag) => (
               <span key={tag} className="inline-flex items-center rounded-md border border-border bg-muted/50 px-2 py-0.5 text-[10px] font-semibold text-foreground">
                 {tag}
@@ -333,19 +335,19 @@ const PropertyCard = ({ property, onClick, selected, onSelect }: PropertyCardPro
       </div>
 
       {/* Footer */}
-      <div className="flex items-center justify-between px-5 py-2 border-t border-border bg-muted/20 text-[11px] text-muted-foreground">
-        <div className="flex items-center gap-4">
+      <div className="flex items-center justify-between px-4 sm:px-5 py-2 border-t border-border bg-muted/20 text-[11px] text-muted-foreground flex-wrap gap-2">
+        <div className="flex items-center gap-3 sm:gap-4">
           <span className="flex items-center gap-1">
             <Calendar className="h-3 w-3" />
             {p.createdAt ?? "15.01.2026"}
           </span>
-          <span className="text-muted-foreground/50">|</span>
-          <span>Act. {p.updatedAt ?? "27.02.2026"}</span>
+          <span className="text-muted-foreground/50 hidden sm:inline">|</span>
+          <span className="hidden sm:inline">Act. {p.updatedAt ?? "27.02.2026"}</span>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-4 flex-wrap">
           <button className="hover:text-foreground transition-colors" onClick={(e) => e.stopPropagation()}>Leads (0)</button>
-          <button className="hover:text-foreground transition-colors" onClick={(e) => e.stopPropagation()}>Visitas (0)</button>
-          <button className="hover:text-foreground transition-colors" onClick={(e) => e.stopPropagation()}>Ofertas</button>
+          <button className="hover:text-foreground transition-colors hidden sm:inline" onClick={(e) => e.stopPropagation()}>Visitas (0)</button>
+          <button className="hover:text-foreground transition-colors hidden sm:inline" onClick={(e) => e.stopPropagation()}>Ofertas</button>
           <span className="text-muted-foreground/30">|</span>
           <PortalsPopover
             portals={portals}
