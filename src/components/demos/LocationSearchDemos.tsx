@@ -136,10 +136,6 @@ export const VariantATwoLines = () => {
   return (
     <DemoWrapper {...{ query, setQuery, inputRef, containerRef, open, setOpen }}>
       <div className="absolute top-full left-0 right-0 mt-1.5 bg-card rounded-xl border border-border shadow-lg z-50 overflow-hidden">
-        <button className="flex items-center gap-3 w-full px-4 py-3 text-left hover:bg-muted/50 transition-colors border-b border-border">
-          <Navigation className="w-4 h-4 text-muted-foreground" />
-          <span className="text-sm text-foreground">Search near me</span>
-        </button>
         {results.map((item) => (
           <button key={item.id} className="flex items-start gap-3 w-full px-4 py-2.5 text-left hover:bg-muted/50 transition-colors">
             <Search className="w-4 h-4 text-muted-foreground/40 shrink-0 mt-0.5" />
@@ -172,10 +168,6 @@ export const VariantBFullPath = () => {
   return (
     <DemoWrapper {...{ query, setQuery, inputRef, containerRef, open, setOpen }}>
       <div className="absolute top-full left-0 right-0 mt-1.5 bg-card rounded-xl border border-border shadow-lg z-50 overflow-hidden">
-        <button className="flex items-center gap-3 w-full px-4 py-3 text-left hover:bg-muted/50 transition-colors border-b border-border">
-          <Navigation className="w-4 h-4 text-muted-foreground" />
-          <span className="text-sm text-foreground">Search near me</span>
-        </button>
         {results.map((item) => (
           <button key={item.id} className="flex items-center gap-3 w-full px-4 py-2.5 text-left hover:bg-muted/50 transition-colors">
             <Search className="w-4 h-4 text-muted-foreground/40 shrink-0" />
@@ -223,10 +215,6 @@ export const VariantCGrouped = () => {
   return (
     <DemoWrapper {...{ query, setQuery, inputRef, containerRef, open, setOpen }}>
       <div className="absolute top-full left-0 right-0 mt-1.5 bg-card rounded-xl border border-border shadow-lg z-50 overflow-hidden">
-        <button className="flex items-center gap-3 w-full px-4 py-3 text-left hover:bg-muted/50 transition-colors border-b border-border">
-          <Navigation className="w-4 h-4 text-muted-foreground" />
-          <span className="text-sm text-foreground">Search near me</span>
-        </button>
 
         {/* Standalone results (non-zones) */}
         {grouped.standalone.map((item) => (
@@ -277,10 +265,6 @@ export const VariantDBadge = () => {
   return (
     <DemoWrapper {...{ query, setQuery, inputRef, containerRef, open, setOpen }}>
       <div className="absolute top-full left-0 right-0 mt-1.5 bg-card rounded-xl border border-border shadow-lg z-50 overflow-hidden">
-        <button className="flex items-center gap-3 w-full px-4 py-3 text-left hover:bg-muted/50 transition-colors border-b border-border">
-          <Navigation className="w-4 h-4 text-muted-foreground" />
-          <span className="text-sm text-foreground">Search near me</span>
-        </button>
         {results.map((item) => (
           <button key={item.id} className="flex items-center gap-3 w-full px-4 py-2.5 text-left hover:bg-muted/50 transition-colors">
             <Search className="w-4 h-4 text-muted-foreground/40 shrink-0" />
@@ -653,10 +637,6 @@ export const VariantECollapsible = () => {
             </div>
           )}
 
-          <button className="flex items-center gap-3 w-full px-4 py-3 text-left hover:bg-muted/50 transition-colors border-b border-border">
-            <Navigation className="w-4 h-4 text-muted-foreground" />
-            <span className="text-sm text-foreground">Search near me</span>
-          </button>
 
           {/* ── Search results ── */}
           {standalone.map((item) => (
