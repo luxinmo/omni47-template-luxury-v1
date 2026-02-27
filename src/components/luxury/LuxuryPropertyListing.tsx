@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Search, SlidersHorizontal, X, ChevronDown, ChevronRight, Bed, Bath, Maximize, MapPin, Heart, Mail, Eye, Mountain, Waves as WavesIcon, Trees, Flower2, Car, Home, Dumbbell, Wine, Tv, ThermometerSun, Lock, Fence } from "lucide-react";
 import heroImg from "@/assets/luxury-hero.jpg";
+import LocationSearchDropdown from "./LocationSearchDropdown";
 import prop1 from "@/assets/luxury-property-1.jpg";
 import prop2 from "@/assets/luxury-property-2.jpg";
 import prop3 from "@/assets/luxury-property-3.jpg";
@@ -463,16 +464,11 @@ const LuxuryPropertyListing = () => {
           <div className="flex items-center gap-3 pb-3">
             {/* Search */}
             <div className="hidden md:flex items-center shrink-0">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-black/30" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="City, Region, Country"
-                  className="w-[280px] h-10 border border-neutral-200 rounded-full pl-10 pr-4 text-[12px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/30 transition-colors"
-                />
-              </div>
+              <LocationSearchDropdown
+                value={searchQuery}
+                onChange={setSearchQuery}
+                className="w-[320px]"
+              />
             </div>
 
             <div className="w-px h-5 bg-neutral-200 hidden md:block shrink-0" />
