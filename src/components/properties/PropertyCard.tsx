@@ -260,10 +260,12 @@ const PropertyCard = ({ property, onClick, selected, onSelect }: PropertyCardPro
               )}
             </div>
             <div className="flex items-center gap-2">
-              <span className={`inline-flex items-center gap-1.5 text-xs font-medium rounded-full px-2.5 py-1 ${status.bg} ${status.text}`}>
-                <span className={`h-1.5 w-1.5 rounded-full ${status.dot}`} />
-                {p.status}
-              </span>
+              {!isOffMarket && (
+                <span className={`inline-flex items-center gap-1.5 text-xs font-medium rounded-full px-2.5 py-1 ${status.bg} ${status.text}`}>
+                  <span className={`h-1.5 w-1.5 rounded-full ${status.dot}`} />
+                  {p.status}
+                </span>
+              )}
             </div>
           </div>
 
