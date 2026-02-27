@@ -15,7 +15,7 @@ const demoProperties: PropertyData[] = [
     beds: 3, baths: 2, sqft: "190", status: "Disponible", type: "Villa", operacion: "Venta",
     reference: "6254", rating: 5, builtArea: "288", plotArea: "1.051",
     description: "Introducing a beautiful detached house, nestled in the peaceful Moravit-Cap Blanc area of Moraira, combining modern and Mediterranean architectural styles.",
-    tags: ["B.B+"], collaboration: true, webActive: true, isExclusive: true, webFeatured: true,
+    tags: ["B.B+"], collaboration: true, collaborationAgency: "Lux Real Estate", webActive: true, isExclusive: true, webFeatured: true,
     createdAt: "23.12.2025", updatedAt: "27.02.2026",
     portals: [
       { name: "Idealista", active: true },
@@ -44,10 +44,10 @@ const demoProperties: PropertyData[] = [
   },
   {
     id: 3, image: property3, title: "Mansión Frente al Mar", price: "5.750.000 €", previousPrice: "6.200.000 €", location: "Malibu, CA",
-    beds: 6, baths: 5, sqft: "5.800", status: "Off-market", type: "Mansión", operacion: "Alquiler",
+    beds: 6, baths: 5, sqft: "5.800", status: "Disponible", type: "Mansión", operacion: "Alquiler",
     reference: "7103", rating: 5, builtArea: "5.800", plotArea: "3.200",
     description: "Mansión exclusiva en primera línea de playa con acceso privado al mar, piscina infinity, spa y jardines tropicales.",
-    tags: ["A.A"], collaboration: true, webActive: false,
+    tags: ["A.A"], collaboration: true, collaborationAgency: "Costa Homes", webActive: false, isOffMarket: true,
     createdAt: "05.11.2025", updatedAt: "20.02.2026",
   },
   {

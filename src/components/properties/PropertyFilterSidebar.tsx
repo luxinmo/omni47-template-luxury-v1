@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Tag, User, Circle, Home, Globe, Ban, EyeOff, ChevronDown, Plus, Minus } from "lucide-react";
+import { Tag, User, Circle, Home, Globe, Ban, EyeOff, ChevronDown, Plus, Minus, Star, Settings } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 /* ─── Filter chip with include / exclude toggle ─── */
@@ -27,6 +26,35 @@ const FilterChipButton = ({ chip, onToggle }: { chip: FilterChip; onToggle: () =
   );
 };
 
+/* ─── Star rating chip ─── */
+const StarChipButton = ({ stars, mode, onToggle }: { stars: number; mode: FilterMode; onToggle: () => void }) => {
+  const base = "inline-flex items-center gap-1 rounded-md border px-2 py-1 text-[11px] font-medium transition-all cursor-pointer select-none";
+  const styles: Record<FilterMode, string> = {
+    off: "border-border bg-card text-muted-foreground hover:bg-accent",
+    include: "border-emerald-300 bg-emerald-50 text-emerald-700",
+    exclude: "border-red-300 bg-red-50 text-red-700",
+  };
+
+  return (
+    <button onClick={onToggle} className={`${base} ${styles[mode]}`}>
+      {mode === "include" && <Plus className="h-3 w-3" />}
+      {mode === "exclude" && <Minus className="h-3 w-3" />}
+      {stars === 0 ? (
+        <span className="flex items-center gap-0.5">
+          <Star className="h-3 w-3 text-muted-foreground/40" />
+          Sin
+        </span>
+      ) : (
+        <span className="flex items-center gap-0.5">
+          {Array.from({ length: stars }).map((_, i) => (
+            <Star key={i} className="h-3 w-3 text-amber-400 fill-amber-400" />
+          ))}
+        </span>
+      )}
+    </button>
+  );
+};
+
 /* ─── Filter section ─── */
 const FilterSection = ({
   icon: Icon,
@@ -34,29 +62,42 @@ const FilterSection = ({
   chips,
   onToggle,
   defaultOpen = true,
+  onSettings,
 }: {
   icon: React.ElementType;
   title: string;
   chips: FilterChip[];
   onToggle: (label: string) => void;
   defaultOpen?: boolean;
+  onSettings?: () => void;
 }) => {
   const activeCount = chips.filter(c => c.mode !== "off").length;
 
   return (
     <Collapsible defaultOpen={defaultOpen}>
-      <CollapsibleTrigger className="flex items-center justify-between w-full py-2 text-[12px] font-semibold text-muted-foreground uppercase tracking-wider hover:text-foreground transition-colors">
-        <span className="flex items-center gap-2">
-          <Icon className="h-3.5 w-3.5" />
-          {title}
-          {activeCount > 0 && (
-            <span className="text-[9px] bg-primary text-primary-foreground rounded-full px-1.5 py-0.5 normal-case tracking-normal">
-              {activeCount}
-            </span>
-          )}
-        </span>
-        <ChevronDown className="h-3.5 w-3.5" />
-      </CollapsibleTrigger>
+      <div className="flex items-center gap-1">
+        <CollapsibleTrigger className="flex-1 flex items-center justify-between py-2 text-[12px] font-semibold text-muted-foreground uppercase tracking-wider hover:text-foreground transition-colors">
+          <span className="flex items-center gap-2">
+            <Icon className="h-3.5 w-3.5" />
+            {title}
+            {activeCount > 0 && (
+              <span className="text-[9px] bg-primary text-primary-foreground rounded-full px-1.5 py-0.5 normal-case tracking-normal">
+                {activeCount}
+              </span>
+            )}
+          </span>
+          <ChevronDown className="h-3.5 w-3.5" />
+        </CollapsibleTrigger>
+        {onSettings && (
+          <button
+            onClick={onSettings}
+            className="p-1 rounded hover:bg-accent text-muted-foreground hover:text-foreground transition-colors"
+            title="Configurar"
+          >
+            <Settings className="h-3.5 w-3.5" />
+          </button>
+        )}
+      </div>
       <CollapsibleContent>
         <div className="flex flex-wrap gap-1.5 pb-3">
           {chips.map((chip) => (
@@ -72,6 +113,7 @@ const FilterSection = ({
 export interface SidebarFilters {
   tags: FilterChip[];
   users: FilterChip[];
+  ratings: FilterChip[];
   availability: FilterChip[];
   operation: FilterChip[];
   portals: FilterChip[];
@@ -101,6 +143,14 @@ export const defaultSidebarFilters: SidebarFilters = {
     { label: "Pedro López", mode: "off" },
     { label: "María Sánchez", mode: "off" },
     { label: "Luis Fernández", mode: "off" },
+  ],
+  ratings: [
+    { label: "5", mode: "off" },
+    { label: "4", mode: "off" },
+    { label: "3", mode: "off" },
+    { label: "2", mode: "off" },
+    { label: "1", mode: "off" },
+    { label: "0", mode: "off" },
   ],
   availability: [
     { label: "Disponible", mode: "off" },
@@ -168,8 +218,49 @@ const PropertyFilterSidebar = ({
         Clic: <span className="text-emerald-600 font-medium">incluir</span> → <span className="text-red-500 font-medium">excluir</span> → desactivar
       </p>
 
-      <FilterSection icon={Tag} title="Etiquetas" chips={filters.tags} onToggle={(l) => toggleChip("tags", l)} />
-      <FilterSection icon={User} title="Agente" chips={filters.users} onToggle={(l) => toggleChip("users", l)} />
+      <FilterSection
+        icon={Tag}
+        title="Etiquetas"
+        chips={filters.tags}
+        onToggle={(l) => toggleChip("tags", l)}
+        onSettings={() => console.log("Settings: tags")}
+      />
+      <FilterSection
+        icon={User}
+        title="Agente"
+        chips={filters.users}
+        onToggle={(l) => toggleChip("users", l)}
+        onSettings={() => console.log("Settings: users")}
+      />
+
+      {/* Star ratings */}
+      <Collapsible defaultOpen>
+        <CollapsibleTrigger className="flex items-center justify-between w-full py-2 text-[12px] font-semibold text-muted-foreground uppercase tracking-wider hover:text-foreground transition-colors">
+          <span className="flex items-center gap-2">
+            <Star className="h-3.5 w-3.5" />
+            Valoración
+            {filters.ratings.filter(c => c.mode !== "off").length > 0 && (
+              <span className="text-[9px] bg-primary text-primary-foreground rounded-full px-1.5 py-0.5 normal-case tracking-normal">
+                {filters.ratings.filter(c => c.mode !== "off").length}
+              </span>
+            )}
+          </span>
+          <ChevronDown className="h-3.5 w-3.5" />
+        </CollapsibleTrigger>
+        <CollapsibleContent>
+          <div className="flex flex-wrap gap-1.5 pb-3">
+            {filters.ratings.map((chip) => (
+              <StarChipButton
+                key={chip.label}
+                stars={parseInt(chip.label)}
+                mode={chip.mode}
+                onToggle={() => toggleChip("ratings", chip.label)}
+              />
+            ))}
+          </div>
+        </CollapsibleContent>
+      </Collapsible>
+
       <FilterSection icon={Circle} title="Disponibilidad" chips={filters.availability} onToggle={(l) => toggleChip("availability", l)} />
       <FilterSection icon={Home} title="Operación" chips={filters.operation} onToggle={(l) => toggleChip("operation", l)} />
       <FilterSection icon={Globe} title="Portales" chips={filters.portals} onToggle={(l) => toggleChip("portals", l)} />

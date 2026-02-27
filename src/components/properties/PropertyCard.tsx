@@ -47,9 +47,11 @@ export interface PropertyData {
   webActive?: boolean;
   webFeatured?: boolean;
   collaboration?: boolean;
+  collaborationAgency?: string;
   isCollaborator?: boolean;
   collaboratorName?: string;
   isExclusive?: boolean;
+  isOffMarket?: boolean;
   createdAt?: string;
   updatedAt?: string;
   selected?: boolean;
@@ -181,7 +183,7 @@ const PropertyCard = ({ property, onClick, selected, onSelect }: PropertyCardPro
   };
 
   const hasPriceDrop = !!p.previousPrice;
-  const isOffMarket = p.status === "Off-market";
+  const isOffMarket = p.isOffMarket ?? p.status === "Off-market";
 
   return (
     <div
@@ -243,7 +245,7 @@ const PropertyCard = ({ property, onClick, selected, onSelect }: PropertyCardPro
               {p.collaboration && (
                 <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 border border-emerald-200 px-2 py-0.5 text-[10px] font-medium text-emerald-700">
                   <Handshake className="h-3 w-3" />
-                  MLS
+                  MLS{p.collaborationAgency ? ` - ${p.collaborationAgency}` : ""}
                 </span>
               )}
               {p.isCollaborator && p.collaboratorName && (
@@ -260,12 +262,10 @@ const PropertyCard = ({ property, onClick, selected, onSelect }: PropertyCardPro
               )}
             </div>
             <div className="flex items-center gap-2">
-              {!isOffMarket && (
-                <span className={`inline-flex items-center gap-1.5 text-xs font-medium rounded-full px-2.5 py-1 ${status.bg} ${status.text}`}>
-                  <span className={`h-1.5 w-1.5 rounded-full ${status.dot}`} />
-                  {p.status}
-                </span>
-              )}
+              <span className={`inline-flex items-center gap-1.5 text-xs font-medium rounded-full px-2.5 py-1 ${status.bg} ${status.text}`}>
+                <span className={`h-1.5 w-1.5 rounded-full ${status.dot}`} />
+                {p.status}
+              </span>
             </div>
           </div>
 
