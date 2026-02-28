@@ -41,7 +41,7 @@ const LuxuryCardPreview = ({ config }: { config: CardDesignConfig }) => {
     border: `1px solid ${c.borderColor}`,
     overflow: "hidden",
     display: isH ? "grid" : "flex",
-    gridTemplateColumns: isH ? "5fr 7fr" : undefined,
+    gridTemplateColumns: isH ? `${c.imageWidth}px 1fr` : undefined,
     flexDirection: isH ? undefined : "column",
   };
 
@@ -55,7 +55,7 @@ const LuxuryCardPreview = ({ config }: { config: CardDesignConfig }) => {
           position: "relative",
           overflow: "hidden",
           height: isH ? "auto" : c.imageHeight,
-          minHeight: isH ? 280 : undefined,
+          minHeight: isH ? c.imageHeight : undefined,
         }}
       >
         <img
