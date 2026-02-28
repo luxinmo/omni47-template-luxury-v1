@@ -9,6 +9,7 @@ import PropertyDetailPage from "@/components/PropertyDetailPage";
 import AddPropertyPage from "@/components/AddPropertyPage";
 import LuxuryLandingPage from "@/components/LuxuryLandingPage";
 import UsersPage from "@/components/UsersPage";
+import Home2LandingPage from "@/components/home-2/Home2LandingPage";
 import ComponentsPage from "@/components/ComponentsPage";
 import CardDesignerPage from "@/components/card-designer/CardDesignerPage";
 
@@ -18,7 +19,7 @@ type View =
   | "agencies" | "users" | "company" | "settings" | "components"
   | "loc-countries" | "loc-provinces" | "loc-regions" | "loc-municipalities" | "loc-municipality-detail" | "loc-borough-form"
   | "imp-fuentes" | "imp-mapeo" | "imp-historial" | "imp-scheduler" | "imp-pendientes"
-  | "luxury-landing" | "card-designer";
+  | "luxury-landing" | "home-2" | "card-designer";
 
 const PlaceholderPage = ({ title }: { title: string }) => (
   <div className="flex-1 overflow-auto">
@@ -151,6 +152,7 @@ const Index = () => {
         {view === "components" && <ComponentsPage />}
         {view === "card-designer" && <CardDesignerPage />}
         {view === "luxury-landing" && <LuxuryLandingPage />}
+        {view === "home-2" && <Home2LandingPage />}
         {view === "users" && <UsersPage />}
         {view === "company" && <PlaceholderPage title="Empresa" />}
         {view === "settings" && <PlaceholderPage title="Ajustes" />}

@@ -7,6 +7,7 @@ const topItems = [
   { icon: Building, label: "Agencias", view: "agencies" },
   { icon: MapPin, label: "Locations", view: "locations" },
   { icon: Gem, label: "Luxury Landing", view: "luxury-landing" },
+  { icon: Gem, label: "Home 2", view: "home-2" },
   { icon: Component, label: "Componentes", view: "components" },
   { icon: CreditCard, label: "Card Designer", view: "card-designer" },
 ];
