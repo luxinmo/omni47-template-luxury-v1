@@ -1,6 +1,9 @@
 import { useState } from "react";
-import { Bed, Bath, Maximize, MapPin, Heart, Share2, ChevronLeft, ChevronRight, X, Check, Car, Waves, Trees, Fence, Wind, Sun, Wifi, ShieldCheck, Phone, Mail, ArrowRight, ChevronDown } from "lucide-react";
+import { Bed, Bath, Maximize, MapPin, Heart, Share2, ChevronLeft, ChevronRight, X, Check, Car, Waves, Trees, Fence, Wind, Sun, Wifi, ShieldCheck, Phone, Mail, ArrowRight, ArrowLeft, ChevronDown, Play, View } from "lucide-react";
 import LuxuryPhoneInput from "./LuxuryPhoneInput";
+import LuxuryMortgageCalculator from "./LuxuryMortgageCalculator";
+import LuxuryPurchaseTaxCalculator from "./LuxuryPurchaseTaxCalculator";
+import LuxuryNearbyPlaces from "./LuxuryNearbyPlaces";
 import heroImg from "@/assets/luxury-hero.jpg";
 import prop1 from "@/assets/luxury-property-1.jpg";
 import prop2 from "@/assets/luxury-property-2.jpg";
@@ -27,6 +30,10 @@ const PROPERTY = {
   ref: "PE-IBZ-2847",
   energyClass: "A",
   status: "Available",
+  hasVideo: true,
+  hasVirtualTour: true,
+  videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+  virtualTourUrl: "https://my.matterport.com/example",
   images: [heroImg, detail1, detail2, detail3, detail4, detail5, prop1, prop2],
   description: `This exceptional contemporary villa is set on an elevated plot offering uninterrupted panoramic views of the Mediterranean Sea and the island of Formentera. Designed by a renowned architectural studio, the property seamlessly blends indoor and outdoor living across 420 m² of impeccably finished living space.
 
@@ -83,12 +90,42 @@ const LuxuryPropertyDetail = () => {
         </div>
       </nav>
 
+      {/* ─── BREADCRUMB BAR (above gallery) ─── */}
+      <div className="max-w-[1400px] mx-auto px-4 lg:px-10 pt-4 pb-2 flex items-center justify-between">
+        <a href="#" className="flex items-center gap-2 text-sm text-luxury-black/60 hover:text-luxury-black transition-colors font-light">
+          <ArrowLeft className="w-4 h-4" /> Back to listings
+        </a>
+        <nav className="hidden sm:flex items-center gap-1.5 text-sm text-luxury-black/50 font-light">
+          {PROPERTY.breadcrumb.map((crumb, i) => (
+            <span key={i} className="flex items-center gap-1.5">
+              {i > 0 && <ChevronRight className="w-3 h-3 text-luxury-black/30" />}
+              <a href="#" className={`hover:text-luxury-black transition-colors ${i === PROPERTY.breadcrumb.length - 1 ? "text-luxury-black/80" : ""}`}>{crumb}</a>
+            </span>
+          ))}
+        </nav>
+      </div>
+
       {/* ─── GALLERY GRID ─── */}
-      <section className="max-w-[1400px] mx-auto px-4 lg:px-10 pt-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-1.5 h-[280px] md:h-[420px] lg:h-[480px]">
+      <section className="max-w-[1400px] mx-auto px-4 lg:px-10">
+        <div className="relative grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-1.5 h-[280px] md:h-[420px] lg:h-[480px]">
           {/* Main image */}
           <div className="md:col-span-2 md:row-span-2 relative overflow-hidden cursor-pointer group" onClick={() => openLightbox(0)}>
             <img src={PROPERTY.images[0]} alt="Main" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+            {/* Video & Tour badges */}
+            <div className="absolute bottom-3 left-3 flex gap-2">
+              {PROPERTY.hasVideo && (
+                <a href={PROPERTY.videoUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}
+                  className="flex items-center gap-1.5 bg-luxury-black/70 backdrop-blur-sm text-white text-xs tracking-wide px-3 py-2 hover:bg-luxury-black/90 transition-all">
+                  <Play className="w-3.5 h-3.5" fill="currentColor" /> Video
+                </a>
+              )}
+              {PROPERTY.hasVirtualTour && (
+                <a href={PROPERTY.virtualTourUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}
+                  className="flex items-center gap-1.5 bg-white/80 backdrop-blur-sm text-luxury-black text-xs tracking-wide px-3 py-2 hover:bg-white transition-all">
+                  <View className="w-3.5 h-3.5" /> 360° Tour
+                </a>
+              )}
+            </div>
           </div>
           {/* Secondary images */}
           {PROPERTY.images.slice(1, 5).map((img, i) => (
@@ -106,15 +143,6 @@ const LuxuryPropertyDetail = () => {
 
       {/* ─── HEADER INFO (full width) ─── */}
       <section className="max-w-[1400px] mx-auto px-6 lg:px-10 pt-8 pb-6">
-        {/* Breadcrumb */}
-        <nav className="flex items-center gap-1.5 text-sm text-luxury-black/50 font-light mb-5">
-          {PROPERTY.breadcrumb.map((crumb, i) => (
-            <span key={i} className="flex items-center gap-1.5">
-              {i > 0 && <ChevronRight className="w-3 h-3 text-luxury-black/30" />}
-              <a href="#" className={`hover:text-luxury-black transition-colors ${i === PROPERTY.breadcrumb.length - 1 ? "text-luxury-black/80" : ""}`}>{crumb}</a>
-            </span>
-          ))}
-        </nav>
 
         <div className="flex items-start justify-between gap-4 mb-3">
           <div>
@@ -189,6 +217,15 @@ const LuxuryPropertyDetail = () => {
                 <MapPin className="w-6 h-6 mr-2" /> Interactive Map
               </div>
             </div>
+
+            {/* Nearby Places */}
+            <LuxuryNearbyPlaces />
+
+            {/* Mortgage Calculator */}
+            <LuxuryMortgageCalculator />
+
+            {/* Purchase Tax Calculator */}
+            <LuxuryPurchaseTaxCalculator />
           </div>
 
           {/* Right: Advisor sticky sidebar */}
