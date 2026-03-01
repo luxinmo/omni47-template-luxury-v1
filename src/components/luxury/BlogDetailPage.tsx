@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, Clock, Calendar, User, Tag, Instagram, Linkedin, MessageCircle, Facebook, Twitter, Share2, ChevronUp } from "lucide-react";
+import { ArrowLeft, Clock, Calendar, User, Tag, Instagram, Linkedin, MessageCircle, Facebook, Twitter, Share2, ChevronUp, Plus, Minus } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 import heroImg from "@/assets/luxury-hero.jpg";
 import prop1 from "@/assets/luxury-property-1.jpg";
@@ -26,6 +26,12 @@ const POSTS: Record<string, any> = {
     author: "Alexandra Morel",
     readTime: 8,
     tags: ["Mediterranean", "Coastal", "Lifestyle"],
+    faq: [
+      { q: "Are these properties currently available for purchase?", a: "Yes, all properties featured in this article are currently listed on the open market through their respective agents. Availability and pricing may change — we recommend contacting the listing agent directly for the most up-to-date information." },
+      { q: "Can international buyers purchase these properties?", a: "Absolutely. Each of these markets welcomes international buyers, though specific regulations and tax implications vary by jurisdiction. Our advisory team can guide you through the legal and financial requirements for each location." },
+      { q: "Is financing available for luxury properties at this price point?", a: "Private banking institutions and specialist lenders offer bespoke mortgage solutions for ultra-prime properties. Terms typically require a minimum 30–40% deposit for non-resident buyers." },
+      { q: "How can I arrange a private viewing?", a: "Contact our concierge team directly or reach out to the listing agent mentioned in each property section. All viewings are conducted by appointment only to ensure discretion and security." },
+    ],
     content: `
       <p>The Mediterranean coast has evolved from a seasonal destination into a strategic lifestyle hub for international buyers seeking year-round luxury. A select number of high-profile residences have entered the market, each offering its own unique narrative of architectural ambition and cultural significance.</p>
 
@@ -71,8 +77,8 @@ const POSTS: Record<string, any> = {
       <p>These properties represent far more than bricks and mortar — they are cultural artefacts, each telling the story of its famous former occupant while offering new owners the chance to write their own chapter in these storied addresses.</p>
     `,
   },
-  "2": { image: prop1, date: "25 Feb 2026", category: "Market Insights", title: "Dual Demand Drives Dubai: The Emirate Welcomes Fresh Buyers Without Losing Its Ultra-Prime Edge", subtitle: "The $500K–$1M segment grew 70% year-over-year, emerging as a primary entry point for international investors.", author: "James Harrington", readTime: 6, tags: ["Dubai", "Investment", "Market"], content: `<p>Dubai's real estate market continues to defy expectations with robust growth across all segments.</p><h2>Market Overview</h2><p>The emirate's strategic positioning between East and West, combined with favourable tax policies and world-class infrastructure, continues to attract both lifestyle buyers and strategic investors.</p><div class="article-property"><img src="${prop2}" alt="Dubai skyline" /><span class="img-caption">Dubai Marina skyline at sunset</span></div><p>Key developments in the Palm Jumeirah and Downtown districts continue to set new benchmarks for luxury living in the region.</p>` },
-  "3": { image: prop3, date: "25 Feb 2026", category: "Architecture", title: "A Majestic Alpine Estate Spanning 130 Hectares of Private Parkland Near Zermatt", subtitle: "This remarkable historic estate stands as one of Europe's most captivating properties.", author: "Sofia Engström", readTime: 5, tags: ["Alpine", "Estate", "Switzerland"], content: `<p>Nestled in the shadow of the Matterhorn, this extraordinary property combines centuries of Swiss heritage with contemporary luxury amenities.</p><div class="article-property"><img src="${heroImg}" alt="Alpine estate" /><span class="img-caption">The estate grounds with the Matterhorn visible in the background</span></div><h2>A Legacy in Stone</h2><p>Originally constructed in the 18th century as a hunting lodge, the property has been meticulously restored and expanded over generations.</p>` },
+  "2": { image: prop1, date: "25 Feb 2026", category: "Market Insights", title: "Dual Demand Drives Dubai: The Emirate Welcomes Fresh Buyers Without Losing Its Ultra-Prime Edge", subtitle: "The $500K–$1M segment grew 70% year-over-year, emerging as a primary entry point for international investors.", author: "James Harrington", readTime: 6, tags: ["Dubai", "Investment", "Market"], faq: [{ q: "Is Dubai a good investment for European buyers?", a: "Dubai offers zero income tax and strong rental yields averaging 6–8% in prime areas, making it increasingly attractive for European investors seeking diversification." }, { q: "What are the residency benefits of buying property in Dubai?", a: "Property purchases above AED 750,000 qualify for a renewable residency visa, while investments above AED 2 million can grant a 10-year Golden Visa." }], content: `<p>Dubai's real estate market continues to defy expectations with robust growth across all segments.</p><h2>Market Overview</h2><p>The emirate's strategic positioning between East and West, combined with favourable tax policies and world-class infrastructure, continues to attract both lifestyle buyers and strategic investors.</p><div class="article-property"><img src="${prop2}" alt="Dubai skyline" /><span class="img-caption">Dubai Marina skyline at sunset</span></div><p>Key developments in the Palm Jumeirah and Downtown districts continue to set new benchmarks for luxury living in the region.</p>` },
+  "3": { image: prop3, date: "25 Feb 2026", category: "Architecture", title: "A Majestic Alpine Estate Spanning 130 Hectares of Private Parkland Near Zermatt", subtitle: "This remarkable historic estate stands as one of Europe's most captivating properties.", author: "Sofia Engström", readTime: 5, tags: ["Alpine", "Estate", "Switzerland"], faq: [{ q: "Are there restrictions on foreign buyers purchasing property in Switzerland?", a: "Yes, the Lex Koller law restricts non-resident foreign nationals from purchasing residential property in most areas. However, exceptions exist for designated tourist zones including parts of Valais near Zermatt." }, { q: "What are the annual maintenance costs for an estate of this size?", a: "For a 130-hectare alpine estate, annual maintenance typically ranges from CHF 200,000 to CHF 500,000, covering grounds management, building upkeep, and seasonal staff." }], content: `<p>Nestled in the shadow of the Matterhorn, this extraordinary property combines centuries of Swiss heritage with contemporary luxury amenities.</p><div class="article-property"><img src="${heroImg}" alt="Alpine estate" /><span class="img-caption">The estate grounds with the Matterhorn visible in the background</span></div><h2>A Legacy in Stone</h2><p>Originally constructed in the 18th century as a hunting lodge, the property has been meticulously restored and expanded over generations.</p>` },
 };
 
 const TRENDING = [
@@ -97,6 +103,39 @@ function useContainerScrolled(ref: React.RefObject<HTMLElement | null>, threshol
   }, [ref, threshold]);
   return scrolled;
 }
+/* ─── FAQ ACCORDION ─── */
+const FaqSection = ({ items }: { items: { q: string; a: string }[] }) => {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  return (
+    <div className="mt-12 pt-8" style={{ borderTop: `1px solid ${p.border}` }}>
+      <h3 className="text-[13px] tracking-[0.15em] uppercase font-medium mb-6" style={{ color: p.text }}>Questions & Answers</h3>
+      <div className="space-y-0">
+        {items.map((item, i) => {
+          const isOpen = openIndex === i;
+          return (
+            <div key={i} style={{ borderBottom: `1px solid ${p.border}` }}>
+              <button
+                onClick={() => setOpenIndex(isOpen ? null : i)}
+                className="w-full flex items-start justify-between gap-4 py-5 text-left transition-colors"
+              >
+                <span className="text-[14px] font-normal leading-[1.5]" style={{ color: isOpen ? p.text : p.muted }}>{item.q}</span>
+                <span className="shrink-0 mt-0.5" style={{ color: p.accent }}>
+                  {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+                </span>
+              </button>
+              <div
+                className="overflow-hidden transition-all duration-300"
+                style={{ maxHeight: isOpen ? "300px" : "0", opacity: isOpen ? 1 : 0 }}
+              >
+                <p className="text-[13px] font-light leading-[1.8] pb-5 pr-8" style={{ color: p.muted }}>{item.a}</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
 
 const BlogDetailPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -202,6 +241,11 @@ const BlogDetailPage = () => {
                 <p className="text-[12px] font-light mt-0.5" style={{ color: p.muted }}>Senior Editor at {BRAND_NAME}</p>
               </div>
             </div>
+
+            {/* FAQ Section */}
+            {post.faq && post.faq.length > 0 && (
+              <FaqSection items={post.faq} />
+            )}
           </article>
 
           {/* Floating social sidebar */}
