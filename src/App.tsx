@@ -17,6 +17,7 @@ import ContactPage from "./components/luxury/ContactPage";
 import Home2PropertiesPage from "./components/home-2/Home2PropertiesPage";
 import PropertyPdfV1 from "./components/luxury/pdf/PropertyPdfV1";
 import PropertyPdfV2 from "./components/luxury/pdf/PropertyPdfV2";
+import Omni47DemoApp from "./components/omni47/demo/Omni47DemoApp";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +41,18 @@ const App = () => (
           <Route path="/page/:slug" element={<SystemPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/home2/properties" element={<Home2PropertiesPage />} />
+
+          {/* OMNI47 Template Routes */}
+          <Route path="/omni47" element={<Omni47DemoApp page="home" />} />
+          <Route path="/omni47/properties" element={<Omni47DemoApp page="properties" />} />
+          <Route path="/omni47/property/:id" element={<Omni47DemoApp page="property-detail" />} />
+          <Route path="/omni47/page/:slug" element={<Omni47DemoApp page="static-page" />} />
+          <Route path="/omni47/contact" element={<Omni47DemoApp page="contact" />} />
+          <Route path="/omni47/blog" element={<Omni47DemoApp page="blog" />} />
+          <Route path="/omni47/blog/:slug" element={<Omni47DemoApp page="blog-post" />} />
+          <Route path="/omni47/admin/pages" element={<Omni47DemoApp page="admin-pages" />} />
+          <Route path="/omni47/admin/blog" element={<Omni47DemoApp page="admin-blog" />} />
+
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
