@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import {
   Bed, Bath, Maximize, MapPin, Heart, Share2, ChevronLeft, ChevronRight,
   X, Check, Car, Fence, Phone, Mail, ArrowLeft, Play, View, FileDown,
-  Clock, Shield, Sparkles, ChevronDown, CalendarDays,
+  Clock, Shield, Sparkles, ChevronDown, CalendarDays, Star, Home,
 } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
@@ -29,6 +29,8 @@ const PROPERTY = {
   price: "€4,650,000",
   originalPrice: "€5,200,000",
   discount: 11,
+  rentalPrice: "€18,500/mes",
+  alsoForRent: true,
   beds: 5, baths: 4, sqm: 420, plot: 1200, garage: 2, year: 2023,
   ref: "PE-IBZ-2847",
   energyClass: "A",
@@ -50,6 +52,7 @@ Upstairs, four additional en-suite bedrooms each enjoy their own terrace and sea
     "Terrace", "Staff Quarters", "Elevator", "Laundry Room",
   ],
   highlights: [
+    { icon: Star, label: "Exclusiva", detail: "Propiedad exclusiva" },
     { icon: Shield, label: "Gated Community", detail: "24/7 security" },
     { icon: Sparkles, label: "Newly Built", detail: "Completed 2023" },
     { icon: Clock, label: "Turnkey", detail: "Move-in ready" },
@@ -215,6 +218,15 @@ const LuxuryPropertyDetailV2 = () => {
               </div>
             </div>
           ))}
+          {PROPERTY.alsoForRent && (
+            <div className="flex items-center gap-2.5 bg-luxury-gold/[0.08] border border-luxury-gold/20 px-4 py-2.5">
+              <Home className="w-4 h-4 text-luxury-gold" strokeWidth={1.3} />
+              <div>
+                <p className="text-[13px] font-normal text-luxury-black">También en alquiler</p>
+                <p className="text-[12px] text-luxury-gold font-medium">{PROPERTY.rentalPrice}</p>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
