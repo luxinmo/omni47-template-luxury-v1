@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound";
 import LuxuryPropertyDetail from "./components/luxury/LuxuryPropertyDetail";
 import LuxuryPropertyDetailV2 from "./components/luxury/LuxuryPropertyDetailV2";
 import LuxuryPropertyDetailV3 from "./components/luxury/LuxuryPropertyDetailV3";
+import LuxuryPropertyDetailV4 from "./components/luxury/LuxuryPropertyDetailV4";
 import LuxuryPropertyListing from "./components/luxury/LuxuryPropertyListing";
 import BlogListingPage from "./components/luxury/BlogListingPage";
 import Home2PropertiesPage from "./components/home-2/Home2PropertiesPage";
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/property/:id" element={<LuxuryPropertyDetail />} />
           <Route path="/property-v2/:id" element={<LuxuryPropertyDetailV2 />} />
           <Route path="/property-v3/:id" element={<LuxuryPropertyDetailV3 />} />
+          <Route path="/property-v4/:id" element={<LuxuryPropertyDetailV4 />} />
           <Route path="/pdf-v1/:id" element={<PropertyPdfV1 />} />
           <Route path="/pdf-v2/:id" element={<PropertyPdfV2 />} />
           <Route path="/blog" element={<BlogListingPage />} />
