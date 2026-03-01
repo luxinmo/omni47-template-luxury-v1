@@ -137,9 +137,13 @@ const PropertiesPage = ({ onViewProperty, onAddProperty }: { onViewProperty?: ()
     <div className="flex-1 overflow-auto pb-20 xl:pb-0">
       {/* Header */}
       <div className="px-4 sm:px-8 pt-6 sm:pt-8 pb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">Propiedades</h1>
-          <p className="text-sm text-muted-foreground mt-1">Catálogo de propiedades inmobiliarias</p>
+        <div className="max-w-2xl">
+          <h1 className="text-2xl sm:text-3xl font-light text-foreground tracking-tight" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+            Luxury Homes in Ibiza & Costa Blanca
+          </h1>
+          <p className="text-[13px] sm:text-[14px] text-muted-foreground mt-2 leading-relaxed font-light">
+            Discover the finest selection of luxury villas, penthouses, fincas and new-build properties across Ibiza and the Costa Blanca. From beachfront estates with panoramic sea views to exclusive golf-side residences, explore hand-picked homes curated for the most discerning buyers.
+          </p>
         </div>
         <Button className="gap-2 shrink-0" onClick={onAddProperty}>
           <Plus className="h-4 w-4" />
