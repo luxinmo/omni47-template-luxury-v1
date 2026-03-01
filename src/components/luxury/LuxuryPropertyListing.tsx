@@ -455,50 +455,50 @@ const PropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
       {/* Info */}
       <div className="md:col-span-7 flex flex-col justify-between p-5 md:p-6 lg:p-8">
         <div>
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2.5">
-              <span className="text-[10px] tracking-[0.18em] uppercase border border-luxury-black/20 text-luxury-black/60 px-2.5 py-1 font-medium">{property.tag}</span>
-              <span className="text-[11px] text-luxury-black/45 font-light italic">{property.style}</span>
+          <div className="flex items-center justify-between mb-2.5">
+            <div className="flex items-center gap-3">
+              <span className="text-[11px] tracking-[0.15em] uppercase border border-luxury-black/20 text-luxury-black/55 px-2.5 py-1 font-medium">{property.tag}</span>
+              <span className="text-[13px] text-luxury-black/45 font-light">Detached houses <span className="mx-1 text-luxury-black/25">|</span> <span className="italic">{property.style}</span></span>
             </div>
             <button onClick={(e) => { e.preventDefault(); }} className="text-luxury-black/30 hover:text-luxury-black transition-colors">
-              <Mail className="w-4 h-4" />
+              <Mail className="w-4.5 h-4.5" />
             </button>
           </div>
 
-          <p className="text-[11px] tracking-[0.15em] uppercase text-luxury-black/50 mb-1.5">{property.location}</p>
-          <h2 className="text-[16px] md:text-[18px] font-medium text-luxury-black leading-snug mb-3 group-hover:text-luxury-black/75 transition-colors duration-300">
+          <p className="text-[12px] tracking-[0.14em] uppercase text-luxury-black/45 mb-2">{property.location}</p>
+          <h2 className="text-[17px] md:text-[19px] font-medium text-luxury-black leading-snug mb-3 group-hover:text-luxury-black/75 transition-colors duration-300">
             {property.title}
           </h2>
-          <p className="text-[13px] text-luxury-black/55 font-light leading-relaxed mb-4 line-clamp-2">
+          <p className="text-[14px] text-luxury-black/50 font-light leading-relaxed mb-4 line-clamp-2">
             {property.excerpt}
           </p>
 
           {/* Specs */}
-          <div className="flex items-center gap-6 mb-4">
+          <div className="flex items-center gap-7 mb-4">
             <div className="text-center">
-              <p className="text-[10px] tracking-[0.1em] uppercase text-luxury-black/40 mb-0.5">Beds</p>
-              <p className="text-[15px] text-luxury-black font-light">{property.beds}</p>
+              <p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/35 mb-0.5">Beds</p>
+              <p className="text-[16px] text-luxury-black font-light">{property.beds}</p>
             </div>
             <div className="text-center">
-              <p className="text-[10px] tracking-[0.1em] uppercase text-luxury-black/40 mb-0.5">Baths</p>
-              <p className="text-[15px] text-luxury-black font-light">{property.baths}</p>
+              <p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/35 mb-0.5">Baths</p>
+              <p className="text-[16px] text-luxury-black font-light">{property.baths}</p>
             </div>
             <div className="text-center">
-              <p className="text-[10px] tracking-[0.1em] uppercase text-luxury-black/40 mb-0.5">Built</p>
-              <p className="text-[15px] text-luxury-black font-light">{property.sqm} m²</p>
+              <p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/35 mb-0.5">Built</p>
+              <p className="text-[16px] text-luxury-black font-light">{property.sqm} m²</p>
             </div>
             {property.plot && (
               <div className="text-center">
-                <p className="text-[10px] tracking-[0.1em] uppercase text-luxury-black/40 mb-0.5">Plot</p>
-                <p className="text-[15px] text-luxury-black font-light">{property.plot.toLocaleString()} m²</p>
+                <p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/35 mb-0.5">Plot</p>
+                <p className="text-[16px] text-luxury-black font-light">{property.plot.toLocaleString()} m²</p>
               </div>
             )}
           </div>
 
           {/* Feature tags */}
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2.5">
             {property.features.map((f, i) => (
-              <span key={i} className="text-[11px] text-luxury-black/50 font-light flex items-center gap-1">
+              <span key={i} className="text-[12px] text-luxury-black/45 font-light flex items-center gap-1.5">
                 <span className="w-1 h-1 rounded-full bg-luxury-black/20" />
                 {f}
               </span>
@@ -508,7 +508,7 @@ const PropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
 
         {/* Price */}
         <div className="mt-5 pt-4 border-t border-neutral-100">
-          <p className="text-xl md:text-2xl font-light text-luxury-black tracking-tight">{property.price}</p>
+          <p className="text-2xl md:text-[28px] font-extralight text-luxury-black tracking-tight">{property.price}</p>
         </div>
       </div>
     </a>
