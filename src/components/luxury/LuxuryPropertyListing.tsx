@@ -456,38 +456,38 @@ const PropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
       <div className="md:col-span-7 flex flex-col justify-between p-5 md:p-6 lg:p-8">
         <div>
           <div className="flex items-center justify-between mb-2.5">
-            <span className="text-[11px] tracking-[0.15em] uppercase border border-luxury-black/20 text-luxury-black/55 px-2.5 py-1 font-medium">{property.tag}</span>
+            <span className="text-[11px] tracking-[0.15em] uppercase border border-luxury-black/30 text-luxury-black/70 px-2.5 py-1 font-medium">{property.tag}</span>
             <button onClick={(e) => { e.preventDefault(); }} className="text-luxury-black/30 hover:text-luxury-black transition-colors">
               <Mail className="w-4.5 h-4.5" />
             </button>
           </div>
 
-          <p className="text-[12px] tracking-[0.14em] uppercase text-luxury-black/45 mb-1">{property.location}</p>
+          <p className="text-[12px] tracking-[0.14em] uppercase text-luxury-black/60 mb-1">{property.location}</p>
           <h2 className="text-[17px] md:text-[19px] font-medium text-luxury-black leading-snug mb-1.5 group-hover:text-luxury-black/75 transition-colors duration-300">
             {property.title}
           </h2>
-          <p className="text-[13px] text-luxury-black/40 font-light mb-3">Detached houses <span className="mx-1 text-luxury-black/20">|</span> <span className="italic">{property.style}</span></p>
-          <p className="text-[14px] text-luxury-black/50 font-light leading-relaxed mb-4 line-clamp-2">
+          <p className="text-[13px] text-luxury-black/55 font-light mb-3">Detached houses <span className="mx-1 text-luxury-black/30">|</span> <span className="italic">{property.style}</span></p>
+          <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-4 line-clamp-2">
             {property.excerpt}
           </p>
 
           {/* Specs */}
           <div className="flex items-center gap-7 mb-4">
             <div className="text-center">
-              <p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/35 mb-0.5">Beds</p>
+              <p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Beds</p>
               <p className="text-[16px] text-luxury-black font-light">{property.beds}</p>
             </div>
             <div className="text-center">
-              <p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/35 mb-0.5">Baths</p>
+              <p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Baths</p>
               <p className="text-[16px] text-luxury-black font-light">{property.baths}</p>
             </div>
             <div className="text-center">
-              <p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/35 mb-0.5">Built</p>
+              <p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Built</p>
               <p className="text-[16px] text-luxury-black font-light">{property.sqm} m²</p>
             </div>
             {property.plot && (
               <div className="text-center">
-                <p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/35 mb-0.5">Plot</p>
+                <p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Plot</p>
                 <p className="text-[16px] text-luxury-black font-light">{property.plot.toLocaleString()} m²</p>
               </div>
             )}
@@ -496,8 +496,8 @@ const PropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
           {/* Feature tags */}
           <div className="flex flex-wrap gap-2.5">
             {property.features.map((f, i) => (
-              <span key={i} className="text-[12px] text-luxury-black/45 font-light flex items-center gap-1.5">
-                <span className="w-1 h-1 rounded-full bg-luxury-black/20" />
+              <span key={i} className="text-[12px] text-luxury-black/55 font-light flex items-center gap-1.5">
+                <span className="w-1 h-1 rounded-full bg-luxury-black/30" />
                 {f}
               </span>
             ))}
@@ -634,18 +634,20 @@ const LuxuryPropertyListing = () => {
         )}
 
         {/* Results header */}
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h1 className="text-2xl md:text-3xl font-extralight text-luxury-black tracking-[0.02em] leading-snug">Luxury Homes in Ibiza & Costa Blanca</h1>
-            <p className="text-[14px] sm:text-[15px] text-luxury-black/50 font-light mt-3 max-w-3xl leading-relaxed">
-              Discover the finest selection of luxury villas, penthouses, fincas and new-build properties across Ibiza and the Costa Blanca. From beachfront estates with panoramic sea views to exclusive golf-side residences, explore hand-picked homes curated for the most discerning buyers.
-            </p>
-            <p className="text-[13px] text-luxury-black/40 font-light mt-3">{PROPERTIES.length} properties found</p>
-          </div>
+        <div className="mb-8">
+          <h1 className="text-2xl md:text-3xl font-extralight text-luxury-black tracking-[0.02em] leading-snug">Luxury Homes in Ibiza & Costa Blanca</h1>
+          <p className="text-[14px] sm:text-[15px] text-luxury-black/60 font-light mt-3 max-w-3xl leading-relaxed">
+            Discover the finest selection of luxury villas, penthouses, fincas and new-build properties across Ibiza and the Costa Blanca. From beachfront estates with panoramic sea views to exclusive golf-side residences, explore hand-picked homes curated for the most discerning buyers.
+          </p>
+        </div>
+
+        {/* Results count + Sort */}
+        <div className="flex items-center justify-between mb-5 pb-4 border-b border-neutral-200">
+          <p className="text-[14px] text-luxury-black/55 font-light">{PROPERTIES.length} properties found</p>
           <div className="flex items-center gap-2">
-            <span className="text-[12px] text-luxury-black/45 font-light">Sort:</span>
-            <button className="text-[12px] text-luxury-black font-medium flex items-center gap-1">
-              Premium <ChevronDown className="w-3 h-3" />
+            <span className="text-[13px] text-luxury-black/50 font-light">Sort:</span>
+            <button className="text-[13px] text-luxury-black font-medium flex items-center gap-1">
+              Premium <ChevronDown className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>
