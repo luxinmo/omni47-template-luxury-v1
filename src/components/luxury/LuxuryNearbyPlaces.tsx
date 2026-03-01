@@ -51,22 +51,22 @@ const CATEGORIES = [
 const LuxuryNearbyPlaces = () => {
   return (
     <div className="pt-6 border-t border-neutral-100">
-      <p className="text-[12px] tracking-[0.25em] uppercase text-luxury-black/40 font-light mb-5">What's Nearby</p>
+      <p className="text-[12px] tracking-[0.25em] uppercase text-luxury-black/60 font-light mb-5">What's Nearby</p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {CATEGORIES.map((cat, ci) => (
           <div key={ci}>
             <div className="flex items-center gap-1.5 mb-3">
               <cat.icon className={`w-4 h-4 ${cat.color}`} strokeWidth={1.5} />
-              <h3 className="text-[13px] font-medium tracking-[0.12em] uppercase text-luxury-black/60">{cat.label}</h3>
+              <h3 className="text-[13px] font-medium tracking-[0.12em] uppercase text-luxury-black/75">{cat.label}</h3>
             </div>
             <div className="space-y-2">
               {cat.places.map((place, pi) => (
                 <div key={pi} className="flex items-center justify-between text-[14px]">
-                  <span className="text-luxury-black/65 font-light">{place.name}</span>
-                  <div className="flex items-center gap-2 text-luxury-black/40 text-[13px] font-light">
+                  <span className="text-luxury-black/80 font-light">{place.name}</span>
+                  <div className="flex items-center gap-2 text-luxury-black/55 text-[13px] font-light">
                     <span>{place.distance}</span>
-                    <span className="text-luxury-black/20">·</span>
+                    <span className="text-luxury-black/30">·</span>
                     <span>{"walk" in place ? `🚶 ${place.walk}` : `🚗 ${place.drive}`}</span>
                   </div>
                 </div>

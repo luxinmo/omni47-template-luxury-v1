@@ -92,14 +92,14 @@ const LuxuryPropertyDetail = () => {
 
       {/* ─── BREADCRUMB BAR ─── */}
       <div className="max-w-[1400px] mx-auto px-4 lg:px-10 pt-4 pb-2.5 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-1.5 text-[13px] text-luxury-black/50 hover:text-luxury-black transition-colors font-light tracking-wide">
+        <a href="#" className="flex items-center gap-1.5 text-[13px] text-luxury-black/70 hover:text-luxury-black transition-colors font-light tracking-wide">
           <ArrowLeft className="w-3.5 h-3.5" /> Back to listings
         </a>
-        <nav className="hidden sm:flex items-center gap-1 text-[13px] text-luxury-black/40 font-light">
+        <nav className="hidden sm:flex items-center gap-1 text-[13px] text-luxury-black/60 font-light">
           {PROPERTY.breadcrumb.map((crumb, i) => (
             <span key={i} className="flex items-center gap-1">
-              {i > 0 && <ChevronRight className="w-3 h-3 text-luxury-black/25" />}
-              <a href="#" className={`hover:text-luxury-black transition-colors ${i === PROPERTY.breadcrumb.length - 1 ? "text-luxury-black/65" : ""}`}>{crumb}</a>
+              {i > 0 && <ChevronRight className="w-3 h-3 text-luxury-black/35" />}
+              <a href="#" className={`hover:text-luxury-black transition-colors ${i === PROPERTY.breadcrumb.length - 1 ? "text-luxury-black/80" : ""}`}>{crumb}</a>
             </span>
           ))}
         </nav>
@@ -146,15 +146,15 @@ const LuxuryPropertyDetail = () => {
         <h1 className="text-[22px] md:text-[26px] font-light text-luxury-black leading-snug tracking-[0.01em] mb-2">{PROPERTY.title}</h1>
         
         <div className="flex items-center gap-3 mb-5">
-          <span className="text-[12px] tracking-[0.15em] uppercase text-luxury-black/40 font-light">Ref: {PROPERTY.ref}</span>
-          <span className="w-px h-3 bg-luxury-black/15" />
-          <span className="text-[12px] tracking-[0.12em] uppercase text-luxury-black/40 font-light">{PROPERTY.breadcrumb.slice(-2).join(" · ")}</span>
+          <span className="text-[12px] tracking-[0.15em] uppercase text-luxury-black/60 font-light">Ref: {PROPERTY.ref}</span>
+          <span className="w-px h-3 bg-luxury-black/20" />
+          <span className="text-[12px] tracking-[0.12em] uppercase text-luxury-black/60 font-light">{PROPERTY.breadcrumb.slice(-2).join(" · ")}</span>
         </div>
 
         <div className="flex items-start justify-between gap-4 mb-5">
           <div className="flex items-baseline gap-2.5 flex-wrap">
             <p className="text-[32px] md:text-[38px] font-extralight text-luxury-black tracking-tight">{PROPERTY.price}</p>
-            <span className="text-[16px] text-luxury-black/30 line-through font-light">{PROPERTY.originalPrice}</span>
+            <span className="text-[16px] text-luxury-black/45 line-through font-light">{PROPERTY.originalPrice}</span>
             <span className="text-[12px] font-medium text-red-600/80 bg-red-50 px-2 py-0.5 tracking-wide">-{PROPERTY.discount}%</span>
           </div>
           <div className="flex gap-2">
@@ -176,10 +176,10 @@ const LuxuryPropertyDetail = () => {
             { icon: Fence, label: "Plot", value: `${PROPERTY.plot} m²` },
             { icon: Car, label: "Garage", value: PROPERTY.garage },
           ].map((s, i) => (
-            <div key={i} className="flex items-center gap-2 text-[14px] text-luxury-black/70">
-              <s.icon className="w-4 h-4 text-luxury-black/40" strokeWidth={1.3} />
+            <div key={i} className="flex items-center gap-2 text-[14px] text-luxury-black/85">
+              <s.icon className="w-4 h-4 text-luxury-black/50" strokeWidth={1.3} />
               <span className="font-normal">{s.value}</span>
-              <span className="text-luxury-black/40 text-[13px] font-light">{s.label}</span>
+              <span className="text-luxury-black/55 text-[13px] font-light">{s.label}</span>
             </div>
           ))}
         </div>
@@ -192,19 +192,19 @@ const LuxuryPropertyDetail = () => {
           <div className="flex-1 min-w-0 space-y-8">
             {/* Description */}
             <div className="pt-6 border-t border-neutral-100">
-              <p className="text-[12px] tracking-[0.25em] uppercase text-luxury-black/40 font-light mb-4">Description</p>
-              <div className="text-[15px] leading-[1.85] text-luxury-black/65 font-light whitespace-pre-line">
+              <p className="text-[12px] tracking-[0.25em] uppercase text-luxury-black/60 font-light mb-4">Description</p>
+              <div className="text-[15px] leading-[1.85] text-luxury-black/80 font-light whitespace-pre-line">
                 {PROPERTY.description}
               </div>
             </div>
 
             {/* Features */}
             <div className="pt-6 border-t border-neutral-100">
-              <p className="text-[12px] tracking-[0.25em] uppercase text-luxury-black/40 font-light mb-4">Features & Amenities</p>
+              <p className="text-[12px] tracking-[0.25em] uppercase text-luxury-black/60 font-light mb-4">Features & Amenities</p>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-5 gap-y-3">
                 {PROPERTY.features.map((f, i) => (
-                  <div key={i} className="flex items-center gap-2 text-[14px] text-luxury-black/65 font-light">
-                    <Check className="w-3.5 h-3.5 text-luxury-black/35" strokeWidth={1.5} />
+                  <div key={i} className="flex items-center gap-2 text-[14px] text-luxury-black/80 font-light">
+                    <Check className="w-3.5 h-3.5 text-luxury-black/50" strokeWidth={1.5} />
                     {f}
                   </div>
                 ))}
@@ -213,9 +213,9 @@ const LuxuryPropertyDetail = () => {
 
             {/* Map */}
             <div className="pt-6 border-t border-neutral-100">
-              <p className="text-[12px] tracking-[0.25em] uppercase text-luxury-black/40 font-light mb-3">Location</p>
-              <p className="text-[14px] text-luxury-black/50 font-light mb-4">{PROPERTY.breadcrumb.join(" · ")}</p>
-              <div className="bg-neutral-50 h-[240px] flex items-center justify-center text-luxury-black/20 text-[14px] font-light">
+              <p className="text-[12px] tracking-[0.25em] uppercase text-luxury-black/60 font-light mb-3">Location</p>
+              <p className="text-[14px] text-luxury-black/65 font-light mb-4">{PROPERTY.breadcrumb.join(" · ")}</p>
+              <div className="bg-neutral-50 h-[240px] flex items-center justify-center text-luxury-black/35 text-[14px] font-light">
                 <MapPin className="w-5 h-5 mr-1.5" /> Interactive Map
               </div>
             </div>
@@ -234,9 +234,9 @@ const LuxuryPropertyDetail = () => {
           <div className="w-full lg:w-[340px] shrink-0">
             <div className="lg:sticky lg:top-[72px]">
               <div className="border border-neutral-200/80 p-6">
-                <p className="text-[11px] tracking-[0.25em] uppercase text-luxury-black/45 mb-3 font-light">Your Advisor</p>
+                <p className="text-[12px] tracking-[0.25em] uppercase text-luxury-black/60 mb-3 font-light">Your Advisor</p>
                 <h3 className="text-[16px] font-normal text-luxury-black mb-0.5">{PROPERTY.agent.name}</h3>
-                <p className="text-[14px] text-luxury-black/45 font-light mb-5">{PROPERTY.agent.role}</p>
+                <p className="text-[14px] text-luxury-black/60 font-light mb-5">{PROPERTY.agent.role}</p>
 
                 {/* Contact Form */}
                 <form className="space-y-2.5 mb-5" onSubmit={(e) => e.preventDefault()}>
@@ -246,7 +246,7 @@ const LuxuryPropertyDetail = () => {
                   <textarea placeholder="I'm interested in this property..." rows={3} className="w-full border border-neutral-200 bg-white px-3.5 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/30 focus:outline-none focus:border-luxury-black/30 transition-colors duration-300 resize-none" />
                   <label className="flex items-start gap-2 cursor-pointer">
                     <input type="checkbox" className="mt-0.5 accent-luxury-black" />
-                    <span className="text-[12px] text-luxury-black/45 font-light leading-relaxed">
+                    <span className="text-[12px] text-luxury-black/65 font-light leading-relaxed">
                       I accept the <a href="#" className="underline hover:text-luxury-black transition-colors">terms</a> and <a href="#" className="underline hover:text-luxury-black transition-colors">privacy policy</a>.
                     </span>
                   </label>
@@ -255,7 +255,7 @@ const LuxuryPropertyDetail = () => {
                   </button>
                 </form>
 
-                <a href={`tel:${PROPERTY.agent.phone}`} className="flex items-center justify-center gap-1.5 border border-luxury-black/15 text-luxury-black/55 text-[13px] tracking-[0.15em] uppercase py-3 w-full hover:bg-luxury-black hover:text-white transition-all duration-300 font-light">
+                <a href={`tel:${PROPERTY.agent.phone}`} className="flex items-center justify-center gap-1.5 border border-luxury-black/20 text-luxury-black/70 text-[13px] tracking-[0.15em] uppercase py-3 w-full hover:bg-luxury-black hover:text-white transition-all duration-300 font-light">
                   <Phone className="w-4 h-4" /> Call Now
                 </a>
               </div>
@@ -266,7 +266,7 @@ const LuxuryPropertyDetail = () => {
 
       {/* ─── SIMILAR PROPERTIES ─── */}
       <section className="max-w-[1400px] mx-auto px-6 lg:px-10 py-10 border-t border-neutral-100">
-        <p className="text-[12px] tracking-[0.25em] uppercase text-luxury-black/40 font-light mb-6">Similar Properties</p>
+        <p className="text-[12px] tracking-[0.25em] uppercase text-luxury-black/60 font-light mb-6">Similar Properties</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {SIMILAR.map((p, i) => (
             <a key={i} href="#" className="group">
@@ -276,8 +276,8 @@ const LuxuryPropertyDetail = () => {
               <div className="pt-3 space-y-1">
                 <p className="text-[18px] font-light text-luxury-black/80 tracking-tight">{p.price}</p>
                 <h3 className="text-[15px] font-light text-luxury-black leading-snug">{p.name}</h3>
-                <p className="text-[13px] text-luxury-black/45 font-light flex items-center gap-1"><MapPin className="w-3.5 h-3.5" /> {p.location}</p>
-                <div className="flex items-center gap-3 pt-1 text-[13px] text-luxury-black/45 font-light">
+                <p className="text-[13px] text-luxury-black/60 font-light flex items-center gap-1"><MapPin className="w-3.5 h-3.5" /> {p.location}</p>
+                <div className="flex items-center gap-3 pt-1 text-[13px] text-luxury-black/60 font-light">
                   <span className="flex items-center gap-1"><Bed className="w-3.5 h-3.5" /> {p.beds}</span>
                   <span className="flex items-center gap-1"><Bath className="w-3.5 h-3.5" /> {p.baths}</span>
                   <span className="flex items-center gap-1"><Maximize className="w-3.5 h-3.5" /> {p.sqm} m²</span>
@@ -291,9 +291,9 @@ const LuxuryPropertyDetail = () => {
       {/* ─── NEWSLETTER ─── */}
       <section className="py-12 bg-neutral-50/50">
         <div className="max-w-lg mx-auto px-6 text-center">
-          <p className="text-[11px] tracking-[0.35em] uppercase text-luxury-black/40 mb-3 font-light">Stay Informed</p>
+          <p className="text-[12px] tracking-[0.35em] uppercase text-luxury-black/60 mb-3 font-light">Stay Informed</p>
           <h2 className="text-[24px] font-extralight text-luxury-black tracking-[0.02em]">The Private List</h2>
-          <p className="text-[14px] text-luxury-black/50 font-light mt-3 mb-7 leading-relaxed">
+          <p className="text-[14px] text-luxury-black/65 font-light mt-3 mb-7 leading-relaxed">
             Receive exclusive off-market listings and invitations to private viewings — delivered discreetly to your inbox.
           </p>
           <form className="flex flex-col sm:flex-row gap-2.5" onSubmit={(e) => e.preventDefault()}>
@@ -307,8 +307,8 @@ const LuxuryPropertyDetail = () => {
       <footer className="bg-luxury-black">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <span className="text-[14px] tracking-[0.3em] text-white/30 font-light uppercase">{BRAND_NAME}</span>
-            <p className="text-[12px] text-white/15 tracking-wider font-light">© 2025 {BRAND_NAME}. All rights reserved.</p>
+            <span className="text-[14px] tracking-[0.3em] text-white/50 font-light uppercase">{BRAND_NAME}</span>
+            <p className="text-[12px] text-white/30 tracking-wider font-light">© 2025 {BRAND_NAME}. All rights reserved.</p>
           </div>
         </div>
       </footer>
