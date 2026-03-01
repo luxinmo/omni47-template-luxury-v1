@@ -5,7 +5,7 @@ import {
   Clock, Shield, Sparkles, ChevronDown,
 } from "lucide-react";
 import LuxuryPhoneInput from "./LuxuryPhoneInput";
-import LuxuryMortgageCalculatorV2 from "./LuxuryMortgageCalculatorV2";
+import LuxuryMortgageCalculatorV3 from "./LuxuryMortgageCalculatorV3";
 import LuxuryNearbyPlaces from "./LuxuryNearbyPlaces";
 import heroImg from "@/assets/luxury-hero.jpg";
 import prop1 from "@/assets/luxury-property-1.jpg";
@@ -91,13 +91,13 @@ const LuxuryPropertyDetailV2 = () => {
         {/* ─── NAV (over image) ─── */}
         <nav className="absolute top-0 inset-x-0 z-50">
           <div className="max-w-[1400px] mx-auto flex items-center justify-between px-6 lg:px-10 h-[56px]">
-            <a href="/" className="text-[14px] tracking-[0.4em] text-white/90 font-extralight uppercase">{BRAND}</a>
+            <a href="/" className="text-[14px] tracking-[0.34em] text-white font-normal uppercase [text-shadow:0_1px_2px_rgba(0,0,0,0.45)]">{BRAND}</a>
             <div className="hidden md:flex items-center gap-8">
               {["Properties", "Rentals", "About", "Contact"].map((l) => (
-                <a key={l} href="#" className="text-[12px] tracking-[0.2em] uppercase text-white/65 hover:text-white transition-colors duration-300 font-light">{l}</a>
+                <a key={l} href="#" className="text-[12px] tracking-[0.16em] uppercase text-white/90 hover:text-white transition-colors duration-300 font-medium [text-shadow:0_1px_2px_rgba(0,0,0,0.45)]">{l}</a>
               ))}
             </div>
-            <button className="md:hidden text-white/70">
+            <button className="md:hidden text-white/90 [text-shadow:0_1px_2px_rgba(0,0,0,0.45)]">
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.2} d="M4 6h16M4 12h16M4 18h16" /></svg>
             </button>
           </div>
@@ -107,16 +107,16 @@ const LuxuryPropertyDetailV2 = () => {
         <div className="absolute bottom-0 left-0 right-0 px-6 lg:px-10 pb-8 max-w-[1400px] mx-auto">
           <div className="flex items-center gap-2 mb-3">
             {PROPERTY.breadcrumb.map((crumb, i) => (
-              <span key={i} className="flex items-center gap-2 text-[12px] tracking-[0.15em] uppercase text-white/60 font-light">
-                {i > 0 && <span className="text-white/30">·</span>}
+              <span key={i} className="flex items-center gap-2 text-[12px] tracking-[0.12em] uppercase text-white/85 font-medium [text-shadow:0_1px_2px_rgba(0,0,0,0.45)]">
+                {i > 0 && <span className="text-white/60">·</span>}
                 {crumb}
               </span>
             ))}
           </div>
-          <h1 className="text-[26px] md:text-[34px] lg:text-[40px] font-extralight text-white leading-[1.15] tracking-[0.02em] uppercase max-w-3xl">
+          <h1 className="text-[26px] md:text-[34px] lg:text-[40px] font-normal text-white leading-[1.15] tracking-[0.015em] uppercase max-w-3xl [text-shadow:0_2px_6px_rgba(0,0,0,0.45)]">
             {PROPERTY.title}
           </h1>
-          <p className="text-[14px] text-white/60 font-light mt-2 tracking-wide">{PROPERTY.subtitle}</p>
+          <p className="text-[14px] text-white/90 font-medium mt-2 tracking-[0.03em] [text-shadow:0_1px_2px_rgba(0,0,0,0.45)]">{PROPERTY.subtitle}</p>
         </div>
 
         {/* Media badges */}
@@ -257,7 +257,7 @@ const LuxuryPropertyDetailV2 = () => {
 
             {/* Nearby & Mortgage */}
             <LuxuryNearbyPlaces />
-            <LuxuryMortgageCalculatorV2 />
+            <LuxuryMortgageCalculatorV3 />
           </div>
 
           {/* Sidebar */}
