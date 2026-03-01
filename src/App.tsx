@@ -10,6 +10,8 @@ import LuxuryPropertyDetailV2 from "./components/luxury/LuxuryPropertyDetailV2";
 import LuxuryPropertyListing from "./components/luxury/LuxuryPropertyListing";
 import BlogListingPage from "./components/luxury/BlogListingPage";
 import Home2PropertiesPage from "./components/home-2/Home2PropertiesPage";
+import PropertyPdfV1 from "./components/luxury/pdf/PropertyPdfV1";
+import PropertyPdfV2 from "./components/luxury/pdf/PropertyPdfV2";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +26,8 @@ const App = () => (
           <Route path="/properties" element={<LuxuryPropertyListing />} />
           <Route path="/property/:id" element={<LuxuryPropertyDetail />} />
           <Route path="/property-v2/:id" element={<LuxuryPropertyDetailV2 />} />
+          <Route path="/pdf-v1/:id" element={<PropertyPdfV1 />} />
+          <Route path="/pdf-v2/:id" element={<PropertyPdfV2 />} />
           <Route path="/blog" element={<BlogListingPage />} />
           <Route path="/home2/properties" element={<Home2PropertiesPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
