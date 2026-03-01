@@ -560,12 +560,12 @@ const LuxuryPropertyListing = () => {
       <div className="sticky top-[68px] z-40 bg-white border-b border-neutral-200">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           {/* Breadcrumb */}
-          <div className="flex items-center gap-2 pt-3.5 pb-2.5 text-[14px] text-luxury-black/40 font-light">
+          <div className="flex items-center gap-2 pt-3.5 pb-2.5 text-[13px] tracking-[0.04em] text-luxury-black/60 font-normal">
             <a href="/" className="hover:text-luxury-black transition-colors">Home</a>
-            <ChevronRight className="w-3.5 h-3.5" />
+            <ChevronRight className="w-3 h-3 text-luxury-black/35" />
             <a href="/properties" className="hover:text-luxury-black transition-colors">Properties</a>
-            <ChevronRight className="w-3.5 h-3.5" />
-            <span className="text-luxury-black/65">Ibiza & Costa Blanca</span>
+            <ChevronRight className="w-3 h-3 text-luxury-black/35" />
+            <span className="text-luxury-black font-medium">Ibiza & Costa Blanca</span>
           </div>
 
           {/* Search + filter chips row */}
