@@ -19,13 +19,13 @@ const MortgageCalculator = () => {
 
   return (
     <div className="pt-6 border-t border-neutral-100">
-      <p className="text-[12px] tracking-[0.25em] uppercase text-luxury-black/40 font-light mb-5">Mortgage Calculator</p>
+      <p className="text-[12px] tracking-[0.25em] uppercase text-luxury-black/60 font-light mb-5">Mortgage Calculator</p>
 
       <div className="space-y-5">
         {/* Price */}
         <div>
           <div className="flex justify-between text-[14px] mb-1.5">
-            <span className="text-luxury-black/50 font-light">Property Price</span>
+            <span className="text-luxury-black/70 font-light">Property Price</span>
             <span className="text-luxury-black font-normal">{fmt(price)}</span>
           </div>
           <input type="range" min={100000} max={20000000} step={50000} value={price} onChange={(e) => setPrice(Number(e.target.value))}
@@ -35,7 +35,7 @@ const MortgageCalculator = () => {
         {/* Down payment */}
         <div>
           <div className="flex justify-between text-[14px] mb-1.5">
-            <span className="text-luxury-black/50 font-light">Down Payment</span>
+            <span className="text-luxury-black/70 font-light">Down Payment</span>
             <span className="text-luxury-black font-normal">{downPayment}% — {fmt(price * downPayment / 100)}</span>
           </div>
           <input type="range" min={10} max={90} step={5} value={downPayment} onChange={(e) => setDownPayment(Number(e.target.value))}
@@ -45,7 +45,7 @@ const MortgageCalculator = () => {
         {/* Interest */}
         <div>
           <div className="flex justify-between text-[14px] mb-1.5">
-            <span className="text-luxury-black/50 font-light">Interest Rate</span>
+            <span className="text-luxury-black/70 font-light">Interest Rate</span>
             <span className="text-luxury-black font-normal">{interestRate.toFixed(1)}%</span>
           </div>
           <input type="range" min={1} max={8} step={0.1} value={interestRate} onChange={(e) => setInterestRate(Number(e.target.value))}
@@ -55,7 +55,7 @@ const MortgageCalculator = () => {
         {/* Term */}
         <div>
           <div className="flex justify-between text-[14px] mb-1.5">
-            <span className="text-luxury-black/50 font-light">Loan Term</span>
+            <span className="text-luxury-black/70 font-light">Loan Term</span>
             <span className="text-luxury-black font-normal">{years} years</span>
           </div>
           <input type="range" min={5} max={40} step={1} value={years} onChange={(e) => setYears(Number(e.target.value))}
@@ -66,15 +66,15 @@ const MortgageCalculator = () => {
         <div className="grid grid-cols-3 gap-3 pt-4 border-t border-neutral-100">
           <div className="text-center">
             <p className="text-[20px] font-extralight text-luxury-black tracking-tight">{fmt(monthlyPayment)}</p>
-            <p className="text-[12px] text-luxury-black/40 font-light mt-1 tracking-wide uppercase">Monthly</p>
+            <p className="text-[12px] text-luxury-black/55 font-light mt-1 tracking-wide uppercase">Monthly</p>
           </div>
           <div className="text-center">
             <p className="text-[20px] font-extralight text-luxury-black tracking-tight">{fmt(totalInterest)}</p>
-            <p className="text-[12px] text-luxury-black/40 font-light mt-1 tracking-wide uppercase">Interest</p>
+            <p className="text-[12px] text-luxury-black/55 font-light mt-1 tracking-wide uppercase">Interest</p>
           </div>
           <div className="text-center">
             <p className="text-[20px] font-extralight text-luxury-black tracking-tight">{fmt(totalPaid)}</p>
-            <p className="text-[12px] text-luxury-black/40 font-light mt-1 tracking-wide uppercase">Total</p>
+            <p className="text-[12px] text-luxury-black/55 font-light mt-1 tracking-wide uppercase">Total</p>
           </div>
         </div>
       </div>
