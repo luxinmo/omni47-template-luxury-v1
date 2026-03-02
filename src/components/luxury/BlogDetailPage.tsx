@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Clock, Calendar, User, Tag, Instagram, Linkedin, MessageCircle, Facebook, Twitter, Share2, ChevronUp, Plus, Minus } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 import { brand, palette, fonts, navLeft, navRight } from "@/config/template";
+import SEOHead from "@/components/shared/SEOHead";
 import heroImg from "@/assets/luxury-hero.jpg";
 import prop1 from "@/assets/luxury-property-1.jpg";
 import prop2 from "@/assets/luxury-property-2.jpg";
@@ -147,7 +148,21 @@ const BlogDetailPage = () => {
 
   return (
     <div ref={containerRef} className="flex-1 overflow-auto" style={{ background: p.white, color: p.text, fontFamily: font }}>
-
+      <SEOHead
+        title={post.title}
+        description={post.subtitle || `Read ${post.title} on ${BRAND_NAME} journal.`}
+        type="article"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": post.title,
+          "description": post.subtitle,
+          "author": { "@type": "Person", "name": post.author },
+          "datePublished": post.date,
+          "publisher": { "@type": "Organization", "name": BRAND_NAME },
+          "articleSection": post.category,
+        }}
+      />
       {/* ─── TOP BAR ─── */}
       <div className="text-center py-1.5 text-[10px] tracking-[0.15em] uppercase font-light" style={{ background: p.bg, color: p.light, borderBottom: `1px solid ${p.border}` }}>
         Exclusive Access to Off-Market Properties — <Link to="/register" className="underline" style={{ color: p.accent }}>Join The Private List</Link>
@@ -183,9 +198,9 @@ const BlogDetailPage = () => {
       </nav>
 
       {/* ─── ARTICLE HEADER ─── */}
-      <header className="max-w-4xl mx-auto px-5 sm:px-6 pt-12 md:pt-20 pb-6 md:pb-10 text-center">
+      <header className="max-w-4xl mx-auto px-4 sm:px-6 pt-10 sm:pt-12 md:pt-20 pb-6 md:pb-10 text-center">
         <p className="text-[10px] tracking-[0.2em] uppercase font-medium mb-5" style={{ color: p.accent }}>{post.category}</p>
-        <h1 className="text-[28px] md:text-[42px] lg:text-[48px] font-extralight leading-[1.15] tracking-[0.01em] mx-auto max-w-3xl" style={{ fontFamily: "'Jost', serif" }}>
+        <h1 className="text-[24px] sm:text-[28px] md:text-[42px] lg:text-[48px] font-extralight leading-[1.15] tracking-[0.01em] mx-auto max-w-3xl" style={{ fontFamily: "'Jost', serif" }}>
           {post.title}
         </h1>
         {post.subtitle && (

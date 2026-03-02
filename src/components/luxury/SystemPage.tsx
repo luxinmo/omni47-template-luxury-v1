@@ -3,6 +3,7 @@ import { useRef, useState, useEffect } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Layout } from "@/components/layout";
 import { palette, fonts, brand } from "@/config/template";
+import SEOHead from "@/components/shared/SEOHead";
 import heroImg from "@/assets/luxury-hero.jpg";
 import propertyDetail1 from "@/assets/property-detail-1.jpg";
 
@@ -31,8 +32,12 @@ const SystemPage = () => {
 
   return (
     <Layout activePath="/page" background={palette.white}>
+      <SEOHead
+        title={page.title}
+        description={page.subtitle || `${page.title} — ${brand.fullName}`}
+      />
       {/* ─── HEADER ─── */}
-      <header className="max-w-3xl mx-auto px-5 sm:px-6 pt-12 md:pt-20 pb-6 text-center">
+      <header className="max-w-3xl mx-auto px-4 sm:px-6 pt-10 sm:pt-12 md:pt-20 pb-6 text-center">
         <p className="text-[10px] tracking-[0.25em] uppercase font-medium mb-4" style={{ color: palette.accent }}>Information</p>
         <h1 className="text-[28px] md:text-[40px] font-extralight leading-[1.15] tracking-[0.01em]">{page.title}</h1>
         {page.subtitle && (
