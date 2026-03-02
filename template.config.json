@@ -1,0 +1,17 @@
+{
+  "templateName": "Luxury Real Estate",
+  "version": "1.0",
+  "type": "real-estate",
+  "pages": ["home", "properties", "blog", "blog-detail", "static-page", "contact"],
+  "compatibleWith": "Omni47",
+  "description": "A premium luxury real estate website template with property listings, blog, contact, and static pages.",
+  "features": [
+    "responsive-design",
+    "property-search-filters",
+    "location-search",
+    "blog-with-categories",
+    "contact-form",
+    "newsletter-signup",
+    "multi-language-ready"
+  ]
+}

@@ -1,14 +1,14 @@
-import { useState, useEffect, useRef } from "react";
-import { Bed, Bath, Maximize, ArrowRight, ArrowUpRight, Instagram, Linkedin, MessageCircle, Lock, Eye, EyeOff, Shield, Play, Quote, MapPin, Building2, TrendingUp, Globe, ChevronRight } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Bed, Bath, Maximize, ArrowRight, ArrowUpRight, Lock, EyeOff, Shield, Play, Quote, MapPin, Building2, TrendingUp, Globe, ChevronRight } from "lucide-react";
+import { Layout } from "@/components/layout";
+import FadeIn from "@/components/shared/FadeIn";
+import { brand, palette, fonts, contact } from "@/config/template";
 import heroImg from "@/assets/luxury-hero.jpg";
 import prop1 from "@/assets/luxury-property-1.jpg";
 import prop2 from "@/assets/luxury-property-2.jpg";
 import prop3 from "@/assets/luxury-property-3.jpg";
 
-/* ─── Data ─── */
-const BRAND = "PRESTIGE";
-const BRAND_SUB = "REAL ESTATE";
-
+/* ─── Data (configurable — replace with props or API) ─── */
 const HERO_SLIDES = [
   { image: heroImg, headline: "Elevating the Real Estate Industry", sub: "JOIN OUR PATH" },
   { image: prop1, headline: "Exceptional Homes for Exceptional Lives", sub: "DISCOVER THE COLLECTION" },
@@ -25,8 +25,6 @@ const PROPERTIES = [
 const OFF_MARKET = [
   { image: prop3, name: "Sierra Blanca Palace", location: "Marbella Golden Mile", price: "€28,000,000", beds: 9, baths: 10, sqm: 2400, ref: "OM-001" },
   { image: heroImg, name: "La Zagaleta Crown Estate", location: "Benahavís, Málaga", price: "€19,500,000", beds: 8, baths: 7, sqm: 1800, ref: "OM-002" },
-  { image: prop1, name: "Cascada de Camoján Villa", location: "Marbella, Málaga", price: "Price on Request", beds: 7, baths: 6, sqm: 1200, ref: "OM-003" },
-  { image: prop2, name: "Puente Romano Penthouse", location: "Marbella, Málaga", price: "€14,800,000", beds: 5, baths: 5, sqm: 850, ref: "OM-004" },
 ];
 
 const NEW_DEVELOPMENTS = [
@@ -53,7 +51,7 @@ const DESTINATIONS = [
 const SERVICES = [
   { num: "01", title: "Exclusive Access", desc: "Off-market properties and private listings reserved solely for our clientele.", icon: Lock },
   { num: "02", title: "Private Office", desc: "Complete confidentiality managed through our dedicated Private Office division.", icon: Shield },
-  { num: "03", title: "White-Glove Service", desc: "Personal advisors guiding every step with meticulous attention to detail.", icon: Eye },
+  { num: "03", title: "White-Glove Service", desc: "Personal advisors guiding every step with meticulous attention to detail.", icon: ArrowUpRight },
   { num: "04", title: "Expert Negotiation", desc: "Decades securing the finest terms for discerning buyers and sellers.", icon: ArrowUpRight },
 ];
 
@@ -62,8 +60,6 @@ const BLOG_POSTS = [
   { image: prop1, date: "25 Feb 2026", title: "Dual Demand Drives Dubai's Ultra-Prime Market Edge", excerpt: "Key insights on the $500K–$1M segment growing 70% year-over-year..." },
   { image: prop3, date: "24 Feb 2026", title: "A Majestic Alpine Estate Near Zermatt", excerpt: "This remarkable historic estate stands as one of Europe's most captivating properties..." },
 ];
-
-const CONTACT = { email: "hello@prestigeestates.com", phone: "+34 600 000 000", city: "Marbella, Spain" };
 
 const STATS = [
   { value: "347", label: "Properties for Sale" },
@@ -78,67 +74,10 @@ const TESTIMONIALS = [
   { quote: "From the first viewing to the final signature, every detail was handled with absolute precision.", author: "Sophie Müller", location: "Zürich, Switzerland" },
 ];
 
-/* ─── NEW PALETTE — Warm sand + deep navy ─── */
-const palette = {
-  bg: "#FAF8F5",
-  bgAlt: "#F0ECE6",
-  text: "#2D2926",
-  textMuted: "#6B6560",
-  textLight: "#9A938B",
-  accent: "#8B6F47",
-  accentDark: "#6E5636",
-  border: "#E2DCD4",
-  white: "#FFFFFF",
-  footerBg: "#2D2926",
-  offMarketBg: "#1E1C1A",
-  offMarketAccent: "#C9A96E",
-  navyDark: "#1A2332",
-  newDevBg: "#F7F4EF",
-};
-
-const font = {
-  brand: "'Jost', Helvetica, sans-serif",
-  heading: "'Jost', Helvetica, sans-serif",
-  body: "'Jost', Helvetica, sans-serif",
-};
-
-/* ─── Hooks ─── */
-function useContainerScrolled(ref: React.RefObject<HTMLElement | null>, threshold = 60) {
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const handler = () => setScrolled(el.scrollTop > threshold);
-    el.addEventListener("scroll", handler, { passive: true });
-    return () => el.removeEventListener("scroll", handler);
-  }, [ref, threshold]);
-  return scrolled;
-}
-
-const FadeIn = ({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVisible(true); }, { threshold: 0.15 });
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-  return (
-    <div ref={ref} className={className} style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(28px)", transition: `opacity 0.9s cubic-bezier(0.16,1,0.3,1) ${delay}s, transform 0.9s cubic-bezier(0.16,1,0.3,1) ${delay}s` }}>
-      {children}
-    </div>
-  );
-};
-
 /* ═══════════════════════════════════════════════════════════ */
 
 const Home2LandingPage = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const scrolled = useContainerScrolled(containerRef);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
 
   useEffect(() => {
@@ -151,68 +90,8 @@ const Home2LandingPage = () => {
     return () => clearInterval(timer);
   }, []);
 
-  useEffect(() => {
-    const handler = () => { if (window.innerWidth >= 1024) setMobileMenuOpen(false); };
-    window.addEventListener("resize", handler);
-    return () => window.removeEventListener("resize", handler);
-  }, []);
-
-  const NAV_LINKS = ["Home", "Properties", "Rentals", "About", "Guides & Blog", "Contact"];
-
   return (
-    <div ref={containerRef} className="flex-1 overflow-auto relative" style={{ background: palette.bg, color: palette.text, fontFamily: font.body }}>
-
-      {/* ─── NAVBAR ─── */}
-      <nav
-        className="sticky top-0 z-50 transition-all duration-500"
-        style={{
-          background: scrolled ? `${palette.white}f0` : "transparent",
-          backdropFilter: scrolled ? "blur(16px)" : "none",
-          boxShadow: scrolled ? "0 1px 0 rgba(0,0,0,0.06)" : "none",
-          marginBottom: scrolled ? 0 : "-80px",
-        }}
-      >
-        <div className="max-w-[1440px] mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-12 h-[64px] sm:h-[80px]">
-          <div className="hidden lg:flex items-center gap-8">
-            {NAV_LINKS.slice(0, 3).map((l) => (
-              <a key={l} href="#" className="text-[13px] tracking-[0.12em] font-light transition-colors duration-300 hover:opacity-60" style={{ color: scrolled ? palette.text : "#fff" }}>{l}</a>
-            ))}
-          </div>
-
-          <div className="flex flex-col items-center">
-            <span className="text-[22px] sm:text-[26px] tracking-[0.4em] font-light transition-colors duration-300" style={{ fontFamily: font.brand, color: scrolled ? palette.text : "#fff" }}>
-              {BRAND}
-            </span>
-            <span className="text-[8px] tracking-[0.45em] uppercase font-light transition-colors duration-300 -mt-0.5" style={{ color: scrolled ? palette.textLight : "rgba(255,255,255,0.5)" }}>
-              {BRAND_SUB}
-            </span>
-          </div>
-
-          <div className="hidden lg:flex items-center gap-8">
-            {NAV_LINKS.slice(3).map((l) => (
-              <a key={l} href="#" className="text-[13px] tracking-[0.12em] font-light transition-colors duration-300 hover:opacity-60" style={{ color: scrolled ? palette.text : "#fff" }}>{l}</a>
-            ))}
-          </div>
-
-          <button className="lg:hidden transition-colors duration-300" style={{ color: scrolled ? palette.text : "#fff" }} onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-            {mobileMenuOpen ? (
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" /></svg>
-            ) : (
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" /></svg>
-            )}
-          </button>
-        </div>
-
-        {mobileMenuOpen && (
-          <div className="lg:hidden animate-in slide-in-from-top-2 duration-200" style={{ background: palette.white, borderTop: `1px solid ${palette.border}` }}>
-            <div className="px-6 py-6 flex flex-col gap-1">
-              {NAV_LINKS.map((l) => (
-                <a key={l} href="#" className="text-[14px] tracking-[0.08em] font-light py-3" style={{ color: palette.text, borderBottom: `1px solid ${palette.border}40` }}>{l}</a>
-              ))}
-            </div>
-          </div>
-        )}
-      </nav>
+    <Layout navVariant="transparent" activePath="/" showBackToTop={false}>
 
       {/* ─── HERO ─── */}
       <section className="relative h-[60vh] sm:h-[80vh] lg:h-[100vh] min-h-[420px] flex items-center justify-center overflow-hidden">
@@ -222,10 +101,9 @@ const Home2LandingPage = () => {
           </div>
         ))}
         <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(26,23,20,0.6) 0%, rgba(26,23,20,0.15) 40%, rgba(26,23,20,0.25) 100%)" }} />
-
         <div className="relative z-10 text-center px-5 sm:px-6 max-w-4xl">
           <FadeIn>
-            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extralight leading-[1.15] sm:leading-[1.2] mb-4 sm:mb-5" style={{ color: "#fff", fontFamily: font.heading, letterSpacing: "0.06em" }}>
+            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extralight leading-[1.15] sm:leading-[1.2] mb-4 sm:mb-5" style={{ color: "#fff", fontFamily: fonts.heading, letterSpacing: "0.06em" }}>
               {HERO_SLIDES[currentSlide].headline}
             </h1>
           </FadeIn>
@@ -236,16 +114,15 @@ const Home2LandingPage = () => {
           </FadeIn>
           <FadeIn delay={0.3}>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 sm:px-0">
-              <button className="w-full sm:w-auto bg-white text-luxury-black text-[11px] tracking-[0.15em] uppercase font-medium px-8 py-3.5 hover:bg-white/90 transition-all duration-300 flex items-center justify-center gap-2">
+              <a href="/properties" className="w-full sm:w-auto bg-white text-[11px] tracking-[0.15em] uppercase font-medium px-8 py-3.5 hover:bg-white/90 transition-all duration-300 flex items-center justify-center gap-2" style={{ color: palette.text }}>
                 All Properties <ArrowRight className="w-4 h-4" />
-              </button>
-              <button className="w-full sm:w-auto border border-white/40 text-white text-[11px] tracking-[0.15em] uppercase px-8 py-3.5 hover:bg-white hover:text-luxury-black transition-all duration-300 backdrop-blur-sm">
+              </a>
+              <a href="/contact" className="w-full sm:w-auto border border-white/40 text-white text-[11px] tracking-[0.15em] uppercase px-8 py-3.5 hover:bg-white hover:text-[#2D2926] transition-all duration-300 backdrop-blur-sm text-center">
                 Sell With Us
-              </button>
+              </a>
             </div>
           </FadeIn>
         </div>
-
         <div className="absolute bottom-6 sm:bottom-8 right-6 lg:right-12 flex gap-2.5 z-10">
           {HERO_SLIDES.map((_, i) => (
             <button key={i} onClick={() => setCurrentSlide(i)} className="transition-all duration-500" style={{ width: currentSlide === i ? 36 : 18, height: 2, borderRadius: 1, background: currentSlide === i ? "#fff" : "rgba(255,255,255,0.25)" }} />
@@ -259,14 +136,14 @@ const Home2LandingPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-20 items-start">
             <FadeIn className="md:col-span-5">
               <p className="text-xs tracking-[0.3em] uppercase mb-4 font-normal" style={{ color: palette.accent }}>About Us</p>
-              <h2 className="text-3xl md:text-4xl font-extralight leading-[1.15]" style={{ fontFamily: font.heading, letterSpacing: "0.04em" }}>
+              <h2 className="text-3xl md:text-4xl font-extralight leading-[1.15]" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>
                 A Legacy of<br />Excellence
               </h2>
               <div className="mt-6 w-12 h-[1px]" style={{ background: palette.accent }} />
             </FadeIn>
             <FadeIn className="md:col-span-7" delay={0.12}>
               <p className="text-[15px] leading-[1.9] font-light" style={{ color: palette.textMuted }}>
-                Prestige Estates is a curated luxury real estate advisory specialising in the most exclusive properties across the Mediterranean. From breathtaking seafront villas and penthouses to prestigious golf-side estates and new-build residences, we offer a bespoke service built on trust, discretion, and an uncompromising eye for quality.
+                {brand.fullName} is a curated luxury real estate advisory specialising in the most exclusive properties across the Mediterranean. From breathtaking seafront villas and penthouses to prestigious golf-side estates and new-build residences, we offer a bespoke service built on trust, discretion, and an uncompromising eye for quality.
               </p>
               <div className="mt-8 flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ border: `1px solid ${palette.accent}50` }}>
@@ -285,8 +162,8 @@ const Home2LandingPage = () => {
           <FadeIn>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-y-6 md:gap-y-0">
               {STATS.map((s, i) => (
-                <div key={i} className="text-center py-2 md:py-0" style={{ borderRight: (i === 0 || i === 2) ? `1px solid ${palette.border}` : (i === 1 ? "none" : "none") }}>
-                  <p className="text-3xl sm:text-4xl md:text-5xl font-extralight" style={{ fontFamily: font.heading, color: palette.accent, letterSpacing: "0.04em" }}>{s.value}</p>
+                <div key={i} className="text-center py-2 md:py-0" style={{ borderRight: i < 3 ? `1px solid ${palette.border}` : "none" }}>
+                  <p className="text-3xl sm:text-4xl md:text-5xl font-extralight" style={{ fontFamily: fonts.heading, color: palette.accent, letterSpacing: "0.04em" }}>{s.value}</p>
                   <p className="text-[10px] sm:text-xs tracking-[0.18em] uppercase mt-2 sm:mt-3 font-normal" style={{ color: palette.textLight }}>{s.label}</p>
                 </div>
               ))}
@@ -295,13 +172,13 @@ const Home2LandingPage = () => {
         </div>
       </section>
 
-      {/* ─── DESTINATIONS — Browse by region ─── */}
+      {/* ─── DESTINATIONS ─── */}
       <section className="py-14 sm:py-20 md:py-28" style={{ background: palette.white }}>
         <div className="max-w-[1440px] mx-auto px-5 sm:px-6 lg:px-12">
           <FadeIn>
             <div className="text-center mb-10 sm:mb-14">
               <p className="text-xs tracking-[0.3em] uppercase mb-3 font-normal" style={{ color: palette.accent }}>Explore</p>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: font.heading, letterSpacing: "0.04em" }}>Browse by Destination</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>Browse by Destination</h2>
             </div>
           </FadeIn>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
@@ -311,7 +188,7 @@ const Home2LandingPage = () => {
                   <img src={d.image} alt={d.name} className="w-full h-full object-cover transition-transform duration-[1s] group-hover:scale-110" />
                   <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.1) 50%)" }} />
                   <div className="absolute bottom-0 left-0 right-0 p-4 text-center">
-                    <h3 className="text-[15px] font-light tracking-wide text-white mb-1" style={{ fontFamily: font.heading }}>{d.name}</h3>
+                    <h3 className="text-[15px] font-light tracking-wide text-white mb-1" style={{ fontFamily: fonts.heading }}>{d.name}</h3>
                     <p className="text-xs font-light" style={{ color: "rgba(255,255,255,0.6)" }}>{d.count} properties</p>
                   </div>
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center" style={{ background: `${palette.accent}30` }}>
@@ -331,14 +208,13 @@ const Home2LandingPage = () => {
             <div className="flex items-end justify-between mb-10 sm:mb-16">
               <div>
                 <p className="text-xs tracking-[0.3em] uppercase mb-3 font-normal" style={{ color: palette.accent }}>Portfolio</p>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: font.heading, letterSpacing: "0.04em" }}>Featured Properties</h2>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>Featured Properties</h2>
               </div>
-              <a href="#" className="hidden sm:flex items-center gap-2 text-[13px] tracking-[0.12em] uppercase font-light transition-opacity hover:opacity-60" style={{ color: palette.accent }}>
+              <a href="/properties" className="hidden sm:flex items-center gap-2 text-[13px] tracking-[0.12em] uppercase font-light transition-opacity hover:opacity-60" style={{ color: palette.accent }}>
                 View All <ArrowUpRight className="w-4 h-4" />
               </a>
             </div>
           </FadeIn>
-
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
             {PROPERTIES.map((p, i) => (
               <FadeIn key={i} delay={i * 0.12}>
@@ -357,7 +233,7 @@ const Home2LandingPage = () => {
                       <MapPin className="w-3.5 h-3.5" style={{ color: palette.textLight }} />
                       <p className="text-xs tracking-[0.12em] uppercase font-light" style={{ color: palette.textLight }}>{p.location}</p>
                     </div>
-                    <h3 className="text-lg font-light tracking-wide" style={{ fontFamily: font.heading }}>{p.name}</h3>
+                    <h3 className="text-lg font-light tracking-wide" style={{ fontFamily: fonts.heading }}>{p.name}</h3>
                     <p className="text-base font-normal" style={{ color: palette.accent }}>{p.price}</p>
                     <div className="flex items-center gap-5 pt-1.5 text-[13px] font-light" style={{ color: palette.textMuted }}>
                       <span className="flex items-center gap-1.5"><Bed className="w-4 h-4" /> {p.beds} Beds</span>
@@ -379,24 +255,22 @@ const Home2LandingPage = () => {
             <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-10 sm:mb-14 gap-6">
               <div>
                 <p className="text-xs tracking-[0.3em] uppercase mb-3 font-normal" style={{ color: palette.accent }}>New Build</p>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: font.heading, letterSpacing: "0.04em" }}>New Developments</h2>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>New Developments</h2>
                 <p className="text-[14px] sm:text-[15px] font-light mt-3 sm:mt-4 max-w-lg" style={{ color: palette.textMuted }}>
-                  Discover the finest new-build projects across Spain's most sought-after locations — from beachfront apartments to hillside villas.
+                  Discover the finest new-build projects across Spain's most sought-after locations.
                 </p>
               </div>
-              {/* Stats strip */}
               <div className="flex items-center gap-5 sm:gap-6 md:gap-10 shrink-0">
                 {NEW_DEV_STATS.map((s, i) => (
                   <div key={i} className="text-center">
                     <s.icon className="w-4 h-4 sm:w-5 sm:h-5 mx-auto mb-1.5 sm:mb-2" style={{ color: palette.accent }} strokeWidth={1.5} />
-                    <p className="text-xl sm:text-2xl md:text-3xl font-extralight" style={{ fontFamily: font.heading, color: palette.accent }}>{s.value}</p>
+                    <p className="text-xl sm:text-2xl md:text-3xl font-extralight" style={{ fontFamily: fonts.heading, color: palette.accent }}>{s.value}</p>
                     <p className="text-[10px] sm:text-xs tracking-[0.1em] uppercase mt-1 font-normal" style={{ color: palette.textLight }}>{s.label}</p>
                   </div>
                 ))}
               </div>
             </div>
           </FadeIn>
-
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
             {NEW_DEVELOPMENTS.map((d, i) => (
               <FadeIn key={i} delay={i * 0.1}>
@@ -415,7 +289,7 @@ const Home2LandingPage = () => {
                       <MapPin className="w-3.5 h-3.5" style={{ color: palette.textLight }} />
                       <p className="text-xs tracking-[0.1em] uppercase font-light" style={{ color: palette.textLight }}>{d.location}</p>
                     </div>
-                    <h3 className="text-lg font-light tracking-wide" style={{ fontFamily: font.heading }}>{d.name}</h3>
+                    <h3 className="text-lg font-light tracking-wide" style={{ fontFamily: fonts.heading }}>{d.name}</h3>
                     <div className="flex items-center justify-between pt-1">
                       <p className="text-base font-normal" style={{ color: palette.accent }}>{d.priceFrom}</p>
                       <span className="text-sm font-light" style={{ color: palette.textMuted }}>{d.units} units</span>
@@ -425,25 +299,17 @@ const Home2LandingPage = () => {
               </FadeIn>
             ))}
           </div>
-
-          <FadeIn delay={0.3}>
-            <div className="text-center mt-12">
-              <a href="#" className="inline-flex items-center gap-2 text-[13px] tracking-[0.15em] uppercase font-light px-8 py-4 transition-all duration-300 hover:opacity-80" style={{ color: palette.white, background: palette.accent }}>
-                View All Developments <ArrowRight className="w-4 h-4" />
-              </a>
-            </div>
-          </FadeIn>
         </div>
       </section>
 
-      {/* ═══ CINEMATIC QUOTE BREAK ═══ */}
+      {/* ═══ TESTIMONIAL BREAK ═══ */}
       <section className="relative h-[45vh] sm:h-[50vh] md:h-[60vh] flex items-center justify-center overflow-hidden">
         <img src={prop2} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0" style={{ background: "rgba(26,23,20,0.55)" }} />
         <div className="relative z-10 text-center px-5 sm:px-6 max-w-3xl">
           <FadeIn>
             <Quote className="w-8 h-8 mx-auto mb-6" style={{ color: "rgba(255,255,255,0.2)" }} strokeWidth={1} />
-            <p className="text-lg sm:text-2xl md:text-3xl font-extralight leading-[1.4] sm:leading-[1.5] italic" style={{ color: "#fff", fontFamily: font.heading, letterSpacing: "0.03em" }}>
+            <p className="text-lg sm:text-2xl md:text-3xl font-extralight leading-[1.4] sm:leading-[1.5] italic" style={{ color: "#fff", fontFamily: fonts.heading, letterSpacing: "0.03em" }}>
               "{TESTIMONIALS[activeTestimonial].quote}"
             </p>
             <div className="mt-6 flex flex-col items-center gap-1">
@@ -459,11 +325,10 @@ const Home2LandingPage = () => {
         </div>
       </section>
 
-      {/* ═══ OFF-MARKET COLLECTION ═══ */}
+      {/* ═══ OFF-MARKET ═══ */}
       <section className="py-14 sm:py-20 md:py-28" style={{ background: palette.offMarketBg }}>
         <div className="max-w-[1440px] mx-auto px-5 sm:px-6 lg:px-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0 items-stretch">
-            {/* Image side */}
             <FadeIn className="relative overflow-hidden min-h-[320px] md:min-h-[520px]">
               <img src={prop3} alt="Off-market property" className="absolute inset-0 w-full h-full object-cover" />
               <div className="absolute inset-0" style={{ background: "linear-gradient(to right, transparent 30%, rgba(30,28,26,0.95) 100%)" }} />
@@ -473,54 +338,22 @@ const Home2LandingPage = () => {
                 <span className="text-xs tracking-[0.15em] uppercase font-normal" style={{ color: palette.offMarketAccent }}>Off-Market</span>
               </div>
             </FadeIn>
-
-            {/* Content side */}
             <FadeIn delay={0.15} className="flex flex-col justify-center px-6 sm:px-10 md:px-14 lg:px-20 py-12 md:py-16">
               <div className="flex items-center gap-2.5 mb-6">
                 <div className="w-5 h-[1px]" style={{ background: palette.offMarketAccent }} />
                 <p className="text-xs tracking-[0.3em] uppercase font-normal" style={{ color: palette.offMarketAccent }}>Private & Confidential</p>
               </div>
-
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight leading-[1.1] mb-6" style={{ fontFamily: font.heading, color: "#fff", letterSpacing: "0.06em" }}>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight leading-[1.1] mb-6" style={{ fontFamily: fonts.heading, color: "#fff", letterSpacing: "0.06em" }}>
                 Off-Market<br />Collection
               </h2>
-
-              <p className="text-[15px] leading-[1.9] font-light mb-4" style={{ color: "rgba(255,255,255,0.55)" }}>
-                No todas las propiedades están disponibles públicamente. Nuestra colección off-market reúne inmuebles exclusivos que solo se muestran a compradores verificados a través de nuestra red privada.
+              <p className="text-[15px] leading-[1.9] font-light mb-8" style={{ color: "rgba(255,255,255,0.55)" }}>
+                Not all properties are publicly available. Our off-market collection features exclusive listings shown only to verified buyers through our private network.
               </p>
-
-              <p className="text-[14px] leading-[1.8] font-light mb-8" style={{ color: "rgba(255,255,255,0.4)" }}>
-                Regístrese para solicitar acceso y un asesor personal se pondrá en contacto con usted para presentarle propiedades seleccionadas según sus preferencias y presupuesto.
-              </p>
-
-              <div className="flex flex-col sm:flex-row items-start gap-4 mb-8">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style={{ border: `1px solid ${palette.offMarketAccent}40` }}>
-                    <Lock className="w-4 h-4" style={{ color: palette.offMarketAccent }} />
-                  </div>
-                  <div>
-                    <p className="text-sm font-light text-white">Acceso restringido</p>
-                    <p className="text-xs font-light" style={{ color: "rgba(255,255,255,0.4)" }}>Solo compradores verificados</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style={{ border: `1px solid ${palette.offMarketAccent}40` }}>
-                    <Shield className="w-4 h-4" style={{ color: palette.offMarketAccent }} />
-                  </div>
-                  <div>
-                    <p className="text-sm font-light text-white">Asesor personal</p>
-                    <p className="text-xs font-light" style={{ color: "rgba(255,255,255,0.4)" }}>Le contactaremos directamente</p>
-                  </div>
-                </div>
-              </div>
-
               <a href="#" className="inline-flex items-center justify-center gap-2.5 text-[13px] tracking-[0.18em] uppercase font-light px-8 py-4 transition-all duration-500 hover:opacity-90 self-start" style={{ background: palette.offMarketAccent, color: palette.offMarketBg }}>
-                <Lock className="w-4 h-4" />
-                Solicitar acceso
+                <Lock className="w-4 h-4" /> Request Access
               </a>
-
               <p className="text-xs font-light mt-6" style={{ color: "rgba(255,255,255,0.3)" }}>
-                <span style={{ color: palette.offMarketAccent }} className="font-normal">120+</span> propiedades off-market disponibles actualmente
+                <span style={{ color: palette.offMarketAccent }} className="font-normal">120+</span> off-market properties currently available
               </p>
             </FadeIn>
           </div>
@@ -533,19 +366,18 @@ const Home2LandingPage = () => {
           <FadeIn>
             <div className="text-center mb-10 sm:mb-14">
               <p className="text-xs tracking-[0.3em] uppercase mb-3 font-normal" style={{ color: palette.accent }}>Why Choose Us</p>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: font.heading, letterSpacing: "0.04em" }}>A Standard Apart</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>A Standard Apart</h2>
             </div>
           </FadeIn>
-
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
             {SERVICES.map((s, i) => (
               <FadeIn key={i} delay={i * 0.08}>
-                <div className="p-6 sm:p-8 group transition-all duration-500 text-center lg:border-r last:border-r-0" style={{ borderColor: `${palette.border}` }}>
-                  <div className="w-12 h-12 mx-auto rounded-full flex items-center justify-center mb-5 transition-colors duration-500 group-hover:bg-[#8B6F4710]" style={{ border: `1px solid ${palette.border}` }}>
+                <div className="p-6 sm:p-8 group transition-all duration-500 text-center lg:border-r last:border-r-0" style={{ borderColor: palette.border }}>
+                  <div className="w-12 h-12 mx-auto rounded-full flex items-center justify-center mb-5 transition-colors duration-500" style={{ border: `1px solid ${palette.border}` }}>
                     <s.icon className="w-5 h-5" style={{ color: palette.accent }} strokeWidth={1.5} />
                   </div>
                   <span className="text-xs font-normal tracking-[0.15em] block mb-3" style={{ color: palette.accent }}>{s.num}</span>
-                  <h3 className="text-base font-light mb-3 tracking-wide" style={{ fontFamily: font.heading }}>{s.title}</h3>
+                  <h3 className="text-base font-light mb-3 tracking-wide" style={{ fontFamily: fonts.heading }}>{s.title}</h3>
                   <p className="text-sm leading-[1.7] font-light" style={{ color: palette.textMuted }}>{s.desc}</p>
                 </div>
               </FadeIn>
@@ -561,23 +393,22 @@ const Home2LandingPage = () => {
             <div className="flex items-end justify-between mb-10 sm:mb-16">
               <div>
                 <p className="text-xs tracking-[0.3em] uppercase mb-3 font-normal" style={{ color: palette.accent }}>Insights</p>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: font.heading, letterSpacing: "0.04em" }}>The Journal</h2>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>The Journal</h2>
               </div>
-              <a href="#" className="hidden sm:flex items-center gap-2 text-[13px] tracking-[0.12em] uppercase font-light transition-opacity hover:opacity-60" style={{ color: palette.accent }}>
+              <a href="/blog" className="hidden sm:flex items-center gap-2 text-[13px] tracking-[0.12em] uppercase font-light transition-opacity hover:opacity-60" style={{ color: palette.accent }}>
                 All Articles <ArrowUpRight className="w-4 h-4" />
               </a>
             </div>
           </FadeIn>
-
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8">
             <FadeIn className="md:col-span-7">
-              <a href="#" className="group block">
+              <a href="/blog" className="group block">
                 <div className="overflow-hidden aspect-[16/10]">
                   <img src={BLOG_POSTS[0].image} alt={BLOG_POSTS[0].title} className="w-full h-full object-cover transition-transform duration-[1s] group-hover:scale-105" />
                 </div>
                 <div className="pt-5 space-y-2">
                   <span className="text-xs tracking-[0.15em] uppercase font-light" style={{ color: palette.textLight }}>{BLOG_POSTS[0].date}</span>
-                  <h4 className="text-xl font-light leading-[1.35] group-hover:opacity-70 transition-opacity tracking-wide" style={{ fontFamily: font.heading }}>{BLOG_POSTS[0].title}</h4>
+                  <h4 className="text-xl font-light leading-[1.35] group-hover:opacity-70 transition-opacity tracking-wide" style={{ fontFamily: fonts.heading }}>{BLOG_POSTS[0].title}</h4>
                   <p className="text-sm leading-[1.7] font-light" style={{ color: palette.textMuted }}>{BLOG_POSTS[0].excerpt}</p>
                 </div>
               </a>
@@ -585,13 +416,13 @@ const Home2LandingPage = () => {
             <div className="md:col-span-5 flex flex-col gap-6 lg:gap-8">
               {BLOG_POSTS.slice(1).map((post, i) => (
                 <FadeIn key={i} delay={0.1 + i * 0.1}>
-                  <a href="#" className="group flex gap-4">
+                  <a href="/blog" className="group flex gap-4">
                     <div className="overflow-hidden aspect-square w-28 shrink-0">
                       <img src={post.image} alt={post.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                     </div>
                     <div className="space-y-1.5 pt-1">
                       <span className="text-xs tracking-[0.15em] uppercase font-light" style={{ color: palette.textLight }}>{post.date}</span>
-                      <h4 className="text-[15px] font-light leading-[1.4] group-hover:opacity-70 transition-opacity" style={{ fontFamily: font.heading }}>{post.title}</h4>
+                      <h4 className="text-[15px] font-light leading-[1.4] group-hover:opacity-70 transition-opacity" style={{ fontFamily: fonts.heading }}>{post.title}</h4>
                       <p className="text-sm leading-[1.5] font-light line-clamp-2" style={{ color: palette.textMuted }}>{post.excerpt}</p>
                     </div>
                   </a>
@@ -607,17 +438,12 @@ const Home2LandingPage = () => {
         <div className="max-w-xl mx-auto px-5 sm:px-6 text-center">
           <FadeIn>
             <p className="text-xs tracking-[0.3em] uppercase mb-4 font-normal" style={{ color: palette.accent }}>Stay Informed</p>
-            <h2 className="text-2xl md:text-3xl font-extralight mb-3" style={{ fontFamily: font.heading, letterSpacing: "0.04em" }}>The Private List</h2>
+            <h2 className="text-2xl md:text-3xl font-extralight mb-3" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>The Private List</h2>
             <p className="text-sm font-light mb-8 leading-relaxed" style={{ color: palette.textMuted }}>
               Receive exclusive off-market listings, market insights and invitations to private viewings — delivered discreetly to your inbox.
             </p>
             <form className="flex flex-col sm:flex-row gap-3" onSubmit={(e) => e.preventDefault()}>
-              <input
-                type="email"
-                placeholder="Your email address"
-                className="flex-1 px-5 py-4 text-sm tracking-[0.05em] focus:outline-none transition-colors duration-300"
-                style={{ border: `1px solid ${palette.border}`, background: palette.white, color: palette.text, fontFamily: font.body }}
-              />
+              <input type="email" placeholder="Your email address" className="flex-1 px-5 py-4 text-sm tracking-[0.05em] focus:outline-none transition-colors duration-300" style={{ border: `1px solid ${palette.border}`, background: palette.white, color: palette.text }} />
               <button type="submit" className="text-xs tracking-[0.18em] uppercase font-normal px-8 py-4 transition-all duration-300 hover:opacity-90 whitespace-nowrap" style={{ background: palette.accent, color: "#fff" }}>
                 Subscribe
               </button>
@@ -626,51 +452,7 @@ const Home2LandingPage = () => {
           </FadeIn>
         </div>
       </section>
-
-      {/* ─── FOOTER ─── */}
-      <footer style={{ background: palette.footerBg }}>
-        <div className="max-w-[1440px] mx-auto px-5 sm:px-6 lg:px-12 py-12 sm:py-16 md:py-24">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-8">
-            <div>
-              <span className="text-xl tracking-[0.4em] font-light block mb-1" style={{ fontFamily: font.brand, color: "#fff" }}>{BRAND}</span>
-              <span className="text-[9px] tracking-[0.4em] uppercase font-light block mb-5" style={{ color: "rgba(255,255,255,0.35)" }}>{BRAND_SUB}</span>
-              <p className="text-sm leading-relaxed font-light" style={{ color: "rgba(255,255,255,0.5)" }}>
-                Curating extraordinary homes for exceptional lives since 2010.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-xs tracking-[0.2em] uppercase mb-5 font-normal" style={{ color: "rgba(255,255,255,0.5)" }}>Quick Links</h4>
-              <ul className="space-y-3">
-                {["Properties", "Off-Market", "Services", "About Us", "Contact"].map((l) => (
-                  <li key={l}><a href="#" className="text-sm font-light transition-colors duration-300 hover:text-white" style={{ color: "rgba(255,255,255,0.55)" }}>{l}</a></li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-xs tracking-[0.2em] uppercase mb-5 font-normal" style={{ color: "rgba(255,255,255,0.5)" }}>Contact</h4>
-              <ul className="space-y-3 text-sm font-light" style={{ color: "rgba(255,255,255,0.55)" }}>
-                <li>{CONTACT.email}</li>
-                <li>{CONTACT.phone}</li>
-                <li>{CONTACT.city}</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-xs tracking-[0.2em] uppercase mb-5 font-normal" style={{ color: "rgba(255,255,255,0.5)" }}>Follow</h4>
-              <div className="flex gap-3">
-                {[Instagram, Linkedin, MessageCircle].map((Icon, i) => (
-                  <a key={i} href="#" className="w-10 h-10 flex items-center justify-center transition-all duration-300 hover:border-white/30" style={{ border: "1px solid rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.55)" }}>
-                    <Icon className="w-4 h-4" strokeWidth={1.5} />
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
-          <div className="mt-14 pt-6 text-center" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
-            <p className="text-xs tracking-[0.15em] font-light" style={{ color: "rgba(255,255,255,0.3)" }}>© 2026 {BRAND}. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
-    </div>
+    </Layout>
   );
 };
 
