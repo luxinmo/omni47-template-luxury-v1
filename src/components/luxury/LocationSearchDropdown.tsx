@@ -1,6 +1,31 @@
 import { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import { MapPin, Navigation, Search, X } from "lucide-react";
-import { mockLocations } from "@/components/locations/mock-data";
+
+/* ─── Inline location data (self-contained) ─── */
+interface MockLocation {
+  id: string;
+  name: string;
+  names: Record<string, string>;
+  level: string;
+  parentId?: string;
+  active: boolean;
+}
+
+const mockLocations: MockLocation[] = [
+  { id: "es", name: "Spain", names: { en: "Spain", es: "España" }, level: "country", active: true },
+  { id: "es-malaga", name: "Málaga", names: { en: "Malaga", es: "Málaga" }, level: "province", parentId: "es", active: true },
+  { id: "es-alicante", name: "Alicante", names: { en: "Alicante", es: "Alicante" }, level: "province", parentId: "es", active: true },
+  { id: "es-baleares", name: "Islas Baleares", names: { en: "Balearic Islands", es: "Islas Baleares" }, level: "province", parentId: "es", active: true },
+  { id: "es-malaga-costadelsol", name: "Costa del Sol", names: { en: "Costa del Sol", es: "Costa del Sol" }, level: "region", parentId: "es-malaga", active: true },
+  { id: "es-alicante-costablanca", name: "Costa Blanca", names: { en: "Costa Blanca", es: "Costa Blanca" }, level: "region", parentId: "es-alicante", active: true },
+  { id: "es-marbella", name: "Marbella", names: { en: "Marbella", es: "Marbella" }, level: "municipality", parentId: "es-malaga-costadelsol", active: true },
+  { id: "es-estepona", name: "Estepona", names: { en: "Estepona", es: "Estepona" }, level: "municipality", parentId: "es-malaga-costadelsol", active: true },
+  { id: "es-benahavis", name: "Benahavís", names: { en: "Benahavís", es: "Benahavís" }, level: "municipality", parentId: "es-malaga-costadelsol", active: true },
+  { id: "es-javea", name: "Jávea", names: { en: "Jávea", es: "Jávea" }, level: "municipality", parentId: "es-alicante-costablanca", active: true },
+  { id: "es-altea", name: "Altea", names: { en: "Altea", es: "Altea" }, level: "municipality", parentId: "es-alicante-costablanca", active: true },
+  { id: "es-ibiza", name: "Ibiza", names: { en: "Ibiza", es: "Ibiza" }, level: "municipality", parentId: "es-baleares", active: true },
+  { id: "es-mallorca", name: "Mallorca", names: { en: "Mallorca", es: "Mallorca" }, level: "municipality", parentId: "es-baleares", active: true },
+];
 
 const LEVEL_DISPLAY: Record<string, string> = {
   country: "Country",
@@ -61,7 +86,7 @@ const LocationSearchDropdown = ({ selected, onSelectedChange, className = "" }: 
         if (!loc.active) return false;
         if (selected.some((s) => s.id === loc.id)) return false;
         if (loc.name.toLowerCase().includes(q)) return true;
-        return Object.values(loc.names).some((n) => n.toLowerCase().includes(q));
+        return Object.values(loc.names).some((n) => String(n).toLowerCase().includes(q));
       })
       .slice(0, 6)
       .map((loc) => ({
