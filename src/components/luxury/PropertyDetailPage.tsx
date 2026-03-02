@@ -1,9 +1,18 @@
 import { useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import { ChevronLeft, ChevronRight, Bed, Bath, Maximize, MapPin, Download, Share2, Heart, Calendar, Clock, Phone, Mail, User, Check } from "lucide-react";
-import Layout from "@/components/layout/Layout";
-import { palette, fonts, brand } from "@/config/template";
-
+import { Link } from "react-router-dom";
+import { format } from "date-fns";
+import {
+  Bed, Bath, Maximize, MapPin, Heart, Share2, ChevronLeft, ChevronRight,
+  X, Check, Car, Fence, Phone, Mail, Play, View, FileDown,
+  Clock, Shield, Sparkles, ChevronDown, CalendarDays, Star, Home,
+} from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { cn } from "@/lib/utils";
+import { brand, navLeft, navRight } from "@/config/template";
+import LuxuryPhoneInput from "./LuxuryPhoneInput";
+import LuxuryMortgageCalculator from "./LuxuryMortgageCalculator";
+import LuxuryNearbyPlaces from "./LuxuryNearbyPlaces";
 import heroImg from "@/assets/luxury-hero.jpg";
 import prop1 from "@/assets/luxury-property-1.jpg";
 import prop2 from "@/assets/luxury-property-2.jpg";
@@ -12,538 +21,444 @@ import detail1 from "@/assets/property-detail-1.jpg";
 import detail2 from "@/assets/property-detail-2.jpg";
 import detail3 from "@/assets/property-detail-3.jpg";
 
-/* ─── Mock Data ─── */
-const PROPERTIES = [
-  {
-    id: 1, images: [heroImg, detail1, detail2, detail3],
-    tag: "FOR SALE", style: "Contemporary", location: "Santa Eulalia del Río · Ibiza",
-    title: "Stunning Contemporary Villa with Panoramic Sea Views",
-    description: `This exceptional contemporary villa is set on an elevated plot offering uninterrupted panoramic views of the Mediterranean Sea and the island of Formentera.
+/* ─── Data ─── */
+const PROPERTY = {
+  title: "Stunning Contemporary Villa with Panoramic Sea Views",
+  subtitle: "An architectural masterpiece on the Mediterranean coast",
+  breadcrumb: ["Spain", "Balearic Islands", "Ibiza", "Santa Eulalia del Río"],
+  price: "€4,650,000",
+  originalPrice: "€5,200,000",
+  discount: 11,
+  rentalPrice: "€18,500/mes",
+  alsoForRent: true,
+  beds: 5, baths: 4, sqm: 420, plot: 1200, garage: 2, year: 2023,
+  ref: "PE-IBZ-2847",
+  energyClass: "A",
+  status: "Available",
+  hasVideo: true,
+  hasVirtualTour: true,
+  videoUrl: "#",
+  virtualTourUrl: "#",
+  images: [heroImg, detail1, detail2, detail3, prop1, prop2, prop3],
+  description: `This exceptional contemporary villa is set on an elevated plot offering uninterrupted panoramic views of the Mediterranean Sea and the island of Formentera. Designed by a renowned architectural studio, the property seamlessly blends indoor and outdoor living across 420 m² of impeccably finished living space.
 
-Designed by a renowned architect, every detail has been carefully considered to blend indoor and outdoor living seamlessly. Floor-to-ceiling windows flood the interior with natural light, while the open-plan living area leads onto a spectacular infinity pool terrace.
+The ground floor features a grand open-plan living area with floor-to-ceiling windows, a designer kitchen with Gaggenau appliances, and direct access to the infinity pool terrace. The master suite occupies a private wing with a spa-inspired bathroom, walk-in dressing room, and a private terrace.
 
-The property features five en-suite bedrooms, a state-of-the-art kitchen with premium Gaggenau appliances, a private cinema room, wine cellar, and a fully equipped gym. The landscaped gardens include mature Mediterranean plantings, an outdoor kitchen, and a guest house.
-
-Smart home technology controls lighting, climate, security, and entertainment throughout. A four-car garage with electric vehicle charging completes this extraordinary residence.`,
-    beds: 5, baths: 4, sqm: 420, plot: 1200, price: "€4,650,000",
-    pricePerSqm: "€11,071/m²",
-    rentalPrice: "€18,500/month",
-    features: ["Sea Views", "Infinity Pool", "Smart Home", "Garage", "Wine Cellar", "Cinema Room", "Gym", "Guest House"],
-    exclusive: true,
-    alsoForRent: true,
-    ref: "REF-0001",
-    yearBuilt: 2022,
-    energyRating: "A",
-    orientation: "South-West",
-    parking: "4 cars",
+Upstairs, four additional en-suite bedrooms each enjoy their own terrace and sea views. The lower level houses a home cinema, wine cellar, gym, and staff quarters. Surrounded by mature Mediterranean gardens with automated irrigation, the property includes a double garage, solar panels, and state-of-the-art home automation.`,
+  features: [
+    "Infinity Pool", "Sea Views", "Home Cinema", "Wine Cellar",
+    "Gym", "Solar Panels", "Smart Home", "Underfloor Heating",
+    "Air Conditioning", "Alarm System", "Double Garage", "Garden",
+    "Terrace", "Staff Quarters", "Elevator", "Laundry Room",
+  ],
+  highlights: [
+    { icon: Star, label: "Exclusive", detail: "Exclusive property" },
+    { icon: Shield, label: "Gated Community", detail: "24/7 security" },
+    { icon: Sparkles, label: "Newly Built", detail: "Completed 2023" },
+    { icon: Clock, label: "Turnkey", detail: "Move-in ready" },
+  ],
+  agent: {
+    name: "Isabella Martínez",
+    role: "Senior Property Advisor",
+    phone: "+34 600 123 456",
+    email: "isabella@prestigeestates.com",
   },
-  {
-    id: 2, images: [prop1, detail3, heroImg, detail1],
-    tag: "FOR SALE", style: "Luxury", location: "Marina Botafoch · Ibiza",
-    title: "Luxury Penthouse with Rooftop Terrace and Harbour Views",
-    description: `Exceptional penthouse located in the prestigious Marina Botafoch area, offering stunning views over Dalt Vila and the harbour.
+};
 
-Features include a private rooftop terrace with jacuzzi, open-plan living with designer finishes, and three spacious bedrooms each with en-suite bathrooms. The gourmet kitchen is equipped with top-of-the-line Miele appliances.
-
-Residents enjoy 24-hour concierge service, underground parking, and direct access to the marina promenade.`,
-    beds: 3, baths: 3, sqm: 210, plot: null as number | null, price: "€3,100,000",
-    pricePerSqm: "€14,762/m²",
-    rentalPrice: null as string | null,
-    features: ["Terrace", "Harbour Views", "Jacuzzi", "Concierge", "Elevator"],
-    exclusive: false,
-    alsoForRent: false,
-    ref: "REF-0002",
-    yearBuilt: 2020,
-    energyRating: "B",
-    orientation: "East",
-    parking: "2 cars",
-  },
-  {
-    id: 3, images: [prop2, detail1, detail2, prop3],
-    tag: "FOR SALE", style: "Traditional", location: "San José · Ibiza",
-    title: "Traditional Finca with Modern Renovation and Private Pool",
-    description: `A beautifully restored traditional Ibicencan finca set within 15,000 m² of private land with olive and almond trees.
-
-The property combines authentic character with contemporary luxury. Original stone walls and wooden beams have been preserved, while modern amenities ensure complete comfort. Six bedrooms and five bathrooms accommodate family and guests in style.
-
-The grounds include a heated swimming pool, outdoor dining area, organic vegetable garden, and a separate guest house. Located just minutes from the charming village of San José.`,
-    beds: 6, baths: 5, sqm: 480, plot: 15000, price: "€5,800,000",
-    pricePerSqm: "€12,083/m²",
-    rentalPrice: "€25,000/month",
-    features: ["Pool", "Garden", "Guest House", "Parking", "Olive Grove", "Organic Garden"],
-    exclusive: true,
-    alsoForRent: true,
-    ref: "REF-0003",
-    yearBuilt: 1890,
-    energyRating: "C",
-    orientation: "South",
-    parking: "6 cars",
-  },
-  {
-    id: 4, images: [prop3, detail3, heroImg, prop1],
-    tag: "FOR SALE", style: "Modern", location: "Altea · Costa Blanca",
-    title: "Modern Villa with Infinity Pool Overlooking the Mediterranean",
-    description: `Architecturally striking villa perched on the hillside of Altea with sweeping views of the Mediterranean coastline.
-
-Floor-to-ceiling windows flood the interiors with natural light, creating a seamless connection between indoor and outdoor living spaces. The minimalist design showcases premium materials including Italian marble, oak flooring, and brushed steel finishes.
-
-Highlights include a stunning infinity pool with sun deck, a home cinema, a temperature-controlled wine cellar, and a professional-grade kitchen perfect for entertaining.`,
-    beds: 4, baths: 4, sqm: 350, plot: 800, price: "€2,950,000",
-    pricePerSqm: "€8,429/m²",
-    rentalPrice: null as string | null,
-    features: ["Infinity Pool", "Sea Views", "Home Cinema", "Wine Cellar", "Italian Marble"],
-    exclusive: false,
-    alsoForRent: false,
-    ref: "REF-0004",
-    yearBuilt: 2023,
-    energyRating: "A",
-    orientation: "South-East",
-    parking: "3 cars",
-  },
+const SIMILAR = [
+  { image: prop1, name: "Beachfront Villa Es Cubells", location: "Es Cubells, Ibiza", price: "€6,200,000", beds: 6, baths: 5, sqm: 580 },
+  { image: prop2, name: "Modern Penthouse Marina Botafoch", location: "Marina Botafoch, Ibiza", price: "€3,100,000", beds: 3, baths: 3, sqm: 210 },
+  { image: prop3, name: "Traditional Finca San Carlos", location: "San Carlos, Ibiza", price: "€5,800,000", beds: 7, baths: 6, sqm: 750 },
 ];
 
-const ADVISOR = {
-  name: "Sofia Martinez",
-  title: "Senior Property Advisor",
-  phone: "+34 600 000 000",
-  email: "sofia@prestigeestates.com",
-  image: null,
-};
-
-const TIME_SLOTS = ["09:00", "10:00", "11:00", "12:00", "14:00", "15:00", "16:00", "17:00"];
-
-/* ─── Gallery ─── */
-const ImageGallery = ({ images, title }: { images: string[]; title: string }) => {
-  const [current, setCurrent] = useState(0);
-
-  return (
-    <div className="relative">
-      {/* Main image */}
-      <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
-        <img
-          src={images[current]}
-          alt={`${title} - Photo ${current + 1}`}
-          className="w-full h-full object-cover"
-        />
-        {/* Navigation arrows */}
-        {images.length > 1 && (
-          <>
-            <button
-              onClick={() => setCurrent(current === 0 ? images.length - 1 : current - 1)}
-              className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-white/80 backdrop-blur-sm hover:bg-white transition-colors shadow-md"
-            >
-              <ChevronLeft className="w-5 h-5" style={{ color: palette.text }} />
-            </button>
-            <button
-              onClick={() => setCurrent(current === images.length - 1 ? 0 : current + 1)}
-              className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-white/80 backdrop-blur-sm hover:bg-white transition-colors shadow-md"
-            >
-              <ChevronRight className="w-5 h-5" style={{ color: palette.text }} />
-            </button>
-          </>
-        )}
-        {/* Counter */}
-        <span
-          className="absolute bottom-4 right-4 text-[13px] px-3 py-1.5 rounded-full backdrop-blur-sm"
-          style={{ background: "rgba(45,41,38,0.6)", color: "#fff" }}
-        >
-          {current + 1} / {images.length}
-        </span>
-      </div>
-      {/* Thumbnails */}
-      <div className="flex gap-2 mt-2">
-        {images.map((img, i) => (
-          <button
-            key={i}
-            onClick={() => setCurrent(i)}
-            className="relative flex-1 aspect-[16/10] overflow-hidden rounded-sm transition-opacity"
-            style={{ opacity: i === current ? 1 : 0.5 }}
-          >
-            <img src={img} alt={`Thumbnail ${i + 1}`} className="w-full h-full object-cover" />
-            {i === current && (
-              <div className="absolute inset-0 border-2" style={{ borderColor: palette.accent }} />
-            )}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-/* ─── Recently Viewed Card ─── */
-const RecentlyViewedCard = ({ property }: { property: typeof PROPERTIES[0] }) => (
-  <Link
-    to={`/property/${property.id}`}
-    className="group flex-shrink-0 w-[280px] rounded-sm overflow-hidden border transition-shadow hover:shadow-md"
-    style={{ borderColor: palette.border, background: palette.white }}
-  >
-    <div className="relative aspect-[16/10] overflow-hidden">
-      <img
-        src={property.images[0]}
-        alt={property.title}
-        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-      />
-    </div>
-    <div className="p-4">
-      <p className="text-[11px] tracking-[0.14em] uppercase mb-1" style={{ color: palette.textLight }}>
-        {property.location}
-      </p>
-      <h4 className="text-[14px] font-medium leading-snug mb-2 line-clamp-1" style={{ color: palette.text }}>
-        {property.title}
-      </h4>
-      <div className="flex items-center gap-4 text-[12px] mb-2" style={{ color: palette.textMuted }}>
-        <span className="flex items-center gap-1"><Bed className="w-3.5 h-3.5" />{property.beds}</span>
-        <span className="flex items-center gap-1"><Bath className="w-3.5 h-3.5" />{property.baths}</span>
-        <span className="flex items-center gap-1"><Maximize className="w-3.5 h-3.5" />{property.sqm} m²</span>
-      </div>
-      <p className="text-[15px] font-medium" style={{ color: palette.text }}>{property.price}</p>
-    </div>
-  </Link>
-);
-
-/* ─── Main Component ─── */
+/* ─── Component ─── */
 const PropertyDetailPage = () => {
-  const { id } = useParams<{ id: string }>();
-  const property = PROPERTIES.find((p) => p.id === Number(id)) || PROPERTIES[0];
+  const [lightbox, setLightbox] = useState<number | null>(null);
+  const [liked, setLiked] = useState(false);
+  const [expandDesc, setExpandDesc] = useState(false);
+  const [wantVisit, setWantVisit] = useState(false);
+  const [visitDate, setVisitDate] = useState<Date | undefined>();
+  const [visitTime, setVisitTime] = useState("");
 
-  const [selectedDate, setSelectedDate] = useState("");
-  const [selectedTime, setSelectedTime] = useState("");
-  const [saved, setSaved] = useState(false);
-
-  const recentlyViewed = PROPERTIES.filter((p) => p.id !== property.id).slice(0, 4);
+  const openLightbox = (i: number) => setLightbox(i);
+  const closeLightbox = () => setLightbox(null);
+  const nextSlide = () => setLightbox((p) => (p !== null ? (p + 1) % PROPERTY.images.length : 0));
+  const prevSlide = () => setLightbox((p) => (p !== null ? (p - 1 + PROPERTY.images.length) % PROPERTY.images.length : 0));
 
   return (
-    <Layout navVariant="solid" activePath="/properties">
-      {/* Breadcrumb */}
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 pt-6 pb-4">
-        <nav className="flex items-center gap-2 text-[12px] tracking-[0.1em] uppercase" style={{ color: palette.textLight }}>
-          <Link to="/" className="hover:opacity-70 transition-opacity">Home</Link>
-          <ChevronRight className="w-3 h-3" />
-          <Link to="/properties" className="hover:opacity-70 transition-opacity">Properties</Link>
-          <ChevronRight className="w-3 h-3" />
-          <span style={{ color: palette.text }}>{property.ref}</span>
+    <div className="flex-1 overflow-auto bg-[#FAFAF9] font-sans text-luxury-black">
+
+      {/* ─── IMMERSIVE HERO ─── */}
+      <section className="relative h-[55vh] md:h-[65vh] overflow-hidden cursor-pointer" onClick={() => openLightbox(0)}>
+        <img src={PROPERTY.images[0]} alt="Property hero" className="w-full h-full object-cover" />
+        <div className="absolute inset-x-0 top-0 h-[140px] bg-gradient-to-b from-luxury-black/60 via-luxury-black/25 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-luxury-black/70 via-luxury-black/20 to-transparent" />
+
+        {/* NAV */}
+        <nav className="absolute top-0 inset-x-0 z-50">
+          <div className="max-w-[1400px] mx-auto flex items-center justify-between px-6 lg:px-10 h-[56px]">
+            <Link to="/" className="text-[14px] tracking-[0.34em] text-white font-normal uppercase [text-shadow:0_1px_2px_rgba(0,0,0,0.45)]">
+              {brand.fullName}
+            </Link>
+            <div className="hidden md:flex items-center gap-8">
+              {[...navLeft, ...navRight].map((l) => (
+                <Link key={l.label} to={l.href} className="text-[12px] tracking-[0.16em] uppercase text-white/90 hover:text-white transition-colors duration-300 font-medium [text-shadow:0_1px_2px_rgba(0,0,0,0.45)]">
+                  {l.label}
+                </Link>
+              ))}
+            </div>
+            <button className="md:hidden text-white/90 [text-shadow:0_1px_2px_rgba(0,0,0,0.45)]">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.2} d="M4 6h16M4 12h16M4 18h16" /></svg>
+            </button>
+          </div>
         </nav>
+
+        {/* Hero overlay content */}
+        <div className="absolute bottom-0 left-0 right-0 px-6 lg:px-10 pb-8 max-w-[1400px] mx-auto">
+          <div className="flex items-center gap-2 mb-3">
+            {PROPERTY.breadcrumb.map((crumb, i) => (
+              <span key={i} className="flex items-center gap-2 text-[12px] tracking-[0.12em] uppercase text-white/85 font-medium [text-shadow:0_1px_2px_rgba(0,0,0,0.45)]">
+                {i > 0 && <span className="text-white/60">·</span>}
+                {crumb}
+              </span>
+            ))}
+          </div>
+          <h1 className="text-[26px] md:text-[34px] lg:text-[40px] font-normal text-white leading-[1.15] tracking-[0.015em] uppercase max-w-3xl [text-shadow:0_2px_6px_rgba(0,0,0,0.45)]">
+            {PROPERTY.title}
+          </h1>
+          <p className="text-[14px] text-white/90 font-medium mt-2 tracking-[0.03em] [text-shadow:0_1px_2px_rgba(0,0,0,0.45)]">{PROPERTY.subtitle}</p>
+        </div>
+
+        {/* Media badges */}
+        <div className="absolute bottom-8 right-6 lg:right-10 flex gap-2">
+          {PROPERTY.hasVideo && (
+            <a href={PROPERTY.videoUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}
+              className="flex items-center gap-1.5 bg-white/15 backdrop-blur-md text-white text-[11px] tracking-[0.12em] uppercase px-4 py-2.5 hover:bg-white/25 transition-all border border-white/10">
+              <Play className="w-3 h-3" fill="currentColor" /> Video
+            </a>
+          )}
+          {PROPERTY.hasVirtualTour && (
+            <a href={PROPERTY.virtualTourUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}
+              className="flex items-center gap-1.5 bg-white/15 backdrop-blur-md text-white text-[11px] tracking-[0.12em] uppercase px-4 py-2.5 hover:bg-white/25 transition-all border border-white/10">
+              <View className="w-3 h-3" /> 360°
+            </a>
+          )}
+        </div>
+      </section>
+
+      {/* ─── THUMBNAIL STRIP ─── */}
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-10 -mt-12 relative z-10">
+        <div className="flex gap-1.5">
+          {PROPERTY.images.slice(1, 6).map((img, i) => (
+            <div key={i} className="relative overflow-hidden cursor-pointer group h-[72px] flex-1" onClick={() => openLightbox(i + 1)}>
+              <img src={img} alt={`Photo ${i + 2}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 brightness-90 group-hover:brightness-100" />
+              {i === 4 && PROPERTY.images.length > 6 && (
+                <div className="absolute inset-0 bg-luxury-black/50 flex items-center justify-center">
+                  <span className="text-white text-[12px] tracking-[0.1em] font-light">+{PROPERTY.images.length - 6}</span>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* Main content */}
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 pb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-          {/* Left column: content */}
-          <div className="lg:col-span-8">
-            {/* Gallery */}
-            <ImageGallery images={property.images} title={property.title} />
+      {/* ─── PRICE + ACTIONS BAR ─── */}
+      <section className="max-w-[1400px] mx-auto px-6 lg:px-10 pt-8 pb-5">
+        <div className="flex items-center justify-between flex-wrap gap-4">
+          <div className="flex items-baseline gap-3">
+            <p className="text-[34px] md:text-[42px] font-extralight text-luxury-black tracking-tight leading-none">{PROPERTY.price}</p>
+            <span className="text-[15px] text-luxury-black/50 line-through font-light">{PROPERTY.originalPrice}</span>
+            <span className="text-[11px] font-medium tracking-[0.08em] uppercase text-luxury-gold bg-luxury-gold/10 px-2.5 py-1">-{PROPERTY.discount}%</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <button onClick={() => setLiked(!liked)} className={`w-10 h-10 flex items-center justify-center transition-all duration-300 ${liked ? "bg-luxury-black text-white" : "bg-transparent text-luxury-black/50 hover:text-luxury-black border border-luxury-black/15"}`}>
+              <Heart className="w-[18px] h-[18px]" fill={liked ? "currentColor" : "none"} />
+            </button>
+            <button className="w-10 h-10 flex items-center justify-center text-luxury-black/50 hover:text-luxury-black border border-luxury-black/15 transition-all">
+              <Share2 className="w-[18px] h-[18px]" />
+            </button>
+            <button className="w-10 h-10 flex items-center justify-center text-luxury-black/50 hover:text-luxury-black border border-luxury-black/15 transition-all" title="Download PDF">
+              <FileDown className="w-[18px] h-[18px]" />
+            </button>
+            <span className="ml-3 text-[12px] tracking-[0.12em] uppercase text-luxury-black/50 font-light">Ref: {PROPERTY.ref}</span>
+          </div>
+        </div>
+      </section>
 
-            {/* Badges */}
-            <div className="flex items-center gap-3 mt-6">
-              {property.exclusive && (
-                <span
-                  className="text-[11px] tracking-[0.14em] uppercase font-medium px-3 py-1.5 rounded-sm"
-                  style={{ background: palette.accent, color: palette.white }}
-                >
-                  Exclusive
-                </span>
-              )}
-              {property.alsoForRent && (
-                <span
-                  className="text-[11px] tracking-[0.14em] uppercase font-medium px-3 py-1.5 rounded-sm border"
-                  style={{ borderColor: palette.accent, color: palette.accent }}
-                >
-                  Also for Rent
-                </span>
-              )}
-              <span
-                className="text-[11px] tracking-[0.14em] uppercase font-medium px-3 py-1.5 rounded-sm border"
-                style={{ borderColor: palette.border, color: palette.textMuted }}
-              >
-                {property.tag}
-              </span>
-            </div>
-
-            {/* Title & Location */}
-            <div className="mt-5">
-              <div className="flex items-center gap-2 mb-2">
-                <MapPin className="w-4 h-4" style={{ color: palette.accent }} />
-                <span className="text-[13px] tracking-[0.12em] uppercase" style={{ color: palette.textMuted }}>
-                  {property.location}
-                </span>
-              </div>
-              <h1
-                className="text-[28px] md:text-[34px] font-light leading-tight mb-2"
-                style={{ fontFamily: fonts.heading, color: palette.text }}
-              >
-                {property.title}
-              </h1>
-              <div className="flex items-center gap-3 text-[13px]" style={{ color: palette.textLight }}>
-                <span>{property.style}</span>
-                <span style={{ color: palette.border }}>|</span>
-                <span className="font-mono tracking-wide">{property.ref}</span>
+      {/* ─── SPECS RIBBON ─── */}
+      <section className="max-w-[1400px] mx-auto px-6 lg:px-10">
+        <div className="flex flex-wrap items-center gap-0 border-y border-luxury-black/8">
+          {[
+            { icon: Bed, label: "Bedrooms", value: PROPERTY.beds },
+            { icon: Bath, label: "Bathrooms", value: PROPERTY.baths },
+            { icon: Maximize, label: "Built Area", value: `${PROPERTY.sqm} m²` },
+            { icon: Fence, label: "Plot", value: `${PROPERTY.plot} m²` },
+            { icon: Car, label: "Garage", value: PROPERTY.garage },
+          ].map((s, i, arr) => (
+            <div key={i} className={`flex items-center gap-3 py-4 px-5 ${i < arr.length - 1 ? "border-r border-luxury-black/8" : ""}`}>
+              <s.icon className="w-[18px] h-[18px] text-luxury-gold/80" strokeWidth={1.2} />
+              <div>
+                <p className="text-[16px] font-light text-luxury-black">{s.value}</p>
+                <p className="text-[11px] tracking-[0.15em] uppercase text-luxury-black/45 font-light">{s.label}</p>
               </div>
             </div>
+          ))}
+        </div>
+      </section>
 
-            {/* Price */}
-            <div className="mt-6 p-5 rounded-sm" style={{ background: palette.bgAlt }}>
-              <div className="flex items-baseline gap-4 flex-wrap">
-                <span className="text-[28px] font-medium" style={{ color: palette.text }}>
-                  {property.price}
-                </span>
-                <span className="text-[13px]" style={{ color: palette.textLight }}>
-                  {property.pricePerSqm}
-                </span>
+      {/* ─── HIGHLIGHTS ─── */}
+      <section className="max-w-[1400px] mx-auto px-6 lg:px-10 py-6">
+        <div className="flex flex-wrap gap-3">
+          {PROPERTY.highlights.map((h, i) => (
+            <div key={i} className="flex items-center gap-2.5 bg-luxury-black/[0.03] px-4 py-2.5">
+              <h.icon className="w-4 h-4 text-luxury-gold/70" strokeWidth={1.3} />
+              <div>
+                <p className="text-[13px] font-normal text-luxury-black">{h.label}</p>
+                <p className="text-[11px] text-luxury-black/50 font-light">{h.detail}</p>
               </div>
-              {property.alsoForRent && property.rentalPrice && (
-                <p className="text-[14px] mt-2" style={{ color: palette.accent }}>
-                  Rental available: {property.rentalPrice}
-                </p>
-              )}
             </div>
+          ))}
+          {PROPERTY.alsoForRent && (
+            <div className="flex items-center gap-2.5 bg-luxury-gold/[0.08] border border-luxury-gold/20 px-4 py-2.5">
+              <Home className="w-4 h-4 text-luxury-gold" strokeWidth={1.3} />
+              <div>
+                <p className="text-[13px] font-normal text-luxury-black">Also for Rent</p>
+                <p className="text-[12px] text-luxury-gold font-medium">{PROPERTY.rentalPrice}</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
 
-            {/* Specs grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
-              {[
-                { label: "Bedrooms", value: property.beds, icon: Bed },
-                { label: "Bathrooms", value: property.baths, icon: Bath },
-                { label: "Built Area", value: `${property.sqm} m²`, icon: Maximize },
-                ...(property.plot ? [{ label: "Plot Size", value: `${property.plot.toLocaleString()} m²`, icon: MapPin }] : []),
-              ].map((spec) => (
-                <div
-                  key={spec.label}
-                  className="flex flex-col items-center p-4 rounded-sm border text-center"
-                  style={{ borderColor: palette.border }}
-                >
-                  <spec.icon className="w-5 h-5 mb-2" style={{ color: palette.accent }} />
-                  <span className="text-[11px] tracking-[0.12em] uppercase mb-1" style={{ color: palette.textLight }}>
-                    {spec.label}
-                  </span>
-                  <span className="text-[18px] font-light" style={{ color: palette.text }}>
-                    {spec.value}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            {/* Additional details */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4">
-              {[
-                { label: "Year Built", value: property.yearBuilt },
-                { label: "Energy Rating", value: property.energyRating },
-                { label: "Orientation", value: property.orientation },
-                { label: "Parking", value: property.parking },
-              ].map((detail) => (
-                <div key={detail.label} className="py-3 border-b" style={{ borderColor: palette.border }}>
-                  <span className="text-[11px] tracking-[0.12em] uppercase block mb-0.5" style={{ color: palette.textLight }}>
-                    {detail.label}
-                  </span>
-                  <span className="text-[15px]" style={{ color: palette.text }}>{detail.value}</span>
-                </div>
-              ))}
-            </div>
+      {/* ─── CONTENT + SIDEBAR ─── */}
+      <section className="max-w-[1400px] mx-auto px-6 lg:px-10 pb-12">
+        <div className="flex flex-col lg:flex-row gap-12">
+          {/* Main content */}
+          <div className="flex-1 min-w-0 space-y-10">
 
             {/* Description */}
-            <div className="mt-10">
-              <h2
-                className="text-[20px] font-medium mb-5"
-                style={{ fontFamily: fonts.heading, color: palette.text }}
-              >
-                Description
-              </h2>
-              <div
-                className="text-[15px] leading-[1.8] whitespace-pre-line"
-                style={{ color: palette.textMuted }}
-              >
-                {property.description}
+            <div>
+              <p className="text-[13px] tracking-[0.22em] uppercase text-luxury-gold/90 font-normal mb-4">About This Property</p>
+              <div className={`text-[15px] leading-[1.95] text-luxury-black font-normal whitespace-pre-line ${!expandDesc ? "line-clamp-6" : ""}`}>
+                {PROPERTY.description}
               </div>
+              <button
+                onClick={() => setExpandDesc(!expandDesc)}
+                className="flex items-center gap-1 mt-3 text-[12px] tracking-[0.12em] uppercase text-luxury-black/85 hover:text-luxury-black font-medium transition-colors"
+              >
+                {expandDesc ? "Show less" : "Read more"} <ChevronDown className={`w-3.5 h-3.5 transition-transform ${expandDesc ? "rotate-180" : ""}`} />
+              </button>
             </div>
 
             {/* Features */}
-            <div className="mt-10">
-              <h2
-                className="text-[20px] font-medium mb-5"
-                style={{ fontFamily: fonts.heading, color: palette.text }}
-              >
-                Features & Amenities
-              </h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {property.features.map((feature) => (
-                  <div key={feature} className="flex items-center gap-2.5 py-2">
-                    <Check className="w-4 h-4 flex-shrink-0" style={{ color: palette.accent }} />
-                    <span className="text-[14px]" style={{ color: palette.text }}>{feature}</span>
+            <div className="border-t border-luxury-black/10 pt-8">
+              <p className="text-[13px] tracking-[0.22em] uppercase text-luxury-gold/90 font-normal mb-5">Features & Amenities</p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-3">
+                {PROPERTY.features.map((f, i) => (
+                  <div key={i} className="flex items-center gap-2 text-[15px] text-luxury-black font-normal">
+                    <Check className="w-3.5 h-3.5 text-luxury-gold/80" strokeWidth={2} />
+                    {f}
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Action buttons */}
-            <div className="flex items-center gap-3 mt-10 pt-8 border-t" style={{ borderColor: palette.border }}>
-              <button
-                className="flex items-center gap-2 px-5 py-2.5 rounded-sm text-[13px] tracking-[0.08em] uppercase transition-colors hover:opacity-80"
-                style={{ background: palette.text, color: palette.white }}
-              >
-                <Download className="w-4 h-4" />
-                Download PDF
-              </button>
-              <button
-                className="flex items-center gap-2 px-5 py-2.5 rounded-sm text-[13px] tracking-[0.08em] uppercase border transition-colors hover:opacity-80"
-                style={{ borderColor: palette.border, color: palette.text }}
-              >
-                <Share2 className="w-4 h-4" />
-                Share
-              </button>
-              <button
-                onClick={() => setSaved(!saved)}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-sm text-[13px] tracking-[0.08em] uppercase border transition-colors hover:opacity-80"
-                style={{
-                  borderColor: saved ? palette.accent : palette.border,
-                  color: saved ? palette.accent : palette.text,
-                  background: saved ? `${palette.accent}10` : "transparent",
-                }}
-              >
-                <Heart className="w-4 h-4" fill={saved ? palette.accent : "none"} />
-                {saved ? "Saved" : "Save"}
-              </button>
+            {/* Map placeholder */}
+            <div className="border-t border-luxury-black/10 pt-8">
+              <p className="text-[13px] tracking-[0.22em] uppercase text-luxury-gold/90 font-normal mb-3">Location</p>
+              <p className="text-[14px] text-luxury-black/85 font-normal mb-4 flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-luxury-gold/75" /> {PROPERTY.breadcrumb.join(" · ")}
+              </p>
+              <div className="bg-luxury-black/[0.05] h-[260px] flex items-center justify-center text-luxury-black/60 text-[14px] font-normal">
+                <MapPin className="w-5 h-5 mr-1.5" /> Interactive Map
+              </div>
             </div>
+
+            {/* Nearby & Mortgage */}
+            <LuxuryNearbyPlaces />
+            <LuxuryMortgageCalculator />
           </div>
 
-          {/* Right column: sticky advisor sidebar */}
-          <div className="lg:col-span-4">
-            <div className="lg:sticky lg:top-[100px] space-y-6">
+          {/* Sidebar */}
+          <div className="w-full lg:w-[360px] shrink-0">
+            <div className="lg:sticky lg:top-[16px] space-y-5">
+
               {/* Advisor card */}
-              <div className="rounded-sm border p-6" style={{ borderColor: palette.border, background: palette.white }}>
-                <div className="flex items-center gap-4 mb-5">
-                  <div
-                    className="w-14 h-14 rounded-full flex items-center justify-center"
-                    style={{ background: palette.bgAlt }}
-                  >
-                    <User className="w-6 h-6" style={{ color: palette.accent }} />
-                  </div>
-                  <div>
-                    <h3 className="text-[16px] font-medium" style={{ color: palette.text }}>
-                      {ADVISOR.name}
-                    </h3>
-                    <p className="text-[12px]" style={{ color: palette.textLight }}>
-                      {ADVISOR.title}
-                    </p>
-                  </div>
-                </div>
-                <div className="space-y-3">
-                  <a
-                    href={`tel:${ADVISOR.phone}`}
-                    className="flex items-center gap-3 w-full px-4 py-3 rounded-sm text-[13px] transition-colors hover:opacity-80"
-                    style={{ background: palette.text, color: palette.white }}
-                  >
-                    <Phone className="w-4 h-4" />
-                    {ADVISOR.phone}
-                  </a>
-                  <a
-                    href={`mailto:${ADVISOR.email}`}
-                    className="flex items-center gap-3 w-full px-4 py-3 rounded-sm text-[13px] border transition-colors hover:opacity-80"
-                    style={{ borderColor: palette.border, color: palette.text }}
-                  >
-                    <Mail className="w-4 h-4" />
-                    Send Email
-                  </a>
-                </div>
-              </div>
+              <div className="bg-white p-7 shadow-[0_2px_20px_-4px_rgba(0,0,0,0.06)]">
+                <p className="text-[13px] tracking-[0.22em] uppercase text-luxury-gold/90 font-normal mb-4">Your Private Advisor</p>
+                <h3 className="text-[17px] font-medium text-luxury-black mb-0.5 tracking-wide">{PROPERTY.agent.name}</h3>
+                <p className="text-[13px] text-luxury-black/80 font-normal mb-6">{PROPERTY.agent.role}</p>
 
-              {/* Schedule a visit */}
-              <div className="rounded-sm border p-6" style={{ borderColor: palette.border, background: palette.white }}>
-                <h3 className="text-[16px] font-medium mb-1" style={{ color: palette.text }}>
-                  Schedule a Visit
-                </h3>
-                <p className="text-[13px] mb-5" style={{ color: palette.textLight }}>
-                  Book a private viewing of this property
-                </p>
+                <form className="space-y-3 mb-5" onSubmit={(e) => e.preventDefault()}>
+                  <input type="text" placeholder="Full name" className="w-full bg-neutral-50 border-0 px-4 py-3 text-[14px] text-luxury-black placeholder:text-luxury-black/55 focus:outline-none focus:ring-1 focus:ring-luxury-gold/40 transition-all" />
+                  <input type="email" placeholder="Email address" className="w-full bg-neutral-50 border-0 px-4 py-3 text-[14px] text-luxury-black placeholder:text-luxury-black/55 focus:outline-none focus:ring-1 focus:ring-luxury-gold/40 transition-all" />
+                  <LuxuryPhoneInput />
+                  <textarea placeholder="I'm interested in this property..." rows={3} className="w-full bg-neutral-50 border-0 px-4 py-3 text-[14px] text-luxury-black placeholder:text-luxury-black/55 focus:outline-none focus:ring-1 focus:ring-luxury-gold/40 transition-all resize-none" />
 
-                {/* Date selector */}
-                <label className="block mb-4">
-                  <span className="text-[11px] tracking-[0.12em] uppercase block mb-2" style={{ color: palette.textLight }}>
-                    <Calendar className="w-3.5 h-3.5 inline mr-1.5" />
-                    Preferred Date
-                  </span>
-                  <input
-                    type="date"
-                    value={selectedDate}
-                    onChange={(e) => setSelectedDate(e.target.value)}
-                    className="w-full border rounded-sm px-3 py-2.5 text-[14px] focus:outline-none transition-colors"
-                    style={{
-                      borderColor: palette.border,
-                      color: palette.text,
-                      fontFamily: fonts.body,
-                    }}
-                  />
-                </label>
+                  {/* Request visit toggle */}
+                  <label className="flex items-center gap-2 cursor-pointer select-none py-1">
+                    <input
+                      type="checkbox"
+                      checked={wantVisit}
+                      onChange={(e) => setWantVisit(e.target.checked)}
+                      className="accent-luxury-gold"
+                    />
+                    <span className="text-[13px] text-luxury-black/80 font-medium flex items-center gap-1.5">
+                      <CalendarDays className="w-3.5 h-3.5 text-luxury-gold/80" />
+                      I'd like to schedule a visit
+                    </span>
+                  </label>
 
-                {/* Time slots */}
-                <div className="mb-5">
-                  <span className="text-[11px] tracking-[0.12em] uppercase block mb-2" style={{ color: palette.textLight }}>
-                    <Clock className="w-3.5 h-3.5 inline mr-1.5" />
-                    Preferred Time
-                  </span>
-                  <div className="grid grid-cols-4 gap-2">
-                    {TIME_SLOTS.map((time) => (
-                      <button
-                        key={time}
-                        onClick={() => setSelectedTime(time)}
-                        className="py-2 text-[13px] rounded-sm border transition-colors"
-                        style={{
-                          borderColor: selectedTime === time ? palette.accent : palette.border,
-                          background: selectedTime === time ? palette.accent : "transparent",
-                          color: selectedTime === time ? palette.white : palette.textMuted,
-                        }}
+                  {/* Visit date & time */}
+                  {wantVisit && (
+                    <div className="space-y-2 bg-neutral-50 p-3 rounded-sm">
+                      <p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/55 font-medium mb-1">Preferred Date & Time</p>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <button
+                            type="button"
+                            className={cn(
+                              "w-full flex items-center gap-2 bg-white border border-luxury-black/10 px-4 py-2.5 text-[14px] text-left transition-all hover:border-luxury-gold/40",
+                              !visitDate && "text-luxury-black/45"
+                            )}
+                          >
+                            <CalendarDays className="w-4 h-4 text-luxury-gold/70 shrink-0" />
+                            {visitDate ? format(visitDate, "PPP") : "Select a date"}
+                          </button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            selected={visitDate}
+                            onSelect={setVisitDate}
+                            disabled={(date) => date < new Date()}
+                            initialFocus
+                            className={cn("p-3 pointer-events-auto")}
+                          />
+                        </PopoverContent>
+                      </Popover>
+
+                      <select
+                        value={visitTime}
+                        onChange={(e) => setVisitTime(e.target.value)}
+                        className="w-full bg-white border border-luxury-black/10 px-4 py-2.5 text-[14px] text-luxury-black appearance-none cursor-pointer focus:outline-none focus:border-luxury-gold/40 transition-all"
                       >
-                        {time}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <button
-                  className="w-full py-3 rounded-sm text-[13px] tracking-[0.1em] uppercase font-medium transition-colors hover:opacity-90"
-                  style={{ background: palette.accent, color: palette.white }}
-                >
-                  Request Viewing
-                </button>
-              </div>
-
-              {/* Quick facts */}
-              <div className="rounded-sm border p-6" style={{ borderColor: palette.border, background: palette.white }}>
-                <h3 className="text-[14px] font-medium mb-4" style={{ color: palette.text }}>
-                  Quick Facts
-                </h3>
-                <div className="space-y-3">
-                  {[
-                    { label: "Reference", value: property.ref },
-                    { label: "Type", value: property.style },
-                    { label: "Energy Rating", value: property.energyRating },
-                    { label: "Year Built", value: String(property.yearBuilt) },
-                    { label: "Orientation", value: property.orientation },
-                  ].map((item) => (
-                    <div key={item.label} className="flex justify-between text-[13px]">
-                      <span style={{ color: palette.textLight }}>{item.label}</span>
-                      <span style={{ color: palette.text }}>{item.value}</span>
+                        <option value="" disabled>Select a time</option>
+                        {["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30",
+                          "13:00", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00"].map((t) => (
+                          <option key={t} value={t}>{t}</option>
+                        ))}
+                      </select>
                     </div>
-                  ))}
-                </div>
+                  )}
+
+                  <label className="flex items-start gap-2 cursor-pointer">
+                    <input type="checkbox" className="mt-1 accent-luxury-gold" />
+                    <span className="text-[12px] text-luxury-black/80 font-normal leading-relaxed">
+                      I accept the <a href="#" className="underline hover:text-luxury-black">terms</a> and <a href="#" className="underline hover:text-luxury-black">privacy policy</a>.
+                    </span>
+                  </label>
+                  <button type="submit" className="flex items-center justify-center gap-2 bg-luxury-black text-white text-[12px] tracking-[0.18em] uppercase py-3.5 w-full hover:bg-luxury-charcoal transition-all duration-300 font-medium">
+                    <Mail className="w-4 h-4" /> {wantVisit ? "Request Visit" : "Send Enquiry"}
+                  </button>
+                </form>
+
+                <a href={`tel:${PROPERTY.agent.phone}`} className="flex items-center justify-center gap-2 text-luxury-black/90 text-[12px] tracking-[0.15em] uppercase py-3.5 w-full hover:bg-neutral-50 transition-all duration-300 font-medium border border-luxury-black/15">
+                  <Phone className="w-4 h-4" /> Call Directly
+                </a>
               </div>
+
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Recently Viewed */}
-        <div className="mt-20 pt-10 border-t" style={{ borderColor: palette.border }}>
-          <h2
-            className="text-[22px] font-light mb-6"
-            style={{ fontFamily: fonts.heading, color: palette.text }}
-          >
-            Recently Viewed
-          </h2>
-          <div className="flex gap-5 overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
-            {recentlyViewed.map((p) => (
-              <RecentlyViewedCard key={p.id} property={p} />
+      {/* ─── SIMILAR PROPERTIES ─── */}
+      <section className="bg-white py-12">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
+          <p className="text-[13px] tracking-[0.25em] uppercase text-luxury-gold/80 font-light mb-7">You May Also Like</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {SIMILAR.map((p, i) => (
+              <a key={i} href="#" className="group">
+                <div className="relative overflow-hidden aspect-[3/2]">
+                  <img src={p.image} alt={p.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-luxury-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                </div>
+                <div className="pt-4 space-y-1.5">
+                  <p className="text-[22px] font-extralight text-luxury-black tracking-tight">{p.price}</p>
+                  <h3 className="text-[14px] font-normal text-luxury-black leading-snug uppercase tracking-[0.03em]">{p.name}</h3>
+                  <p className="text-[12px] text-luxury-black/55 font-light flex items-center gap-1 tracking-wide">
+                    <MapPin className="w-3 h-3" /> {p.location}
+                  </p>
+                  <div className="flex items-center gap-4 pt-1.5 text-[12px] text-luxury-black/50 font-light tracking-wide">
+                    <span className="flex items-center gap-1"><Bed className="w-3.5 h-3.5" /> {p.beds}</span>
+                    <span className="flex items-center gap-1"><Bath className="w-3.5 h-3.5" /> {p.baths}</span>
+                    <span className="flex items-center gap-1"><Maximize className="w-3.5 h-3.5" /> {p.sqm} m²</span>
+                  </div>
+                </div>
+              </a>
             ))}
           </div>
         </div>
-      </div>
-    </Layout>
+      </section>
+
+      {/* ─── RECENTLY VIEWED ─── */}
+      <section className="max-w-[1400px] mx-auto px-6 lg:px-10 py-8">
+        <p className="text-[14px] font-normal text-luxury-black mb-4">Recently Viewed</p>
+        <div className="flex gap-3 overflow-x-auto pb-2">
+          {[...SIMILAR, ...SIMILAR].slice(0, 5).map((p, i) => (
+            <a key={i} href="#" className="shrink-0 w-[150px] group">
+              <div className="relative overflow-hidden aspect-[4/3] mb-1.5">
+                <img src={p.image} alt={p.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+              </div>
+              <p className="text-[12px] text-luxury-black/85 font-light leading-snug line-clamp-2">{p.name}</p>
+              <p className="text-[13px] font-normal text-luxury-black mt-0.5">{p.price}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      {/* ─── NEWSLETTER ─── */}
+      <section className="bg-luxury-black py-16">
+        <div className="max-w-md mx-auto px-6 text-center">
+          <p className="text-[11px] tracking-[0.4em] uppercase text-luxury-gold/60 mb-3 font-light">Exclusive Access</p>
+          <h2 className="text-[26px] font-extralight text-white tracking-[0.03em]">The Private Collection</h2>
+          <p className="text-[14px] text-white/50 font-light mt-4 mb-8 leading-relaxed">
+            Receive off-market listings and private viewing invitations — delivered discreetly to your inbox.
+          </p>
+          <form className="flex flex-col sm:flex-row gap-2" onSubmit={(e) => e.preventDefault()}>
+            <input type="email" placeholder="Your email address" className="flex-1 bg-white/[0.08] border border-white/10 px-4 py-3 text-[14px] text-white placeholder:text-white/30 focus:outline-none focus:border-luxury-gold/40 transition-colors" />
+            <button type="submit" className="bg-luxury-gold/90 text-luxury-black text-[11px] tracking-[0.2em] uppercase px-7 py-3 hover:bg-luxury-gold transition-all font-medium whitespace-nowrap">Subscribe</button>
+          </form>
+        </div>
+      </section>
+
+      {/* ─── FOOTER ─── */}
+      <footer className="bg-luxury-black border-t border-white/5">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <span className="text-[13px] tracking-[0.35em] text-white/40 font-extralight uppercase">{brand.fullName}</span>
+            <p className="text-[11px] text-white/25 tracking-wider font-light">© 2025 {brand.fullName}. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+
+      {/* ─── LIGHTBOX ─── */}
+      {lightbox !== null && (
+        <div className="fixed inset-0 z-[100] bg-luxury-black/97 flex items-center justify-center" onClick={closeLightbox}>
+          <button onClick={closeLightbox} className="absolute top-5 right-5 text-white/30 hover:text-white transition-colors"><X className="w-6 h-6" strokeWidth={1.2} /></button>
+          <button onClick={(e) => { e.stopPropagation(); prevSlide(); }} className="absolute left-4 md:left-8 text-white/20 hover:text-white transition-colors"><ChevronLeft className="w-8 h-8" strokeWidth={1} /></button>
+          <button onClick={(e) => { e.stopPropagation(); nextSlide(); }} className="absolute right-4 md:right-8 text-white/20 hover:text-white transition-colors"><ChevronRight className="w-8 h-8" strokeWidth={1} /></button>
+          <img
+            src={PROPERTY.images[lightbox]}
+            alt={`Photo ${lightbox + 1}`}
+            className="max-w-[90vw] max-h-[85vh] object-contain"
+            onClick={(e) => e.stopPropagation()}
+          />
+          <p className="absolute bottom-5 text-white/20 text-[12px] font-light tracking-[0.15em]">{lightbox + 1} / {PROPERTY.images.length}</p>
+        </div>
+      )}
+    </div>
   );
 };
 
