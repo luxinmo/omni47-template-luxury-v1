@@ -1,27 +1,23 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Search, Instagram, Linkedin, MessageCircle } from "lucide-react";
+import { brand, palette, fonts, navLeft, navRight, languages, contact } from "@/config/template";
 import heroImg from "@/assets/luxury-hero.jpg";
 import prop1 from "@/assets/luxury-property-1.jpg";
 import prop2 from "@/assets/luxury-property-2.jpg";
 import prop3 from "@/assets/luxury-property-3.jpg";
 import propertyDetail1 from "@/assets/property-detail-1.jpg";
 
-/* ─── PALETTE & FONT — synced with Home 2 ─── */
+/* ─── PALETTE & FONT — from config ─── */
 const p = {
-  bg: "#FAF8F5",
-  white: "#FFFFFF",
-  text: "#2D2926",
-  muted: "#6B6560",
-  light: "#9A938B",
-  accent: "#8B6F47",
-  border: "#E2DCD4",
-  footer: "#2D2926",
+  bg: palette.bg, white: palette.white, text: palette.text,
+  muted: palette.textMuted, light: palette.textLight,
+  accent: palette.accent, border: palette.border, footer: palette.footer,
 };
-const font = "'Jost', Helvetica, sans-serif";
+const font = fonts.body;
 
 /* ─── TRANSLATABLE STRINGS ─── */
-const BRAND_NAME = "PRESTIGE ESTATES";
+const BRAND_NAME = brand.fullName;
 const PAGE_TITLE = "The Journal";
 const PAGE_SUBTITLE = "Insights, guides and stories from the world of luxury real estate";
 const SEARCH_PLACEHOLDER = "Search articles...";
@@ -38,9 +34,10 @@ const NEWSLETTER_PRIVACY = "We respect your privacy. Unsubscribe at any time.";
 const LOAD_MORE = "Load More Articles";
 const NO_RESULTS = "No articles found matching your criteria.";
 
-const NAV_LEFT = ["Home", "Properties", "Rentals"];
-const NAV_RIGHT = ["About", "Guides & Blog", "Message Us"];
-const CONTACT = { email: "hello@prestigeestates.com", phone: "+34 600 000 000", city: "Marbella, Spain" };
+const LANGUAGES = languages;
+const NAV_LEFT_ITEMS = navLeft;
+const NAV_RIGHT_ITEMS = navRight;
+const CONTACT = contact;
 
 /* ─── CATEGORIES ─── */
 const CATEGORIES = [
@@ -65,13 +62,7 @@ const BLOG_POSTS = [
   { id: "8", image: heroImg, date: "15 Feb 2026", category: "market-insights", title: "Ibiza Property Market Report Q1 2026: Record Demand Meets Limited Supply", excerpt: "Our quarterly analysis reveals that Ibiza's luxury segment has reached unprecedented price levels, driven by a surge in international demand and a constrained supply pipeline.", author: "Marcus Chen", readTime: 9, featured: false },
 ];
 
-const LANGUAGES = [
-  { code: "EN", label: "English" },
-  { code: "ES", label: "Español" },
-  { code: "DE", label: "Deutsch" },
-  { code: "FR", label: "Français" },
-  { code: "RU", label: "Русский" },
-];
+/* LANGUAGES imported from config as 'languages' */
 
 /* ─── Hooks ─── */
 function useContainerScrolled(ref: React.RefObject<HTMLElement | null>, threshold = 60) {
@@ -168,21 +159,21 @@ const BlogListingPage = () => {
 
           {/* Left nav */}
           <div className="hidden lg:flex items-center gap-8">
-            {NAV_LEFT.map((l) => (
-              <Link key={l} to={l === "Home" ? "/" : l === "Properties" ? "/properties" : "#"} className="text-[13px] tracking-[0.12em] uppercase font-light transition-colors duration-300 hover:opacity-60" style={{ color: p.text }}>{l}</Link>
+            {NAV_LEFT_ITEMS.map((l) => (
+              <Link key={l.label} to={l.href} className="text-[13px] tracking-[0.12em] uppercase font-light transition-colors duration-300 hover:opacity-60" style={{ color: p.text }}>{l.label}</Link>
             ))}
           </div>
 
           {/* Center logo */}
           <Link to="/" className="flex flex-col items-center">
             <span className="text-[20px] sm:text-[24px] tracking-[0.35em] font-light" style={{ color: p.text }}>{BRAND_NAME}</span>
-            <span className="text-[7px] sm:text-[8px] tracking-[0.45em] uppercase font-light -mt-0.5" style={{ color: p.light }}>Real Estate</span>
+            <span className="text-[7px] sm:text-[8px] tracking-[0.45em] uppercase font-light -mt-0.5" style={{ color: p.light }}>{brand.subtitle}</span>
           </Link>
 
           {/* Right nav */}
           <div className="hidden lg:flex items-center gap-8">
-            {NAV_RIGHT.map((l) => (
-              <Link key={l} to={l === "Guides & Blog" ? "/blog" : "#"} className="text-[13px] tracking-[0.12em] uppercase font-light transition-colors duration-300 hover:opacity-60" style={{ color: l === "Guides & Blog" ? p.text : p.muted }}>{l}</Link>
+            {NAV_RIGHT_ITEMS.map((l) => (
+              <Link key={l.label} to={l.href} className="text-[13px] tracking-[0.12em] uppercase font-light transition-colors duration-300 hover:opacity-60" style={{ color: p.muted }}>{l.label}</Link>
             ))}
           </div>
 
@@ -199,8 +190,8 @@ const BlogListingPage = () => {
         {mobileMenuOpen && (
           <div className="lg:hidden animate-in slide-in-from-top-2 duration-200" style={{ background: p.white, borderTop: `1px solid ${p.border}` }}>
             <div className="px-6 py-6 flex flex-col gap-1">
-              {[...NAV_LEFT, ...NAV_RIGHT].map((l) => (
-                <Link key={l} to={l === "Home" ? "/" : l === "Properties" ? "/properties" : l === "Guides & Blog" ? "/blog" : "#"} className="text-[14px] tracking-[0.08em] font-light py-3" style={{ color: p.text, borderBottom: `1px solid ${p.border}40` }}>{l}</Link>
+              {[...NAV_LEFT_ITEMS, ...NAV_RIGHT_ITEMS].map((l) => (
+                <Link key={l.label} to={l.href} className="text-[14px] tracking-[0.08em] font-light py-3" style={{ color: p.text, borderBottom: `1px solid ${p.border}40` }}>{l.label}</Link>
               ))}
               <div className="mt-4 pt-4" style={{ borderTop: `1px solid ${p.border}` }}>
                 <p className="text-[10px] tracking-[0.2em] uppercase mb-3" style={{ color: p.light }}>Language</p>

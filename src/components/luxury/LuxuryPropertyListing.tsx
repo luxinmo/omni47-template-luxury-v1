@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Search, SlidersHorizontal, X, ChevronDown, ChevronRight, Bed, Bath, Maximize, MapPin, Mail } from "lucide-react";
+import { brand, navLeft, navRight } from "@/config/template";
 import heroImg from "@/assets/luxury-hero.jpg";
 import LocationSearchDropdown from "./LocationSearchDropdown";
 import prop1 from "@/assets/luxury-property-1.jpg";
@@ -9,9 +11,7 @@ import detail1 from "@/assets/property-detail-1.jpg";
 import detail2 from "@/assets/property-detail-2.jpg";
 import detail3 from "@/assets/property-detail-3.jpg";
 
-const BRAND_NAME = "PRESTIGE ESTATES";
-const NAV_LEFT = ["Home", "Properties", "Rentals"];
-const NAV_RIGHT = ["About", "Guides & Blog", "Message Us"];
+/* brand, navLeft, navRight imported from config */
 
 /* ─── Types ─── */
 interface FilterState {
@@ -532,21 +532,21 @@ const LuxuryPropertyListing = () => {
             <button className="text-luxury-black/50 hover:text-luxury-black transition-colors duration-300">
               <svg className="w-[18px] h-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.2}><circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
             </button>
-            {NAV_LEFT.map((l) => (
-              <a key={l} href={l === "Home" ? "/" : l === "Properties" ? "/properties" : "#"} className="text-[13px] tracking-[0.14em] uppercase font-light text-luxury-black/55 hover:text-luxury-black transition-colors duration-300">{l}</a>
+            {navLeft.map((l) => (
+              <Link key={l.label} to={l.href} className="text-[13px] tracking-[0.14em] uppercase font-light text-luxury-black/55 hover:text-luxury-black transition-colors duration-300">{l.label}</Link>
             ))}
           </div>
           <div className="lg:hidden" />
 
-          <a href="/" className="flex flex-col items-center justify-center">
-            <span className="text-lg md:text-xl tracking-[0.3em] font-light text-luxury-black">{BRAND_NAME}</span>
-            <span className="text-[10px] tracking-[0.35em] uppercase font-light text-luxury-black/40">Real Estate</span>
-          </a>
+          <Link to="/" className="flex flex-col items-center justify-center">
+            <span className="text-lg md:text-xl tracking-[0.3em] font-light text-luxury-black">{brand.fullName}</span>
+            <span className="text-[10px] tracking-[0.35em] uppercase font-light text-luxury-black/40">{brand.subtitle}</span>
+          </Link>
 
           <div className="flex items-center justify-end gap-8">
             <div className="hidden lg:flex items-center gap-10">
-              {NAV_RIGHT.map((l) => (
-                <a key={l} href="#" className="text-[13px] tracking-[0.14em] uppercase font-light text-luxury-black/55 hover:text-luxury-black transition-colors duration-300">{l}</a>
+              {navRight.map((l) => (
+                <Link key={l.label} to={l.href} className="text-[13px] tracking-[0.14em] uppercase font-light text-luxury-black/55 hover:text-luxury-black transition-colors duration-300">{l.label}</Link>
               ))}
             </div>
             <button className="lg:hidden text-luxury-black/70">
@@ -725,8 +725,8 @@ const LuxuryPropertyListing = () => {
       <footer className="bg-luxury-black">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <span className="text-sm tracking-[0.25em] text-white/40 font-light">{BRAND_NAME}</span>
-            <p className="text-[12px] text-white/20 tracking-wider font-light">© 2025 {BRAND_NAME}. All rights reserved.</p>
+            <span className="text-sm tracking-[0.25em] text-white/40 font-light">{brand.fullName}</span>
+            <p className="text-[12px] text-white/20 tracking-wider font-light">© 2025 {brand.fullName}. All rights reserved.</p>
           </div>
         </div>
       </footer>
