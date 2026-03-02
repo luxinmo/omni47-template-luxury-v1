@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Bed, Bath, Maximize, ArrowRight, ArrowUpRight, Lock, EyeOff, Shield, Play, Quote, MapPin, Building2, TrendingUp, Globe, ChevronRight } from "lucide-react";
 import { Layout } from "@/components/layout";
 import FadeIn from "@/components/shared/FadeIn";
+import SEOHead from "@/components/shared/SEOHead";
 import { brand, palette, fonts, contact } from "@/config/template";
 import heroImg from "@/assets/luxury-hero.jpg";
 import prop1 from "@/assets/luxury-property-1.jpg";
@@ -94,12 +95,25 @@ const Home2LandingPage = () => {
 
   return (
     <Layout navVariant="transparent" activePath="/" showBackToTop={false}>
+      <SEOHead
+        title="Luxury Real Estate"
+        description="Prestige Estates curates extraordinary luxury homes across the Mediterranean. Discover villas, penthouses, fincas and new-build properties in Ibiza, Marbella, Mallorca and more."
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "RealEstateAgent",
+          "name": brand.fullName,
+          "description": brand.tagline,
+          "url": "/",
+          "contactPoint": { "@type": "ContactPoint", "telephone": contact.phone, "email": contact.email, "contactType": "sales" },
+          "areaServed": ["Spain", "Mediterranean"],
+        }}
+      />
 
       {/* ─── HERO ─── */}
-      <section className="relative h-[60vh] sm:h-[80vh] lg:h-[100vh] min-h-[420px] flex items-center justify-center overflow-hidden">
+      <section aria-label="Hero" className="relative h-[60vh] sm:h-[80vh] lg:h-[100vh] min-h-[420px] flex items-center justify-center overflow-hidden">
         {HERO_SLIDES.map((slide, i) => (
           <div key={i} className="absolute inset-0 transition-opacity duration-[2s] ease-in-out" style={{ opacity: currentSlide === i ? 1 : 0 }}>
-            <img src={slide.image} alt="" className="w-full h-full object-cover" style={{ transform: currentSlide === i ? "scale(1.04)" : "scale(1)", transition: "transform 8s ease-out" }} />
+            <img src={slide.image} alt={slide.headline} loading={i === 0 ? "eager" : "lazy"} className="w-full h-full object-cover" style={{ transform: currentSlide === i ? "scale(1.04)" : "scale(1)", transition: "transform 8s ease-out" }} />
           </div>
         ))}
         <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(26,23,20,0.6) 0%, rgba(26,23,20,0.15) 40%, rgba(26,23,20,0.25) 100%)" }} />
@@ -133,7 +147,7 @@ const Home2LandingPage = () => {
       </section>
 
       {/* ─── INTRO ─── */}
-      <section className="py-14 sm:py-20 md:py-32" style={{ background: palette.white }}>
+      <section aria-label="About us" className="py-14 sm:py-20 md:py-32" style={{ background: palette.white }}>
         <div className="max-w-5xl mx-auto px-5 sm:px-6 lg:px-12">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-20 items-start">
             <FadeIn className="md:col-span-5">
@@ -187,7 +201,7 @@ const Home2LandingPage = () => {
             {DESTINATIONS.map((d, i) => (
               <FadeIn key={i} delay={i * 0.06}>
                 <a href="#" className="group block relative overflow-hidden aspect-[3/4]">
-                  <img src={d.image} alt={d.name} className="w-full h-full object-cover transition-transform duration-[1s] group-hover:scale-110" />
+                  <img src={d.image} alt={`Properties in ${d.name}`} loading="lazy" className="w-full h-full object-cover transition-transform duration-[1s] group-hover:scale-110" />
                   <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.1) 50%)" }} />
                   <div className="absolute bottom-0 left-0 right-0 p-4 text-center">
                     <h3 className="text-[15px] font-light tracking-wide text-white mb-1" style={{ fontFamily: fonts.heading }}>{d.name}</h3>
@@ -222,7 +236,7 @@ const Home2LandingPage = () => {
               <FadeIn key={i} delay={i * 0.12}>
                 <div className="group cursor-pointer">
                   <div className="relative overflow-hidden aspect-[3/4]">
-                    <img src={p.image} alt={p.name} className="w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.06]" />
+                    <img src={p.image} alt={`${p.name} — ${p.location}`} loading="lazy" className="w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.06]" />
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-700 flex items-center justify-center" style={{ background: "rgba(26,23,20,0.3)" }}>
                       <span className="text-xs tracking-[0.2em] uppercase text-white border border-white/40 px-7 py-3 font-light">View Property</span>
                     </div>
@@ -278,7 +292,7 @@ const Home2LandingPage = () => {
               <FadeIn key={i} delay={i * 0.1}>
                 <div className="group cursor-pointer" style={{ background: palette.white }}>
                   <div className="relative overflow-hidden aspect-[16/10]">
-                    <img src={d.image} alt={d.name} className="w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.05]" />
+                    <img src={d.image} alt={`${d.name} — New development in ${d.location}`} loading="lazy" className="w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.05]" />
                     <div className="absolute top-4 left-4 px-3 py-1.5" style={{ background: palette.accent }}>
                       <span className="text-xs tracking-[0.15em] uppercase font-light text-white">New Build</span>
                     </div>
@@ -306,7 +320,7 @@ const Home2LandingPage = () => {
 
       {/* ═══ TESTIMONIAL BREAK ═══ */}
       <section className="relative h-[45vh] sm:h-[50vh] md:h-[60vh] flex items-center justify-center overflow-hidden">
-        <img src={prop2} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <img src={prop2} alt="Client testimonial background" loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0" style={{ background: "rgba(26,23,20,0.55)" }} />
         <div className="relative z-10 text-center px-5 sm:px-6 max-w-3xl">
           <FadeIn>
@@ -332,7 +346,7 @@ const Home2LandingPage = () => {
         <div className="max-w-[1440px] mx-auto px-5 sm:px-6 lg:px-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0 items-stretch">
             <FadeIn className="relative overflow-hidden min-h-[320px] md:min-h-[520px]">
-              <img src={prop3} alt="Off-market property" className="absolute inset-0 w-full h-full object-cover" />
+              <img src={prop3} alt="Exclusive off-market luxury property" loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
               <div className="absolute inset-0" style={{ background: "linear-gradient(to right, transparent 30%, rgba(30,28,26,0.95) 100%)" }} />
               <div className="absolute inset-0 md:hidden" style={{ background: "linear-gradient(to bottom, transparent 40%, rgba(30,28,26,0.9) 100%)" }} />
               <div className="absolute top-5 left-5 flex items-center gap-1.5 px-3 py-1.5" style={{ background: "rgba(30,28,26,0.7)", backdropFilter: "blur(12px)" }}>

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Search, Instagram, Linkedin, MessageCircle } from "lucide-react";
 import { brand, palette, fonts, navLeft, navRight, languages, contact } from "@/config/template";
+import SEOHead from "@/components/shared/SEOHead";
 import heroImg from "@/assets/luxury-hero.jpg";
 import prop1 from "@/assets/luxury-property-1.jpg";
 import prop2 from "@/assets/luxury-property-2.jpg";
@@ -127,7 +128,10 @@ const BlogListingPage = () => {
 
   return (
     <div ref={containerRef} className="flex-1 overflow-auto relative" style={{ background: p.bg, color: p.text, fontFamily: font }}>
-
+      <SEOHead
+        title="The Journal — Blog"
+        description="Insights, guides and stories from the world of luxury real estate. Market analysis, lifestyle features, architecture and investment advice."
+      />
       {/* ─── NAVBAR ─── */}
       <nav
         className="sticky top-0 z-50 transition-all duration-500"

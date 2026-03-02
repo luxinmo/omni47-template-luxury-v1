@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Search, SlidersHorizontal, X, ChevronDown, ChevronRight, Bed, Bath, Maximize, MapPin, Mail } from "lucide-react";
 import { brand, navLeft, navRight } from "@/config/template";
+import SEOHead from "@/components/shared/SEOHead";
 import heroImg from "@/assets/luxury-hero.jpg";
 import LocationSearchDropdown from "./LocationSearchDropdown";
 import prop1 from "@/assets/luxury-property-1.jpg";
@@ -524,7 +525,16 @@ const LuxuryPropertyListing = () => {
 
   return (
     <div className="flex-1 overflow-auto bg-white text-luxury-black font-sans">
-
+      <SEOHead
+        title="Luxury Properties for Sale"
+        description="Discover the finest selection of luxury villas, penthouses, fincas and new-build properties across Ibiza and the Costa Blanca."
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "SearchResultsPage",
+          "name": "Luxury Properties for Sale — Prestige Estates",
+          "description": "Browse luxury real estate listings across the Mediterranean.",
+        }}
+      />
       {/* ─── NAVBAR ─── */}
       <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm">
         <div className="max-w-[1400px] mx-auto grid grid-cols-3 items-center px-6 lg:px-10 h-[68px]">

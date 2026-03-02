@@ -3,7 +3,8 @@ import { useState } from "react";
 import { MapPin, Phone, Mail, Clock, ArrowRight, Check, Navigation } from "lucide-react";
 import { Layout } from "@/components/layout";
 import FadeIn from "@/components/shared/FadeIn";
-import { palette, fonts, brand } from "@/config/template";
+import SEOHead from "@/components/shared/SEOHead";
+import { palette, fonts, brand, contact } from "@/config/template";
 import heroImg from "@/assets/luxury-hero.jpg";
 import prop1 from "@/assets/luxury-property-1.jpg";
 import prop2 from "@/assets/luxury-property-2.jpg";
@@ -41,13 +42,30 @@ const ContactPage = () => {
 
   return (
     <Layout activePath="/contact" background={palette.white}>
+      <SEOHead
+        title="Contact Us"
+        description={`Get in touch with ${brand.fullName}. Our multilingual team of luxury real estate advisors is ready to assist you across the Mediterranean.`}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          "name": `Contact ${brand.fullName}`,
+          "description": `Contact our luxury real estate advisory team.`,
+          "mainEntity": {
+            "@type": "RealEstateAgent",
+            "name": brand.fullName,
+            "telephone": contact.phone,
+            "email": contact.email,
+            "address": OFFICES.map(o => ({ "@type": "PostalAddress", "name": o.name, "streetAddress": o.address })),
+          }
+        }}
+      />
       {/* ─── HERO ─── */}
       <section className="relative h-[30vh] md:h-[40vh] overflow-hidden">
-        <img src={heroImg} alt="Contact" className="w-full h-full object-cover" />
+        <img src={heroImg} alt={`Contact ${brand.fullName}`} className="w-full h-full object-cover" />
         <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(45,41,38,0.7) 0%, rgba(45,41,38,0.2) 100%)" }} />
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
           <p className="text-[10px] tracking-[0.3em] uppercase font-light mb-3" style={{ color: "rgba(255,255,255,0.6)" }}>Get in Touch</p>
-          <h1 className="text-[32px] md:text-[48px] font-extralight tracking-[0.04em] leading-[1.1]" style={{ color: palette.white }}>Contact Us</h1>
+          <h1 className="text-[28px] sm:text-[32px] md:text-[48px] font-extralight tracking-[0.04em] leading-[1.1]" style={{ color: palette.white }}>Contact Us</h1>
           <p className="text-[13px] font-light mt-3 max-w-md" style={{ color: "rgba(255,255,255,0.7)" }}>
             Our multilingual team of advisors is ready to assist you across the Mediterranean.
           </p>
@@ -55,7 +73,7 @@ const ContactPage = () => {
       </section>
 
       {/* ─── CONTACT FORM ─── */}
-      <section style={{ background: palette.bg }}>
+      <main style={{ background: palette.bg }}>
         <div className="max-w-[800px] mx-auto px-5 sm:px-6 py-14 md:py-20">
           <div className="text-center mb-10">
             <p className="text-[10px] tracking-[0.2em] uppercase font-medium mb-3" style={{ color: palette.accent }}>Send a Message</p>
@@ -129,7 +147,7 @@ const ContactPage = () => {
             </form>
           )}
         </div>
-      </section>
+      </main>
 
       {/* ─── OFFICES GRID ─── */}
       <section className="py-14 md:py-20" style={{ background: palette.white }}>
@@ -142,7 +160,7 @@ const ContactPage = () => {
             {OFFICES.map((office) => (
               <div key={office.id} className="group" style={{ border: `1px solid ${palette.border}` }}>
                 <div className="relative overflow-hidden aspect-[16/10]">
-                  <img src={office.image} alt={office.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <img src={office.image} alt={`${brand.fullName} office in ${office.name}`} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                   <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(45,41,38,0.5) 0%, transparent 50%)" }} />
                   <div className="absolute bottom-3 left-4">
                     <h3 className="text-[16px] font-light tracking-[0.04em]" style={{ color: palette.white }}>{office.name}</h3>

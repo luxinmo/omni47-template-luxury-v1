@@ -10,6 +10,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
 import { brand, navLeft, navRight } from "@/config/template";
+import SEOHead from "@/components/shared/SEOHead";
 import LuxuryPhoneInput from "./LuxuryPhoneInput";
 import LuxuryMortgageCalculator from "./LuxuryMortgageCalculator";
 import LuxuryNearbyPlaces from "./LuxuryNearbyPlaces";
@@ -87,10 +88,26 @@ const PropertyDetailPage = () => {
 
   return (
     <div className="flex-1 overflow-auto bg-[#FAFAF9] font-sans text-luxury-black">
+      <SEOHead
+        title={PROPERTY.title}
+        description={PROPERTY.subtitle}
+        type="article"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "RealEstateListing",
+          "name": PROPERTY.title,
+          "description": PROPERTY.subtitle,
+          "price": PROPERTY.price,
+          "numberOfRooms": PROPERTY.beds,
+          "numberOfBathroomsTotal": PROPERTY.baths,
+          "floorSize": { "@type": "QuantitativeValue", "value": PROPERTY.sqm, "unitCode": "MTK" },
+          "address": { "@type": "PostalAddress", "addressLocality": "Santa Eulalia del Río", "addressRegion": "Ibiza", "addressCountry": "ES" },
+        }}
+      />
 
       {/* ─── IMMERSIVE HERO ─── */}
-      <section className="relative h-[55vh] md:h-[65vh] overflow-hidden cursor-pointer" onClick={() => openLightbox(0)}>
-        <img src={PROPERTY.images[0]} alt="Property hero" className="w-full h-full object-cover" />
+      <section aria-label="Property hero" className="relative h-[55vh] md:h-[65vh] overflow-hidden cursor-pointer" onClick={() => openLightbox(0)}>
+        <img src={PROPERTY.images[0]} alt={PROPERTY.title} className="w-full h-full object-cover" />
         <div className="absolute inset-x-0 top-0 h-[140px] bg-gradient-to-b from-luxury-black/60 via-luxury-black/25 to-transparent pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-t from-luxury-black/70 via-luxury-black/20 to-transparent" />
 
@@ -123,7 +140,7 @@ const PropertyDetailPage = () => {
               </span>
             ))}
           </div>
-          <h1 className="text-[26px] md:text-[34px] lg:text-[40px] font-normal text-white leading-[1.15] tracking-[0.015em] uppercase max-w-3xl [text-shadow:0_2px_6px_rgba(0,0,0,0.45)]">
+          <h1 className="text-[22px] sm:text-[26px] md:text-[34px] lg:text-[40px] font-normal text-white leading-[1.15] tracking-[0.015em] uppercase max-w-3xl [text-shadow:0_2px_6px_rgba(0,0,0,0.45)]">
             {PROPERTY.title}
           </h1>
           <p className="text-[14px] text-white/90 font-medium mt-2 tracking-[0.03em] [text-shadow:0_1px_2px_rgba(0,0,0,0.45)]">{PROPERTY.subtitle}</p>
@@ -147,10 +164,10 @@ const PropertyDetailPage = () => {
       </section>
 
       {/* ─── THUMBNAIL STRIP ─── */}
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-10 -mt-12 relative z-10">
-        <div className="flex gap-1.5">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 -mt-8 sm:-mt-12 relative z-10">
+        <div className="flex gap-1 sm:gap-1.5 overflow-x-auto">
           {PROPERTY.images.slice(1, 6).map((img, i) => (
-            <div key={i} className="relative overflow-hidden cursor-pointer group h-[72px] flex-1" onClick={() => openLightbox(i + 1)}>
+            <div key={i} className="relative overflow-hidden cursor-pointer group h-[52px] sm:h-[72px] flex-1 min-w-[60px]" onClick={() => openLightbox(i + 1)}>
               <img src={img} alt={`Photo ${i + 2}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 brightness-90 group-hover:brightness-100" />
               {i === 4 && PROPERTY.images.length > 6 && (
                 <div className="absolute inset-0 bg-luxury-black/50 flex items-center justify-center">
@@ -163,10 +180,10 @@ const PropertyDetailPage = () => {
       </div>
 
       {/* ─── PRICE + ACTIONS BAR ─── */}
-      <section className="max-w-[1400px] mx-auto px-6 lg:px-10 pt-8 pb-5">
-        <div className="flex items-center justify-between flex-wrap gap-4">
-          <div className="flex items-baseline gap-3">
-            <p className="text-[34px] md:text-[42px] font-extralight text-luxury-black tracking-tight leading-none">{PROPERTY.price}</p>
+      <section aria-label="Price and actions" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 pt-8 pb-5">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex flex-wrap items-baseline gap-3">
+            <p className="text-[28px] sm:text-[34px] md:text-[42px] font-extralight text-luxury-black tracking-tight leading-none">{PROPERTY.price}</p>
             <span className="text-[15px] text-luxury-black/50 line-through font-light">{PROPERTY.originalPrice}</span>
             <span className="text-[11px] font-medium tracking-[0.08em] uppercase text-luxury-gold bg-luxury-gold/10 px-2.5 py-1">-{PROPERTY.discount}%</span>
           </div>
@@ -186,8 +203,8 @@ const PropertyDetailPage = () => {
       </section>
 
       {/* ─── SPECS RIBBON ─── */}
-      <section className="max-w-[1400px] mx-auto px-6 lg:px-10">
-        <div className="flex flex-wrap items-center gap-0 border-y border-luxury-black/8">
+      <section aria-label="Property specifications" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
+        <div className="flex flex-wrap items-center gap-0 border-y border-luxury-black/8 overflow-x-auto">
           {[
             { icon: Bed, label: "Bedrooms", value: PROPERTY.beds },
             { icon: Bath, label: "Bathrooms", value: PROPERTY.baths },
@@ -195,7 +212,7 @@ const PropertyDetailPage = () => {
             { icon: Fence, label: "Plot", value: `${PROPERTY.plot} m²` },
             { icon: Car, label: "Garage", value: PROPERTY.garage },
           ].map((s, i, arr) => (
-            <div key={i} className={`flex items-center gap-3 py-4 px-5 ${i < arr.length - 1 ? "border-r border-luxury-black/8" : ""}`}>
+            <div key={i} className={`flex items-center gap-3 py-3 sm:py-4 px-3 sm:px-5 ${i < arr.length - 1 ? "border-r border-luxury-black/8" : ""}`}>
               <s.icon className="w-[18px] h-[18px] text-luxury-gold/80" strokeWidth={1.2} />
               <div>
                 <p className="text-[16px] font-light text-luxury-black">{s.value}</p>
@@ -231,8 +248,8 @@ const PropertyDetailPage = () => {
       </section>
 
       {/* ─── CONTENT + SIDEBAR ─── */}
-      <section className="max-w-[1400px] mx-auto px-6 lg:px-10 pb-12">
-        <div className="flex flex-col lg:flex-row gap-12">
+      <main className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 pb-12">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
           {/* Main content */}
           <div className="flex-1 min-w-0 space-y-10">
 
@@ -371,7 +388,7 @@ const PropertyDetailPage = () => {
             </div>
           </div>
         </div>
-      </section>
+      </main>
 
       {/* ─── SIMILAR PROPERTIES ─── */}
       <section className="bg-white py-12">
