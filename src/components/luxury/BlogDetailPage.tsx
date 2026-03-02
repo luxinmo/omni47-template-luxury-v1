@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Clock, Calendar, User, Tag, Instagram, Linkedin, MessageCircle, Facebook, Twitter, Share2, ChevronUp, Plus, Minus } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
+import { brand, palette, fonts, navLeft, navRight } from "@/config/template";
 import heroImg from "@/assets/luxury-hero.jpg";
 import prop1 from "@/assets/luxury-property-1.jpg";
 import prop2 from "@/assets/luxury-property-2.jpg";
@@ -10,11 +11,11 @@ import propertyDetail2 from "@/assets/property-detail-2.jpg";
 import propertyDetail3 from "@/assets/property-detail-3.jpg";
 
 const p = {
-  bg: "#FAF8F5", white: "#FFFFFF", text: "#2D2926", muted: "#6B6560",
-  light: "#9A938B", accent: "#8B6F47", border: "#E2DCD4", footer: "#2D2926",
+  bg: palette.bg, white: palette.white, text: palette.text, muted: palette.textMuted,
+  light: palette.textLight, accent: palette.accent, border: palette.border, footer: palette.footer,
 };
-const font = "'Jost', Helvetica, sans-serif";
-const BRAND_NAME = "PRESTIGE ESTATES";
+const font = fonts.body;
+const BRAND_NAME = brand.fullName;
 
 const POSTS: Record<string, any> = {
   "1": {
@@ -88,8 +89,7 @@ const TRENDING = [
   { id: "5", image: prop2, title: "European Waterfront Properties as Safe Investment", category: "Investment", date: "22 Feb 2026" },
 ];
 
-const NAV_LEFT = ["Home", "Properties", "Rentals"];
-const NAV_RIGHT = ["About", "Guides & Blog", "Contact"];
+/* navLeft, navRight imported from config */
 const CATEGORIES_NAV = ["Lifestyle", "Market Insights", "Architecture", "Investment", "Destinations", "Guides"];
 
 function useContainerScrolled(ref: React.RefObject<HTMLElement | null>, threshold = 60) {
@@ -157,8 +157,8 @@ const BlogDetailPage = () => {
       <nav className="sticky top-0 z-50 transition-all duration-500" style={{ background: scrolled ? `${p.white}f0` : p.white, backdropFilter: scrolled ? "blur(16px)" : "none", borderBottom: `1px solid ${p.border}` }}>
         <div className="max-w-[1400px] mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-10 h-[56px] lg:h-[64px]">
           <div className="hidden lg:flex items-center gap-7">
-            {NAV_LEFT.map((l) => (
-              <Link key={l} to={l === "Home" ? "/" : l === "Properties" ? "/properties" : "#"} className="text-[12px] tracking-[0.12em] uppercase font-light transition-opacity hover:opacity-60" style={{ color: p.text }}>{l}</Link>
+            {navLeft.map((l) => (
+              <Link key={l.label} to={l.href} className="text-[12px] tracking-[0.12em] uppercase font-light transition-opacity hover:opacity-60" style={{ color: p.text }}>{l.label}</Link>
             ))}
           </div>
           <Link to="/" className="flex flex-col items-center">
@@ -166,8 +166,8 @@ const BlogDetailPage = () => {
             <span className="text-[18px] sm:text-[22px] tracking-[0.35em] font-light -mt-0.5" style={{ color: p.text }}>{BRAND_NAME}</span>
           </Link>
           <div className="hidden lg:flex items-center gap-7">
-            {NAV_RIGHT.map((l) => (
-              <Link key={l} to={l === "Guides & Blog" ? "/blog" : "#"} className="text-[12px] tracking-[0.12em] uppercase font-light transition-opacity hover:opacity-60" style={{ color: p.text }}>{l}</Link>
+            {navRight.map((l) => (
+              <Link key={l.label} to={l.href} className="text-[12px] tracking-[0.12em] uppercase font-light transition-opacity hover:opacity-60" style={{ color: p.text }}>{l.label}</Link>
             ))}
           </div>
         </div>
