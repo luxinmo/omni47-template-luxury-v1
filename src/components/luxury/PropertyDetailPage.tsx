@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import {
@@ -80,11 +80,23 @@ const PropertyDetailPage = () => {
   const [wantVisit, setWantVisit] = useState(false);
   const [visitDate, setVisitDate] = useState<Date | undefined>();
   const [visitTime, setVisitTime] = useState("");
+  const [showGalleryCTA, setShowGalleryCTA] = useState(false);
+  const [viewedAll, setViewedAll] = useState(false);
 
-  const openLightbox = (i: number) => setLightbox(i);
-  const closeLightbox = () => setLightbox(null);
-  const nextSlide = () => setLightbox((p) => (p !== null ? (p + 1) % PROPERTY.images.length : 0));
-  const prevSlide = () => setLightbox((p) => (p !== null ? (p - 1 + PROPERTY.images.length) % PROPERTY.images.length : 0));
+  const openLightbox = (i: number) => { setLightbox(i); setShowGalleryCTA(false); };
+  const closeLightbox = () => { setLightbox(null); setShowGalleryCTA(false); };
+  const nextSlide = () => setLightbox((p) => {
+    if (p === null) return 0;
+    const next = p + 1;
+    if (next >= PROPERTY.images.length) {
+      setShowGalleryCTA(true);
+      setViewedAll(true);
+      return p;
+    }
+    return next;
+  });
+  const prevSlide = () => { setShowGalleryCTA(false); setLightbox((p) => (p !== null ? (p - 1 + PROPERTY.images.length) % PROPERTY.images.length : 0)); };
+  const thumbRef = React.useRef<HTMLDivElement>(null);
 
   return (
     <div className="flex-1 overflow-auto bg-[#FAFAF9] font-sans text-luxury-black">
@@ -301,7 +313,7 @@ const PropertyDetailPage = () => {
             <div className="lg:sticky lg:top-[16px] space-y-5">
 
               {/* Advisor card */}
-              <div className="bg-white p-7 shadow-[0_2px_20px_-4px_rgba(0,0,0,0.06)]">
+              <div data-advisor-form className="bg-white p-7 shadow-[0_2px_20px_-4px_rgba(0,0,0,0.06)]">
                 <p className="text-[13px] tracking-[0.22em] uppercase text-luxury-gold/90 font-normal mb-4">Your Private Advisor</p>
                 <h3 className="text-[17px] font-medium text-luxury-black mb-0.5 tracking-wide">{PROPERTY.agent.name}</h3>
                 <p className="text-[13px] text-luxury-black/80 font-normal mb-6">{PROPERTY.agent.role}</p>
@@ -460,19 +472,101 @@ const PropertyDetailPage = () => {
         </div>
       </footer>
 
-      {/* ─── LIGHTBOX ─── */}
+      {/* ─── FULLSCREEN GALLERY ─── */}
       {lightbox !== null && (
-        <div className="fixed inset-0 z-[100] bg-luxury-black/97 flex items-center justify-center" onClick={closeLightbox}>
-          <button onClick={closeLightbox} className="absolute top-5 right-5 text-white/30 hover:text-white transition-colors"><X className="w-6 h-6" strokeWidth={1.2} /></button>
-          <button onClick={(e) => { e.stopPropagation(); prevSlide(); }} className="absolute left-4 md:left-8 text-white/20 hover:text-white transition-colors"><ChevronLeft className="w-8 h-8" strokeWidth={1} /></button>
-          <button onClick={(e) => { e.stopPropagation(); nextSlide(); }} className="absolute right-4 md:right-8 text-white/20 hover:text-white transition-colors"><ChevronRight className="w-8 h-8" strokeWidth={1} /></button>
-          <img
-            src={PROPERTY.images[lightbox]}
-            alt={`Photo ${lightbox + 1}`}
-            className="max-w-[90vw] max-h-[85vh] object-contain"
-            onClick={(e) => e.stopPropagation()}
-          />
-          <p className="absolute bottom-5 text-white/20 text-[12px] font-light tracking-[0.15em]">{lightbox + 1} / {PROPERTY.images.length}</p>
+        <div className="fixed inset-0 z-[100] bg-black flex flex-col" onClick={closeLightbox}>
+          {/* Top bar */}
+          <div className="flex items-center justify-between px-4 md:px-6 h-[48px] shrink-0" onClick={(e) => e.stopPropagation()}>
+            <button onClick={closeLightbox} className="text-white/80 hover:text-white text-[12px] tracking-[0.12em] uppercase font-medium transition-colors">
+              Back
+            </button>
+            <div className="flex items-center gap-0">
+              <button className="text-white/50 hover:text-white text-[12px] tracking-[0.1em] uppercase px-4 py-2 transition-colors font-medium">Map</button>
+              <button className="text-white text-[12px] tracking-[0.1em] uppercase px-4 py-2 bg-white/10 font-medium">Photos</button>
+            </div>
+            <button className="text-white/80 hover:text-white text-[12px] tracking-[0.12em] uppercase font-medium transition-colors flex items-center gap-1">
+              Share <ChevronDown className="w-3 h-3" />
+            </button>
+          </div>
+
+          {/* Counter + action icons */}
+          <div className="flex items-center justify-between px-4 md:px-6 py-1 shrink-0" onClick={(e) => e.stopPropagation()}>
+            <span className="text-white/50 text-[13px] font-light tracking-wider">{lightbox + 1} / {PROPERTY.images.length}</span>
+            <div className="flex items-center gap-3">
+              <button className="text-white/40 hover:text-white transition-colors"><Maximize className="w-4 h-4" /></button>
+              <button className="text-white/40 hover:text-white transition-colors">
+                <svg className="w-4 h-4" viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="0" width="4" height="4" rx="0.5"/><rect x="6" y="0" width="4" height="4" rx="0.5"/><rect x="12" y="0" width="4" height="4" rx="0.5"/><rect x="0" y="6" width="4" height="4" rx="0.5"/><rect x="6" y="6" width="4" height="4" rx="0.5"/><rect x="12" y="6" width="4" height="4" rx="0.5"/><rect x="0" y="12" width="4" height="4" rx="0.5"/><rect x="6" y="12" width="4" height="4" rx="0.5"/><rect x="12" y="12" width="4" height="4" rx="0.5"/></svg>
+              </button>
+              <button onClick={closeLightbox} className="text-white/40 hover:text-white transition-colors"><X className="w-5 h-5" strokeWidth={1.5} /></button>
+            </div>
+          </div>
+
+          {/* Main image area */}
+          <div className="flex-1 flex items-center justify-center relative min-h-0 px-12 md:px-20">
+            {showGalleryCTA ? (
+              <div className="text-center" onClick={(e) => e.stopPropagation()}>
+                <p className="text-white/40 text-[11px] tracking-[0.3em] uppercase mb-4">You've viewed all photos</p>
+                <h3 className="text-white text-[24px] md:text-[32px] font-extralight tracking-[0.02em] mb-6">Interested in this property?</h3>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                  <button
+                    onClick={() => { closeLightbox(); setTimeout(() => { const el = document.querySelector('[data-advisor-form]'); el?.scrollIntoView({ behavior: 'smooth' }); }, 300); }}
+                    className="flex items-center gap-2 bg-white text-black text-[11px] tracking-[0.18em] uppercase px-8 py-3.5 hover:bg-white/90 transition-all font-medium"
+                  >
+                    <Mail className="w-4 h-4" /> Contact Advisor
+                  </button>
+                  <button
+                    onClick={() => { closeLightbox(); setTimeout(() => { setWantVisit(true); const el = document.querySelector('[data-advisor-form]'); el?.scrollIntoView({ behavior: 'smooth' }); }, 300); }}
+                    className="flex items-center gap-2 border border-white/30 text-white text-[11px] tracking-[0.18em] uppercase px-8 py-3.5 hover:bg-white/10 transition-all font-medium"
+                  >
+                    <CalendarDays className="w-4 h-4" /> Request a Visit
+                  </button>
+                </div>
+                <button onClick={() => { setShowGalleryCTA(false); setLightbox(0); }} className="text-white/40 hover:text-white/70 text-[12px] tracking-[0.1em] uppercase mt-6 transition-colors">
+                  ← Back to photos
+                </button>
+              </div>
+            ) : (
+              <>
+                <button onClick={(e) => { e.stopPropagation(); prevSlide(); }} className="absolute left-2 md:left-6 text-white/20 hover:text-white transition-colors z-10">
+                  <ChevronLeft className="w-8 h-8" strokeWidth={1} />
+                </button>
+                <img
+                  src={PROPERTY.images[lightbox]}
+                  alt={`Photo ${lightbox + 1}`}
+                  className="max-w-full max-h-full object-contain"
+                  onClick={(e) => e.stopPropagation()}
+                />
+                <button onClick={(e) => { e.stopPropagation(); nextSlide(); }} className="absolute right-2 md:right-6 text-white/20 hover:text-white transition-colors z-10">
+                  <ChevronRight className="w-8 h-8" strokeWidth={1} />
+                </button>
+              </>
+            )}
+          </div>
+
+          {/* Thumbnail strip */}
+          {!showGalleryCTA && (
+            <div className="shrink-0 px-4 md:px-6 pb-4 pt-2" onClick={(e) => e.stopPropagation()}>
+              <div ref={thumbRef} className="flex gap-1.5 overflow-x-auto scrollbar-hide">
+                <button
+                  onClick={() => {}}
+                  className="shrink-0 w-[60px] h-[45px] md:w-[72px] md:h-[52px] bg-white/10 flex items-center justify-center border border-white/10 hover:border-white/30 transition-colors"
+                >
+                  <MapPin className="w-4 h-4 text-white/50" />
+                </button>
+                {PROPERTY.images.map((img, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setLightbox(i)}
+                    className={`shrink-0 w-[60px] h-[45px] md:w-[72px] md:h-[52px] overflow-hidden transition-all ${
+                      i === lightbox ? "ring-2 ring-white ring-offset-1 ring-offset-black opacity-100" : "opacity-50 hover:opacity-80"
+                    }`}
+                  >
+                    <img src={img} alt={`Thumb ${i + 1}`} className="w-full h-full object-cover" />
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
