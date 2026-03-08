@@ -144,6 +144,28 @@ const HomePortal = () => {
         </div>
       </section>
 
+      {/* ══════ COLLECTIONS / BROWSE BY LIFESTYLE ══════ */}
+      <section className="max-w-[1440px] mx-auto px-6 lg:px-16 py-20 sm:py-28">
+        <div className="mb-12">
+          <p className="text-[11px] tracking-[0.3em] uppercase text-neutral-400 font-light mb-2">Collections</p>
+          <h2 className="text-[28px] sm:text-[36px] font-light tracking-[0.02em] text-neutral-900">Browse by Lifestyle</h2>
+        </div>
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          {COLLECTIONS.map((c) => (
+            <div key={c.name} className="group relative aspect-[3/2] overflow-hidden cursor-pointer">
+              <img src={c.img} alt={c.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-7">
+                <h3 className="text-white text-[15px] sm:text-[18px] font-light tracking-[0.06em]">{c.name}</h3>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ══════ DIVIDER ══════ */}
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-16"><div className="border-t border-neutral-100" /></div>
+
       {/* ══════ DESTINATIONS ══════ */}
       <section className="max-w-[1440px] mx-auto px-6 lg:px-16 py-20 sm:py-28">
         <div className="flex items-end justify-between mb-12">
