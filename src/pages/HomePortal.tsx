@@ -560,30 +560,51 @@ const HomePortal = () => {
       </FadeSection>
 
       {/* ══════ FOOTER ══════ */}
-      <footer className="border-t border-neutral-100">
-        <div className="max-w-[1440px] mx-auto px-6 lg:px-16 py-16 sm:py-24">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12 mb-16">
-            {FOOTER_COLS.map((col) => (
-              <div key={col.title}>
-                <p className="text-[10px] tracking-[0.3em] uppercase font-medium text-neutral-900 mb-5">{col.title}</p>
-                {col.links.map((link) => (
-                  <button key={link} className="block text-[13px] font-light text-neutral-400 hover:text-neutral-900 transition-colors py-1.5">
-                    {link}
-                  </button>
+      <footer className="bg-black text-white">
+        {/* Upper footer */}
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-16 pt-20 sm:pt-28 pb-14">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
+            {/* Brand block */}
+            <div className="lg:col-span-4">
+              <span className="text-[18px] tracking-[0.5em] font-extralight block mb-1">PRESTIGE</span>
+              <span className="text-[8px] tracking-[0.5em] uppercase font-light block mb-6 text-white/30">Real Estate</span>
+              <p className="text-[13px] font-light leading-[1.8] text-white/40 max-w-[300px]">
+                Curating extraordinary homes for exceptional lives. Exclusively properties above €1M across the Mediterranean.
+              </p>
+              <div className="flex gap-3 mt-8">
+                {[Instagram, Linkedin, Facebook, Twitter].map((Icon, i) => (
+                  <a key={i} href="#" className="w-10 h-10 border border-white/10 flex items-center justify-center text-white/30 hover:text-white hover:border-white/30 transition-all duration-300">
+                    <Icon className="w-4 h-4" strokeWidth={1.2} />
+                  </a>
                 ))}
               </div>
-            ))}
-          </div>
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-10 border-t border-neutral-100">
-            <span className="text-[12px] tracking-[0.35em] font-extralight text-neutral-400">LUXURYWORLDPORTAL</span>
-            <div className="flex gap-2">
-              {[Instagram, Linkedin, Facebook, Twitter].map((Icon, i) => (
-                <button key={i} className="w-10 h-10 flex items-center justify-center text-neutral-300 hover:text-neutral-700 transition-colors">
-                  <Icon className="w-4 h-4" strokeWidth={1.5} />
-                </button>
+            </div>
+            {/* Link columns */}
+            <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-8">
+              {FOOTER_COLS.map((col) => (
+                <div key={col.title}>
+                  <p className="text-[9px] tracking-[0.25em] uppercase font-medium text-white/25 mb-5">{col.title}</p>
+                  {col.links.map((link) => (
+                    <button key={link} className="block text-[12px] font-light text-white/45 hover:text-white transition-colors duration-300 py-1.5">
+                      {link}
+                    </button>
+                  ))}
+                </div>
               ))}
             </div>
-            <p className="text-[11px] text-neutral-300 font-light">© {new Date().getFullYear()} LuxuryWorldPortal. All rights reserved.</p>
+          </div>
+        </div>
+        {/* Bottom bar */}
+        <div className="border-t border-white/[0.06]">
+          <div className="max-w-[1440px] mx-auto px-6 lg:px-16 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-[10px] tracking-[0.15em] font-light text-white/20">
+              © {new Date().getFullYear()} Prestige Estates. All rights reserved.
+            </p>
+            <div className="flex gap-6">
+              {["Privacy Policy", "Terms of Use", "Cookie Policy", "Sitemap"].map((l) => (
+                <button key={l} className="text-[10px] tracking-[0.1em] font-light text-white/20 hover:text-white/50 transition-colors duration-300">{l}</button>
+              ))}
+            </div>
           </div>
         </div>
       </footer>
