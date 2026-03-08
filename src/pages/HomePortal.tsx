@@ -87,7 +87,7 @@ const STATS = [
   { number: "98%", label: "Client Satisfaction" },
 ];
 
-const NAV_ITEMS = ["Properties", "Destinations", "Investments", "Off-Market", "Magazine", "About"];
+const NAV_ITEMS = ["Properties", "Destinations", "Investments", "Off-Market", "Magazine", "Access"];
 
 const FOOTER_COLS = [
   { title: "Properties", links: ["For Sale", "For Rent", "New Developments", "Off-Market"] },
