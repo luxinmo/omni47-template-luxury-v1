@@ -424,6 +424,49 @@ const HomePortal = () => {
         </section>
       </FadeSection>
 
+      {/* ══════ OFF-MARKET ══════ */}
+      <FadeSection>
+        <section className="relative overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[600px]">
+            {/* Image side */}
+            <div className="relative aspect-[4/3] lg:aspect-auto overflow-hidden">
+              <img src={catOffmarket} alt="Exclusive off-market property" className="absolute inset-0 w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-black/20" />
+              <div className="absolute top-8 left-8">
+                <span className="text-[9px] tracking-[0.3em] uppercase font-light text-white/70 bg-white/10 backdrop-blur-sm px-4 py-2 border border-white/15">Private Collection</span>
+              </div>
+            </div>
+            {/* Content side */}
+            <div className="bg-neutral-900 flex items-center px-8 sm:px-12 lg:px-20 py-16 lg:py-0">
+              <div className="max-w-[460px]">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-8 h-[1px] bg-neutral-600" />
+                  <p className="text-[11px] tracking-[0.3em] uppercase text-neutral-500 font-light">Exclusive Access</p>
+                </div>
+                <h2 className="text-[28px] sm:text-[36px] lg:text-[42px] font-extralight text-white leading-[1.15] mb-6 tracking-[-0.01em]">
+                  Off-Market<br />
+                  <span className="italic" style={{ fontFamily: "'Playfair Display', serif" }}>Properties</span>
+                </h2>
+                <p className="text-neutral-400 text-[15px] font-light leading-[1.8] mb-4">
+                  Access an exclusive selection of properties that never reach the open market. Our off-market portfolio includes some of the most prestigious estates in the Mediterranean — available only through private consultation.
+                </p>
+                <p className="text-neutral-500 text-[13px] font-light leading-[1.8] mb-10">
+                  Prices are not disclosed publicly. Each opportunity is presented privately to qualified buyers by our personal advisors.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <button className="group px-10 py-4 bg-white text-neutral-900 text-[11px] tracking-[0.2em] uppercase font-medium hover:bg-neutral-100 transition-colors flex items-center justify-center gap-3">
+                    Request Access <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                  </button>
+                  <button className="px-10 py-4 border border-neutral-700 text-neutral-400 text-[11px] tracking-[0.2em] uppercase font-light hover:border-neutral-500 hover:text-neutral-300 transition-colors text-center">
+                    Speak to an Advisor
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </FadeSection>
+
       {/* ══════ MAGAZINE ══════ */}
       <FadeSection>
         <section className="bg-neutral-50">
