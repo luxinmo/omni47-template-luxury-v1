@@ -16,8 +16,22 @@ import propEstateMallorca from "@/assets/prop-estate-mallorca.jpg";
 import investHotel from "@/assets/invest-hotel.jpg";
 import investDevelopment from "@/assets/invest-development.jpg";
 import magazineMain from "@/assets/magazine-main.jpg";
+import catBeachfront from "@/assets/cat-beachfront.jpg";
+import catGolf from "@/assets/cat-golf.jpg";
+import catLuxuryVillas from "@/assets/cat-luxury-villas.jpg";
+import catSpa from "@/assets/cat-spa.jpg";
+import catFincas from "@/assets/cat-fincas.jpg";
+import catOffmarket from "@/assets/cat-offmarket.jpg";
 
 /* ─── Data ─── */
+const COLLECTIONS = [
+  { name: "Primera línea del mar", img: catBeachfront },
+  { name: "Cerca del golf", img: catGolf },
+  { name: "Luxury Villas +3M", img: catLuxuryVillas },
+  { name: "With SPA", img: catSpa },
+  { name: "Fincas", img: catFincas },
+  { name: "Off-Market", img: catOffmarket },
+];
 const DESTINATIONS = [
   { name: "Ibiza", img: destIbiza, count: 124 },
   { name: "Mallorca", img: destMallorca, count: 208 },
