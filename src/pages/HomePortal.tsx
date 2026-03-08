@@ -204,6 +204,52 @@ const HomePortal = () => {
         </section>
       </FadeSection>
 
+      {/* ══════ INTRO / ABOUT ══════ */}
+      <FadeSection>
+        <section className="max-w-[1440px] mx-auto px-6 lg:px-16 py-24 sm:py-32">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-8 h-[1px] bg-neutral-300" />
+                <p className="text-[11px] tracking-[0.3em] uppercase text-neutral-400 font-light">About the Portal</p>
+              </div>
+              <h2 className="text-[28px] sm:text-[36px] lg:text-[42px] font-extralight tracking-[-0.01em] text-neutral-900 leading-[1.2] mb-8">
+                A curated marketplace for<br />
+                <span className="italic" style={{ fontFamily: "'Playfair Display', serif" }}>exceptional</span> real estate
+              </h2>
+              <div className="space-y-5 text-[15px] font-light text-neutral-500 leading-[1.8]">
+                <p>
+                  LuxuryWorldPortal is the definitive global marketplace dedicated exclusively to luxury real estate above <strong className="text-neutral-900 font-medium">€1,000,000</strong>. We connect discerning buyers and investors with the finest properties across the Mediterranean and beyond.
+                </p>
+                <p>
+                  Every property listed on our platform is personally vetted by our team of specialists, ensuring only the most distinguished estates, villas, penthouses and investment opportunities reach our clients.
+                </p>
+                <p>
+                  From beachfront villas in Ibiza to private estates in Mallorca, boutique hotels to off-market opportunities — we curate real estate that meets the highest standards of luxury, location and investment potential.
+                </p>
+              </div>
+              <div className="mt-10 flex items-center gap-6">
+                <button className="group px-8 py-3.5 bg-neutral-900 text-white text-[11px] tracking-[0.18em] uppercase font-medium hover:bg-neutral-800 transition-colors flex items-center gap-3">
+                  Learn More <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                </button>
+                <span className="text-[12px] text-neutral-300 font-light tracking-wide">Only properties above €1M</span>
+              </div>
+            </div>
+            <div className="relative">
+              <div className="aspect-[4/5] overflow-hidden">
+                <img src={catLuxuryVillas} alt="Luxury villa architecture" className="w-full h-full object-cover" />
+              </div>
+              <div className="absolute -bottom-6 -left-6 bg-white p-6 sm:p-8 shadow-lg max-w-[260px]">
+                <p className="text-[36px] font-extralight text-neutral-900 tracking-[-0.02em] mb-1">€1M+</p>
+                <p className="text-[11px] tracking-[0.2em] uppercase text-neutral-400 font-light">Minimum listing price</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </FadeSection>
+
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-16"><div className="border-t border-neutral-100" /></div>
+
       {/* ══════ COLLECTIONS / BROWSE BY LIFESTYLE ══════ */}
       <FadeSection>
         <section className="max-w-[1440px] mx-auto px-6 lg:px-16 py-24 sm:py-32">
