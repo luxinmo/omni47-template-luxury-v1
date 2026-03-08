@@ -12,6 +12,7 @@ import SystemPage from "./components/luxury/SystemPage";
 import ContactPage from "./components/luxury/ContactPage";
 import PropertyDetailPage from "./components/luxury/PropertyDetailPage";
 import NotFound from "./pages/NotFound";
+import HomePortal from "./pages/HomePortal";
 
 const queryClient = new QueryClient();
 
