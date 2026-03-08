@@ -12,6 +12,7 @@ import SystemPage from "./components/luxury/SystemPage";
 import ContactPage from "./components/luxury/ContactPage";
 import PropertyDetailPage from "./components/luxury/PropertyDetailPage";
 import NotFound from "./pages/NotFound";
+import HomePortal from "./pages/HomePortal";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home2LandingPage />} />
+            <Route path="/portal" element={<HomePortal />} />
             <Route path="/properties" element={<LuxuryPropertyListing />} />
             <Route path="/blog" element={<BlogListingPage />} />
             <Route path="/blog/:slug" element={<BlogDetailPage />} />
