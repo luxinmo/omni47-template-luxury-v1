@@ -580,7 +580,7 @@ const HomePortal = () => {
               </div>
             </div>
             {/* Link columns */}
-            <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-8">
+            <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8">
               {FOOTER_COLS.map((col) => (
                 <div key={col.title}>
                   <p className="text-[9px] tracking-[0.25em] uppercase font-medium text-white/25 mb-5">{col.title}</p>
