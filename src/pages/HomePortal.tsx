@@ -94,7 +94,7 @@ const FOOTER_COLS = [
   { title: "Destinations", links: ["Ibiza", "Mallorca", "Marbella", "Barcelona", "Madrid"] },
   { title: "Investments", links: ["Investment Properties", "Boutique Hotels", "Development Projects"] },
   { title: "Magazine", links: ["Market Trends", "Architecture", "Lifestyle", "Investment Guides"] },
-  { title: "Company", links: ["About Us", "Careers", "Press", "Contact"] },
+  { title: "Access", links: ["Register", "Login", "Request Info", "Contact"] },
 ];
 
 /* ─── Component ─── */
