@@ -13,6 +13,8 @@ import ContactPage from "./components/luxury/ContactPage";
 import PropertyDetailPage from "./components/luxury/PropertyDetailPage";
 import NotFound from "./pages/NotFound";
 import HomePortal from "./pages/HomePortal";
+import PropertyPdfV1 from "./components/pdf/PropertyPdfV1";
+import PropertyPdfV2 from "./components/pdf/PropertyPdfV2";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +34,8 @@ const App = () => (
             <Route path="/page/:slug" element={<SystemPage />} />
             <Route path="/property/:id" element={<PropertyDetailPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/pdf-v1" element={<PropertyPdfV1 />} />
+            <Route path="/pdf-v2" element={<PropertyPdfV2 />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

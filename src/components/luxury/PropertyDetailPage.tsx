@@ -206,9 +206,19 @@ const PropertyDetailPage = () => {
             <button className="w-10 h-10 flex items-center justify-center text-luxury-black/50 hover:text-luxury-black border border-luxury-black/15 transition-all">
               <Share2 className="w-[18px] h-[18px]" />
             </button>
-            <button className="w-10 h-10 flex items-center justify-center text-luxury-black/50 hover:text-luxury-black border border-luxury-black/15 transition-all" title="Download PDF">
-              <FileDown className="w-[18px] h-[18px]" />
-            </button>
+            <div className="relative group">
+              <button className="w-10 h-10 flex items-center justify-center text-luxury-black/50 hover:text-luxury-black border border-luxury-black/15 transition-all" title="Download PDF">
+                <FileDown className="w-[18px] h-[18px]" />
+              </button>
+              <div className="absolute right-0 top-full mt-1 bg-white border border-luxury-black/10 shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 min-w-[160px]">
+                <Link to="/pdf-v1" target="_blank" className="block px-4 py-2.5 text-[11px] tracking-wider text-luxury-black hover:bg-luxury-sand/50 transition-colors">
+                  FICHA (1 PAGE)
+                </Link>
+                <Link to="/pdf-v2" target="_blank" className="block px-4 py-2.5 text-[11px] tracking-wider text-luxury-black hover:bg-luxury-sand/50 transition-colors border-t border-luxury-black/5">
+                  CATÁLOGO (3 PAGES)
+                </Link>
+              </div>
+            </div>
             <span className="ml-3 text-[12px] tracking-[0.12em] uppercase text-luxury-black/50 font-light">Ref: {PROPERTY.ref}</span>
           </div>
         </div>
