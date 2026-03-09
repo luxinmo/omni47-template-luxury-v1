@@ -202,11 +202,10 @@ const PropertyPdfV2: React.FC = () => {
         >
           <HeaderBar pageNum={3} total={3} />
 
-          {/* All content in absolute positioned container to prevent overflow */}
-          <div style={{ position: "absolute", top: 44, left: 0, right: 0, bottom: 36, display: "flex", flexDirection: "column", padding: "20px 32px", gap: 12, overflow: "hidden" }}>
-
+          {/* Top section: Gallery + Agent */}
+          <div style={{ padding: "20px 32px 0 32px" }}>
             {/* Gallery grid */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, height: 320, flexShrink: 0 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, height: 300 }}>
               <img src={p.images[4]} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
               <div style={{ display: "grid", gridTemplateRows: "1fr 1fr", gap: 8, height: "100%" }}>
                 <img src={p.images[5]} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
@@ -215,7 +214,7 @@ const PropertyPdfV2: React.FC = () => {
             </div>
 
             {/* Agent card */}
-            <div style={{ display: "flex", alignItems: "center", gap: 20, border: "1px solid #E2DCD4", padding: 16, flexShrink: 0 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 20, border: "1px solid #E2DCD4", padding: 16, marginTop: 12 }}>
               <div style={{ width: 56, height: 56, background: "#2D2926", display: "flex", alignItems: "center", justifyContent: "center", color: "#8B6F47", fontSize: 18, fontWeight: 300, flexShrink: 0 }}>
                 {p.agent.name.split(" ").map(n => n[0]).join("")}
               </div>
@@ -233,9 +232,22 @@ const PropertyPdfV2: React.FC = () => {
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Bottom section: Location + Disclaimer + Footer — pinned to bottom */}
+          <div style={{ position: "absolute", bottom: 0, left: 0, right: 0 }}>
+            {/* Disclaimer */}
+            <div style={{ padding: "0 32px 8px 32px", borderTop: "1px solid #E2DCD4", marginLeft: 32, marginRight: 32, paddingTop: 8, marginBottom: 8 }}>
+              <p style={{ fontSize: 7, color: "#9A938B", lineHeight: 1.6 }}>
+                Disclaimer: The information contained in this document is for general guidance only and does not constitute 
+                an offer or contract. All measurements and descriptions are approximate. {brand.fullName} has not tested any 
+                apparatus, equipment, fixtures, fittings or services and cannot verify they are in working order. Buyers are 
+                advised to obtain verification from their solicitor or surveyor. Photographs are for illustration purposes only.
+              </p>
+            </div>
 
             {/* Location */}
-            <div style={{ background: "#2D2926", padding: 16, display: "flex", alignItems: "flex-start", gap: 20, flexShrink: 0 }}>
+            <div style={{ background: "#2D2926", padding: "16px 32px", display: "flex", alignItems: "flex-start", gap: 20, margin: "0 32px 12px 32px" }}>
               <div style={{ flex: 1 }}>
                 <h2 style={{ fontSize: 10, color: "#8B6F47", letterSpacing: "0.2em", fontWeight: 500, marginBottom: 6 }}>LOCATION</h2>
                 <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 6 }}>
@@ -253,19 +265,6 @@ const PropertyPdfV2: React.FC = () => {
               </div>
             </div>
 
-            {/* Disclaimer - pushed to bottom */}
-            <div style={{ marginTop: "auto", borderTop: "1px solid #E2DCD4", paddingTop: 8 }}>
-              <p style={{ fontSize: 7, color: "#9A938B", lineHeight: 1.6 }}>
-                Disclaimer: The information contained in this document is for general guidance only and does not constitute 
-                an offer or contract. All measurements and descriptions are approximate. {brand.fullName} has not tested any 
-                apparatus, equipment, fixtures, fittings or services and cannot verify they are in working order. Buyers are 
-                advised to obtain verification from their solicitor or surveyor. Photographs are for illustration purposes only.
-              </p>
-            </div>
-          </div>
-
-          {/* Footer pinned at bottom */}
-          <div style={{ position: "absolute", bottom: 0, left: 0, right: 0 }}>
             <FooterBar />
           </div>
         </div>
