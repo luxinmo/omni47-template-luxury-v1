@@ -458,81 +458,214 @@ const PROPERTIES = [
   },
 ];
 
-/* ─── Property Card (horizontal) ─── */
-const PropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
+/* ─── Off-Market Inquiry Modal ─── */
+/*
+  OFF-MARKET CARD LOCATION:
+  The OffMarketPropertyCard component is rendered inside the main property list 
+  in <main> → <div> where PROPERTIES.map() is called (~line 730).
+  Properties with `offmarket: true` render OffMarketPropertyCard instead of PropertyCard.
+  The modal (OffMarketModal) is triggered on click and overlays the page.
+*/
+const OffMarketModal = ({ open, onClose, property }: { open: boolean; onClose: () => void; property: typeof PROPERTIES[0] }) => {
+  if (!open) return null;
   return (
-    <a href={`/property/${property.id}`} className="group grid grid-cols-1 md:grid-cols-12 gap-0 bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden mb-6 hover:shadow-md transition-shadow duration-300">
-      {/* Image */}
-      <div className="md:col-span-5 relative overflow-hidden aspect-[16/10] md:aspect-auto md:h-full min-h-[220px]">
-        <img src={property.image} alt={property.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 absolute inset-0" />
-        {property.tag === "NEW BUILD" && (
-          <span className="absolute top-3 left-3 bg-luxury-black/60 backdrop-blur-sm text-white text-[12px] tracking-[0.12em] uppercase font-medium px-2.5 py-1">
-            New Build
-          </span>
-        )}
-        {property.gallery.length > 1 && (
-          <span className="absolute bottom-3 right-3 bg-luxury-black/60 text-white text-[12px] px-2 py-1 font-light">
-            1/{property.gallery.length}
-          </span>
-        )}
-      </div>
-
-      {/* Info */}
-      <div className="md:col-span-7 flex flex-col p-5 md:p-6 lg:p-8">
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-[12px] tracking-[0.15em] uppercase border border-luxury-black/30 text-luxury-black/70 px-2.5 py-1 font-medium">{property.tag}</span>
-          <button onClick={(e) => { e.preventDefault(); }} className="text-luxury-black/30 hover:text-luxury-black transition-colors">
-            <Mail className="w-4.5 h-4.5" />
-          </button>
-        </div>
-
-        <p className="text-[13px] tracking-[0.14em] uppercase text-luxury-black/60 mb-1">{property.location}</p>
-        <p className="text-[13px] text-luxury-black/55 font-light mb-1.5">Detached houses <span className="mx-1 text-luxury-black/30">|</span> <span className="italic">{property.style}</span> <span className="mx-1 text-luxury-black/30">|</span> <span className="font-mono text-luxury-black/45 tracking-wide text-[12px]">REF-{String(property.id).padStart(4, "0")}</span></p>
-        <h2 className="text-[17px] md:text-[19px] font-medium text-luxury-black leading-snug mb-1.5 group-hover:text-luxury-black/75 transition-colors duration-300">
-          {property.title}
-        </h2>
-        <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2">
-          {property.excerpt}
-        </p>
-
-        {/* Specs */}
-        <div className="flex items-center gap-7 mb-5">
-          <div className="text-center">
-            <p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Beds</p>
-            <p className="text-[16px] text-luxury-black font-light">{property.beds}</p>
-          </div>
-          <div className="text-center">
-            <p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Baths</p>
-            <p className="text-[16px] text-luxury-black font-light">{property.baths}</p>
-          </div>
-          <div className="text-center">
-            <p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Built</p>
-            <p className="text-[16px] text-luxury-black font-light">{property.sqm} m²</p>
-          </div>
-          {property.plot && (
-            <div className="text-center">
-              <p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Plot</p>
-              <p className="text-[16px] text-luxury-black font-light">{property.plot.toLocaleString()} m²</p>
+    <>
+      <div className="fixed inset-0 bg-luxury-black/60 backdrop-blur-sm z-50" onClick={onClose} />
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="bg-white w-full max-w-[520px] rounded-sm shadow-2xl animate-in fade-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto">
+          {/* Header */}
+          <div className="relative p-6 pb-4 border-b border-neutral-100">
+            <button onClick={onClose} className="absolute top-4 right-4 text-luxury-black/40 hover:text-luxury-black transition-colors">
+              <X className="w-5 h-5" />
+            </button>
+            <div className="flex items-center gap-2 mb-3">
+              <Lock className="w-4 h-4 text-luxury-black/50" />
+              <span className="text-[12px] tracking-[0.15em] uppercase text-luxury-black/60 font-medium">Private Listing</span>
             </div>
-          )}
-        </div>
+            <h3 className="text-[18px] font-medium text-luxury-black leading-snug">
+              {property.style} for sale off-market
+            </h3>
+            <p className="text-[13px] text-luxury-black/50 mt-1">REF-{String(property.id).padStart(4, "0")}</p>
+          </div>
 
-        {/* Feature tags */}
-        <div className="flex flex-wrap gap-2.5">
-          {property.features.map((f, i) => (
-            <span key={i} className="text-[12px] text-luxury-black/55 font-light flex items-center gap-1.5">
-              <span className="w-1 h-1 rounded-full bg-luxury-black/30" />
-              {f}
-            </span>
-          ))}
-        </div>
+          {/* Explanation */}
+          <div className="p-6 bg-neutral-50 border-b border-neutral-100">
+            <div className="flex gap-3">
+              <Eye className="w-5 h-5 text-luxury-black/40 shrink-0 mt-0.5" />
+              <div>
+                <p className="text-[14px] text-luxury-black/80 leading-relaxed">
+                  This property is not publicly listed and is only available through our private network. 
+                  The owner has requested full discretion and the listing is exclusively offered to qualified buyers 
+                  through a personal advisor.
+                </p>
+                <p className="text-[13px] text-luxury-black/55 leading-relaxed mt-3">
+                  To receive the complete property dossier — including exact location, full photo gallery, 
+                  floor plans and pricing — please submit your enquiry below. A dedicated advisor will 
+                  contact you within 24 hours.
+                </p>
+              </div>
+            </div>
+          </div>
 
-        {/* Price */}
-        <div className="mt-auto pt-5 border-t border-neutral-100">
-          <p className="text-2xl md:text-[28px] font-extralight text-luxury-black tracking-tight">{property.price}</p>
+          {/* Quick specs */}
+          <div className="px-6 py-4 flex items-center gap-6 border-b border-neutral-100">
+            <div className="text-center">
+              <p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/45">Beds</p>
+              <p className="text-[15px] text-luxury-black font-light">{property.beds}</p>
+            </div>
+            <div className="text-center">
+              <p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/45">Baths</p>
+              <p className="text-[15px] text-luxury-black font-light">{property.baths}</p>
+            </div>
+            <div className="text-center">
+              <p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/45">Built</p>
+              <p className="text-[15px] text-luxury-black font-light">{property.sqm} m²</p>
+            </div>
+            {property.plot && (
+              <div className="text-center">
+                <p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/45">Plot</p>
+                <p className="text-[15px] text-luxury-black font-light">{property.plot.toLocaleString()} m²</p>
+              </div>
+            )}
+          </div>
+
+          {/* Form */}
+          <form className="p-6 space-y-4" onSubmit={(e) => { e.preventDefault(); onClose(); }}>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="text-[11px] uppercase tracking-wider text-luxury-black/50 font-medium mb-1.5 block">Full name *</label>
+                <div className="relative">
+                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-black/30" />
+                  <input type="text" required placeholder="Your name" className="w-full border border-neutral-300 rounded-md pl-9 pr-3 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/30 focus:outline-none focus:border-luxury-black/40" />
+                </div>
+              </div>
+              <div>
+                <label className="text-[11px] uppercase tracking-wider text-luxury-black/50 font-medium mb-1.5 block">Phone *</label>
+                <div className="relative">
+                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-black/30" />
+                  <input type="tel" required placeholder="+34 600 000 000" className="w-full border border-neutral-300 rounded-md pl-9 pr-3 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/30 focus:outline-none focus:border-luxury-black/40" />
+                </div>
+              </div>
+            </div>
+            <div>
+              <label className="text-[11px] uppercase tracking-wider text-luxury-black/50 font-medium mb-1.5 block">Email *</label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-black/30" />
+                <input type="email" required placeholder="your@email.com" className="w-full border border-neutral-300 rounded-md pl-9 pr-3 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/30 focus:outline-none focus:border-luxury-black/40" />
+              </div>
+            </div>
+            <div>
+              <label className="text-[11px] uppercase tracking-wider text-luxury-black/50 font-medium mb-1.5 block">Message</label>
+              <textarea rows={3} placeholder="I would like to receive more information about this off-market property..." className="w-full border border-neutral-300 rounded-md px-3 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/30 focus:outline-none focus:border-luxury-black/40 resize-none" />
+            </div>
+            <button type="submit" className="w-full bg-luxury-black text-white text-[13px] tracking-[0.12em] uppercase py-3.5 hover:bg-luxury-black/85 transition-all duration-300">
+              Request Property Dossier
+            </button>
+            <p className="text-[11px] text-luxury-black/35 text-center font-light">
+              Your information is treated with strict confidentiality.
+            </p>
+          </form>
         </div>
       </div>
-    </a>
+    </>
+  );
+};
+
+/* ─── Off-Market Property Card (horizontal) ─── */
+/*
+  INTEGRATION NOTE:
+  The OffMarketPropertyCard is used in the property listing grid for properties
+  where `offmarket === true`. It renders:
+  - A BLURRED image (CSS filter: blur)
+  - Title format: "{style} for sale off-market" (e.g., "Luxury Villa for sale off-market")
+  - Address: "**********" (masked)
+  - Description: Fixed text about off-market exclusivity
+  - Specs (beds, baths, sqm, plot) are shown normally
+  - Features are shown normally
+  - Price: "Price on Request"
+  - Clicking opens OffMarketModal with inquiry form
+*/
+const OffMarketPropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const offmarketTitle = `${property.style.toUpperCase()} FOR SALE OFF-MARKET`;
+  const offmarketExcerpt = "This property is part of our exclusive off-market portfolio. Details, images and exact location are only disclosed to qualified buyers through a personal consultation with one of our advisors.";
+
+  return (
+    <>
+      <div
+        onClick={() => setModalOpen(true)}
+        className="group grid grid-cols-1 md:grid-cols-12 gap-0 bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden mb-6 hover:shadow-md transition-shadow duration-300 cursor-pointer relative"
+      >
+        {/* Image — BLURRED */}
+        <div className="md:col-span-5 relative overflow-hidden aspect-[16/10] md:aspect-auto md:h-full min-h-[220px]">
+          <img src={property.image} alt="Off-market property" className="w-full h-full object-cover absolute inset-0 filter blur-lg scale-110" />
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-luxury-black/40 flex flex-col items-center justify-center gap-3">
+            <Lock className="w-8 h-8 text-white/80" />
+            <span className="text-[12px] tracking-[0.2em] uppercase text-white/90 font-medium">Off-Market</span>
+            <span className="text-[11px] text-white/60 font-light">Click to request access</span>
+          </div>
+        </div>
+
+        {/* Info */}
+        <div className="md:col-span-7 flex flex-col p-5 md:p-6 lg:p-8">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-[12px] tracking-[0.15em] uppercase border border-luxury-black/30 text-luxury-black/70 px-2.5 py-1 font-medium bg-amber-50">OFF-MARKET</span>
+            <Lock className="w-4 h-4 text-luxury-black/30" />
+          </div>
+
+          <p className="text-[13px] tracking-[0.14em] uppercase text-luxury-black/60 mb-1">**********</p>
+          <p className="text-[13px] text-luxury-black/55 font-light mb-1.5">{property.style} <span className="mx-1 text-luxury-black/30">|</span> <span className="font-mono text-luxury-black/45 tracking-wide text-[12px]">REF-{String(property.id).padStart(4, "0")}</span></p>
+          <h2 className="text-[17px] md:text-[19px] font-medium text-luxury-black leading-snug mb-1.5 group-hover:text-luxury-black/75 transition-colors duration-300">
+            {offmarketTitle}
+          </h2>
+          <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2 italic">
+            {offmarketExcerpt}
+          </p>
+
+          {/* Specs — shown */}
+          <div className="flex items-center gap-7 mb-5">
+            <div className="text-center">
+              <p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Beds</p>
+              <p className="text-[16px] text-luxury-black font-light">{property.beds}</p>
+            </div>
+            <div className="text-center">
+              <p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Baths</p>
+              <p className="text-[16px] text-luxury-black font-light">{property.baths}</p>
+            </div>
+            <div className="text-center">
+              <p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Built</p>
+              <p className="text-[16px] text-luxury-black font-light">{property.sqm} m²</p>
+            </div>
+            {property.plot && (
+              <div className="text-center">
+                <p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Plot</p>
+                <p className="text-[16px] text-luxury-black font-light">{property.plot.toLocaleString()} m²</p>
+              </div>
+            )}
+          </div>
+
+          {/* Feature tags — shown */}
+          <div className="flex flex-wrap gap-2.5">
+            {property.features.map((f, i) => (
+              <span key={i} className="text-[12px] text-luxury-black/55 font-light flex items-center gap-1.5">
+                <span className="w-1 h-1 rounded-full bg-luxury-black/30" />
+                {f}
+              </span>
+            ))}
+          </div>
+
+          {/* Price */}
+          <div className="mt-auto pt-5 border-t border-neutral-100 flex items-center justify-between">
+            <p className="text-2xl md:text-[28px] font-extralight text-luxury-black/50 tracking-tight italic">Price on Request</p>
+            <span className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 font-light flex items-center gap-1.5">
+              <Lock className="w-3 h-3" /> Request access
+            </span>
+          </div>
+        </div>
+      </div>
+      <OffMarketModal open={modalOpen} onClose={() => setModalOpen(false)} property={property} />
+    </>
   );
 };
 
