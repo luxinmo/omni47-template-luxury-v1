@@ -897,9 +897,11 @@ const LuxuryPropertyListing = () => {
 
         {/* Property list */}
         <div>
-          {PROPERTIES.map((p) => (
-            <PropertyCard key={p.id} property={p} />
-          ))}
+          {PROPERTIES.map((p) =>
+            p.offmarket
+              ? <OffMarketPropertyCard key={p.id} property={p} />
+              : <PropertyCard key={p.id} property={p} />
+          )}
         </div>
 
         {/* ─── PAGINATION ─── */}
