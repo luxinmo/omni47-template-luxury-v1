@@ -195,70 +195,79 @@ const PropertyPdfV2: React.FC = () => {
         </div>
 
         {/* ═══ PAGE 3 — Gallery + Contact ═══ */}
-        <div data-pdf-page className="bg-[#FAF8F5] shadow-2xl overflow-hidden flex flex-col" style={pageStyle}>
+        <div
+          data-pdf-page
+          className="bg-[#FAF8F5] shadow-2xl relative"
+          style={{ ...pageStyle, overflow: "hidden" }}
+        >
           <HeaderBar pageNum={3} total={3} />
 
-          {/* Gallery grid */}
-          <div className="px-8 pt-5 pb-3">
-            <div className="grid grid-cols-2 gap-2" style={{ height: 280 }}>
-              <img src={p.images[4]} alt="" className="w-full h-full object-cover" />
-              <div className="grid grid-rows-2 gap-2 h-full">
-                <img src={p.images[5]} alt="" className="w-full h-full object-cover" />
-                <img src={p.images[6]} alt="" className="w-full h-full object-cover" />
-              </div>
-            </div>
-          </div>
+          {/* All content in absolute positioned container to prevent overflow */}
+          <div style={{ position: "absolute", top: 44, left: 0, right: 0, bottom: 36, display: "flex", flexDirection: "column", padding: "20px 32px", gap: 12, overflow: "hidden" }}>
 
-          {/* Agent card */}
-          <div className="mx-8 mb-3 flex items-center gap-5 border border-[#E2DCD4] p-4">
-            <div className="w-14 h-14 bg-[#2D2926] flex items-center justify-center text-[#8B6F47] text-lg font-light shrink-0">
-              {p.agent.name.split(" ").map(n => n[0]).join("")}
-            </div>
-            <div className="flex-1">
-              <h3 className="text-[9px] text-[#8B6F47] tracking-[0.15em] mb-0.5">YOUR DEDICATED ADVISOR</h3>
-              <p className="text-[#2D2926] text-sm font-light">{p.agent.name}</p>
-              <p className="text-[#9A938B] text-[9px]">{p.agent.role}</p>
-            </div>
-            <div className="space-y-1.5 text-right">
-              <div className="flex items-center gap-2 text-[10px] text-[#6B6560]">
-                <Phone className="w-3 h-3 text-[#8B6F47]" /> {p.agent.phone}
-              </div>
-              <div className="flex items-center gap-2 text-[10px] text-[#6B6560]">
-                <Mail className="w-3 h-3 text-[#8B6F47]" /> {p.agent.email}
+            {/* Gallery grid */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, height: 320, flexShrink: 0 }}>
+              <img src={p.images[4]} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              <div style={{ display: "grid", gridTemplateRows: "1fr 1fr", gap: 8, height: "100%" }}>
+                <img src={p.images[5]} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                <img src={p.images[6]} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
               </div>
             </div>
-          </div>
 
-          {/* Location */}
-          <div className="mx-8 mb-3 bg-[#2D2926] p-4 flex items-start gap-5">
-            <div className="flex-1">
-              <h2 className="text-[10px] text-[#8B6F47] tracking-[0.2em] font-medium mb-1.5">LOCATION</h2>
-              <div className="flex items-center gap-1.5 mb-1.5">
-                <MapPin className="w-3 h-3 text-[#8B6F47]" />
-                <span className="text-white text-xs font-light">{p.location}</span>
+            {/* Agent card */}
+            <div style={{ display: "flex", alignItems: "center", gap: 20, border: "1px solid #E2DCD4", padding: 16, flexShrink: 0 }}>
+              <div style={{ width: 56, height: 56, background: "#2D2926", display: "flex", alignItems: "center", justifyContent: "center", color: "#8B6F47", fontSize: 18, fontWeight: 300, flexShrink: 0 }}>
+                {p.agent.name.split(" ").map(n => n[0]).join("")}
               </div>
-              <p className="text-white/60 text-[9px] leading-relaxed">
-                Located in one of Ibiza's most sought-after areas, this property offers easy access to pristine beaches, 
-                world-class restaurants, and the vibrant cultural scene of Santa Eulalia. The international airport is just 
-                20 minutes away.
+              <div style={{ flex: 1 }}>
+                <h3 style={{ fontSize: 9, color: "#8B6F47", letterSpacing: "0.15em", marginBottom: 2 }}>YOUR DEDICATED ADVISOR</h3>
+                <p style={{ fontSize: 14, color: "#2D2926", fontWeight: 300 }}>{p.agent.name}</p>
+                <p style={{ fontSize: 9, color: "#9A938B" }}>{p.agent.role}</p>
+              </div>
+              <div style={{ textAlign: "right" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 10, color: "#6B6560", marginBottom: 6 }}>
+                  <Phone style={{ width: 12, height: 12, color: "#8B6F47" }} /> {p.agent.phone}
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 10, color: "#6B6560" }}>
+                  <Mail style={{ width: 12, height: 12, color: "#8B6F47" }} /> {p.agent.email}
+                </div>
+              </div>
+            </div>
+
+            {/* Location */}
+            <div style={{ background: "#2D2926", padding: 16, display: "flex", alignItems: "flex-start", gap: 20, flexShrink: 0 }}>
+              <div style={{ flex: 1 }}>
+                <h2 style={{ fontSize: 10, color: "#8B6F47", letterSpacing: "0.2em", fontWeight: 500, marginBottom: 6 }}>LOCATION</h2>
+                <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 6 }}>
+                  <MapPin style={{ width: 12, height: 12, color: "#8B6F47" }} />
+                  <span style={{ color: "white", fontSize: 12, fontWeight: 300 }}>{p.location}</span>
+                </div>
+                <p style={{ color: "rgba(255,255,255,0.6)", fontSize: 9, lineHeight: 1.6 }}>
+                  Located in one of Ibiza's most sought-after areas, this property offers easy access to pristine beaches, 
+                  world-class restaurants, and the vibrant cultural scene of Santa Eulalia. The international airport is just 
+                  20 minutes away.
+                </p>
+              </div>
+              <div style={{ width: 140, height: 70, background: "#3D3A37", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                <Globe style={{ width: 28, height: 28, color: "rgba(139,111,71,0.4)" }} />
+              </div>
+            </div>
+
+            {/* Disclaimer - pushed to bottom */}
+            <div style={{ marginTop: "auto", borderTop: "1px solid #E2DCD4", paddingTop: 8 }}>
+              <p style={{ fontSize: 7, color: "#9A938B", lineHeight: 1.6 }}>
+                Disclaimer: The information contained in this document is for general guidance only and does not constitute 
+                an offer or contract. All measurements and descriptions are approximate. {brand.fullName} has not tested any 
+                apparatus, equipment, fixtures, fittings or services and cannot verify they are in working order. Buyers are 
+                advised to obtain verification from their solicitor or surveyor. Photographs are for illustration purposes only.
               </p>
             </div>
-            <div className="w-[160px] h-[80px] bg-[#3D3A37] flex items-center justify-center shrink-0">
-              <Globe className="w-7 h-7 text-[#8B6F47]/40" />
-            </div>
           </div>
 
-          {/* Disclaimer */}
-          <div className="mx-8 border-t border-[#E2DCD4] pt-2 mb-2">
-            <p className="text-[7px] text-[#9A938B] leading-relaxed">
-              Disclaimer: The information contained in this document is for general guidance only and does not constitute 
-              an offer or contract. All measurements and descriptions are approximate. {brand.fullName} has not tested any 
-              apparatus, equipment, fixtures, fittings or services and cannot verify they are in working order. Buyers are 
-              advised to obtain verification from their solicitor or surveyor. Photographs are for illustration purposes only.
-            </p>
+          {/* Footer pinned at bottom */}
+          <div style={{ position: "absolute", bottom: 0, left: 0, right: 0 }}>
+            <FooterBar />
           </div>
-
-          <FooterBar />
         </div>
       </div>
 
