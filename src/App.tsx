@@ -13,6 +13,8 @@ import ContactPage from "./components/luxury/ContactPage";
 import PropertyDetailPage from "./components/luxury/PropertyDetailPage";
 import NotFound from "./pages/NotFound";
 import HomePortal from "./pages/HomePortal";
+import PropertyPdfV1 from "./components/pdf/PropertyPdfV1";
+import PropertyPdfV2 from "./components/pdf/PropertyPdfV2";
 
 const queryClient = new QueryClient();
 
