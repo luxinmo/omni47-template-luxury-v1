@@ -34,6 +34,8 @@ const App = () => (
             <Route path="/page/:slug" element={<SystemPage />} />
             <Route path="/property/:id" element={<PropertyDetailPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/pdf-v1" element={<PropertyPdfV1 />} />
+            <Route path="/pdf-v2" element={<PropertyPdfV2 />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
