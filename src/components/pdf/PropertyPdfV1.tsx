@@ -125,8 +125,8 @@ const PropertyPdfV1: React.FC = () => {
 
             {/* Gallery thumbnails */}
             <div className="flex gap-2 mt-auto">
-              {p.images.slice(1, 3).map((img, i) => (
-                <img key={i} src={img} alt="" className="w-[180px] h-[100px] object-cover" />
+              {p.images.slice(1, 4).map((img, i) => (
+                <img key={i} src={img} alt="" className="flex-1 h-[90px] object-cover" />
               ))}
             </div>
           </div>
