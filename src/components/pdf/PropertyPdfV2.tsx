@@ -200,7 +200,7 @@ const PropertyPdfV2: React.FC = () => {
 
           <div className="flex-1 flex flex-col px-8 py-6 gap-4 overflow-hidden">
             {/* Gallery grid — constrained */}
-            <div className="grid grid-cols-2 gap-2" style={{ height: 340 }}>
+            <div className="grid grid-cols-2 gap-2" style={{ height: 380 }}>
               <img src={p.images[4]} alt="" className="w-full h-full object-cover" />
               <div className="grid grid-rows-2 gap-2 h-full">
                 <img src={p.images[5]} alt="" className="w-full h-full object-cover" />
@@ -208,7 +208,7 @@ const PropertyPdfV2: React.FC = () => {
               </div>
             </div>
 
-            {/* Location */}
+            {/* Location — below gallery */}
             <div className="bg-[#2D2926] p-4 flex items-start gap-5">
               <div className="flex-1">
                 <h2 className="text-[10px] text-[#8B6F47] tracking-[0.2em] font-medium mb-1.5">LOCATION</h2>

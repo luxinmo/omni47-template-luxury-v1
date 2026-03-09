@@ -6,6 +6,7 @@ import { brand, contact } from "@/config/template";
 import heroImg from "@/assets/luxury-hero.jpg";
 import detail1 from "@/assets/property-detail-1.jpg";
 import detail2 from "@/assets/property-detail-2.jpg";
+import detail3 from "@/assets/property-detail-3.jpg";
 
 /* ─── Sample data (replace with prop/context in production) ─── */
 const PROPERTY = {
@@ -22,7 +23,7 @@ const PROPERTY = {
     "Gym", "Solar Panels", "Smart Home", "Underfloor Heating",
     "Air Conditioning", "Alarm System", "Double Garage", "Garden",
   ],
-  images: [heroImg, detail1, detail2],
+  images: [heroImg, detail1, detail2, detail3],
   agent: {
     name: "Isabella Martínez",
     role: "Senior Property Advisor",
@@ -76,7 +77,7 @@ const PropertyPdfV1: React.FC = () => {
         </div>
 
         {/* Hero image */}
-        <div className="relative h-[320px] overflow-hidden">
+        <div className="relative h-[360px] overflow-hidden">
           <img src={p.images[0]} alt={p.title} className="w-full h-full object-cover" />
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#2D2926]/80 to-transparent p-6">
             <h1 className="text-white text-xl font-light leading-tight">{p.title}</h1>
@@ -124,8 +125,8 @@ const PropertyPdfV1: React.FC = () => {
 
             {/* Gallery thumbnails */}
             <div className="flex gap-2 mt-auto">
-              {p.images.slice(1, 3).map((img, i) => (
-                <img key={i} src={img} alt="" className="w-[180px] h-[100px] object-cover" />
+              {p.images.slice(1, 4).map((img, i) => (
+                <img key={i} src={img} alt="" className="flex-1 h-[90px] object-cover" />
               ))}
             </div>
           </div>
