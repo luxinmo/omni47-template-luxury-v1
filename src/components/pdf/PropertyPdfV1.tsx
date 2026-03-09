@@ -6,6 +6,7 @@ import { brand, contact } from "@/config/template";
 import heroImg from "@/assets/luxury-hero.jpg";
 import detail1 from "@/assets/property-detail-1.jpg";
 import detail2 from "@/assets/property-detail-2.jpg";
+import detail3 from "@/assets/property-detail-3.jpg";
 
 /* ─── Sample data (replace with prop/context in production) ─── */
 const PROPERTY = {
