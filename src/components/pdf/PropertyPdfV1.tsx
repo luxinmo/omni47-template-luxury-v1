@@ -23,7 +23,7 @@ const PROPERTY = {
     "Gym", "Solar Panels", "Smart Home", "Underfloor Heating",
     "Air Conditioning", "Alarm System", "Double Garage", "Garden",
   ],
-  images: [heroImg, detail1, detail2],
+  images: [heroImg, detail1, detail2, detail3],
   agent: {
     name: "Isabella Martínez",
     role: "Senior Property Advisor",
