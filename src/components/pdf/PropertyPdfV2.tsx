@@ -205,11 +205,17 @@ const PropertyPdfV2: React.FC = () => {
           {/* Top section: Gallery + Agent */}
           <div style={{ padding: "20px 32px 0 32px" }}>
             {/* Gallery grid */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, height: 300 }}>
-              <img src={p.images[4]} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-              <div style={{ display: "grid", gridTemplateRows: "1fr 1fr", gap: 8, height: "100%" }}>
-                <img src={p.images[5]} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                <img src={p.images[6]} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, height: 300, overflow: "hidden" }}>
+              <div style={{ overflow: "hidden", height: "100%" }}>
+                <img src={p.images[4]} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+              </div>
+              <div style={{ display: "grid", gridTemplateRows: "1fr 1fr", gap: 8, height: "100%", overflow: "hidden" }}>
+                <div style={{ overflow: "hidden" }}>
+                  <img src={p.images[5]} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                </div>
+                <div style={{ overflow: "hidden" }}>
+                  <img src={p.images[6]} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                </div>
               </div>
             </div>
 
