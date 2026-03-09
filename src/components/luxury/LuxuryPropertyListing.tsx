@@ -391,6 +391,7 @@ const PROPERTIES = [
     excerpt: "This exceptional contemporary villa is set on an elevated plot offering uninterrupted panoramic views of the Mediterranean Sea and the island of Formentera...",
     beds: 5, baths: 4, sqm: 420, plot: 1200, price: "€4,650,000",
     features: ["Sea Views", "Infinity Pool", "Smart Home", "Garage"],
+    offmarket: false,
   },
   {
     id: 2, image: prop1, gallery: [prop1, detail3, heroImg],
@@ -399,6 +400,16 @@ const PROPERTIES = [
     excerpt: "Exceptional penthouse located in the prestigious Marina Botafoch area, offering stunning views over Dalt Vila and the harbour. Features include a private rooftop terrace...",
     beds: 3, baths: 3, sqm: 210, plot: null as number | null, price: "€3,100,000",
     features: ["Terrace", "Harbour Views", "Modern", "Elevator"],
+    offmarket: false,
+  },
+  {
+    id: 10, image: prop2, gallery: [prop2],
+    tag: "OFF-MARKET", style: "Luxury Villa", location: "Ibiza",
+    title: "", // will be generated
+    excerpt: "",
+    beds: 7, baths: 6, sqm: 650, plot: 3500, price: "Price on Request",
+    features: ["Sea Views", "Infinity Pool", "Guest House", "Wine Cellar"],
+    offmarket: true,
   },
   {
     id: 3, image: prop2, gallery: [prop2, detail1, detail2],
@@ -407,6 +418,7 @@ const PROPERTIES = [
     excerpt: "A beautifully restored traditional Ibicencan finca set within 15,000 m² of private land with olive and almond trees. The property combines authentic character with contemporary luxury...",
     beds: 6, baths: 5, sqm: 480, plot: 15000, price: "€5,800,000",
     features: ["Pool", "Garden", "Guest House", "Parking"],
+    offmarket: false,
   },
   {
     id: 4, image: prop3, gallery: [prop3, detail3, heroImg],
@@ -415,6 +427,16 @@ const PROPERTIES = [
     excerpt: "Architecturally striking villa perched on the hillside of Altea with sweeping views of the Mediterranean coastline. Floor-to-ceiling windows flood the interiors with natural light...",
     beds: 4, baths: 4, sqm: 350, plot: 800, price: "€2,950,000",
     features: ["Infinity Pool", "Sea Views", "Home Cinema", "Wine Cellar"],
+    offmarket: false,
+  },
+  {
+    id: 11, image: detail3, gallery: [detail3],
+    tag: "OFF-MARKET", style: "Penthouse", location: "Marbella",
+    title: "",
+    excerpt: "",
+    beds: 4, baths: 3, sqm: 320, plot: null as number | null, price: "Price on Request",
+    features: ["Panoramic View", "Terrace", "Smart Home", "Jacuzzi"],
+    offmarket: true,
   },
   {
     id: 5, image: detail1, gallery: [detail1, prop1, prop2],
@@ -423,6 +445,7 @@ const PROPERTIES = [
     excerpt: "Modern Ibiza-style flat for sale in Sant Antoni de Portmany, offering a built area of approximately 70 m² and 54 m² of usable interior space. The property features a large terrace...",
     beds: 1, baths: 1, sqm: 70, plot: null as number | null, price: "€530,000",
     features: ["Terrace", "Modern", "Community Pool", "Parking"],
+    offmarket: false,
   },
   {
     id: 6, image: detail2, gallery: [detail2, prop3, heroImg],
@@ -431,6 +454,7 @@ const PROPERTIES = [
     excerpt: "Impressive estate located on the frontline of a prestigious golf course in Jávea, offering dual views of the Montgó mountain and the Mediterranean Sea...",
     beds: 5, baths: 5, sqm: 520, plot: 2500, price: "€3,750,000",
     features: ["Golf Views", "Pool", "Gym", "Staff Quarters"],
+    offmarket: false,
   },
 ];
 
