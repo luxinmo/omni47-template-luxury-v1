@@ -198,9 +198,9 @@ const PropertyPdfV2: React.FC = () => {
         <div data-pdf-page className="bg-[#FAF8F5] shadow-2xl overflow-hidden flex flex-col" style={pageStyle}>
           <HeaderBar pageNum={3} total={3} />
 
-          <div className="flex-1 flex flex-col px-8 py-6 gap-4 overflow-hidden">
-            {/* Gallery grid — constrained */}
-            <div className="grid grid-cols-2 gap-2" style={{ height: 380 }}>
+          <div className="flex-1 flex flex-col px-8 py-5 gap-3 overflow-hidden">
+            {/* Gallery grid */}
+            <div className="grid grid-cols-2 gap-2 shrink-0" style={{ height: 300 }}>
               <img src={p.images[4]} alt="" className="w-full h-full object-cover" />
               <div className="grid grid-rows-2 gap-2 h-full">
                 <img src={p.images[5]} alt="" className="w-full h-full object-cover" />
@@ -208,27 +208,8 @@ const PropertyPdfV2: React.FC = () => {
               </div>
             </div>
 
-            {/* Location — below gallery */}
-            <div className="bg-[#2D2926] p-4 flex items-start gap-5">
-              <div className="flex-1">
-                <h2 className="text-[10px] text-[#8B6F47] tracking-[0.2em] font-medium mb-1.5">LOCATION</h2>
-                <div className="flex items-center gap-1.5 mb-1.5">
-                  <MapPin className="w-3 h-3 text-[#8B6F47]" />
-                  <span className="text-white text-xs font-light">{p.location}</span>
-                </div>
-                <p className="text-white/60 text-[9px] leading-relaxed">
-                  Located in one of Ibiza's most sought-after areas, this property offers easy access to pristine beaches, 
-                  world-class restaurants, and the vibrant cultural scene of Santa Eulalia. The international airport is just 
-                  20 minutes away.
-                </p>
-              </div>
-              <div className="w-[160px] h-[80px] bg-[#3D3A37] flex items-center justify-center shrink-0">
-                <Globe className="w-7 h-7 text-[#8B6F47]/40" />
-              </div>
-            </div>
-
             {/* Agent card */}
-            <div className="flex items-center gap-5 border border-[#E2DCD4] p-4">
+            <div className="flex items-center gap-5 border border-[#E2DCD4] p-4 shrink-0">
               <div className="w-14 h-14 bg-[#2D2926] flex items-center justify-center text-[#8B6F47] text-lg font-light shrink-0">
                 {p.agent.name.split(" ").map(n => n[0]).join("")}
               </div>
@@ -244,6 +225,25 @@ const PropertyPdfV2: React.FC = () => {
                 <div className="flex items-center gap-2 text-[10px] text-[#6B6560]">
                   <Mail className="w-3 h-3 text-[#8B6F47]" /> {p.agent.email}
                 </div>
+              </div>
+            </div>
+
+            {/* Location — at bottom */}
+            <div className="bg-[#2D2926] p-4 flex items-start gap-5 shrink-0">
+              <div className="flex-1">
+                <h2 className="text-[10px] text-[#8B6F47] tracking-[0.2em] font-medium mb-1.5">LOCATION</h2>
+                <div className="flex items-center gap-1.5 mb-1.5">
+                  <MapPin className="w-3 h-3 text-[#8B6F47]" />
+                  <span className="text-white text-xs font-light">{p.location}</span>
+                </div>
+                <p className="text-white/60 text-[9px] leading-relaxed">
+                  Located in one of Ibiza's most sought-after areas, this property offers easy access to pristine beaches, 
+                  world-class restaurants, and the vibrant cultural scene of Santa Eulalia. The international airport is just 
+                  20 minutes away.
+                </p>
+              </div>
+              <div className="w-[160px] h-[80px] bg-[#3D3A37] flex items-center justify-center shrink-0">
+                <Globe className="w-7 h-7 text-[#8B6F47]/40" />
               </div>
             </div>
 
