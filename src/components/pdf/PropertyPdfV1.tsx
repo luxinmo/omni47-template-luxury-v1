@@ -77,7 +77,7 @@ const PropertyPdfV1: React.FC = () => {
         </div>
 
         {/* Hero image */}
-        <div className="relative h-[320px] overflow-hidden">
+        <div className="relative h-[360px] overflow-hidden">
           <img src={p.images[0]} alt={p.title} className="w-full h-full object-cover" />
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#2D2926]/80 to-transparent p-6">
             <h1 className="text-white text-xl font-light leading-tight">{p.title}</h1>
