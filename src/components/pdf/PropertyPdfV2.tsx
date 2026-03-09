@@ -198,59 +198,58 @@ const PropertyPdfV2: React.FC = () => {
         <div data-pdf-page className="bg-[#FAF8F5] shadow-2xl overflow-hidden flex flex-col" style={pageStyle}>
           <HeaderBar pageNum={3} total={3} />
 
-          <div className="flex-1 flex flex-col px-8 py-6 gap-5 overflow-hidden">
-            {/* Large gallery grid */}
-            <div className="grid grid-cols-2 gap-2 h-[420px]">
+          <div className="flex-1 flex flex-col px-8 py-6 gap-4 overflow-hidden">
+            {/* Gallery grid — constrained */}
+            <div className="grid grid-cols-2 gap-2" style={{ height: 340 }}>
               <img src={p.images[4]} alt="" className="w-full h-full object-cover" />
-              <div className="grid grid-rows-2 gap-2">
+              <div className="grid grid-rows-2 gap-2 h-full">
                 <img src={p.images[5]} alt="" className="w-full h-full object-cover" />
                 <img src={p.images[6]} alt="" className="w-full h-full object-cover" />
               </div>
             </div>
 
-            {/* Location placeholder */}
-            <div className="bg-[#2D2926] p-5 flex items-start gap-6">
+            {/* Location */}
+            <div className="bg-[#2D2926] p-4 flex items-start gap-5">
               <div className="flex-1">
-                <h2 className="text-[10px] text-[#8B6F47] tracking-[0.2em] font-medium mb-2">LOCATION</h2>
-                <div className="flex items-center gap-1.5 mb-2">
-                  <MapPin className="w-3.5 h-3.5 text-[#8B6F47]" />
-                  <span className="text-white text-sm font-light">{p.location}</span>
+                <h2 className="text-[10px] text-[#8B6F47] tracking-[0.2em] font-medium mb-1.5">LOCATION</h2>
+                <div className="flex items-center gap-1.5 mb-1.5">
+                  <MapPin className="w-3 h-3 text-[#8B6F47]" />
+                  <span className="text-white text-xs font-light">{p.location}</span>
                 </div>
-                <p className="text-white/60 text-[10px] leading-relaxed">
+                <p className="text-white/60 text-[9px] leading-relaxed">
                   Located in one of Ibiza's most sought-after areas, this property offers easy access to pristine beaches, 
                   world-class restaurants, and the vibrant cultural scene of Santa Eulalia. The international airport is just 
                   20 minutes away.
                 </p>
               </div>
-              {/* Map placeholder */}
-              <div className="w-[200px] h-[100px] bg-[#3D3A37] flex items-center justify-center">
-                <Globe className="w-8 h-8 text-[#8B6F47]/40" />
+              <div className="w-[160px] h-[80px] bg-[#3D3A37] flex items-center justify-center shrink-0">
+                <Globe className="w-7 h-7 text-[#8B6F47]/40" />
               </div>
             </div>
 
             {/* Agent card */}
-            <div className="flex items-center gap-6 border border-[#E2DCD4] p-5">
-              <div className="w-16 h-16 bg-[#2D2926] flex items-center justify-center text-[#8B6F47] text-xl font-light">
+            <div className="flex items-center gap-5 border border-[#E2DCD4] p-4">
+              <div className="w-14 h-14 bg-[#2D2926] flex items-center justify-center text-[#8B6F47] text-lg font-light shrink-0">
                 {p.agent.name.split(" ").map(n => n[0]).join("")}
               </div>
               <div className="flex-1">
-                <h3 className="text-[10px] text-[#8B6F47] tracking-[0.15em] mb-1">YOUR DEDICATED ADVISOR</h3>
-                <p className="text-[#2D2926] text-base font-light">{p.agent.name}</p>
-                <p className="text-[#9A938B] text-[10px]">{p.agent.role}</p>
+                <h3 className="text-[9px] text-[#8B6F47] tracking-[0.15em] mb-0.5">YOUR DEDICATED ADVISOR</h3>
+                <p className="text-[#2D2926] text-sm font-light">{p.agent.name}</p>
+                <p className="text-[#9A938B] text-[9px]">{p.agent.role}</p>
               </div>
-              <div className="space-y-2 text-right">
-                <div className="flex items-center gap-2 text-[11px] text-[#6B6560]">
+              <div className="space-y-1.5 text-right">
+                <div className="flex items-center gap-2 text-[10px] text-[#6B6560]">
                   <Phone className="w-3 h-3 text-[#8B6F47]" /> {p.agent.phone}
                 </div>
-                <div className="flex items-center gap-2 text-[11px] text-[#6B6560]">
+                <div className="flex items-center gap-2 text-[10px] text-[#6B6560]">
                   <Mail className="w-3 h-3 text-[#8B6F47]" /> {p.agent.email}
                 </div>
               </div>
             </div>
 
             {/* Disclaimer */}
-            <div className="mt-auto border-t border-[#E2DCD4] pt-3">
-              <p className="text-[8px] text-[#9A938B] leading-relaxed">
+            <div className="mt-auto border-t border-[#E2DCD4] pt-2">
+              <p className="text-[7px] text-[#9A938B] leading-relaxed">
                 Disclaimer: The information contained in this document is for general guidance only and does not constitute 
                 an offer or contract. All measurements and descriptions are approximate. {brand.fullName} has not tested any 
                 apparatus, equipment, fixtures, fittings or services and cannot verify they are in working order. Buyers are 
