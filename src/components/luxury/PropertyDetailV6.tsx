@@ -445,8 +445,8 @@ const PropertyDetailV6 = () => {
           </div>
 
           {/* ─── RIGHT COLUMN: Sticky Price Card ─── */}
-          <div className="lg:col-span-5 lg:self-start">
-            <div className="lg:sticky lg:top-[80px] bg-neutral-50 border border-neutral-200 rounded-sm p-6" itemProp="offers" itemScope itemType="https://schema.org/Offer">
+          <aside className="lg:col-span-5 lg:self-start">
+            <div className="lg:sticky lg:top-[84px] lg:max-h-[calc(100vh-96px)] lg:overflow-y-auto bg-neutral-50 border border-neutral-200 rounded-sm p-6" itemProp="offers" itemScope itemType="https://schema.org/Offer">
               <meta itemProp="priceCurrency" content="EUR" />
               <meta itemProp="price" content={String(p.price)} />
               <meta itemProp="availability" content="https://schema.org/InStock" />
