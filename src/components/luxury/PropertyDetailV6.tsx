@@ -361,10 +361,10 @@ const PropertyDetailV6 = () => {
                 </div>
               ))}
             </div>
-            <div className="flex items-center gap-4 mt-2 text-[12px] text-luxury-black/45 font-light">
-              <span>Year built: <strong className="font-medium text-luxury-black/65">{p.year}</strong></span>
-              <span className="text-luxury-black/20">·</span>
-              <span>Status: <strong className="font-medium text-luxury-black/65">{p.status}</strong></span>
+            <div className="flex items-center gap-4 mt-2 text-[12px] text-luxury-black/60 font-light">
+              <span>Year built: <strong className="font-medium text-luxury-black/80">{p.year}</strong></span>
+              <span className="text-luxury-black/30">·</span>
+              <span>Status: <strong className="font-medium text-luxury-black/80">{p.status}</strong></span>
             </div>
 
             {/* Property tags */}
