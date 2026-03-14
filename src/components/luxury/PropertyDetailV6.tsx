@@ -435,10 +435,9 @@ const PropertyDetailV6 = () => {
         </section>
 
 
-        {/* ─── BODY: CONTENT + SIDEBAR ─── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-          {/* Left column */}
-          <div className="lg:col-span-7 space-y-8">
+        {/* ─── BODY: CONTENT ─── */}
+        <div>
+          <div className="space-y-8">
 
             {/* ─── ABOUT THIS PROPERTY ─── */}
             <section>
