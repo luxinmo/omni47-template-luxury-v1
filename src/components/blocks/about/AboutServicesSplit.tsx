@@ -1,6 +1,6 @@
-import { Lock, Play, ArrowUpRight } from "lucide-react";
+import { Play } from "lucide-react";
 import { mockServices } from "@/data/mock-data";
-import * as LucideIcons from "lucide-react";
+import { getIcon } from "@/components/blocks/_utils/get-icon";
 
 interface AboutServicesSplitProps {
   sectionLabel?: string;
