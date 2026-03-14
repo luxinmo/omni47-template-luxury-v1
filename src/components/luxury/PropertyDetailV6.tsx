@@ -264,37 +264,29 @@ const PropertyDetailV6 = () => {
       {/* ═══ HERO GALLERY ═══ */}
       <section aria-label="Property photos">
         {/* Single photo for mobile & tablet */}
-        <div className="lg:hidden relative aspect-[4/3] sm:aspect-[16/10] overflow-hidden cursor-pointer group" onClick={() => setLightbox(0)}>
-          <img src={p.images[0]} alt={p.title} loading="eager" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
-
-          {/* Share + Save — top right, smaller on mobile */}
-          <div className="absolute top-3 right-3 flex items-center gap-1.5">
-            <button onClick={(e) => { e.stopPropagation(); }} className="flex items-center gap-1 bg-white/90 backdrop-blur-sm text-luxury-black text-[12px] font-medium px-3 py-2 rounded-full shadow-sm" aria-label="Share property">
-              <Share2 className="w-3.5 h-3.5" /> Share
-            </button>
-            <button onClick={(e) => { e.stopPropagation(); setLiked(!liked); }} className={`flex items-center gap-1 text-[12px] font-medium px-3 py-2 rounded-full shadow-sm transition-all ${liked ? "bg-luxury-black text-white" : "bg-white/90 backdrop-blur-sm text-luxury-black"}`} aria-label={liked ? "Unsave property" : "Save property"}>
-              <Heart className="w-3.5 h-3.5" fill={liked ? "currentColor" : "none"} /> Save
+        <div className="lg:hidden relative aspect-[4/3] sm:aspect-[16/10] overflow-hidden cursor-pointer" onClick={() => setLightbox(0)}>
+          <img src={p.images[0]} alt={p.title} loading="eager" className="w-full h-full object-cover" />
+        </div>
+        {/* Actions bar below photo on mobile */}
+        <div className="lg:hidden flex items-center justify-between px-4 py-2.5 border-b border-neutral-100">
+          <div className="flex items-center gap-3">
+            {p.hasVideo && (
+              <button className="flex items-center gap-1.5 text-[12px] text-luxury-black/70 font-medium">
+                <Play className="w-3.5 h-3.5" /> Video
+              </button>
+            )}
+            <button onClick={() => setLightbox(0)} className="flex items-center gap-1.5 text-[12px] text-luxury-black/70 font-medium">
+              <Grid3X3 className="w-3.5 h-3.5" /> {p.images.length} photos
             </button>
           </div>
-
-          {/* Video — bottom left */}
-          {p.hasVideo && (
-            <button onClick={(e) => e.stopPropagation()} className="absolute bottom-16 left-4 flex items-center gap-1.5 bg-white/90 backdrop-blur-sm text-luxury-black text-[13px] font-medium px-4 py-2.5 rounded-full shadow-sm">
-              <Play className="w-4 h-4" /> Video
+          <div className="flex items-center gap-3">
+            <button className="text-luxury-black/50 hover:text-luxury-black transition-colors" aria-label="Share">
+              <Share2 className="w-4 h-4" />
             </button>
-          )}
-
-          {/* Brand badge — bottom left */}
-          <div className="absolute bottom-4 left-4">
-            <div className="bg-white/85 backdrop-blur-sm px-4 py-2 rounded-sm">
-              <span className="text-[11px] tracking-[0.25em] font-semibold text-luxury-black uppercase">{brand.name}</span>
-            </div>
+            <button onClick={() => setLiked(!liked)} className={`transition-colors ${liked ? "text-luxury-black" : "text-luxury-black/50 hover:text-luxury-black"}`} aria-label={liked ? "Unsave" : "Save"}>
+              <Heart className="w-4 h-4" fill={liked ? "currentColor" : "none"} />
+            </button>
           </div>
-
-          {/* Photos count — bottom right */}
-          <button onClick={(e) => { e.stopPropagation(); setLightbox(0); }} className="absolute bottom-4 right-4 flex items-center gap-2 bg-white/90 backdrop-blur-sm text-luxury-black text-[13px] font-medium px-4 py-2.5 rounded-full shadow-md">
-            <Grid3X3 className="w-4 h-4" /> {p.images.length} photos
-          </button>
         </div>
 
         {/* Mosaic grid for desktop (lg+) */}
