@@ -210,7 +210,7 @@ const PropertyDetailV6 = () => {
   };
 
   return (
-    <div className="flex-1 overflow-x-hidden bg-white text-luxury-black font-sans">
+    <div className="flex-1 bg-white text-luxury-black font-sans">
       <SEOHead
         title={p.title}
         description={`${p.title} — ${p.beds} bedrooms, ${p.baths} bathrooms, ${p.sqm} m² built. ${p.priceFormatted}. Contemporary villa with panoramic Mediterranean sea views in Santa Eulalia del Río, Ibiza.`}
@@ -445,8 +445,8 @@ const PropertyDetailV6 = () => {
           </div>
 
           {/* ─── RIGHT COLUMN: Sticky Price Card ─── */}
-          <div className="lg:col-span-5 lg:self-start">
-            <div className="lg:sticky lg:top-[80px] bg-neutral-50 border border-neutral-200 rounded-sm p-6" itemProp="offers" itemScope itemType="https://schema.org/Offer">
+          <aside className="lg:col-span-5 lg:self-start">
+            <div className="lg:sticky lg:top-[84px] lg:max-h-[calc(100vh-96px)] lg:overflow-y-auto bg-neutral-50 border border-neutral-200 rounded-sm p-6" itemProp="offers" itemScope itemType="https://schema.org/Offer">
               <meta itemProp="priceCurrency" content="EUR" />
               <meta itemProp="price" content={String(p.price)} />
               <meta itemProp="availability" content="https://schema.org/InStock" />
@@ -505,12 +505,42 @@ const PropertyDetailV6 = () => {
                     <p className="text-[12px] text-luxury-black/45 font-light">Luxury Real Estate</p>
                   </div>
                 </div>
-                <p className="text-[13px] text-luxury-black/55 font-light leading-relaxed">
+                <p className="text-[13px] text-luxury-black/55 font-light leading-relaxed mb-4">
                   Get in touch with {p.agency.name} for a personal consultation about this property or to arrange a private viewing.
                 </p>
+
+                {/* Sticky inline contact form */}
+                <form id="sticky-contact-form" className="space-y-2.5" onSubmit={(e) => e.preventDefault()}>
+                  <input
+                    type="text"
+                    placeholder="Full name"
+                    className="w-full border border-neutral-300 bg-white px-3 py-2.5 text-[12px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40"
+                  />
+                  <input
+                    type="email"
+                    placeholder="Email address"
+                    className="w-full border border-neutral-300 bg-white px-3 py-2.5 text-[12px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40"
+                  />
+                  <input
+                    type="tel"
+                    placeholder="Phone number"
+                    className="w-full border border-neutral-300 bg-white px-3 py-2.5 text-[12px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40"
+                  />
+                  <textarea
+                    rows={3}
+                    placeholder="I'm interested in this property..."
+                    className="w-full border border-neutral-300 bg-white px-3 py-2.5 text-[12px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40 resize-none"
+                  />
+                  <button
+                    type="submit"
+                    className="w-full bg-luxury-black text-white text-[12px] tracking-[0.1em] uppercase py-2.5 hover:bg-luxury-black/85 transition-all"
+                  >
+                    Send Enquiry
+                  </button>
+                </form>
               </div>
             </div>
-          </div>
+          </aside>
 
         </div>
       </main>
