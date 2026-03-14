@@ -523,7 +523,7 @@ const PropertyDetailV6 = () => {
               </div>
 
               <div className="flex flex-wrap items-baseline gap-3 mb-1">
-                <p className="text-[32px] font-extralight text-luxury-black tracking-tight leading-none">{p.priceFormatted}</p>
+                <p className="text-[32px] font-medium text-luxury-black tracking-tight leading-none">{p.priceFormatted}</p>
                 <span className="text-[14px] text-luxury-black/35 line-through font-light">{p.originalPrice}</span>
                 <span className="text-[11px] font-medium tracking-[0.08em] uppercase text-luxury-gold bg-luxury-gold/10 px-2 py-0.5">-{p.discount}%</span>
               </div>
