@@ -378,19 +378,35 @@ const PropertyDetailV6 = () => {
 
               {/* CTA buttons */}
               <div className="flex gap-2 mb-2">
-                <a href={`tel:${p.agent.phone}`} className="flex-1 flex items-center justify-center gap-2 bg-luxury-black text-white text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-luxury-black/85 transition-all">
+                <a href={`tel:${p.agency.phone}`} className="flex-1 flex items-center justify-center gap-2 bg-luxury-black text-white text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-luxury-black/85 transition-all">
                   <Phone className="w-3.5 h-3.5" /> Call
                 </a>
-                <a href={`https://wa.me/${p.agent.whatsapp}`} target="_blank" rel="noopener noreferrer" className="flex-1 flex items-center justify-center gap-2 bg-[#25D366] text-white text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-[#22bf5b] transition-all">
+                <a href={`https://wa.me/${p.agency.whatsapp}`} target="_blank" rel="noopener noreferrer" className="flex-1 flex items-center justify-center gap-2 bg-[#25D366] text-white text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-[#22bf5b] transition-all">
                   <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
                 </a>
               </div>
               <button
                 onClick={() => setEnquiryOpen(true)}
-                className="w-full flex items-center justify-center gap-2 border border-neutral-300 text-luxury-black text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-neutral-100 transition-all"
+                className="w-full flex items-center justify-center gap-2 border border-neutral-300 text-luxury-black text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-neutral-100 transition-all mb-5"
               >
                 <Mail className="w-3.5 h-3.5" /> Send Enquiry
               </button>
+
+              {/* Agency info */}
+              <div className="border-t border-neutral-200 pt-5">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-12 h-12 rounded-full bg-luxury-black flex items-center justify-center shrink-0">
+                    <span className="text-[10px] tracking-[0.15em] text-white font-medium">PE</span>
+                  </div>
+                  <div>
+                    <h3 className="text-[14px] font-medium text-luxury-black tracking-wide">{p.agency.name}</h3>
+                    <p className="text-[12px] text-luxury-black/45 font-light">Luxury Real Estate</p>
+                  </div>
+                </div>
+                <p className="text-[13px] text-luxury-black/55 font-light leading-relaxed">
+                  Get in touch with {p.agency.name} for a personal consultation about this property or to arrange a private viewing.
+                </p>
+              </div>
             </div>
           </div>
         </header>
