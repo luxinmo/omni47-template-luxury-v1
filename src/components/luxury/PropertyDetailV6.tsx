@@ -52,6 +52,7 @@ const PROPERTY = {
   hasVirtualTour: true,
   videoUrl: "#",
   virtualTourUrl: "#",
+  areaVideoUrl: "",
   images: [heroImg, detail1, detail2, detail3, prop1, prop2, prop3],
   description: `This exceptional luxury villa for sale in Santa Eulalia del Río, Ibiza, is set on an elevated plot offering uninterrupted panoramic views of the Mediterranean Sea and the island of Formentera. Designed by a renowned architectural studio, this contemporary Ibiza villa seamlessly blends indoor and outdoor living across 420 m² of impeccably finished living space.
 
@@ -559,31 +560,65 @@ const PropertyDetailV6 = () => {
         </div>
       </main>
 
+      {/* ─── BUYER'S GUIDE BANNER ─── */}
+      <section className="border-t border-neutral-200 bg-luxury-black">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div>
+            <p className="text-[11px] tracking-[0.15em] uppercase text-white/50 font-medium mb-1">Free Download</p>
+            <h3 className="text-[20px] md:text-[24px] font-light text-white tracking-tight">Buyer's Guide to Luxury Property in Ibiza</h3>
+            <p className="text-[14px] text-white/60 font-light mt-2 max-w-lg">Everything you need to know about purchasing property in the Balearic Islands — taxes, legal process, golden visa, and market insights.</p>
+          </div>
+          <button className="shrink-0 border border-white/30 text-white text-[12px] tracking-[0.12em] uppercase px-8 py-3.5 hover:bg-white hover:text-luxury-black transition-all duration-300">
+            Download Guide
+          </button>
+        </div>
+      </section>
+
       {/* ─── ABOUT SANTA EULALIA (full-width, above similar) ─── */}
       <section className="border-t border-neutral-200" aria-label="About Santa Eulalia del Río">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-12">
-          <h2 className="text-xl font-light text-luxury-black tracking-tight mb-8">About Santa Eulalia del Río</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <h2 className="text-xl font-light text-luxury-black tracking-tight mb-6">About Santa Eulalia del Río</h2>
+
+          {/* Lifestyle text */}
+          <div className="text-[14px] leading-[1.9] text-luxury-black/70 font-light space-y-4 mb-8 max-w-4xl">
+            <p>
+              Santa Eulalia del Río is one of Ibiza's most sought-after municipalities, renowned for its relaxed Mediterranean lifestyle, pristine beaches, and thriving culinary scene. Situated on the eastern coast of the island, Santa Eulalia offers a perfect balance between tranquillity and convenience, with an elegant promenade, boutique shopping, and a vibrant marina.
+            </p>
+            <p>
+              The Ibiza real estate market in Santa Eulalia continues to attract international buyers seeking luxury villas with sea views, contemporary architecture, and proximity to nature. With excellent international schools, year-round sunshine, and easy access to Ibiza Airport, the area is an ideal choice for families, remote professionals, and investors looking for premium Mediterranean properties.
+            </p>
+          </div>
+
+          {/* Map + Video row */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Map */}
             <div>
-              <div className="bg-neutral-50 border border-neutral-200 h-[320px] flex items-center justify-center text-luxury-black/40 text-[14px] font-light rounded-sm mb-3">
+              <div className="bg-neutral-50 border border-neutral-200 h-[300px] flex items-center justify-center text-luxury-black/40 text-[14px] font-light rounded-sm">
                 <MapPin className="w-5 h-5 mr-1.5" /> Interactive Map
               </div>
-              <p className="text-[13px] text-luxury-black/50 font-light flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-luxury-black/40" /> {p.location}, {p.region}
+              <p className="text-[12px] text-luxury-black/45 font-light flex items-center gap-1.5 mt-2">
+                <MapPin className="w-3 h-3" /> {p.location}, {p.region}
               </p>
             </div>
-            {/* Lifestyle text */}
-            <div className="text-[14px] leading-[1.9] text-luxury-black/70 font-light space-y-4">
-              <p>
-                Santa Eulalia del Río is one of Ibiza's most sought-after municipalities, renowned for its relaxed Mediterranean lifestyle, pristine beaches, and thriving culinary scene. Situated on the eastern coast of the island, Santa Eulalia offers a perfect balance between tranquillity and convenience, with an elegant promenade, boutique shopping, and a vibrant marina.
-              </p>
-              <p>
-                The Ibiza real estate market in Santa Eulalia continues to attract international buyers seeking luxury villas with sea views, contemporary architecture, and proximity to nature. With excellent international schools, year-round sunshine, and easy access to Ibiza Airport, the area is an ideal choice for families, remote professionals, and investors looking for premium Mediterranean properties.
-              </p>
-              <p>
-                From traditional fincas nestled among pine-covered hills to modern designer villas overlooking the sea, Santa Eulalia offers a diverse range of luxury properties that combine the authentic Balearic character with world-class amenities and finishes.
-              </p>
+            {/* Area Video */}
+            <div>
+              {p.areaVideoUrl ? (
+                <div className="h-[300px] rounded-sm overflow-hidden">
+                  <iframe
+                    src={p.areaVideoUrl}
+                    title={`Video of ${p.location}`}
+                    className="w-full h-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+              ) : (
+                <div className="bg-neutral-50 border border-neutral-200 h-[300px] flex flex-col items-center justify-center text-luxury-black/40 text-[14px] font-light rounded-sm gap-2">
+                  <Play className="w-8 h-8" strokeWidth={1} />
+                  <span>Area Video</span>
+                </div>
+              )}
+              <p className="text-[12px] text-luxury-black/45 font-light mt-2">Discover the lifestyle in {p.location.split(",")[0]}</p>
             </div>
           </div>
         </div>
