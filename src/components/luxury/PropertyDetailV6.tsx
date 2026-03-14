@@ -267,29 +267,37 @@ const PropertyDetailV6 = () => {
       {/* ═══ HERO GALLERY ═══ */}
       <section aria-label="Property photos">
         {/* Single photo for mobile & tablet */}
-        <div className="lg:hidden relative h-[300px] md:h-[420px] overflow-hidden cursor-pointer group" onClick={() => setLightbox(0)}>
+        <div className="lg:hidden relative aspect-[4/3] sm:aspect-[16/10] overflow-hidden cursor-pointer group" onClick={() => setLightbox(0)}>
           <img src={p.images[0]} alt={p.title} loading="eager" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
-          <div className="absolute bottom-4 left-4 flex items-center gap-2">
-            <div className="bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-sm">
-              <span className="text-[11px] tracking-[0.2em] font-medium text-luxury-black uppercase">{brand.name}</span>
-            </div>
-          </div>
+
+          {/* Share + Save — top right */}
           <div className="absolute top-3 right-3 flex items-center gap-2">
-            <button onClick={(e) => { e.stopPropagation(); }} className="flex items-center gap-1.5 bg-white/90 backdrop-blur-sm text-luxury-black text-[12px] font-medium px-3 py-2 rounded-full shadow-sm" aria-label="Share property">
-              <Share2 className="w-3.5 h-3.5" /> Share
+            <button onClick={(e) => { e.stopPropagation(); }} className="flex items-center gap-1.5 bg-white/90 backdrop-blur-sm text-luxury-black text-[13px] font-medium px-4 py-2.5 rounded-full shadow-sm" aria-label="Share property">
+              <Share2 className="w-4 h-4" /> Share
             </button>
-            <button onClick={(e) => { e.stopPropagation(); setLiked(!liked); }} className={`flex items-center gap-1.5 text-[12px] font-medium px-3 py-2 rounded-full shadow-sm transition-all ${liked ? "bg-luxury-black text-white" : "bg-white/90 backdrop-blur-sm text-luxury-black"}`} aria-label={liked ? "Unsave property" : "Save property"}>
-              <Heart className="w-3.5 h-3.5" fill={liked ? "currentColor" : "none"} /> Save
+            <button onClick={(e) => { e.stopPropagation(); setLiked(!liked); }} className={`flex items-center gap-1.5 text-[13px] font-medium px-4 py-2.5 rounded-full shadow-sm transition-all ${liked ? "bg-luxury-black text-white" : "bg-white/90 backdrop-blur-sm text-luxury-black"}`} aria-label={liked ? "Unsave property" : "Save property"}>
+              <Heart className="w-4 h-4" fill={liked ? "currentColor" : "none"} /> Save
             </button>
           </div>
-          <button onClick={(e) => { e.stopPropagation(); setLightbox(0); }} className="absolute bottom-4 right-4 flex items-center gap-2 bg-white/90 backdrop-blur-sm text-luxury-black text-[13px] font-medium px-4 py-2.5 rounded-lg shadow-md">
-            <Grid3X3 className="w-4 h-4" /> {p.images.length} photos
-          </button>
+
+          {/* Video — bottom left */}
           {p.hasVideo && (
-            <button onClick={(e) => e.stopPropagation()} className="absolute bottom-4 left-4 mt-10 flex items-center gap-1.5 bg-white/90 backdrop-blur-sm text-luxury-black text-[12px] font-medium px-3 py-2 rounded-full shadow-sm" style={{ bottom: '56px' }}>
-              <Play className="w-3.5 h-3.5" /> Video
+            <button onClick={(e) => e.stopPropagation()} className="absolute bottom-16 left-4 flex items-center gap-1.5 bg-white/90 backdrop-blur-sm text-luxury-black text-[13px] font-medium px-4 py-2.5 rounded-full shadow-sm">
+              <Play className="w-4 h-4" /> Video
             </button>
           )}
+
+          {/* Brand badge — bottom left */}
+          <div className="absolute bottom-4 left-4">
+            <div className="bg-white/85 backdrop-blur-sm px-4 py-2 rounded-sm">
+              <span className="text-[11px] tracking-[0.25em] font-semibold text-luxury-black uppercase">{brand.name}</span>
+            </div>
+          </div>
+
+          {/* Photos count — bottom right */}
+          <button onClick={(e) => { e.stopPropagation(); setLightbox(0); }} className="absolute bottom-4 right-4 flex items-center gap-2 bg-white/90 backdrop-blur-sm text-luxury-black text-[13px] font-medium px-4 py-2.5 rounded-full shadow-md">
+            <Grid3X3 className="w-4 h-4" /> {p.images.length} photos
+          </button>
         </div>
 
         {/* Mosaic grid for desktop (lg+) */}
@@ -339,7 +347,7 @@ const PropertyDetailV6 = () => {
       </section>
 
       {/* ─── MAIN CONTENT ─── */}
-      <main className="max-w-[1400px] mx-auto px-6 lg:px-10 py-6 lg:py-8" itemScope itemType="https://schema.org/Residence">
+      <main className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-5 lg:py-8" itemScope itemType="https://schema.org/Residence">
 
         {/* ─── TWO-COLUMN LAYOUT: Content + Sticky Price Card ─── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
@@ -347,8 +355,8 @@ const PropertyDetailV6 = () => {
           {/* ─── LEFT COLUMN ─── */}
           <div className="lg:col-span-7">
 
-            {/* Breadcrumb */}
-            <nav aria-label="Breadcrumb" className="mb-3">
+            {/* Breadcrumb — hide on small mobile */}
+            <nav aria-label="Breadcrumb" className="mb-3 hidden sm:block">
               <ol className="flex items-center gap-2 text-[13px] text-luxury-black/50 font-light" itemScope itemType="https://schema.org/BreadcrumbList">
                 {p.breadcrumb.map((crumb, i) => (
                   <li key={i} className="flex items-center gap-2" itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
@@ -367,34 +375,32 @@ const PropertyDetailV6 = () => {
             </nav>
 
             {/* Large Title */}
-            <h1 className="text-[24px] md:text-[30px] lg:text-[36px] font-medium text-luxury-black leading-tight tracking-[0.04em] uppercase mb-1" itemProp="name">
+            <h1 className="text-[20px] sm:text-[24px] md:text-[30px] lg:text-[36px] font-medium text-luxury-black leading-tight tracking-[0.04em] uppercase mb-1" itemProp="name">
               {p.title}
             </h1>
 
             {/* Address */}
-            <p className="text-[13px] text-luxury-black/50 font-light tracking-[0.12em] uppercase mb-4 flex items-center gap-2">
-              <MapPin className="w-3.5 h-3.5" strokeWidth={1.5} />
+            <p className="text-[12px] sm:text-[13px] text-luxury-black/50 font-light tracking-[0.1em] uppercase mb-4 flex items-center gap-2">
+              <MapPin className="w-3.5 h-3.5 shrink-0" strokeWidth={1.5} />
               Santa Eulalia del Río, Ibiza · Balearic Islands, Spain
             </p>
 
-            {/* Property meta */}
-
             {/* Compact property facts */}
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-4 gap-1.5 sm:gap-2">
               {[
                 { icon: Bed, label: "Bedrooms", value: p.beds },
                 { icon: Bath, label: "Bathrooms", value: p.baths },
-                { icon: Maximize, label: "Built Area", value: `${p.sqm} m²` },
-                { icon: Fence, label: p.plot ? "Plot Size" : "Useful Area", value: p.plot ? `${p.plot.toLocaleString()} m²` : `${p.sqm} m²` },
+                { icon: Maximize, label: "Built Area", value: <>{p.sqm} m<sup>2</sup></> },
+                { icon: Fence, label: p.plot ? "Plot Size" : "Useful Area", value: p.plot ? <>{p.plot.toLocaleString()} m<sup>2</sup></> : <>{p.sqm} m<sup>2</sup></> },
               ].map((s, i) => (
-                <div key={i} className="bg-neutral-50 border border-neutral-200 rounded-sm p-2.5 text-center">
+                <div key={i} className="bg-neutral-50 border border-neutral-200 rounded-sm p-2 sm:p-2.5 text-center">
                   <s.icon className="w-4 h-4 text-luxury-black/40 mx-auto mb-1.5" strokeWidth={1.5} />
-                  <p className="text-[16px] font-light text-luxury-black mb-0.5">{s.value}</p>
-                  <p className="text-[10px] tracking-[0.1em] uppercase text-luxury-black/60 font-medium">{s.label}</p>
+                  <p className="text-[14px] sm:text-[16px] font-light text-luxury-black mb-0.5 leading-tight">{s.value}</p>
+                  <p className="text-[9px] sm:text-[10px] tracking-[0.08em] uppercase text-luxury-black/60 font-medium leading-tight">{s.label}</p>
                 </div>
               ))}
             </div>
-            <div className="flex items-center gap-4 mt-2 text-[12px] text-luxury-black/60 font-light">
+            <div className="flex items-center gap-4 mt-2 text-[11px] sm:text-[12px] text-luxury-black/60 font-light">
               <span>Year built: <strong className="font-medium text-luxury-black/80">{p.year}</strong></span>
               <span className="text-luxury-black/30">·</span>
               <span>Status: <strong className="font-medium text-luxury-black/80">{p.status}</strong></span>
