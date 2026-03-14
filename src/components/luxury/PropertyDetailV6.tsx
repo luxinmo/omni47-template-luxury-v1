@@ -358,9 +358,6 @@ const PropertyDetailV6 = () => {
                 <Play className="w-4 h-4" /> Video
               </button>
             )}
-            <button onClick={() => setLightbox(0)} className="flex items-center gap-1.5 text-[13px] text-luxury-black/70 font-medium">
-              <Grid3X3 className="w-4 h-4" /> {p.images.length} photos
-            </button>
             <Link to="/pdf-v2" target="_blank" className="flex items-center gap-1.5 text-[13px] text-luxury-black/70 font-medium">
               <FileDown className="w-4 h-4" /> PDF
             </Link>
