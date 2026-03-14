@@ -52,6 +52,7 @@ const PROPERTY = {
   hasVirtualTour: true,
   videoUrl: "#",
   virtualTourUrl: "#",
+  areaVideoUrl: "",
   images: [heroImg, detail1, detail2, detail3, prop1, prop2, prop3],
   description: `This exceptional luxury villa for sale in Santa Eulalia del Río, Ibiza, is set on an elevated plot offering uninterrupted panoramic views of the Mediterranean Sea and the island of Formentera. Designed by a renowned architectural studio, this contemporary Ibiza villa seamlessly blends indoor and outdoor living across 420 m² of impeccably finished living space.
 
