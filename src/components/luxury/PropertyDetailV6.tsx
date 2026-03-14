@@ -275,18 +275,24 @@ const PropertyDetailV6 = () => {
 
         {/* Mobile menu dropdown */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-neutral-100 bg-white animate-in slide-in-from-top-1 duration-200">
-            <div className="px-6 py-4 flex flex-col">
+          <div className="lg:hidden fixed inset-0 top-[60px] md:top-[68px] z-50 bg-white animate-in fade-in duration-200 flex flex-col">
+            <div className="flex-1 flex flex-col justify-center px-10">
               {[...navLeft, ...navRight].map((item) => (
                 <Link
                   key={item.label}
                   to={item.href}
-                  className="text-[14px] tracking-[0.08em] uppercase font-light py-3.5 text-luxury-black/70 border-b border-neutral-100 last:border-b-0 hover:text-luxury-black transition-colors"
+                  className="text-[18px] tracking-[0.15em] uppercase font-light py-4 text-luxury-black/80 border-b border-neutral-100 last:border-b-0 hover:text-luxury-black transition-colors text-center"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {item.label}
                 </Link>
               ))}
+            </div>
+            <div className="px-10 pb-10 flex flex-col items-center gap-4">
+              <a href={`tel:${PROPERTY.agency.phone}`} className="w-full flex items-center justify-center gap-2 bg-luxury-black text-white text-[13px] tracking-[0.1em] uppercase py-3.5">
+                <Phone className="w-4 h-4" /> Call Us
+              </a>
+              <p className="text-[11px] text-luxury-black/40 tracking-[0.2em] uppercase">{brand.fullName}</p>
             </div>
           </div>
         )}
