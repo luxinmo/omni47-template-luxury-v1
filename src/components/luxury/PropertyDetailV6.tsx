@@ -376,11 +376,21 @@ const PropertyDetailV6 = () => {
               ))}
             </div>
 
+            {/* ─── ABOUT THIS PROPERTY ─── */}
+            <section className="border-t border-neutral-200 pt-6">
+              <h2 className="text-[18px] font-medium text-luxury-black mb-4">About This Property</h2>
+              <div className={`text-[14px] leading-[1.9] text-luxury-black/75 font-light whitespace-pre-line ${!expandDesc ? "line-clamp-8" : ""}`} itemProp="description">
+                {p.description}
+              </div>
+              <button onClick={() => setExpandDesc(!expandDesc)} className="flex items-center gap-1 mt-3 text-[12px] tracking-[0.1em] uppercase text-luxury-black/60 hover:text-luxury-black font-medium transition-colors">
+                {expandDesc ? "Show less" : "Read full description"} <ChevronDown className={`w-3.5 h-3.5 transition-transform ${expandDesc ? "rotate-180" : ""}`} />
+              </button>
+            </section>
+
             {/* ─── BASIC CHARACTERISTICS ─── */}
-            <section className="border-t-[3px] border-red-600 pt-6 mb-8">
-              <h2 className="text-[16px] font-medium text-luxury-black tracking-[0.15em] uppercase mb-4">Basic Characteristics</h2>
+            <section className="border-t border-neutral-200 pt-8">
+              <h2 className="text-[18px] font-medium text-luxury-black mb-5">Basic Characteristics</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12">
-                {/* Left column */}
                 <div>
                   {[
                     { label: "Reference", value: p.ref },
@@ -395,7 +405,6 @@ const PropertyDetailV6 = () => {
                     </div>
                   ))}
                 </div>
-                {/* Right column */}
                 <div>
                   {[
                     { label: "Bedrooms", value: p.beds },
@@ -410,17 +419,6 @@ const PropertyDetailV6 = () => {
                   ))}
                 </div>
               </div>
-            </section>
-
-            {/* ─── ABOUT THIS PROPERTY ─── */}
-            <section className="border-t border-neutral-200 pt-6">
-              <h2 className="text-[18px] font-medium text-luxury-black mb-4">About This Property</h2>
-              <div className={`text-[14px] leading-[1.9] text-luxury-black/75 font-light whitespace-pre-line ${!expandDesc ? "line-clamp-8" : ""}`} itemProp="description">
-                {p.description}
-              </div>
-              <button onClick={() => setExpandDesc(!expandDesc)} className="flex items-center gap-1 mt-3 text-[12px] tracking-[0.1em] uppercase text-luxury-black/60 hover:text-luxury-black font-medium transition-colors">
-                {expandDesc ? "Show less" : "Read full description"} <ChevronDown className={`w-3.5 h-3.5 transition-transform ${expandDesc ? "rotate-180" : ""}`} />
-              </button>
             </section>
 
             {/* ─── FEATURES & AMENITIES ─── */}
