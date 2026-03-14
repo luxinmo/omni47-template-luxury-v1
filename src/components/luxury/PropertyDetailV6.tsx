@@ -24,6 +24,7 @@ import prop3 from "@/assets/luxury-property-3.jpg";
 import detail1 from "@/assets/property-detail-1.jpg";
 import detail2 from "@/assets/property-detail-2.jpg";
 import detail3 from "@/assets/property-detail-3.jpg";
+import agencyLogo from "@/assets/agency-logo.png";
 
 /* ─── Data (reused from V5) ─── */
 const PROPERTY = {
@@ -337,9 +338,30 @@ const PropertyDetailV6 = () => {
             </p>
 
             {/* Property meta */}
-            <p className="text-[12px] text-luxury-black/40 font-light mt-2">
+            <p className="text-[12px] text-luxury-black/40 font-light mt-2 mb-4">
               Detached villa <span className="mx-1 text-luxury-black/20">|</span> <span className="italic">{p.style}</span> <span className="mx-1 text-luxury-black/20">|</span> <span className="font-mono text-[11px]">REF-{p.ref}</span>
             </p>
+
+            {/* Compact property facts */}
+            <div className="grid grid-cols-4 gap-2">
+              {[
+                { icon: Bed, label: "Bedrooms", value: p.beds },
+                { icon: Bath, label: "Bathrooms", value: p.baths },
+                { icon: Maximize, label: "Built Area", value: `${p.sqm} m²` },
+                { icon: Fence, label: "Plot Size", value: `${p.plot.toLocaleString()} m²` },
+              ].map((s, i) => (
+                <div key={i} className="bg-neutral-50 border border-neutral-200 rounded-sm p-2.5 text-center">
+                  <s.icon className="w-4 h-4 text-luxury-black/25 mx-auto mb-1.5" strokeWidth={1.5} />
+                  <p className="text-[16px] font-light text-luxury-black mb-0.5">{s.value}</p>
+                  <p className="text-[9px] tracking-[0.1em] uppercase text-luxury-black/45 font-medium">{s.label}</p>
+                </div>
+              ))}
+            </div>
+            <div className="flex items-center gap-4 mt-2 text-[12px] text-luxury-black/45 font-light">
+              <span>Year built: <strong className="font-medium text-luxury-black/65">{p.year}</strong></span>
+              <span className="text-luxury-black/20">·</span>
+              <span>Status: <strong className="font-medium text-luxury-black/65">{p.status}</strong></span>
+            </div>
           </div>
 
           {/* ─── PRICE CARD (sticky on desktop) ─── */}
@@ -395,8 +417,8 @@ const PropertyDetailV6 = () => {
               {/* Agency info */}
               <div className="border-t border-neutral-200 pt-5">
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-12 h-12 rounded-full bg-luxury-black flex items-center justify-center shrink-0">
-                    <span className="text-[10px] tracking-[0.15em] text-white font-medium">PE</span>
+                  <div className="w-12 h-12 rounded-full overflow-hidden bg-neutral-100 shrink-0">
+                    <img src={agencyLogo} alt={p.agency.name} className="w-full h-full object-cover" />
                   </div>
                   <div>
                     <h3 className="text-[14px] font-medium text-luxury-black tracking-wide">{p.agency.name}</h3>
@@ -410,30 +432,6 @@ const PropertyDetailV6 = () => {
             </div>
           </div>
         </header>
-
-        {/* ─── KEY PROPERTY FACTS (compact) ─── */}
-        <section aria-label="Key property facts" className="mb-6 pb-6 border-b border-neutral-200">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {[
-              { icon: Bed, label: "Bedrooms", value: p.beds },
-              { icon: Bath, label: "Bathrooms", value: p.baths },
-              { icon: Maximize, label: "Built Area", value: `${p.sqm} m²` },
-              { icon: Fence, label: "Plot Size", value: `${p.plot.toLocaleString()} m²` },
-            ].map((s, i) => (
-              <div key={i} className="bg-neutral-50 border border-neutral-200 rounded-sm p-4 text-center">
-                <s.icon className="w-5 h-5 text-luxury-black/30 mx-auto mb-2" strokeWidth={1.5} />
-                <p className="text-[22px] font-light text-luxury-black mb-0.5">{s.value}</p>
-                <p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 font-medium">{s.label}</p>
-              </div>
-            ))}
-          </div>
-          <div className="flex items-center gap-4 mt-3 text-[13px] text-luxury-black/50 font-light">
-            <span>Year built: <strong className="font-medium text-luxury-black/70">{p.year}</strong></span>
-            <span className="text-luxury-black/20">·</span>
-            <span>Status: <strong className="font-medium text-luxury-black/70">{p.status}</strong></span>
-          </div>
-        </section>
-
 
         {/* ─── BODY: CONTENT ─── */}
         <div>
@@ -618,8 +616,8 @@ const PropertyDetailV6 = () => {
         <DialogContent className="max-w-md p-0 rounded-sm border-neutral-200 overflow-hidden">
           <div className="p-6 pb-0">
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-14 h-14 rounded-full bg-luxury-black flex items-center justify-center shrink-0">
-                <span className="text-[11px] tracking-[0.15em] text-white font-medium">PE</span>
+              <div className="w-14 h-14 rounded-full overflow-hidden bg-neutral-100 shrink-0">
+                <img src={agencyLogo} alt={p.agency.name} className="w-full h-full object-cover" />
               </div>
               <div>
                 <DialogTitle className="text-[16px] font-medium text-luxury-black">{p.agency.name}</DialogTitle>
