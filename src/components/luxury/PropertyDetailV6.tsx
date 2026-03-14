@@ -72,13 +72,12 @@ Located in the sought-after area of Santa Eulalia del Río, this property offers
     "Air Conditioning", "Alarm System", "Double Garage", "Garden",
     "Terrace", "Staff Quarters", "Elevator", "Laundry Room",
   ],
-  agent: {
-    name: "Isabella Martínez",
-    role: "Senior Property Advisor",
+  agency: {
+    name: brand.fullName,
     phone: "+34 600 123 456",
     whatsapp: "34600123456",
-    email: "isabella@luxinmo.com",
-    photo: heroImg,
+    email: "info@prestigeestates.com",
+    logo: null, // uses brand text as logo
   },
   lat: 38.9848,
   lng: 1.5326,
