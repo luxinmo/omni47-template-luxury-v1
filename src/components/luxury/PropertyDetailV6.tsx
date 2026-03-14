@@ -478,6 +478,30 @@ const PropertyDetailV6 = () => {
               <span>Status: <strong className="font-medium text-luxury-black/80">{p.status}</strong></span>
             </div>
 
+            {/* ─── PRICE BAR (mobile/tablet only) ─── */}
+            <div className="lg:hidden mt-4 mb-4 bg-neutral-50 border border-neutral-200 rounded-sm p-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[11px] tracking-[0.15em] uppercase border border-luxury-black/30 text-luxury-black/70 px-2.5 py-1 font-medium">{p.tag}</span>
+                <span className="text-[12px] text-luxury-black/60">{p.pricePerSqm}</span>
+              </div>
+              <div className="flex flex-wrap items-baseline gap-2 mb-1">
+                <p className="text-[28px] font-medium text-luxury-black tracking-tight leading-none">{p.priceFormatted}</p>
+                <span className="text-[13px] text-luxury-black/35 line-through font-light">{p.originalPrice}</span>
+                <span className="text-[11px] font-medium tracking-[0.08em] uppercase text-luxury-gold bg-luxury-gold/10 px-2 py-0.5">-{p.discount}%</span>
+              </div>
+              {p.alsoForRent && (
+                <p className="text-[13px] text-luxury-black/60 flex items-center gap-1.5 mb-3">
+                  <Home className="w-3.5 h-3.5 text-luxury-gold/80" /> Also for rent: <span className="font-medium text-luxury-black/80">{p.rentalPrice}</span>
+                </p>
+              )}
+              <button
+                onClick={() => setEnquiryOpen(true)}
+                className="w-full flex items-center justify-center gap-2 bg-luxury-black text-white text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-luxury-black/85 transition-all"
+              >
+                <Mail className="w-3.5 h-3.5" /> Send Enquiry
+              </button>
+              <p className="text-[12px] text-luxury-black/50 font-mono text-center mt-2 tracking-[0.05em]">REF-{p.ref}</p>
+            </div>
 
             {/* Property tags */}
             <div className="flex flex-wrap gap-2 mt-4 lg:mt-0 mb-6">
@@ -622,7 +646,8 @@ const PropertyDetailV6 = () => {
               <meta itemProp="price" content={String(p.price)} />
               <meta itemProp="availability" content="https://schema.org/InStock" />
 
-              <div className="flex items-center justify-end mb-3">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-[11px] tracking-[0.15em] uppercase border border-luxury-black/30 text-luxury-black/70 px-2.5 py-1 font-medium">{p.tag}</span>
                 <Popover>
                   <PopoverTrigger asChild>
                     <button className="w-8 h-8 flex items-center justify-center rounded-full border border-neutral-200 text-luxury-black/40 hover:text-luxury-black hover:border-neutral-400 transition-all" aria-label="Download brochure">
@@ -636,8 +661,17 @@ const PropertyDetailV6 = () => {
                 </Popover>
               </div>
 
-              <p className="text-[32px] font-medium text-luxury-black tracking-tight leading-none mb-1">{p.priceFormatted}</p>
-              <p className="text-[12px] text-luxury-black/60 mb-4">{p.pricePerSqm}</p>
+              <div className="flex flex-wrap items-baseline gap-3 mb-1">
+                <p className="text-[32px] font-medium text-luxury-black tracking-tight leading-none">{p.priceFormatted}</p>
+                <span className="text-[14px] text-luxury-black/35 line-through font-light">{p.originalPrice}</span>
+                <span className="text-[11px] font-medium tracking-[0.08em] uppercase text-luxury-gold bg-luxury-gold/10 px-2 py-0.5">-{p.discount}%</span>
+              </div>
+              <p className="text-[12px] text-luxury-black/60 mb-1">{p.pricePerSqm}</p>
+              {p.alsoForRent && (
+                <p className="text-[13px] text-luxury-black/60 mb-4 flex items-center gap-1.5">
+                  <Home className="w-3.5 h-3.5 text-luxury-gold/80" /> Also for rent: <span className="font-medium text-luxury-black/80">{p.rentalPrice}</span>
+                </p>
+              )}
 
               {/* CTA buttons */}
               <div className="flex gap-2 mb-2">
@@ -648,12 +682,20 @@ const PropertyDetailV6 = () => {
                   <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
                 </a>
               </div>
+              <button
+                onClick={() => setEnquiryOpen(true)}
+                className="w-full flex items-center justify-center gap-2 border border-neutral-300 text-luxury-black text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-neutral-100 transition-all mb-5"
+              >
+                <Mail className="w-3.5 h-3.5" /> Send Enquiry
+              </button>
 
               {/* Agency info */}
-              <div className="border-t border-neutral-200 pt-5 mt-3">
+              <div className="border-t border-neutral-200 pt-5">
                 <p className="text-[13px] text-luxury-black/55 font-light leading-relaxed text-center">
                   Get in touch for a personal consultation or to arrange a private viewing.
                 </p>
+                <p className="text-[14px] text-luxury-black/70 font-mono text-center mt-3 tracking-[0.05em]">REF-{p.ref}</p>
+                
               </div>
             </div>
           </aside>
