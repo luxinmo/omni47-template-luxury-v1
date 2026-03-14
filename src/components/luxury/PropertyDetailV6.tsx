@@ -342,9 +342,6 @@ const PropertyDetailV6 = () => {
             </p>
 
             {/* Property meta */}
-            <p className="text-[12px] text-luxury-black/60 font-light mt-2 mb-4">
-              Detached villa <span className="mx-1 text-luxury-black/30">|</span> <span className="italic">{p.style}</span> <span className="mx-1 text-luxury-black/30">|</span> <span className="font-mono text-[11px]">REF-{p.ref}</span>
-            </p>
 
             {/* Compact property facts */}
             <div className="grid grid-cols-4 gap-2">
