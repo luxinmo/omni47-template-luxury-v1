@@ -658,7 +658,7 @@ const PropertyDetailV6 = () => {
 
       {/* ═══ ENQUIRY MODAL ═══ */}
       <Dialog open={enquiryOpen} onOpenChange={setEnquiryOpen}>
-        <DialogContent className="max-w-lg p-0 rounded-sm border-neutral-200 overflow-hidden">
+        <DialogContent className="max-w-lg p-0 rounded-md border-2 border-neutral-300 overflow-hidden shadow-xl">
           <div className="p-5 pb-0">
             <div className="flex gap-3 mb-4 bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden">
               <img src={p.images[0]} alt={p.title} className="w-24 h-20 object-cover shrink-0" />
