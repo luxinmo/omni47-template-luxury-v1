@@ -52,7 +52,7 @@ const Navbar = ({
               className="flex items-center gap-1.5 transition-colors duration-300"
               style={{ color: mutedColor }}
             >
-              <span className="text-lg leading-none">{languages.find(l => l.code === currentLang)?.flag}</span>
+              <img src={`https://flagcdn.com/20x15/${languages.find(l => l.code === currentLang)?.flag}.png`} alt="" className="w-5 h-[15px] object-cover rounded-[2px]" />
               <span className="text-[11px] tracking-[0.1em] font-medium">{currentLang}</span>
               <svg className="w-3 h-3 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
@@ -70,7 +70,7 @@ const Navbar = ({
                       className="w-full flex items-center gap-3 px-4 py-2.5 text-[13px] hover:bg-neutral-50 transition-colors"
                       style={{ color: currentLang === lang.code ? palette.text : palette.textMuted, fontWeight: currentLang === lang.code ? 500 : 300 }}
                     >
-                      <span className="text-lg leading-none">{lang.flag}</span>
+                      <img src={`https://flagcdn.com/20x15/${lang.flag}.png`} alt="" className="w-5 h-[15px] object-cover rounded-[2px]" />
                       <span>{lang.label}</span>
                       {currentLang === lang.code && (
                         <svg className="w-3.5 h-3.5 ml-auto opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
