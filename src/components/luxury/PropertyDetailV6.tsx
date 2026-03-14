@@ -2,7 +2,7 @@ import React, { useState, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import {
-  Bed, Bath, Maximize, MapPin, Heart, Share2, ChevronLeft, ChevronRight,
+  Bed, Bath, Maximize, MapPin, Heart, Share2, ChevronLeft, ChevronRight, Menu,
   X, Check, Phone, Fence, Mail, ChevronDown, CalendarDays, Star,
   Play, View, FileDown, Home, Grid3X3, TrendingUp,
   ArrowRight, MessageCircle, Send,
