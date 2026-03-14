@@ -190,6 +190,8 @@ const PropertyDetailV6 = () => {
   const [visitDate, setVisitDate] = useState<Date | undefined>();
   const [visitTime, setVisitTime] = useState("");
   const [chatOpen, setChatOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
+  const [currentLang, setCurrentLang] = useState("EN");
   const [chatMessages, setChatMessages] = useState<{ role: "user" | "bot"; text: string }[]>([
     { role: "bot", text: "Hello! I'm here to help you with any questions about this property. How can I assist you?" },
   ]);
