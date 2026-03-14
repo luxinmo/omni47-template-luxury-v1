@@ -299,9 +299,12 @@ const PropertyDetailV6 = () => {
       {/* ─── MAIN CONTENT ─── */}
       <main className="max-w-[1400px] mx-auto px-6 lg:px-10 py-6 lg:py-8" itemScope itemType="https://schema.org/Residence">
 
-        {/* ─── HERO HEADER: Breadcrumb + Title + Price Card ─── */}
-        <header className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 mb-6">
+        {/* ─── TWO-COLUMN LAYOUT: Content + Sticky Price Card ─── */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
+
+          {/* ─── LEFT COLUMN ─── */}
           <div className="lg:col-span-7">
+
             {/* Breadcrumb */}
             <nav aria-label="Breadcrumb" className="mb-3">
               <ol className="flex items-center gap-2 text-[13px] text-luxury-black/50 font-light" itemScope itemType="https://schema.org/BreadcrumbList">
@@ -328,7 +331,7 @@ const PropertyDetailV6 = () => {
             </p>
 
             {/* Large Title */}
-            <h1 className="text-[24px] md:text-[30px] lg:text-[36px] font-medium text-luxury-black leading-tight tracking-[0.02em] uppercase mb-1" itemProp="name">
+            <h1 className="text-[24px] md:text-[30px] lg:text-[36px] font-medium text-luxury-black leading-tight tracking-[0.04em] uppercase mb-1" itemProp="name">
               {p.title}
             </h1>
 
@@ -362,9 +365,86 @@ const PropertyDetailV6 = () => {
               <span className="text-luxury-black/20">·</span>
               <span>Status: <strong className="font-medium text-luxury-black/65">{p.status}</strong></span>
             </div>
+
+            {/* Property tags */}
+            <div className="flex flex-wrap gap-2 mt-4 mb-6">
+              {["Reventa", "Exclusiva", "Modern", "Primera línea del mar", "Cerca del golf", "Cerca de playa"].map((tag, i) => (
+                <span key={i} className="text-[12px] tracking-[0.05em] text-luxury-black/60 border border-neutral-200 bg-neutral-50 px-3 py-1.5 font-light">
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            {/* ─── ABOUT THIS PROPERTY ─── */}
+            <section className="border-t border-neutral-200 pt-6">
+              <h2 className="text-[18px] font-medium text-luxury-black mb-4">About This Property</h2>
+              <div className={`text-[14px] leading-[1.9] text-luxury-black/75 font-light whitespace-pre-line ${!expandDesc ? "line-clamp-8" : ""}`} itemProp="description">
+                {p.description}
+              </div>
+              <button onClick={() => setExpandDesc(!expandDesc)} className="flex items-center gap-1 mt-3 text-[12px] tracking-[0.1em] uppercase text-luxury-black/60 hover:text-luxury-black font-medium transition-colors">
+                {expandDesc ? "Show less" : "Read full description"} <ChevronDown className={`w-3.5 h-3.5 transition-transform ${expandDesc ? "rotate-180" : ""}`} />
+              </button>
+            </section>
+
+            {/* ─── FEATURES & AMENITIES ─── */}
+            <section className="border-t border-neutral-200 pt-8">
+              <h2 className="text-[18px] font-medium text-luxury-black mb-5">Features & Amenities</h2>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-3">
+                {p.features.map((f, i) => (
+                  <div key={i} className="flex items-center gap-2 text-[14px] text-luxury-black/70 font-light">
+                    <Check className="w-3.5 h-3.5 text-luxury-black/35" strokeWidth={2} />
+                    {f}
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* ─── MARKET INSIGHTS ─── */}
+            <section className="border-t border-neutral-200 pt-8">
+              <h2 className="text-[18px] font-medium text-luxury-black mb-5">Real Estate Market in Santa Eulalia</h2>
+              <div className="grid grid-cols-2 gap-4 mb-5">
+                {MARKET_DATA.map((d, i) => (
+                  <div key={i} className="bg-neutral-50 border border-neutral-200 rounded-sm p-4">
+                    <p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 font-medium mb-1">{d.label}</p>
+                    <p className="text-[20px] font-light text-luxury-black mb-2">{d.value}</p>
+                    <div className="w-full h-2 bg-neutral-200 rounded-full overflow-hidden mb-1.5">
+                      <div className="h-full bg-luxury-gold/60 rounded-full transition-all duration-700" style={{ width: `${d.pct}%` }} />
+                    </div>
+                    <p className="text-[12px] text-luxury-gold/80 font-medium flex items-center gap-1">
+                      <TrendingUp className="w-3 h-3" /> {d.trend}
+                    </p>
+                  </div>
+                ))}
+              </div>
+              <p className="text-[14px] leading-[1.85] text-luxury-black/65 font-light">
+                The luxury villa market in Santa Eulalia, Ibiza, has experienced consistent growth over the past five years, driven by strong international demand and limited supply of premium coastal properties. Average prices for high-end villas have increased by approximately 12% year-on-year, with sea-view properties commanding the highest premiums. The area remains one of the most desirable locations in the Balearic Islands for both primary residences and investment properties.
+              </p>
+            </section>
+
+            {/* ─── NEARBY AREAS ─── */}
+            <section className="border-t border-neutral-200 pt-8">
+              <h2 className="text-[18px] font-medium text-luxury-black mb-5">Nearby Areas</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {NEARBY_AREAS.map((area, i) => (
+                  <Link key={i} to={area.href} className="flex items-center justify-between bg-neutral-50 border border-neutral-200 rounded-sm px-4 py-3 hover:bg-neutral-100 hover:border-neutral-300 transition-all group">
+                    <span className="text-[14px] text-luxury-black/75 font-light group-hover:text-luxury-black transition-colors">{area.label}</span>
+                    <span className="flex items-center gap-2 text-[12px] text-luxury-black/45">
+                      {area.count} properties <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </section>
+
+            {/* ─── MORTGAGE CALCULATOR ─── */}
+            <section className="border-t border-neutral-100 pt-8">
+              <div className="[&_section]:border-t-0 [&_section]:pt-0 [&_.text-luxury-gold\/90]:text-luxury-black/40 [&_input[type=range]]:cursor-pointer">
+                <LuxuryMortgageCalculator />
+              </div>
+            </section>
           </div>
 
-          {/* ─── PRICE CARD (sticky on desktop) ─── */}
+          {/* ─── RIGHT COLUMN: Sticky Price Card ─── */}
           <div className="lg:col-span-5">
             <div className="lg:sticky lg:top-[80px] bg-neutral-50 border border-neutral-200 rounded-sm p-6" itemProp="offers" itemScope itemType="https://schema.org/Offer">
               <meta itemProp="priceCurrency" content="EUR" />
@@ -430,85 +510,6 @@ const PropertyDetailV6 = () => {
                 </p>
               </div>
             </div>
-          </div>
-        </header>
-
-        {/* ─── BODY: CONTENT ─── */}
-        <div>
-          <div className="space-y-8">
-
-            {/* ─── ABOUT THIS PROPERTY ─── */}
-            <section>
-              <h2 className="text-[18px] font-medium text-luxury-black mb-4">About This Property</h2>
-              <div className={`text-[14px] leading-[1.9] text-luxury-black/75 font-light whitespace-pre-line ${!expandDesc ? "line-clamp-8" : ""}`} itemProp="description">
-                {p.description}
-              </div>
-              <button onClick={() => setExpandDesc(!expandDesc)} className="flex items-center gap-1 mt-3 text-[12px] tracking-[0.1em] uppercase text-luxury-black/60 hover:text-luxury-black font-medium transition-colors">
-                {expandDesc ? "Show less" : "Read full description"} <ChevronDown className={`w-3.5 h-3.5 transition-transform ${expandDesc ? "rotate-180" : ""}`} />
-              </button>
-            </section>
-
-            {/* ─── FEATURES & AMENITIES ─── */}
-            <section className="border-t border-neutral-200 pt-8">
-              <h2 className="text-[18px] font-medium text-luxury-black mb-5">Features & Amenities</h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-3">
-                {p.features.map((f, i) => (
-                  <div key={i} className="flex items-center gap-2 text-[14px] text-luxury-black/70 font-light">
-                    <Check className="w-3.5 h-3.5 text-luxury-black/35" strokeWidth={2} />
-                    {f}
-                  </div>
-                ))}
-              </div>
-            </section>
-
-
-            {/* ─── MARKET INSIGHTS (with visual chart) ─── */}
-            <section className="border-t border-neutral-200 pt-8">
-              <h2 className="text-[18px] font-medium text-luxury-black mb-5">Real Estate Market in Santa Eulalia</h2>
-              <div className="grid grid-cols-2 gap-4 mb-5">
-                {MARKET_DATA.map((d, i) => (
-                  <div key={i} className="bg-neutral-50 border border-neutral-200 rounded-sm p-4">
-                    <p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 font-medium mb-1">{d.label}</p>
-                    <p className="text-[20px] font-light text-luxury-black mb-2">{d.value}</p>
-                    {/* Mini bar chart */}
-                    <div className="w-full h-2 bg-neutral-200 rounded-full overflow-hidden mb-1.5">
-                      <div
-                        className="h-full bg-luxury-gold/60 rounded-full transition-all duration-700"
-                        style={{ width: `${d.pct}%` }}
-                      />
-                    </div>
-                    <p className="text-[12px] text-luxury-gold/80 font-medium flex items-center gap-1">
-                      <TrendingUp className="w-3 h-3" /> {d.trend}
-                    </p>
-                  </div>
-                ))}
-              </div>
-              <p className="text-[14px] leading-[1.85] text-luxury-black/65 font-light">
-                The luxury villa market in Santa Eulalia, Ibiza, has experienced consistent growth over the past five years, driven by strong international demand and limited supply of premium coastal properties. Average prices for high-end villas have increased by approximately 12% year-on-year, with sea-view properties commanding the highest premiums. The area remains one of the most desirable locations in the Balearic Islands for both primary residences and investment properties.
-              </p>
-            </section>
-
-            {/* ─── NEARBY AREAS ─── */}
-            <section className="border-t border-neutral-200 pt-8">
-              <h2 className="text-[18px] font-medium text-luxury-black mb-5">Nearby Areas</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {NEARBY_AREAS.map((area, i) => (
-                  <Link key={i} to={area.href} className="flex items-center justify-between bg-neutral-50 border border-neutral-200 rounded-sm px-4 py-3 hover:bg-neutral-100 hover:border-neutral-300 transition-all group">
-                    <span className="text-[14px] text-luxury-black/75 font-light group-hover:text-luxury-black transition-colors">{area.label}</span>
-                    <span className="flex items-center gap-2 text-[12px] text-luxury-black/45">
-                      {area.count} properties <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            </section>
-
-            {/* ─── MORTGAGE CALCULATOR (softened) ─── */}
-            <section className="border-t border-neutral-100 pt-8">
-              <div className="[&_section]:border-t-0 [&_section]:pt-0 [&_.text-luxury-gold\/90]:text-luxury-black/40 [&_input[type=range]]:cursor-pointer">
-                <LuxuryMortgageCalculator />
-              </div>
-            </section>
           </div>
 
         </div>
