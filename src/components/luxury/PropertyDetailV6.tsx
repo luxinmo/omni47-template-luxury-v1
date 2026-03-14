@@ -417,8 +417,8 @@ const PropertyDetailV6 = () => {
               {/* Agency info */}
               <div className="border-t border-neutral-200 pt-5">
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-12 h-12 rounded-full bg-luxury-black flex items-center justify-center shrink-0">
-                    <span className="text-[10px] tracking-[0.15em] text-white font-medium">PE</span>
+                  <div className="w-12 h-12 rounded-full overflow-hidden bg-neutral-100 shrink-0">
+                    <img src={agencyLogo} alt={p.agency.name} className="w-full h-full object-cover" />
                   </div>
                   <div>
                     <h3 className="text-[14px] font-medium text-luxury-black tracking-wide">{p.agency.name}</h3>
