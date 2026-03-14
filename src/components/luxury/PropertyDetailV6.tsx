@@ -304,8 +304,25 @@ const PropertyDetailV6 = () => {
             ))}
           </div>
 
+          {/* Language selector */}
+          <div className="px-10 py-6 border-t border-neutral-100 shrink-0">
+            <p className="text-[10px] tracking-[0.2em] uppercase text-luxury-black/40 font-medium mb-3 text-center">Language</p>
+            <div className="flex flex-wrap justify-center gap-2">
+              {languages.map((lang) => (
+                <button
+                  key={lang.code}
+                  onClick={() => setCurrentLang(lang.code)}
+                  className={`flex items-center gap-1.5 px-3 py-2 text-[12px] tracking-[0.05em] rounded-sm border transition-colors ${currentLang === lang.code ? "border-luxury-black/30 bg-neutral-50 font-medium text-luxury-black" : "border-neutral-200 font-light text-luxury-black/55 hover:bg-neutral-50"}`}
+                >
+                  <img src={`https://flagcdn.com/20x15/${lang.flag}.png`} alt="" className="w-5 h-[15px] object-cover rounded-[2px]" />
+                  {lang.code}
+                </button>
+              ))}
+            </div>
+          </div>
+
           {/* Bottom CTA */}
-          <div className="px-10 pb-10 flex flex-col items-center gap-4 shrink-0">
+          <div className="px-10 pb-8 flex flex-col items-center gap-4 shrink-0">
             <a href={`tel:${PROPERTY.agency.phone}`} className="w-full flex items-center justify-center gap-2 bg-luxury-black text-white text-[13px] tracking-[0.1em] uppercase py-3.5">
               <Phone className="w-4 h-4" /> Call Us
             </a>
