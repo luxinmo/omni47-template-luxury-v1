@@ -413,7 +413,7 @@ const PropertyDetailV6 = () => {
                     { label: "Plot", value: <>{p.plot.toLocaleString()} m<sup>2</sup></> },
                   ].map((row, i) => (
                     <div key={i} className="flex items-center justify-between py-2.5 border-b border-neutral-200">
-                      <span className="text-[14px] text-luxury-black/70 font-light">{row.label}</span>
+                      <span className="text-[14px] text-luxury-black/80 font-light">{row.label}</span>
                       <span className="text-[14px] text-luxury-black font-medium">{row.value}</span>
                     </div>
                   ))}
