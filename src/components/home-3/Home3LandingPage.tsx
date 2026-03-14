@@ -326,39 +326,31 @@ const Home3LandingPage = () => {
       {/* ═══════════════════════════════════════════════════════
           6b. BRANDED RESIDENCES
           ═══════════════════════════════════════════════════════ */}
-      <section aria-label="Branded residences" style={{ background: "#1a1816" }}>
-        <div className="max-w-[1440px] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-0 items-stretch">
-            <FadeIn className="relative overflow-hidden min-h-[360px] md:min-h-[560px]">
-              <img src={detail2} alt="Branded residence — luxury hospitality living" loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
-              <div className="absolute inset-0 hidden md:block" style={{ background: "linear-gradient(to right, transparent 30%, rgba(26,24,22,0.95) 100%)" }} />
-              <div className="absolute inset-0 md:hidden" style={{ background: "linear-gradient(to bottom, transparent 40%, rgba(26,24,22,0.9) 100%)" }} />
-              <div className="absolute top-6 left-6 flex items-center gap-1.5 px-3 py-1.5" style={{ background: "rgba(26,24,22,0.7)", backdropFilter: "blur(12px)" }}>
-                <Crown className="w-3.5 h-3.5" style={{ color: "#c9a96e" }} />
-                <span className="text-xs tracking-[0.15em] uppercase font-normal" style={{ color: "#c9a96e" }}>Branded Residences</span>
-              </div>
-            </FadeIn>
-            <FadeIn delay={0.15} className="flex flex-col justify-center px-8 sm:px-12 md:px-16 lg:px-24 py-16 md:py-20">
-              <div className="flex items-center gap-2.5 mb-8">
-                <div className="w-8 h-[1px]" style={{ background: "#c9a96e" }} />
-                <p className="text-xs tracking-[0.3em] uppercase font-normal" style={{ color: "#c9a96e" }}>Five-Star Living</p>
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-extralight leading-[1.1] mb-6" style={{ fontFamily: fonts.heading, color: "#fff", letterSpacing: "0.06em" }}>
-                Branded<br />Residences
-              </h2>
-              <p className="text-[15px] leading-[1.9] font-light mb-10" style={{ color: "rgba(255,255,255,0.55)" }}>
-                Live within the world's most prestigious hospitality brands. Discover exclusive residences by Four Seasons, Ritz-Carlton, Mandarin Oriental and more — offering five-star services, world-class amenities and exceptional investment value.
-              </p>
-              <Link to="/branded-residences" className="inline-flex items-center justify-center gap-2.5 text-[13px] tracking-[0.18em] uppercase font-light px-8 py-4 transition-all duration-500 hover:opacity-90 self-start" style={{ background: "#c9a96e", color: "#1a1816" }}>
-                <Crown className="w-4 h-4" /> Discover Branded Residences
-              </Link>
-              <p className="text-xs font-light mt-8" style={{ color: "rgba(255,255,255,0.3)" }}>
-                <span style={{ color: "#c9a96e" }} className="font-normal">15+</span> branded residence projects available
-              </p>
-            </FadeIn>
-          </div>
+      <section aria-label="Branded residences" className="relative py-20 sm:py-28 md:py-36 overflow-hidden">
+        <img src={detail2} alt="Branded residence — luxury hospitality living" loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(26,24,22,0.75) 0%, rgba(26,24,22,0.45) 50%, rgba(26,24,22,0.75) 100%)" }} />
+        <div className="relative z-10 max-w-[900px] mx-auto px-5 text-center">
+          <FadeIn>
+            <div className="inline-flex items-center gap-2 mb-6 px-5 py-2.5 rounded-full" style={{ background: "rgba(201,169,110,0.12)", border: "1px solid rgba(201,169,110,0.25)" }}>
+              <Crown className="w-4 h-4" style={{ color: "#c9a96e" }} />
+              <span className="text-[11px] tracking-[0.25em] uppercase font-normal" style={{ color: "#c9a96e" }}>Five-Star Living</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extralight text-white leading-[1.1] mb-6" style={{ fontFamily: fonts.heading, letterSpacing: "0.06em" }}>
+              Branded Residences
+            </h2>
+            <p className="text-[15px] sm:text-base leading-[1.9] font-light max-w-2xl mx-auto mb-10" style={{ color: "rgba(255,255,255,0.65)" }}>
+              Live within the world's most prestigious hospitality brands. Discover exclusive residences by Four Seasons, Ritz-Carlton, Mandarin Oriental and more — offering five-star services, world-class amenities and exceptional investment value.
+            </p>
+            <Link to="/branded-residences" className="inline-flex items-center justify-center gap-2.5 text-[13px] tracking-[0.18em] uppercase font-light px-10 py-4 transition-all duration-500 hover:opacity-90" style={{ background: "#c9a96e", color: "#1a1816" }}>
+              <Crown className="w-4 h-4" /> Discover Branded Residences
+            </Link>
+            <p className="text-xs font-light mt-8" style={{ color: "rgba(255,255,255,0.35)" }}>
+              <span style={{ color: "#c9a96e" }} className="font-normal">15+</span> branded residence projects available
+            </p>
+          </FadeIn>
         </div>
       </section>
+
 
 
       {/* ═══════════════════════════════════════════════════════
