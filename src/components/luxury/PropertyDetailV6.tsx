@@ -652,12 +652,12 @@ const PropertyDetailV6 = () => {
         <DialogContent className="max-w-md p-0 rounded-sm border-neutral-200 overflow-hidden">
           <div className="p-6 pb-0">
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-14 h-14 rounded-full overflow-hidden bg-neutral-200 shrink-0">
-                <img src={p.agent.photo} alt={p.agent.name} className="w-full h-full object-cover" />
+              <div className="w-14 h-14 rounded-full bg-luxury-black flex items-center justify-center shrink-0">
+                <span className="text-[11px] tracking-[0.15em] text-white font-medium">PE</span>
               </div>
               <div>
-                <DialogTitle className="text-[16px] font-medium text-luxury-black">{p.agent.name}</DialogTitle>
-                <DialogDescription className="text-[13px] text-luxury-black/55 font-light">{p.agent.role}</DialogDescription>
+                <DialogTitle className="text-[16px] font-medium text-luxury-black">{p.agency.name}</DialogTitle>
+                <DialogDescription className="text-[13px] text-luxury-black/55 font-light">Luxury Real Estate</DialogDescription>
               </div>
             </div>
           </div>
