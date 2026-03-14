@@ -111,14 +111,15 @@ const LuxuryPhoneInput = ({ className }: LuxuryPhoneInputProps) => {
 
   return (
     <div className={`relative ${className || ""}`} ref={dropdownRef}>
-      <div className="flex border border-neutral-300 focus-within:border-luxury-black/40 transition-colors duration-300">
+      <div className="flex border border-neutral-300 rounded-sm focus-within:border-luxury-black/40 transition-colors duration-300">
         <button
           type="button"
           onClick={() => setShowDropdown(!showDropdown)}
-          className="flex items-center gap-1 px-3 border-r border-neutral-300 bg-neutral-50/50 hover:bg-neutral-100 transition-colors shrink-0"
+          className="flex items-center gap-1.5 px-3 border-r border-neutral-300 bg-neutral-50/50 hover:bg-neutral-100 transition-colors shrink-0"
         >
-          <span className="text-xl leading-none">{country.flag}</span>
-          <svg className="w-3.5 h-3.5 text-luxury-black/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <span className="text-lg leading-none">{country.flag}</span>
+          <span className="text-[13px] text-luxury-black/70 font-medium">{country.code}</span>
+          <svg className="w-3 h-3 text-luxury-black/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
           </svg>
         </button>
@@ -126,14 +127,14 @@ const LuxuryPhoneInput = ({ className }: LuxuryPhoneInputProps) => {
           type="text"
           value={prefixValue}
           onChange={(e) => handlePrefixChange(e.target.value)}
-          className="w-[70px] px-2 py-3.5 text-base text-luxury-black bg-transparent focus:outline-none text-center"
+          className="w-[60px] px-2 py-2.5 text-[14px] text-luxury-black bg-transparent focus:outline-none text-center border-r border-neutral-300"
         />
         <input
           type="tel"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           placeholder="Phone number"
-          className="flex-1 px-2 py-3.5 text-base text-luxury-black placeholder:text-luxury-black/35 bg-white focus:outline-none"
+          className="flex-1 px-3 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/30 bg-white focus:outline-none"
         />
       </div>
 
