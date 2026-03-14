@@ -561,14 +561,14 @@ const PropertyDetailV6 = () => {
       </main>
 
       {/* ─── BUYER'S GUIDE BANNER ─── */}
-      <section className="border-t border-neutral-200 bg-luxury-black">
+      <section className="border-t border-neutral-200 bg-neutral-50">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
-            <p className="text-[11px] tracking-[0.15em] uppercase text-white/50 font-medium mb-1">Free Download</p>
-            <h3 className="text-[20px] md:text-[24px] font-light text-white tracking-tight">Buyer's Guide to Luxury Property in Ibiza</h3>
-            <p className="text-[14px] text-white/60 font-light mt-2 max-w-lg">Everything you need to know about purchasing property in the Balearic Islands — taxes, legal process, golden visa, and market insights.</p>
+            <p className="text-[11px] tracking-[0.15em] uppercase text-luxury-black/40 font-medium mb-1">Free Download</p>
+            <h3 className="text-[20px] md:text-[24px] font-light text-luxury-black tracking-tight">Buyer's Guide to Luxury Property in Ibiza</h3>
+            <p className="text-[14px] text-luxury-black/55 font-light mt-2 max-w-lg">Everything you need to know about purchasing property in the Balearic Islands — taxes, legal process, golden visa, and market insights.</p>
           </div>
-          <button className="shrink-0 border border-white/30 text-white text-[12px] tracking-[0.12em] uppercase px-8 py-3.5 hover:bg-white hover:text-luxury-black transition-all duration-300">
+          <button className="shrink-0 border border-luxury-black/20 text-luxury-black text-[12px] tracking-[0.12em] uppercase px-8 py-3.5 hover:bg-luxury-black hover:text-white transition-all duration-300">
             Download Guide
           </button>
         </div>
