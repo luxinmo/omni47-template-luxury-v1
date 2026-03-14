@@ -24,7 +24,7 @@ export default function PropertyTypesGrid({
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5">
           {types.map((t, i) => {
-            const IconComponent = (LucideIcons as Record<string, React.ComponentType<{ className?: string; strokeWidth?: number; style?: React.CSSProperties }>>)[t.iconName] || LucideIcons.Home;
+            const IconComponent = getIcon(t.iconName);
             return (
               <a key={i} href={t.href} className="group flex items-center gap-4 p-5 sm:p-6 transition-all duration-300 hover:shadow-md bg-white" style={{ border: "1px solid rgba(0,0,0,0.08)" }}>
                 <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0" style={{ border: "1px solid rgba(0,0,0,0.08)" }}>

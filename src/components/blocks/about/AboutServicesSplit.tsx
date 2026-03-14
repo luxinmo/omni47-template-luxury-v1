@@ -47,7 +47,7 @@ export default function AboutServicesSplit({
           </div>
           <div className="grid grid-cols-2 gap-0">
             {services.map((s, i) => {
-              const IconComponent = (LucideIcons as Record<string, React.ComponentType<{ className?: string; strokeWidth?: number; style?: React.CSSProperties }>>)[s.iconName] || Lock;
+              const IconComponent = getIcon(s.iconName);
               return (
                 <div key={i} className="p-6 sm:p-7" style={{ borderBottom: i < 2 ? "1px solid rgba(0,0,0,0.08)" : "none", borderRight: i % 2 === 0 ? "1px solid rgba(0,0,0,0.08)" : "none" }}>
                   <div className="w-10 h-10 rounded-full flex items-center justify-center mb-4" style={{ border: "1px solid rgba(0,0,0,0.08)" }}>

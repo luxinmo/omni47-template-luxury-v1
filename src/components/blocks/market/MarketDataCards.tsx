@@ -23,7 +23,7 @@ export default function MarketDataCards({
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
           {data.map((m, i) => {
-            const IconComponent = (LucideIcons as Record<string, React.ComponentType<{ className?: string; strokeWidth?: number; style?: React.CSSProperties }>>)[m.iconName] || LucideIcons.BarChart3;
+            const IconComponent = getIcon(m.iconName);
             return (
               <div key={i} className="p-6 text-center bg-white" style={{ border: "1px solid rgba(0,0,0,0.08)" }}>
                 <IconComponent className="w-5 h-5 mx-auto mb-4" style={{ color: accentColor }} strokeWidth={1.5} />

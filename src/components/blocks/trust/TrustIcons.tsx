@@ -23,7 +23,7 @@ export default function TrustIcons({
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
           {stats.map((t, i) => {
-            const IconComponent = (LucideIcons as Record<string, React.ComponentType<{ className?: string; strokeWidth?: number; style?: React.CSSProperties }>>)[t.iconName] || LucideIcons.Award;
+            const IconComponent = getIcon(t.iconName);
             return (
               <div key={i} className="text-center">
                 <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5" style={{ border: "1px solid rgba(0,0,0,0.08)" }}>
