@@ -15,7 +15,7 @@ import { brand, navLeft, navRight } from "@/config/template";
 import SEOHead from "@/components/shared/SEOHead";
 import LuxuryPhoneInput from "./LuxuryPhoneInput";
 import LuxuryMortgageCalculator from "./LuxuryMortgageCalculator";
-import LuxuryNearbyPlaces from "./LuxuryNearbyPlaces";
+
 import { useIsMobile } from "@/hooks/use-mobile";
 import heroImg from "@/assets/luxury-hero.jpg";
 import prop1 from "@/assets/luxury-property-1.jpg";
@@ -461,35 +461,6 @@ const PropertyDetailV6 = () => {
               </div>
             </section>
 
-            {/* ─── ABOUT SANTA EULALIA (merged location + map + lifestyle) ─── */}
-            <section className="border-t border-neutral-200 pt-8">
-              <h2 className="text-[18px] font-medium text-luxury-black mb-4">About Santa Eulalia del Río</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Map */}
-                <div>
-                  <div className="bg-neutral-50 border border-neutral-200 h-[260px] flex items-center justify-center text-luxury-black/40 text-[14px] font-light rounded-sm mb-3">
-                    <MapPin className="w-5 h-5 mr-1.5" /> Interactive Map
-                  </div>
-                  <p className="text-[13px] text-luxury-black/50 font-light flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 text-luxury-black/40" /> {p.location}, {p.region}
-                  </p>
-                </div>
-                {/* Lifestyle text */}
-                <div className="text-[14px] leading-[1.9] text-luxury-black/70 font-light space-y-4">
-                  <p>
-                    Santa Eulalia del Río is one of Ibiza's most sought-after municipalities, renowned for its relaxed Mediterranean lifestyle, pristine beaches, and thriving culinary scene. Situated on the eastern coast of the island, Santa Eulalia offers a perfect balance between tranquillity and convenience, with an elegant promenade, boutique shopping, and a vibrant marina.
-                  </p>
-                  <p>
-                    The Ibiza real estate market in Santa Eulalia continues to attract international buyers seeking luxury villas with sea views, contemporary architecture, and proximity to nature. With excellent international schools, year-round sunshine, and easy access to Ibiza Airport, the area is an ideal choice for families, remote professionals, and investors looking for premium Mediterranean properties.
-                  </p>
-                  <p>
-                    From traditional fincas nestled among pine-covered hills to modern designer villas overlooking the sea, Santa Eulalia offers a diverse range of luxury properties that combine the authentic Balearic character with world-class amenities and finishes.
-                  </p>
-                </div>
-              </div>
-            </section>
-
-            <LuxuryNearbyPlaces />
 
             {/* ─── MARKET INSIGHTS (with visual chart) ─── */}
             <section className="border-t border-neutral-200 pt-8">
@@ -575,6 +546,36 @@ const PropertyDetailV6 = () => {
           </aside>
         </div>
       </main>
+
+      {/* ─── ABOUT SANTA EULALIA (full-width, above similar) ─── */}
+      <section className="border-t border-neutral-200" aria-label="About Santa Eulalia del Río">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-12">
+          <h2 className="text-xl font-light text-luxury-black tracking-tight mb-8">About Santa Eulalia del Río</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Map */}
+            <div>
+              <div className="bg-neutral-50 border border-neutral-200 h-[320px] flex items-center justify-center text-luxury-black/40 text-[14px] font-light rounded-sm mb-3">
+                <MapPin className="w-5 h-5 mr-1.5" /> Interactive Map
+              </div>
+              <p className="text-[13px] text-luxury-black/50 font-light flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-luxury-black/40" /> {p.location}, {p.region}
+              </p>
+            </div>
+            {/* Lifestyle text */}
+            <div className="text-[14px] leading-[1.9] text-luxury-black/70 font-light space-y-4">
+              <p>
+                Santa Eulalia del Río is one of Ibiza's most sought-after municipalities, renowned for its relaxed Mediterranean lifestyle, pristine beaches, and thriving culinary scene. Situated on the eastern coast of the island, Santa Eulalia offers a perfect balance between tranquillity and convenience, with an elegant promenade, boutique shopping, and a vibrant marina.
+              </p>
+              <p>
+                The Ibiza real estate market in Santa Eulalia continues to attract international buyers seeking luxury villas with sea views, contemporary architecture, and proximity to nature. With excellent international schools, year-round sunshine, and easy access to Ibiza Airport, the area is an ideal choice for families, remote professionals, and investors looking for premium Mediterranean properties.
+              </p>
+              <p>
+                From traditional fincas nestled among pine-covered hills to modern designer villas overlooking the sea, Santa Eulalia offers a diverse range of luxury properties that combine the authentic Balearic character with world-class amenities and finishes.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ─── SIMILAR PROPERTIES ─── */}
       <section className="border-t border-neutral-200" aria-label="Similar properties">
