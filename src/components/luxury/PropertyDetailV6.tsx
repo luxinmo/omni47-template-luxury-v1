@@ -561,6 +561,7 @@ const PropertyDetailV6 = () => {
                 <p className="text-[13px] text-luxury-black/55 font-light leading-relaxed text-center">
                   Get in touch for a personal consultation or to arrange a private viewing.
                 </p>
+                <p className="text-[11px] text-luxury-black/40 font-mono text-center mt-2">REF-{p.ref}</p>
               </div>
             </div>
           </aside>
