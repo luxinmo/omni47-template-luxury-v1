@@ -616,8 +616,8 @@ const PropertyDetailV6 = () => {
         <DialogContent className="max-w-md p-0 rounded-sm border-neutral-200 overflow-hidden">
           <div className="p-6 pb-0">
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-14 h-14 rounded-full bg-luxury-black flex items-center justify-center shrink-0">
-                <span className="text-[11px] tracking-[0.15em] text-white font-medium">PE</span>
+              <div className="w-14 h-14 rounded-full overflow-hidden bg-neutral-100 shrink-0">
+                <img src={agencyLogo} alt={p.agency.name} className="w-full h-full object-cover" />
               </div>
               <div>
                 <DialogTitle className="text-[16px] font-medium text-luxury-black">{p.agency.name}</DialogTitle>
