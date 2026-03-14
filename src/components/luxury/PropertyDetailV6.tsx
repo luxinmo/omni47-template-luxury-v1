@@ -435,10 +435,9 @@ const PropertyDetailV6 = () => {
         </section>
 
 
-        {/* ─── BODY: CONTENT + SIDEBAR ─── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-          {/* Left column */}
-          <div className="lg:col-span-7 space-y-8">
+        {/* ─── BODY: CONTENT ─── */}
+        <div>
+          <div className="space-y-8">
 
             {/* ─── ABOUT THIS PROPERTY ─── */}
             <section>
@@ -514,39 +513,6 @@ const PropertyDetailV6 = () => {
             </section>
           </div>
 
-          {/* ─── RIGHT SIDEBAR: Agency Summary ─── */}
-          <aside className="lg:col-span-5">
-            <div className="lg:sticky lg:top-[80px] space-y-5">
-              <div className="bg-neutral-50 border border-neutral-200 rounded-sm p-6">
-                {/* Agency card */}
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-14 h-14 rounded-full bg-luxury-black flex items-center justify-center shrink-0">
-                    <span className="text-[11px] tracking-[0.15em] text-white font-medium">PE</span>
-                  </div>
-                  <div>
-                    <h3 className="text-[15px] font-medium text-luxury-black">{p.agency.name}</h3>
-                    <p className="text-[13px] text-luxury-black/55 font-light">Luxury Real Estate</p>
-                  </div>
-                </div>
-
-                <p className="text-[13px] text-luxury-black/60 font-light leading-relaxed mb-5">
-                  Get in touch with {p.agency.name} for a personal consultation about this property or to arrange a private viewing.
-                </p>
-
-                <div className="space-y-2">
-                  <a href={`tel:${p.agency.phone}`} className="w-full flex items-center justify-center gap-2 bg-luxury-black text-white text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-luxury-black/85 transition-all">
-                    <Phone className="w-3.5 h-3.5" /> Call
-                  </a>
-                  <a href={`https://wa.me/${p.agency.whatsapp}`} target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-2 bg-[#25D366] text-white text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-[#22bf5b] transition-all">
-                    <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
-                  </a>
-                  <button onClick={() => setEnquiryOpen(true)} className="w-full flex items-center justify-center gap-2 border border-neutral-300 text-luxury-black text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-neutral-100 transition-all">
-                    <Mail className="w-3.5 h-3.5" /> Send Enquiry
-                  </button>
-                </div>
-              </div>
-            </div>
-          </aside>
         </div>
       </main>
 
