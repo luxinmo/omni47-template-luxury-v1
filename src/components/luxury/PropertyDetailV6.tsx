@@ -461,7 +461,7 @@ const PropertyDetailV6 = () => {
               <div className="grid grid-cols-2 gap-4 mb-5">
                 {MARKET_DATA.map((d, i) => (
                   <div key={i} className="bg-neutral-50 border border-neutral-200 rounded-sm p-4">
-                    <p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 font-medium mb-1">{d.label}</p>
+                    <p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/65 font-medium mb-1">{d.label}</p>
                     <p className="text-[20px] font-light text-luxury-black mb-2">{d.value}</p>
                     <div className="w-full h-2 bg-neutral-200 rounded-full overflow-hidden mb-1.5">
                       <div className="h-full bg-luxury-gold/60 rounded-full transition-all duration-700" style={{ width: `${d.pct}%` }} />
