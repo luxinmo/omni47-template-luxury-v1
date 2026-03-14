@@ -129,7 +129,7 @@ const Home4LandingPage = () => {
   };
 
   return (
-    <Layout navVariant="transparent" activePath="/" showBackToTop={false}>
+    <Layout navVariant="transparent" activePath="/" showBackToTop={false} showLanguage={true}>
       <SEOHead
         title="Find Your Luxury Property in Costa Blanca & Ibiza"
         description="Discover exclusive luxury villas, sea-view properties and new developments in Costa Blanca and Ibiza. Request a personalised property search or chat with our advisors."

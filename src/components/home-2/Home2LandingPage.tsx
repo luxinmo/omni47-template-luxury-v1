@@ -94,7 +94,7 @@ const Home2LandingPage = () => {
   }, []);
 
   return (
-    <Layout navVariant="transparent" activePath="/" showBackToTop={false}>
+    <Layout navVariant="transparent" activePath="/" showBackToTop={false} showLanguage={true}>
       <SEOHead
         title="Luxury Real Estate"
         description="Prestige Estates curates extraordinary luxury homes across the Mediterranean. Discover villas, penthouses, fincas and new-build properties in Ibiza, Marbella, Mallorca and more."

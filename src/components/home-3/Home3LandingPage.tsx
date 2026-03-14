@@ -114,7 +114,7 @@ const Home3LandingPage = () => {
   }, []);
 
   return (
-    <Layout navVariant="transparent" activePath="/" showBackToTop={false}>
+    <Layout navVariant="transparent" activePath="/" showBackToTop={false} showLanguage={true}>
       <SEOHead
         title="Luxury Real Estate in Costa Blanca & Ibiza — Villas, Sea-View Homes & New Developments"
         description="Discover exclusive luxury villas, sea-view properties and new developments in Costa Blanca and Ibiza. Prestige Estates curates the finest Mediterranean homes in Altea, Jávea, Moraira, Benissa and more."
