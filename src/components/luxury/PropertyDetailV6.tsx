@@ -344,7 +344,7 @@ const PropertyDetailV6 = () => {
                 { icon: Bed, label: "Bedrooms", value: p.beds },
                 { icon: Bath, label: "Bathrooms", value: p.baths },
                 { icon: Maximize, label: "Built Area", value: `${p.sqm} m²` },
-                { icon: Fence, label: "Plot Size", value: `${p.plot.toLocaleString()} m²` },
+                { icon: Fence, label: p.plot ? "Plot Size" : "Useful Area", value: p.plot ? `${p.plot.toLocaleString()} m²` : `${p.sqm} m²` },
               ].map((s, i) => (
                 <div key={i} className="bg-neutral-50 border border-neutral-200 rounded-sm p-2.5 text-center">
                   <s.icon className="w-4 h-4 text-luxury-black/40 mx-auto mb-1.5" strokeWidth={1.5} />
