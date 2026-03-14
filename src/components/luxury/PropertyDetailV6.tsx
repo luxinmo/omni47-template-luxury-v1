@@ -226,38 +226,74 @@ const PropertyDetailV6 = () => {
 
       {/* ─── NAVBAR ─── */}
       <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm" aria-label="Main navigation">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-3 items-center px-6 lg:px-10 h-[68px]">
-          <div className="hidden lg:flex items-center gap-10">
-            <button onClick={() => setLangOpen(true)} className="flex items-center gap-1.5 text-luxury-black/50 hover:text-luxury-black transition-colors duration-300" aria-label="Select language">
-              <img src={`https://flagcdn.com/20x15/${languages.find(l => l.code === currentLang)?.flag}.png`} alt="" className="w-5 h-[15px] object-cover rounded-[2px]" />
-              <span className="text-[11px] tracking-[0.1em] font-medium">{currentLang}</span>
-              <svg className="w-3 h-3 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+        <div className="max-w-[1400px] mx-auto flex items-center justify-between px-4 md:px-6 lg:px-10 h-[60px] md:h-[68px]">
+          {/* Left: hamburger on mobile/tablet, nav links on desktop */}
+          <div className="flex items-center gap-6 lg:gap-10 flex-1">
+            <button className="lg:hidden text-luxury-black/70" aria-label="Open menu">
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" /></svg>
             </button>
-            {navLeft.map((l) => (
-              <Link key={l.label} to={l.href} className="text-[13px] tracking-[0.14em] uppercase font-light text-luxury-black/55 hover:text-luxury-black transition-colors duration-300">{l.label}</Link>
-            ))}
+            <div className="hidden lg:flex items-center gap-10">
+              <button onClick={() => setLangOpen(true)} className="flex items-center gap-1.5 text-luxury-black/50 hover:text-luxury-black transition-colors duration-300" aria-label="Select language">
+                <img src={`https://flagcdn.com/20x15/${languages.find(l => l.code === currentLang)?.flag}.png`} alt="" className="w-5 h-[15px] object-cover rounded-[2px]" />
+                <span className="text-[11px] tracking-[0.1em] font-medium">{currentLang}</span>
+                <svg className="w-3 h-3 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+              </button>
+              {navLeft.map((l) => (
+                <Link key={l.label} to={l.href} className="text-[13px] tracking-[0.14em] uppercase font-light text-luxury-black/55 hover:text-luxury-black transition-colors duration-300">{l.label}</Link>
+              ))}
+            </div>
           </div>
-          <div className="lg:hidden" />
-          <Link to="/" className="flex flex-col items-center justify-center">
-            <span className="text-lg md:text-xl tracking-[0.3em] font-light text-luxury-black">{brand.fullName}</span>
-            <span className="text-[10px] tracking-[0.35em] uppercase font-light text-luxury-black/40">{brand.subtitle}</span>
+
+          {/* Center: logo */}
+          <Link to="/" className="flex flex-col items-center justify-center shrink-0">
+            <span className="text-base md:text-lg lg:text-xl tracking-[0.3em] font-light text-luxury-black">{brand.fullName}</span>
+            <span className="text-[9px] md:text-[10px] tracking-[0.35em] uppercase font-light text-luxury-black/40">{brand.subtitle}</span>
           </Link>
-          <div className="flex items-center justify-end gap-8">
+
+          {/* Right: nav links on desktop, phone icon on tablet */}
+          <div className="flex items-center justify-end gap-6 lg:gap-10 flex-1">
+            <a href={`tel:${p.agency.phone}`} className="lg:hidden text-luxury-black/60 hover:text-luxury-black transition-colors" aria-label="Call agent">
+              <Phone className="w-5 h-5" />
+            </a>
             <div className="hidden lg:flex items-center gap-10">
               {navRight.map((l) => (
                 <Link key={l.label} to={l.href} className="text-[13px] tracking-[0.14em] uppercase font-light text-luxury-black/55 hover:text-luxury-black transition-colors duration-300">{l.label}</Link>
               ))}
             </div>
-            <button className="lg:hidden text-luxury-black/70" aria-label="Open menu">
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" /></svg>
-            </button>
           </div>
         </div>
       </nav>
 
-      {/* ═══ HERO GALLERY MOSAIC ═══ */}
+      {/* ═══ HERO GALLERY ═══ */}
       <section aria-label="Property photos">
-        <div className="grid grid-cols-4 grid-rows-2 gap-1.5 h-[320px] md:h-[480px] lg:h-[540px]">
+        {/* Single photo for mobile & tablet */}
+        <div className="lg:hidden relative h-[300px] md:h-[420px] overflow-hidden cursor-pointer group" onClick={() => setLightbox(0)}>
+          <img src={p.images[0]} alt={p.title} loading="eager" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
+          <div className="absolute bottom-4 left-4 flex items-center gap-2">
+            <div className="bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-sm">
+              <span className="text-[11px] tracking-[0.2em] font-medium text-luxury-black uppercase">{brand.name}</span>
+            </div>
+          </div>
+          <div className="absolute top-3 right-3 flex items-center gap-2">
+            <button onClick={(e) => { e.stopPropagation(); }} className="flex items-center gap-1.5 bg-white/90 backdrop-blur-sm text-luxury-black text-[12px] font-medium px-3 py-2 rounded-full shadow-sm" aria-label="Share property">
+              <Share2 className="w-3.5 h-3.5" /> Share
+            </button>
+            <button onClick={(e) => { e.stopPropagation(); setLiked(!liked); }} className={`flex items-center gap-1.5 text-[12px] font-medium px-3 py-2 rounded-full shadow-sm transition-all ${liked ? "bg-luxury-black text-white" : "bg-white/90 backdrop-blur-sm text-luxury-black"}`} aria-label={liked ? "Unsave property" : "Save property"}>
+              <Heart className="w-3.5 h-3.5" fill={liked ? "currentColor" : "none"} /> Save
+            </button>
+          </div>
+          <button onClick={(e) => { e.stopPropagation(); setLightbox(0); }} className="absolute bottom-4 right-4 flex items-center gap-2 bg-white/90 backdrop-blur-sm text-luxury-black text-[13px] font-medium px-4 py-2.5 rounded-lg shadow-md">
+            <Grid3X3 className="w-4 h-4" /> {p.images.length} photos
+          </button>
+          {p.hasVideo && (
+            <button onClick={(e) => e.stopPropagation()} className="absolute bottom-4 left-4 mt-10 flex items-center gap-1.5 bg-white/90 backdrop-blur-sm text-luxury-black text-[12px] font-medium px-3 py-2 rounded-full shadow-sm" style={{ bottom: '56px' }}>
+              <Play className="w-3.5 h-3.5" /> Video
+            </button>
+          )}
+        </div>
+
+        {/* Mosaic grid for desktop (lg+) */}
+        <div className="hidden lg:grid grid-cols-4 grid-rows-2 gap-1.5 h-[540px]">
           <div className="col-span-2 row-span-2 relative overflow-hidden cursor-pointer group" onClick={() => setLightbox(0)}>
             <img src={p.images[0]} alt={p.title} loading="eager" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
             <div className="absolute bottom-4 right-4 flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-sm">
@@ -777,34 +813,29 @@ const PropertyDetailV6 = () => {
         </DialogContent>
       </Dialog>
 
-      {/* ═══ MOBILE STICKY CONTACT BAR ═══ */}
-      {isMobile && (
-        <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-neutral-200 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] flex items-center gap-0">
-          <a href={`tel:${p.agency.phone}`} className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 text-luxury-black hover:bg-neutral-50 transition-colors">
-            <Phone className="w-4 h-4" />
-            <span className="text-[10px] tracking-[0.1em] uppercase font-medium">Call</span>
-          </a>
-          <div className="w-px h-8 bg-neutral-200" />
-          <a href={`https://wa.me/${p.agency.whatsapp}`} target="_blank" rel="noopener noreferrer" className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 text-[#25D366] hover:bg-neutral-50 transition-colors">
-            <MessageCircle className="w-4 h-4" />
-            <span className="text-[10px] tracking-[0.1em] uppercase font-medium">WhatsApp</span>
-          </a>
-          <div className="w-px h-8 bg-neutral-200" />
-          <button onClick={() => setEnquiryOpen(true)} className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 text-luxury-black hover:bg-neutral-50 transition-colors">
-            <Mail className="w-4 h-4" />
-            <span className="text-[10px] tracking-[0.1em] uppercase font-medium">Enquiry</span>
-          </button>
-        </div>
-      )}
+      {/* ═══ MOBILE & TABLET STICKY CONTACT BAR ═══ */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-neutral-200 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] flex items-center gap-0">
+        <a href={`tel:${p.agency.phone}`} className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 text-luxury-black hover:bg-neutral-50 transition-colors">
+          <Phone className="w-4 h-4" />
+          <span className="text-[10px] tracking-[0.1em] uppercase font-medium">Call</span>
+        </a>
+        <div className="w-px h-8 bg-neutral-200" />
+        <a href={`https://wa.me/${p.agency.whatsapp}`} target="_blank" rel="noopener noreferrer" className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 text-[#25D366] hover:bg-neutral-50 transition-colors">
+          <MessageCircle className="w-4 h-4" />
+          <span className="text-[10px] tracking-[0.1em] uppercase font-medium">WhatsApp</span>
+        </a>
+        <div className="w-px h-8 bg-neutral-200" />
+        <button onClick={() => setEnquiryOpen(true)} className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 text-luxury-black hover:bg-neutral-50 transition-colors">
+          <Mail className="w-4 h-4" />
+          <span className="text-[10px] tracking-[0.1em] uppercase font-medium">Enquiry</span>
+        </button>
+      </div>
 
       {/* ═══ CHATBOT BUTTON + PANEL ═══ */}
       {!chatOpen && (
         <button
           onClick={() => setChatOpen(true)}
-          className={cn(
-            "fixed z-50 w-14 h-14 rounded-full bg-luxury-black text-white shadow-lg flex items-center justify-center hover:bg-luxury-black/85 transition-all",
-            isMobile ? "bottom-[72px] right-4" : "bottom-6 right-6"
-          )}
+          className="fixed z-50 w-14 h-14 rounded-full bg-luxury-black text-white shadow-lg flex items-center justify-center hover:bg-luxury-black/85 transition-all bottom-[72px] right-4 lg:bottom-6 lg:right-6"
           aria-label="Open chat"
         >
           <MessageCircle className="w-5 h-5" />
@@ -812,12 +843,7 @@ const PropertyDetailV6 = () => {
       )}
 
       {chatOpen && (
-        <div className={cn(
-          "fixed z-50 bg-white border border-neutral-200 shadow-xl flex flex-col",
-          isMobile
-            ? "inset-0"
-            : "bottom-6 right-6 w-[380px] h-[520px] rounded-lg overflow-hidden"
-        )}>
+        <div className="fixed z-50 bg-white border border-neutral-200 shadow-xl flex flex-col inset-0 lg:inset-auto lg:bottom-6 lg:right-6 lg:w-[380px] lg:h-[520px] lg:rounded-lg lg:overflow-hidden">
           {/* Chat header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-200 bg-neutral-50">
             <span className="text-[13px] font-medium text-luxury-black tracking-wide">{brand.fullName}</span>
@@ -888,8 +914,8 @@ const PropertyDetailV6 = () => {
         </div>
       )}
 
-      {/* Bottom padding for mobile sticky bar */}
-      {isMobile && <div className="h-16" />}
+      {/* Bottom padding for mobile/tablet sticky bar */}
+      <div className="lg:hidden h-16" />
     </div>
   );
 };
