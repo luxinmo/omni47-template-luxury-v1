@@ -433,30 +433,6 @@ const PropertyDetailV6 = () => {
           </div>
         </header>
 
-        {/* ─── KEY PROPERTY FACTS (compact) ─── */}
-        <section aria-label="Key property facts" className="mb-6 pb-6 border-b border-neutral-200">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {[
-              { icon: Bed, label: "Bedrooms", value: p.beds },
-              { icon: Bath, label: "Bathrooms", value: p.baths },
-              { icon: Maximize, label: "Built Area", value: `${p.sqm} m²` },
-              { icon: Fence, label: "Plot Size", value: `${p.plot.toLocaleString()} m²` },
-            ].map((s, i) => (
-              <div key={i} className="bg-neutral-50 border border-neutral-200 rounded-sm p-4 text-center">
-                <s.icon className="w-5 h-5 text-luxury-black/30 mx-auto mb-2" strokeWidth={1.5} />
-                <p className="text-[22px] font-light text-luxury-black mb-0.5">{s.value}</p>
-                <p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 font-medium">{s.label}</p>
-              </div>
-            ))}
-          </div>
-          <div className="flex items-center gap-4 mt-3 text-[13px] text-luxury-black/50 font-light">
-            <span>Year built: <strong className="font-medium text-luxury-black/70">{p.year}</strong></span>
-            <span className="text-luxury-black/20">·</span>
-            <span>Status: <strong className="font-medium text-luxury-black/70">{p.status}</strong></span>
-          </div>
-        </section>
-
-
         {/* ─── BODY: CONTENT ─── */}
         <div>
           <div className="space-y-8">
