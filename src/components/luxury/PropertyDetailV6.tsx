@@ -255,9 +255,36 @@ const PropertyDetailV6 = () => {
         </div>
       </nav>
 
-      {/* ═══ HERO GALLERY MOSAIC ═══ */}
+      {/* ═══ HERO GALLERY ═══ */}
       <section aria-label="Property photos">
-        <div className="grid grid-cols-4 grid-rows-2 gap-1.5 h-[320px] md:h-[480px] lg:h-[540px]">
+        {/* Single photo for mobile & tablet */}
+        <div className="lg:hidden relative h-[300px] md:h-[420px] overflow-hidden cursor-pointer group" onClick={() => setLightbox(0)}>
+          <img src={p.images[0]} alt={p.title} loading="eager" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
+          <div className="absolute bottom-4 left-4 flex items-center gap-2">
+            <div className="bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-sm">
+              <span className="text-[11px] tracking-[0.2em] font-medium text-luxury-black uppercase">{brand.name}</span>
+            </div>
+          </div>
+          <div className="absolute top-3 right-3 flex items-center gap-2">
+            <button onClick={(e) => { e.stopPropagation(); }} className="flex items-center gap-1.5 bg-white/90 backdrop-blur-sm text-luxury-black text-[12px] font-medium px-3 py-2 rounded-full shadow-sm" aria-label="Share property">
+              <Share2 className="w-3.5 h-3.5" /> Share
+            </button>
+            <button onClick={(e) => { e.stopPropagation(); setLiked(!liked); }} className={`flex items-center gap-1.5 text-[12px] font-medium px-3 py-2 rounded-full shadow-sm transition-all ${liked ? "bg-luxury-black text-white" : "bg-white/90 backdrop-blur-sm text-luxury-black"}`} aria-label={liked ? "Unsave property" : "Save property"}>
+              <Heart className="w-3.5 h-3.5" fill={liked ? "currentColor" : "none"} /> Save
+            </button>
+          </div>
+          <button onClick={(e) => { e.stopPropagation(); setLightbox(0); }} className="absolute bottom-4 right-4 flex items-center gap-2 bg-white/90 backdrop-blur-sm text-luxury-black text-[13px] font-medium px-4 py-2.5 rounded-lg shadow-md">
+            <Grid3X3 className="w-4 h-4" /> {p.images.length} photos
+          </button>
+          {p.hasVideo && (
+            <button onClick={(e) => e.stopPropagation()} className="absolute bottom-4 left-4 mt-10 flex items-center gap-1.5 bg-white/90 backdrop-blur-sm text-luxury-black text-[12px] font-medium px-3 py-2 rounded-full shadow-sm" style={{ bottom: '56px' }}>
+              <Play className="w-3.5 h-3.5" /> Video
+            </button>
+          )}
+        </div>
+
+        {/* Mosaic grid for desktop (lg+) */}
+        <div className="hidden lg:grid grid-cols-4 grid-rows-2 gap-1.5 h-[540px]">
           <div className="col-span-2 row-span-2 relative overflow-hidden cursor-pointer group" onClick={() => setLightbox(0)}>
             <img src={p.images[0]} alt={p.title} loading="eager" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
             <div className="absolute bottom-4 right-4 flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-sm">
