@@ -50,7 +50,7 @@ const Navbar = ({
         {showLanguage && (
           <div className="hidden lg:flex items-center relative mr-6">
             <button
-              onClick={() => setLangOpen(!langOpen)}
+              onClick={() => setLangOpen(true)}
               className="flex items-center gap-1.5 transition-colors duration-300"
               style={{ color: mutedColor }}
             >
@@ -60,32 +60,30 @@ const Navbar = ({
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
-            {langOpen && (
-              <>
-                <div className="fixed inset-0 z-40" onClick={() => setLangOpen(false)} />
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 z-50 shadow-xl rounded-md py-2 min-w-[180px]" style={{ background: palette.white, border: `1px solid ${palette.border}` }}>
-                  <p className="text-[10px] tracking-[0.15em] uppercase px-4 py-1.5 font-medium" style={{ color: palette.textLight }}>Language</p>
-                  {languages.map((lang) => (
-                    <button
-                      key={lang.code}
-                      onClick={() => { setCurrentLang(lang.code); setLangOpen(false); }}
-                      className="w-full flex items-center gap-3 px-4 py-2.5 text-[13px] hover:bg-neutral-50 transition-colors"
-                      style={{ color: currentLang === lang.code ? palette.text : palette.textMuted, fontWeight: currentLang === lang.code ? 500 : 300 }}
-                    >
-                      <img src={`https://flagcdn.com/20x15/${lang.flag}.png`} alt="" className="w-5 h-[15px] object-cover rounded-[2px]" />
-                      <span>{lang.label}</span>
-                      {currentLang === lang.code && (
-                        <svg className="w-3.5 h-3.5 ml-auto opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                        </svg>
-                      )}
-                    </button>
-                  ))}
-                </div>
-              </>
-            )}
           </div>
         )}
+
+        {/* Language Dialog */}
+        <Dialog open={langOpen} onOpenChange={setLangOpen}>
+          <DialogContent className="max-w-sm p-6 rounded-md border-2 border-neutral-300 overflow-hidden shadow-xl">
+            <DialogTitle className="text-[11px] tracking-[0.15em] uppercase font-medium text-luxury-black/40 mb-4">Select Language</DialogTitle>
+            <DialogDescription className="sr-only">Choose your preferred language</DialogDescription>
+            <div className="space-y-1">
+              {languages.map((lang) => (
+                <button
+                  key={lang.code}
+                  onClick={() => { setCurrentLang(lang.code); setLangOpen(false); }}
+                  className={`w-full flex items-center gap-4 px-4 py-3 rounded-sm text-[14px] hover:bg-neutral-50 transition-colors ${currentLang === lang.code ? "bg-neutral-50 font-medium" : "font-light"}`}
+                  style={{ color: currentLang === lang.code ? palette.text : palette.textMuted }}
+                >
+                  <img src={`https://flagcdn.com/28x21/${lang.flag}.png`} alt="" className="w-7 h-[21px] object-cover rounded-[2px]" />
+                  <span>{lang.label}</span>
+                  {currentLang === lang.code && <Check className="w-4 h-4 ml-auto opacity-50" />}
+                </button>
+              ))}
+            </div>
+          </DialogContent>
+        </Dialog>
 
         {/* Left nav links */}
         <div className="hidden lg:flex items-center gap-8">
