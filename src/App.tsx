@@ -19,6 +19,7 @@ import PropertyDetailV6 from "./components/luxury/PropertyDetailV6";
 import NotFound from "./pages/NotFound";
 import HomePortal from "./pages/HomePortal";
 import Home3LandingPage from "./components/home-3/Home3LandingPage";
+import Home4LandingPage from "./components/home-4/Home4LandingPage";
 import PropertyPdfV1 from "./components/pdf/PropertyPdfV1";
 import PropertyPdfV2 from "./components/pdf/PropertyPdfV2";
 
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="/" element={<Home2LandingPage />} />
             <Route path="/portal" element={<HomePortal />} />
             <Route path="/home3" element={<Home3LandingPage />} />
+            <Route path="/home4" element={<Home4LandingPage />} />
             <Route path="/properties" element={<LuxuryPropertyListing />} />
             <Route path="/blog" element={<BlogListingPage />} />
             <Route path="/blog/:slug" element={<BlogDetailPage />} />
