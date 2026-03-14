@@ -436,7 +436,28 @@ const PropertyDetailV6 = () => {
               </div>
             </section>
 
-            {/* ─── MARKET INSIGHTS ─── */}
+            {/* ─── FLOOR PLANS ─── */}
+            <section className="border-t border-neutral-200 pt-8">
+              <h2 className="text-[18px] font-medium text-luxury-black mb-5">Floor Plans</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {["Ground Floor", "First Floor"].map((floor, i) => (
+                  <div key={i} className="bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden">
+                    <div className="aspect-[4/3] flex items-center justify-center text-luxury-black/30">
+                      <div className="text-center">
+                        <Grid3X3 className="w-10 h-10 mx-auto mb-2 text-luxury-black/20" strokeWidth={1} />
+                        <p className="text-[13px] font-light">{floor} Plan</p>
+                      </div>
+                    </div>
+                    <div className="px-4 py-3 border-t border-neutral-200">
+                      <p className="text-[14px] font-medium text-luxury-black">{floor}</p>
+                      <p className="text-[12px] text-luxury-black/50 font-light">{i === 0 ? `${Math.round(PROPERTY.sqm * 0.6)} m²` : `${Math.round(PROPERTY.sqm * 0.4)} m²`}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+
             <section className="border-t border-neutral-200 pt-8">
               <h2 className="text-[18px] font-medium text-luxury-black mb-5">Real Estate Market in Santa Eulalia</h2>
               <div className="grid grid-cols-2 gap-4 mb-5">
