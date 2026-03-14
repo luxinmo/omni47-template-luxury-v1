@@ -273,30 +273,46 @@ const PropertyDetailV6 = () => {
           </div>
         </div>
 
-        {/* Mobile menu dropdown */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden fixed inset-0 top-[60px] md:top-[68px] z-50 bg-white animate-in fade-in duration-200 flex flex-col">
-            <div className="flex-1 flex flex-col justify-center px-10">
-              {[...navLeft, ...navRight].map((item) => (
-                <Link
-                  key={item.label}
-                  to={item.href}
-                  className="text-[18px] tracking-[0.15em] uppercase font-light py-4 text-luxury-black/80 border-b border-neutral-100 last:border-b-0 hover:text-luxury-black transition-colors text-center"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-            <div className="px-10 pb-10 flex flex-col items-center gap-4">
-              <a href={`tel:${PROPERTY.agency.phone}`} className="w-full flex items-center justify-center gap-2 bg-luxury-black text-white text-[13px] tracking-[0.1em] uppercase py-3.5">
-                <Phone className="w-4 h-4" /> Call Us
-              </a>
-              <p className="text-[11px] text-luxury-black/40 tracking-[0.2em] uppercase">{brand.fullName}</p>
-            </div>
-          </div>
-        )}
       </nav>
+
+      {/* Mobile menu — fullscreen overlay outside nav */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden fixed inset-0 z-[100] bg-white flex flex-col">
+          {/* Menu header matching navbar */}
+          <div className="flex items-center justify-between px-4 md:px-6 h-[60px] md:h-[68px] border-b border-neutral-100 shrink-0">
+            <button className="text-luxury-black/70" aria-label="Close menu" onClick={() => setMobileMenuOpen(false)}>
+              <X className="w-6 h-6" />
+            </button>
+            <Link to="/" className="flex flex-col items-center justify-center" onClick={() => setMobileMenuOpen(false)}>
+              <span className="text-base md:text-lg tracking-[0.3em] font-light text-luxury-black">{brand.fullName}</span>
+              <span className="text-[9px] md:text-[10px] tracking-[0.35em] uppercase font-light text-luxury-black/40">{brand.subtitle}</span>
+            </Link>
+            <div className="w-6" />
+          </div>
+
+          {/* Menu links centered */}
+          <div className="flex-1 flex flex-col justify-center px-10">
+            {[...navLeft, ...navRight].map((item) => (
+              <Link
+                key={item.label}
+                to={item.href}
+                className="text-[18px] tracking-[0.15em] uppercase font-light py-4 text-luxury-black/80 border-b border-neutral-100 last:border-b-0 hover:text-luxury-black transition-colors text-center"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+
+          {/* Bottom CTA */}
+          <div className="px-10 pb-10 flex flex-col items-center gap-4 shrink-0">
+            <a href={`tel:${PROPERTY.agency.phone}`} className="w-full flex items-center justify-center gap-2 bg-luxury-black text-white text-[13px] tracking-[0.1em] uppercase py-3.5">
+              <Phone className="w-4 h-4" /> Call Us
+            </a>
+            <p className="text-[11px] text-luxury-black/40 tracking-[0.2em] uppercase">{brand.fullName}</p>
+          </div>
+        </div>
+      )}
 
       {/* ═══ HERO GALLERY ═══ */}
       <section aria-label="Property photos">
