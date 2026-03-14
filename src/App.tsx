@@ -14,6 +14,7 @@ import PropertyDetailPage from "./components/luxury/PropertyDetailPage";
 import PropertyDetailV2 from "./components/luxury/PropertyDetailV2";
 import PropertyDetailV3 from "./components/luxury/PropertyDetailV3";
 import PropertyDetailV4 from "./components/luxury/PropertyDetailV4";
+import PropertyDetailV5 from "./components/luxury/PropertyDetailV5";
 import NotFound from "./pages/NotFound";
 import HomePortal from "./pages/HomePortal";
 import PropertyPdfV1 from "./components/pdf/PropertyPdfV1";
