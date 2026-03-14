@@ -115,9 +115,9 @@ export const footerColumns = [
 
 /* ─── Languages ─── */
 export const languages = [
-  { code: "EN", label: "English" },
-  { code: "ES", label: "Español" },
-  { code: "DE", label: "Deutsch" },
-  { code: "FR", label: "Français" },
-  { code: "RU", label: "Русский" },
+  { code: "EN", label: "English", flag: "🇬🇧" },
+  { code: "ES", label: "Español", flag: "🇪🇸" },
+  { code: "DE", label: "Deutsch", flag: "🇩🇪" },
+  { code: "FR", label: "Français", flag: "🇫🇷" },
+  { code: "RU", label: "Русский", flag: "🇷🇺" },
 ];
