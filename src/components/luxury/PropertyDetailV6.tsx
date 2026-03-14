@@ -374,11 +374,11 @@ const PropertyDetailV6 = () => {
             {/* ─── ABOUT THIS PROPERTY ─── */}
             <section className="border-t border-neutral-200 pt-6">
               <h2 className="text-[18px] font-medium text-luxury-black mb-4">About This Property</h2>
-              <div className={`text-[14px] leading-[1.9] text-luxury-black/85 font-light whitespace-pre-line ${!expandDesc ? "line-clamp-8" : ""}`} itemProp="description">
+              <div className={`text-[14px] leading-[1.9] text-luxury-black/85 font-light whitespace-pre-line ${!expandDesc ? "line-clamp-[12]" : ""}`} itemProp="description">
                 {p.description}
               </div>
               <button onClick={() => setExpandDesc(!expandDesc)} className="flex items-center gap-1 mt-3 text-[12px] tracking-[0.1em] uppercase text-luxury-black/75 hover:text-luxury-black font-medium transition-colors">
-                {expandDesc ? "Show less" : "Read full description"} <ChevronDown className={`w-3.5 h-3.5 transition-transform ${expandDesc ? "rotate-180" : ""}`} />
+                {expandDesc ? "Show less" : "Read more"} <ChevronDown className={`w-3.5 h-3.5 transition-transform ${expandDesc ? "rotate-180" : ""}`} />
               </button>
             </section>
 
