@@ -370,7 +370,7 @@ const PropertyDetailV6 = () => {
             {/* Property tags */}
             <div className="flex flex-wrap gap-2 mt-4 mb-6">
               {["Reventa", "Exclusiva", "Modern", "Primera línea del mar", "Cerca del golf", "Cerca de playa"].map((tag, i) => (
-                <span key={i} className="text-[12px] tracking-[0.05em] text-luxury-black/60 border border-neutral-200 bg-neutral-50 px-3 py-1.5 font-light">
+                <span key={i} className="text-[12px] tracking-[0.05em] text-luxury-black/75 border border-neutral-200 bg-neutral-50 px-3 py-1.5 font-light">
                   {tag}
                 </span>
               ))}
