@@ -146,41 +146,15 @@ const Home2LandingPage = () => {
         </div>
       </section>
 
-      {/* ─── INTRO ─── */}
-      <section aria-label="About us" className="py-14 sm:py-20 md:py-32" style={{ background: palette.white }}>
-        <div className="max-w-5xl mx-auto px-5 sm:px-6 lg:px-12">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-20 items-start">
-            <FadeIn className="md:col-span-5">
-              <p className="text-xs tracking-[0.3em] uppercase mb-4 font-normal" style={{ color: palette.accent }}>About Us</p>
-              <h2 className="text-3xl md:text-4xl font-extralight leading-[1.15]" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>
-                A Legacy of<br />Excellence
-              </h2>
-              <div className="mt-6 w-12 h-[1px]" style={{ background: palette.accent }} />
-            </FadeIn>
-            <FadeIn className="md:col-span-7" delay={0.12}>
-              <p className="text-[15px] leading-[1.9] font-light" style={{ color: palette.textMuted }}>
-                {brand.fullName} is a curated luxury real estate advisory specialising in the most exclusive properties across the Mediterranean. From breathtaking seafront villas and penthouses to prestigious golf-side estates and new-build residences, we offer a bespoke service built on trust, discretion, and an uncompromising eye for quality.
-              </p>
-              <div className="mt-8 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ border: `1px solid ${palette.accent}50` }}>
-                  <Play className="w-3.5 h-3.5 ml-0.5" style={{ color: palette.accent }} />
-                </div>
-                <span className="text-xs tracking-[0.12em] uppercase font-light" style={{ color: palette.accent }}>Watch Our Story</span>
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── STATS ─── */}
-      <section className="py-12 sm:py-16 md:py-20" style={{ background: palette.bgAlt }}>
+      {/* ─── STATS RIBBON ─── */}
+      <section className="py-10 sm:py-14" style={{ background: palette.white, borderBottom: `1px solid ${palette.border}` }}>
         <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
           <FadeIn>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-y-6 md:gap-y-0">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-y-8">
               {STATS.map((s, i) => (
-                <div key={i} className="text-center py-2 md:py-0" style={{ borderRight: i < 3 ? `1px solid ${palette.border}` : "none" }}>
-                  <p className="text-3xl sm:text-4xl md:text-5xl font-extralight" style={{ fontFamily: fonts.heading, color: palette.accent, letterSpacing: "0.04em" }}>{s.value}</p>
-                  <p className="text-[10px] sm:text-xs tracking-[0.18em] uppercase mt-2 sm:mt-3 font-normal" style={{ color: palette.textLight }}>{s.label}</p>
+                <div key={i} className="text-center" style={{ borderRight: i < 3 ? `1px solid ${palette.border}` : "none" }}>
+                  <p className="text-3xl sm:text-4xl font-extralight" style={{ fontFamily: fonts.heading, color: palette.accent, letterSpacing: "0.04em" }}>{s.value}</p>
+                  <p className="text-[10px] sm:text-xs tracking-[0.18em] uppercase mt-2 font-normal" style={{ color: palette.textLight }}>{s.label}</p>
                 </div>
               ))}
             </div>
@@ -188,40 +162,11 @@ const Home2LandingPage = () => {
         </div>
       </section>
 
-      {/* ─── DESTINATIONS ─── */}
-      <section className="py-14 sm:py-20 md:py-28" style={{ background: palette.white }}>
-        <div className="max-w-[1440px] mx-auto px-5 sm:px-6 lg:px-12">
-          <FadeIn>
-            <div className="text-center mb-10 sm:mb-14">
-              <p className="text-xs tracking-[0.3em] uppercase mb-3 font-normal" style={{ color: palette.accent }}>Explore</p>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>Browse by Destination</h2>
-            </div>
-          </FadeIn>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
-            {DESTINATIONS.map((d, i) => (
-              <FadeIn key={i} delay={i * 0.06}>
-                <a href="#" className="group block relative overflow-hidden aspect-[3/4]">
-                  <img src={d.image} alt={`Properties in ${d.name}`} loading="lazy" className="w-full h-full object-cover transition-transform duration-[1s] group-hover:scale-110" />
-                  <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.1) 50%)" }} />
-                  <div className="absolute bottom-0 left-0 right-0 p-4 text-center">
-                    <h3 className="text-[15px] font-light tracking-wide text-white mb-1" style={{ fontFamily: fonts.heading }}>{d.name}</h3>
-                    <p className="text-xs font-light" style={{ color: "rgba(255,255,255,0.6)" }}>{d.count} properties</p>
-                  </div>
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center" style={{ background: `${palette.accent}30` }}>
-                    <ChevronRight className="w-6 h-6 text-white" />
-                  </div>
-                </a>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ─── FEATURED PROPERTIES ─── */}
-      <section className="py-14 sm:py-20 md:py-28" style={{ background: palette.bg }}>
+      <section className="py-16 sm:py-24 md:py-32" style={{ background: palette.bg }}>
         <div className="max-w-[1440px] mx-auto px-5 sm:px-6 lg:px-12">
           <FadeIn>
-            <div className="flex items-end justify-between mb-10 sm:mb-16">
+            <div className="flex items-end justify-between mb-12 sm:mb-16">
               <div>
                 <p className="text-xs tracking-[0.3em] uppercase mb-3 font-normal" style={{ color: palette.accent }}>Portfolio</p>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>Featured Properties</h2>
@@ -231,14 +176,14 @@ const Home2LandingPage = () => {
               </a>
             </div>
           </FadeIn>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-7">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
             {PROPERTIES.map((p, i) => (
-              <FadeIn key={i} delay={i * 0.12}>
+              <FadeIn key={i} delay={i * 0.1}>
                 <div className="group cursor-pointer">
                   <div className="relative overflow-hidden aspect-[3/4]">
                     <img src={p.image} alt={`${p.name} — ${p.location}`} loading="lazy" className="w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.06]" />
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-700 flex items-center justify-center" style={{ background: "rgba(26,23,20,0.3)" }}>
-                      <span className="text-xs tracking-[0.2em] uppercase text-white border border-white/40 px-7 py-3 font-light">View Property</span>
+                      <span className="text-xs tracking-[0.2em] uppercase text-white border border-white/40 px-7 py-3 font-light">View</span>
                     </div>
                     <div className="absolute bottom-0 left-0 right-0 p-4" style={{ background: "linear-gradient(to top, rgba(26,23,20,0.6) 0%, transparent 100%)" }}>
                       <span className="text-xs tracking-[0.15em] font-light" style={{ color: "rgba(255,255,255,0.6)" }}>Ref: {p.ref}</span>
@@ -251,9 +196,9 @@ const Home2LandingPage = () => {
                     </div>
                     <h3 className="text-lg font-light tracking-wide" style={{ fontFamily: fonts.heading }}>{p.name}</h3>
                     <p className="text-base font-normal" style={{ color: palette.accent }}>{p.price}</p>
-                    <div className="flex items-center gap-5 pt-1.5 text-[13px] font-light" style={{ color: palette.textMuted }}>
-                      <span className="flex items-center gap-1.5"><Bed className="w-4 h-4" /> {p.beds} Beds</span>
-                      <span className="flex items-center gap-1.5"><Bath className="w-4 h-4" /> {p.baths} Baths</span>
+                    <div className="flex items-center gap-5 pt-1 text-[13px] font-light" style={{ color: palette.textMuted }}>
+                      <span className="flex items-center gap-1.5"><Bed className="w-4 h-4" /> {p.beds}</span>
+                      <span className="flex items-center gap-1.5"><Bath className="w-4 h-4" /> {p.baths}</span>
                       <span className="flex items-center gap-1.5"><Maximize className="w-4 h-4" /> {p.sqm} m²</span>
                     </div>
                   </div>
@@ -264,30 +209,94 @@ const Home2LandingPage = () => {
         </div>
       </section>
 
-      {/* ═══ NEW DEVELOPMENTS ═══ */}
-      <section className="py-14 sm:py-20 md:py-28" style={{ background: palette.newDevBg }}>
+      {/* ─── ABOUT + SERVICES (COMBINED EDITORIAL) ─── */}
+      <section className="py-16 sm:py-24 md:py-32" style={{ background: palette.white }}>
+        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+            {/* Left — About */}
+            <FadeIn>
+              <p className="text-xs tracking-[0.3em] uppercase mb-4 font-normal" style={{ color: palette.accent }}>About Us</p>
+              <h2 className="text-3xl md:text-4xl font-extralight leading-[1.15] mb-6" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>
+                A Legacy of<br />Excellence
+              </h2>
+              <div className="w-12 h-[1px] mb-8" style={{ background: palette.accent }} />
+              <p className="text-[15px] leading-[1.9] font-light mb-8" style={{ color: palette.textMuted }}>
+                {brand.fullName} is a curated luxury real estate advisory specialising in the most exclusive properties across the Mediterranean. From breathtaking seafront villas to prestigious golf-side estates, we offer a bespoke service built on trust, discretion, and an uncompromising eye for quality.
+              </p>
+              <div className="flex items-center gap-3 cursor-pointer group">
+                <div className="w-12 h-12 rounded-full flex items-center justify-center transition-colors duration-300 group-hover:scale-105" style={{ border: `1px solid ${palette.accent}50` }}>
+                  <Play className="w-4 h-4 ml-0.5" style={{ color: palette.accent }} />
+                </div>
+                <span className="text-xs tracking-[0.12em] uppercase font-light group-hover:opacity-70 transition-opacity" style={{ color: palette.accent }}>Watch Our Story</span>
+              </div>
+            </FadeIn>
+            {/* Right — Services grid */}
+            <FadeIn delay={0.15}>
+              <div className="grid grid-cols-2 gap-0">
+                {SERVICES.map((s, i) => (
+                  <div key={i} className="p-6 sm:p-7" style={{ borderBottom: i < 2 ? `1px solid ${palette.border}` : "none", borderRight: i % 2 === 0 ? `1px solid ${palette.border}` : "none" }}>
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center mb-4" style={{ border: `1px solid ${palette.border}` }}>
+                      <s.icon className="w-4 h-4" style={{ color: palette.accent }} strokeWidth={1.5} />
+                    </div>
+                    <h3 className="text-[15px] font-light mb-2 tracking-wide" style={{ fontFamily: fonts.heading }}>{s.title}</h3>
+                    <p className="text-[13px] leading-[1.7] font-light" style={{ color: palette.textMuted }}>{s.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── DESTINATIONS ─── */}
+      <section className="py-16 sm:py-24 md:py-32" style={{ background: palette.bg }}>
         <div className="max-w-[1440px] mx-auto px-5 sm:px-6 lg:px-12">
           <FadeIn>
-            <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-10 sm:mb-14 gap-6">
+            <div className="text-center mb-12 sm:mb-16">
+              <p className="text-xs tracking-[0.3em] uppercase mb-3 font-normal" style={{ color: palette.accent }}>Explore</p>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>Browse by Destination</h2>
+            </div>
+          </FadeIn>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+            {DESTINATIONS.map((d, i) => (
+              <FadeIn key={i} delay={i * 0.05}>
+                <a href="#" className="group block relative overflow-hidden aspect-[3/4]">
+                  <img src={d.image} alt={`Properties in ${d.name}`} loading="lazy" className="w-full h-full object-cover transition-transform duration-[1s] group-hover:scale-110" />
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.05) 50%)" }} />
+                  <div className="absolute bottom-0 left-0 right-0 p-4 text-center">
+                    <h3 className="text-[15px] font-light tracking-wide text-white mb-1" style={{ fontFamily: fonts.heading }}>{d.name}</h3>
+                    <p className="text-xs font-light" style={{ color: "rgba(255,255,255,0.55)" }}>{d.count} properties</p>
+                  </div>
+                </a>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ NEW DEVELOPMENTS ═══ */}
+      <section className="py-16 sm:py-24 md:py-32" style={{ background: palette.newDevBg }}>
+        <div className="max-w-[1440px] mx-auto px-5 sm:px-6 lg:px-12">
+          <FadeIn>
+            <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 sm:mb-16 gap-6">
               <div>
                 <p className="text-xs tracking-[0.3em] uppercase mb-3 font-normal" style={{ color: palette.accent }}>New Build</p>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>New Developments</h2>
-                <p className="text-[14px] sm:text-[15px] font-light mt-3 sm:mt-4 max-w-lg" style={{ color: palette.textMuted }}>
+                <p className="text-[14px] font-light mt-3 max-w-lg" style={{ color: palette.textMuted }}>
                   Discover the finest new-build projects across Spain's most sought-after locations.
                 </p>
               </div>
-              <div className="flex items-center gap-5 sm:gap-6 md:gap-10 shrink-0">
+              <div className="flex items-center gap-8 shrink-0">
                 {NEW_DEV_STATS.map((s, i) => (
                   <div key={i} className="text-center">
-                    <s.icon className="w-4 h-4 sm:w-5 sm:h-5 mx-auto mb-1.5 sm:mb-2" style={{ color: palette.accent }} strokeWidth={1.5} />
-                    <p className="text-xl sm:text-2xl md:text-3xl font-extralight" style={{ fontFamily: fonts.heading, color: palette.accent }}>{s.value}</p>
-                    <p className="text-[10px] sm:text-xs tracking-[0.1em] uppercase mt-1 font-normal" style={{ color: palette.textLight }}>{s.label}</p>
+                    <p className="text-2xl font-extralight" style={{ fontFamily: fonts.heading, color: palette.accent }}>{s.value}</p>
+                    <p className="text-[10px] tracking-[0.1em] uppercase mt-1 font-normal" style={{ color: palette.textLight }}>{s.label}</p>
                   </div>
                 ))}
               </div>
             </div>
           </FadeIn>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             {NEW_DEVELOPMENTS.map((d, i) => (
               <FadeIn key={i} delay={i * 0.1}>
                 <div className="group cursor-pointer" style={{ background: palette.white }}>
@@ -296,7 +305,7 @@ const Home2LandingPage = () => {
                     <div className="absolute top-4 left-4 px-3 py-1.5" style={{ background: palette.accent }}>
                       <span className="text-xs tracking-[0.15em] uppercase font-light text-white">New Build</span>
                     </div>
-                    <div className="absolute top-4 right-4 px-3 py-1.5" style={{ background: "rgba(255,255,255,0.9)", backdropFilter: "blur(8px)" }}>
+                    <div className="absolute top-4 right-4 px-3 py-1.5 bg-white/90 backdrop-blur-sm">
                       <span className="text-xs font-light" style={{ color: palette.text }}>{d.completion}</span>
                     </div>
                   </div>
@@ -318,14 +327,14 @@ const Home2LandingPage = () => {
         </div>
       </section>
 
-      {/* ═══ TESTIMONIAL BREAK ═══ */}
-      <section className="relative h-[45vh] sm:h-[50vh] md:h-[60vh] flex items-center justify-center overflow-hidden">
-        <img src={prop2} alt="Client testimonial background" loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+      {/* ═══ TESTIMONIAL CINEMATIC ═══ */}
+      <section className="relative h-[50vh] md:h-[60vh] flex items-center justify-center overflow-hidden">
+        <img src={prop2} alt="Client testimonial" loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0" style={{ background: "rgba(26,23,20,0.55)" }} />
-        <div className="relative z-10 text-center px-5 sm:px-6 max-w-3xl">
+        <div className="relative z-10 text-center px-5 max-w-3xl">
           <FadeIn>
             <Quote className="w-8 h-8 mx-auto mb-6" style={{ color: "rgba(255,255,255,0.2)" }} strokeWidth={1} />
-            <p className="text-lg sm:text-2xl md:text-3xl font-extralight leading-[1.4] sm:leading-[1.5] italic" style={{ color: "#fff", fontFamily: fonts.heading, letterSpacing: "0.03em" }}>
+            <p className="text-lg sm:text-2xl md:text-3xl font-extralight leading-[1.5] italic" style={{ color: "#fff", fontFamily: fonts.heading, letterSpacing: "0.03em" }}>
               "{TESTIMONIALS[activeTestimonial].quote}"
             </p>
             <div className="mt-6 flex flex-col items-center gap-1">
@@ -342,62 +351,36 @@ const Home2LandingPage = () => {
       </section>
 
       {/* ═══ OFF-MARKET ═══ */}
-      <section className="py-14 sm:py-20 md:py-28" style={{ background: palette.offMarketBg }}>
-        <div className="max-w-[1440px] mx-auto px-5 sm:px-6 lg:px-12">
+      <section className="py-0" style={{ background: palette.offMarketBg }}>
+        <div className="max-w-[1440px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0 items-stretch">
-            <FadeIn className="relative overflow-hidden min-h-[320px] md:min-h-[520px]">
+            <FadeIn className="relative overflow-hidden min-h-[360px] md:min-h-[560px]">
               <img src={prop3} alt="Exclusive off-market luxury property" loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
-              <div className="absolute inset-0" style={{ background: "linear-gradient(to right, transparent 30%, rgba(30,28,26,0.95) 100%)" }} />
+              <div className="absolute inset-0 hidden md:block" style={{ background: "linear-gradient(to right, transparent 30%, rgba(30,28,26,0.95) 100%)" }} />
               <div className="absolute inset-0 md:hidden" style={{ background: "linear-gradient(to bottom, transparent 40%, rgba(30,28,26,0.9) 100%)" }} />
-              <div className="absolute top-5 left-5 flex items-center gap-1.5 px-3 py-1.5" style={{ background: "rgba(30,28,26,0.7)", backdropFilter: "blur(12px)" }}>
+              <div className="absolute top-6 left-6 flex items-center gap-1.5 px-3 py-1.5" style={{ background: "rgba(30,28,26,0.7)", backdropFilter: "blur(12px)" }}>
                 <EyeOff className="w-3.5 h-3.5" style={{ color: palette.offMarketAccent }} />
                 <span className="text-xs tracking-[0.15em] uppercase font-normal" style={{ color: palette.offMarketAccent }}>Off-Market</span>
               </div>
             </FadeIn>
-            <FadeIn delay={0.15} className="flex flex-col justify-center px-6 sm:px-10 md:px-14 lg:px-20 py-12 md:py-16">
-              <div className="flex items-center gap-2.5 mb-6">
-                <div className="w-5 h-[1px]" style={{ background: palette.offMarketAccent }} />
+            <FadeIn delay={0.15} className="flex flex-col justify-center px-8 sm:px-12 md:px-16 lg:px-24 py-16 md:py-20">
+              <div className="flex items-center gap-2.5 mb-8">
+                <div className="w-8 h-[1px]" style={{ background: palette.offMarketAccent }} />
                 <p className="text-xs tracking-[0.3em] uppercase font-normal" style={{ color: palette.offMarketAccent }}>Private & Confidential</p>
               </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight leading-[1.1] mb-6" style={{ fontFamily: fonts.heading, color: "#fff", letterSpacing: "0.06em" }}>
+              <h2 className="text-3xl sm:text-4xl font-extralight leading-[1.1] mb-6" style={{ fontFamily: fonts.heading, color: "#fff", letterSpacing: "0.06em" }}>
                 Off-Market<br />Collection
               </h2>
-              <p className="text-[15px] leading-[1.9] font-light mb-8" style={{ color: "rgba(255,255,255,0.55)" }}>
+              <p className="text-[15px] leading-[1.9] font-light mb-10" style={{ color: "rgba(255,255,255,0.55)" }}>
                 Not all properties are publicly available. Our off-market collection features exclusive listings shown only to verified buyers through our private network.
               </p>
               <a href="#" className="inline-flex items-center justify-center gap-2.5 text-[13px] tracking-[0.18em] uppercase font-light px-8 py-4 transition-all duration-500 hover:opacity-90 self-start" style={{ background: palette.offMarketAccent, color: palette.offMarketBg }}>
                 <Lock className="w-4 h-4" /> Request Access
               </a>
-              <p className="text-xs font-light mt-6" style={{ color: "rgba(255,255,255,0.3)" }}>
+              <p className="text-xs font-light mt-8" style={{ color: "rgba(255,255,255,0.3)" }}>
                 <span style={{ color: palette.offMarketAccent }} className="font-normal">120+</span> off-market properties currently available
               </p>
             </FadeIn>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── SERVICES ─── */}
-      <section className="py-14 sm:py-20 md:py-28" style={{ background: palette.white }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
-          <FadeIn>
-            <div className="text-center mb-10 sm:mb-14">
-              <p className="text-xs tracking-[0.3em] uppercase mb-3 font-normal" style={{ color: palette.accent }}>Why Choose Us</p>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>A Standard Apart</h2>
-            </div>
-          </FadeIn>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
-            {SERVICES.map((s, i) => (
-              <FadeIn key={i} delay={i * 0.08}>
-                <div className="p-6 sm:p-8 group transition-all duration-500 text-center lg:border-r last:border-r-0" style={{ borderColor: palette.border }}>
-                  <div className="w-12 h-12 mx-auto rounded-full flex items-center justify-center mb-5 transition-colors duration-500" style={{ border: `1px solid ${palette.border}` }}>
-                    <s.icon className="w-5 h-5" style={{ color: palette.accent }} strokeWidth={1.5} />
-                  </div>
-                  <span className="text-xs font-normal tracking-[0.15em] block mb-3" style={{ color: palette.accent }}>{s.num}</span>
-                  <h3 className="text-base font-light mb-3 tracking-wide" style={{ fontFamily: fonts.heading }}>{s.title}</h3>
-                  <p className="text-sm leading-[1.7] font-light" style={{ color: palette.textMuted }}>{s.desc}</p>
-                </div>
-              </FadeIn>
-            ))}
           </div>
         </div>
       </section>
