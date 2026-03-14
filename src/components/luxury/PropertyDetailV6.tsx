@@ -835,7 +835,6 @@ const PropertyDetailV6 = () => {
       {!chatOpen && (
         <button
           onClick={() => setChatOpen(true)}
-          className={cn(
           className="fixed z-50 w-14 h-14 rounded-full bg-luxury-black text-white shadow-lg flex items-center justify-center hover:bg-luxury-black/85 transition-all bottom-[72px] right-4 lg:bottom-6 lg:right-6"
           aria-label="Open chat"
         >
