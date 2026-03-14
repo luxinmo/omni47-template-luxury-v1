@@ -472,7 +472,7 @@ const PropertyDetailV6 = () => {
                   </div>
                 ))}
               </div>
-              <p className="text-[14px] leading-[1.85] text-luxury-black/65 font-light">
+              <p className="text-[14px] leading-[1.85] text-luxury-black/80 font-light">
                 The luxury villa market in Santa Eulalia, Ibiza, has experienced consistent growth over the past five years, driven by strong international demand and limited supply of premium coastal properties. Average prices for high-end villas have increased by approximately 12% year-on-year, with sea-view properties commanding the highest premiums. The area remains one of the most desirable locations in the Balearic Islands for both primary residences and investment properties.
               </p>
             </section>
