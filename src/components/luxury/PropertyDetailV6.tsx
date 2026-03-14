@@ -325,12 +325,6 @@ const PropertyDetailV6 = () => {
               </ol>
             </nav>
 
-            {/* Location */}
-            <p className="text-[13px] tracking-[0.1em] uppercase text-luxury-black/70 font-light flex items-center gap-1.5 mb-2">
-              <MapPin className="w-3.5 h-3.5 text-luxury-black/50" />
-              {p.location} · {p.region}
-            </p>
-
             {/* Large Title */}
             <h1 className="text-[24px] md:text-[30px] lg:text-[36px] font-medium text-luxury-black leading-tight tracking-[0.04em] uppercase mb-1" itemProp="name">
               {p.title}
