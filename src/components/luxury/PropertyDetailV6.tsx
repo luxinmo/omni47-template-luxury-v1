@@ -376,6 +376,42 @@ const PropertyDetailV6 = () => {
               ))}
             </div>
 
+            {/* ─── BASIC CHARACTERISTICS ─── */}
+            <section className="border-t-[3px] border-red-600 pt-6 mb-8">
+              <h2 className="text-[16px] font-medium text-luxury-black tracking-[0.15em] uppercase mb-4">Basic Characteristics</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12">
+                {/* Left column */}
+                <div>
+                  {[
+                    { label: "Reference", value: p.ref },
+                    { label: "Property type", value: "Detached house" },
+                    { label: "Price", value: p.priceFormatted },
+                    { label: "Built area", value: <>{p.sqm} m<sup>2</sup></> },
+                    { label: "Energy rating", value: p.energyClass },
+                  ].map((row, i) => (
+                    <div key={i} className="flex items-center justify-between py-2.5 border-b border-neutral-200">
+                      <span className="text-[14px] text-luxury-black/70 font-light">{row.label}</span>
+                      <span className="text-[14px] text-luxury-black font-medium">{row.value}</span>
+                    </div>
+                  ))}
+                </div>
+                {/* Right column */}
+                <div>
+                  {[
+                    { label: "Bedrooms", value: p.beds },
+                    { label: "Bathrooms", value: p.baths },
+                    { label: "Useful area", value: <>{Math.round(p.sqm * 0.67)} m<sup>2</sup></> },
+                    { label: "Plot", value: <>{p.plot.toLocaleString()} m<sup>2</sup></> },
+                  ].map((row, i) => (
+                    <div key={i} className="flex items-center justify-between py-2.5 border-b border-neutral-200">
+                      <span className="text-[14px] text-luxury-black/70 font-light">{row.label}</span>
+                      <span className="text-[14px] text-luxury-black font-medium">{row.value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
             {/* ─── ABOUT THIS PROPERTY ─── */}
             <section className="border-t border-neutral-200 pt-6">
               <h2 className="text-[18px] font-medium text-luxury-black mb-4">About This Property</h2>
