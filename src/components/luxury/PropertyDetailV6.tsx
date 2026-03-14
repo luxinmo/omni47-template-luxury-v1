@@ -355,9 +355,9 @@ const PropertyDetailV6 = () => {
                 { icon: Fence, label: "Plot Size", value: `${p.plot.toLocaleString()} m²` },
               ].map((s, i) => (
                 <div key={i} className="bg-neutral-50 border border-neutral-200 rounded-sm p-2.5 text-center">
-                  <s.icon className="w-4 h-4 text-luxury-black/25 mx-auto mb-1.5" strokeWidth={1.5} />
+                  <s.icon className="w-4 h-4 text-luxury-black/40 mx-auto mb-1.5" strokeWidth={1.5} />
                   <p className="text-[16px] font-light text-luxury-black mb-0.5">{s.value}</p>
-                  <p className="text-[9px] tracking-[0.1em] uppercase text-luxury-black/45 font-medium">{s.label}</p>
+                  <p className="text-[10px] tracking-[0.1em] uppercase text-luxury-black/60 font-medium">{s.label}</p>
                 </div>
               ))}
             </div>
