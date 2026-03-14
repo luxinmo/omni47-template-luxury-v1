@@ -1,5 +1,5 @@
-import * as LucideIcons from "lucide-react";
 import { mockTrustStats } from "@/data/mock-data";
+import { getIcon } from "@/components/blocks/_utils/get-icon";
 
 interface TrustIconsProps {
   sectionLabel?: string;
