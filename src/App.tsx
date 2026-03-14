@@ -20,6 +20,7 @@ import NotFound from "./pages/NotFound";
 import HomePortal from "./pages/HomePortal";
 import Home3LandingPage from "./components/home-3/Home3LandingPage";
 import Home4LandingPage from "./components/home-4/Home4LandingPage";
+import BrandedResidencesPage from "./components/luxury/BrandedResidencesPage";
 import PropertyPdfV1 from "./components/pdf/PropertyPdfV1";
 import PropertyPdfV2 from "./components/pdf/PropertyPdfV2";
 
@@ -48,6 +49,7 @@ const App = () => (
             <Route path="/property5/:id" element={<PropertyDetailV5 />} />
             <Route path="/property6/:id" element={<PropertyDetailV6 />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/branded-residences" element={<BrandedResidencesPage />} />
             <Route path="/pdf-v1" element={<PropertyPdfV1 />} />
             <Route path="/pdf-v2" element={<PropertyPdfV2 />} />
             <Route path="*" element={<NotFound />} />
