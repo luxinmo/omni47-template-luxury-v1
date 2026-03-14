@@ -25,6 +25,7 @@ import detail1 from "@/assets/property-detail-1.jpg";
 import detail2 from "@/assets/property-detail-2.jpg";
 import detail3 from "@/assets/property-detail-3.jpg";
 import agencyLogo from "@/assets/agency-logo.png";
+import luxinmoLogo from "@/assets/luxinmo-logo.png";
 
 /* ─── Data (reused from V5) ─── */
 const PROPERTY = {
