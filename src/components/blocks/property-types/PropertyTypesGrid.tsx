@@ -1,6 +1,6 @@
 import { ChevronRight } from "lucide-react";
-import * as LucideIcons from "lucide-react";
 import { mockPropertyTypes } from "@/data/mock-data";
+import { getIcon } from "@/components/blocks/_utils/get-icon";
 
 interface PropertyTypesGridProps {
   sectionLabel?: string;
