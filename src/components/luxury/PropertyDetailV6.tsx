@@ -326,8 +326,8 @@ const PropertyDetailV6 = () => {
             </nav>
 
             {/* Location */}
-            <p className="text-[13px] tracking-[0.1em] uppercase text-luxury-black/50 font-light flex items-center gap-1.5 mb-2">
-              <MapPin className="w-3.5 h-3.5 text-luxury-black/35" />
+            <p className="text-[13px] tracking-[0.1em] uppercase text-luxury-black/70 font-light flex items-center gap-1.5 mb-2">
+              <MapPin className="w-3.5 h-3.5 text-luxury-black/50" />
               {p.location} · {p.region}
             </p>
 
@@ -337,13 +337,13 @@ const PropertyDetailV6 = () => {
             </h1>
 
             {/* Subtitle */}
-            <p className="text-[15px] text-luxury-black/55 font-light leading-relaxed" itemProp="description">
+            <p className="text-[15px] text-luxury-black/75 font-light leading-relaxed" itemProp="description">
               {p.subtitle}
             </p>
 
             {/* Property meta */}
-            <p className="text-[12px] text-luxury-black/40 font-light mt-2 mb-4">
-              Detached villa <span className="mx-1 text-luxury-black/20">|</span> <span className="italic">{p.style}</span> <span className="mx-1 text-luxury-black/20">|</span> <span className="font-mono text-[11px]">REF-{p.ref}</span>
+            <p className="text-[12px] text-luxury-black/60 font-light mt-2 mb-4">
+              Detached villa <span className="mx-1 text-luxury-black/30">|</span> <span className="italic">{p.style}</span> <span className="mx-1 text-luxury-black/30">|</span> <span className="font-mono text-[11px]">REF-{p.ref}</span>
             </p>
 
             {/* Compact property facts */}
@@ -355,22 +355,22 @@ const PropertyDetailV6 = () => {
                 { icon: Fence, label: "Plot Size", value: `${p.plot.toLocaleString()} m²` },
               ].map((s, i) => (
                 <div key={i} className="bg-neutral-50 border border-neutral-200 rounded-sm p-2.5 text-center">
-                  <s.icon className="w-4 h-4 text-luxury-black/25 mx-auto mb-1.5" strokeWidth={1.5} />
+                  <s.icon className="w-4 h-4 text-luxury-black/40 mx-auto mb-1.5" strokeWidth={1.5} />
                   <p className="text-[16px] font-light text-luxury-black mb-0.5">{s.value}</p>
-                  <p className="text-[9px] tracking-[0.1em] uppercase text-luxury-black/45 font-medium">{s.label}</p>
+                  <p className="text-[10px] tracking-[0.1em] uppercase text-luxury-black/60 font-medium">{s.label}</p>
                 </div>
               ))}
             </div>
-            <div className="flex items-center gap-4 mt-2 text-[12px] text-luxury-black/45 font-light">
-              <span>Year built: <strong className="font-medium text-luxury-black/65">{p.year}</strong></span>
-              <span className="text-luxury-black/20">·</span>
-              <span>Status: <strong className="font-medium text-luxury-black/65">{p.status}</strong></span>
+            <div className="flex items-center gap-4 mt-2 text-[12px] text-luxury-black/60 font-light">
+              <span>Year built: <strong className="font-medium text-luxury-black/80">{p.year}</strong></span>
+              <span className="text-luxury-black/30">·</span>
+              <span>Status: <strong className="font-medium text-luxury-black/80">{p.status}</strong></span>
             </div>
 
             {/* Property tags */}
             <div className="flex flex-wrap gap-2 mt-4 mb-6">
               {["Reventa", "Exclusiva", "Modern", "Primera línea del mar", "Cerca del golf", "Cerca de playa"].map((tag, i) => (
-                <span key={i} className="text-[12px] tracking-[0.05em] text-luxury-black/60 border border-neutral-200 bg-neutral-50 px-3 py-1.5 font-light">
+                <span key={i} className="text-[12px] tracking-[0.05em] text-luxury-black/75 border border-neutral-200 bg-neutral-50 px-3 py-1.5 font-light">
                   {tag}
                 </span>
               ))}
@@ -379,10 +379,10 @@ const PropertyDetailV6 = () => {
             {/* ─── ABOUT THIS PROPERTY ─── */}
             <section className="border-t border-neutral-200 pt-6">
               <h2 className="text-[18px] font-medium text-luxury-black mb-4">About This Property</h2>
-              <div className={`text-[14px] leading-[1.9] text-luxury-black/75 font-light whitespace-pre-line ${!expandDesc ? "line-clamp-8" : ""}`} itemProp="description">
+              <div className={`text-[14px] leading-[1.9] text-luxury-black/85 font-light whitespace-pre-line ${!expandDesc ? "line-clamp-8" : ""}`} itemProp="description">
                 {p.description}
               </div>
-              <button onClick={() => setExpandDesc(!expandDesc)} className="flex items-center gap-1 mt-3 text-[12px] tracking-[0.1em] uppercase text-luxury-black/60 hover:text-luxury-black font-medium transition-colors">
+              <button onClick={() => setExpandDesc(!expandDesc)} className="flex items-center gap-1 mt-3 text-[12px] tracking-[0.1em] uppercase text-luxury-black/75 hover:text-luxury-black font-medium transition-colors">
                 {expandDesc ? "Show less" : "Read full description"} <ChevronDown className={`w-3.5 h-3.5 transition-transform ${expandDesc ? "rotate-180" : ""}`} />
               </button>
             </section>
@@ -400,7 +400,7 @@ const PropertyDetailV6 = () => {
                     { label: "Energy rating", value: p.energyClass },
                   ].map((row, i) => (
                     <div key={i} className="flex items-center justify-between py-2.5 border-b border-neutral-200">
-                      <span className="text-[14px] text-luxury-black/70 font-light">{row.label}</span>
+                      <span className="text-[14px] text-luxury-black/80 font-light">{row.label}</span>
                       <span className="text-[14px] text-luxury-black font-medium">{row.value}</span>
                     </div>
                   ))}
@@ -413,7 +413,7 @@ const PropertyDetailV6 = () => {
                     { label: "Plot", value: <>{p.plot.toLocaleString()} m<sup>2</sup></> },
                   ].map((row, i) => (
                     <div key={i} className="flex items-center justify-between py-2.5 border-b border-neutral-200">
-                      <span className="text-[14px] text-luxury-black/70 font-light">{row.label}</span>
+                      <span className="text-[14px] text-luxury-black/80 font-light">{row.label}</span>
                       <span className="text-[14px] text-luxury-black font-medium">{row.value}</span>
                     </div>
                   ))}
@@ -426,8 +426,8 @@ const PropertyDetailV6 = () => {
               <h2 className="text-[18px] font-medium text-luxury-black mb-5">Features & Amenities</h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-3">
                 {p.features.map((f, i) => (
-                  <div key={i} className="flex items-center gap-2 text-[14px] text-luxury-black/70 font-light">
-                    <Check className="w-3.5 h-3.5 text-luxury-black/35" strokeWidth={2} />
+                  <div key={i} className="flex items-center gap-2 text-[14px] text-luxury-black/80 font-light">
+                    <Check className="w-3.5 h-3.5 text-luxury-black/50" strokeWidth={2} />
                     {f}
                   </div>
                 ))}
@@ -461,7 +461,7 @@ const PropertyDetailV6 = () => {
               <div className="grid grid-cols-2 gap-4 mb-5">
                 {MARKET_DATA.map((d, i) => (
                   <div key={i} className="bg-neutral-50 border border-neutral-200 rounded-sm p-4">
-                    <p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 font-medium mb-1">{d.label}</p>
+                    <p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/65 font-medium mb-1">{d.label}</p>
                     <p className="text-[20px] font-light text-luxury-black mb-2">{d.value}</p>
                     <div className="w-full h-2 bg-neutral-200 rounded-full overflow-hidden mb-1.5">
                       <div className="h-full bg-luxury-gold/60 rounded-full transition-all duration-700" style={{ width: `${d.pct}%` }} />
@@ -472,7 +472,7 @@ const PropertyDetailV6 = () => {
                   </div>
                 ))}
               </div>
-              <p className="text-[14px] leading-[1.85] text-luxury-black/65 font-light">
+              <p className="text-[14px] leading-[1.85] text-luxury-black/80 font-light">
                 The luxury villa market in Santa Eulalia, Ibiza, has experienced consistent growth over the past five years, driven by strong international demand and limited supply of premium coastal properties. Average prices for high-end villas have increased by approximately 12% year-on-year, with sea-view properties commanding the highest premiums. The area remains one of the most desirable locations in the Balearic Islands for both primary residences and investment properties.
               </p>
             </section>
@@ -483,8 +483,8 @@ const PropertyDetailV6 = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {NEARBY_AREAS.map((area, i) => (
                   <Link key={i} to={area.href} className="flex items-center justify-between bg-neutral-50 border border-neutral-200 rounded-sm px-4 py-3 hover:bg-neutral-100 hover:border-neutral-300 transition-all group">
-                    <span className="text-[14px] text-luxury-black/75 font-light group-hover:text-luxury-black transition-colors">{area.label}</span>
-                    <span className="flex items-center gap-2 text-[12px] text-luxury-black/45">
+                    <span className="text-[14px] text-luxury-black/85 font-light group-hover:text-luxury-black transition-colors">{area.label}</span>
+                    <span className="flex items-center gap-2 text-[12px] text-luxury-black/60">
                       {area.count} properties <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
                     </span>
                   </Link>
@@ -527,10 +527,10 @@ const PropertyDetailV6 = () => {
                 <span className="text-[14px] text-luxury-black/35 line-through font-light">{p.originalPrice}</span>
                 <span className="text-[11px] font-medium tracking-[0.08em] uppercase text-luxury-gold bg-luxury-gold/10 px-2 py-0.5">-{p.discount}%</span>
               </div>
-              <p className="text-[12px] text-luxury-black/45 mb-1">{p.pricePerSqm}</p>
+              <p className="text-[12px] text-luxury-black/60 mb-1">{p.pricePerSqm}</p>
               {p.alsoForRent && (
-                <p className="text-[13px] text-luxury-black/45 mb-4 flex items-center gap-1.5">
-                  <Home className="w-3.5 h-3.5 text-luxury-gold/60" /> Also for rent: <span className="font-medium text-luxury-black/65">{p.rentalPrice}</span>
+                <p className="text-[13px] text-luxury-black/60 mb-4 flex items-center gap-1.5">
+                  <Home className="w-3.5 h-3.5 text-luxury-gold/80" /> Also for rent: <span className="font-medium text-luxury-black/80">{p.rentalPrice}</span>
                 </p>
               )}
 
