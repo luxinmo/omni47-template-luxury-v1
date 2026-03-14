@@ -70,7 +70,7 @@ const Navbar = ({
                       className="w-full flex items-center gap-3 px-4 py-2.5 text-[13px] hover:bg-neutral-50 transition-colors"
                       style={{ color: currentLang === lang.code ? palette.text : palette.textMuted, fontWeight: currentLang === lang.code ? 500 : 300 }}
                     >
-                      <span className="text-lg leading-none">{lang.flag}</span>
+                      <img src={`https://flagcdn.com/20x15/${lang.flag}.png`} alt="" className="w-5 h-[15px] object-cover rounded-[2px]" />
                       <span>{lang.label}</span>
                       {currentLang === lang.code && (
                         <svg className="w-3.5 h-3.5 ml-auto opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
