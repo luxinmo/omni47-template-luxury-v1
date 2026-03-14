@@ -4,7 +4,7 @@ import {
   Bed, Bath, Maximize, ArrowRight, ArrowUpRight, Lock, EyeOff,
   Play, Quote, MapPin, ChevronRight, Home, Building2, Waves,
   Mountain, PenTool, Sun, Eye, TreePine, Cpu, TrendingUp,
-  BarChart3, Activity, Target, Send,
+  BarChart3, Activity, Target, Send, Crown, Star,
 } from "lucide-react";
 import { Layout } from "@/components/layout";
 import FadeIn from "@/components/shared/FadeIn";
@@ -63,6 +63,13 @@ const LIFESTYLE_COLLECTIONS = [
   { label: "Modern Architecture", image: prop1, href: "/properties?collection=modern" },
   { label: "Private Estates", image: detail1, href: "/properties?collection=estates" },
   { label: "Smart Homes", image: detail3, href: "/properties?collection=smart" },
+];
+
+const BRANDED_RESIDENCES = [
+  { image: prop1, name: "Four Seasons Private Residences", location: "Marbella, Costa del Sol", brand: "Four Seasons", priceFrom: "From €3,500,000", units: 32, status: "Under Construction" },
+  { image: detail2, name: "The Ritz-Carlton Residences", location: "Ibiza", brand: "Ritz-Carlton", priceFrom: "From €4,200,000", units: 18, status: "Pre-Launch" },
+  { image: detail3, name: "Mandarin Oriental Residences", location: "Altea, Costa Blanca", brand: "Mandarin Oriental", priceFrom: "From €2,800,000", units: 45, status: "Selling" },
+  { image: prop3, name: "Aman Residences", location: "Jávea, Costa Blanca", brand: "Aman", priceFrom: "From €5,100,000", units: 12, status: "Pre-Launch" },
 ];
 
 const NEW_DEVELOPMENTS = [
@@ -320,6 +327,71 @@ const Home3LandingPage = () => {
               </FadeIn>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════
+          6b. BRANDED RESIDENCES
+          ═══════════════════════════════════════════════════════ */}
+      <section aria-label="Branded residences" className="py-16 sm:py-24 md:py-32" style={{ background: palette.bg }}>
+        <div className="max-w-[1440px] mx-auto px-5 sm:px-6 lg:px-12">
+          <FadeIn>
+            <div className="text-center mb-12 sm:mb-16">
+              <div className="inline-flex items-center gap-2 mb-3">
+                <Crown className="w-4 h-4" style={{ color: palette.accent }} />
+                <p className="text-xs tracking-[0.3em] uppercase font-normal" style={{ color: palette.accent }}>Exclusive</p>
+              </div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>Branded Residences</h2>
+              <p className="text-[14px] font-light mt-4 max-w-2xl mx-auto" style={{ color: palette.textMuted }}>
+                Live within the world's most prestigious hospitality brands. Discover branded residences offering five-star services, world-class amenities and exceptional investment value.
+              </p>
+            </div>
+          </FadeIn>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+            {BRANDED_RESIDENCES.map((r, i) => (
+              <FadeIn key={i} delay={i * 0.1}>
+                <div className="group cursor-pointer overflow-hidden" style={{ background: palette.white }}>
+                  <div className="grid grid-cols-1 sm:grid-cols-2">
+                    <div className="relative overflow-hidden aspect-[4/3] sm:aspect-auto sm:min-h-[280px]">
+                      <img src={r.image} alt={`${r.name} — Branded residence in ${r.location}`} loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.05]" />
+                      <div className="absolute top-4 left-4 px-3 py-1.5 bg-white/90 backdrop-blur-sm">
+                        <span className="text-[11px] tracking-[0.15em] uppercase font-medium" style={{ color: palette.accent }}>{r.brand}</span>
+                      </div>
+                      <div className="absolute top-4 right-4 px-3 py-1.5" style={{ background: r.status === "Pre-Launch" ? palette.accent : r.status === "Selling" ? "#2a7d5f" : palette.textLight }}>
+                        <span className="text-[10px] tracking-[0.12em] uppercase font-light text-white">{r.status}</span>
+                      </div>
+                    </div>
+                    <div className="flex flex-col justify-center p-6 sm:p-8">
+                      <div className="flex items-center gap-1.5 mb-3">
+                        <MapPin className="w-3.5 h-3.5" style={{ color: palette.textLight }} />
+                        <p className="text-xs tracking-[0.1em] uppercase font-light" style={{ color: palette.textLight }}>{r.location}</p>
+                      </div>
+                      <h3 className="text-lg sm:text-xl font-light tracking-wide mb-4" style={{ fontFamily: fonts.heading }}>{r.name}</h3>
+                      <div className="flex items-center gap-1 mb-4">
+                        {[...Array(5)].map((_, s) => (
+                          <Star key={s} className="w-3 h-3 fill-current" style={{ color: palette.accent }} />
+                        ))}
+                      </div>
+                      <div className="flex items-center justify-between mb-5 pt-3" style={{ borderTop: `1px solid ${palette.border}` }}>
+                        <p className="text-base font-normal" style={{ color: palette.accent }}>{r.priceFrom}</p>
+                        <span className="text-sm font-light" style={{ color: palette.textMuted }}>{r.units} residences</span>
+                      </div>
+                      <Link to="/contact" className="inline-flex items-center gap-2 text-[12px] tracking-[0.15em] uppercase font-light transition-opacity hover:opacity-60 self-start" style={{ color: palette.accent }}>
+                        Request Information <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+          <FadeIn delay={0.3}>
+            <div className="text-center mt-12">
+              <Link to="/properties?type=branded-residences" className="inline-flex items-center justify-center gap-2.5 text-[13px] tracking-[0.18em] uppercase font-light px-10 py-4 transition-all duration-500 hover:opacity-90" style={{ background: palette.accent, color: "#fff" }}>
+                View All Branded Residences <ArrowUpRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </FadeIn>
         </div>
       </section>
 
