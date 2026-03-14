@@ -11,6 +11,7 @@ import BlogDetailPage from "./components/luxury/BlogDetailPage";
 import SystemPage from "./components/luxury/SystemPage";
 import ContactPage from "./components/luxury/ContactPage";
 import PropertyDetailPage from "./components/luxury/PropertyDetailPage";
+import PropertyDetailV2 from "./components/luxury/PropertyDetailV2";
 import NotFound from "./pages/NotFound";
 import HomePortal from "./pages/HomePortal";
 import PropertyPdfV1 from "./components/pdf/PropertyPdfV1";
@@ -33,6 +34,7 @@ const App = () => (
             <Route path="/blog/:slug" element={<BlogDetailPage />} />
             <Route path="/page/:slug" element={<SystemPage />} />
             <Route path="/property/:id" element={<PropertyDetailPage />} />
+            <Route path="/property2/:id" element={<PropertyDetailV2 />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/pdf-v1" element={<PropertyPdfV1 />} />
             <Route path="/pdf-v2" element={<PropertyPdfV2 />} />
