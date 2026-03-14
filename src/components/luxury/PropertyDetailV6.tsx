@@ -478,8 +478,33 @@ const PropertyDetailV6 = () => {
               <span>Status: <strong className="font-medium text-luxury-black/80">{p.status}</strong></span>
             </div>
 
+            {/* ─── PRICE BAR (mobile/tablet only) ─── */}
+            <div className="lg:hidden mt-4 mb-4 bg-neutral-50 border border-neutral-200 rounded-sm p-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[11px] tracking-[0.15em] uppercase border border-luxury-black/30 text-luxury-black/70 px-2.5 py-1 font-medium">{p.tag}</span>
+                <span className="text-[12px] text-luxury-black/60">{p.pricePerSqm}</span>
+              </div>
+              <div className="flex flex-wrap items-baseline gap-2 mb-1">
+                <p className="text-[28px] font-medium text-luxury-black tracking-tight leading-none">{p.priceFormatted}</p>
+                <span className="text-[13px] text-luxury-black/35 line-through font-light">{p.originalPrice}</span>
+                <span className="text-[11px] font-medium tracking-[0.08em] uppercase text-luxury-gold bg-luxury-gold/10 px-2 py-0.5">-{p.discount}%</span>
+              </div>
+              {p.alsoForRent && (
+                <p className="text-[13px] text-luxury-black/60 flex items-center gap-1.5 mb-3">
+                  <Home className="w-3.5 h-3.5 text-luxury-gold/80" /> Also for rent: <span className="font-medium text-luxury-black/80">{p.rentalPrice}</span>
+                </p>
+              )}
+              <button
+                onClick={() => setEnquiryOpen(true)}
+                className="w-full flex items-center justify-center gap-2 bg-luxury-black text-white text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-luxury-black/85 transition-all"
+              >
+                <Mail className="w-3.5 h-3.5" /> Send Enquiry
+              </button>
+              <p className="text-[12px] text-luxury-black/50 font-mono text-center mt-2 tracking-[0.05em]">REF-{p.ref}</p>
+            </div>
+
             {/* Property tags */}
-            <div className="flex flex-wrap gap-2 mt-4 mb-6">
+            <div className="flex flex-wrap gap-2 mt-4 lg:mt-0 mb-6">
               <span className="text-[12px] text-luxury-gold font-medium border border-luxury-gold/40 bg-luxury-gold/5 px-3.5 py-2 tracking-[0.05em] flex items-center gap-1.5">
                 <Star className="w-3.5 h-3.5" strokeWidth={1.5} /> Exclusive
               </span>
