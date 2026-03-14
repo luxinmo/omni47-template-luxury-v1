@@ -836,9 +836,7 @@ const PropertyDetailV6 = () => {
         <button
           onClick={() => setChatOpen(true)}
           className={cn(
-            "fixed z-50 w-14 h-14 rounded-full bg-luxury-black text-white shadow-lg flex items-center justify-center hover:bg-luxury-black/85 transition-all",
-            isMobile ? "bottom-[72px] right-4" : "bottom-6 right-6"
-          )}
+          className="fixed z-50 w-14 h-14 rounded-full bg-luxury-black text-white shadow-lg flex items-center justify-center hover:bg-luxury-black/85 transition-all bottom-[72px] right-4 lg:bottom-6 lg:right-6"
           aria-label="Open chat"
         >
           <MessageCircle className="w-5 h-5" />
