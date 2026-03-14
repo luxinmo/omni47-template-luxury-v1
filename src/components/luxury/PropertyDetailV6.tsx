@@ -326,8 +326,8 @@ const PropertyDetailV6 = () => {
             </nav>
 
             {/* Location */}
-            <p className="text-[13px] tracking-[0.1em] uppercase text-luxury-black/50 font-light flex items-center gap-1.5 mb-2">
-              <MapPin className="w-3.5 h-3.5 text-luxury-black/35" />
+            <p className="text-[13px] tracking-[0.1em] uppercase text-luxury-black/70 font-light flex items-center gap-1.5 mb-2">
+              <MapPin className="w-3.5 h-3.5 text-luxury-black/50" />
               {p.location} · {p.region}
             </p>
 
