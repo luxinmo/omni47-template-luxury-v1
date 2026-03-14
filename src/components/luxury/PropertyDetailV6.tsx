@@ -338,9 +338,30 @@ const PropertyDetailV6 = () => {
             </p>
 
             {/* Property meta */}
-            <p className="text-[12px] text-luxury-black/40 font-light mt-2">
+            <p className="text-[12px] text-luxury-black/40 font-light mt-2 mb-4">
               Detached villa <span className="mx-1 text-luxury-black/20">|</span> <span className="italic">{p.style}</span> <span className="mx-1 text-luxury-black/20">|</span> <span className="font-mono text-[11px]">REF-{p.ref}</span>
             </p>
+
+            {/* Compact property facts */}
+            <div className="grid grid-cols-4 gap-2">
+              {[
+                { icon: Bed, label: "Bedrooms", value: p.beds },
+                { icon: Bath, label: "Bathrooms", value: p.baths },
+                { icon: Maximize, label: "Built Area", value: `${p.sqm} m²` },
+                { icon: Fence, label: "Plot Size", value: `${p.plot.toLocaleString()} m²` },
+              ].map((s, i) => (
+                <div key={i} className="bg-neutral-50 border border-neutral-200 rounded-sm p-2.5 text-center">
+                  <s.icon className="w-4 h-4 text-luxury-black/25 mx-auto mb-1.5" strokeWidth={1.5} />
+                  <p className="text-[16px] font-light text-luxury-black mb-0.5">{s.value}</p>
+                  <p className="text-[9px] tracking-[0.1em] uppercase text-luxury-black/45 font-medium">{s.label}</p>
+                </div>
+              ))}
+            </div>
+            <div className="flex items-center gap-4 mt-2 text-[12px] text-luxury-black/45 font-light">
+              <span>Year built: <strong className="font-medium text-luxury-black/65">{p.year}</strong></span>
+              <span className="text-luxury-black/20">·</span>
+              <span>Status: <strong className="font-medium text-luxury-black/65">{p.status}</strong></span>
+            </div>
           </div>
 
           {/* ─── PRICE CARD (sticky on desktop) ─── */}
