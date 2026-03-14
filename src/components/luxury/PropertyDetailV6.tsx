@@ -527,10 +527,10 @@ const PropertyDetailV6 = () => {
                 <span className="text-[14px] text-luxury-black/35 line-through font-light">{p.originalPrice}</span>
                 <span className="text-[11px] font-medium tracking-[0.08em] uppercase text-luxury-gold bg-luxury-gold/10 px-2 py-0.5">-{p.discount}%</span>
               </div>
-              <p className="text-[12px] text-luxury-black/45 mb-1">{p.pricePerSqm}</p>
+              <p className="text-[12px] text-luxury-black/60 mb-1">{p.pricePerSqm}</p>
               {p.alsoForRent && (
-                <p className="text-[13px] text-luxury-black/45 mb-4 flex items-center gap-1.5">
-                  <Home className="w-3.5 h-3.5 text-luxury-gold/60" /> Also for rent: <span className="font-medium text-luxury-black/65">{p.rentalPrice}</span>
+                <p className="text-[13px] text-luxury-black/60 mb-4 flex items-center gap-1.5">
+                  <Home className="w-3.5 h-3.5 text-luxury-gold/80" /> Also for rent: <span className="font-medium text-luxury-black/80">{p.rentalPrice}</span>
                 </p>
               )}
 
