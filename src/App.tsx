@@ -11,6 +11,7 @@ import BlogDetailPage from "./components/luxury/BlogDetailPage";
 import SystemPage from "./components/luxury/SystemPage";
 import ContactPage from "./components/luxury/ContactPage";
 import PropertyDetailPage from "./components/luxury/PropertyDetailPage";
+import PropertyDetailV2 from "./components/luxury/PropertyDetailV2";
 import NotFound from "./pages/NotFound";
 import HomePortal from "./pages/HomePortal";
 import PropertyPdfV1 from "./components/pdf/PropertyPdfV1";
