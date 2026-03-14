@@ -18,6 +18,7 @@ import PropertyDetailV5 from "./components/luxury/PropertyDetailV5";
 import PropertyDetailV6 from "./components/luxury/PropertyDetailV6";
 import NotFound from "./pages/NotFound";
 import HomePortal from "./pages/HomePortal";
+import Home3LandingPage from "./components/home-3/Home3LandingPage";
 import PropertyPdfV1 from "./components/pdf/PropertyPdfV1";
 import PropertyPdfV2 from "./components/pdf/PropertyPdfV2";
 
