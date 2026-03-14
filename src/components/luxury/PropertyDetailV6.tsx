@@ -922,8 +922,8 @@ const PropertyDetailV6 = () => {
         </div>
       )}
 
-      {/* Bottom padding for mobile sticky bar */}
-      {isMobile && <div className="h-16" />}
+      {/* Bottom padding for mobile/tablet sticky bar */}
+      <div className="lg:hidden h-16" />
     </div>
   );
 };
