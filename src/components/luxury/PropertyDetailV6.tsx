@@ -72,13 +72,12 @@ Located in the sought-after area of Santa Eulalia del Río, this property offers
     "Air Conditioning", "Alarm System", "Double Garage", "Garden",
     "Terrace", "Staff Quarters", "Elevator", "Laundry Room",
   ],
-  agent: {
-    name: "Isabella Martínez",
-    role: "Senior Property Advisor",
+  agency: {
+    name: brand.fullName,
     phone: "+34 600 123 456",
     whatsapp: "34600123456",
-    email: "isabella@luxinmo.com",
-    photo: heroImg,
+    email: "info@prestigeestates.com",
+    logo: null, // uses brand text as logo
   },
   lat: 38.9848,
   lng: 1.5326,
@@ -379,19 +378,35 @@ const PropertyDetailV6 = () => {
 
               {/* CTA buttons */}
               <div className="flex gap-2 mb-2">
-                <a href={`tel:${p.agent.phone}`} className="flex-1 flex items-center justify-center gap-2 bg-luxury-black text-white text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-luxury-black/85 transition-all">
+                <a href={`tel:${p.agency.phone}`} className="flex-1 flex items-center justify-center gap-2 bg-luxury-black text-white text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-luxury-black/85 transition-all">
                   <Phone className="w-3.5 h-3.5" /> Call
                 </a>
-                <a href={`https://wa.me/${p.agent.whatsapp}`} target="_blank" rel="noopener noreferrer" className="flex-1 flex items-center justify-center gap-2 bg-[#25D366] text-white text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-[#22bf5b] transition-all">
+                <a href={`https://wa.me/${p.agency.whatsapp}`} target="_blank" rel="noopener noreferrer" className="flex-1 flex items-center justify-center gap-2 bg-[#25D366] text-white text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-[#22bf5b] transition-all">
                   <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
                 </a>
               </div>
               <button
                 onClick={() => setEnquiryOpen(true)}
-                className="w-full flex items-center justify-center gap-2 border border-neutral-300 text-luxury-black text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-neutral-100 transition-all"
+                className="w-full flex items-center justify-center gap-2 border border-neutral-300 text-luxury-black text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-neutral-100 transition-all mb-5"
               >
                 <Mail className="w-3.5 h-3.5" /> Send Enquiry
               </button>
+
+              {/* Agency info */}
+              <div className="border-t border-neutral-200 pt-5">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-12 h-12 rounded-full bg-luxury-black flex items-center justify-center shrink-0">
+                    <span className="text-[10px] tracking-[0.15em] text-white font-medium">PE</span>
+                  </div>
+                  <div>
+                    <h3 className="text-[14px] font-medium text-luxury-black tracking-wide">{p.agency.name}</h3>
+                    <p className="text-[12px] text-luxury-black/45 font-light">Luxury Real Estate</p>
+                  </div>
+                </div>
+                <p className="text-[13px] text-luxury-black/55 font-light leading-relaxed">
+                  Get in touch with {p.agency.name} for a personal consultation about this property or to arrange a private viewing.
+                </p>
+              </div>
             </div>
           </div>
         </header>
@@ -499,30 +514,30 @@ const PropertyDetailV6 = () => {
             </section>
           </div>
 
-          {/* ─── RIGHT SIDEBAR: Agent Summary ─── */}
+          {/* ─── RIGHT SIDEBAR: Agency Summary ─── */}
           <aside className="lg:col-span-5">
             <div className="lg:sticky lg:top-[80px] space-y-5">
               <div className="bg-neutral-50 border border-neutral-200 rounded-sm p-6">
-                {/* Agent card */}
+                {/* Agency card */}
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="w-14 h-14 rounded-full overflow-hidden bg-neutral-200 shrink-0">
-                    <img src={p.agent.photo} alt={p.agent.name} className="w-full h-full object-cover" />
+                  <div className="w-14 h-14 rounded-full bg-luxury-black flex items-center justify-center shrink-0">
+                    <span className="text-[11px] tracking-[0.15em] text-white font-medium">PE</span>
                   </div>
                   <div>
-                    <h3 className="text-[15px] font-medium text-luxury-black">{p.agent.name}</h3>
-                    <p className="text-[13px] text-luxury-black/55 font-light">{p.agent.role}</p>
+                    <h3 className="text-[15px] font-medium text-luxury-black">{p.agency.name}</h3>
+                    <p className="text-[13px] text-luxury-black/55 font-light">Luxury Real Estate</p>
                   </div>
                 </div>
 
                 <p className="text-[13px] text-luxury-black/60 font-light leading-relaxed mb-5">
-                  Get in touch with {p.agent.name.split(" ")[0]} for a personal consultation about this property or to arrange a private viewing.
+                  Get in touch with {p.agency.name} for a personal consultation about this property or to arrange a private viewing.
                 </p>
 
                 <div className="space-y-2">
-                  <a href={`tel:${p.agent.phone}`} className="w-full flex items-center justify-center gap-2 bg-luxury-black text-white text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-luxury-black/85 transition-all">
-                    <Phone className="w-3.5 h-3.5" /> Call {p.agent.name.split(" ")[0]}
+                  <a href={`tel:${p.agency.phone}`} className="w-full flex items-center justify-center gap-2 bg-luxury-black text-white text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-luxury-black/85 transition-all">
+                    <Phone className="w-3.5 h-3.5" /> Call
                   </a>
-                  <a href={`https://wa.me/${p.agent.whatsapp}`} target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-2 bg-[#25D366] text-white text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-[#22bf5b] transition-all">
+                  <a href={`https://wa.me/${p.agency.whatsapp}`} target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-2 bg-[#25D366] text-white text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-[#22bf5b] transition-all">
                     <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
                   </a>
                   <button onClick={() => setEnquiryOpen(true)} className="w-full flex items-center justify-center gap-2 border border-neutral-300 text-luxury-black text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-neutral-100 transition-all">
@@ -637,12 +652,12 @@ const PropertyDetailV6 = () => {
         <DialogContent className="max-w-md p-0 rounded-sm border-neutral-200 overflow-hidden">
           <div className="p-6 pb-0">
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-14 h-14 rounded-full overflow-hidden bg-neutral-200 shrink-0">
-                <img src={p.agent.photo} alt={p.agent.name} className="w-full h-full object-cover" />
+              <div className="w-14 h-14 rounded-full bg-luxury-black flex items-center justify-center shrink-0">
+                <span className="text-[11px] tracking-[0.15em] text-white font-medium">PE</span>
               </div>
               <div>
-                <DialogTitle className="text-[16px] font-medium text-luxury-black">{p.agent.name}</DialogTitle>
-                <DialogDescription className="text-[13px] text-luxury-black/55 font-light">{p.agent.role}</DialogDescription>
+                <DialogTitle className="text-[16px] font-medium text-luxury-black">{p.agency.name}</DialogTitle>
+                <DialogDescription className="text-[13px] text-luxury-black/55 font-light">Luxury Real Estate</DialogDescription>
               </div>
             </div>
           </div>
@@ -699,12 +714,12 @@ const PropertyDetailV6 = () => {
       {/* ═══ MOBILE STICKY CONTACT BAR ═══ */}
       {isMobile && (
         <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-neutral-200 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] flex items-center gap-0">
-          <a href={`tel:${p.agent.phone}`} className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 text-luxury-black hover:bg-neutral-50 transition-colors">
+          <a href={`tel:${p.agency.phone}`} className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 text-luxury-black hover:bg-neutral-50 transition-colors">
             <Phone className="w-4 h-4" />
             <span className="text-[10px] tracking-[0.1em] uppercase font-medium">Call</span>
           </a>
           <div className="w-px h-8 bg-neutral-200" />
-          <a href={`https://wa.me/${p.agent.whatsapp}`} target="_blank" rel="noopener noreferrer" className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 text-[#25D366] hover:bg-neutral-50 transition-colors">
+          <a href={`https://wa.me/${p.agency.whatsapp}`} target="_blank" rel="noopener noreferrer" className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 text-[#25D366] hover:bg-neutral-50 transition-colors">
             <MessageCircle className="w-4 h-4" />
             <span className="text-[10px] tracking-[0.1em] uppercase font-medium">WhatsApp</span>
           </a>
