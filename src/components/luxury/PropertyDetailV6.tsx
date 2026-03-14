@@ -369,7 +369,10 @@ const PropertyDetailV6 = () => {
 
             {/* Property tags */}
             <div className="flex flex-wrap gap-2 mt-4 mb-6">
-              {["Exclusive", "Gated Community", "Newly Built", "Turnkey", "Sea Views", `Also for Rent · ${p.rentalPrice}`].map((tag, i) => (
+              <span className="text-[12px] text-luxury-gold font-medium border border-luxury-gold/40 bg-luxury-gold/5 px-3.5 py-2 tracking-[0.05em]">
+                Exclusive
+              </span>
+              {["Gated Community", "Newly Built", "Sea Views"].map((tag, i) => (
                 <span key={i} className="text-[12px] text-luxury-black/80 border border-neutral-200 px-3.5 py-2 font-light">
                   {tag}
                 </span>
@@ -558,6 +561,7 @@ const PropertyDetailV6 = () => {
                 <p className="text-[13px] text-luxury-black/55 font-light leading-relaxed text-center">
                   Get in touch for a personal consultation or to arrange a private viewing.
                 </p>
+                <p className="text-[11px] text-luxury-black/40 font-mono text-center mt-2">REF-{p.ref}</p>
               </div>
             </div>
           </aside>
