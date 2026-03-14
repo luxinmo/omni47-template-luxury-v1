@@ -419,18 +419,6 @@ const PropertyDetailV6 = () => {
           </div>
         </section>
 
-        {/* ─── HIGHLIGHTS ─── */}
-        <section aria-label="Property highlights" className="mb-6 pb-6 border-b border-neutral-200">
-          <h2 className="text-[15px] font-medium text-luxury-black mb-4">Property Highlights</h2>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {p.highlights.map((h, i) => (
-              <li key={i} className="flex items-start gap-3 text-[14px] text-luxury-black/75 font-light">
-                <Star className="w-4 h-4 text-luxury-gold/70 shrink-0 mt-0.5" strokeWidth={1.5} />
-                {h}
-              </li>
-            ))}
-          </ul>
-        </section>
 
         {/* ─── BODY: CONTENT + SIDEBAR ─── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
