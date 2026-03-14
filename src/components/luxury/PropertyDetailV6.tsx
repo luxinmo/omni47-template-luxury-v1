@@ -818,6 +818,24 @@ const PropertyDetailV6 = () => {
         </div>
       </section>
 
+      {/* ─── RECENTLY VIEWED ─── */}
+      <section className="border-t border-neutral-200">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-8">
+          <p className="text-[14px] font-normal text-luxury-black mb-4">Recently Viewed</p>
+          <div className="flex gap-3 overflow-x-auto pb-2">
+            {[...SIMILAR, ...SIMILAR].slice(0, 5).map((s, i) => (
+              <Link key={i} to={s.href} className="shrink-0 w-[150px] group">
+                <div className="relative overflow-hidden aspect-[4/3] mb-1.5">
+                  <img src={s.image} alt={s.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                </div>
+                <p className="text-[12px] text-luxury-black/85 font-light leading-snug line-clamp-2">{s.name}</p>
+                <p className="text-[13px] font-normal text-luxury-black mt-0.5">{s.price}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ─── FOOTER ─── */}
       <footer className="bg-luxury-black">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-10">
@@ -987,23 +1005,8 @@ const PropertyDetailV6 = () => {
         </div>
       )}
 
-      {/* ─── RECENTLY VIEWED ─── */}
-      <section className="border-t border-neutral-200">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-8">
-          <p className="text-[14px] font-normal text-luxury-black mb-4">Recently Viewed</p>
-          <div className="flex gap-3 overflow-x-auto pb-2">
-            {[...SIMILAR, ...SIMILAR].slice(0, 5).map((s, i) => (
-              <Link key={i} to={s.href} className="shrink-0 w-[150px] group">
-                <div className="relative overflow-hidden aspect-[4/3] mb-1.5">
-                  <img src={s.image} alt={s.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                </div>
-                <p className="text-[12px] text-luxury-black/85 font-light leading-snug line-clamp-2">{s.name}</p>
-                <p className="text-[13px] font-normal text-luxury-black mt-0.5">{s.price}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+
+
 
       {/* ─── FULLSCREEN LIGHTBOX ─── */}
       {lightbox !== null && (
