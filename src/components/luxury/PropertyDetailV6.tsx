@@ -334,7 +334,7 @@ const PropertyDetailV6 = () => {
         </div>
 
         {/* Mosaic grid for desktop (lg+) */}
-        <div className="hidden lg:grid grid-cols-4 grid-rows-2 gap-1.5 h-[540px]">
+        <div className="hidden lg:grid grid-cols-4 grid-rows-2 gap-1.5 h-[620px]">
           <div className="col-span-2 row-span-2 relative overflow-hidden cursor-pointer group" onClick={() => setLightbox(0)}>
             <img src={p.images[0]} alt={p.title} loading="eager" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
             <div className="absolute bottom-4 right-4 flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-sm">
