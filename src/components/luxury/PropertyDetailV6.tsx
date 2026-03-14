@@ -483,8 +483,8 @@ const PropertyDetailV6 = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {NEARBY_AREAS.map((area, i) => (
                   <Link key={i} to={area.href} className="flex items-center justify-between bg-neutral-50 border border-neutral-200 rounded-sm px-4 py-3 hover:bg-neutral-100 hover:border-neutral-300 transition-all group">
-                    <span className="text-[14px] text-luxury-black/75 font-light group-hover:text-luxury-black transition-colors">{area.label}</span>
-                    <span className="flex items-center gap-2 text-[12px] text-luxury-black/45">
+                    <span className="text-[14px] text-luxury-black/85 font-light group-hover:text-luxury-black transition-colors">{area.label}</span>
+                    <span className="flex items-center gap-2 text-[12px] text-luxury-black/60">
                       {area.count} properties <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
                     </span>
                   </Link>
