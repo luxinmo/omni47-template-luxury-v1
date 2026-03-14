@@ -65,20 +65,19 @@ const Navbar = ({
 
         {/* Language Dialog */}
         <Dialog open={langOpen} onOpenChange={setLangOpen}>
-          <DialogContent className="max-w-sm p-6 rounded-md border-2 border-neutral-300 overflow-hidden shadow-xl">
-            <DialogTitle className="text-[11px] tracking-[0.15em] uppercase font-medium text-luxury-black/40 mb-4">Select Language</DialogTitle>
+          <DialogContent className="max-w-md p-6 rounded-md border-2 border-neutral-300 overflow-hidden shadow-xl">
+            <DialogTitle className="text-[11px] tracking-[0.15em] uppercase font-medium text-luxury-black/40 mb-5">Select Language</DialogTitle>
             <DialogDescription className="sr-only">Choose your preferred language</DialogDescription>
-            <div className="space-y-1">
+            <div className="grid grid-cols-3 gap-2">
               {languages.map((lang) => (
                 <button
                   key={lang.code}
                   onClick={() => { setCurrentLang(lang.code); setLangOpen(false); }}
-                  className={`w-full flex items-center gap-4 px-4 py-3 rounded-sm text-[14px] hover:bg-neutral-50 transition-colors ${currentLang === lang.code ? "bg-neutral-50 font-medium" : "font-light"}`}
+                  className={`flex flex-col items-center gap-2 px-3 py-4 rounded-sm text-[13px] border transition-colors ${currentLang === lang.code ? "bg-neutral-50 border-neutral-300 font-medium" : "border-transparent font-light hover:bg-neutral-50"}`}
                   style={{ color: currentLang === lang.code ? palette.text : palette.textMuted }}
                 >
-                  <img src={`https://flagcdn.com/28x21/${lang.flag}.png`} alt="" className="w-7 h-[21px] object-cover rounded-[2px]" />
+                  <img src={`https://flagcdn.com/40x30/${lang.flag}.png`} alt="" className="w-10 h-[30px] object-cover rounded-[3px] shadow-sm" />
                   <span>{lang.label}</span>
-                  {currentLang === lang.code && <Check className="w-4 h-4 ml-auto opacity-50" />}
                 </button>
               ))}
             </div>
