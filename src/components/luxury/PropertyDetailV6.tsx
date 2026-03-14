@@ -337,7 +337,7 @@ const PropertyDetailV6 = () => {
             </h1>
 
             {/* Subtitle */}
-            <p className="text-[15px] text-luxury-black/75 font-light leading-relaxed" itemProp="description">
+            <p className="text-[15px] text-luxury-black/75 font-light leading-relaxed mb-4" itemProp="description">
               {p.subtitle}
             </p>
 
