@@ -494,12 +494,6 @@ const PropertyDetailV6 = () => {
                   <Home className="w-3.5 h-3.5 text-luxury-gold/80" /> Also for rent: <span className="font-medium text-luxury-black/80">{p.rentalPrice}</span>
                 </p>
               )}
-              <button
-                onClick={() => setEnquiryOpen(true)}
-                className="w-full flex items-center justify-center gap-2 bg-luxury-black text-white text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-luxury-black/85 transition-all"
-              >
-                <Mail className="w-3.5 h-3.5" /> Send Enquiry
-              </button>
               <p className="text-[12px] text-luxury-black/50 font-mono text-center mt-2 tracking-[0.05em]">REF-{p.ref}</p>
             </div>
 
