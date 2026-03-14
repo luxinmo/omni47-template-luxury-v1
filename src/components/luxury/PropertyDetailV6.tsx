@@ -426,8 +426,8 @@ const PropertyDetailV6 = () => {
               <h2 className="text-[18px] font-medium text-luxury-black mb-5">Features & Amenities</h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-3">
                 {p.features.map((f, i) => (
-                  <div key={i} className="flex items-center gap-2 text-[14px] text-luxury-black/70 font-light">
-                    <Check className="w-3.5 h-3.5 text-luxury-black/35" strokeWidth={2} />
+                  <div key={i} className="flex items-center gap-2 text-[14px] text-luxury-black/80 font-light">
+                    <Check className="w-3.5 h-3.5 text-luxury-black/50" strokeWidth={2} />
                     {f}
                   </div>
                 ))}
