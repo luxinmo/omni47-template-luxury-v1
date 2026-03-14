@@ -192,6 +192,8 @@ const PropertyDetailV6 = () => {
   const [chatOpen, setChatOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState("EN");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [heroSlide, setHeroSlide] = useState(0);
   const [chatMessages, setChatMessages] = useState<{ role: "user" | "bot"; text: string }[]>([
     { role: "bot", text: "Hello! I'm here to help you with any questions about this property. How can I assist you?" },
   ]);
@@ -199,6 +201,22 @@ const PropertyDetailV6 = () => {
   const isMobile = useIsMobile();
 
   const p = PROPERTY;
+
+  // Swipe logic
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  }, []);
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (!touchStart.current) return;
+    const dx = e.changedTouches[0].clientX - touchStart.current.x;
+    const dy = e.changedTouches[0].clientY - touchStart.current.y;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+      if (dx < 0) setHeroSlide((s) => Math.min(s + 1, p.images.length - 1));
+      else setHeroSlide((s) => Math.max(s - 1, 0));
+    }
+    touchStart.current = null;
+  }, [p.images.length]);
 
   const handleChatSend = () => {
     if (!chatInput.trim()) return;
