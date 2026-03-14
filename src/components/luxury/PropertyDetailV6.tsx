@@ -843,12 +843,7 @@ const PropertyDetailV6 = () => {
       )}
 
       {chatOpen && (
-        <div className={cn(
-          "fixed z-50 bg-white border border-neutral-200 shadow-xl flex flex-col",
-          isMobile
-            ? "inset-0"
-            : "bottom-6 right-6 w-[380px] h-[520px] rounded-lg overflow-hidden"
-        )}>
+        <div className="fixed z-50 bg-white border border-neutral-200 shadow-xl flex flex-col inset-0 lg:inset-auto lg:bottom-6 lg:right-6 lg:w-[380px] lg:h-[520px] lg:rounded-lg lg:overflow-hidden">
           {/* Chat header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-200 bg-neutral-50">
             <span className="text-[13px] font-medium text-luxury-black tracking-wide">{brand.fullName}</span>
