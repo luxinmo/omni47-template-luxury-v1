@@ -1,0 +1,263 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+
+/**
+ * BLOCKS CATALOG — Visual index of all available blocks
+ * Each block can be previewed individually or combined in preview pages.
+ */
+
+import HeroCarouselCenter from "@/components/blocks/heroes/HeroCarouselCenter";
+import HeroEditorialLeft from "@/components/blocks/heroes/HeroEditorialLeft";
+import StatsRibbon from "@/components/blocks/stats/StatsRibbon";
+import StatsBarDividers from "@/components/blocks/stats/StatsBarDividers";
+import FeaturedGrid4Col from "@/components/blocks/featured-properties/FeaturedGrid4Col";
+import FeaturedGrid3Col from "@/components/blocks/featured-properties/FeaturedGrid3Col";
+import FeaturedGridPortrait from "@/components/blocks/featured-properties/FeaturedGridPortrait";
+import DestinationsGridTall from "@/components/blocks/destinations/DestinationsGridTall";
+import DestinationsAsymmetric from "@/components/blocks/destinations/DestinationsAsymmetric";
+import PropertyTypesGrid from "@/components/blocks/property-types/PropertyTypesGrid";
+import CollectionsLandscape from "@/components/blocks/collections/CollectionsLandscape";
+import CollectionsTagged from "@/components/blocks/collections/CollectionsTagged";
+import BrandedFullwidth from "@/components/blocks/branded/BrandedFullwidth";
+import NewdevGridSimple from "@/components/blocks/new-developments/NewdevGridSimple";
+import OffmarketSplit from "@/components/blocks/offmarket/OffmarketSplit";
+import AboutServicesSplit from "@/components/blocks/about/AboutServicesSplit";
+import IntroSplitImage from "@/components/blocks/about/IntroSplitImage";
+import TestimonialCinematic from "@/components/blocks/testimonials/TestimonialCinematic";
+import TestimonialParallaxQuote from "@/components/blocks/testimonials/TestimonialParallaxQuote";
+import FinderFormCentered from "@/components/blocks/finder/FinderFormCentered";
+import MarketDataCards from "@/components/blocks/market/MarketDataCards";
+import TrustIcons from "@/components/blocks/trust/TrustIcons";
+import JournalEditorial from "@/components/blocks/journal/JournalEditorial";
+import AreasTextList from "@/components/blocks/areas/AreasTextList";
+import InvestmentGrid from "@/components/blocks/investments/InvestmentGrid";
+import NewsletterCentered from "@/components/blocks/cta/NewsletterCentered";
+import NewsletterBordered from "@/components/blocks/cta/NewsletterBordered";
+import NavbarLuxury from "@/components/blocks/navbar/NavbarLuxury";
+import FooterLuxury from "@/components/blocks/footer/FooterLuxury";
+import FooterEditorial from "@/components/blocks/footer/FooterEditorial";
+
+const CATEGORIES = [
+  {
+    title: "🏠 Heroes",
+    blocks: [
+      { id: "hero-carousel-center", name: "Hero Carousel Centrado", origin: "Home2/3/4", component: HeroCarouselCenter },
+      { id: "hero-editorial-left", name: "Hero Editorial Izquierda", origin: "Portal", component: HeroEditorialLeft },
+    ],
+  },
+  {
+    title: "📊 Stats",
+    blocks: [
+      { id: "stats-ribbon", name: "Stats Ribbon", origin: "Home2/3/4", component: StatsRibbon },
+      { id: "stats-bar-dividers", name: "Stats Bar Dividers", origin: "Portal", component: StatsBarDividers },
+    ],
+  },
+  {
+    title: "🏡 Propiedades Destacadas",
+    blocks: [
+      { id: "featured-grid-4col", name: "Grid 4 Columnas", origin: "Home2", component: FeaturedGrid4Col },
+      { id: "featured-grid-3col", name: "Grid 3 Columnas", origin: "Home3/4", component: FeaturedGrid3Col },
+      { id: "featured-grid-portrait", name: "Grid Retratos", origin: "Portal", component: FeaturedGridPortrait },
+    ],
+  },
+  {
+    title: "🗺️ Destinos",
+    blocks: [
+      { id: "destinations-grid-tall", name: "Grid Vertical", origin: "Home2/3", component: DestinationsGridTall },
+      { id: "destinations-asymmetric", name: "Grid Asimétrico", origin: "Portal", component: DestinationsAsymmetric },
+    ],
+  },
+  {
+    title: "🏷️ Tipos de Propiedad",
+    blocks: [
+      { id: "property-types-grid", name: "Grid de Tipos", origin: "Home3", component: PropertyTypesGrid },
+    ],
+  },
+  {
+    title: "🎨 Colecciones / Lifestyle",
+    blocks: [
+      { id: "collections-landscape", name: "Colecciones Paisaje", origin: "Home3/4", component: CollectionsLandscape },
+      { id: "collections-tagged", name: "Colecciones con Tags", origin: "Portal", component: CollectionsTagged },
+    ],
+  },
+  {
+    title: "👑 Branded Residences",
+    blocks: [
+      { id: "branded-fullwidth", name: "Branded Fullwidth", origin: "Home3", component: BrandedFullwidth },
+    ],
+  },
+  {
+    title: "🏗️ Nuevas Promociones",
+    blocks: [
+      { id: "newdev-grid-simple", name: "Grid Simple", origin: "Home3/4", component: NewdevGridSimple },
+    ],
+  },
+  {
+    title: "🔒 Off-Market",
+    blocks: [
+      { id: "offmarket-split", name: "Off-Market Split", origin: "Home2/3/4", component: OffmarketSplit },
+    ],
+  },
+  {
+    title: "ℹ️ Sobre / Servicios",
+    blocks: [
+      { id: "about-services-split", name: "About + Services Split", origin: "Home2", component: AboutServicesSplit },
+      { id: "intro-split-image", name: "Intro con Imagen", origin: "Portal", component: IntroSplitImage },
+    ],
+  },
+  {
+    title: "💬 Testimonios",
+    blocks: [
+      { id: "testimonial-cinematic", name: "Testimonial Cinematográfico", origin: "Home2", component: TestimonialCinematic },
+      { id: "testimonial-parallax-quote", name: "Quote Parallax", origin: "Portal", component: TestimonialParallaxQuote },
+    ],
+  },
+  {
+    title: "🔍 Property Finder",
+    blocks: [
+      { id: "finder-form-centered", name: "Formulario Centrado", origin: "Home4", component: FinderFormCentered },
+    ],
+  },
+  {
+    title: "📈 Market Insights",
+    blocks: [
+      { id: "market-data-cards", name: "Cards de Datos", origin: "Home3/4", component: MarketDataCards },
+    ],
+  },
+  {
+    title: "⭐ Confianza / Trust",
+    blocks: [
+      { id: "trust-icons", name: "Trust con Iconos", origin: "Home4", component: TrustIcons },
+    ],
+  },
+  {
+    title: "📰 Journal / Blog",
+    blocks: [
+      { id: "journal-editorial", name: "Journal Editorial", origin: "Home2/3/4", component: JournalEditorial },
+    ],
+  },
+  {
+    title: "📍 Áreas",
+    blocks: [
+      { id: "areas-text-list", name: "Lista de Áreas", origin: "Home3/4", component: AreasTextList },
+    ],
+  },
+  {
+    title: "💼 Inversiones",
+    blocks: [
+      { id: "investment-grid", name: "Grid de Inversiones", origin: "Portal", component: InvestmentGrid },
+    ],
+  },
+  {
+    title: "📣 Newsletter / CTA",
+    blocks: [
+      { id: "newsletter-centered", name: "Newsletter Centrado", origin: "Home2/3/4", component: NewsletterCentered },
+      { id: "newsletter-bordered", name: "Newsletter con Líneas", origin: "Portal", component: NewsletterBordered },
+    ],
+  },
+  {
+    title: "🧭 Navbar",
+    blocks: [
+      { id: "navbar-luxury", name: "Navbar Luxury", origin: "Layout", component: NavbarLuxury },
+    ],
+  },
+  {
+    title: "📎 Footer",
+    blocks: [
+      { id: "footer-luxury", name: "Footer Luxury", origin: "Layout", component: FooterLuxury },
+      { id: "footer-editorial", name: "Footer Editorial", origin: "Portal", component: FooterEditorial },
+    ],
+  },
+];
+
+const BlocksCatalog = () => {
+  const [expandedBlock, setExpandedBlock] = useState<string | null>(null);
+
+  return (
+    <div className="min-h-screen bg-white" style={{ fontFamily: "'Jost', sans-serif" }}>
+      {/* Header */}
+      <div className="bg-neutral-900 text-white py-16 px-6">
+        <div className="max-w-[1200px] mx-auto">
+          <p className="text-[11px] tracking-[0.4em] uppercase text-white/40 mb-4">Omni47 Block Library</p>
+          <h1 className="text-[36px] sm:text-[48px] font-extralight tracking-[-0.02em] mb-4">
+            Catálogo de Bloques
+          </h1>
+          <p className="text-[15px] font-light text-white/50 max-w-xl leading-relaxed">
+            Biblioteca completa de bloques visuales independientes extraídos del proyecto.
+            Cada bloque funciona de forma aislada y acepta props configurables.
+          </p>
+          <div className="flex gap-4 mt-8 text-[12px] tracking-[0.1em] text-white/30">
+            <span>{CATEGORIES.length} categorías</span>
+            <span>·</span>
+            <span>{CATEGORIES.reduce((acc, c) => acc + c.blocks.length, 0)} bloques</span>
+          </div>
+          <div className="flex gap-3 mt-6">
+            <Link to="/" className="text-[11px] tracking-[0.15em] uppercase px-6 py-2.5 border border-white/20 text-white/60 hover:bg-white/10 transition-colors">
+              Home Original
+            </Link>
+            <Link to="/home3" className="text-[11px] tracking-[0.15em] uppercase px-6 py-2.5 border border-white/20 text-white/60 hover:bg-white/10 transition-colors">
+              Home 3
+            </Link>
+            <Link to="/home4" className="text-[11px] tracking-[0.15em] uppercase px-6 py-2.5 border border-white/20 text-white/60 hover:bg-white/10 transition-colors">
+              Home 4
+            </Link>
+            <Link to="/portal" className="text-[11px] tracking-[0.15em] uppercase px-6 py-2.5 border border-white/20 text-white/60 hover:bg-white/10 transition-colors">
+              Portal
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Categories */}
+      <div className="max-w-[1200px] mx-auto px-6 py-12">
+        {CATEGORIES.map((cat) => (
+          <div key={cat.title} className="mb-12">
+            <h2 className="text-[22px] font-extralight mb-6 pb-3 border-b border-neutral-100">
+              {cat.title}
+              <span className="text-[13px] text-neutral-400 font-light ml-3">({cat.blocks.length} variantes)</span>
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {cat.blocks.map((block) => (
+                <button
+                  key={block.id}
+                  onClick={() => setExpandedBlock(expandedBlock === block.id ? null : block.id)}
+                  className="text-left p-5 border border-neutral-100 hover:border-neutral-300 transition-all duration-300 hover:shadow-sm"
+                >
+                  <p className="text-[15px] font-light text-neutral-900 mb-1">{block.name}</p>
+                  <p className="text-[11px] tracking-[0.1em] text-neutral-400 font-light">
+                    Origen: {block.origin}
+                  </p>
+                  <p className="text-[11px] tracking-[0.05em] text-neutral-300 font-light mt-1 font-mono">
+                    {block.id}
+                  </p>
+                  <p className="text-[10px] text-neutral-400 mt-3">
+                    {expandedBlock === block.id ? "▲ Ocultar preview" : "▼ Mostrar preview"}
+                  </p>
+                </button>
+              ))}
+            </div>
+
+            {/* Expanded preview */}
+            {cat.blocks.map((block) =>
+              expandedBlock === block.id ? (
+                <div key={`preview-${block.id}`} className="mt-4 border border-neutral-200 overflow-hidden">
+                  <div className="bg-neutral-50 px-5 py-3 flex items-center justify-between border-b border-neutral-200">
+                    <span className="text-[12px] font-mono text-neutral-500">{block.id}</span>
+                    <button onClick={() => setExpandedBlock(null)} className="text-[11px] text-neutral-400 hover:text-neutral-700">
+                      Cerrar ✕
+                    </button>
+                  </div>
+                  <div className="overflow-x-auto">
+                    <block.component />
+                  </div>
+                </div>
+              ) : null
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default BlocksCatalog;
