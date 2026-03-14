@@ -1,5 +1,5 @@
-import * as LucideIcons from "lucide-react";
 import { mockMarketData } from "@/data/mock-data";
+import { getIcon } from "@/components/blocks/_utils/get-icon";
 
 interface MarketDataCardsProps {
   sectionLabel?: string;
