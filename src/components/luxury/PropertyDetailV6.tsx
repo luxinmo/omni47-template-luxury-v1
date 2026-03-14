@@ -230,7 +230,7 @@ const PropertyDetailV6 = () => {
           <div className="hidden lg:flex items-center gap-10">
             <div className="relative">
               <button onClick={() => setLangOpen(!langOpen)} className="flex items-center gap-1.5 text-luxury-black/50 hover:text-luxury-black transition-colors duration-300" aria-label="Select language">
-                <span className="text-lg leading-none">{languages.find(l => l.code === currentLang)?.flag}</span>
+                <img src={`https://flagcdn.com/20x15/${languages.find(l => l.code === currentLang)?.flag}.png`} alt="" className="w-5 h-[15px] object-cover rounded-[2px]" />
                 <span className="text-[11px] tracking-[0.1em] font-medium">{currentLang}</span>
                 <svg className="w-3 h-3 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
               </button>
