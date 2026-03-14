@@ -15,7 +15,7 @@ import { brand, navLeft, navRight } from "@/config/template";
 import SEOHead from "@/components/shared/SEOHead";
 import LuxuryPhoneInput from "./LuxuryPhoneInput";
 import LuxuryMortgageCalculator from "./LuxuryMortgageCalculator";
-import LuxuryNearbyPlaces from "./LuxuryNearbyPlaces";
+
 import { useIsMobile } from "@/hooks/use-mobile";
 import heroImg from "@/assets/luxury-hero.jpg";
 import prop1 from "@/assets/luxury-property-1.jpg";
