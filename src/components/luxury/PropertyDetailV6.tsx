@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import {
-  Bed, Bath, Maximize, MapPin, Heart, Share2, ChevronLeft, ChevronRight,
+  Bed, Bath, Maximize, MapPin, Heart, Share2, ChevronLeft, ChevronRight, Menu,
   X, Check, Phone, Fence, Mail, ChevronDown, CalendarDays, Star,
   Play, View, FileDown, Home, Grid3X3, TrendingUp,
   ArrowRight, MessageCircle, Send,
@@ -192,6 +192,8 @@ const PropertyDetailV6 = () => {
   const [chatOpen, setChatOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState("EN");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [heroSlide, setHeroSlide] = useState(0);
   const [chatMessages, setChatMessages] = useState<{ role: "user" | "bot"; text: string }[]>([
     { role: "bot", text: "Hello! I'm here to help you with any questions about this property. How can I assist you?" },
   ]);
@@ -199,6 +201,22 @@ const PropertyDetailV6 = () => {
   const isMobile = useIsMobile();
 
   const p = PROPERTY;
+
+  // Swipe logic
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  }, []);
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (!touchStart.current) return;
+    const dx = e.changedTouches[0].clientX - touchStart.current.x;
+    const dy = e.changedTouches[0].clientY - touchStart.current.y;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+      if (dx < 0) setHeroSlide((s) => Math.min(s + 1, p.images.length - 1));
+      else setHeroSlide((s) => Math.max(s - 1, 0));
+    }
+    touchStart.current = null;
+  }, [p.images.length]);
 
   const handleChatSend = () => {
     if (!chatInput.trim()) return;
@@ -227,10 +245,9 @@ const PropertyDetailV6 = () => {
       {/* ─── NAVBAR ─── */}
       <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm" aria-label="Main navigation">
         <div className="max-w-[1400px] mx-auto flex items-center justify-between px-4 md:px-6 lg:px-10 h-[60px] md:h-[68px]">
-          {/* Left: hamburger on mobile/tablet, nav links on desktop */}
           <div className="flex items-center gap-6 lg:gap-10 flex-1">
-            <button className="lg:hidden text-luxury-black/70" aria-label="Open menu">
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" /></svg>
+            <button className="lg:hidden text-luxury-black/70" aria-label="Open menu" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
             <div className="hidden lg:flex items-center gap-10">
               <button onClick={() => setLangOpen(true)} className="flex items-center gap-1.5 text-luxury-black/50 hover:text-luxury-black transition-colors duration-300" aria-label="Select language">
@@ -243,14 +260,10 @@ const PropertyDetailV6 = () => {
               ))}
             </div>
           </div>
-
-          {/* Center: logo */}
           <Link to="/" className="flex flex-col items-center justify-center shrink-0">
             <span className="text-base md:text-lg lg:text-xl tracking-[0.3em] font-light text-luxury-black">{brand.fullName}</span>
             <span className="text-[9px] md:text-[10px] tracking-[0.35em] uppercase font-light text-luxury-black/40">{brand.subtitle}</span>
           </Link>
-
-          {/* Right: nav links on desktop, phone icon on tablet */}
           <div className="flex items-center justify-end gap-6 lg:gap-10 flex-1">
             <div className="hidden lg:flex items-center gap-10">
               {navRight.map((l) => (
@@ -259,13 +272,44 @@ const PropertyDetailV6 = () => {
             </div>
           </div>
         </div>
+
+        {/* Mobile menu dropdown */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden border-t border-neutral-100 bg-white animate-in slide-in-from-top-1 duration-200">
+            <div className="px-6 py-4 flex flex-col">
+              {[...navLeft, ...navRight].map((item) => (
+                <Link
+                  key={item.label}
+                  to={item.href}
+                  className="text-[14px] tracking-[0.08em] uppercase font-light py-3.5 text-luxury-black/70 border-b border-neutral-100 last:border-b-0 hover:text-luxury-black transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* ═══ HERO GALLERY ═══ */}
       <section aria-label="Property photos">
-        {/* Single photo for mobile & tablet */}
-        <div className="lg:hidden relative aspect-[4/3] sm:aspect-[16/10] overflow-hidden cursor-pointer" onClick={() => setLightbox(0)}>
-          <img src={p.images[0]} alt={p.title} loading="eager" className="w-full h-full object-cover" />
+        {/* Swipeable gallery for mobile & tablet */}
+        <div className="lg:hidden relative overflow-hidden" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+          <div
+            className="flex transition-transform duration-300 ease-out"
+            style={{ transform: `translateX(-${heroSlide * 100}%)` }}
+          >
+            {p.images.map((img, i) => (
+              <div key={i} className="w-full shrink-0 aspect-[4/3] sm:aspect-[16/10]" onClick={() => setLightbox(i)}>
+                <img src={img} alt={`${p.title} — photo ${i + 1}`} loading={i === 0 ? "eager" : "lazy"} className="w-full h-full object-cover" />
+              </div>
+            ))}
+          </div>
+          {/* Slide counter */}
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-sm text-white text-[12px] font-medium px-3 py-1 rounded-full">
+            {heroSlide + 1} / {p.images.length}
+          </div>
         </div>
         {/* Actions bar below photo on mobile */}
         <div className="lg:hidden flex items-center justify-between px-4 py-2.5 border-b border-neutral-100">
@@ -290,7 +334,7 @@ const PropertyDetailV6 = () => {
         </div>
 
         {/* Mosaic grid for desktop (lg+) */}
-        <div className="hidden lg:grid grid-cols-4 grid-rows-2 gap-1.5 h-[540px]">
+        <div className="hidden lg:grid grid-cols-4 grid-rows-2 gap-1.5 h-[620px]">
           <div className="col-span-2 row-span-2 relative overflow-hidden cursor-pointer group" onClick={() => setLightbox(0)}>
             <img src={p.images[0]} alt={p.title} loading="eager" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
             <div className="absolute bottom-4 right-4 flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-sm">
