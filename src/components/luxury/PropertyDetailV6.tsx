@@ -210,7 +210,7 @@ const PropertyDetailV6 = () => {
   };
 
   return (
-    <div className="flex-1 overflow-x-hidden bg-white text-luxury-black font-sans">
+    <div className="flex-1 bg-white text-luxury-black font-sans">
       <SEOHead
         title={p.title}
         description={`${p.title} — ${p.beds} bedrooms, ${p.baths} bathrooms, ${p.sqm} m² built. ${p.priceFormatted}. Contemporary villa with panoramic Mediterranean sea views in Santa Eulalia del Río, Ibiza.`}
