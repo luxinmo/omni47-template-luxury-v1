@@ -65,6 +65,13 @@ const LIFESTYLE_COLLECTIONS = [
   { label: "Smart Homes", image: detail3, href: "/properties?collection=smart" },
 ];
 
+const BRANDED_RESIDENCES = [
+  { image: prop1, name: "Four Seasons Private Residences", location: "Marbella, Costa del Sol", brand: "Four Seasons", priceFrom: "From €3,500,000", units: 32, status: "Under Construction" },
+  { image: detail2, name: "The Ritz-Carlton Residences", location: "Ibiza", brand: "Ritz-Carlton", priceFrom: "From €4,200,000", units: 18, status: "Pre-Launch" },
+  { image: detail3, name: "Mandarin Oriental Residences", location: "Altea, Costa Blanca", brand: "Mandarin Oriental", priceFrom: "From €2,800,000", units: 45, status: "Selling" },
+  { image: prop3, name: "Aman Residences", location: "Jávea, Costa Blanca", brand: "Aman", priceFrom: "From €5,100,000", units: 12, status: "Pre-Launch" },
+];
+
 const NEW_DEVELOPMENTS = [
   { image: prop1, name: "Marea Residences", location: "Altea, Costa Blanca", priceFrom: "From €485,000", units: 64, completion: "Q2 2027" },
   { image: prop2, name: "The View Jávea", location: "Jávea", priceFrom: "From €1,200,000", units: 24, completion: "Q4 2026" },
