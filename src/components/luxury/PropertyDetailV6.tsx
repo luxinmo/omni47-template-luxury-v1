@@ -376,6 +376,42 @@ const PropertyDetailV6 = () => {
               ))}
             </div>
 
+            {/* ─── BASIC CHARACTERISTICS ─── */}
+            <section className="border-t-[3px] border-red-600 pt-6 mb-8">
+              <h2 className="text-[16px] font-medium text-luxury-black tracking-[0.15em] uppercase mb-4">Basic Characteristics</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12">
+                {/* Left column */}
+                <div>
+                  {[
+                    { label: "Reference", value: p.ref },
+                    { label: "Property type", value: "Detached house" },
+                    { label: "Price", value: p.priceFormatted },
+                    { label: "Built area", value: <>{p.sqm} m<sup>2</sup></> },
+                    { label: "Energy rating", value: p.energyClass },
+                  ].map((row, i) => (
+                    <div key={i} className="flex items-center justify-between py-2.5 border-b border-neutral-200">
+                      <span className="text-[14px] text-luxury-black/70 font-light">{row.label}</span>
+                      <span className="text-[14px] text-luxury-black font-medium">{row.value}</span>
+                    </div>
+                  ))}
+                </div>
+                {/* Right column */}
+                <div>
+                  {[
+                    { label: "Bedrooms", value: p.beds },
+                    { label: "Bathrooms", value: p.baths },
+                    { label: "Useful area", value: <>{Math.round(p.sqm * 0.67)} m<sup>2</sup></> },
+                    { label: "Plot", value: <>{p.plot.toLocaleString()} m<sup>2</sup></> },
+                  ].map((row, i) => (
+                    <div key={i} className="flex items-center justify-between py-2.5 border-b border-neutral-200">
+                      <span className="text-[14px] text-luxury-black/70 font-light">{row.label}</span>
+                      <span className="text-[14px] text-luxury-black font-medium">{row.value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
             {/* ─── ABOUT THIS PROPERTY ─── */}
             <section className="border-t border-neutral-200 pt-6">
               <h2 className="text-[18px] font-medium text-luxury-black mb-4">About This Property</h2>
@@ -400,7 +436,28 @@ const PropertyDetailV6 = () => {
               </div>
             </section>
 
-            {/* ─── MARKET INSIGHTS ─── */}
+            {/* ─── FLOOR PLANS ─── */}
+            <section className="border-t border-neutral-200 pt-8">
+              <h2 className="text-[18px] font-medium text-luxury-black mb-5">Floor Plans</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {["Ground Floor", "First Floor"].map((floor, i) => (
+                  <div key={i} className="bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden">
+                    <div className="aspect-[4/3] flex items-center justify-center text-luxury-black/30">
+                      <div className="text-center">
+                        <Grid3X3 className="w-10 h-10 mx-auto mb-2 text-luxury-black/20" strokeWidth={1} />
+                        <p className="text-[13px] font-light">{floor} Plan</p>
+                      </div>
+                    </div>
+                    <div className="px-4 py-3 border-t border-neutral-200">
+                      <p className="text-[14px] font-medium text-luxury-black">{floor}</p>
+                      <p className="text-[12px] text-luxury-black/50 font-light">{i === 0 ? `${Math.round(PROPERTY.sqm * 0.6)} m²` : `${Math.round(PROPERTY.sqm * 0.4)} m²`}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+
             <section className="border-t border-neutral-200 pt-8">
               <h2 className="text-[18px] font-medium text-luxury-black mb-5">Real Estate Market in Santa Eulalia</h2>
               <div className="grid grid-cols-2 gap-4 mb-5">
