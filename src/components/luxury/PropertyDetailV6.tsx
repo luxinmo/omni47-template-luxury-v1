@@ -336,9 +336,10 @@ const PropertyDetailV6 = () => {
               {p.title}
             </h1>
 
-            {/* Subtitle */}
-            <p className="text-[15px] text-luxury-black/75 font-light leading-relaxed mb-4" itemProp="description">
-              {p.subtitle}
+            {/* Address */}
+            <p className="text-[13px] text-luxury-black/50 font-light tracking-[0.12em] uppercase mb-4 flex items-center gap-2">
+              <MapPin className="w-3.5 h-3.5" strokeWidth={1.5} />
+              Santa Eulalia del Río, Ibiza · Balearic Islands, Spain
             </p>
 
             {/* Property meta */}
