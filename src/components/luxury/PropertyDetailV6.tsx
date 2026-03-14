@@ -501,7 +501,7 @@ const PropertyDetailV6 = () => {
                   <img src={luxinmoLogo} alt="Luxinmo Real Estate" className="h-8 object-contain" />
                 </div>
                 <p className="text-[13px] text-luxury-black/55 font-light leading-relaxed mb-4">
-                  Get in touch with {p.agency.name} for a personal consultation about this property or to arrange a private viewing.
+                  Get in touch with Luxinmo Real Estate for a personal consultation about this property or to arrange a private viewing.
                 </p>
 
                 {/* Sticky inline contact form */}
