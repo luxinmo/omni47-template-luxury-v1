@@ -551,7 +551,7 @@ const PropertyDetailV6 = () => {
                   Get in touch for a personal consultation or to arrange a private viewing.
                 </p>
                 <p className="text-[14px] text-luxury-black/70 font-mono text-center mt-3 tracking-[0.05em]">REF-{p.ref}</p>
-                <p className="text-[12px] text-luxury-black/50 font-light text-center mt-2 leading-snug">Santa Eulalia del Río, Ibiza · Balearic Islands, Spain</p>
+                
               </div>
             </div>
           </aside>
