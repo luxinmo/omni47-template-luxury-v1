@@ -226,31 +226,40 @@ const PropertyDetailV6 = () => {
 
       {/* ─── NAVBAR ─── */}
       <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm" aria-label="Main navigation">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-3 items-center px-6 lg:px-10 h-[68px]">
-          <div className="hidden lg:flex items-center gap-10">
-            <button onClick={() => setLangOpen(true)} className="flex items-center gap-1.5 text-luxury-black/50 hover:text-luxury-black transition-colors duration-300" aria-label="Select language">
-              <img src={`https://flagcdn.com/20x15/${languages.find(l => l.code === currentLang)?.flag}.png`} alt="" className="w-5 h-[15px] object-cover rounded-[2px]" />
-              <span className="text-[11px] tracking-[0.1em] font-medium">{currentLang}</span>
-              <svg className="w-3 h-3 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+        <div className="max-w-[1400px] mx-auto flex items-center justify-between px-4 md:px-6 lg:px-10 h-[60px] md:h-[68px]">
+          {/* Left: hamburger on mobile/tablet, nav links on desktop */}
+          <div className="flex items-center gap-6 lg:gap-10 flex-1">
+            <button className="lg:hidden text-luxury-black/70" aria-label="Open menu">
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" /></svg>
             </button>
-            {navLeft.map((l) => (
-              <Link key={l.label} to={l.href} className="text-[13px] tracking-[0.14em] uppercase font-light text-luxury-black/55 hover:text-luxury-black transition-colors duration-300">{l.label}</Link>
-            ))}
+            <div className="hidden lg:flex items-center gap-10">
+              <button onClick={() => setLangOpen(true)} className="flex items-center gap-1.5 text-luxury-black/50 hover:text-luxury-black transition-colors duration-300" aria-label="Select language">
+                <img src={`https://flagcdn.com/20x15/${languages.find(l => l.code === currentLang)?.flag}.png`} alt="" className="w-5 h-[15px] object-cover rounded-[2px]" />
+                <span className="text-[11px] tracking-[0.1em] font-medium">{currentLang}</span>
+                <svg className="w-3 h-3 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+              </button>
+              {navLeft.map((l) => (
+                <Link key={l.label} to={l.href} className="text-[13px] tracking-[0.14em] uppercase font-light text-luxury-black/55 hover:text-luxury-black transition-colors duration-300">{l.label}</Link>
+              ))}
+            </div>
           </div>
-          <div className="lg:hidden" />
-          <Link to="/" className="flex flex-col items-center justify-center">
-            <span className="text-lg md:text-xl tracking-[0.3em] font-light text-luxury-black">{brand.fullName}</span>
-            <span className="text-[10px] tracking-[0.35em] uppercase font-light text-luxury-black/40">{brand.subtitle}</span>
+
+          {/* Center: logo */}
+          <Link to="/" className="flex flex-col items-center justify-center shrink-0">
+            <span className="text-base md:text-lg lg:text-xl tracking-[0.3em] font-light text-luxury-black">{brand.fullName}</span>
+            <span className="text-[9px] md:text-[10px] tracking-[0.35em] uppercase font-light text-luxury-black/40">{brand.subtitle}</span>
           </Link>
-          <div className="flex items-center justify-end gap-8">
+
+          {/* Right: nav links on desktop, phone icon on tablet */}
+          <div className="flex items-center justify-end gap-6 lg:gap-10 flex-1">
+            <a href={`tel:${p.agency.phone}`} className="lg:hidden text-luxury-black/60 hover:text-luxury-black transition-colors" aria-label="Call agent">
+              <Phone className="w-5 h-5" />
+            </a>
             <div className="hidden lg:flex items-center gap-10">
               {navRight.map((l) => (
                 <Link key={l.label} to={l.href} className="text-[13px] tracking-[0.14em] uppercase font-light text-luxury-black/55 hover:text-luxury-black transition-colors duration-300">{l.label}</Link>
               ))}
             </div>
-            <button className="lg:hidden text-luxury-black/70" aria-label="Open menu">
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" /></svg>
-            </button>
           </div>
         </div>
       </nav>
