@@ -659,14 +659,12 @@ const PropertyDetailV6 = () => {
       {/* ═══ ENQUIRY MODAL ═══ */}
       <Dialog open={enquiryOpen} onOpenChange={setEnquiryOpen}>
         <DialogContent className="max-w-md p-0 rounded-sm border-neutral-200 overflow-hidden">
-          <div className="p-6 pb-0">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-14 h-14 rounded-full overflow-hidden bg-neutral-100 shrink-0">
-                <img src={agencyLogo} alt={p.agency.name} className="w-full h-full object-cover" />
-              </div>
-              <div>
-                <DialogTitle className="text-[16px] font-medium text-luxury-black">{p.agency.name}</DialogTitle>
-                <DialogDescription className="text-[13px] text-luxury-black/55 font-light">Luxury Real Estate</DialogDescription>
+          <div className="p-5 pb-0">
+            <div className="flex gap-3 mb-4 bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden">
+              <img src={p.images[0]} alt={p.title} className="w-24 h-20 object-cover shrink-0" />
+              <div className="py-2 pr-3 flex flex-col justify-center min-w-0">
+                <DialogTitle className="text-[13px] font-medium text-luxury-black leading-tight line-clamp-2 uppercase tracking-[0.02em]">{p.title}</DialogTitle>
+                <DialogDescription className="text-[14px] text-luxury-black/80 font-medium mt-1">{p.priceFormatted}</DialogDescription>
               </div>
             </div>
           </div>
