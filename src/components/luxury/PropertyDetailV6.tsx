@@ -252,9 +252,6 @@ const PropertyDetailV6 = () => {
 
           {/* Right: nav links on desktop, phone icon on tablet */}
           <div className="flex items-center justify-end gap-6 lg:gap-10 flex-1">
-            <a href={`tel:${p.agency.phone}`} className="lg:hidden text-luxury-black/60 hover:text-luxury-black transition-colors" aria-label="Call agent">
-              <Phone className="w-5 h-5" />
-            </a>
             <div className="hidden lg:flex items-center gap-10">
               {navRight.map((l) => (
                 <Link key={l.label} to={l.href} className="text-[13px] tracking-[0.14em] uppercase font-light text-luxury-black/55 hover:text-luxury-black transition-colors duration-300">{l.label}</Link>
