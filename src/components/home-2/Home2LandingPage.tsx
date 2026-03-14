@@ -260,7 +260,7 @@ const Home2LandingPage = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
             {DESTINATIONS.map((d, i) => (
               <FadeIn key={i} delay={i * 0.05}>
-                <a href="#" className="group block relative overflow-hidden aspect-[3/4]">
+                <a href="#" className="group block relative overflow-hidden aspect-[2/3]">
                   <img src={d.image} alt={`Properties in ${d.name}`} loading="lazy" className="w-full h-full object-cover transition-transform duration-[1s] group-hover:scale-110" />
                   <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.05) 50%)" }} />
                   <div className="absolute bottom-0 left-0 right-0 p-4 text-center">
