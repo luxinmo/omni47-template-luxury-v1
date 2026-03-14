@@ -351,23 +351,23 @@ const PropertyDetailV6 = () => {
           </div>
         </div>
         {/* Actions bar below photo on mobile */}
-        <div className="lg:hidden flex items-center justify-between px-4 py-2.5 border-b border-neutral-100">
-          <div className="flex items-center gap-3">
+        <div className="lg:hidden flex items-center justify-between px-4 py-3.5 border-b border-neutral-100">
+          <div className="flex items-center gap-4">
             {p.hasVideo && (
-              <button className="flex items-center gap-1.5 text-[12px] text-luxury-black/70 font-medium">
-                <Play className="w-3.5 h-3.5" /> Video
+              <button className="flex items-center gap-2 text-[14px] text-luxury-black/70 font-medium">
+                <Play className="w-4.5 h-4.5" /> Video
               </button>
             )}
-            <button onClick={() => setLightbox(0)} className="flex items-center gap-1.5 text-[12px] text-luxury-black/70 font-medium">
-              <Grid3X3 className="w-3.5 h-3.5" /> {p.images.length} photos
+            <button onClick={() => setLightbox(0)} className="flex items-center gap-2 text-[14px] text-luxury-black/70 font-medium">
+              <Grid3X3 className="w-4.5 h-4.5" /> {p.images.length} photos
             </button>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <button className="text-luxury-black/50 hover:text-luxury-black transition-colors" aria-label="Share">
-              <Share2 className="w-4 h-4" />
+              <Share2 className="w-5 h-5" />
             </button>
             <button onClick={() => setLiked(!liked)} className={`transition-colors ${liked ? "text-luxury-black" : "text-luxury-black/50 hover:text-luxury-black"}`} aria-label={liked ? "Unsave" : "Save"}>
-              <Heart className="w-4 h-4" fill={liked ? "currentColor" : "none"} />
+              <Heart className="w-5 h-5" fill={liked ? "currentColor" : "none"} />
             </button>
           </div>
         </div>
