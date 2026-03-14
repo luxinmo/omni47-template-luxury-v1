@@ -24,6 +24,7 @@ import prop3 from "@/assets/luxury-property-3.jpg";
 import detail1 from "@/assets/property-detail-1.jpg";
 import detail2 from "@/assets/property-detail-2.jpg";
 import detail3 from "@/assets/property-detail-3.jpg";
+import agencyLogo from "@/assets/agency-logo.png";
 
 /* ─── Data (reused from V5) ─── */
 const PROPERTY = {
