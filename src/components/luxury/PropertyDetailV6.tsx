@@ -25,6 +25,7 @@ import detail1 from "@/assets/property-detail-1.jpg";
 import detail2 from "@/assets/property-detail-2.jpg";
 import detail3 from "@/assets/property-detail-3.jpg";
 import agencyLogo from "@/assets/agency-logo.png";
+import luxinmoLogo from "@/assets/luxinmo-logo.png";
 
 /* ─── Data (reused from V5) ─── */
 const PROPERTY = {
@@ -496,14 +497,8 @@ const PropertyDetailV6 = () => {
 
               {/* Agency info */}
               <div className="border-t border-neutral-200 pt-5">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-12 h-12 rounded-full overflow-hidden bg-neutral-100 shrink-0">
-                    <img src={agencyLogo} alt={p.agency.name} className="w-full h-full object-cover" />
-                  </div>
-                  <div>
-                    <h3 className="text-[14px] font-medium text-luxury-black tracking-wide">{p.agency.name}</h3>
-                    <p className="text-[12px] text-luxury-black/45 font-light">Luxury Real Estate</p>
-                  </div>
+                <div className="flex items-center justify-center mb-4">
+                  <img src={luxinmoLogo} alt="Luxinmo Real Estate" className="h-8 object-contain" />
                 </div>
                 <p className="text-[13px] text-luxury-black/55 font-light leading-relaxed mb-4">
                   Get in touch with {p.agency.name} for a personal consultation about this property or to arrange a private viewing.
