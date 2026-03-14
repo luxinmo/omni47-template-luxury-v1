@@ -23,6 +23,7 @@ import Home4LandingPage from "./components/home-4/Home4LandingPage";
 import BrandedResidencesPage from "./components/luxury/BrandedResidencesPage";
 import PropertyPdfV1 from "./components/pdf/PropertyPdfV1";
 import PropertyPdfV2 from "./components/pdf/PropertyPdfV2";
+import BlocksCatalog from "./pages/BlocksCatalog";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,10 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
+            {/* ── Blocks Catalog (main entry) ── */}
+            <Route path="/blocks" element={<BlocksCatalog />} />
+
+            {/* ── Original pages (kept for reference) ── */}
             <Route path="/" element={<Home2LandingPage />} />
             <Route path="/portal" element={<HomePortal />} />
             <Route path="/home3" element={<Home3LandingPage />} />
