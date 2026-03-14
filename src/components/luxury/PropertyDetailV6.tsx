@@ -552,13 +552,10 @@ const PropertyDetailV6 = () => {
 
               {/* Agency info */}
               <div className="border-t border-neutral-200 pt-5">
-                <div className="flex items-center justify-center mb-3">
-                  <img src={luxinmoLogo} alt="Luxinmo Real Estate" className="h-8 object-contain" />
-                </div>
                 <p className="text-[13px] text-luxury-black/55 font-light leading-relaxed text-center">
                   Get in touch for a personal consultation or to arrange a private viewing.
                 </p>
-                <p className="text-[11px] text-luxury-black/40 font-mono text-center mt-2">REF-{p.ref}</p>
+                <p className="text-[14px] text-luxury-black/70 font-mono text-center mt-3 tracking-[0.05em]">REF-{p.ref}</p>
               </div>
             </div>
           </aside>
