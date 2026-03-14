@@ -367,22 +367,12 @@ const PropertyDetailV6 = () => {
               <span>Status: <strong className="font-medium text-luxury-black/80">{p.status}</strong></span>
             </div>
 
-            {/* Property highlights */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 mt-4 mb-6">
-              {[
-                { icon: Star, title: "Exclusive", subtitle: "Exclusive property" },
-                { icon: Fence, title: "Gated Community", subtitle: "24/7 security" },
-                { icon: Home, title: "Newly Built", subtitle: `Completed ${p.year}` },
-                { icon: Check, title: "Turnkey", subtitle: "Move-in ready" },
-                { icon: Home, title: "Also for Rent", subtitle: p.rentalPrice, highlight: true },
-              ].map((item, i) => (
-                <div key={i} className={`flex items-center gap-3 rounded-sm px-4 py-3 border ${item.highlight ? "bg-luxury-gold/5 border-luxury-gold/20" : "bg-neutral-50 border-neutral-200"}`}>
-                  <item.icon className={`w-5 h-5 flex-shrink-0 ${item.highlight ? "text-luxury-gold/70" : "text-luxury-black/30"}`} strokeWidth={1.5} />
-                  <div>
-                    <p className={`text-[13px] font-medium leading-tight ${item.highlight ? "text-luxury-black" : "text-luxury-black/85"}`}>{item.title}</p>
-                    <p className={`text-[12px] font-light leading-tight mt-0.5 ${item.highlight ? "text-luxury-gold/90" : "text-luxury-black/55"}`}>{item.subtitle}</p>
-                  </div>
-                </div>
+            {/* Property tags */}
+            <div className="flex flex-wrap gap-2 mt-4 mb-6">
+              {["Exclusive", "Gated Community", "Newly Built", "Turnkey", "Sea Views", `Also for Rent · ${p.rentalPrice}`].map((tag, i) => (
+                <span key={i} className="text-[12px] text-luxury-black/80 border border-neutral-200 px-3.5 py-2 font-light">
+                  {tag}
+                </span>
               ))}
             </div>
 
