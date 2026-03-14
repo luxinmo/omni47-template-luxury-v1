@@ -366,8 +366,8 @@ const PropertyDetailV6 = () => {
 
             {/* Property tags */}
             <div className="flex flex-wrap gap-2 mt-4 mb-6">
-              <span className="text-[12px] text-luxury-gold font-medium border border-luxury-gold/40 bg-luxury-gold/5 px-3.5 py-2 tracking-[0.05em]">
-                Exclusive
+              <span className="text-[12px] text-luxury-gold font-medium border border-luxury-gold/40 bg-luxury-gold/5 px-3.5 py-2 tracking-[0.05em] flex items-center gap-1.5">
+                <Star className="w-3.5 h-3.5" strokeWidth={1.5} /> Exclusive
               </span>
               {["Gated Community", "Newly Built", "Sea Views"].map((tag, i) => (
                 <span key={i} className="text-[12px] text-luxury-black/80 border border-neutral-200 px-3.5 py-2 font-light">
