@@ -813,25 +813,23 @@ const PropertyDetailV6 = () => {
         </DialogContent>
       </Dialog>
 
-      {/* ═══ MOBILE STICKY CONTACT BAR ═══ */}
-      {isMobile && (
-        <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-neutral-200 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] flex items-center gap-0">
-          <a href={`tel:${p.agency.phone}`} className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 text-luxury-black hover:bg-neutral-50 transition-colors">
-            <Phone className="w-4 h-4" />
-            <span className="text-[10px] tracking-[0.1em] uppercase font-medium">Call</span>
-          </a>
-          <div className="w-px h-8 bg-neutral-200" />
-          <a href={`https://wa.me/${p.agency.whatsapp}`} target="_blank" rel="noopener noreferrer" className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 text-[#25D366] hover:bg-neutral-50 transition-colors">
-            <MessageCircle className="w-4 h-4" />
-            <span className="text-[10px] tracking-[0.1em] uppercase font-medium">WhatsApp</span>
-          </a>
-          <div className="w-px h-8 bg-neutral-200" />
-          <button onClick={() => setEnquiryOpen(true)} className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 text-luxury-black hover:bg-neutral-50 transition-colors">
-            <Mail className="w-4 h-4" />
-            <span className="text-[10px] tracking-[0.1em] uppercase font-medium">Enquiry</span>
-          </button>
-        </div>
-      )}
+      {/* ═══ MOBILE & TABLET STICKY CONTACT BAR ═══ */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-neutral-200 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] flex items-center gap-0">
+        <a href={`tel:${p.agency.phone}`} className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 text-luxury-black hover:bg-neutral-50 transition-colors">
+          <Phone className="w-4 h-4" />
+          <span className="text-[10px] tracking-[0.1em] uppercase font-medium">Call</span>
+        </a>
+        <div className="w-px h-8 bg-neutral-200" />
+        <a href={`https://wa.me/${p.agency.whatsapp}`} target="_blank" rel="noopener noreferrer" className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 text-[#25D366] hover:bg-neutral-50 transition-colors">
+          <MessageCircle className="w-4 h-4" />
+          <span className="text-[10px] tracking-[0.1em] uppercase font-medium">WhatsApp</span>
+        </a>
+        <div className="w-px h-8 bg-neutral-200" />
+        <button onClick={() => setEnquiryOpen(true)} className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 text-luxury-black hover:bg-neutral-50 transition-colors">
+          <Mail className="w-4 h-4" />
+          <span className="text-[10px] tracking-[0.1em] uppercase font-medium">Enquiry</span>
+        </button>
+      </div>
 
       {/* ═══ CHATBOT BUTTON + PANEL ═══ */}
       {!chatOpen && (
