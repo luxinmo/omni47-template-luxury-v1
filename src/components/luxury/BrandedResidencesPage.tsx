@@ -49,6 +49,7 @@ const BRANDED_RESIDENCES: BrandedResidence[] = [
     description: "Ultra-luxury residences featuring panoramic sea views, concierge services and exclusive marina access.",
   },
   {
+    slug: "mandarin-oriental-altea",
     image: detail3, name: "Mandarin Oriental Residences", location: "Altea, Costa Blanca", brand: "Mandarin Oriental", developer: "Mandarin Oriental Hotel Group", delivery: "Q1 2027",
     status: "Selling", construction: 62, availableUnits: 12, totalUnits: 45, priceMin: 2800000, priceMax: 6500000,
     typologies: [{ type: "Apartment", from: 2800000 }, { type: "Penthouse", from: 4900000 }],
