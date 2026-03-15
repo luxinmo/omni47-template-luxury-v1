@@ -614,7 +614,7 @@ const NewDevelopmentDetailPage = () => {
               <h2 className="text-lg font-medium tracking-tight mb-4" style={{ fontFamily: fonts.heading, color: palette.text }}>Available typologies</h2>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {p.typologies.map((t, i) => (
-                  <div key={i} className="p-5 rounded-sm border" style={{ borderColor: palette.border, background: palette.card }}>
+                  <div key={i} className="p-5 rounded-sm border" style={{ borderColor: palette.border, background: palette.bgAlt }}>
                     <p className="text-[10px] tracking-[0.2em] uppercase font-medium mb-2" style={{ color: palette.textMuted }}>{t.type}</p>
                     <p className="text-lg font-light mb-1" style={{ fontFamily: fonts.heading, color: palette.text }}>From {fmt(t.from)}</p>
                     <p className="text-[12px]" style={{ color: palette.textLight }}>{t.sqmRange}</p>
