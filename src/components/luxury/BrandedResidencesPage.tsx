@@ -182,8 +182,9 @@ const BrandedCard = ({ r, i }: { r: BrandedResidence; i: number }) => (
             {r.availableUnits === r.totalUnits ? "All units available" : `${r.availableUnits} of ${r.totalUnits} available`}
             {r.construction > 0 && <span className="ml-3">{r.construction}% built</span>}
           </p>
-          <Link to="/contact" className="inline-flex items-center gap-2 text-[12px] tracking-[0.15em] uppercase font-light transition-opacity hover:opacity-60" style={{ color: palette.accent }}>
-            Request Info <ArrowRight className="w-3.5 h-3.5" />
+          <Link to={`/branded-residences/${r.slug}`} className="inline-flex items-center gap-2 text-[12px] tracking-[0.15em] uppercase font-light transition-opacity hover:opacity-60" style={{ color: palette.accent }}>
+            View Project <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
           </Link>
         </div>
       </div>
