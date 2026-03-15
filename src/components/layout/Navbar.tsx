@@ -151,10 +151,15 @@ const Navbar = ({
               <button
                 key={lang.code}
                 onClick={() => { setCurrentLang(lang.code); setLangOpen(false); }}
-                className={`flex items-center justify-center gap-2.5 px-3 py-3.5 rounded-sm text-[13px] border transition-colors ${currentLang === lang.code ? "bg-neutral-50 border-neutral-300 font-medium" : "border-transparent font-light hover:bg-neutral-50"}`}
+                className={`flex items-center gap-3 px-4 py-3.5 rounded-sm text-[13px] border transition-all ${currentLang === lang.code ? "bg-neutral-50 border-neutral-300 font-medium" : "border-transparent font-light hover:bg-neutral-50"}`}
                 style={{ color: currentLang === lang.code ? palette.text : palette.textMuted }}
               >
-                <span className="text-[11px] tracking-[0.08em] font-medium w-5" style={{ color: palette.textLight }}>{lang.code}</span>
+                <img
+                  src={`https://flagcdn.com/24x18/${lang.flag}.png`}
+                  srcSet={`https://flagcdn.com/48x36/${lang.flag}.png 2x`}
+                  alt=""
+                  className="w-5 h-[15px] object-cover rounded-[2px] opacity-80 shrink-0"
+                />
                 <span>{lang.label}</span>
               </button>
             ))}
