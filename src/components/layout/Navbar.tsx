@@ -2,12 +2,31 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Phone, X, Menu } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { brand, palette, fonts, navLeft, navRight, languages, currencies, areaUnits } from "@/config/template";
+import { brand, palette, fonts, languages, currencies, areaUnits, contact } from "@/config/template";
 
-const EXTRA_NAV = [
-  { label: "Favorites", href: "/favorites" },
+/* ─── Visible nav links (desktop/tablet) ─── */
+const NAV_LEFT = [
+  { label: "For Sale", href: "/properties" },
+  { label: "For Rent", href: "#" },
+  { label: "New Build", href: "/new-developments" },
+];
+
+const NAV_RIGHT = [
+  { label: "Branded", href: "/branded-residences" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
+];
+
+/* ─── All links inside hamburger menu ─── */
+const MENU_LINKS = [
+  { label: "For Sale", href: "/properties" },
+  { label: "For Rent", href: "#" },
   { label: "New Developments", href: "/new-developments" },
   { label: "Branded Residences", href: "/branded-residences" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
+  { label: "Favorites", href: "/favorites" },
+  { label: "About", href: "/page/about" },
 ];
 
 interface NavbarProps {
@@ -31,9 +50,10 @@ const Navbar = ({
 
   const isTransparent = variant === "transparent" && !scrolled;
   const textColor = isTransparent ? "#fff" : palette.text;
-  const mutedColor = isTransparent ? "rgba(255,255,255,0.5)" : palette.textLight;
+  const mutedColor = isTransparent ? "rgba(255,255,255,0.55)" : palette.textLight;
+  const linkColor = isTransparent ? "rgba(255,255,255,0.75)" : palette.textMuted;
 
-  const allLinks = [...navLeft, ...navRight];
+  const linkClass = "text-[11px] tracking-[0.15em] uppercase font-light transition-opacity hover:opacity-60";
 
   return (
     <>
@@ -48,36 +68,66 @@ const Navbar = ({
         }}
       >
         <div className="max-w-[1440px] mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-12 h-[64px] sm:h-[80px]">
-          {/* Left: hamburger */}
-          <div className="flex items-center flex-1">
+          {/* Left section */}
+          <div className="flex items-center gap-2 sm:gap-3 flex-1">
+            {/* Hamburger — always visible */}
             <button
-              className="transition-colors duration-300"
+              className="transition-colors duration-300 shrink-0"
               style={{ color: textColor }}
               onClick={() => setMenuOpen(true)}
               aria-label="Open menu"
             >
-              <Menu className="w-6 h-6" />
+              <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
+
+            {/* Desktop left links */}
+            <div className="hidden lg:flex items-center gap-6 ml-4">
+              {NAV_LEFT.map((item) => (
+                <Link
+                  key={item.label}
+                  to={item.href}
+                  className={linkClass}
+                  style={{ color: activePath === item.href ? textColor : linkColor }}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
           </div>
 
           {/* Center: logo */}
           <Link to="/" className="flex flex-col items-center shrink-0">
             <span
-              className="text-[22px] sm:text-[26px] tracking-[0.4em] font-light transition-colors duration-300"
+              className="text-[20px] sm:text-[24px] lg:text-[26px] tracking-[0.4em] font-light transition-colors duration-300"
               style={{ fontFamily: fonts.brand, color: textColor }}
             >
               {brand.name}
             </span>
             <span
-              className="text-[8px] tracking-[0.45em] uppercase font-light transition-colors duration-300 -mt-0.5"
+              className="text-[7px] sm:text-[8px] tracking-[0.45em] uppercase font-light transition-colors duration-300 -mt-0.5"
               style={{ color: mutedColor }}
             >
               {brand.subtitle}
             </span>
           </Link>
 
-          {/* Right: language code */}
-          <div className="flex items-center justify-end flex-1">
+          {/* Right section */}
+          <div className="flex items-center justify-end gap-6 flex-1">
+            {/* Desktop right links */}
+            <div className="hidden lg:flex items-center gap-6">
+              {NAV_RIGHT.map((item) => (
+                <Link
+                  key={item.label}
+                  to={item.href}
+                  className={linkClass}
+                  style={{ color: activePath === item.href ? textColor : linkColor }}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+
+            {/* Language code */}
             {showLanguage && (
               <button
                 onClick={() => setLangOpen(true)}
@@ -138,7 +188,7 @@ const Navbar = ({
         </DialogContent>
       </Dialog>
 
-      {/* Fullscreen menu — all screen sizes */}
+      {/* Fullscreen menu */}
       {menuOpen && (
         <div className="fixed inset-0 z-[100] bg-white flex flex-col">
           {/* Header */}
@@ -159,25 +209,8 @@ const Navbar = ({
 
           {/* Scrollable content */}
           <div className="flex-1 overflow-auto">
-            {/* Main nav links */}
             <div className="flex flex-col px-10 pt-8">
-              {allLinks.map((item) => (
-                <Link
-                  key={item.label}
-                  to={item.href}
-                  className="text-[18px] tracking-[0.15em] uppercase font-light py-4 border-b border-neutral-100 last:border-b-0 hover:opacity-70 transition-colors text-center"
-                  style={{ color: activePath === item.href ? palette.text : palette.textMuted }}
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-
-            {/* Extra links */}
-            <div className="flex flex-col px-10 pt-2">
-              <div className="h-px w-12 mx-auto my-2" style={{ background: palette.border }} />
-              {EXTRA_NAV.map((item) => (
+              {MENU_LINKS.map((item) => (
                 <Link
                   key={item.label}
                   to={item.href}
@@ -251,7 +284,7 @@ const Navbar = ({
 
           {/* Bottom CTA */}
           <div className="px-10 pb-8 flex flex-col items-center gap-4 shrink-0">
-            <a href={`tel:${"+34 600 000 000"}`} className="w-full flex items-center justify-center gap-2 text-[13px] tracking-[0.1em] uppercase py-3.5 transition-colors" style={{ background: palette.text, color: palette.white }}>
+            <a href={`tel:${contact.phone}`} className="w-full flex items-center justify-center gap-2 text-[13px] tracking-[0.1em] uppercase py-3.5 transition-colors" style={{ background: palette.text, color: palette.white }}>
               <Phone className="w-4 h-4" /> Call Us
             </a>
             <p className="text-[11px] tracking-[0.2em] uppercase" style={{ color: palette.textLight }}>{brand.fullName}</p>
