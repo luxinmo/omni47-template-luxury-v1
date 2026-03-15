@@ -185,7 +185,6 @@ const BrandedCard = ({ r, i }: { r: BrandedResidence; i: number }) => (
           <Link to={`/branded-residences/${r.slug}`} className="inline-flex items-center gap-2 text-[12px] tracking-[0.15em] uppercase font-light transition-opacity hover:opacity-60" style={{ color: palette.accent }}>
             View Project <ArrowRight className="w-3.5 h-3.5" />
           </Link>
-          </Link>
         </div>
       </div>
     </div>
