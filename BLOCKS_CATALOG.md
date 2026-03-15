@@ -308,9 +308,87 @@
 
 ---
 
-## Resumen
+## 📰 Blog — Extras (6 variantes)
 
-| Categoría | Total variantes |
+| ID | Nombre | Origen | Descripción visual |
+|----|--------|--------|--------------------|
+| blog-article-card | Article Card (Grid) | BlogListing | Card con imagen 16/10, badge categoría, título, excerpt, author, readTime |
+| blog-featured-post | Featured Post (Split) | BlogListing | Layout 2-col: imagen izq, contenido derecha con badge "Featured", excerpt, CTA |
+| blog-faq-accordion | FAQ Accordion (+/-) | BlogDetail | Accordion con Plus/Minus toggle, preguntas + respuestas expandibles |
+| blog-trending-grid | Trending Grid (4-col) | BlogDetail | Grid 4 cols con thumbnails, categoría accent, título, fecha |
+| blog-search-filter | Search + Filter Bar | BlogListing | Input search + select categoría + grid/list toggle |
+| blog-content-renderer | Content Renderer | BlogDetail | Renderizado de contenido rico: headings, párrafos, listas, blockquotes, imágenes |
+| blog-social-share | Social Share Bar | BlogDetail | Barra horizontal con iconos sociales (Twitter, Facebook, LinkedIn, WhatsApp, Email, Copy) |
+
+## 📞 Contact (5 variantes)
+
+| ID | Nombre | Origen | Descripción visual |
+|----|--------|--------|--------------------|
+| contact-form-centered | Form Centered + Office Selector | ContactPage V1 | Form centrado con chips de oficinas seleccionables, campos estándar, confirmación |
+| contact-form-split | Form Split (Hero + Form) | ContactPage V2 | Split: imagen izq con reasons icons, form derecha con border-bottom inputs |
+| contact-office-grid | Office Cards Grid | ContactPage V1 | Grid 3 cols con imagen + overlay nombre, info contacto, botón directions |
+| contact-office-tabs | Office Tabs + Detail | ContactPage V2 | Tabs de oficinas + card horizontal detalle (imagen izq, info derecha) |
+| contact-reasons-grid | Reasons Grid (Icons) | ContactPage V2 | Grid 2x2 con iconos + título + descripción, motivaciones de contacto |
+
+## ❤️ Favorites (3 variantes)
+
+| ID | Nombre | Origen | Descripción visual |
+|----|--------|--------|--------------------|
+| favorites-grid | Saved Properties Grid | FavoritesPage | Grid 3 cols con cards: imagen, tag, location, specs, precio, acciones hover |
+| favorites-empty-state | Empty State CTA | FavoritesPage | Estado vacío con icono Heart, título, descripción, botón CTA |
+| saved-property-card | Saved Property Card | FavoritesPage | Card individual con imagen, badge tipo, specs, precio, botones hover (remove, share, notes) |
+| share-collection-dialog | Share Collection Dialog | FavoritesPage | Modal con link copiable, opciones email/WhatsApp, toggle público/privado |
+
+## 📄 PDF (2 variantes)
+
+| ID | Nombre | Origen | Descripción visual |
+|----|--------|--------|--------------------|
+| property-pdf-v1 | PDF Sheet V1 (Single Page) | PDF Export | A4 una página: header agencia, imagen principal, specs grid, descripción, features, footer |
+| property-pdf-v2 | PDF Sheet V2 (Multi Page) | PDF Export | A4 tres páginas: portada hero, página specs+descripción, página galería+contacto |
+
+## ⚙️ System (3 variantes)
+
+| ID | Nombre | Origen | Descripción visual |
+|----|--------|--------|--------------------|
+| hero-mini | Hero Mini (Page Header) | System | Banner compacto con título + breadcrumb, fondo con imagen dimmed |
+| breadcrumb-bar | Breadcrumb Bar | System | Barra horizontal con breadcrumb links separados por chevrons |
+| not-found-block | 404 Not Found | System | Página 404 con título grande, descripción, botón "Go Home" |
+
+## 📰 Journal / Blog — Home (2 variantes)
+
+| ID | Nombre | Origen | Descripción visual |
+|----|--------|--------|--------------------|
+| journal-editorial | Journal Editorial | Home2/3/4 | 1 artículo grande (16/10) + lista lateral con thumbnails cuadrados, accent color label |
+| magazine-editorial | Magazine Editorial (Category Badges) | Portal | 1 grande (4/3) + 3 cards horizontales, badges de categoría + readTime, bg-neutral-50, Playfair italic title |
+
+## 💬 Chatbot (1 variante)
+
+| ID | Nombre | Origen | Descripción visual |
+|----|--------|--------|--------------------|
+| chatbot-panel | Floating Chat Widget | Home4 | Botón flotante circular → panel fijo 360×480, header con accent, mensajes bubble, quick replies, input con Send |
+
+---
+
+## 🧩 Preview Combos (10 plantillas)
+
+| ID | Nombre | Bloques incluidos |
+|----|--------|-------------------|
+| HomeComboA | Home Editorial (Portal) | HeroEditorialLeft, StatsBarDividers, FeaturedGridPortrait, DestinationsAsymmetric, IntroSplitImage, CollectionsTagged, InvestmentGrid, TestimonialParallaxQuote, MagazineEditorial, NewsletterBordered, FooterEditorial |
+| HomeComboB | Home Luxury Classic | HeroCarouselCenter, StatsRibbon, FeaturedGrid4Col, DestinationsGridTall, AboutServicesSplit, BrandedFullwidth, NewdevGridSimple, OffmarketSplit, TestimonialCinematic, JournalEditorial, NewsletterCentered, FooterLuxury |
+| HomeComboC | Home Advisor (Chat) | HeroCarouselCenter, StatsRibbon, FinderFormCentered, FeaturedGrid3Col, MarketDataCards, CollectionsLandscape, TrustIcons, AreasTextList, NewsletterCentered, FooterLuxury |
+| DetailComboA | Detalle Compacto | DetailBreadcrumb, DetailGallery, DetailInfoHeader, DetailDescription, DetailFeaturesGrid, DetailCharacteristics, DetailMortgageCalculator, DetailContactForm, DetailRelatedGrid, DetailMobileStickyBar |
+| DetailComboB | Detalle Editorial | DetailBreadcrumb, DetailGalleryClassic, DetailInfoHeaderInline, DetailDescription, DetailFeaturesGrid, DetailEnergyBadge, DetailNearbyPlaces, DetailMortgageCalculator, DetailContactForm, DetailRelatedGrid, DetailRecentlyViewed, DetailMobileStickyBar |
+| DetailComboC | Detalle Premium | DetailBreadcrumbSticky, DetailGallery, DetailInfoHeaderWide, DetailDescription, DetailFeaturesGrid, DetailCharacteristics, DetailFloorPlans, DetailMarketData, DetailMortgageCalculator, DetailPriceCard, DetailNearbyAreas, DetailBuyersGuide, DetailSeoLinks, DetailAgencyInfo, DetailRelatedGrid, DetailRecentlyViewed, DetailMobileStickyBar |
+| BrandedCombo | Branded Residence Detail | BrandedDetailGallery, ProjectInfoRibbon, ProjectHighlights, ProjectBrochureCTA, BrandedAmenities, ProjectBrandServices, ProjectLocationCard, BrandedUnitTable, ProjectPriceSidebar, DetailContactForm, DetailMobileStickyBar |
+| NewDevCombo | New Development Detail | NewDevDetailGallery, ProjectInfoRibbon, ProjectDescription, ProjectHighlights, ProjectBrochureCTA, NewDevAmenities, ProjectLocationCard, NewDevUnitTable, NewDevFloorPlans, ProjectPriceSidebar, DetailContactForm, DetailMobileStickyBar |
+| BlogCombo | Blog Article Page | HeroMini, BlogFeaturedPost, BlogSearchFilter, BlogArticleCard, BlogContentRenderer, BlogFaqAccordion, BlogSocialShare, BlogTrendingGrid, NewsletterCentered, FooterLuxury |
+| ContactCombo | Contact Page | HeroMini, ContactReasonsGrid, ContactFormSplit, ContactOfficeTabs, NewsletterCentered, FooterLuxury |
+
+---
+
+## Resumen Final
+
+| Categoría | Total |
 |---|---|
 | Heroes | 3 |
 | Stats | 2 |
@@ -327,7 +405,7 @@
 | Property Finder | 2 |
 | Market Insights | 1 |
 | Trust | 1 |
-| Journal/Blog | 2 |
+| Journal/Blog — Home | 2 |
 | Areas | 1 |
 | Investment | 1 |
 | Newsletter | 2 |
@@ -354,54 +432,11 @@
 | Detail — Recently Viewed | 1 |
 | Detail — Mobile Sticky Bar | 1 |
 | Detail — Buyer's Guide | 1 |
-| Blog — Article Card | 1 |
-| Blog — Featured Post | 1 |
-| Blog — FAQ Accordion | 1 |
-| Blog — Trending Grid | 1 |
-| Contact — Form Centered | 1 |
-| Contact — Form Split | 1 |
-| Contact — Office Grid | 1 |
-| Contact — Office Tabs | 1 |
-| Favorites — Grid | 1 |
-| Favorites — Empty State | 1 |
-| **TOTAL** | **~82 bloques** |
-
----
-
-## 📰 Blog / Journal Blocks (4 variantes)
-
-| ID | Nombre | Origen | Descripción visual |
-|----|--------|--------|--------------------|
-| blog-article-card | Article Card (Grid) | BlogListing | Card con imagen 16/10, badge categoría, título, excerpt, author, readTime |
-| blog-featured-post | Featured Post (Split) | BlogListing | Layout 2-col: imagen izq, contenido derecha con badge "Featured", excerpt, CTA |
-| blog-faq-accordion | FAQ Accordion (+/-) | BlogDetail | Accordion con Plus/Minus toggle, preguntas + respuestas expandibles |
-| blog-trending-grid | Trending Grid (4-col) | BlogDetail | Grid 4 cols con thumbnails, categoría accent, título, fecha |
-
-## 📞 Contact (4 variantes)
-
-| ID | Nombre | Origen | Descripción visual |
-|----|--------|--------|--------------------|
-| contact-form-centered | Form Centered + Office Selector | ContactPage V1 | Form centrado con chips de oficinas seleccionables, campos estándar, confirmación |
-| contact-form-split | Form Split (Hero + Form) | ContactPage V2 | Split: imagen izq con reasons icons, form derecha con border-bottom inputs |
-| contact-office-grid | Office Cards Grid | ContactPage V1 | Grid 3 cols con imagen + overlay nombre, info contacto, botón directions |
-| contact-office-tabs | Office Tabs + Detail | ContactPage V2 | Tabs de oficinas + card horizontal detalle (imagen izq, info derecha) |
-
-## ❤️ Favorites (2 variantes)
-
-| ID | Nombre | Origen | Descripción visual |
-|----|--------|--------|--------------------|
-| favorites-grid | Saved Properties Grid | FavoritesPage | Grid 3 cols con cards: imagen, tag, location, specs, precio, acciones hover |
-| favorites-empty-state | Empty State CTA | FavoritesPage | Estado vacío con icono Heart, título, descripción, botón CTA |
-
-## 📰 Journal / Blog (2 variantes)
-
-| ID | Nombre | Origen | Descripción visual |
-|----|--------|--------|--------------------|
-| journal-editorial | Journal Editorial | Home2/3/4 | 1 artículo grande (16/10) + lista lateral con thumbnails cuadrados, accent color label |
-| magazine-editorial | Magazine Editorial (Category Badges) | Portal | 1 grande (4/3) + 3 cards horizontales, badges de categoría + readTime, bg-neutral-50, Playfair italic title |
-
-## 💬 Chatbot (1 variante)
-
-| ID | Nombre | Origen | Descripción visual |
-|----|--------|--------|--------------------|
-| chatbot-panel | Floating Chat Widget | Home4 | Botón flotante circular → panel fijo 360×480, header con accent, mensajes bubble, quick replies, input con Send |
+| Blog — Extras | 7 |
+| Contact | 5 |
+| Favorites | 4 |
+| PDF | 2 |
+| System | 3 |
+| **TOTAL BLOQUES** | **~93** |
+| Preview Combos | 10 |
+| **TOTAL GENERAL** | **~103 componentes** |
