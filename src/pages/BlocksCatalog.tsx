@@ -163,6 +163,9 @@ const CATEGORIES = [
       { id: "project-price-sidebar", name: "Price Sidebar + Progress", origin: "BrandedResidence Detail / NewDev Detail", component: ProjectPriceSidebar },
       { id: "project-location-card", name: "Location Card", origin: "BrandedResidence Detail / NewDev Detail", component: ProjectLocationCard },
       { id: "project-units-table", name: "Units Table + Mobile Cards", origin: "BrandedResidence Detail / NewDev Detail", component: ProjectUnitsTable },
+      { id: "project-info-ribbon", name: "Info Ribbon (Title + Stats)", origin: "BrandedResidence Detail / NewDev Detail", component: ProjectInfoRibbon },
+      { id: "project-description", name: "Project Description (Multi-paragraph)", origin: "BrandedResidence Detail / NewDev Detail", component: ProjectDescription },
+      { id: "project-gallery-mosaic", name: "Gallery Mosaic + ROI Badge", origin: "BrandedResidence Detail / NewDev Detail", component: ProjectGalleryMosaic },
     ],
   },
   {
