@@ -9,7 +9,7 @@ import DetailFloorPlans from "@/components/blocks/detail/DetailFloorPlans";
 
 interface NewDevFloorPlansProps {
   title?: string;
-  plans?: { label: string; image?: string }[];
+  plans?: { name: string; area?: string; image?: string }[];
 }
 
 const NewDevFloorPlans = ({

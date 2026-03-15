@@ -35,9 +35,9 @@ const NewDevListingCard = ({
   priceRange = "€485,000 — €1,250,000",
   trending = true,
   typologies = [
-    { type: "Apartment", from: "€485,000" },
-    { type: "Penthouse", from: "€890,000" },
-    { type: "Duplex", from: "€720,000" },
+    { type: "Apartment", from: 485000 },
+    { type: "Penthouse", from: 890000 },
+    { type: "Duplex", from: 720000 },
   ],
   href = "/new-developments/marea-residences-altea",
   ...rest
