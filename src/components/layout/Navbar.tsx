@@ -128,7 +128,7 @@ const Navbar = ({
         <DialogContent className="max-w-md p-6 rounded-md border-2 border-neutral-300 overflow-hidden shadow-xl">
           <DialogTitle className="text-[11px] tracking-[0.15em] uppercase font-medium text-luxury-black/40 mb-5">Select Language</DialogTitle>
           <DialogDescription className="sr-only">Choose your preferred language</DialogDescription>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-3 gap-2 mb-6">
             {languages.map((lang) => (
               <button
                 key={lang.code}
@@ -138,6 +138,36 @@ const Navbar = ({
               >
                 <img src={`https://flagcdn.com/40x30/${lang.flag}.png`} alt="" className="w-10 h-[30px] object-cover rounded-[3px] shadow-sm" />
                 <span>{lang.label}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Currency */}
+          <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-3" style={{ color: `${palette.text}66` }}>Currency</p>
+          <div className="grid grid-cols-3 gap-2 mb-6">
+            {currencies.map((cur) => (
+              <button
+                key={cur.code}
+                onClick={() => setCurrentCurrency(cur.code)}
+                className={`px-3 py-3 text-[13px] rounded-sm border transition-colors ${currentCurrency === cur.code ? "bg-neutral-50 border-neutral-300 font-medium" : "border-transparent font-light hover:bg-neutral-50"}`}
+                style={{ color: currentCurrency === cur.code ? palette.text : palette.textMuted }}
+              >
+                {cur.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Units */}
+          <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-3" style={{ color: `${palette.text}66` }}>Units</p>
+          <div className="grid grid-cols-2 gap-2">
+            {areaUnits.map((u) => (
+              <button
+                key={u.code}
+                onClick={() => setCurrentUnit(u.code)}
+                className={`px-3 py-3 text-[13px] rounded-sm border transition-colors ${currentUnit === u.code ? "bg-neutral-50 border-neutral-300 font-medium" : "border-transparent font-light hover:bg-neutral-50"}`}
+                style={{ color: currentUnit === u.code ? palette.text : palette.textMuted }}
+              >
+                {u.label}
               </button>
             ))}
           </div>
