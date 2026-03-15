@@ -53,8 +53,13 @@
 | ID | Nombre | Origen | Descripción visual |
 |----|--------|--------|--------------------|
 | branded-fullwidth | Branded Residences Fullwidth | Home3 | Imagen de fondo full-width, badge Crown, texto centrado, CTA dorado |
+| branded-listing-card | Branded Listing Card | BrandedResidences | Card horizontal branded con stats, tipologías, units, badge Crown |
+| branded-detail-gallery | Branded Detail Gallery | BrandedResidence Detail | Galería mosaico con badge ROI overlay |
+| branded-unit-table | Branded Unit Table | BrandedResidence Detail | Tabla de unidades con filtros (wrapper de ProjectUnitsTable) |
+| branded-amenities | Branded Amenities | BrandedResidence Detail | Grid amenities five-star (wrapper de ProjectAmenitiesGrid) |
+| branded-progress | Branded Progress Bar | BrandedResidence Detail | Barra de progreso de construcción standalone |
 
-## 🏢 Projects — Branded + New Dev (9 variantes)
+## 🏢 Projects — Branded + New Dev (12 variantes)
 
 | ID | Nombre | Origen | Descripción visual |
 |----|--------|--------|--------------------|
@@ -67,13 +72,22 @@
 | project-price-sidebar | Price Sidebar + Progress | Detail pages | Card sticky: precio, progress bar, tipologías, CTAs (Request/Visit), Call/WhatsApp |
 | project-location-card | Location Card | Detail pages | Card con MapPin, nearby places list, airport info |
 | project-units-table | Units Table + Mobile Cards | Detail pages | Tabla filterable (desktop) + cards (mobile), status badges, botón Enquire |
+| project-info-ribbon | Info Ribbon (Title + Stats) | Detail pages | Título + badge marca/estado + precio rango + stats ribbon horizontal |
+| project-description | Project Description | Detail pages | Sección "About the Project" con múltiples párrafos |
+| project-gallery-mosaic | Gallery Mosaic + ROI | Detail pages | Mosaico 4-col con badge ROI, carousel mobile, lightbox |
 
-## 🏗️ Nuevas Promociones (2 variantes)
+## 🏗️ Nuevas Promociones (8 variantes)
 
 | ID | Nombre | Origen | Descripción visual |
 |----|--------|--------|--------------------|
 | newdev-grid-stats | Grid con Stats Header | Home2 | 3 columnas con estadísticas en header (Active Projects, Total Value, Locations) |
 | newdev-grid-simple | Grid Simple | Home3/4 | 3 columnas sin stats, badge "New Build" + completion date |
+| newdev-listing-card | NewDev Listing Card | NewDevelopments | Card horizontal newdev con stats, tipologías, badge Building2 |
+| newdev-detail-gallery | NewDev Detail Gallery | NewDev Detail | Galería mosaico con badge ROI (wrapper de ProjectGalleryMosaic) |
+| newdev-unit-table | NewDev Unit Table | NewDev Detail | Tabla de unidades (wrapper de ProjectUnitsTable) |
+| newdev-floor-plans | NewDev Floor Plans | NewDev Detail | Grid de planos de planta (wrapper de DetailFloorPlans) |
+| newdev-amenities | NewDev Amenities | NewDev Detail | Grid amenities comunidad (wrapper de ProjectAmenitiesGrid) |
+| newdev-progress | NewDev Progress Bar | NewDev Detail | Barra de progreso de construcción (wrapper de BrandedProgress) |
 
 ## 🔒 Off-Market (2 variantes)
 
