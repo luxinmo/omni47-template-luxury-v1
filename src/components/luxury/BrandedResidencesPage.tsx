@@ -41,6 +41,7 @@ const BRANDED_RESIDENCES: BrandedResidence[] = [
     description: "Oceanfront residences with full Four Seasons hotel services, private beach club and world-class spa.",
   },
   {
+    slug: "ritz-carlton-ibiza",
     image: detail2, name: "The Ritz-Carlton Residences", location: "Ibiza", brand: "Ritz-Carlton", developer: "Marriott International", delivery: "Q4 2028",
     status: "Pre-Launch", construction: 0, availableUnits: 18, totalUnits: 18, priceMin: 4200000, priceMax: 12000000,
     typologies: [{ type: "Penthouse", from: 8500000 }, { type: "Villa", from: 4200000 }],
