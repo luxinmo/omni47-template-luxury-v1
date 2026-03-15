@@ -73,6 +73,7 @@ const BRANDED_RESIDENCES: BrandedResidence[] = [
     description: "Bold, contemporary living with W's signature energy — rooftop pools, DJ sessions and vibrant social spaces.",
   },
   {
+    slug: "six-senses-moraira",
     image: detail1, name: "Six Senses Residences", location: "Moraira, Costa Blanca", brand: "Six Senses", developer: "IHG Hotels", delivery: "Q4 2027",
     status: "Under Construction", construction: 35, availableUnits: 14, totalUnits: 22, priceMin: 3200000, priceMax: 7800000,
     typologies: [{ type: "Villa", from: 3200000 }, { type: "Penthouse", from: 5600000 }],
