@@ -149,82 +149,128 @@
 
 ---
 
-## 🖼️ Detalle — Galerías (3 variantes)
+## 🖼️ Detalle — Galerías (4 variantes)
 
 | ID | Nombre | Origen | Descripción visual |
 |----|--------|--------|--------------------|
+| detail-gallery | Galería Mosaico + Lightbox | V3/V4/V5/V6 | Grid 4-col asimétrico (1 grande + 4 pequeñas), lightbox fullscreen con swipe, grid view, contact slide final |
+| detail-gallery-classic | Galería Clásica (Main+Thumbs) | V2 | Imagen principal grande (7 cols) con flechas de navegación + strip de thumbnails horizontal debajo |
 | detail-gallery-hero | Galería Hero Inmersiva | V1 | Imagen principal grande, thumbnails inferiores, overlay con badges |
-| detail-gallery-mosaic | Galería Mosaico | V3/V4/V5/V6 | Grid asimétrico de fotos (1 grande + 4 pequeñas), click para lightbox |
-| detail-gallery-carousel | Galería Carrusel | V2 | Imagen principal con flechas, strip de thumbnails inferior |
+| detail-gallery-carousel | Galería Carrusel | V2 (doc) | Imagen principal con flechas, strip de thumbnails inferior (documentada) |
 
-## 📋 Detalle — Info Propiedad (2 variantes)
+## 📋 Detalle — Info Header (4 variantes)
 
 | ID | Nombre | Origen | Descripción visual |
 |----|--------|--------|--------------------|
-| detail-info-classic | Info Clásica | V1/V2/V3 | Breadcrumb + título + precio + specs ribbon (beds/baths/sqm) |
-| detail-info-modern | Info Moderna | V5/V6 | Título uppercase + dirección con MapPin + badges de estado + precio sticky sidebar |
+| detail-info-header | Info Header Compact (4-col Grid) | V6 | Título uppercase grande + dirección + grid 4-col de specs (Beds/Baths/Built/Plot) en cajas con iconos + tags |
+| detail-info-header-inline | Info Header Inline (Icons Row) | V3 | Título + subtítulo + specs en fila horizontal con icono+valor+label (incluye Garage) |
+| detail-info-header-card | Info Header Card (Summary) | V4 | Card fullwidth con 2 columnas: info+specs izq, precio+CTAs derecha, feature dots |
+| detail-info-header-wide | Info Header Wide (6-col Grid) | V5 | Título SEO + 6 cajas de specs (incluye Energy+Garage), year/status debajo |
+
+## 🔗 Detalle — Breadcrumb (2 variantes)
+
+| ID | Nombre | Origen | Descripción visual |
+|----|--------|--------|--------------------|
+| detail-breadcrumb | Breadcrumb Inline | V2/V3/V5/V6 | Breadcrumb simple con chevrons y schema.org markup |
+| detail-breadcrumb-sticky | Breadcrumb Sticky Bar | V4 | Barra sticky debajo del navbar con breadcrumb izq + botón PDF download derecha |
 
 ## 📝 Detalle — Descripción (1 variante)
 
 | ID | Nombre | Origen | Descripción visual |
 |----|--------|--------|--------------------|
-| detail-description | Descripción Expandible | V1-V6 | Texto con "Read more / Show less" toggle |
+| detail-description | Descripción Expandible | V2–V6 | Texto con "Read more / Show less" toggle, line-clamp configurable |
 
 ## ✅ Detalle — Características (2 variantes)
 
 | ID | Nombre | Origen | Descripción visual |
 |----|--------|--------|--------------------|
-| detail-features-list | Features Lista | V1/V2/V3 | Lista de features con checkmarks |
-| detail-features-table | Features Tabla | V5/V6 | Tabla de características con categorías |
+| detail-features-grid | Features Checklist | V2–V6 | Grid 2-3 cols con checkmarks verdes |
+| detail-characteristics | Characteristics Table | V6 | Tabla 2 columnas con label/value, specs técnicos |
 
-## 📍 Detalle — Mapa (1 variante)
-
-| ID | Nombre | Origen | Descripción visual |
-|----|--------|--------|--------------------|
-| detail-map-placeholder | Mapa Placeholder | V1-V6 | Área gris con texto "Interactive map" |
-
-## 👤 Detalle — Agente / Contacto (2 variantes)
+## 💰 Detalle — Precio (1 variante)
 
 | ID | Nombre | Origen | Descripción visual |
 |----|--------|--------|--------------------|
-| detail-agent-sidebar | Agente Sidebar | V1-V4 | Card fija con foto agente, form de contacto, botón llamar |
-| detail-agent-modal | Agente Modal | V6 | Botón que abre modal con mini-tarjeta propiedad + form completo |
+| detail-price-card | Price Card Sticky Sidebar | V6 | Card sticky con precio, descuento, CTA (Call/WhatsApp/Enquiry), brochure download |
 
-## 🧮 Detalle — Calculadora Hipoteca (1 variante)
-
-| ID | Nombre | Origen | Descripción visual |
-|----|--------|--------|--------------------|
-| detail-mortgage | Calculadora Hipoteca | V1-V6 | 4 sliders (precio, entrada, tipo, plazo) + resultado mensual |
-
-## 📍 Detalle — Lugares Cercanos (1 variante)
+## 📐 Detalle — Planos (1 variante)
 
 | ID | Nombre | Origen | Descripción visual |
 |----|--------|--------|--------------------|
-| detail-nearby | Lugares Cercanos | V1-V6 | Grid por categorías (restaurantes, playas, supermercados, hospitales) |
-
-## 🏘️ Detalle — Propiedades Similares (1 variante)
-
-| ID | Nombre | Origen | Descripción visual |
-|----|--------|--------|--------------------|
-| detail-similar | Propiedades Similares | V1-V6 | Grid 3 columnas con card de propiedad resumida |
+| detail-floor-plans | Floor Plans Grid | V6 | Grid 2 cols con placeholder de planos por planta |
 
 ## 📊 Detalle — Market Data (1 variante)
 
 | ID | Nombre | Origen | Descripción visual |
 |----|--------|--------|--------------------|
-| detail-market-data | Datos de Mercado | V5/V6 | Tabla/cards con precios medios, tendencias, comparativas |
+| detail-market-data | Datos de Mercado | V5/V6 | Grid 2x2 cards con valor, progress bar, tendencia YoY |
 
-## 📖 Detalle — Guía del Comprador (1 variante)
-
-| ID | Nombre | Origen | Descripción visual |
-|----|--------|--------|--------------------|
-| detail-buyers-guide | Banner Guía Comprador | V6 | Banner integrado con CTA para descargar guía |
-
-## 🔗 Detalle — Links Internos SEO (1 variante)
+## 🧮 Detalle — Calculadora Hipoteca (1 variante)
 
 | ID | Nombre | Origen | Descripción visual |
 |----|--------|--------|--------------------|
-| detail-internal-links | Links Internos | V5/V6 | Grid de links a zonas y tipos de propiedad para SEO |
+| detail-mortgage-calculator | Calculadora Hipoteca | V2–V6 | 3 sliders (precio, entrada, tipo) + resultado mensual |
+
+## 📍 Detalle — Nearby Places (1 variante)
+
+| ID | Nombre | Origen | Descripción visual |
+|----|--------|--------|--------------------|
+| detail-nearby-places | Lugares Cercanos | V2–V5 | Grid categorizado con iconos dinámicos (Lucide) |
+
+## 🏘️ Detalle — Related Properties (2 variantes)
+
+| ID | Nombre | Origen | Descripción visual |
+|----|--------|--------|--------------------|
+| detail-related-grid | Related Grid (3 cols) | V2/V3/V5/V6 | Grid 3 columnas vertical con card propiedad (imagen + info) |
+| detail-related-list | Related List (Horizontal) | V4 | Cards horizontales (imagen izq + info derecha) apiladas verticalmente |
+
+## 🔗 Detalle — SEO Links (1 variante)
+
+| ID | Nombre | Origen | Descripción visual |
+|----|--------|--------|--------------------|
+| detail-seo-links | Links Internos SEO | V5/V6 | Pills/tags con links a zonas y tipos de propiedad |
+
+## 📬 Detalle — Contact Form (1 variante)
+
+| ID | Nombre | Origen | Descripción visual |
+|----|--------|--------|--------------------|
+| detail-contact-form | Formulario de Contacto Inline | V2–V6 | Form con nombre, email, teléfono, mensaje, checkbox visita, confirmación |
+
+## 📩 Detalle — Enquiry Modal (1 variante)
+
+| ID | Nombre | Origen | Descripción visual |
+|----|--------|--------|--------------------|
+| detail-enquiry-modal | Modal Enquiry 3 Etapas | V6 | Form → Thanks → Suggestions con propiedades similares |
+
+## 🏢 Detalle — Agency Info (1 variante)
+
+| ID | Nombre | Origen | Descripción visual |
+|----|--------|--------|--------------------|
+| detail-agency-info | Agency Info Card | V6 | Card con nombre agencia, teléfono, email, WhatsApp, referencia |
+
+## ⚡ Detalle — Energy Badge (1 variante)
+
+| ID | Nombre | Origen | Descripción visual |
+|----|--------|--------|--------------------|
+| detail-energy-badge | Certificado Energético | V2–V6 | Badge grande (A-G) con escala de colores visual |
+
+## 🕐 Detalle — Recently Viewed (1 variante)
+
+| ID | Nombre | Origen | Descripción visual |
+|----|--------|--------|--------------------|
+| detail-recently-viewed | Carrusel Recently Viewed | V2–V6 | Strip horizontal scrollable con thumbnails de propiedades vistas |
+
+## 📱 Detalle — Mobile Sticky Bar (1 variante)
+
+| ID | Nombre | Origen | Descripción visual |
+|----|--------|--------|--------------------|
+| detail-mobile-sticky-bar | Barra Contacto Mobile | V2–V6 | Barra fija inferior con Call / WhatsApp / Enquiry |
+
+## 📖 Detalle — Buyer's Guide (1 variante)
+
+| ID | Nombre | Origen | Descripción visual |
+|----|--------|--------|--------------------|
+| detail-buyers-guide | Banner Guía Comprador | V6 | Banner con CTA para descarga de guía del comprador |
 
 ---
 
@@ -253,16 +299,23 @@
 | Chatbot | 1 |
 | Navbar | 2 |
 | Footer | 2 |
-| Detail — Galleries | 3 |
-| Detail — Info | 2 |
+| Detail — Galleries | 4 |
+| Detail — Info Header | 4 |
+| Detail — Breadcrumb | 2 |
 | Detail — Description | 1 |
 | Detail — Features | 2 |
-| Detail — Map | 1 |
-| Detail — Agent | 2 |
+| Detail — Price Card | 1 |
+| Detail — Floor Plans | 1 |
+| Detail — Market Data | 1 |
 | Detail — Mortgage | 1 |
 | Detail — Nearby | 1 |
-| Detail — Similar | 1 |
-| Detail — Market Data | 1 |
+| Detail — Related | 2 |
+| Detail — SEO Links | 1 |
+| Detail — Contact Form | 1 |
+| Detail — Enquiry Modal | 1 |
+| Detail — Agency Info | 1 |
+| Detail — Energy Badge | 1 |
+| Detail — Recently Viewed | 1 |
+| Detail — Mobile Sticky Bar | 1 |
 | Detail — Buyer's Guide | 1 |
-| Detail — Internal Links | 1 |
-| **TOTAL** | **~50 bloques** |
+| **TOTAL** | **~56 bloques** |

@@ -56,6 +56,12 @@ import DetailEnergyBadge from "@/components/blocks/detail/DetailEnergyBadge";
 import DetailRecentlyViewed from "@/components/blocks/detail/DetailRecentlyViewed";
 import DetailMobileStickyBar from "@/components/blocks/detail/DetailMobileStickyBar";
 import DetailBuyersGuide from "@/components/blocks/detail/DetailBuyersGuide";
+import DetailGalleryClassic from "@/components/blocks/detail/DetailGalleryClassic";
+import DetailInfoHeaderInline from "@/components/blocks/detail/DetailInfoHeaderInline";
+import DetailInfoHeaderCard from "@/components/blocks/detail/DetailInfoHeaderCard";
+import DetailInfoHeaderWide from "@/components/blocks/detail/DetailInfoHeaderWide";
+import DetailBreadcrumbSticky from "@/components/blocks/detail/DetailBreadcrumbSticky";
+import DetailRelatedList from "@/components/blocks/detail/DetailRelatedList";
 
 const CATEGORIES = [
   {
@@ -211,6 +217,12 @@ const CATEGORIES = [
       { id: "detail-recently-viewed", name: "Recently Viewed Strip", origin: "Detail V6", component: DetailRecentlyViewed },
       { id: "detail-mobile-sticky-bar", name: "Mobile Sticky Contact Bar", origin: "Detail V2–V6", component: DetailMobileStickyBar },
       { id: "detail-buyers-guide", name: "Buyer's Guide Banner", origin: "Detail V6", component: DetailBuyersGuide },
+      { id: "detail-gallery-classic", name: "Gallery Classic (Main+Thumbs)", origin: "Detail V2", component: DetailGalleryClassic },
+      { id: "detail-info-header-inline", name: "Info Header Inline (Icons Row)", origin: "Detail V3", component: DetailInfoHeaderInline },
+      { id: "detail-info-header-card", name: "Info Header Card (Summary)", origin: "Detail V4", component: DetailInfoHeaderCard },
+      { id: "detail-info-header-wide", name: "Info Header Wide (6-col Grid)", origin: "Detail V5", component: DetailInfoHeaderWide },
+      { id: "detail-breadcrumb-sticky", name: "Breadcrumb Sticky Bar", origin: "Detail V4", component: DetailBreadcrumbSticky },
+      { id: "detail-related-list", name: "Related Properties List", origin: "Detail V4", component: DetailRelatedList },
     ],
   },
 ];
