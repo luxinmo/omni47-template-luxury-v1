@@ -875,10 +875,6 @@ const OffMarketPropertyCard = ({ property }: { property: typeof PROPERTIES[0] })
 const LuxuryPropertyListing = () => {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [filters, setFilters] = useState<FilterState>(defaultFilters);
-  const [langOpen, setLangOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState("EN");
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [currentCurrency, setCurrentCurrency] = useState("EUR");
 
   const toggleType = (t: string) => setFilters(f => ({ ...f, types: f.types.includes(t) ? f.types.filter(x => x !== t) : [...f.types, t] }));
   const toggleAmenity = (a: string) => setFilters(f => ({ ...f, amenities: f.amenities.includes(a) ? f.amenities.filter(x => x !== a) : [...f.amenities, a] }));
@@ -886,7 +882,7 @@ const LuxuryPropertyListing = () => {
   const activeChips = buildActiveChips(filters);
 
   return (
-    <div className="flex-1 overflow-auto bg-white text-luxury-black font-sans">
+    <Layout activePath="/properties" background="#fff">
       <SEOHead
         title="Luxury Properties for Sale"
         description="Discover the finest selection of luxury villas, penthouses, fincas and new-build properties across Ibiza and the Costa Blanca."
@@ -897,36 +893,6 @@ const LuxuryPropertyListing = () => {
           "description": "Browse luxury real estate listings across the Mediterranean.",
         }}
       />
-      {/* ─── NAVBAR ─── */}
-      <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-3 items-center px-6 lg:px-10 h-[68px]">
-          <div className="hidden lg:flex items-center gap-10">
-            <button className="text-luxury-black/50 hover:text-luxury-black transition-colors duration-300">
-              <svg className="w-[18px] h-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.2}><circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
-            </button>
-            {navLeft.map((l) => (
-              <Link key={l.label} to={l.href} className="text-[13px] tracking-[0.14em] uppercase font-light text-luxury-black/55 hover:text-luxury-black transition-colors duration-300">{l.label}</Link>
-            ))}
-          </div>
-          <div className="lg:hidden" />
-
-          <Link to="/" className="flex flex-col items-center justify-center">
-            <span className="text-lg md:text-xl tracking-[0.3em] font-light text-luxury-black">{brand.fullName}</span>
-            <span className="text-[10px] tracking-[0.35em] uppercase font-light text-luxury-black/40">{brand.subtitle}</span>
-          </Link>
-
-          <div className="flex items-center justify-end gap-8">
-            <div className="hidden lg:flex items-center gap-10">
-              {navRight.map((l) => (
-                <Link key={l.label} to={l.href} className="text-[13px] tracking-[0.14em] uppercase font-light text-luxury-black/55 hover:text-luxury-black transition-colors duration-300">{l.label}</Link>
-              ))}
-            </div>
-            <button className="lg:hidden text-luxury-black/70">
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" /></svg>
-            </button>
-          </div>
-        </div>
-      </nav>
 
       {/* ─── BREADCRUMBS + SEARCH BAR ─── */}
       <div className="sticky top-[68px] z-40 bg-white border-b border-neutral-200">
