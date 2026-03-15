@@ -773,7 +773,7 @@ const BrandedResidenceDetailPage = () => {
                   </select>
                 </div>
                 <textarea placeholder="Any specific requirements or questions..." rows={2} className="w-full px-4 py-3 text-[13px] font-light border rounded-sm outline-none focus:border-[#c9a96e] resize-none" style={{ borderColor: palette.border }} />
-                <button type="submit" className="w-full py-3.5 text-[12px] tracking-[0.18em] uppercase font-light transition-opacity hover:opacity-90" style={{ background: palette.accent, color: "#1a1816" }}>
+                <button type="submit" className="w-full py-3.5 text-[12px] tracking-[0.18em] uppercase font-light transition-opacity hover:opacity-90" style={{ background: palette.accent, color: "#fff" }}>
                   Request Visit
                 </button>
               </form>
