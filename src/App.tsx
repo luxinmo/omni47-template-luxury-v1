@@ -10,7 +10,7 @@ import BlogListingPage from "./components/luxury/BlogListingPage";
 import BlogDetailPage from "./components/luxury/BlogDetailPage";
 import SystemPage from "./components/luxury/SystemPage";
 import ContactPage from "./components/luxury/ContactPage";
-import PropertyDetailPage from "./components/luxury/PropertyDetailPage";
+
 import PropertyDetailV2 from "./components/luxury/PropertyDetailV2";
 import PropertyDetailV3 from "./components/luxury/PropertyDetailV3";
 import PropertyDetailV4 from "./components/luxury/PropertyDetailV4";
@@ -50,7 +50,7 @@ const App = () => (
             <Route path="/blog" element={<BlogListingPage />} />
             <Route path="/blog/:slug" element={<BlogDetailPage />} />
             <Route path="/page/:slug" element={<SystemPage />} />
-            <Route path="/property/:id" element={<PropertyDetailPage />} />
+            
             <Route path="/property2/:id" element={<PropertyDetailV2 />} />
             <Route path="/property3/:id" element={<PropertyDetailV3 />} />
             <Route path="/property4/:id" element={<PropertyDetailV4 />} />
@@ -58,10 +58,10 @@ const App = () => (
             <Route path="/property6/:id" element={<PropertyDetailV6 />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/branded-residences" element={<BrandedResidencesPage />} />
-            <Route path="/branded-residences/in/:location" element={<BrandedResidencesPage />} />
+            
             <Route path="/branded-residences/:slug" element={<BrandedResidenceDetailPage />} />
             <Route path="/new-developments" element={<NewDevelopmentsPage />} />
-            <Route path="/new-developments/in/:location" element={<NewDevelopmentsPage />} />
+            
             <Route path="/new-developments/:slug" element={<NewDevelopmentDetailPage />} />
             <Route path="/pdf-v1" element={<PropertyPdfV1 />} />
             <Route path="/pdf-v2" element={<PropertyPdfV2 />} />
