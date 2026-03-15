@@ -737,7 +737,7 @@ const NewDevelopmentDetailPage = () => {
                   <a href={`mailto:${contact.email}`} className="flex items-center gap-3 text-sm hover:opacity-70 transition-opacity" style={{ color: palette.text }}>
                     <Mail className="w-4 h-4" /> {contact.email}
                   </a>
-                  <a href={`https://wa.me/${contact.whatsapp?.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm hover:opacity-70 transition-opacity" style={{ color: palette.text }}>
+                  <a href={`https://wa.me/${contact.phone?.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm hover:opacity-70 transition-opacity" style={{ color: palette.text }}>
                     <MessageCircle className="w-4 h-4" /> WhatsApp
                   </a>
                 </div>
