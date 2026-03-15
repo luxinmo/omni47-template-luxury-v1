@@ -547,7 +547,7 @@ const NewDevPromoCard = () => (
     <div className="md:col-span-5 relative overflow-hidden aspect-[16/10] md:aspect-auto md:h-full min-h-[220px]">
       <img src={detail1} alt="Marea Residences — New Development" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 absolute inset-0" />
       <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-luxury-black/80 text-white text-[11px] tracking-[0.12em] uppercase font-medium px-3 py-1.5 rounded-sm">
-        <Building2 className="w-3 h-3" /> New Build
+        <Building2 className="w-3 h-3" /> New Development
       </span>
       <span className="absolute bottom-3 right-3 bg-luxury-black/60 text-white text-[12px] px-2 py-1 font-light">1/6</span>
     </div>
