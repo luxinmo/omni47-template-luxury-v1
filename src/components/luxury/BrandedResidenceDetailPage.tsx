@@ -312,6 +312,7 @@ const BrandedResidenceDetailPage = () => {
             { label: "Construction", value: `${p.construction}%` },
             { label: "Delivery", value: p.delivery },
             { label: "Developer", value: p.developer },
+            ...(p.estimatedROI ? [{ label: "Est. ROI", value: p.estimatedROI }] : []),
           ].map((s, i) => (
             <div key={i}>
               <p className="text-[9px] tracking-[0.2em] uppercase font-medium mb-1" style={{ color: palette.textLight }}>{s.label}</p>
