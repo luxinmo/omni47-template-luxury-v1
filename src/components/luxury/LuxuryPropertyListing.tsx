@@ -970,7 +970,7 @@ const LuxuryPropertyListing = () => {
 
         {/* Results header */}
         <div className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-extralight text-luxury-black tracking-[0.02em] leading-snug">Luxury Homes in Ibiza & Costa Blanca</h1>
+          <h1 className="text-2xl md:text-3xl font-extralight text-luxury-black tracking-[0.02em] leading-snug">Luxury Properties for Sale</h1>
           <p className="text-[14px] sm:text-[15px] text-luxury-black/60 font-light mt-3 max-w-3xl leading-relaxed">
             Discover the finest selection of luxury villas, penthouses, fincas and new-build properties across Ibiza and the Costa Blanca. From beachfront estates with panoramic sea views to exclusive golf-side residences, explore hand-picked homes curated for the most discerning buyers.
           </p>
