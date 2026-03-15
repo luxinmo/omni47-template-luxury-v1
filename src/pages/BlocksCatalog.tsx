@@ -81,6 +81,8 @@ import ContactOfficeGrid from "@/components/blocks/contact/ContactOfficeGrid";
 import ContactOfficeTabs from "@/components/blocks/contact/ContactOfficeTabs";
 import FavoritesGrid from "@/components/blocks/favorites/FavoritesGrid";
 import FavoritesEmptyState from "@/components/blocks/favorites/FavoritesEmptyState";
+import MagazineEditorial from "@/components/blocks/journal/MagazineEditorial";
+import ChatbotPanel from "@/components/blocks/chat/ChatbotPanel";
 
 const CATEGORIES = [
   {
@@ -193,6 +195,7 @@ const CATEGORIES = [
     title: "📰 Journal / Blog",
     blocks: [
       { id: "journal-editorial", name: "Journal Editorial", origin: "Home2/3/4", component: JournalEditorial },
+      { id: "magazine-editorial", name: "Magazine Editorial (Category Badges)", origin: "Portal", component: MagazineEditorial },
     ],
   },
   {
@@ -281,6 +284,12 @@ const CATEGORIES = [
     blocks: [
       { id: "favorites-grid", name: "Saved Properties Grid", origin: "FavoritesPage", component: FavoritesGrid },
       { id: "favorites-empty-state", name: "Empty State CTA", origin: "FavoritesPage", component: FavoritesEmptyState },
+    ],
+  },
+  {
+    title: "💬 Chatbot",
+    blocks: [
+      { id: "chatbot-panel", name: "Floating Chat Widget", origin: "Home4", component: ChatbotPanel },
     ],
   },
 ];
