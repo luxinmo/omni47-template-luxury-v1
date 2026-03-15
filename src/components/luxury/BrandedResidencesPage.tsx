@@ -33,6 +33,7 @@ interface BrandedResidence {
 
 const BRANDED_RESIDENCES: BrandedResidence[] = [
   {
+    slug: "four-seasons-marbella",
     image: prop1, name: "Four Seasons Private Residences", location: "Marbella, Costa del Sol", brand: "Four Seasons", developer: "Four Seasons Hotels", delivery: "Q2 2027",
     status: "Selling", construction: 45, availableUnits: 8, totalUnits: 32, priceMin: 3500000, priceMax: 8200000, trending: true,
     typologies: [{ type: "Penthouse", from: 5200000 }, { type: "Villa", from: 6800000 }, { type: "Apartment", from: 3500000 }],
