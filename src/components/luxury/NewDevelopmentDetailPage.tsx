@@ -807,7 +807,7 @@ const NewDevelopmentDetailPage = () => {
             <div className="h-64 overflow-y-auto p-3 space-y-2">
               {chatMessages.map((m, i) => (
                 <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
-                  <div className={`max-w-[80%] px-3 py-2 rounded-lg text-[13px] ${m.role === "user" ? "bg-black text-white" : ""}`} style={m.role === "bot" ? { background: palette.card, color: palette.text } : {}}>
+                  <div className={`max-w-[80%] px-3 py-2 rounded-lg text-[13px] ${m.role === "user" ? "bg-black text-white" : ""}`} style={m.role === "bot" ? { background: palette.bgAlt, color: palette.text } : {}}>
                     {m.text}
                   </div>
                 </div>
