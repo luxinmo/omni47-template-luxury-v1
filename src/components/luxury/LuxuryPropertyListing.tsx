@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Search, SlidersHorizontal, X, ChevronDown, ChevronRight, Bed, Bath, Maximize, MapPin, Mail, Lock, Eye, Phone, User, Crown, ArrowRight } from "lucide-react";
+import { Search, SlidersHorizontal, X, ChevronDown, ChevronRight, Bed, Bath, Maximize, MapPin, Mail, Lock, Eye, Phone, User, Crown, ArrowRight, Building2 } from "lucide-react";
 import { brand, navLeft, navRight } from "@/config/template";
 import SEOHead from "@/components/shared/SEOHead";
 import heroImg from "@/assets/luxury-hero.jpg";
@@ -537,6 +537,49 @@ const BrandedResidencePromoCard = () => (
   </Link>
 );
 
+/* ─── New Development Promo Card (same layout as PropertyCard) ─── */
+const NewDevPromoCard = () => (
+  <Link
+    to="/new-developments/marea-residences-altea"
+    className="group relative grid grid-cols-1 md:grid-cols-12 gap-0 rounded-sm overflow-hidden mb-6 hover:shadow-lg transition-all duration-300 bg-[hsl(140,12%,96%)] border border-emerald-200/40 ring-1 ring-emerald-200/20"
+  >
+    <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-400/40 to-transparent" />
+    <div className="md:col-span-5 relative overflow-hidden aspect-[16/10] md:aspect-auto md:h-full min-h-[220px]">
+      <img src={detail1} alt="Marea Residences — New Development" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 absolute inset-0" />
+      <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-emerald-700 text-white text-[11px] tracking-[0.12em] uppercase font-medium px-3 py-1.5 rounded-sm">
+        <Building2 className="w-3 h-3" /> New Build
+      </span>
+      <span className="absolute bottom-3 right-3 bg-luxury-black/60 text-white text-[12px] px-2 py-1 font-light">1/6</span>
+    </div>
+    <div className="md:col-span-7 flex flex-col p-5 md:p-6 lg:p-8">
+      <div className="flex items-center justify-between mb-3">
+        <span className="text-[12px] tracking-[0.15em] uppercase border border-luxury-black/30 text-luxury-black/70 px-2.5 py-1 font-medium">SELLING</span>
+        <span className="text-luxury-black/30"><Mail className="w-4.5 h-4.5" /></span>
+      </div>
+      <p className="text-[13px] tracking-[0.14em] uppercase text-luxury-black/60 mb-1">Altea · Costa Blanca</p>
+      <p className="text-[13px] text-luxury-black/55 font-light mb-1.5">New Development <span className="mx-1 text-luxury-black/30">|</span> <span className="italic">Grupo Prasa</span> <span className="mx-1 text-luxury-black/30">|</span> <span className="font-mono text-luxury-black/45 tracking-wide text-[12px]">Delivery Q2 2027</span></p>
+      <h2 className="text-[17px] md:text-[19px] font-medium text-luxury-black leading-snug mb-1.5 group-hover:text-luxury-black/75 transition-colors duration-300">MAREA RESIDENCES</h2>
+      <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2">Contemporary beachfront apartments with panoramic sea views, communal pools, landscaped gardens and underground parking in Altea's most sought-after location.</p>
+      <div className="flex items-center gap-7 mb-5">
+        <div className="text-center"><p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Units</p><p className="text-[16px] text-luxury-black font-light">28 <span className="text-[13px] text-luxury-black/40">/ 64</span></p></div>
+        <div className="text-center"><p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Built</p><p className="text-[16px] text-luxury-black font-light">55%</p></div>
+        <div className="text-center"><p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Types</p><p className="text-[16px] text-luxury-black font-light">3</p></div>
+      </div>
+      <div className="flex flex-wrap gap-2.5">
+        {["Sea Views", "Pool", "Parking", "Energy A"].map((f, i) => (
+          <span key={i} className="text-[12px] text-luxury-black/55 font-light flex items-center gap-1.5"><span className="w-1 h-1 rounded-full bg-luxury-black/30" />{f}</span>
+        ))}
+      </div>
+      <div className="mt-auto pt-5 border-t border-neutral-100 flex items-center justify-between">
+        <p className="text-2xl md:text-[28px] font-extralight text-luxury-black tracking-tight">€485,000 — €1,250,000</p>
+        <Link to="/new-developments" onClick={(e) => e.stopPropagation()} className="inline-flex items-center gap-1.5 text-[11px] tracking-[0.12em] uppercase font-light text-luxury-black/50 hover:text-luxury-black transition-colors whitespace-nowrap">
+          <Building2 className="w-3 h-3" /> +6 more <ArrowRight className="w-3 h-3" />
+        </Link>
+      </div>
+    </div>
+  </Link>
+);
+
 /* ─── Property Card (horizontal) ─── */
 const PropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
   return (
@@ -980,6 +1023,8 @@ const LuxuryPropertyListing = () => {
             <div key={p.id}>
               {/* Insert branded residence promo card at position 3 */}
               {idx === 2 && <BrandedResidencePromoCard />}
+              {/* Insert new development promo card at position 5 */}
+              {idx === 4 && <NewDevPromoCard />}
               {p.offmarket
                 ? <OffMarketPropertyCard property={p} />
                 : <PropertyCard property={p} />
