@@ -299,6 +299,7 @@
 | Property Types | 1 |
 | Collections | 2 |
 | Branded Residences | 1 |
+| Projects (Branded + NewDev) | 9 |
 | New Developments | 2 |
 | Off-Market | 2 |
 | About/Services | 2 |

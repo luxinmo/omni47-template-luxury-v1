@@ -128,6 +128,20 @@ const CATEGORIES = [
     ],
   },
   {
+    title: "🏢 Projects (Branded + NewDev)",
+    blocks: [
+      { id: "project-card", name: "Project Card (Listing)", origin: "BrandedResidences / NewDev", component: ProjectCard },
+      { id: "project-benefits-grid", name: "Benefits Grid (4-col)", origin: "BrandedResidences / NewDev", component: ProjectBenefitsGrid },
+      { id: "project-highlights", name: "Key Highlights Box", origin: "BrandedResidence Detail / NewDev Detail", component: ProjectHighlights },
+      { id: "project-brochure-cta", name: "Brochure Download CTA", origin: "BrandedResidence Detail / NewDev Detail", component: ProjectBrochureCTA },
+      { id: "project-amenities-grid", name: "Amenities Icon Grid", origin: "BrandedResidence Detail / NewDev Detail", component: ProjectAmenitiesGrid },
+      { id: "project-brand-services", name: "Brand Services List", origin: "BrandedResidence Detail", component: ProjectBrandServices },
+      { id: "project-price-sidebar", name: "Price Sidebar + Progress", origin: "BrandedResidence Detail / NewDev Detail", component: ProjectPriceSidebar },
+      { id: "project-location-card", name: "Location Card", origin: "BrandedResidence Detail / NewDev Detail", component: ProjectLocationCard },
+      { id: "project-units-table", name: "Units Table + Mobile Cards", origin: "BrandedResidence Detail / NewDev Detail", component: ProjectUnitsTable },
+    ],
+  },
+  {
     title: "🔒 Off-Market",
     blocks: [
       { id: "offmarket-split", name: "Off-Market Split", origin: "Home2/3/4", component: OffmarketSplit },
