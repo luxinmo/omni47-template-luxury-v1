@@ -1022,26 +1022,102 @@ const PropertyDetailV6 = () => {
 
 
       {/* ─── FULLSCREEN LIGHTBOX ─── */}
-      {lightbox !== null && (
-        <div className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center" onClick={() => setLightbox(null)} role="dialog" aria-label="Photo gallery">
-          <button onClick={() => setLightbox(null)} className="absolute top-4 right-4 text-white/60 hover:text-white transition-colors z-10" aria-label="Close gallery">
-            <X className="w-6 h-6" />
-          </button>
-          <button onClick={(e) => { e.stopPropagation(); setLightbox((lightbox - 1 + p.images.length) % p.images.length); }} className="absolute left-4 text-white/30 hover:text-white transition-colors" aria-label="Previous photo">
-            <ChevronLeft className="w-8 h-8" strokeWidth={1} />
-          </button>
-          <img src={p.images[lightbox]} alt={`${p.title} — photo ${lightbox + 1} of ${p.images.length}`} className="max-w-[90vw] max-h-[85vh] object-contain" onClick={(e) => e.stopPropagation()} />
-          <button onClick={(e) => { e.stopPropagation(); setLightbox((lightbox + 1) % p.images.length); }} className="absolute right-4 text-white/30 hover:text-white transition-colors" aria-label="Next photo">
-            <ChevronRight className="w-8 h-8" strokeWidth={1} />
-          </button>
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5" onClick={(e) => e.stopPropagation()}>
+      {lightbox !== null && !gridView && (
+        <div className="fixed inset-0 z-[100] bg-black/95 flex flex-col" role="dialog" aria-label="Photo gallery">
+          {/* Top bar */}
+          <div className="flex items-center justify-between px-4 py-3 shrink-0">
+            <span className="text-white/50 text-[13px] font-light">{lightbox + 1} / {p.images.length}</span>
+            <div className="flex items-center gap-3">
+              <button onClick={() => setGridView(true)} className="text-white/50 hover:text-white transition-colors" aria-label="Grid view">
+                <Grid3X3 className="w-5 h-5" />
+              </button>
+              <button onClick={() => setLightbox(null)} className="text-white/50 hover:text-white transition-colors" aria-label="Close gallery">
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+          </div>
+
+          {/* Main image area with invisible left/right click zones */}
+          <div
+            className="flex-1 relative flex items-center justify-center min-h-0"
+            onTouchStart={handleLbTouchStart}
+            onTouchEnd={handleLbTouchEnd}
+          >
+            {/* Left click zone (PC) */}
+            <div
+              className="hidden lg:block absolute left-0 top-0 w-1/2 h-full z-10 cursor-w-resize"
+              onClick={() => setLightbox((lightbox - 1 + p.images.length) % p.images.length)}
+            />
+            {/* Right click zone (PC) */}
+            <div
+              className="hidden lg:block absolute right-0 top-0 w-1/2 h-full z-10 cursor-e-resize"
+              onClick={() => setLightbox((lightbox + 1) % p.images.length)}
+            />
+
+            {/* Visible arrows for PC */}
+            <button onClick={() => setLightbox((lightbox - 1 + p.images.length) % p.images.length)} className="hidden lg:flex absolute left-4 z-20 text-white/30 hover:text-white transition-colors" aria-label="Previous photo">
+              <ChevronLeft className="w-8 h-8" strokeWidth={1} />
+            </button>
+            <img src={p.images[lightbox]} alt={`${p.title} — photo ${lightbox + 1} of ${p.images.length}`} className="max-w-[90vw] max-h-full object-contain relative z-0" />
+            <button onClick={() => setLightbox((lightbox + 1) % p.images.length)} className="hidden lg:flex absolute right-4 z-20 text-white/30 hover:text-white transition-colors" aria-label="Next photo">
+              <ChevronRight className="w-8 h-8" strokeWidth={1} />
+            </button>
+          </div>
+
+          {/* Thumbnails */}
+          <div className="shrink-0 px-2 py-3 flex gap-1.5 overflow-x-auto justify-center">
             {p.images.map((img, i) => (
-              <button key={i} onClick={() => setLightbox(i)} className={`w-[56px] h-[40px] overflow-hidden transition-all ${i === lightbox ? "ring-2 ring-white opacity-100" : "opacity-40 hover:opacity-70"}`} aria-label={`View photo ${i + 1}`}>
+              <button key={i} onClick={() => setLightbox(i)} className={`w-[56px] h-[40px] shrink-0 overflow-hidden transition-all ${i === lightbox ? "ring-2 ring-white opacity-100" : "opacity-40 hover:opacity-70"}`} aria-label={`View photo ${i + 1}`}>
                 <img src={img} alt="" className="w-full h-full object-cover" />
               </button>
             ))}
           </div>
-          <span className="absolute top-4 left-4 text-white/40 text-[13px] font-light">{lightbox + 1} / {p.images.length}</span>
+        </div>
+      )}
+
+      {/* ─── GRID VIEW (all photos) ─── */}
+      {gridView && (
+        <div className="fixed inset-0 z-[100] bg-black/95 flex flex-col overflow-y-auto" role="dialog" aria-label="All photos">
+          {/* Top bar */}
+          <div className="sticky top-0 z-10 flex items-center justify-between px-4 py-3 bg-black/90 backdrop-blur-sm shrink-0">
+            <span className="text-white/50 text-[13px] font-light">{p.images.length} Photos</span>
+            <button onClick={() => setGridView(false)} className="text-white/50 hover:text-white transition-colors" aria-label="Close grid view">
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+
+          {/* Grid of all images */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-1.5 p-2 sm:p-4">
+            {p.images.map((img, i) => (
+              <button
+                key={i}
+                onClick={() => { setGridView(false); setLightbox(i); }}
+                className="relative aspect-[4/3] overflow-hidden group"
+                aria-label={`View photo ${i + 1}`}
+              >
+                <img src={img} alt={`${p.title} — photo ${i + 1}`} loading="lazy" className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
+                <span className="absolute bottom-2 left-2 text-white/70 text-[11px] font-light">{i + 1}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Contact CTA at the end */}
+          <div className="px-4 sm:px-8 py-10 text-center shrink-0">
+            <h3 className="text-[18px] sm:text-[22px] font-light text-white/90 tracking-[0.04em] uppercase mb-2">{p.title}</h3>
+            <p className="text-[13px] text-white/40 font-mono tracking-[0.05em] mb-6">REF-{p.ref}</p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
+              <a href={`tel:${p.agency.phone}`} className="w-full sm:w-auto flex items-center justify-center gap-2 bg-white text-luxury-black text-[12px] tracking-[0.1em] uppercase px-8 py-3 hover:bg-white/90 transition-all">
+                <Phone className="w-3.5 h-3.5" /> Call
+              </a>
+              <a href={`https://wa.me/${p.agency.whatsapp}`} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#25D366] text-white text-[12px] tracking-[0.1em] uppercase px-8 py-3 hover:bg-[#22bf5b] transition-all">
+                <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
+              </a>
+              <button onClick={() => { setGridView(false); setEnquiryOpen(true); }} className="w-full sm:w-auto flex items-center justify-center gap-2 border border-white/30 text-white text-[12px] tracking-[0.1em] uppercase px-8 py-3 hover:bg-white/10 transition-all">
+                <Mail className="w-3.5 h-3.5" /> Enquiry
+              </button>
+            </div>
+          </div>
         </div>
       )}
 
