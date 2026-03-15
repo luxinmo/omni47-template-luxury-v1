@@ -428,7 +428,7 @@ const PropertyDetailV6 = () => {
           </div>
           <div className="relative overflow-hidden cursor-pointer group" onClick={() => setLightbox(4)}>
             <img src={p.images[4]} alt={`${p.title} — pool`} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-            <button onClick={(e) => { e.stopPropagation(); setLightbox(0); }} className="absolute bottom-3 right-3 flex items-center gap-2 bg-white/90 backdrop-blur-sm text-luxury-black text-[13px] font-medium px-4 py-2.5 rounded-lg shadow-md hover:bg-white transition-all">
+            <button onClick={(e) => { e.stopPropagation(); setGridView(true); }} className="absolute bottom-3 right-3 flex items-center gap-2 bg-white/90 backdrop-blur-sm text-luxury-black text-[13px] font-medium px-4 py-2.5 rounded-lg shadow-md hover:bg-white transition-all">
               <Grid3X3 className="w-4 h-4" /> Show all photos
             </button>
           </div>
