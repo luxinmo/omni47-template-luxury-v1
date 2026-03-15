@@ -201,6 +201,8 @@ const PropertyDetailV6 = () => {
   const [gridView, setGridView] = useState(false);
   const isMobile = useIsMobile();
 
+  const p = PROPERTY;
+
   // Lightbox swipe logic
   const lbTouchStart = useRef<{ x: number; y: number } | null>(null);
   const handleLbTouchStart = useCallback((e: React.TouchEvent) => {
@@ -216,8 +218,6 @@ const PropertyDetailV6 = () => {
     }
     lbTouchStart.current = null;
   }, [p.images.length]);
-
-  const p = PROPERTY;
 
   // Swipe logic
   const touchStart = useRef<{ x: number; y: number } | null>(null);
