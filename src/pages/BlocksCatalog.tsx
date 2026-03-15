@@ -180,6 +180,23 @@ const CATEGORIES = [
       { id: "footer-editorial", name: "Footer Editorial", origin: "Portal", component: FooterEditorial },
     ],
   },
+  {
+    title: "🏠 Property Detail",
+    blocks: [
+      { id: "detail-breadcrumb", name: "Breadcrumb", origin: "Detail V2–V6", component: DetailBreadcrumb },
+      { id: "detail-info-header", name: "Info Header (Specs Grid)", origin: "Detail V6", component: DetailInfoHeader },
+      { id: "detail-description", name: "Description (Expandable)", origin: "Detail V2–V6", component: DetailDescription },
+      { id: "detail-features-grid", name: "Features Checklist", origin: "Detail V6", component: DetailFeaturesGrid },
+      { id: "detail-characteristics", name: "Characteristics Table", origin: "Detail V6", component: DetailCharacteristics },
+      { id: "detail-price-card", name: "Price Card (Sidebar)", origin: "Detail V6", component: DetailPriceCard },
+      { id: "detail-mortgage-calculator", name: "Mortgage Calculator", origin: "Detail V2–V6", component: DetailMortgageCalculator },
+      { id: "detail-nearby-places", name: "Nearby Places", origin: "Detail V2–V5", component: DetailNearbyPlaces },
+      { id: "detail-related-grid", name: "Related Properties Grid", origin: "Detail V6", component: DetailRelatedGrid },
+      { id: "detail-floor-plans", name: "Floor Plans", origin: "Detail V6", component: DetailFloorPlans },
+      { id: "detail-market-data", name: "Market Data Stats", origin: "Detail V6", component: DetailMarketData },
+      { id: "detail-seo-links", name: "SEO Internal Links", origin: "Detail V6", component: DetailSeoLinks },
+    ],
+  },
 ];
 
 const BlocksCatalog = () => {
