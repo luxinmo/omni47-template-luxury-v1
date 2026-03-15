@@ -58,7 +58,7 @@ const App = () => (
             <Route path="/property6/:id" element={<PropertyDetailV6 />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/branded-residences" element={<BrandedResidencesPage />} />
-            <Route path="/branded-residences/in/:location" element={<BrandedResidencesPage />} />
+            
             <Route path="/branded-residences/:slug" element={<BrandedResidenceDetailPage />} />
             <Route path="/new-developments" element={<NewDevelopmentsPage />} />
             
