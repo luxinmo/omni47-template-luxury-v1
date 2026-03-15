@@ -214,8 +214,8 @@ const PropertyDetailV6 = () => {
     const dx = e.changedTouches[0].clientX - lbTouchStart.current.x;
     const dy = e.changedTouches[0].clientY - lbTouchStart.current.y;
     if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
-      if (dx < 0) setLightbox((prev) => prev !== null ? (prev + 1) % p.images.length : null);
-      else setLightbox((prev) => prev !== null ? (prev - 1 + p.images.length) % p.images.length : null);
+      if (dx < 0) setLightbox((prev) => prev !== null ? Math.min(prev + 1, p.images.length) : null);
+      else setLightbox((prev) => prev !== null ? Math.max(prev - 1, 0) : null);
     }
     lbTouchStart.current = null;
   }, [p.images.length]);
