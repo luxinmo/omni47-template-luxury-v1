@@ -71,6 +71,16 @@ import ProjectBrandServices from "@/components/blocks/projects/ProjectBrandServi
 import ProjectPriceSidebar from "@/components/blocks/projects/ProjectPriceSidebar";
 import ProjectLocationCard from "@/components/blocks/projects/ProjectLocationCard";
 import ProjectUnitsTable from "@/components/blocks/projects/ProjectUnitsTable";
+import BlogArticleCard from "@/components/blocks/blog/BlogArticleCard";
+import BlogFeaturedPost from "@/components/blocks/blog/BlogFeaturedPost";
+import BlogFaqAccordion from "@/components/blocks/blog/BlogFaqAccordion";
+import BlogTrendingGrid from "@/components/blocks/blog/BlogTrendingGrid";
+import ContactFormCentered from "@/components/blocks/contact/ContactFormCentered";
+import ContactFormSplit from "@/components/blocks/contact/ContactFormSplit";
+import ContactOfficeGrid from "@/components/blocks/contact/ContactOfficeGrid";
+import ContactOfficeTabs from "@/components/blocks/contact/ContactOfficeTabs";
+import FavoritesGrid from "@/components/blocks/favorites/FavoritesGrid";
+import FavoritesEmptyState from "@/components/blocks/favorites/FavoritesEmptyState";
 
 const CATEGORIES = [
   {
