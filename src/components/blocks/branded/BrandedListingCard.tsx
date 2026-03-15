@@ -38,9 +38,9 @@ const BrandedListingCard = ({
   priceRange = "€3,500,000 — €8,200,000",
   trending = true,
   typologies = [
-    { type: "Penthouse", from: "€5,200,000" },
-    { type: "Villa", from: "€6,800,000" },
-    { type: "Apartment", from: "€3,500,000" },
+    { type: "Penthouse", from: 5200000 },
+    { type: "Villa", from: 6800000 },
+    { type: "Apartment", from: 3500000 },
   ],
   href = "/branded-residences/four-seasons-marbella",
 }: BrandedListingCardProps) => (
