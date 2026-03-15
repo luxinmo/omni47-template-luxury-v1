@@ -13,6 +13,7 @@ import detail3 from "@/assets/property-detail-3.jpg";
 import heroImg from "@/assets/luxury-hero.jpg";
 
 interface BrandedResidence {
+  slug: string;
   image: string;
   name: string;
   location: string;
