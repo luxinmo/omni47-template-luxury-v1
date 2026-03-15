@@ -552,7 +552,7 @@ const BrandedResidenceDetailPage = () => {
       </section>
 
       {/* ── CTA ── */}
-      <section className="py-20 sm:py-28" style={{ background: "#2C2825" }}>
+      <section className="py-20 sm:py-28" style={{ background: palette.white }}>
         <div className="max-w-[800px] mx-auto px-5 text-center">
           <FadeIn>
             <Crown className="w-8 h-8 mx-auto mb-6" style={{ color: "#c9a96e" }} />
