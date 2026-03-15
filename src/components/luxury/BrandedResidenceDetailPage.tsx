@@ -233,6 +233,41 @@ const BrandedResidenceDetailPage = () => {
   const [filterType, setFilterType] = useState<string>("All");
   const [enquirySent, setEnquirySent] = useState(false);
   const [visitSent, setVisitSent] = useState(false);
+  const [heroSlide, setHeroSlide] = useState(0);
+  const [chatOpen, setChatOpen] = useState(false);
+  const [chatMessages, setChatMessages] = useState<{ role: "user" | "bot"; text: string }[]>([
+    { role: "bot", text: `Hello! I'm here to help you with any questions about ${p.name}. How can I assist you?` },
+  ]);
+  const [chatInput, setChatInput] = useState("");
+
+  // Hero swipe logic
+  const heroTouchStart = useRef<{ x: number; y: number } | null>(null);
+  const handleHeroTouchStart = useCallback((e: React.TouchEvent) => {
+    heroTouchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  }, []);
+  const handleHeroTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (!heroTouchStart.current) return;
+    const dx = e.changedTouches[0].clientX - heroTouchStart.current.x;
+    const dy = e.changedTouches[0].clientY - heroTouchStart.current.y;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+      if (dx < 0) setHeroSlide((s) => Math.min(s + 1, p.images.length - 1));
+      else setHeroSlide((s) => Math.max(s - 1, 0));
+    }
+    heroTouchStart.current = null;
+  }, [p.images.length]);
+
+  const handleChatSend = () => {
+    if (!chatInput.trim()) return;
+    const msg = chatInput.trim();
+    setChatMessages((prev) => [...prev, { role: "user", text: msg }]);
+    setChatInput("");
+    setTimeout(() => {
+      setChatMessages((prev) => [
+        ...prev,
+        { role: "bot", text: `Thank you for your interest in ${p.name}. An advisor will follow up with you shortly. Feel free to ask me anything else!` },
+      ]);
+    }, 1000);
+  };
 
   // Lightbox swipe logic
   const lbTouchStart = useRef<{ x: number; y: number } | null>(null);
