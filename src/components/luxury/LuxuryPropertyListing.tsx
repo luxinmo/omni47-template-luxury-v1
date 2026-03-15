@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Search, SlidersHorizontal, X, ChevronDown, ChevronRight, Bed, Bath, Maximize, MapPin, Mail, Lock, Eye, Phone, User } from "lucide-react";
+import { Search, SlidersHorizontal, X, ChevronDown, ChevronRight, Bed, Bath, Maximize, MapPin, Mail, Lock, Eye, Phone, User, Crown, ArrowRight } from "lucide-react";
 import { brand, navLeft, navRight } from "@/config/template";
 import SEOHead from "@/components/shared/SEOHead";
 import heroImg from "@/assets/luxury-hero.jpg";
