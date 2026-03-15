@@ -519,7 +519,7 @@ const BrandedResidenceDetailPage = () => {
                 className="px-4 py-2 text-[11px] tracking-[0.15em] uppercase font-light transition-all rounded-sm"
                 style={{
                   background: filterType === t ? palette.accent : "transparent",
-                  color: filterType === t ? "#1a1816" : palette.textMuted,
+                  color: filterType === t ? "#fff" : palette.textMuted,
                   border: `1px solid ${filterType === t ? palette.accent : palette.border}`,
                 }}
               >
