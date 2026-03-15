@@ -602,10 +602,6 @@ const BrandedResidenceDetailPage = () => {
                       <p className="font-medium" style={{ color: palette.textLight }}>Floor</p>
                       <p className="font-light" style={{ color: palette.text }}>{u.floor}</p>
                     </div>
-                    <div>
-                      <p className="font-medium" style={{ color: palette.textLight }}>Orient.</p>
-                      <p className="font-light" style={{ color: palette.text }}>{u.orientation}</p>
-                    </div>
                   </div>
                   <div className="flex items-center justify-between pt-3" style={{ borderTop: `1px solid ${palette.border}` }}>
                     <span className="text-[16px] font-light" style={{ color: palette.text }}>{fmt(u.price)}</span>
