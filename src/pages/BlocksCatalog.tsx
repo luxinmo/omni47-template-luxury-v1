@@ -132,6 +132,11 @@ const CATEGORIES = [
     title: "👑 Branded Residences",
     blocks: [
       { id: "branded-fullwidth", name: "Branded Fullwidth", origin: "Home3", component: BrandedFullwidth },
+      { id: "branded-listing-card", name: "Branded Listing Card", origin: "BrandedResidences", component: BrandedListingCard },
+      { id: "branded-detail-gallery", name: "Branded Detail Gallery", origin: "BrandedResidence Detail", component: BrandedDetailGallery },
+      { id: "branded-unit-table", name: "Branded Unit Table", origin: "BrandedResidence Detail", component: BrandedUnitTable },
+      { id: "branded-amenities", name: "Branded Amenities", origin: "BrandedResidence Detail", component: BrandedAmenities },
+      { id: "branded-progress", name: "Branded Progress Bar", origin: "BrandedResidence Detail", component: BrandedProgress },
     ],
   },
   {
