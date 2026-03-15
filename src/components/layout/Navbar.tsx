@@ -223,63 +223,6 @@ const Navbar = ({
               ))}
             </div>
 
-            {/* Language selector */}
-            {showLanguage && (
-              <div className="px-10 pt-8">
-                <p className="text-[10px] tracking-[0.2em] uppercase font-medium mb-3 text-center" style={{ color: palette.textLight }}>Language</p>
-                <div className="flex flex-wrap justify-center gap-2">
-                  {languages.map((lang) => (
-                    <button
-                      key={lang.code}
-                      onClick={() => setCurrentLang(lang.code)}
-                      className={`flex items-center gap-1.5 px-3 py-2 text-[12px] tracking-[0.05em] rounded-sm border transition-colors ${currentLang === lang.code ? "border-neutral-400 bg-neutral-50 font-medium" : "border-neutral-200 font-light hover:bg-neutral-50"}`}
-                      style={{ color: currentLang === lang.code ? palette.text : palette.textMuted }}
-                    >
-                      <img src={`https://flagcdn.com/20x15/${lang.flag}.png`} alt="" className="w-5 h-[15px] object-cover rounded-[2px]" />
-                      {lang.code}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Currency selector */}
-            {showLanguage && (
-              <div className="px-10 pt-6">
-                <p className="text-[10px] tracking-[0.2em] uppercase font-medium mb-3 text-center" style={{ color: palette.textLight }}>Currency</p>
-                <div className="flex flex-wrap justify-center gap-2">
-                  {currencies.map((cur) => (
-                    <button
-                      key={cur.code}
-                      onClick={() => setCurrentCurrency(cur.code)}
-                      className={`px-3 py-2 text-[12px] tracking-[0.05em] rounded-sm border transition-colors ${currentCurrency === cur.code ? "border-neutral-400 bg-neutral-50 font-medium" : "border-neutral-200 font-light hover:bg-neutral-50"}`}
-                      style={{ color: currentCurrency === cur.code ? palette.text : palette.textMuted }}
-                    >
-                      {cur.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Units selector */}
-            {showLanguage && (
-              <div className="px-10 pt-6 pb-6">
-                <p className="text-[10px] tracking-[0.2em] uppercase font-medium mb-3 text-center" style={{ color: palette.textLight }}>Units</p>
-                <div className="flex flex-wrap justify-center gap-2">
-                  {areaUnits.map((u) => (
-                    <button
-                      key={u.code}
-                      onClick={() => setCurrentUnit(u.code)}
-                      className={`px-3 py-2 text-[12px] tracking-[0.05em] rounded-sm border transition-colors ${currentUnit === u.code ? "border-neutral-400 bg-neutral-50 font-medium" : "border-neutral-200 font-light hover:bg-neutral-50"}`}
-                      style={{ color: currentUnit === u.code ? palette.text : palette.textMuted }}
-                    >
-                      {u.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
 
           {/* Bottom CTA */}
