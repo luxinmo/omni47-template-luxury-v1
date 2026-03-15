@@ -22,6 +22,7 @@ import Home3LandingPage from "./components/home-3/Home3LandingPage";
 import Home4LandingPage from "./components/home-4/Home4LandingPage";
 import BrandedResidencesPage from "./components/luxury/BrandedResidencesPage";
 import BrandedResidenceDetailPage from "./components/luxury/BrandedResidenceDetailPage";
+import NewDevelopmentsPage from "./components/luxury/NewDevelopmentsPage";
 import PropertyPdfV1 from "./components/pdf/PropertyPdfV1";
 import PropertyPdfV2 from "./components/pdf/PropertyPdfV2";
 import BlocksCatalog from "./pages/BlocksCatalog";
