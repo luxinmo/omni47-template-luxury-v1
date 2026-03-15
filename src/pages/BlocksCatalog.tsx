@@ -319,6 +319,9 @@ const CATEGORIES = [
       { id: "blog-featured-post", name: "Featured Post (Split)", origin: "BlogListing", component: BlogFeaturedPost },
       { id: "blog-faq-accordion", name: "FAQ Accordion (+/-)", origin: "BlogDetail", component: BlogFaqAccordion },
       { id: "blog-trending-grid", name: "Trending Grid (4-col)", origin: "BlogDetail", component: BlogTrendingGrid },
+      { id: "blog-search-filter", name: "Search + Category Filter", origin: "BlogListing", component: BlogSearchFilter },
+      { id: "blog-content-renderer", name: "Article Content + Author", origin: "BlogDetail", component: BlogContentRenderer },
+      { id: "blog-social-share", name: "Social Share Sidebar", origin: "BlogDetail", component: BlogSocialShare },
     ],
   },
   {
