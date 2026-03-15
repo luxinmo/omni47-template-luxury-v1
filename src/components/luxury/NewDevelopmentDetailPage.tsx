@@ -680,7 +680,7 @@ const NewDevelopmentDetailPage = () => {
             {/* Location */}
             <FadeIn>
               <h2 className="text-lg font-medium tracking-tight mb-4" style={{ fontFamily: fonts.heading, color: palette.text }}>Location</h2>
-              <div className="p-6 rounded-sm border" style={{ borderColor: palette.border, background: palette.card }}>
+              <div className="p-6 rounded-sm border" style={{ borderColor: palette.border, background: palette.bgAlt }}>
                 <p className="text-sm font-medium mb-4" style={{ color: palette.text }}>{p.location_data.area}</p>
                 <div className="space-y-2">
                   {p.location_data.nearbyPlaces.map((pl, i) => (
