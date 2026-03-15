@@ -947,7 +947,68 @@ const BrandedResidenceDetailPage = () => {
         </DialogContent>
       </Dialog>
 
-      {/* ── MOBILE STICKY CONTACT BAR ── */}
+      {/* ═══ CHATBOT BUTTON + PANEL ═══ */}
+      {!chatOpen && (
+        <button
+          onClick={() => setChatOpen(true)}
+          className="fixed z-50 w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all bottom-[72px] right-4 lg:bottom-6 lg:right-6"
+          style={{ background: palette.text, color: palette.white }}
+          aria-label="Open chat"
+        >
+          <MessageCircle className="w-5 h-5" />
+        </button>
+      )}
+
+      {chatOpen && (
+        <div className="fixed z-50 bg-white border shadow-xl flex flex-col inset-0 lg:inset-auto lg:bottom-6 lg:right-6 lg:w-[380px] lg:h-[520px] lg:rounded-lg lg:overflow-hidden" style={{ borderColor: palette.border }}>
+          {/* Chat header */}
+          <div className="flex items-center justify-between px-4 py-3 border-b shrink-0" style={{ borderColor: palette.border, background: palette.bg }}>
+            <span className="text-[13px] font-medium tracking-wide" style={{ color: palette.text }}>{brand.fullName}</span>
+            <button onClick={() => setChatOpen(false)} className="transition-colors" style={{ color: palette.textLight }} aria-label="Close chat">
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+
+          {/* Property card at top */}
+          <div className="flex items-center gap-3 px-4 py-3 border-b shrink-0" style={{ borderColor: palette.border, background: `${palette.bg}80` }}>
+            <div className="w-16 h-12 rounded overflow-hidden shrink-0">
+              <img src={p.images[0]} alt={p.name} className="w-full h-full object-cover" />
+            </div>
+            <div className="min-w-0">
+              <p className="text-[13px] font-medium truncate" style={{ color: palette.text }}>{p.name}</p>
+              <p className="text-[15px] font-light" style={{ color: palette.text }}>{fmt(p.priceMin)} — {fmt(p.priceMax)}</p>
+              <p className="text-[11px] font-light" style={{ color: palette.textMuted }}>{p.location}</p>
+            </div>
+          </div>
+
+          {/* Messages */}
+          <div className="flex-1 overflow-auto px-4 py-4 space-y-3">
+            {chatMessages.map((msg, i) => (
+              <div key={i} className={`max-w-[85%] text-[13px] leading-relaxed px-3.5 py-2.5 rounded-lg ${msg.role === "bot" ? "mr-auto" : "ml-auto"}`} style={{ background: msg.role === "bot" ? palette.bg : palette.text, color: msg.role === "bot" ? palette.textMuted : palette.white }}>
+                {msg.text}
+              </div>
+            ))}
+          </div>
+
+          {/* Input */}
+          <div className="border-t px-3 py-3 flex items-center gap-2" style={{ borderColor: palette.border }}>
+            <input
+              type="text"
+              value={chatInput}
+              onChange={(e) => setChatInput(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleChatSend()}
+              placeholder="Ask about this project..."
+              className="flex-1 text-[13px] px-3 py-2 border rounded-full focus:outline-none transition-colors"
+              style={{ color: palette.text, borderColor: palette.border }}
+            />
+            <button onClick={handleChatSend} className="w-9 h-9 flex items-center justify-center rounded-full shrink-0 transition-colors" style={{ background: palette.text, color: palette.white }} aria-label="Send message">
+              <Send className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      )}
+
+
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t shadow-[0_-4px_20px_rgba(0,0,0,0.08)] flex items-center gap-0" style={{ borderColor: palette.border }}>
         <a href={`tel:${contact.phone}`} className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 transition-colors hover:bg-neutral-50" style={{ color: palette.text }}>
           <Phone className="w-4 h-4" />
