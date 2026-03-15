@@ -13,6 +13,7 @@ import detail3 from "@/assets/property-detail-3.jpg";
 import heroImg from "@/assets/luxury-hero.jpg";
 
 interface BrandedResidence {
+  slug: string;
   image: string;
   name: string;
   location: string;
@@ -33,6 +34,7 @@ interface BrandedResidence {
 
 const BRANDED_RESIDENCES: BrandedResidence[] = [
   {
+    slug: "four-seasons-marbella",
     image: prop1, name: "Four Seasons Private Residences", location: "Marbella, Costa del Sol", brand: "Four Seasons", developer: "Four Seasons Hotels", delivery: "Q2 2027",
     status: "Selling", construction: 45, availableUnits: 8, totalUnits: 32, priceMin: 3500000, priceMax: 8200000, trending: true,
     typologies: [{ type: "Penthouse", from: 5200000 }, { type: "Villa", from: 6800000 }, { type: "Apartment", from: 3500000 }],
@@ -40,6 +42,7 @@ const BRANDED_RESIDENCES: BrandedResidence[] = [
     description: "Oceanfront residences with full Four Seasons hotel services, private beach club and world-class spa.",
   },
   {
+    slug: "ritz-carlton-ibiza",
     image: detail2, name: "The Ritz-Carlton Residences", location: "Ibiza", brand: "Ritz-Carlton", developer: "Marriott International", delivery: "Q4 2028",
     status: "Pre-Launch", construction: 0, availableUnits: 18, totalUnits: 18, priceMin: 4200000, priceMax: 12000000,
     typologies: [{ type: "Penthouse", from: 8500000 }, { type: "Villa", from: 4200000 }],
@@ -47,6 +50,7 @@ const BRANDED_RESIDENCES: BrandedResidence[] = [
     description: "Ultra-luxury residences featuring panoramic sea views, concierge services and exclusive marina access.",
   },
   {
+    slug: "mandarin-oriental-altea",
     image: detail3, name: "Mandarin Oriental Residences", location: "Altea, Costa Blanca", brand: "Mandarin Oriental", developer: "Mandarin Oriental Hotel Group", delivery: "Q1 2027",
     status: "Selling", construction: 62, availableUnits: 12, totalUnits: 45, priceMin: 2800000, priceMax: 6500000,
     typologies: [{ type: "Apartment", from: 2800000 }, { type: "Penthouse", from: 4900000 }],
@@ -54,6 +58,7 @@ const BRANDED_RESIDENCES: BrandedResidence[] = [
     description: "Elegant Mediterranean homes with signature Mandarin Oriental hospitality, wellness centre and fine dining.",
   },
   {
+    slug: "aman-javea",
     image: prop3, name: "Aman Residences", location: "Jávea, Costa Blanca", brand: "Aman", developer: "Aman Group", delivery: "Q3 2028",
     status: "Pre-Launch", construction: 0, availableUnits: 12, totalUnits: 12, priceMin: 5100000, priceMax: 15000000,
     typologies: [{ type: "Villa", from: 5100000 }, { type: "Estate", from: 9800000 }],
@@ -61,6 +66,7 @@ const BRANDED_RESIDENCES: BrandedResidence[] = [
     description: "Serene clifftop villas designed with Aman's philosophy of peace, offering unparalleled privacy and natural beauty.",
   },
   {
+    slug: "w-residences-benidorm",
     image: prop2, name: "W Residences", location: "Benidorm, Costa Blanca", brand: "W Hotels", developer: "Marriott International", delivery: "Q2 2026",
     status: "Last Units", construction: 92, availableUnits: 3, totalUnits: 56, priceMin: 1900000, priceMax: 4500000, trending: true,
     typologies: [{ type: "Penthouse", from: 3200000 }, { type: "Apartment", from: 1900000 }],
@@ -68,6 +74,7 @@ const BRANDED_RESIDENCES: BrandedResidence[] = [
     description: "Bold, contemporary living with W's signature energy — rooftop pools, DJ sessions and vibrant social spaces.",
   },
   {
+    slug: "six-senses-moraira",
     image: detail1, name: "Six Senses Residences", location: "Moraira, Costa Blanca", brand: "Six Senses", developer: "IHG Hotels", delivery: "Q4 2027",
     status: "Under Construction", construction: 35, availableUnits: 14, totalUnits: 22, priceMin: 3200000, priceMax: 7800000,
     typologies: [{ type: "Villa", from: 3200000 }, { type: "Penthouse", from: 5600000 }],
@@ -175,8 +182,8 @@ const BrandedCard = ({ r, i }: { r: BrandedResidence; i: number }) => (
             {r.availableUnits === r.totalUnits ? "All units available" : `${r.availableUnits} of ${r.totalUnits} available`}
             {r.construction > 0 && <span className="ml-3">{r.construction}% built</span>}
           </p>
-          <Link to="/contact" className="inline-flex items-center gap-2 text-[12px] tracking-[0.15em] uppercase font-light transition-opacity hover:opacity-60" style={{ color: palette.accent }}>
-            Request Info <ArrowRight className="w-3.5 h-3.5" />
+          <Link to={`/branded-residences/${r.slug}`} className="inline-flex items-center gap-2 text-[12px] tracking-[0.15em] uppercase font-light transition-opacity hover:opacity-60" style={{ color: palette.accent }}>
+            View Project <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
       </div>
