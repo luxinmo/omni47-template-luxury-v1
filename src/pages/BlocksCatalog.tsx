@@ -62,6 +62,15 @@ import DetailInfoHeaderCard from "@/components/blocks/detail/DetailInfoHeaderCar
 import DetailInfoHeaderWide from "@/components/blocks/detail/DetailInfoHeaderWide";
 import DetailBreadcrumbSticky from "@/components/blocks/detail/DetailBreadcrumbSticky";
 import DetailRelatedList from "@/components/blocks/detail/DetailRelatedList";
+import ProjectCard from "@/components/blocks/projects/ProjectCard";
+import ProjectBenefitsGrid from "@/components/blocks/projects/ProjectBenefitsGrid";
+import ProjectHighlights from "@/components/blocks/projects/ProjectHighlights";
+import ProjectBrochureCTA from "@/components/blocks/projects/ProjectBrochureCTA";
+import ProjectAmenitiesGrid from "@/components/blocks/projects/ProjectAmenitiesGrid";
+import ProjectBrandServices from "@/components/blocks/projects/ProjectBrandServices";
+import ProjectPriceSidebar from "@/components/blocks/projects/ProjectPriceSidebar";
+import ProjectLocationCard from "@/components/blocks/projects/ProjectLocationCard";
+import ProjectUnitsTable from "@/components/blocks/projects/ProjectUnitsTable";
 
 const CATEGORIES = [
   {
