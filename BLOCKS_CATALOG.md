@@ -371,3 +371,16 @@
 |----|--------|--------|--------------------|
 | favorites-grid | Saved Properties Grid | FavoritesPage | Grid 3 cols con cards: imagen, tag, location, specs, precio, acciones hover |
 | favorites-empty-state | Empty State CTA | FavoritesPage | Estado vacío con icono Heart, título, descripción, botón CTA |
+
+## 📰 Journal / Blog (2 variantes)
+
+| ID | Nombre | Origen | Descripción visual |
+|----|--------|--------|--------------------|
+| journal-editorial | Journal Editorial | Home2/3/4 | 1 artículo grande (16/10) + lista lateral con thumbnails cuadrados, accent color label |
+| magazine-editorial | Magazine Editorial (Category Badges) | Portal | 1 grande (4/3) + 3 cards horizontales, badges de categoría + readTime, bg-neutral-50, Playfair italic title |
+
+## 💬 Chatbot (1 variante)
+
+| ID | Nombre | Origen | Descripción visual |
+|----|--------|--------|--------------------|
+| chatbot-panel | Floating Chat Widget | Home4 | Botón flotante circular → panel fijo 360×480, header con accent, mensajes bubble, quick replies, input con Send |
