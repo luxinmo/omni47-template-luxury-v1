@@ -20,6 +20,8 @@ const Navbar = ({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState("EN");
+  const [currentCurrency, setCurrentCurrency] = useState("EUR");
+  const [currentUnit, setCurrentUnit] = useState("m2");
 
   useEffect(() => {
     const handler = () => { if (window.innerWidth >= 1024) setMobileMenuOpen(false); };
