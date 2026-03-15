@@ -147,7 +147,7 @@ const Home4LandingPage = () => {
       {/* ═══════════════════════════════════════════════════════
           1. HERO — LEAD FOCUSED
           ═══════════════════════════════════════════════════════ */}
-      <section aria-label="Hero" className="relative h-[60vh] sm:h-[80vh] lg:h-[100vh] min-h-[420px] flex items-center justify-center overflow-hidden">
+      <section aria-label="Hero" className="relative h-[100vh] sm:h-[80vh] lg:h-[100vh] min-h-[560px] flex items-center justify-center overflow-hidden">
         {heroImages.map((img, i) => (
           <div key={i} className="absolute inset-0 transition-opacity duration-[2s] ease-in-out" style={{ opacity: currentSlide === i ? 1 : 0 }}>
             <img src={img} alt="Luxury Mediterranean property" loading={i === 0 ? "eager" : "lazy"} className="w-full h-full object-cover" style={{ transform: currentSlide === i ? "scale(1.04)" : "scale(1)", transition: "transform 8s ease-out" }} />
