@@ -552,7 +552,7 @@ const NewDevelopmentDetailPage = () => {
 
             {/* Price range */}
             <FadeIn>
-              <div className="p-6 rounded-sm border" style={{ borderColor: palette.border, background: palette.card }}>
+              <div className="p-6 rounded-sm border" style={{ borderColor: palette.border, background: palette.bgAlt }}>
                 <p className="text-[10px] tracking-[0.2em] uppercase font-medium mb-2" style={{ color: palette.textMuted }}>Price range</p>
                 <p className="text-2xl font-light" style={{ fontFamily: fonts.heading, color: palette.text }}>
                   {fmt(p.priceMin)} — {fmt(p.priceMax)}
