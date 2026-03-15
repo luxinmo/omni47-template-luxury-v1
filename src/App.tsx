@@ -61,7 +61,7 @@ const App = () => (
             <Route path="/branded-residences/in/:location" element={<BrandedResidencesPage />} />
             <Route path="/branded-residences/:slug" element={<BrandedResidenceDetailPage />} />
             <Route path="/new-developments" element={<NewDevelopmentsPage />} />
-            <Route path="/new-developments/in/:location" element={<NewDevelopmentsPage />} />
+            
             <Route path="/new-developments/:slug" element={<NewDevelopmentDetailPage />} />
             <Route path="/pdf-v1" element={<PropertyPdfV1 />} />
             <Route path="/pdf-v2" element={<PropertyPdfV2 />} />
