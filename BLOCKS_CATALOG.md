@@ -350,7 +350,7 @@
 | Contact — Office Tabs | 1 |
 | Favorites — Grid | 1 |
 | Favorites — Empty State | 1 |
-| **TOTAL** | **~66 bloques** |
+| **TOTAL** | **~68 bloques** |
 
 ---
 

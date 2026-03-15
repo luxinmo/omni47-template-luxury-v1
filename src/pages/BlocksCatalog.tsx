@@ -260,6 +260,7 @@ const CATEGORIES = [
       { id: "detail-info-header-wide", name: "Info Header Wide (6-col Grid)", origin: "Detail V5", component: DetailInfoHeaderWide },
       { id: "detail-breadcrumb-sticky", name: "Breadcrumb Sticky Bar", origin: "Detail V4", component: DetailBreadcrumbSticky },
       { id: "detail-related-list", name: "Related Properties List", origin: "Detail V4", component: DetailRelatedList },
+      { id: "detail-nearby-areas", name: "Nearby Areas (Links Grid)", origin: "Detail V6", component: DetailNearbyAreas },
     ],
   },
   {
