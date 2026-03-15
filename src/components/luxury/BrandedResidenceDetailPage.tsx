@@ -318,24 +318,6 @@ const BrandedResidenceDetailPage = () => {
         </div>
       </section>
 
-      {/* ── GALLERY MOSAIC ── */}
-      <section className="py-12 sm:py-16" style={{ background: palette.bg }}>
-        <div className="max-w-[1400px] mx-auto px-5 sm:px-10 lg:px-16">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3">
-            {p.images.slice(0, 6).map((img, i) => (
-              <button
-                key={i}
-                onClick={() => setLightbox(i)}
-                className={`relative overflow-hidden rounded-sm group ${i === 0 ? "col-span-2 row-span-2" : ""}`}
-                style={{ aspectRatio: i === 0 ? "4/3" : "4/3" }}
-              >
-                <img src={img} alt={`${p.name} ${i + 1}`} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ── MAIN CONTENT ── */}
       <section className="py-16 sm:py-24" style={{ background: palette.white }}>
