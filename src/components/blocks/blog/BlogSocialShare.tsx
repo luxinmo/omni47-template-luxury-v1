@@ -10,7 +10,7 @@ interface BlogSocialShareProps {
   links?: { icon: string; href: string }[];
 }
 
-const iconMap: Record<string, React.FC<{ className?: string; strokeWidth?: number }>> = {
+const iconMap: Record<string, any> = {
   facebook: Facebook,
   twitter: Twitter,
   linkedin: Linkedin,
