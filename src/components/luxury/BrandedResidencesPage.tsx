@@ -65,6 +65,7 @@ const BRANDED_RESIDENCES: BrandedResidence[] = [
     description: "Serene clifftop villas designed with Aman's philosophy of peace, offering unparalleled privacy and natural beauty.",
   },
   {
+    slug: "w-residences-benidorm",
     image: prop2, name: "W Residences", location: "Benidorm, Costa Blanca", brand: "W Hotels", developer: "Marriott International", delivery: "Q2 2026",
     status: "Last Units", construction: 92, availableUnits: 3, totalUnits: 56, priceMin: 1900000, priceMax: 4500000, trending: true,
     typologies: [{ type: "Penthouse", from: 3200000 }, { type: "Apartment", from: 1900000 }],
