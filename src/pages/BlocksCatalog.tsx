@@ -62,6 +62,15 @@ import DetailInfoHeaderCard from "@/components/blocks/detail/DetailInfoHeaderCar
 import DetailInfoHeaderWide from "@/components/blocks/detail/DetailInfoHeaderWide";
 import DetailBreadcrumbSticky from "@/components/blocks/detail/DetailBreadcrumbSticky";
 import DetailRelatedList from "@/components/blocks/detail/DetailRelatedList";
+import ProjectCard from "@/components/blocks/projects/ProjectCard";
+import ProjectBenefitsGrid from "@/components/blocks/projects/ProjectBenefitsGrid";
+import ProjectHighlights from "@/components/blocks/projects/ProjectHighlights";
+import ProjectBrochureCTA from "@/components/blocks/projects/ProjectBrochureCTA";
+import ProjectAmenitiesGrid from "@/components/blocks/projects/ProjectAmenitiesGrid";
+import ProjectBrandServices from "@/components/blocks/projects/ProjectBrandServices";
+import ProjectPriceSidebar from "@/components/blocks/projects/ProjectPriceSidebar";
+import ProjectLocationCard from "@/components/blocks/projects/ProjectLocationCard";
+import ProjectUnitsTable from "@/components/blocks/projects/ProjectUnitsTable";
 
 const CATEGORIES = [
   {
@@ -116,6 +125,20 @@ const CATEGORIES = [
     title: "🏗️ Nuevas Promociones",
     blocks: [
       { id: "newdev-grid-simple", name: "Grid Simple", origin: "Home3/4", component: NewdevGridSimple },
+    ],
+  },
+  {
+    title: "🏢 Projects (Branded + NewDev)",
+    blocks: [
+      { id: "project-card", name: "Project Card (Listing)", origin: "BrandedResidences / NewDev", component: ProjectCard },
+      { id: "project-benefits-grid", name: "Benefits Grid (4-col)", origin: "BrandedResidences / NewDev", component: ProjectBenefitsGrid },
+      { id: "project-highlights", name: "Key Highlights Box", origin: "BrandedResidence Detail / NewDev Detail", component: ProjectHighlights },
+      { id: "project-brochure-cta", name: "Brochure Download CTA", origin: "BrandedResidence Detail / NewDev Detail", component: ProjectBrochureCTA },
+      { id: "project-amenities-grid", name: "Amenities Icon Grid", origin: "BrandedResidence Detail / NewDev Detail", component: ProjectAmenitiesGrid },
+      { id: "project-brand-services", name: "Brand Services List", origin: "BrandedResidence Detail", component: ProjectBrandServices },
+      { id: "project-price-sidebar", name: "Price Sidebar + Progress", origin: "BrandedResidence Detail / NewDev Detail", component: ProjectPriceSidebar },
+      { id: "project-location-card", name: "Location Card", origin: "BrandedResidence Detail / NewDev Detail", component: ProjectLocationCard },
+      { id: "project-units-table", name: "Units Table + Mobile Cards", origin: "BrandedResidence Detail / NewDev Detail", component: ProjectUnitsTable },
     ],
   },
   {

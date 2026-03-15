@@ -54,6 +54,20 @@
 |----|--------|--------|--------------------|
 | branded-fullwidth | Branded Residences Fullwidth | Home3 | Imagen de fondo full-width, badge Crown, texto centrado, CTA dorado |
 
+## 🏢 Projects — Branded + New Dev (9 variantes)
+
+| ID | Nombre | Origen | Descripción visual |
+|----|--------|--------|--------------------|
+| project-card | Project Card (Listing) | BrandedResidences / NewDev | Card horizontal: imagen izq + stats/tipologías/unidades derecha, badges trending/last units |
+| project-benefits-grid | Benefits Grid (4-col) | BrandedResidences / NewDev | Grid 4 cols con iconos en círculos, título + descripción por benefit |
+| project-highlights | Key Highlights Box | Detail pages | Caja con fondo bgAlt, lista de highlights con checkmarks |
+| project-brochure-cta | Brochure Download CTA | Detail pages | Banner split con info izq + botón download derecha |
+| project-amenities-grid | Amenities Icon Grid | Detail pages | Grid 2x4 con iconos + label centrados, fondo bgAlt |
+| project-brand-services | Brand Services List | Branded Detail | Grid 2 cols con Star icon, lista de servicios five-star |
+| project-price-sidebar | Price Sidebar + Progress | Detail pages | Card sticky: precio, progress bar, tipologías, CTAs (Request/Visit), Call/WhatsApp |
+| project-location-card | Location Card | Detail pages | Card con MapPin, nearby places list, airport info |
+| project-units-table | Units Table + Mobile Cards | Detail pages | Tabla filterable (desktop) + cards (mobile), status badges, botón Enquire |
+
 ## 🏗️ Nuevas Promociones (2 variantes)
 
 | ID | Nombre | Origen | Descripción visual |
@@ -285,6 +299,7 @@
 | Property Types | 1 |
 | Collections | 2 |
 | Branded Residences | 1 |
+| Projects (Branded + NewDev) | 9 |
 | New Developments | 2 |
 | Off-Market | 2 |
 | About/Services | 2 |
