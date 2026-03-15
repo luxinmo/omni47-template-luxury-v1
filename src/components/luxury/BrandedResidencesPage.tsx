@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Crown, MapPin, ArrowRight, Star, Building2, Shield, Sparkles, Users } from "lucide-react";
+import { Crown, MapPin, ArrowRight, Star, Shield, Sparkles, Users, TrendingUp, Building2, CalendarDays } from "lucide-react";
 import { Layout } from "@/components/layout";
 import FadeIn from "@/components/shared/FadeIn";
 import SEOHead from "@/components/shared/SEOHead";
@@ -12,13 +12,68 @@ import detail2 from "@/assets/property-detail-2.jpg";
 import detail3 from "@/assets/property-detail-3.jpg";
 import heroImg from "@/assets/luxury-hero.jpg";
 
-const BRANDED_RESIDENCES = [
-  { image: prop1, name: "Four Seasons Private Residences", location: "Marbella, Costa del Sol", brand: "Four Seasons", priceFrom: "From €3,500,000", units: 32, status: "Under Construction", description: "Oceanfront residences with full Four Seasons hotel services, private beach club and world-class spa." },
-  { image: detail2, name: "The Ritz-Carlton Residences", location: "Ibiza", brand: "Ritz-Carlton", priceFrom: "From €4,200,000", units: 18, status: "Pre-Launch", description: "Ultra-luxury residences featuring panoramic sea views, concierge services and exclusive marina access." },
-  { image: detail3, name: "Mandarin Oriental Residences", location: "Altea, Costa Blanca", brand: "Mandarin Oriental", priceFrom: "From €2,800,000", units: 45, status: "Selling", description: "Elegant Mediterranean homes with signature Mandarin Oriental hospitality, wellness centre and fine dining." },
-  { image: prop3, name: "Aman Residences", location: "Jávea, Costa Blanca", brand: "Aman", priceFrom: "From €5,100,000", units: 12, status: "Pre-Launch", description: "Serene clifftop villas designed with Aman's philosophy of peace, offering unparalleled privacy and natural beauty." },
-  { image: prop2, name: "W Residences", location: "Benidorm, Costa Blanca", brand: "W Hotels", priceFrom: "From €1,900,000", units: 56, status: "Selling", description: "Bold, contemporary living with W's signature energy — rooftop pools, DJ sessions and vibrant social spaces." },
-  { image: detail1, name: "Six Senses Residences", location: "Moraira, Costa Blanca", brand: "Six Senses", priceFrom: "From €3,200,000", units: 22, status: "Under Construction", description: "Sustainable luxury homes integrated into nature with Six Senses' renowned wellness and sustainability programmes." },
+interface BrandedResidence {
+  image: string;
+  name: string;
+  location: string;
+  brand: string;
+  developer: string;
+  delivery: string;
+  status: "Pre-Launch" | "Selling" | "Under Construction" | "Last Units";
+  construction: number;
+  availableUnits: number;
+  totalUnits: number;
+  priceMin: number;
+  priceMax: number;
+  typologies: { type: string; from: number }[];
+  units: { ref: string; type: string; price: number }[];
+  description: string;
+  trending?: boolean;
+}
+
+const BRANDED_RESIDENCES: BrandedResidence[] = [
+  {
+    image: prop1, name: "Four Seasons Private Residences", location: "Marbella, Costa del Sol", brand: "Four Seasons", developer: "Four Seasons Hotels", delivery: "Q2 2027",
+    status: "Selling", construction: 45, availableUnits: 8, totalUnits: 32, priceMin: 3500000, priceMax: 8200000, trending: true,
+    typologies: [{ type: "Penthouse", from: 5200000 }, { type: "Villa", from: 6800000 }, { type: "Apartment", from: 3500000 }],
+    units: [{ ref: "FS-4A", type: "Penthouse", price: 5200000 }, { ref: "FS-7B", type: "Villa", price: 7400000 }, { ref: "FS-2C", type: "Apartment", price: 3500000 }],
+    description: "Oceanfront residences with full Four Seasons hotel services, private beach club and world-class spa.",
+  },
+  {
+    image: detail2, name: "The Ritz-Carlton Residences", location: "Ibiza", brand: "Ritz-Carlton", developer: "Marriott International", delivery: "Q4 2028",
+    status: "Pre-Launch", construction: 0, availableUnits: 18, totalUnits: 18, priceMin: 4200000, priceMax: 12000000,
+    typologies: [{ type: "Penthouse", from: 8500000 }, { type: "Villa", from: 4200000 }],
+    units: [{ ref: "RC-1A", type: "Penthouse", price: 8500000 }, { ref: "RC-3B", type: "Villa", price: 4200000 }, { ref: "RC-5C", type: "Villa", price: 5100000 }],
+    description: "Ultra-luxury residences featuring panoramic sea views, concierge services and exclusive marina access.",
+  },
+  {
+    image: detail3, name: "Mandarin Oriental Residences", location: "Altea, Costa Blanca", brand: "Mandarin Oriental", developer: "Mandarin Oriental Hotel Group", delivery: "Q1 2027",
+    status: "Selling", construction: 62, availableUnits: 12, totalUnits: 45, priceMin: 2800000, priceMax: 6500000,
+    typologies: [{ type: "Apartment", from: 2800000 }, { type: "Penthouse", from: 4900000 }],
+    units: [{ ref: "MO-11B", type: "Apartment", price: 2800000 }, { ref: "MO-8A", type: "Penthouse", price: 4900000 }, { ref: "MO-15C", type: "Apartment", price: 3200000 }],
+    description: "Elegant Mediterranean homes with signature Mandarin Oriental hospitality, wellness centre and fine dining.",
+  },
+  {
+    image: prop3, name: "Aman Residences", location: "Jávea, Costa Blanca", brand: "Aman", developer: "Aman Group", delivery: "Q3 2028",
+    status: "Pre-Launch", construction: 0, availableUnits: 12, totalUnits: 12, priceMin: 5100000, priceMax: 15000000,
+    typologies: [{ type: "Villa", from: 5100000 }, { type: "Estate", from: 9800000 }],
+    units: [{ ref: "AM-1", type: "Villa", price: 5100000 }, { ref: "AM-2", type: "Estate", price: 9800000 }],
+    description: "Serene clifftop villas designed with Aman's philosophy of peace, offering unparalleled privacy and natural beauty.",
+  },
+  {
+    image: prop2, name: "W Residences", location: "Benidorm, Costa Blanca", brand: "W Hotels", developer: "Marriott International", delivery: "Q2 2026",
+    status: "Last Units", construction: 92, availableUnits: 3, totalUnits: 56, priceMin: 1900000, priceMax: 4500000, trending: true,
+    typologies: [{ type: "Penthouse", from: 3200000 }, { type: "Apartment", from: 1900000 }],
+    units: [{ ref: "W-42A", type: "Penthouse", price: 3200000 }, { ref: "W-38B", type: "Apartment", price: 1900000 }, { ref: "W-44C", type: "Penthouse", price: 3800000 }],
+    description: "Bold, contemporary living with W's signature energy — rooftop pools, DJ sessions and vibrant social spaces.",
+  },
+  {
+    image: detail1, name: "Six Senses Residences", location: "Moraira, Costa Blanca", brand: "Six Senses", developer: "IHG Hotels", delivery: "Q4 2027",
+    status: "Under Construction", construction: 35, availableUnits: 14, totalUnits: 22, priceMin: 3200000, priceMax: 7800000,
+    typologies: [{ type: "Villa", from: 3200000 }, { type: "Penthouse", from: 5600000 }],
+    units: [{ ref: "SS-6A", type: "Villa", price: 3200000 }, { ref: "SS-9B", type: "Penthouse", price: 5600000 }, { ref: "SS-3C", type: "Villa", price: 4100000 }],
+    description: "Sustainable luxury homes integrated into nature with Six Senses' renowned wellness and sustainability programmes.",
+  },
 ];
 
 const BENEFITS = [
@@ -27,6 +82,107 @@ const BENEFITS = [
   { icon: Sparkles, title: "World-Class Amenities", description: "Private pools, fitness centres, fine dining, beach clubs and wellness spas at your doorstep." },
   { icon: Users, title: "Global Community", description: "Join an exclusive community of like-minded owners who appreciate the finer things in life." },
 ];
+
+const fmt = (n: number) => new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(n);
+
+const statusColor = (s: string) => {
+  if (s === "Pre-Launch") return palette.accent;
+  if (s === "Selling") return "#2a7d5f";
+  if (s === "Last Units") return "#c0392b";
+  return palette.textLight;
+};
+
+/* ── Branded Residence Card ── */
+const BrandedCard = ({ r, i }: { r: BrandedResidence; i: number }) => (
+  <FadeIn delay={i * 0.08}>
+    <div className="group flex flex-col lg:flex-row overflow-hidden rounded-sm border" style={{ background: palette.white, borderColor: palette.border }}>
+      {/* Image */}
+      <div className="relative lg:w-[44%] min-h-[240px] lg:min-h-[360px] overflow-hidden">
+        <img src={r.image} alt={`${r.name} — ${r.brand}`} loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.03]" />
+        {r.status === "Last Units" && (
+          <span className="absolute top-4 left-4 px-3 py-1.5 text-[10px] tracking-[0.12em] uppercase font-medium text-white rounded-sm" style={{ background: "#c0392b" }}>Last units</span>
+        )}
+        {r.trending && (
+          <span className="absolute top-4 right-4 inline-flex items-center gap-1.5 px-3 py-1.5 text-[10px] tracking-[0.1em] uppercase font-medium text-white rounded-sm" style={{ background: "#e67e22" }}>
+            <TrendingUp className="w-3 h-3" /> Trending
+          </span>
+        )}
+      </div>
+
+      {/* Data */}
+      <div className="flex-1 p-6 lg:p-8 flex flex-col">
+        {/* Top row: location + type + status */}
+        <div className="flex items-center justify-between mb-1">
+          <div className="flex items-center gap-2">
+            <span className="text-[11px] tracking-[0.15em] uppercase font-medium" style={{ color: palette.textMuted }}>{r.location}</span>
+            <span className="px-2 py-0.5 text-[10px] tracking-[0.1em] uppercase rounded-sm border" style={{ borderColor: palette.border, color: palette.textMuted }}>Branded</span>
+          </div>
+          <span className="text-[11px] tracking-[0.1em] uppercase font-medium px-2.5 py-1 rounded-sm" style={{ color: statusColor(r.status), border: `1px solid ${statusColor(r.status)}30` }}>
+            {r.status}
+          </span>
+        </div>
+
+        {/* Name + developer */}
+        <h3 className="text-xl lg:text-[22px] font-light tracking-wide mb-1" style={{ fontFamily: fonts.heading }}>{r.name}</h3>
+        <p className="text-[13px] font-light mb-4" style={{ color: palette.textMuted }}>
+          {r.developer} · Delivery {r.delivery}
+        </p>
+
+        {/* Stats row */}
+        <div className="flex gap-6 mb-4 pb-4" style={{ borderBottom: `1px solid ${palette.border}` }}>
+          <div>
+            <p className="text-[9px] tracking-[0.2em] uppercase font-medium mb-1" style={{ color: palette.textLight }}>Availability</p>
+            <p className="text-[17px] font-light" style={{ color: palette.text }}>{r.availableUnits} <span className="text-[13px]" style={{ color: palette.textLight }}>/ {r.totalUnits}</span></p>
+          </div>
+          <div>
+            <p className="text-[9px] tracking-[0.2em] uppercase font-medium mb-1" style={{ color: palette.textLight }}>Construction</p>
+            <p className="text-[17px] font-light" style={{ color: palette.text }}>{r.construction}%</p>
+          </div>
+          <div>
+            <p className="text-[9px] tracking-[0.2em] uppercase font-medium mb-1" style={{ color: palette.textLight }}>Delivery</p>
+            <p className="text-[17px] font-light" style={{ color: palette.text }}>{r.delivery}</p>
+          </div>
+        </div>
+
+        {/* Price range */}
+        <p className="text-[22px] lg:text-[24px] font-light mb-4" style={{ color: palette.text }}>
+          {fmt(r.priceMin)} — {fmt(r.priceMax)}
+        </p>
+
+        {/* Typologies + Units */}
+        <div className="flex flex-col sm:flex-row gap-6 mb-5">
+          <div className="flex-1">
+            <p className="text-[9px] tracking-[0.2em] uppercase font-medium mb-2" style={{ color: palette.textLight }}>Typologies</p>
+            {r.typologies.map((t) => (
+              <p key={t.type} className="text-[13px] font-light leading-relaxed" style={{ color: palette.textMuted }}>
+                {t.type} from <span style={{ color: palette.text }}>{fmt(t.from)}</span>
+              </p>
+            ))}
+          </div>
+          <div className="flex-1">
+            <p className="text-[9px] tracking-[0.2em] uppercase font-medium mb-2" style={{ color: palette.textLight }}>Available Units</p>
+            {r.units.map((u) => (
+              <p key={u.ref} className="text-[13px] font-light leading-relaxed" style={{ color: palette.textMuted }}>
+                <span style={{ color: palette.text }}>{u.ref}</span> · {u.type} · {fmt(u.price)}
+              </p>
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom row */}
+        <div className="mt-auto flex items-center justify-between pt-4" style={{ borderTop: `1px solid ${palette.border}` }}>
+          <p className="text-[12px] font-light" style={{ color: palette.textLight }}>
+            {r.availableUnits === r.totalUnits ? "All units available" : `${r.availableUnits} of ${r.totalUnits} available`}
+            {r.construction > 0 && <span className="ml-3">{r.construction}% built</span>}
+          </p>
+          <Link to="/contact" className="inline-flex items-center gap-2 text-[12px] tracking-[0.15em] uppercase font-light transition-opacity hover:opacity-60" style={{ color: palette.accent }}>
+            Request Info <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+      </div>
+    </div>
+  </FadeIn>
+);
 
 const BrandedResidencesPage = () => {
   return (
@@ -114,7 +270,7 @@ const BrandedResidencesPage = () => {
 
       {/* RESIDENCES LISTING */}
       <section className="py-16 sm:py-24 md:py-32" style={{ background: palette.white }}>
-        <div className="max-w-[1440px] mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
           <FadeIn>
             <div className="text-center mb-14">
               <p className="text-xs tracking-[0.3em] uppercase mb-3 font-normal" style={{ color: palette.accent }}>Our Portfolio</p>
@@ -124,43 +280,16 @@ const BrandedResidencesPage = () => {
               </p>
             </div>
           </FadeIn>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+          <div className="space-y-6">
             {BRANDED_RESIDENCES.map((r, i) => (
-              <FadeIn key={i} delay={i * 0.1}>
-                <div className="group cursor-pointer overflow-hidden" style={{ background: palette.white }}>
-                  <div className="relative overflow-hidden aspect-[16/10]">
-                    <img src={r.image} alt={`${r.name} — ${r.brand} branded residence in ${r.location}`} loading="lazy" className="w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.05]" />
-                    <div className="absolute top-4 left-4 px-3 py-1.5 bg-white/90 backdrop-blur-sm">
-                      <span className="text-[11px] tracking-[0.15em] uppercase font-medium" style={{ color: palette.accent }}>{r.brand}</span>
-                    </div>
-                    <div className="absolute top-4 right-4 px-3 py-1.5" style={{ background: r.status === "Pre-Launch" ? palette.accent : r.status === "Selling" ? "#2a7d5f" : palette.textLight }}>
-                      <span className="text-[10px] tracking-[0.12em] uppercase font-light text-white">{r.status}</span>
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <div className="flex items-center gap-1.5 mb-2">
-                      <MapPin className="w-3.5 h-3.5" style={{ color: palette.textLight }} />
-                      <p className="text-xs tracking-[0.1em] uppercase font-light" style={{ color: palette.textLight }}>{r.location}</p>
-                    </div>
-                    <h3 className="text-lg sm:text-xl font-light tracking-wide mb-3" style={{ fontFamily: fonts.heading }}>{r.name}</h3>
-                    <p className="text-[13px] leading-[1.8] font-light mb-4" style={{ color: palette.textMuted }}>{r.description}</p>
-                    <div className="flex items-center justify-between pt-4" style={{ borderTop: `1px solid ${palette.border}` }}>
-                      <p className="text-base font-normal" style={{ color: palette.accent }}>{r.priceFrom}</p>
-                      <span className="text-sm font-light" style={{ color: palette.textMuted }}>{r.units} residences</span>
-                    </div>
-                    <Link to="/contact" className="inline-flex items-center gap-2 text-[12px] tracking-[0.15em] uppercase font-light transition-opacity hover:opacity-60 mt-4" style={{ color: palette.accent }}>
-                      Request Information <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
-                  </div>
-                </div>
-              </FadeIn>
+              <BrandedCard key={i} r={r} i={i} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 sm:py-28 md:py-36" style={{ background: "#000000" }}>
+      {/* CTA — warm dark, distinct from black footer */}
+      <section className="py-20 sm:py-28 md:py-36" style={{ background: "#1E1C1A" }}>
         <div className="max-w-[800px] mx-auto px-5 text-center">
           <FadeIn>
             <Crown className="w-8 h-8 mx-auto mb-6" style={{ color: "#c9a96e" }} />
