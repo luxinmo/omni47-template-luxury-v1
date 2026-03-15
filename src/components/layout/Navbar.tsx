@@ -190,58 +190,50 @@ const Navbar = ({
 
       {/* Fullscreen menu */}
       {menuOpen && (
-        <>
-          {/* Backdrop */}
-          <div className="fixed inset-0 z-[99] bg-black/30" onClick={() => setMenuOpen(false)} />
-
-          {/* Panel — max 420px on desktop, full on mobile */}
-          <div className="fixed inset-y-0 left-0 z-[100] w-full sm:max-w-[420px] bg-white flex flex-col shadow-2xl">
-            {/* Header */}
-            <div className="flex items-center justify-between px-6 h-[64px] sm:h-[80px] border-b border-neutral-100 shrink-0">
-              <button style={{ color: palette.text }} aria-label="Close menu" onClick={() => setMenuOpen(false)}>
-                <X className="w-6 h-6" />
-              </button>
-              <Link to="/" className="flex flex-col items-center justify-center" onClick={() => setMenuOpen(false)}>
-                <span className="text-[22px] sm:text-[24px] tracking-[0.4em] font-light" style={{ fontFamily: fonts.brand, color: palette.text }}>
-                  {brand.name}
-                </span>
-                <span className="text-[8px] tracking-[0.45em] uppercase font-light -mt-0.5" style={{ color: palette.textLight }}>
-                  {brand.subtitle}
-                </span>
-              </Link>
-              <div className="w-6" />
-            </div>
-
-            {/* Links */}
-            <div className="flex-1 overflow-auto px-8 pt-6">
-              {MENU_LINKS.map((item) => (
-                <Link
-                  key={item.label}
-                  to={item.href}
-                  className="block text-[16px] tracking-[0.12em] uppercase font-light py-3.5 border-b border-neutral-100 last:border-b-0 hover:opacity-70 transition-colors"
-                  style={{ color: activePath === item.href ? palette.text : palette.textMuted }}
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-
-            {/* Bottom CTA */}
-            <div className="px-8 py-6 border-t border-neutral-100 shrink-0 space-y-3">
-              <a
-                href={`tel:${contact.phone}`}
-                className="w-full flex items-center justify-center gap-2 text-[12px] tracking-[0.1em] uppercase py-3 transition-colors"
-                style={{ background: palette.text, color: palette.white }}
-              >
-                <Phone className="w-4 h-4" /> Call Us
-              </a>
-              <p className="text-[10px] tracking-[0.2em] uppercase text-center" style={{ color: palette.textLight }}>
-                {brand.fullName}
-              </p>
-            </div>
+        <div className="fixed inset-0 z-[100] bg-white flex flex-col">
+          {/* Header */}
+          <div className="flex items-center justify-between px-4 sm:px-6 h-[64px] sm:h-[80px] border-b border-neutral-100 shrink-0">
+            <button style={{ color: palette.text }} aria-label="Close menu" onClick={() => setMenuOpen(false)}>
+              <X className="w-6 h-6" />
+            </button>
+            <Link to="/" className="flex flex-col items-center justify-center" onClick={() => setMenuOpen(false)}>
+              <span className="text-[22px] sm:text-[26px] tracking-[0.4em] font-light" style={{ fontFamily: fonts.brand, color: palette.text }}>
+                {brand.name}
+              </span>
+              <span className="text-[8px] tracking-[0.45em] uppercase font-light -mt-0.5" style={{ color: palette.textLight }}>
+                {brand.subtitle}
+              </span>
+            </Link>
+            <div className="w-6" />
           </div>
-        </>
+
+          {/* Links — centered, scrollable */}
+          <div className="flex-1 overflow-auto flex flex-col items-center justify-center px-10">
+            {MENU_LINKS.map((item) => (
+              <Link
+                key={item.label}
+                to={item.href}
+                className="text-[18px] tracking-[0.15em] uppercase font-light py-4 border-b border-neutral-100 last:border-b-0 hover:opacity-70 transition-colors text-center w-full max-w-md"
+                style={{ color: activePath === item.href ? palette.text : palette.textMuted }}
+                onClick={() => setMenuOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+
+          {/* Bottom CTA — constrained width */}
+          <div className="shrink-0 border-t border-neutral-100 px-4 py-5 flex flex-col items-center gap-3">
+            <a
+              href={`tel:${contact.phone}`}
+              className="flex items-center justify-center gap-2 text-[12px] tracking-[0.1em] uppercase py-3 px-8 w-full max-w-xs transition-colors"
+              style={{ background: palette.text, color: palette.white }}
+            >
+              <Phone className="w-4 h-4" /> Call Us
+            </a>
+            <p className="text-[10px] tracking-[0.2em] uppercase" style={{ color: palette.textLight }}>{brand.fullName}</p>
+          </div>
+        </div>
       )}
     </>
   );
