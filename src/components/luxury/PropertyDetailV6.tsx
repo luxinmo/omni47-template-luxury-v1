@@ -186,6 +186,7 @@ const PropertyDetailV6 = () => {
   const [liked, setLiked] = useState(false);
   const [expandDesc, setExpandDesc] = useState(false);
   const [enquiryOpen, setEnquiryOpen] = useState(false);
+  const [enquirySent, setEnquirySent] = useState<"idle" | "thanks" | "suggestions">("idle");
   const [wantVisit, setWantVisit] = useState(false);
   const [visitDate, setVisitDate] = useState<Date | undefined>();
   const [visitTime, setVisitTime] = useState("");
@@ -859,65 +860,132 @@ const PropertyDetailV6 = () => {
       </footer>
 
       {/* ═══ ENQUIRY MODAL ═══ */}
-      <Dialog open={enquiryOpen} onOpenChange={setEnquiryOpen}>
+      <Dialog open={enquiryOpen} onOpenChange={(open) => { setEnquiryOpen(open); if (!open) { setEnquirySent("idle"); } }}>
         <DialogContent className="max-w-lg p-0 rounded-md border-2 border-neutral-300 overflow-hidden shadow-xl">
-          <div className="p-5 pb-0">
-            <div className="flex gap-3 mb-4 bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden">
-              <img src={p.images[0]} alt={p.title} className="w-24 h-20 object-cover shrink-0" />
-              <div className="py-2 pr-3 flex flex-col justify-center min-w-0">
-                <DialogTitle className="text-[13px] font-medium text-luxury-black leading-tight line-clamp-2 uppercase tracking-[0.02em]">{p.title}</DialogTitle>
-                <DialogDescription className="text-[14px] text-luxury-black/80 font-medium mt-1">{p.priceFormatted}</DialogDescription>
-                <span className="text-[11px] text-luxury-black/40 font-mono tracking-[0.05em] mt-0.5">REF-{p.ref}</span>
+
+          {/* ── State: FORM ── */}
+          {enquirySent === "idle" && (
+            <>
+              <div className="p-5 pb-0">
+                <div className="flex gap-3 mb-4 bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden">
+                  <img src={p.images[0]} alt={p.title} className="w-24 h-20 object-cover shrink-0" />
+                  <div className="py-2 pr-3 flex flex-col justify-center min-w-0">
+                    <DialogTitle className="text-[13px] font-medium text-luxury-black leading-tight line-clamp-2 uppercase tracking-[0.02em]">{p.title}</DialogTitle>
+                    <DialogDescription className="text-[14px] text-luxury-black/80 font-medium mt-1">{p.priceFormatted}</DialogDescription>
+                    <span className="text-[11px] text-luxury-black/40 font-mono tracking-[0.05em] mt-0.5">REF-{p.ref}</span>
+                  </div>
+                </div>
+              </div>
+              <form className="p-6 pt-2 space-y-3" onSubmit={(e) => {
+                e.preventDefault();
+                setEnquirySent("thanks");
+                setTimeout(() => setEnquirySent("suggestions"), 5000);
+              }}>
+                <input type="text" placeholder="Full name" className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/30 focus:outline-none focus:border-luxury-black/40 transition-colors rounded-sm" />
+                <input type="email" placeholder="Email address" className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/30 focus:outline-none focus:border-luxury-black/40 transition-colors rounded-sm" />
+                <LuxuryPhoneInput />
+                <textarea placeholder="I'm interested in this property..." rows={3} className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/30 focus:outline-none focus:border-luxury-black/40 transition-colors resize-none rounded-sm" />
+
+                <label className="flex items-center gap-2 cursor-pointer select-none py-1">
+                  <input type="checkbox" checked={wantVisit} onChange={(e) => setWantVisit(e.target.checked)} className="w-4 h-4 border-neutral-300 rounded accent-luxury-black" />
+                  <span className="text-[13px] text-luxury-black/70 font-light flex items-center gap-1.5">
+                    <CalendarDays className="w-3.5 h-3.5 text-luxury-black/40" />
+                    I'd like to schedule a visit
+                  </span>
+                </label>
+
+                {wantVisit && (
+                  <div className="space-y-2 bg-neutral-50 border border-neutral-200 p-3 rounded-sm">
+                    <p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/45 font-medium mb-1">Preferred Date & Time</p>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <button type="button" className={cn("w-full flex items-center gap-2 border border-neutral-300 px-4 py-2.5 text-[14px] text-left transition-all hover:border-luxury-black/40 rounded-sm bg-white", !visitDate && "text-luxury-black/35")}>
+                          <CalendarDays className="w-4 h-4 text-luxury-black/35 shrink-0" />
+                          {visitDate ? format(visitDate, "PPP") : "Select a date"}
+                        </button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar mode="single" selected={visitDate} onSelect={setVisitDate} disabled={(date) => date < new Date()} initialFocus className="p-3 pointer-events-auto" />
+                      </PopoverContent>
+                    </Popover>
+                    <select value={visitTime} onChange={(e) => setVisitTime(e.target.value)} className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-luxury-black appearance-none cursor-pointer focus:outline-none focus:border-luxury-black/40 transition-all rounded-sm bg-white">
+                      <option value="" disabled>Select a time</option>
+                      {["09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","16:00","16:30","17:00","17:30","18:00","18:30","19:00"].map((t) => (
+                        <option key={t} value={t}>{t}</option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+
+                <label className="flex items-start gap-2 cursor-pointer">
+                  <input type="checkbox" className="mt-1 accent-luxury-black" />
+                  <span className="text-[12px] text-luxury-black/55 font-light leading-relaxed">
+                    I accept the <Link to="/page/terms" className="underline hover:text-luxury-black">terms</Link> and <Link to="/page/privacy" className="underline hover:text-luxury-black">privacy policy</Link>.
+                  </span>
+                </label>
+                <button type="submit" className="w-full bg-luxury-black text-white text-[13px] tracking-[0.1em] uppercase py-3 hover:bg-luxury-black/85 transition-all duration-300">
+                  {wantVisit ? "Request Visit" : "Send Enquiry"}
+                </button>
+              </form>
+            </>
+          )}
+
+          {/* ── State: THANK YOU ── */}
+          {enquirySent === "thanks" && (
+            <div className="p-8 text-center">
+              <DialogTitle className="sr-only">Enquiry sent</DialogTitle>
+              <DialogDescription className="sr-only">Thank you for your enquiry</DialogDescription>
+              <div className="w-14 h-14 rounded-full bg-luxury-gold/10 flex items-center justify-center mx-auto mb-5">
+                <Check className="w-7 h-7 text-luxury-gold" strokeWidth={1.5} />
+              </div>
+              <h3 className="text-[20px] font-medium text-luxury-black mb-2">Thank You!</h3>
+              <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-4">
+                Your enquiry for <span className="font-medium text-luxury-black/80">{p.title}</span> has been received. Our team will contact you shortly.
+              </p>
+              <p className="text-[12px] text-luxury-black/35 font-mono">REF-{p.ref}</p>
+              <div className="mt-6 flex items-center justify-center gap-1.5 text-luxury-black/30">
+                <div className="w-1.5 h-1.5 rounded-full bg-luxury-gold/60 animate-pulse" />
+                <span className="text-[12px] font-light">Finding similar properties for you…</span>
               </div>
             </div>
-          </div>
-          <form className="p-6 pt-2 space-y-3" onSubmit={(e) => { e.preventDefault(); setEnquiryOpen(false); setGridView(false); setLightbox(null); }}>
-            <input type="text" placeholder="Full name" className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/30 focus:outline-none focus:border-luxury-black/40 transition-colors rounded-sm" />
-            <input type="email" placeholder="Email address" className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/30 focus:outline-none focus:border-luxury-black/40 transition-colors rounded-sm" />
-            <LuxuryPhoneInput />
-            <textarea placeholder="I'm interested in this property..." rows={3} className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/30 focus:outline-none focus:border-luxury-black/40 transition-colors resize-none rounded-sm" />
+          )}
 
-            <label className="flex items-center gap-2 cursor-pointer select-none py-1">
-              <input type="checkbox" checked={wantVisit} onChange={(e) => setWantVisit(e.target.checked)} className="w-4 h-4 border-neutral-300 rounded accent-luxury-black" />
-              <span className="text-[13px] text-luxury-black/70 font-light flex items-center gap-1.5">
-                <CalendarDays className="w-3.5 h-3.5 text-luxury-black/40" />
-                I'd like to schedule a visit
-              </span>
-            </label>
-
-            {wantVisit && (
-              <div className="space-y-2 bg-neutral-50 border border-neutral-200 p-3 rounded-sm">
-                <p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/45 font-medium mb-1">Preferred Date & Time</p>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <button type="button" className={cn("w-full flex items-center gap-2 border border-neutral-300 px-4 py-2.5 text-[14px] text-left transition-all hover:border-luxury-black/40 rounded-sm bg-white", !visitDate && "text-luxury-black/35")}>
-                      <CalendarDays className="w-4 h-4 text-luxury-black/35 shrink-0" />
-                      {visitDate ? format(visitDate, "PPP") : "Select a date"}
-                    </button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar mode="single" selected={visitDate} onSelect={setVisitDate} disabled={(date) => date < new Date()} initialFocus className="p-3 pointer-events-auto" />
-                  </PopoverContent>
-                </Popover>
-                <select value={visitTime} onChange={(e) => setVisitTime(e.target.value)} className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-luxury-black appearance-none cursor-pointer focus:outline-none focus:border-luxury-black/40 transition-all rounded-sm bg-white">
-                  <option value="" disabled>Select a time</option>
-                  {["09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","16:00","16:30","17:00","17:30","18:00","18:30","19:00"].map((t) => (
-                    <option key={t} value={t}>{t}</option>
-                  ))}
-                </select>
+          {/* ── State: SUGGESTIONS ── */}
+          {enquirySent === "suggestions" && (
+            <div className="p-6">
+              <DialogTitle className="text-[16px] font-medium text-luxury-black mb-1">You May Also Like</DialogTitle>
+              <DialogDescription className="text-[13px] text-luxury-black/50 font-light mb-5">Properties similar to the one you enquired about</DialogDescription>
+              <div className="space-y-3 max-h-[360px] overflow-y-auto">
+                {SIMILAR.map((s, i) => (
+                  <Link
+                    key={i}
+                    to={s.href}
+                    onClick={() => { setEnquiryOpen(false); setEnquirySent("idle"); setGridView(false); setLightbox(null); }}
+                    className="flex gap-3 bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden hover:bg-neutral-100 hover:border-neutral-300 transition-all group"
+                  >
+                    <img src={s.image} alt={s.name} className="w-28 h-20 object-cover shrink-0" />
+                    <div className="py-2 pr-3 flex flex-col justify-center min-w-0">
+                      <p className="text-[12px] text-luxury-black/50 font-light tracking-[0.05em]">{s.location}</p>
+                      <p className="text-[13px] font-medium text-luxury-black leading-tight line-clamp-1 group-hover:text-luxury-black/75 transition-colors">{s.name}</p>
+                      <div className="flex items-center gap-3 mt-1 text-[12px] text-luxury-black/50 font-light">
+                        <span>{s.beds} beds</span>
+                        <span>{s.baths} baths</span>
+                        <span>{s.sqm} m²</span>
+                      </div>
+                      <p className="text-[15px] font-light text-luxury-black mt-1">{s.price}</p>
+                    </div>
+                  </Link>
+                ))}
               </div>
-            )}
+              <button
+                onClick={() => { setEnquiryOpen(false); setEnquirySent("idle"); setGridView(false); setLightbox(null); }}
+                className="w-full mt-5 border border-neutral-300 text-luxury-black text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-neutral-100 transition-all"
+              >
+                Back to Property
+              </button>
+            </div>
+          )}
 
-            <label className="flex items-start gap-2 cursor-pointer">
-              <input type="checkbox" className="mt-1 accent-luxury-black" />
-              <span className="text-[12px] text-luxury-black/55 font-light leading-relaxed">
-                I accept the <Link to="/page/terms" className="underline hover:text-luxury-black">terms</Link> and <Link to="/page/privacy" className="underline hover:text-luxury-black">privacy policy</Link>.
-              </span>
-            </label>
-            <button type="submit" className="w-full bg-luxury-black text-white text-[13px] tracking-[0.1em] uppercase py-3 hover:bg-luxury-black/85 transition-all duration-300">
-              {wantVisit ? "Request Visit" : "Send Enquiry"}
-            </button>
-          </form>
         </DialogContent>
       </Dialog>
 
