@@ -113,7 +113,7 @@ const BrandedResidencesPage = () => {
       </section>
 
       {/* RESIDENCES LISTING */}
-      <section className="py-16 sm:py-24 md:py-32" style={{ background: palette.bg }}>
+      <section className="py-16 sm:py-24 md:py-32" style={{ background: palette.white }}>
         <div className="max-w-[1440px] mx-auto px-5 sm:px-6 lg:px-12">
           <FadeIn>
             <div className="text-center mb-14">
