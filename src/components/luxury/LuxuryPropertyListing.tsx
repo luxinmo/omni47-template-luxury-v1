@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Search, SlidersHorizontal, X, ChevronDown, ChevronRight, Bed, Bath, Maximize, MapPin, Mail, Lock, Eye, Phone, User, Crown, ArrowRight, Building2, Menu } from "lucide-react";
 import { brand, navLeft, navRight, languages, currencies, areaUnits } from "@/config/template";
-import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Layout } from "@/components/layout";
 import SEOHead from "@/components/shared/SEOHead";
 import heroImg from "@/assets/luxury-hero.jpg";
 import LocationSearchDropdown from "./LocationSearchDropdown";
@@ -875,10 +875,6 @@ const OffMarketPropertyCard = ({ property }: { property: typeof PROPERTIES[0] })
 const LuxuryPropertyListing = () => {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [filters, setFilters] = useState<FilterState>(defaultFilters);
-  const [langOpen, setLangOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState("EN");
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [currentCurrency, setCurrentCurrency] = useState("EUR");
 
   const toggleType = (t: string) => setFilters(f => ({ ...f, types: f.types.includes(t) ? f.types.filter(x => x !== t) : [...f.types, t] }));
   const toggleAmenity = (a: string) => setFilters(f => ({ ...f, amenities: f.amenities.includes(a) ? f.amenities.filter(x => x !== a) : [...f.amenities, a] }));
@@ -886,7 +882,7 @@ const LuxuryPropertyListing = () => {
   const activeChips = buildActiveChips(filters);
 
   return (
-    <div className="flex-1 overflow-auto bg-white text-luxury-black font-sans">
+    <Layout activePath="/properties" background="#fff">
       <SEOHead
         title="Luxury Properties for Sale"
         description="Discover the finest selection of luxury villas, penthouses, fincas and new-build properties across Ibiza and the Costa Blanca."
@@ -897,39 +893,9 @@ const LuxuryPropertyListing = () => {
           "description": "Browse luxury real estate listings across the Mediterranean.",
         }}
       />
-      {/* ─── NAVBAR ─── */}
-      <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-3 items-center px-6 lg:px-10 h-[68px]">
-          <div className="hidden lg:flex items-center gap-10">
-            <button className="text-luxury-black/50 hover:text-luxury-black transition-colors duration-300">
-              <svg className="w-[18px] h-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.2}><circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
-            </button>
-            {navLeft.map((l) => (
-              <Link key={l.label} to={l.href} className="text-[13px] tracking-[0.14em] uppercase font-light text-luxury-black/55 hover:text-luxury-black transition-colors duration-300">{l.label}</Link>
-            ))}
-          </div>
-          <div className="lg:hidden" />
-
-          <Link to="/" className="flex flex-col items-center justify-center">
-            <span className="text-lg md:text-xl tracking-[0.3em] font-light text-luxury-black">{brand.fullName}</span>
-            <span className="text-[10px] tracking-[0.35em] uppercase font-light text-luxury-black/40">{brand.subtitle}</span>
-          </Link>
-
-          <div className="flex items-center justify-end gap-8">
-            <div className="hidden lg:flex items-center gap-10">
-              {navRight.map((l) => (
-                <Link key={l.label} to={l.href} className="text-[13px] tracking-[0.14em] uppercase font-light text-luxury-black/55 hover:text-luxury-black transition-colors duration-300">{l.label}</Link>
-              ))}
-            </div>
-            <button className="lg:hidden text-luxury-black/70">
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" /></svg>
-            </button>
-          </div>
-        </div>
-      </nav>
 
       {/* ─── BREADCRUMBS + SEARCH BAR ─── */}
-      <div className="sticky top-[68px] z-40 bg-white border-b border-neutral-200">
+      <div className="sticky top-[64px] sm:top-[80px] z-40 bg-white border-b border-neutral-200">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 pt-3.5 pb-2.5 text-[13px] tracking-[0.04em] text-luxury-black/60 font-normal">
@@ -937,20 +903,19 @@ const LuxuryPropertyListing = () => {
             <ChevronRight className="w-3 h-3 text-luxury-black/35" />
             <a href="/properties" className="hover:text-luxury-black transition-colors">Properties</a>
             <ChevronRight className="w-3 h-3 text-luxury-black/35" />
-            <span className="text-luxury-black font-medium">Ibiza & Costa Blanca</span>
+            <span className="text-luxury-black font-medium">All Locations</span>
           </div>
 
-          {/* Search + filter chips row */}
-          <div className="flex items-center gap-3 pb-3">
-            <div className="hidden md:flex items-center shrink-0">
-              <LocationSearchDropdown
-                selected={filters.locations}
-                onSelectedChange={(locs) => setFilters(f => ({ ...f, locations: locs }))}
-                className="w-[420px]"
-              />
-            </div>
-
-            <div className="w-px h-5 bg-neutral-200 hidden md:block shrink-0" />
+          {/* Location search */}
+          <div className="pb-3">
+            <LocationSearchDropdown
+              selected={filters.locations}
+              onSelectedChange={(locs) => setFilters(f => ({ ...f, locations: locs }))}
+              className="w-full md:w-[420px]"
+            />
+          </div>
+          {/* Filter chips row */}
+          <div className="flex items-center gap-2 md:gap-3 pb-3 overflow-x-auto">
 
             <button
               onClick={() => setFiltersOpen(true)}
@@ -1005,7 +970,7 @@ const LuxuryPropertyListing = () => {
 
         {/* Results header */}
         <div className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-extralight text-luxury-black tracking-[0.02em] leading-snug">Luxury Homes in Ibiza & Costa Blanca</h1>
+          <h1 className="text-2xl md:text-3xl font-extralight text-luxury-black tracking-[0.02em] leading-snug">Luxury Properties for Sale</h1>
           <p className="text-[14px] sm:text-[15px] text-luxury-black/60 font-light mt-3 max-w-3xl leading-relaxed">
             Discover the finest selection of luxury villas, penthouses, fincas and new-build properties across Ibiza and the Costa Blanca. From beachfront estates with panoramic sea views to exclusive golf-side residences, explore hand-picked homes curated for the most discerning buyers.
           </p>
@@ -1102,68 +1067,7 @@ const LuxuryPropertyListing = () => {
         </div>
       </section>
 
-      {/* ─── FOOTER ─── */}
-      <footer className="bg-luxury-black">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-10">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <span className="text-sm tracking-[0.25em] text-white/40 font-light">{brand.fullName}</span>
-            <p className="text-[12px] text-white/20 tracking-wider font-light">© {new Date().getFullYear()} {brand.fullName}. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
-
-      {/* ─── MOBILE MENU ─── */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 z-[100] bg-white flex flex-col">
-          <div className="flex items-center justify-between px-4 h-[60px] border-b border-neutral-100 shrink-0">
-            <button onClick={() => setMobileMenuOpen(false)}><X className="w-6 h-6" /></button>
-            <Link to="/" className="flex flex-col items-center" onClick={() => setMobileMenuOpen(false)}>
-              <span className="text-base tracking-[0.3em] font-light text-luxury-black">{brand.fullName}</span>
-            </Link>
-            <div className="w-6" />
-          </div>
-          <div className="flex-1 flex flex-col justify-center px-10">
-            {[...navLeft, ...navRight].map(item => (
-              <Link key={item.label} to={item.href} className="text-[18px] tracking-[0.15em] uppercase font-light py-4 text-luxury-black/80 border-b border-neutral-100 text-center" onClick={() => setMobileMenuOpen(false)}>{item.label}</Link>
-            ))}
-          </div>
-          <div className="px-10 py-6 border-t border-neutral-100 shrink-0">
-            <p className="text-[10px] tracking-[0.2em] uppercase text-luxury-black/40 font-medium mb-3 text-center">Language</p>
-            <div className="flex flex-wrap justify-center gap-2">
-              {languages.map(lang => (
-                <button key={lang.code} onClick={() => setCurrentLang(lang.code)} className={`flex items-center gap-1.5 px-3 py-2 text-[12px] rounded-sm border transition-colors ${currentLang === lang.code ? "border-luxury-black/30 bg-neutral-50 font-medium text-luxury-black" : "border-neutral-200 font-light text-luxury-black/55"}`}>
-                  <img src={`https://flagcdn.com/20x15/${lang.flag}.png`} alt="" className="w-5 h-[15px] object-cover rounded-[2px]" />{lang.code}
-                </button>
-              ))}
-            </div>
-          </div>
-          <div className="px-10 pb-4 shrink-0">
-            <p className="text-[10px] tracking-[0.2em] uppercase text-luxury-black/40 font-medium mb-3 text-center">Currency</p>
-            <div className="flex flex-wrap justify-center gap-2">
-              {currencies.map(c => (
-                <button key={c.code} onClick={() => setCurrentCurrency(c.code)} className={`px-3 py-2 text-[12px] rounded-sm border transition-colors ${currentCurrency === c.code ? "border-luxury-black/30 bg-neutral-50 font-medium text-luxury-black" : "border-neutral-200 font-light text-luxury-black/55"}`}>{c.label}</button>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ─── LANGUAGE DIALOG ─── */}
-      <Dialog open={langOpen} onOpenChange={setLangOpen}>
-        <DialogContent className="max-w-md p-6 rounded-md border-2 border-neutral-300 shadow-xl">
-          <DialogTitle className="text-[11px] tracking-[0.15em] uppercase font-medium text-luxury-black/40 mb-5">Select Language</DialogTitle>
-          <DialogDescription className="sr-only">Choose your preferred language</DialogDescription>
-          <div className="grid grid-cols-3 gap-2">
-            {languages.map(lang => (
-              <button key={lang.code} onClick={() => { setCurrentLang(lang.code); setLangOpen(false); }} className={`flex flex-col items-center gap-2 px-3 py-4 rounded-sm text-[13px] border transition-colors ${currentLang === lang.code ? "bg-neutral-50 border-neutral-300 text-luxury-black font-medium" : "border-transparent text-luxury-black/55 font-light hover:bg-neutral-50"}`}>
-                <img src={`https://flagcdn.com/40x30/${lang.flag}.png`} alt="" className="w-10 h-[30px] object-cover rounded-[3px] shadow-sm" />
-                <span>{lang.label}</span>
-              </button>
-            ))}
-          </div>
-        </DialogContent>
-      </Dialog>
-    </div>
+    </Layout>
   );
 };
 

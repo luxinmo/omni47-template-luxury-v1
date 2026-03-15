@@ -1,7 +1,8 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Search, Instagram, Linkedin, MessageCircle } from "lucide-react";
-import { brand, palette, fonts, navLeft, navRight, languages, contact } from "@/config/template";
+import { ArrowRight, Search } from "lucide-react";
+import { palette, fonts } from "@/config/template";
+import { Layout } from "@/components/layout";
 import SEOHead from "@/components/shared/SEOHead";
 import heroImg from "@/assets/luxury-hero.jpg";
 import prop1 from "@/assets/luxury-property-1.jpg";
@@ -9,16 +10,12 @@ import prop2 from "@/assets/luxury-property-2.jpg";
 import prop3 from "@/assets/luxury-property-3.jpg";
 import propertyDetail1 from "@/assets/property-detail-1.jpg";
 
-/* ─── PALETTE & FONT — from config ─── */
 const p = {
   bg: palette.bg, white: palette.white, text: palette.text,
   muted: palette.textMuted, light: palette.textLight,
-  accent: palette.accent, border: palette.border, footer: palette.footer,
+  accent: palette.accent, border: palette.border,
 };
-const font = fonts.body;
 
-/* ─── TRANSLATABLE STRINGS ─── */
-const BRAND_NAME = brand.fullName;
 const PAGE_TITLE = "The Journal";
 const PAGE_SUBTITLE = "Insights, guides and stories from the world of luxury real estate";
 const SEARCH_PLACEHOLDER = "Search articles...";
@@ -35,12 +32,6 @@ const NEWSLETTER_PRIVACY = "We respect your privacy. Unsubscribe at any time.";
 const LOAD_MORE = "Load More Articles";
 const NO_RESULTS = "No articles found matching your criteria.";
 
-const LANGUAGES = languages;
-const NAV_LEFT_ITEMS = navLeft;
-const NAV_RIGHT_ITEMS = navRight;
-const CONTACT = contact;
-
-/* ─── CATEGORIES ─── */
 const CATEGORIES = [
   { slug: "all", label: ALL_CATEGORIES_LABEL },
   { slug: "market-insights", label: "Market Insights" },
@@ -51,7 +42,6 @@ const CATEGORIES = [
   { slug: "guides", label: "Guides" },
 ];
 
-/* ─── BLOG POSTS DATA ─── */
 const BLOG_POSTS = [
   { id: "1", image: propertyDetail1, date: "26 Feb 2026", category: "lifestyle", title: "An Insider's Guide to Coastal Living in the Mediterranean", excerpt: "The Mediterranean coast has evolved from a seasonal destination into a strategic lifestyle hub for international buyers seeking year-round luxury. From Ibiza's bohemian energy to the Costa Blanca's understated elegance, discover why discerning buyers are making the move.", author: "Alexandra Morel", readTime: 8, featured: true },
   { id: "2", image: prop1, date: "25 Feb 2026", category: "market-insights", title: "Dual Demand Drives Dubai: The Emirate Welcomes Fresh Buyers Without Losing Its Ultra-Prime Edge", excerpt: "Key Insights: The $500K–$1M segment grew 70% year-over-year, emerging as a primary entry point for international investors looking at Dubai's thriving market.", author: "James Harrington", readTime: 6, featured: false },
@@ -62,21 +52,6 @@ const BLOG_POSTS = [
   { id: "7", image: prop3, date: "18 Feb 2026", category: "lifestyle", title: "The Rise of Wellness-Centric Luxury Homes: A New Standard in Premium Living", excerpt: "Today's ultra-high-net-worth buyers aren't just looking for square footage — they're seeking spaces that actively enhance physical and mental well-being.", author: "Sofia Engström", readTime: 6, featured: false },
   { id: "8", image: heroImg, date: "15 Feb 2026", category: "market-insights", title: "Ibiza Property Market Report Q1 2026: Record Demand Meets Limited Supply", excerpt: "Our quarterly analysis reveals that Ibiza's luxury segment has reached unprecedented price levels, driven by a surge in international demand and a constrained supply pipeline.", author: "Marcus Chen", readTime: 9, featured: false },
 ];
-
-/* LANGUAGES imported from config as 'languages' */
-
-/* ─── Hooks ─── */
-function useContainerScrolled(ref: React.RefObject<HTMLElement | null>, threshold = 60) {
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const handler = () => setScrolled(el.scrollTop > threshold);
-    el.addEventListener("scroll", handler, { passive: true });
-    return () => el.removeEventListener("scroll", handler);
-  }, [ref, threshold]);
-  return scrolled;
-}
 
 const FadeIn = ({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -95,23 +70,10 @@ const FadeIn = ({ children, className = "", delay = 0 }: { children: React.React
   );
 };
 
-/* ═══════════════════════════════════════════════════════════ */
-
 const BlogListingPage = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const scrolled = useContainerScrolled(containerRef);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [langOpen, setLangOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState("EN");
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [visibleCount, setVisibleCount] = useState(6);
-
-  useEffect(() => {
-    const handler = () => { if (window.innerWidth >= 1024) setMobileMenuOpen(false); };
-    window.addEventListener("resize", handler);
-    return () => window.removeEventListener("resize", handler);
-  }, []);
 
   const filteredPosts = BLOG_POSTS.filter((post) => {
     const matchesCategory = activeCategory === "all" || post.category === activeCategory;
@@ -127,95 +89,11 @@ const BlogListingPage = () => {
   const getCategoryLabel = (slug: string) => CATEGORIES.find((c) => c.slug === slug)?.label ?? slug;
 
   return (
-    <div ref={containerRef} className="flex-1 overflow-auto relative" style={{ background: p.bg, color: p.text, fontFamily: font }}>
+    <Layout activePath="/blog">
       <SEOHead
         title="The Journal — Blog"
         description="Insights, guides and stories from the world of luxury real estate. Market analysis, lifestyle features, architecture and investment advice."
       />
-      {/* ─── NAVBAR ─── */}
-      <nav
-        className="sticky top-0 z-50 transition-all duration-500"
-        style={{
-          background: scrolled ? `${p.white}f0` : p.white,
-          backdropFilter: scrolled ? "blur(16px)" : "none",
-          boxShadow: scrolled ? "0 1px 0 rgba(0,0,0,0.06)" : "none",
-          borderBottom: scrolled ? "none" : `1px solid ${p.border}`,
-        }}
-      >
-        <div className="max-w-[1400px] mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-10 h-[60px] lg:h-[68px]">
-          {/* Globe / Language */}
-          <div className="hidden lg:flex items-center relative">
-            <button onClick={() => setLangOpen(!langOpen)} className="flex items-center gap-1.5 transition-colors duration-300" style={{ color: p.light }}>
-              <svg className="w-[16px] h-[16px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.2}><circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
-              <span className="text-[11px] tracking-[0.1em] font-medium">{currentLang}</span>
-            </button>
-            {langOpen && (
-              <div className="absolute top-full left-0 mt-2 shadow-lg py-1 min-w-[140px]" style={{ background: p.white, border: `1px solid ${p.border}` }}>
-                {LANGUAGES.map((lang) => (
-                  <button key={lang.code} onClick={() => { setCurrentLang(lang.code); setLangOpen(false); }}
-                    className="w-full text-left px-4 py-2 text-[12px] hover:bg-neutral-50 transition-colors"
-                    style={{ color: currentLang === lang.code ? p.text : p.light, fontWeight: currentLang === lang.code ? 500 : 400 }}
-                  >{lang.label}</button>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Left nav */}
-          <div className="hidden lg:flex items-center gap-8">
-            {NAV_LEFT_ITEMS.map((l) => (
-              <Link key={l.label} to={l.href} className="text-[13px] tracking-[0.12em] uppercase font-light transition-colors duration-300 hover:opacity-60" style={{ color: p.text }}>{l.label}</Link>
-            ))}
-          </div>
-
-          {/* Center logo */}
-          <Link to="/" className="flex flex-col items-center">
-            <span className="text-[20px] sm:text-[24px] tracking-[0.35em] font-light" style={{ color: p.text }}>{BRAND_NAME}</span>
-            <span className="text-[7px] sm:text-[8px] tracking-[0.45em] uppercase font-light -mt-0.5" style={{ color: p.light }}>{brand.subtitle}</span>
-          </Link>
-
-          {/* Right nav */}
-          <div className="hidden lg:flex items-center gap-8">
-            {NAV_RIGHT_ITEMS.map((l) => (
-              <Link key={l.label} to={l.href} className="text-[13px] tracking-[0.12em] uppercase font-light transition-colors duration-300 hover:opacity-60" style={{ color: p.muted }}>{l.label}</Link>
-            ))}
-          </div>
-
-          {/* Mobile hamburger */}
-          <button className="lg:hidden" style={{ color: p.muted }} onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-            {mobileMenuOpen ? (
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" /></svg>
-            ) : (
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" /></svg>
-            )}
-          </button>
-        </div>
-
-        {mobileMenuOpen && (
-          <div className="lg:hidden animate-in slide-in-from-top-2 duration-200" style={{ background: p.white, borderTop: `1px solid ${p.border}` }}>
-            <div className="px-6 py-6 flex flex-col gap-1">
-              {[...NAV_LEFT_ITEMS, ...NAV_RIGHT_ITEMS].map((l) => (
-                <Link key={l.label} to={l.href} className="text-[14px] tracking-[0.08em] font-light py-3" style={{ color: p.text, borderBottom: `1px solid ${p.border}40` }}>{l.label}</Link>
-              ))}
-              <div className="mt-4 pt-4" style={{ borderTop: `1px solid ${p.border}` }}>
-                <p className="text-[10px] tracking-[0.2em] uppercase mb-3" style={{ color: p.light }}>Language</p>
-                <div className="flex flex-wrap gap-2">
-                  {LANGUAGES.map((lang) => (
-                    <button key={lang.code} onClick={() => setCurrentLang(lang.code)}
-                      className="px-3 py-1.5 text-[11px] tracking-[0.1em] transition-colors"
-                      style={{
-                        border: `1px solid ${currentLang === lang.code ? p.text : p.border}`,
-                        background: currentLang === lang.code ? p.text : "transparent",
-                        color: currentLang === lang.code ? p.white : p.light,
-                      }}
-                    >{lang.code}</button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-      </nav>
 
       {/* ─── PAGE HEADER ─── */}
       <section className="py-10 md:py-16" style={{ background: p.bg }}>
@@ -373,48 +251,7 @@ const BlogListingPage = () => {
           </FadeIn>
         </div>
       </section>
-
-      {/* ─── FOOTER ─── */}
-      <footer style={{ background: p.footer }}>
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-14 md:py-18">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8">
-            <div className="md:col-span-1">
-              <span className="text-[18px] tracking-[0.35em] font-light block mb-3" style={{ color: p.white }}>{BRAND_NAME}</span>
-              <p className="text-[12px] leading-relaxed font-light" style={{ color: "rgba(255,255,255,0.3)" }}>Curating extraordinary homes for exceptional lives since 2010.</p>
-            </div>
-            <div>
-              <h4 className="text-[10px] tracking-[0.2em] uppercase mb-4 font-medium" style={{ color: "rgba(255,255,255,0.4)" }}>Quick Links</h4>
-              <ul className="space-y-2.5">
-                {["Properties", "Services", "About Us", "Contact", "Privacy Policy"].map((l) => (
-                  <li key={l}><a href="#" className="text-[12px] font-light hover:text-white/70 transition-colors duration-300" style={{ color: "rgba(255,255,255,0.3)" }}>{l}</a></li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-[10px] tracking-[0.2em] uppercase mb-4 font-medium" style={{ color: "rgba(255,255,255,0.4)" }}>Contact</h4>
-              <ul className="space-y-2.5 text-[12px] font-light" style={{ color: "rgba(255,255,255,0.3)" }}>
-                <li>{CONTACT.email}</li>
-                <li>{CONTACT.phone}</li>
-                <li>{CONTACT.city}</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-[10px] tracking-[0.2em] uppercase mb-4 font-medium" style={{ color: "rgba(255,255,255,0.4)" }}>Follow</h4>
-              <div className="flex gap-3">
-                {[Instagram, Linkedin, MessageCircle].map((Icon, i) => (
-                  <a key={i} href="#" className="w-9 h-9 flex items-center justify-center hover:border-white/30 hover:text-white/70 transition-all duration-300" style={{ border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.3)" }}>
-                    <Icon className="w-3.5 h-3.5" strokeWidth={1.5} />
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
-          <div className="mt-12 pt-6 text-center" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-            <p className="text-[10px] tracking-wider font-light" style={{ color: "rgba(255,255,255,0.2)" }}>© 2025 {BRAND_NAME}. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
-    </div>
+    </Layout>
   );
 };
 

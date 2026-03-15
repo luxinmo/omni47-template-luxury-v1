@@ -28,7 +28,7 @@ const Layout = ({
   navVariant = "solid",
   showNavbar = true,
   showFooter = true,
-  showLanguage = false,
+  showLanguage = true,
   showBackToTop = true,
   activePath,
   background = palette.bg,
