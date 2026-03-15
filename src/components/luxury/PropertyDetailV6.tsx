@@ -186,6 +186,7 @@ const PropertyDetailV6 = () => {
   const [liked, setLiked] = useState(false);
   const [expandDesc, setExpandDesc] = useState(false);
   const [enquiryOpen, setEnquiryOpen] = useState(false);
+  const [enquirySent, setEnquirySent] = useState<"idle" | "thanks" | "suggestions">("idle");
   const [wantVisit, setWantVisit] = useState(false);
   const [visitDate, setVisitDate] = useState<Date | undefined>();
   const [visitTime, setVisitTime] = useState("");
