@@ -63,6 +63,7 @@ import DetailInfoHeaderWide from "@/components/blocks/detail/DetailInfoHeaderWid
 import DetailBreadcrumbSticky from "@/components/blocks/detail/DetailBreadcrumbSticky";
 import DetailRelatedList from "@/components/blocks/detail/DetailRelatedList";
 
+const CATEGORIES = [
   {
     title: "🏠 Heroes",
     blocks: [
