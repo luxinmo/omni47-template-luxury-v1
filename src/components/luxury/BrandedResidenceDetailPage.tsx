@@ -296,29 +296,74 @@ const BrandedResidenceDetailPage = () => {
         description={p.description}
       />
 
-      {/* ── HERO IMAGE (CLEAN) ── */}
-      <section className="relative h-[55vh] sm:h-[70vh] lg:h-[85vh] min-h-[400px] sm:min-h-[500px] lg:min-h-[600px] cursor-pointer" onClick={() => setLightbox(0)}>
-        <img src={p.images[0]} alt={p.name} className="absolute inset-0 w-full h-full object-cover" />
-
-        {/* Back link */}
-        <div className="absolute top-24 left-6 sm:left-10 z-20">
-          <Link to="/branded-residences" className="inline-flex items-center gap-2 text-white/70 hover:text-white text-[13px] tracking-wide transition-colors drop-shadow-md">
-            <ArrowLeft className="w-4 h-4" /> All Branded Residences
-          </Link>
+      {/* ── HERO GALLERY ── */}
+      <section aria-label="Project photos">
+        {/* Swipeable gallery for mobile & tablet */}
+        <div className="lg:hidden relative overflow-hidden" onTouchStart={handleHeroTouchStart} onTouchEnd={handleHeroTouchEnd}>
+          <div className="flex transition-transform duration-300 ease-out" style={{ transform: `translateX(-${heroSlide * 100}%)` }}>
+            {p.images.map((img, i) => (
+              <div key={i} className="w-full shrink-0 aspect-[4/3] sm:aspect-[16/10]" onClick={() => setLightbox(i)}>
+                <img src={img} alt={`${p.name} — photo ${i + 1}`} loading={i === 0 ? "eager" : "lazy"} className="w-full h-full object-cover" />
+              </div>
+            ))}
+          </div>
+          {/* Slide counter */}
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-sm text-white text-[12px] font-medium px-3 py-1 rounded-full">
+            {heroSlide + 1} / {p.images.length}
+          </div>
+          {/* Est. ROI badge */}
+          {p.estimatedROI && (
+            <div className="absolute bottom-3 left-4 z-20 px-3 py-2 bg-black/50 backdrop-blur-sm rounded-sm">
+              <p className="text-[8px] tracking-[0.2em] uppercase font-medium text-white/60 mb-0.5">Est. ROI</p>
+              <p className="text-sm font-light text-white">{p.estimatedROI}</p>
+            </div>
+          )}
+          {/* Back link */}
+          <div className="absolute top-4 left-4 z-20">
+            <Link to="/branded-residences" className="inline-flex items-center gap-2 text-white/70 hover:text-white text-[12px] tracking-wide transition-colors drop-shadow-md">
+              <ArrowLeft className="w-4 h-4" /> Back
+            </Link>
+          </div>
         </div>
 
-        {/* Only Est. ROI badge on the image */}
-        {p.estimatedROI && (
-          <div className="absolute bottom-6 left-6 sm:left-10 z-20 px-4 py-3 bg-black/50 backdrop-blur-sm rounded-sm">
-            <p className="text-[9px] tracking-[0.2em] uppercase font-medium text-white/60 mb-0.5">Est. ROI</p>
-            <p className="text-lg font-light text-white">{p.estimatedROI}</p>
+        {/* Mosaic grid for desktop (lg+) */}
+        <div className="hidden lg:grid grid-cols-4 grid-rows-2 gap-1.5 h-[620px]">
+          <div className="col-span-2 row-span-2 relative overflow-hidden cursor-pointer group" onClick={() => setLightbox(0)}>
+            <img src={p.images[0]} alt={p.name} loading="eager" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
+            {/* Back link */}
+            <div className="absolute top-6 left-6 z-20">
+              <Link to="/branded-residences" className="inline-flex items-center gap-2 text-white/70 hover:text-white text-[13px] tracking-wide transition-colors drop-shadow-md">
+                <ArrowLeft className="w-4 h-4" /> All Branded Residences
+              </Link>
+            </div>
+            {/* Est. ROI badge */}
+            {p.estimatedROI && (
+              <div className="absolute bottom-4 left-4 z-20 px-4 py-3 bg-black/50 backdrop-blur-sm rounded-sm">
+                <p className="text-[9px] tracking-[0.2em] uppercase font-medium text-white/60 mb-0.5">Est. ROI</p>
+                <p className="text-lg font-light text-white">{p.estimatedROI}</p>
+              </div>
+            )}
+            <div className="absolute bottom-4 right-4 flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-sm">
+              <span className="text-[11px] tracking-[0.2em] font-medium uppercase" style={{ color: palette.text }}>{brand.name}</span>
+            </div>
           </div>
-        )}
-
-        {/* Gallery count */}
-        <button onClick={() => setLightbox(0)} className="absolute bottom-6 right-6 sm:right-10 z-20 flex items-center gap-2 px-4 py-2.5 bg-black/40 backdrop-blur-sm text-white text-[12px] tracking-wide hover:bg-black/60 transition-colors rounded-sm">
-          View {p.images.length} Photos
-        </button>
+          {p.images.slice(1, 5).map((img, i) => (
+            <div key={i} className="relative overflow-hidden cursor-pointer group" onClick={() => setLightbox(i + 1)}>
+              <img src={img} alt={`${p.name} — photo ${i + 2}`} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            </div>
+          ))}
+          {/* Show all photos button on last tile */}
+          {p.images.length > 4 && (
+            <div className="absolute bottom-3 right-3 z-10" style={{ gridColumn: '4', gridRow: '2' }}>
+            </div>
+          )}
+        </div>
+        {/* Desktop: Show all photos button positioned over grid */}
+        <div className="hidden lg:block relative">
+          <button onClick={() => setGridView(true)} className="absolute -top-[52px] right-5 flex items-center gap-2 bg-white/90 backdrop-blur-sm text-[13px] font-medium px-4 py-2.5 rounded-lg shadow-md hover:bg-white transition-all" style={{ color: palette.text }}>
+            <Grid3X3 className="w-4 h-4" /> Show all photos
+          </button>
+        </div>
       </section>
 
       {/* ── TITLE + INFO BELOW IMAGE ── */}
