@@ -224,11 +224,28 @@ const BrandedResidenceDetailPage = () => {
   const p = project;
 
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const [gridView, setGridView] = useState(false);
   const [showEnquiry, setShowEnquiry] = useState(false);
   const [showVisit, setShowVisit] = useState(false);
   const [filterType, setFilterType] = useState<string>("All");
   const [enquirySent, setEnquirySent] = useState(false);
   const [visitSent, setVisitSent] = useState(false);
+
+  // Lightbox swipe logic
+  const lbTouchStart = useRef<{ x: number; y: number } | null>(null);
+  const handleLbTouchStart = useCallback((e: React.TouchEvent) => {
+    lbTouchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  }, []);
+  const handleLbTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (!lbTouchStart.current) return;
+    const dx = e.changedTouches[0].clientX - lbTouchStart.current.x;
+    const dy = e.changedTouches[0].clientY - lbTouchStart.current.y;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+      if (dx < 0) setLightbox((prev) => prev !== null ? Math.min(prev + 1, p.images.length) : null);
+      else setLightbox((prev) => prev !== null ? Math.max(prev - 1, 0) : null);
+    }
+    lbTouchStart.current = null;
+  }, [p.images.length]);
 
   const availableUnits = p.units.filter((u) => u.status !== "Sold");
   const filteredUnits = filterType === "All" ? p.units : p.units.filter((u) => u.type === filterType);
