@@ -23,6 +23,7 @@ import Home4LandingPage from "./components/home-4/Home4LandingPage";
 import BrandedResidencesPage from "./components/luxury/BrandedResidencesPage";
 import BrandedResidenceDetailPage from "./components/luxury/BrandedResidenceDetailPage";
 import NewDevelopmentsPage from "./components/luxury/NewDevelopmentsPage";
+import NewDevelopmentDetailPage from "./components/luxury/NewDevelopmentDetailPage";
 import PropertyPdfV1 from "./components/pdf/PropertyPdfV1";
 import PropertyPdfV2 from "./components/pdf/PropertyPdfV2";
 import BlocksCatalog from "./pages/BlocksCatalog";
@@ -61,6 +62,7 @@ const App = () => (
             <Route path="/branded-residences/:slug" element={<BrandedResidenceDetailPage />} />
             <Route path="/new-developments" element={<NewDevelopmentsPage />} />
             <Route path="/new-developments/in/:location" element={<NewDevelopmentsPage />} />
+            <Route path="/new-developments/:slug" element={<NewDevelopmentDetailPage />} />
             <Route path="/pdf-v1" element={<PropertyPdfV1 />} />
             <Route path="/pdf-v2" element={<PropertyPdfV2 />} />
             <Route path="*" element={<NotFound />} />
