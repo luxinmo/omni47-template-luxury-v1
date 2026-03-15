@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   Crown, MapPin, ArrowLeft, ArrowRight, ChevronLeft, ChevronRight,
   Building2, CalendarDays, TrendingUp, Percent, Phone, Mail, MessageCircle,
   CheckCircle2, Waves, Dumbbell, UtensilsCrossed, Car, ShieldCheck, Wifi,
   Sparkles, Star, Users, X, Calendar, Clock, Globe, BedDouble, Maximize, Bath,
+  Grid3X3,
 } from "lucide-react";
 import { Layout } from "@/components/layout";
 import FadeIn from "@/components/shared/FadeIn";
@@ -223,11 +224,28 @@ const BrandedResidenceDetailPage = () => {
   const p = project;
 
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const [gridView, setGridView] = useState(false);
   const [showEnquiry, setShowEnquiry] = useState(false);
   const [showVisit, setShowVisit] = useState(false);
   const [filterType, setFilterType] = useState<string>("All");
   const [enquirySent, setEnquirySent] = useState(false);
   const [visitSent, setVisitSent] = useState(false);
+
+  // Lightbox swipe logic
+  const lbTouchStart = useRef<{ x: number; y: number } | null>(null);
+  const handleLbTouchStart = useCallback((e: React.TouchEvent) => {
+    lbTouchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  }, []);
+  const handleLbTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (!lbTouchStart.current) return;
+    const dx = e.changedTouches[0].clientX - lbTouchStart.current.x;
+    const dy = e.changedTouches[0].clientY - lbTouchStart.current.y;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+      if (dx < 0) setLightbox((prev) => prev !== null ? Math.min(prev + 1, p.images.length) : null);
+      else setLightbox((prev) => prev !== null ? Math.max(prev - 1, 0) : null);
+    }
+    lbTouchStart.current = null;
+  }, [p.images.length]);
 
   const availableUnits = p.units.filter((u) => u.status !== "Sold");
   const filteredUnits = filterType === "All" ? p.units : p.units.filter((u) => u.type === filterType);
@@ -509,7 +527,7 @@ const BrandedResidenceDetailPage = () => {
             <table className="w-full text-left">
               <thead>
                 <tr style={{ borderBottom: `2px solid ${palette.border}` }}>
-                  {["Ref", "Type", "Beds", "Baths", "Size", "Floor", "Orientation", "Price", "Status", ""].map((h, i) => (
+                  {["Ref", "Type", "Beds", "Baths", "Size", "Floor", "Price", "Status", ""].map((h, i) => (
                     <th key={i} className="py-3 px-3 text-[10px] tracking-[0.2em] uppercase font-medium" style={{ color: palette.textLight }}>{h}</th>
                   ))}
                 </tr>
@@ -525,7 +543,6 @@ const BrandedResidenceDetailPage = () => {
                       <td className="py-4 px-3 text-[13px] font-light" style={{ color: palette.textMuted }}>{u.baths}</td>
                       <td className="py-4 px-3 text-[13px] font-light" style={{ color: palette.text }}>{u.sqm} m²</td>
                       <td className="py-4 px-3 text-[13px] font-light" style={{ color: palette.textMuted }}>{u.floor}</td>
-                      <td className="py-4 px-3 text-[13px] font-light" style={{ color: palette.textMuted }}>{u.orientation}</td>
                       <td className="py-4 px-3 text-[14px] font-light" style={{ color: palette.text }}>{fmt(u.price)}</td>
                       <td className="py-4 px-3">
                         <span className="inline-flex px-2.5 py-1 text-[10px] tracking-[0.1em] uppercase font-medium rounded-sm" style={{ color: st.color, background: st.bg }}>
@@ -572,15 +589,136 @@ const BrandedResidenceDetailPage = () => {
       </section>
 
       {/* ══════════════════════════════════════════════════════
-         LIGHTBOX
+         FULLSCREEN LIGHTBOX (V6 style)
          ══════════════════════════════════════════════════════ */}
-      {lightbox !== null && (
-        <div className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center">
-          <button onClick={() => setLightbox(null)} className="absolute top-5 right-5 z-20 text-white/60 hover:text-white"><X className="w-6 h-6" /></button>
-          <button onClick={() => setLightbox(lightbox > 0 ? lightbox - 1 : p.images.length - 1)} className="absolute left-4 z-20 text-white/60 hover:text-white"><ChevronLeft className="w-8 h-8" /></button>
-          <button onClick={() => setLightbox(lightbox < p.images.length - 1 ? lightbox + 1 : 0)} className="absolute right-4 z-20 text-white/60 hover:text-white"><ChevronRight className="w-8 h-8" /></button>
-          <img src={p.images[lightbox]} alt="" className="max-w-[90vw] max-h-[85vh] object-contain" />
-          <p className="absolute bottom-5 text-white/40 text-[13px]">{lightbox + 1} / {p.images.length}</p>
+      {lightbox !== null && !gridView && (
+        <div className="fixed inset-0 z-[100] bg-black/95 flex flex-col" role="dialog" aria-label="Photo gallery">
+          {/* Top bar */}
+          <div className="flex items-center justify-between px-4 py-3 shrink-0">
+            <span className="text-white/50 text-[13px] font-light">
+              {lightbox < p.images.length ? `${lightbox + 1} / ${p.images.length}` : "Contact"}
+            </span>
+            <div className="flex items-center gap-3">
+              <button onClick={() => setGridView(true)} className="text-white/50 hover:text-white transition-colors" aria-label="Grid view">
+                <Grid3X3 className="w-5 h-5" />
+              </button>
+              <button onClick={() => setLightbox(null)} className="text-white/50 hover:text-white transition-colors" aria-label="Close gallery">
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+          </div>
+
+          {/* Main image area */}
+          <div
+            className="flex-1 relative flex items-center justify-center min-h-0"
+            onTouchStart={handleLbTouchStart}
+            onTouchEnd={handleLbTouchEnd}
+          >
+            {lightbox < p.images.length ? (
+              <>
+                {/* Left click zone (PC) */}
+                <div
+                  className="hidden lg:block absolute left-0 top-0 w-1/2 h-full z-10 cursor-w-resize"
+                  onClick={() => setLightbox(Math.max(lightbox - 1, 0))}
+                />
+                {/* Right click zone (PC) — goes to contact slide after last photo */}
+                <div
+                  className="hidden lg:block absolute right-0 top-0 w-1/2 h-full z-10 cursor-e-resize"
+                  onClick={() => setLightbox(lightbox + 1)}
+                />
+
+                {/* Visible arrows */}
+                {lightbox > 0 && (
+                  <button onClick={() => setLightbox(lightbox - 1)} className="hidden lg:flex absolute left-4 z-20 text-white/30 hover:text-white transition-colors" aria-label="Previous photo">
+                    <ChevronLeft className="w-8 h-8" strokeWidth={1} />
+                  </button>
+                )}
+                <img src={p.images[lightbox]} alt={`${p.name} — photo ${lightbox + 1}`} className="max-w-[90vw] max-h-full object-contain relative z-0" />
+                <button onClick={() => setLightbox(lightbox + 1)} className="hidden lg:flex absolute right-4 z-20 text-white/30 hover:text-white transition-colors" aria-label="Next photo">
+                  <ChevronRight className="w-8 h-8" strokeWidth={1} />
+                </button>
+              </>
+            ) : (
+              /* ── Contact CTA slide (after last photo) ── */
+              <div className="absolute inset-0 flex items-center justify-center">
+                <img src={p.images[0]} alt="" className="absolute inset-0 w-full h-full object-cover blur-xl opacity-30" />
+                <div className="relative z-10 text-center px-6 max-w-lg">
+                  <Crown className="w-6 h-6 mx-auto mb-3" style={{ color: "#c9a96e" }} />
+                  <h3 className="text-[22px] sm:text-[28px] font-light text-white tracking-[0.04em] uppercase mb-2 leading-tight">{p.name}</h3>
+                  <p className="text-[14px] text-white/50 font-light mb-1">{p.location}</p>
+                  <p className="text-[24px] font-light text-white/90 mb-8">{fmt(p.priceMin)} — {fmt(p.priceMax)}</p>
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <a href={`tel:${contact.phone}`} className="w-full sm:w-auto flex items-center justify-center gap-2 bg-white text-[#1a1816] text-[12px] tracking-[0.1em] uppercase px-8 py-3 hover:bg-white/90 transition-all">
+                      <Phone className="w-3.5 h-3.5" /> Call
+                    </a>
+                    <a href={`https://wa.me/${contact.phone.replace(/[^0-9]/g, "")}`} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#25D366] text-white text-[12px] tracking-[0.1em] uppercase px-8 py-3 hover:bg-[#22bf5b] transition-all">
+                      <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
+                    </a>
+                    <button onClick={() => { setShowEnquiry(true); setEnquirySent(false); }} className="w-full sm:w-auto flex items-center justify-center gap-2 border border-white/30 text-white text-[12px] tracking-[0.1em] uppercase px-8 py-3 hover:bg-white/10 transition-all">
+                      <Mail className="w-3.5 h-3.5" /> Enquiry
+                    </button>
+                  </div>
+                  <button onClick={() => setLightbox(lightbox - 1)} className="mt-8 text-white/30 hover:text-white/60 text-[12px] tracking-[0.1em] uppercase transition-colors flex items-center gap-1 mx-auto">
+                    <ChevronLeft className="w-3.5 h-3.5" /> Back to photos
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Thumbnails */}
+          {lightbox < p.images.length && (
+            <div className="shrink-0 px-2 py-3 flex gap-1.5 overflow-x-auto justify-center">
+              {p.images.map((img, i) => (
+                <button key={i} onClick={() => setLightbox(i)} className={`w-[56px] h-[40px] shrink-0 overflow-hidden transition-all ${i === lightbox ? "ring-2 ring-white opacity-100" : "opacity-40 hover:opacity-70"}`} aria-label={`View photo ${i + 1}`}>
+                  <img src={img} alt="" className="w-full h-full object-cover" />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ─── GRID VIEW (all photos) ─── */}
+      {gridView && (
+        <div className="fixed inset-0 z-[100] bg-black/95 flex flex-col overflow-y-auto" role="dialog" aria-label="All photos">
+          <div className="sticky top-0 z-10 flex items-center justify-between px-4 py-3 bg-black/90 backdrop-blur-sm shrink-0">
+            <span className="text-white/50 text-[13px] font-light">{p.images.length} Photos</span>
+            <button onClick={() => setGridView(false)} className="text-white/50 hover:text-white transition-colors" aria-label="Close grid view">
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-1.5 p-2 sm:p-4">
+            {p.images.map((img, i) => (
+              <button
+                key={i}
+                onClick={() => { setGridView(false); setLightbox(i); }}
+                className="relative aspect-[4/3] overflow-hidden group"
+                aria-label={`View photo ${i + 1}`}
+              >
+                <img src={img} alt={`${p.name} — photo ${i + 1}`} loading="lazy" className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
+                <span className="absolute bottom-2 left-2 text-white/70 text-[11px] font-light">{i + 1}</span>
+              </button>
+            ))}
+          </div>
+          {/* Contact CTA at the end */}
+          <div className="px-4 sm:px-8 py-10 text-center shrink-0">
+            <Crown className="w-6 h-6 mx-auto mb-3" style={{ color: "#c9a96e" }} />
+            <h3 className="text-[18px] sm:text-[22px] font-light text-white/90 tracking-[0.04em] uppercase mb-2">{p.name}</h3>
+            <p className="text-[13px] text-white/40 font-light mb-6">{p.location} · {fmt(p.priceMin)} — {fmt(p.priceMax)}</p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
+              <a href={`tel:${contact.phone}`} className="w-full sm:w-auto flex items-center justify-center gap-2 bg-white text-[#1a1816] text-[12px] tracking-[0.1em] uppercase px-8 py-3 hover:bg-white/90 transition-all">
+                <Phone className="w-3.5 h-3.5" /> Call
+              </a>
+              <a href={`https://wa.me/${contact.phone.replace(/[^0-9]/g, "")}`} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#25D366] text-white text-[12px] tracking-[0.1em] uppercase px-8 py-3 hover:bg-[#22bf5b] transition-all">
+                <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
+              </a>
+              <button onClick={() => { setGridView(false); setShowEnquiry(true); setEnquirySent(false); }} className="w-full sm:w-auto flex items-center justify-center gap-2 border border-white/30 text-white text-[12px] tracking-[0.1em] uppercase px-8 py-3 hover:bg-white/10 transition-all">
+                <Mail className="w-3.5 h-3.5" /> Enquiry
+              </button>
+            </div>
+          </div>
         </div>
       )}
 
