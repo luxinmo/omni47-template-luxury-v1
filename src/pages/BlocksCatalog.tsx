@@ -143,6 +143,12 @@ const CATEGORIES = [
     title: "🏗️ Nuevas Promociones",
     blocks: [
       { id: "newdev-grid-simple", name: "Grid Simple", origin: "Home3/4", component: NewdevGridSimple },
+      { id: "newdev-listing-card", name: "NewDev Listing Card", origin: "NewDevelopments", component: NewDevListingCard },
+      { id: "newdev-detail-gallery", name: "NewDev Detail Gallery", origin: "NewDev Detail", component: NewDevDetailGallery },
+      { id: "newdev-unit-table", name: "NewDev Unit Table", origin: "NewDev Detail", component: NewDevUnitTable },
+      { id: "newdev-floor-plans", name: "NewDev Floor Plans", origin: "NewDev Detail", component: NewDevFloorPlans },
+      { id: "newdev-amenities", name: "NewDev Amenities", origin: "NewDev Detail", component: NewDevAmenities },
+      { id: "newdev-progress", name: "NewDev Progress Bar", origin: "NewDev Detail", component: NewDevProgress },
     ],
   },
   {
