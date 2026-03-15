@@ -527,7 +527,7 @@ const BrandedResidenceDetailPage = () => {
             <table className="w-full text-left">
               <thead>
                 <tr style={{ borderBottom: `2px solid ${palette.border}` }}>
-                  {["Ref", "Type", "Beds", "Baths", "Size", "Floor", "Orientation", "Price", "Status", ""].map((h, i) => (
+                  {["Ref", "Type", "Beds", "Baths", "Size", "Floor", "Price", "Status", ""].map((h, i) => (
                     <th key={i} className="py-3 px-3 text-[10px] tracking-[0.2em] uppercase font-medium" style={{ color: palette.textLight }}>{h}</th>
                   ))}
                 </tr>
@@ -543,7 +543,6 @@ const BrandedResidenceDetailPage = () => {
                       <td className="py-4 px-3 text-[13px] font-light" style={{ color: palette.textMuted }}>{u.baths}</td>
                       <td className="py-4 px-3 text-[13px] font-light" style={{ color: palette.text }}>{u.sqm} m²</td>
                       <td className="py-4 px-3 text-[13px] font-light" style={{ color: palette.textMuted }}>{u.floor}</td>
-                      <td className="py-4 px-3 text-[13px] font-light" style={{ color: palette.textMuted }}>{u.orientation}</td>
                       <td className="py-4 px-3 text-[14px] font-light" style={{ color: palette.text }}>{fmt(u.price)}</td>
                       <td className="py-4 px-3">
                         <span className="inline-flex px-2.5 py-1 text-[10px] tracking-[0.1em] uppercase font-medium rounded-sm" style={{ color: st.color, background: st.bg }}>
