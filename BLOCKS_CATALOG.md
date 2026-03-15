@@ -329,7 +329,8 @@
 | Detail — Floor Plans | 1 |
 | Detail — Market Data | 1 |
 | Detail — Mortgage | 1 |
-| Detail — Nearby | 1 |
+| Detail — Nearby Places | 1 |
+| Detail — Nearby Areas | 1 |
 | Detail — Related | 2 |
 | Detail — SEO Links | 1 |
 | Detail — Contact Form | 1 |
