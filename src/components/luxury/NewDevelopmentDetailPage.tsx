@@ -562,7 +562,7 @@ const NewDevelopmentDetailPage = () => {
 
             {/* Construction progress */}
             <FadeIn>
-              <div className="p-6 rounded-sm border" style={{ borderColor: palette.border, background: palette.card }}>
+              <div className="p-6 rounded-sm border" style={{ borderColor: palette.border, background: palette.bgAlt }}>
                 <div className="flex justify-between items-center mb-3">
                   <p className="text-[10px] tracking-[0.2em] uppercase font-medium" style={{ color: palette.textMuted }}>Construction progress</p>
                   <p className="text-sm font-medium" style={{ color: palette.text }}>{p.construction}%</p>
