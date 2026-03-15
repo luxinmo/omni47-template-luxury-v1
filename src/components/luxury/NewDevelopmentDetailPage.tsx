@@ -745,7 +745,7 @@ const NewDevelopmentDetailPage = () => {
 
               {/* Developer info */}
               <FadeIn>
-                <div className="p-6 rounded-sm border" style={{ borderColor: palette.border, background: palette.card }}>
+                <div className="p-6 rounded-sm border" style={{ borderColor: palette.border, background: palette.bgAlt }}>
                   <h3 className="text-[10px] tracking-[0.2em] uppercase font-medium mb-3" style={{ color: palette.textMuted }}>Developer</h3>
                   <p className="text-sm font-medium" style={{ color: palette.text }}>{p.developer}</p>
                 </div>
