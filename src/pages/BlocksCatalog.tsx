@@ -195,6 +195,7 @@ const CATEGORIES = [
     title: "📰 Journal / Blog",
     blocks: [
       { id: "journal-editorial", name: "Journal Editorial", origin: "Home2/3/4", component: JournalEditorial },
+      { id: "magazine-editorial", name: "Magazine Editorial (Category Badges)", origin: "Portal", component: MagazineEditorial },
     ],
   },
   {
