@@ -331,6 +331,7 @@ const CATEGORIES = [
       { id: "contact-form-split", name: "Form Split (Hero + Form)", origin: "ContactPage V2", component: ContactFormSplit },
       { id: "contact-office-grid", name: "Office Cards Grid", origin: "ContactPage V1", component: ContactOfficeGrid },
       { id: "contact-office-tabs", name: "Office Tabs + Detail", origin: "ContactPage V2", component: ContactOfficeTabs },
+      { id: "contact-reasons-grid", name: "Reasons Icon Grid", origin: "ContactPage V2", component: ContactReasonsGrid },
     ],
   },
   {
