@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Search, SlidersHorizontal, X, ChevronDown, ChevronRight, Bed, Bath, Maximize, MapPin, Mail, Lock, Eye, Phone, User } from "lucide-react";
+import { Search, SlidersHorizontal, X, ChevronDown, ChevronRight, Bed, Bath, Maximize, MapPin, Mail, Lock, Eye, Phone, User, Crown, ArrowRight } from "lucide-react";
 import { brand, navLeft, navRight } from "@/config/template";
 import SEOHead from "@/components/shared/SEOHead";
 import heroImg from "@/assets/luxury-hero.jpg";
@@ -458,6 +458,73 @@ const PROPERTIES = [
   },
 ];
 
+/* ─── Branded Residence Promo Card ─── */
+const BrandedResidencePromoCard = () => (
+  <Link
+    to="/branded-residences"
+    className="group grid grid-cols-1 md:grid-cols-12 gap-0 overflow-hidden mb-6 rounded-sm border border-luxury-gold/20 bg-gradient-to-r from-[hsl(36,20%,97%)] to-[hsl(36,25%,95%)] hover:shadow-lg transition-all duration-500"
+  >
+    {/* Image */}
+    <div className="md:col-span-5 relative overflow-hidden aspect-[16/10] md:aspect-auto md:h-full min-h-[220px]">
+      <img src={prop1} alt="Four Seasons Private Residences — Branded Residence" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 absolute inset-0" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+      <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-black/60 backdrop-blur-sm text-white text-[11px] tracking-[0.15em] uppercase font-medium px-3 py-1.5 rounded-sm">
+        <Crown className="w-3 h-3" /> Branded Residence
+      </div>
+      <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-sm text-white px-3 py-1.5 rounded-sm">
+        <p className="text-[9px] tracking-[0.2em] uppercase text-white/60 mb-0.5">From</p>
+        <p className="text-[15px] font-light">€3,500,000</p>
+      </div>
+    </div>
+
+    {/* Info */}
+    <div className="md:col-span-7 flex flex-col p-5 md:p-6 lg:p-8">
+      <div className="flex items-center justify-between mb-3">
+        <span className="text-[11px] tracking-[0.15em] uppercase text-luxury-black/50">Marbella, Costa del Sol</span>
+        <span className="text-[11px] tracking-[0.1em] uppercase font-medium text-luxury-black/70 px-2.5 py-1 border border-luxury-black/20 rounded-sm">Selling</span>
+      </div>
+
+      <h2 className="text-[19px] md:text-[22px] font-light text-luxury-black leading-snug mb-1 tracking-wide">
+        Four Seasons Private Residences
+      </h2>
+      <p className="text-[13px] text-luxury-black/50 font-light mb-4">
+        Four Seasons Hotels · Delivery Q2 2027
+      </p>
+
+      <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2">
+        Oceanfront residences with full Four Seasons hotel services, private beach club and world-class spa. Five-star living in Spain's most exclusive coastal destination.
+      </p>
+
+      {/* Stats */}
+      <div className="flex items-center gap-8 mb-5">
+        <div>
+          <p className="text-[10px] tracking-[0.15em] uppercase text-luxury-black/40 mb-0.5">Availability</p>
+          <p className="text-[16px] font-light text-luxury-black">8 <span className="text-[13px] text-luxury-black/40">/ 32</span></p>
+        </div>
+        <div>
+          <p className="text-[10px] tracking-[0.15em] uppercase text-luxury-black/40 mb-0.5">Construction</p>
+          <p className="text-[16px] font-light text-luxury-black">45%</p>
+        </div>
+        <div>
+          <p className="text-[10px] tracking-[0.15em] uppercase text-luxury-black/40 mb-0.5">Typologies</p>
+          <p className="text-[16px] font-light text-luxury-black">3</p>
+        </div>
+      </div>
+
+      {/* CTA row */}
+      <div className="mt-auto pt-5 border-t border-luxury-gold/15 flex items-center justify-between">
+        <div className="flex items-center gap-2 text-luxury-black/50">
+          <Crown className="w-4 h-4 text-luxury-gold" />
+          <span className="text-[13px] font-light">+6 branded residences available</span>
+        </div>
+        <span className="inline-flex items-center gap-1.5 text-[12px] tracking-[0.15em] uppercase font-light text-luxury-black/70 group-hover:text-luxury-black transition-colors">
+          View All <ArrowRight className="w-3.5 h-3.5" />
+        </span>
+      </div>
+    </div>
+  </Link>
+);
+
 /* ─── Property Card (horizontal) ─── */
 const PropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
   return (
@@ -897,11 +964,16 @@ const LuxuryPropertyListing = () => {
 
         {/* Property list */}
         <div>
-          {PROPERTIES.map((p) =>
-            p.offmarket
-              ? <OffMarketPropertyCard key={p.id} property={p} />
-              : <PropertyCard key={p.id} property={p} />
-          )}
+          {PROPERTIES.map((p, idx) => (
+            <div key={p.id}>
+              {/* Insert branded residence promo card at position 3 */}
+              {idx === 2 && <BrandedResidencePromoCard />}
+              {p.offmarket
+                ? <OffMarketPropertyCard property={p} />
+                : <PropertyCard property={p} />
+              }
+            </div>
+          ))}
         </div>
 
         {/* ─── PAGINATION ─── */}
