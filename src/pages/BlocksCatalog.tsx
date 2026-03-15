@@ -62,6 +62,7 @@ import DetailInfoHeaderCard from "@/components/blocks/detail/DetailInfoHeaderCar
 import DetailInfoHeaderWide from "@/components/blocks/detail/DetailInfoHeaderWide";
 import DetailBreadcrumbSticky from "@/components/blocks/detail/DetailBreadcrumbSticky";
 import DetailRelatedList from "@/components/blocks/detail/DetailRelatedList";
+import DetailNearbyAreas from "@/components/blocks/detail/DetailNearbyAreas";
 import ProjectCard from "@/components/blocks/projects/ProjectCard";
 import ProjectBenefitsGrid from "@/components/blocks/projects/ProjectBenefitsGrid";
 import ProjectHighlights from "@/components/blocks/projects/ProjectHighlights";
