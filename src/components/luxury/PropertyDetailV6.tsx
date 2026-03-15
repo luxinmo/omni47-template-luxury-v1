@@ -198,7 +198,24 @@ const PropertyDetailV6 = () => {
     { role: "bot", text: "Hello! I'm here to help you with any questions about this property. How can I assist you?" },
   ]);
   const [chatInput, setChatInput] = useState("");
+  const [gridView, setGridView] = useState(false);
   const isMobile = useIsMobile();
+
+  // Lightbox swipe logic
+  const lbTouchStart = useRef<{ x: number; y: number } | null>(null);
+  const handleLbTouchStart = useCallback((e: React.TouchEvent) => {
+    lbTouchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  }, []);
+  const handleLbTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (!lbTouchStart.current) return;
+    const dx = e.changedTouches[0].clientX - lbTouchStart.current.x;
+    const dy = e.changedTouches[0].clientY - lbTouchStart.current.y;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+      if (dx < 0) setLightbox((prev) => prev !== null ? (prev + 1) % p.images.length : null);
+      else setLightbox((prev) => prev !== null ? (prev - 1 + p.images.length) % p.images.length : null);
+    }
+    lbTouchStart.current = null;
+  }, [p.images.length]);
 
   const p = PROPERTY;
 
