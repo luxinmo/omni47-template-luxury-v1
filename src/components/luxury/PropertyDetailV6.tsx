@@ -992,6 +992,7 @@ const PropertyDetailV6 = () => {
               )}
             </div>
           )}
+        </DialogContent>
       </Dialog>
 
       {/* ═══ LANGUAGE MODAL ═══ */}
