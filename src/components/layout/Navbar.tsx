@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Phone, X, Menu } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { brand, palette, fonts, navLeft, navRight, languages } from "@/config/template";
+import { brand, palette, fonts, navLeft, navRight, languages, currencies, areaUnits } from "@/config/template";
 
 interface NavbarProps {
   variant?: "transparent" | "solid";
