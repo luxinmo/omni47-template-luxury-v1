@@ -98,6 +98,27 @@ import NewDevUnitTable from "@/components/blocks/new-developments/NewDevUnitTabl
 import NewDevFloorPlans from "@/components/blocks/new-developments/NewDevFloorPlans";
 import NewDevAmenities from "@/components/blocks/new-developments/NewDevAmenities";
 import NewDevProgress from "@/components/blocks/new-developments/NewDevProgress";
+import BlogSearchFilter from "@/components/blocks/blog/BlogSearchFilter";
+import BlogContentRenderer from "@/components/blocks/blog/BlogContentRenderer";
+import BlogSocialShare from "@/components/blocks/blog/BlogSocialShare";
+import ContactReasonsGrid from "@/components/blocks/contact/ContactReasonsGrid";
+import SavedPropertyCard from "@/components/blocks/favorites/SavedPropertyCard";
+import ShareCollectionDialog from "@/components/blocks/favorites/ShareCollectionDialog";
+import PropertyPdfSheetV1 from "@/components/blocks/pdf/PropertyPdfSheetV1";
+import PropertyPdfSheetV2 from "@/components/blocks/pdf/PropertyPdfSheetV2";
+import HeroMini from "@/components/blocks/system/HeroMini";
+import BreadcrumbBar from "@/components/blocks/system/BreadcrumbBar";
+import NotFoundBlock from "@/components/blocks/system/NotFoundBlock";
+import HomeComboA from "@/components/combos/HomeComboA";
+import HomeComboB from "@/components/combos/HomeComboB";
+import HomeComboC from "@/components/combos/HomeComboC";
+import DetailComboA from "@/components/combos/DetailComboA";
+import DetailComboB from "@/components/combos/DetailComboB";
+import DetailComboC from "@/components/combos/DetailComboC";
+import BrandedCombo from "@/components/combos/BrandedCombo";
+import NewDevCombo from "@/components/combos/NewDevCombo";
+import BlogCombo from "@/components/combos/BlogCombo";
+import ContactCombo from "@/components/combos/ContactCombo";
 
 const CATEGORIES = [
   {
@@ -298,6 +319,9 @@ const CATEGORIES = [
       { id: "blog-featured-post", name: "Featured Post (Split)", origin: "BlogListing", component: BlogFeaturedPost },
       { id: "blog-faq-accordion", name: "FAQ Accordion (+/-)", origin: "BlogDetail", component: BlogFaqAccordion },
       { id: "blog-trending-grid", name: "Trending Grid (4-col)", origin: "BlogDetail", component: BlogTrendingGrid },
+      { id: "blog-search-filter", name: "Search + Category Filter", origin: "BlogListing", component: BlogSearchFilter },
+      { id: "blog-content-renderer", name: "Article Content + Author", origin: "BlogDetail", component: BlogContentRenderer },
+      { id: "blog-social-share", name: "Social Share Sidebar", origin: "BlogDetail", component: BlogSocialShare },
     ],
   },
   {
@@ -307,6 +331,7 @@ const CATEGORIES = [
       { id: "contact-form-split", name: "Form Split (Hero + Form)", origin: "ContactPage V2", component: ContactFormSplit },
       { id: "contact-office-grid", name: "Office Cards Grid", origin: "ContactPage V1", component: ContactOfficeGrid },
       { id: "contact-office-tabs", name: "Office Tabs + Detail", origin: "ContactPage V2", component: ContactOfficeTabs },
+      { id: "contact-reasons-grid", name: "Reasons Icon Grid", origin: "ContactPage V2", component: ContactReasonsGrid },
     ],
   },
   {
@@ -314,12 +339,44 @@ const CATEGORIES = [
     blocks: [
       { id: "favorites-grid", name: "Saved Properties Grid", origin: "FavoritesPage", component: FavoritesGrid },
       { id: "favorites-empty-state", name: "Empty State CTA", origin: "FavoritesPage", component: FavoritesEmptyState },
+      { id: "saved-property-card", name: "Saved Property Card", origin: "FavoritesPage", component: SavedPropertyCard },
+      { id: "share-collection-dialog", name: "Share Collection Dialog", origin: "FavoritesPage", component: ShareCollectionDialog },
     ],
   },
   {
     title: "💬 Chatbot",
     blocks: [
       { id: "chatbot-panel", name: "Floating Chat Widget", origin: "Home4", component: ChatbotPanel },
+    ],
+  },
+  {
+    title: "📄 PDF Sheets",
+    blocks: [
+      { id: "pdf-sheet-v1", name: "Property Sheet V1 (1-page)", origin: "PropertyPdfV1", component: PropertyPdfSheetV1 },
+      { id: "pdf-sheet-v2", name: "Property Sheet V2 (3-page)", origin: "PropertyPdfV2", component: PropertyPdfSheetV2 },
+    ],
+  },
+  {
+    title: "🔧 System",
+    blocks: [
+      { id: "hero-mini", name: "Hero Mini (Page Header)", origin: "SystemPage", component: HeroMini },
+      { id: "breadcrumb-bar", name: "Breadcrumb Bar", origin: "SystemPage", component: BreadcrumbBar },
+      { id: "not-found-block", name: "404 Not Found", origin: "NotFound", component: NotFoundBlock },
+    ],
+  },
+  {
+    title: "🎨 Preview Combos",
+    blocks: [
+      { id: "home-combo-a", name: "Home A — Luxury Editorial", origin: "Combo", component: HomeComboA },
+      { id: "home-combo-b", name: "Home B — Classic Luxury", origin: "Combo", component: HomeComboB },
+      { id: "home-combo-c", name: "Home C — Interactive Premium", origin: "Combo", component: HomeComboC },
+      { id: "detail-combo-a", name: "Detail A — V6 Standard", origin: "Combo", component: DetailComboA },
+      { id: "detail-combo-b", name: "Detail B — Classic V2", origin: "Combo", component: DetailComboB },
+      { id: "detail-combo-c", name: "Detail C — Card Layout V4", origin: "Combo", component: DetailComboC },
+      { id: "branded-combo", name: "Branded Residence Detail", origin: "Combo", component: BrandedCombo },
+      { id: "newdev-combo", name: "New Development Detail", origin: "Combo", component: NewDevCombo },
+      { id: "blog-combo", name: "Blog Listing + Detail", origin: "Combo", component: BlogCombo },
+      { id: "contact-combo", name: "Contact Page", origin: "Combo", component: ContactCombo },
     ],
   },
 ];
