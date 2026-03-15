@@ -197,6 +197,7 @@ const PROJECTS: BrandedProject[] = [
       "Pritzker Prize-winning architect",
       "360° panoramic views",
     ],
+    estimatedROI: "5 – 7%",
   },
 ];
 
