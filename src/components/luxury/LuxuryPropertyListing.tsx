@@ -980,6 +980,8 @@ const LuxuryPropertyListing = () => {
             <div key={p.id}>
               {/* Insert branded residence promo card at position 3 */}
               {idx === 2 && <BrandedResidencePromoCard />}
+              {/* Insert new development promo card at position 5 */}
+              {idx === 4 && <NewDevPromoCard />}
               {p.offmarket
                 ? <OffMarketPropertyCard property={p} />
                 : <PropertyCard property={p} />
