@@ -280,6 +280,12 @@
 |----|--------|--------|--------------------|
 | detail-mobile-sticky-bar | Barra Contacto Mobile | V2–V6 | Barra fija inferior con Call / WhatsApp / Enquiry |
 
+## 🗺️ Detalle — Nearby Areas (1 variante)
+
+| ID | Nombre | Origen | Descripción visual |
+|----|--------|--------|--------------------|
+| detail-nearby-areas | Grid de Áreas Cercanas | V6 | Grid 2 cols con links internos, count de propiedades + arrow hover |
+
 ## 📖 Detalle — Buyer's Guide (1 variante)
 
 | ID | Nombre | Origen | Descripción visual |
