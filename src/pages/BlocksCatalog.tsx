@@ -48,6 +48,14 @@ import DetailRelatedGrid from "@/components/blocks/detail/DetailRelatedGrid";
 import DetailFloorPlans from "@/components/blocks/detail/DetailFloorPlans";
 import DetailMarketData from "@/components/blocks/detail/DetailMarketData";
 import DetailSeoLinks from "@/components/blocks/detail/DetailSeoLinks";
+import DetailGallery from "@/components/blocks/detail/DetailGallery";
+import DetailContactForm from "@/components/blocks/detail/DetailContactForm";
+import DetailEnquiryModal from "@/components/blocks/detail/DetailEnquiryModal";
+import DetailAgencyInfo from "@/components/blocks/detail/DetailAgencyInfo";
+import DetailEnergyBadge from "@/components/blocks/detail/DetailEnergyBadge";
+import DetailRecentlyViewed from "@/components/blocks/detail/DetailRecentlyViewed";
+import DetailMobileStickyBar from "@/components/blocks/detail/DetailMobileStickyBar";
+import DetailBuyersGuide from "@/components/blocks/detail/DetailBuyersGuide";
 
 const CATEGORIES = [
   {
