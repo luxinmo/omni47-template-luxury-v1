@@ -84,6 +84,20 @@ import FavoritesGrid from "@/components/blocks/favorites/FavoritesGrid";
 import FavoritesEmptyState from "@/components/blocks/favorites/FavoritesEmptyState";
 import MagazineEditorial from "@/components/blocks/journal/MagazineEditorial";
 import ChatbotPanel from "@/components/blocks/chat/ChatbotPanel";
+import ProjectInfoRibbon from "@/components/blocks/projects/ProjectInfoRibbon";
+import ProjectDescription from "@/components/blocks/projects/ProjectDescription";
+import ProjectGalleryMosaic from "@/components/blocks/projects/ProjectGalleryMosaic";
+import BrandedListingCard from "@/components/blocks/branded/BrandedListingCard";
+import BrandedDetailGallery from "@/components/blocks/branded/BrandedDetailGallery";
+import BrandedUnitTable from "@/components/blocks/branded/BrandedUnitTable";
+import BrandedAmenities from "@/components/blocks/branded/BrandedAmenities";
+import BrandedProgress from "@/components/blocks/branded/BrandedProgress";
+import NewDevListingCard from "@/components/blocks/new-developments/NewDevListingCard";
+import NewDevDetailGallery from "@/components/blocks/new-developments/NewDevDetailGallery";
+import NewDevUnitTable from "@/components/blocks/new-developments/NewDevUnitTable";
+import NewDevFloorPlans from "@/components/blocks/new-developments/NewDevFloorPlans";
+import NewDevAmenities from "@/components/blocks/new-developments/NewDevAmenities";
+import NewDevProgress from "@/components/blocks/new-developments/NewDevProgress";
 
 const CATEGORIES = [
   {
