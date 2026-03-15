@@ -426,7 +426,7 @@ const BrandedResidenceDetailPage = () => {
                 <button
                   onClick={() => { setShowEnquiry(true); setEnquirySent(false); }}
                   className="w-full flex items-center justify-center gap-2 text-[12px] tracking-[0.18em] uppercase font-light py-3.5 mb-3 transition-all hover:opacity-90"
-                  style={{ background: palette.accent, color: "#1a1816" }}
+                   style={{ background: palette.accent, color: "#fff" }}
                 >
                   <Mail className="w-4 h-4" /> Request Information
                 </button>
@@ -563,7 +563,7 @@ const BrandedResidenceDetailPage = () => {
               Contact our specialist team for private viewings, floor plans, investment analysis and priority access.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button onClick={() => { setShowEnquiry(true); setEnquirySent(false); }} className="inline-flex items-center justify-center gap-2.5 text-[13px] tracking-[0.18em] uppercase font-light px-10 py-4 transition-all hover:opacity-90" style={{ background: palette.accent, color: "#1a1816" }}>
+              <button onClick={() => { setShowEnquiry(true); setEnquirySent(false); }} className="inline-flex items-center justify-center gap-2.5 text-[13px] tracking-[0.18em] uppercase font-light px-10 py-4 transition-all hover:opacity-90" style={{ background: palette.accent, color: "#fff" }}>
                 Request Information
               </button>
               <button onClick={() => { setShowVisit(true); setVisitSent(false); }} className="inline-flex items-center justify-center gap-2.5 text-[13px] tracking-[0.18em] uppercase font-light px-10 py-4 transition-all hover:opacity-80" style={{ border: `1px solid ${palette.accent}60`, color: palette.accent }}>
@@ -726,7 +726,7 @@ const BrandedResidenceDetailPage = () => {
                 <input placeholder="Email *" type="email" required className="w-full px-4 py-3 text-[13px] font-light border rounded-sm outline-none focus:border-[#c9a96e]" style={{ borderColor: palette.border }} />
                 <input placeholder="Phone" type="tel" className="w-full px-4 py-3 text-[13px] font-light border rounded-sm outline-none focus:border-[#c9a96e]" style={{ borderColor: palette.border }} />
                 <textarea placeholder="I'm interested in this project..." rows={3} className="w-full px-4 py-3 text-[13px] font-light border rounded-sm outline-none focus:border-[#c9a96e] resize-none" style={{ borderColor: palette.border }} />
-                <button type="submit" className="w-full py-3.5 text-[12px] tracking-[0.18em] uppercase font-light transition-opacity hover:opacity-90" style={{ background: palette.accent, color: "#1a1816" }}>
+                <button type="submit" className="w-full py-3.5 text-[12px] tracking-[0.18em] uppercase font-light transition-opacity hover:opacity-90" style={{ background: palette.accent, color: "#fff" }}>
                   Send Enquiry
                 </button>
               </form>
@@ -773,7 +773,7 @@ const BrandedResidenceDetailPage = () => {
                   </select>
                 </div>
                 <textarea placeholder="Any specific requirements or questions..." rows={2} className="w-full px-4 py-3 text-[13px] font-light border rounded-sm outline-none focus:border-[#c9a96e] resize-none" style={{ borderColor: palette.border }} />
-                <button type="submit" className="w-full py-3.5 text-[12px] tracking-[0.18em] uppercase font-light transition-opacity hover:opacity-90" style={{ background: palette.accent, color: "#1a1816" }}>
+                <button type="submit" className="w-full py-3.5 text-[12px] tracking-[0.18em] uppercase font-light transition-opacity hover:opacity-90" style={{ background: palette.accent, color: "#fff" }}>
                   Request Visit
                 </button>
               </form>
