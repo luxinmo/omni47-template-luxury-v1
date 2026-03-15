@@ -217,12 +217,12 @@ const ContactPageV2 = () => {
           </FadeIn>
 
           {/* Office tabs */}
-          <div className="flex justify-center gap-3 mb-10">
+          <div className="flex justify-center gap-2 sm:gap-3 mb-8 sm:mb-10 flex-wrap">
             {OFFICES.map((o) => (
               <button
                 key={o.id}
                 onClick={() => setActiveOffice(o.id)}
-                className="px-6 py-2.5 text-[12px] tracking-[0.08em] font-light transition-all duration-300"
+                className="px-4 sm:px-6 py-2 sm:py-2.5 text-[11px] sm:text-[12px] tracking-[0.08em] font-light transition-all duration-300"
                 style={{
                   border: `1px solid ${activeOffice === o.id ? palette.text : palette.border}`,
                   background: activeOffice === o.id ? palette.text : "transparent",
