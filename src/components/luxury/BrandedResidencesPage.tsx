@@ -92,11 +92,8 @@ const BENEFITS = [
 
 const fmt = (n: number) => new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(n);
 
-const statusColor = (s: string) => {
-  if (s === "Pre-Launch") return palette.accent;
-  if (s === "Selling") return "#2a7d5f";
-  if (s === "Last Units") return "#c0392b";
-  return palette.textLight;
+const statusColor = (_s: string) => {
+  return palette.text;
 };
 
 /* ── Branded Residence Card ── */
