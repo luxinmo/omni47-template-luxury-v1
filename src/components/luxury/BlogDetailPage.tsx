@@ -1,7 +1,8 @@
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, Clock, Calendar, User, Tag, Instagram, Linkedin, MessageCircle, Facebook, Twitter, Share2, ChevronUp, Plus, Minus } from "lucide-react";
-import { useRef, useState, useEffect } from "react";
-import { brand, palette, fonts, navLeft, navRight } from "@/config/template";
+import { Clock, Calendar, User, Tag, Instagram, Linkedin, Facebook, Twitter, Share2, Plus, Minus } from "lucide-react";
+import { useState } from "react";
+import { palette, fonts } from "@/config/template";
+import { Layout } from "@/components/layout";
 import SEOHead from "@/components/shared/SEOHead";
 import heroImg from "@/assets/luxury-hero.jpg";
 import prop1 from "@/assets/luxury-property-1.jpg";
@@ -13,10 +14,8 @@ import propertyDetail3 from "@/assets/property-detail-3.jpg";
 
 const p = {
   bg: palette.bg, white: palette.white, text: palette.text, muted: palette.textMuted,
-  light: palette.textLight, accent: palette.accent, border: palette.border, footer: palette.footer,
+  light: palette.textLight, accent: palette.accent, border: palette.border,
 };
-const font = fonts.body;
-const BRAND_NAME = brand.fullName;
 
 const POSTS: Record<string, any> = {
   "1": {
@@ -36,46 +35,18 @@ const POSTS: Record<string, any> = {
     ],
     content: `
       <p>The Mediterranean coast has evolved from a seasonal destination into a strategic lifestyle hub for international buyers seeking year-round luxury. A select number of high-profile residences have entered the market, each offering its own unique narrative of architectural ambition and cultural significance.</p>
-
-      <div class="article-property">
-        <img src="${propertyDetail2}" alt="Estate exterior" />
-        <span class="img-caption">The Riviera estate, originally built in the 1920s, features panoramic sea views</span>
-      </div>
-
+      <div class="article-property"><img src="${propertyDetail2}" alt="Estate exterior" /><span class="img-caption">The Riviera estate, originally built in the 1920s, features panoramic sea views</span></div>
       <h2>Obama's Martha's Vineyard Retreat</h2>
-      <div class="property-details">
-        <div class="detail-row"><span class="detail-label">Price</span><span class="detail-value">$22,500,000</span></div>
-        <div class="detail-row"><span class="detail-label">Location</span><span class="detail-value">Edgartown, Massachusetts</span></div>
-        <div class="detail-row"><span class="detail-label">Listing Agent</span><span class="detail-value">Tom Wallace, LandVest</span></div>
-      </div>
-
+      <div class="property-details"><div class="detail-row"><span class="detail-label">Price</span><span class="detail-value">$22,500,000</span></div><div class="detail-row"><span class="detail-label">Location</span><span class="detail-value">Edgartown, Massachusetts</span></div><div class="detail-row"><span class="detail-label">Listing Agent</span><span class="detail-value">Tom Wallace, LandVest</span></div></div>
       <p>The Obamas' sprawling compound on Martha's Vineyard represents the pinnacle of understated American luxury. Set across nearly 30 acres of manicured grounds, the property offers absolute privacy while maintaining proximity to the island's renowned cultural scene.</p>
-
       <h2>Emma Stone's Austin Sanctuary</h2>
-      <div class="property-details">
-        <div class="detail-row"><span class="detail-label">Price</span><span class="detail-value">$3,995,000</span></div>
-        <div class="detail-row"><span class="detail-label">Location</span><span class="detail-value">Austin, Texas</span></div>
-        <div class="detail-row"><span class="detail-label">Listing Agent</span><span class="detail-value">Compass Austin</span></div>
-      </div>
-
-      <div class="article-property">
-        <img src="${propertyDetail3}" alt="Modern interior" />
-        <span class="img-caption">The open-plan living space with floor-to-ceiling windows overlooking the gardens</span>
-      </div>
-
-      <p>Academy Award winner Emma Stone's contemporary retreat in Austin showcases the perfect marriage of modern architecture and natural surroundings. The residence features sustainably sourced materials throughout and a design philosophy that blurs the boundary between indoor and outdoor living.</p>
-
+      <div class="property-details"><div class="detail-row"><span class="detail-label">Price</span><span class="detail-value">$3,995,000</span></div><div class="detail-row"><span class="detail-label">Location</span><span class="detail-value">Austin, Texas</span></div><div class="detail-row"><span class="detail-label">Listing Agent</span><span class="detail-value">Compass Austin</span></div></div>
+      <div class="article-property"><img src="${propertyDetail3}" alt="Modern interior" /><span class="img-caption">The open-plan living space with floor-to-ceiling windows overlooking the gardens</span></div>
+      <p>Academy Award winner Emma Stone's contemporary retreat in Austin showcases the perfect marriage of modern architecture and natural surroundings.</p>
       <h2>Kris Jenner's Hidden Hills Mansion</h2>
-
-      <p>Media mogul Kris Jenner has listed her meticulously renovated Hidden Hills estate, a property that has served as a backdrop for some of television's most recognizable moments. The grounds include an Olympic-sized pool, a full production-ready entertainment wing, and landscaping designed by a Chelsea Flower Show gold medallist.</p>
-
+      <p>Media mogul Kris Jenner has listed her meticulously renovated Hidden Hills estate, a property that has served as a backdrop for some of television's most recognizable moments.</p>
       <h2>Extraordinary Celebrity Homes on the Market</h2>
-
-      <div class="article-property">
-        <img src="${prop1}" alt="Aerial view" />
-        <span class="img-caption">Properties span from the Mediterranean coastline to the Swiss Alps</span>
-      </div>
-
+      <div class="article-property"><img src="${prop1}" alt="Aerial view" /><span class="img-caption">Properties span from the Mediterranean coastline to the Swiss Alps</span></div>
       <p>These properties represent far more than bricks and mortar — they are cultural artefacts, each telling the story of its famous former occupant while offering new owners the chance to write their own chapter in these storied addresses.</p>
     `,
   },
@@ -90,20 +61,8 @@ const TRENDING = [
   { id: "5", image: prop2, title: "European Waterfront Properties as Safe Investment", category: "Investment", date: "22 Feb 2026" },
 ];
 
-/* navLeft, navRight imported from config */
 const CATEGORIES_NAV = ["Lifestyle", "Market Insights", "Architecture", "Investment", "Destinations", "Guides"];
 
-function useContainerScrolled(ref: React.RefObject<HTMLElement | null>, threshold = 60) {
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const handler = () => setScrolled(el.scrollTop > threshold);
-    el.addEventListener("scroll", handler, { passive: true });
-    return () => el.removeEventListener("scroll", handler);
-  }, [ref, threshold]);
-  return scrolled;
-}
 /* ─── FAQ ACCORDION ─── */
 const FaqSection = ({ items }: { items: { q: string; a: string }[] }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -140,17 +99,13 @@ const FaqSection = ({ items }: { items: { q: string; a: string }[] }) => {
 
 const BlogDetailPage = () => {
   const { slug } = useParams<{ slug: string }>();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const scrolled = useContainerScrolled(containerRef);
   const post = POSTS[slug || "1"] || POSTS["1"];
 
-  const scrollToTop = () => containerRef.current?.scrollTo({ top: 0, behavior: "smooth" });
-
   return (
-    <div ref={containerRef} className="flex-1 overflow-auto" style={{ background: p.white, color: p.text, fontFamily: font }}>
+    <Layout activePath="/blog" background={p.white}>
       <SEOHead
         title={post.title}
-        description={post.subtitle || `Read ${post.title} on ${BRAND_NAME} journal.`}
+        description={post.subtitle || `Read ${post.title} on PRESTIGE ESTATES journal.`}
         type="article"
         jsonLd={{
           "@context": "https://schema.org",
@@ -159,43 +114,24 @@ const BlogDetailPage = () => {
           "description": post.subtitle,
           "author": { "@type": "Person", "name": post.author },
           "datePublished": post.date,
-          "publisher": { "@type": "Organization", "name": BRAND_NAME },
+          "publisher": { "@type": "Organization", "name": "PRESTIGE ESTATES" },
           "articleSection": post.category,
         }}
       />
+
       {/* ─── TOP BAR ─── */}
       <div className="text-center py-1.5 text-[10px] tracking-[0.15em] uppercase font-light" style={{ background: p.bg, color: p.light, borderBottom: `1px solid ${p.border}` }}>
         Exclusive Access to Off-Market Properties — <Link to="/register" className="underline" style={{ color: p.accent }}>Join The Private List</Link>
       </div>
 
-      {/* ─── NAVBAR ─── */}
-      <nav className="sticky top-0 z-50 transition-all duration-500" style={{ background: scrolled ? `${p.white}f0` : p.white, backdropFilter: scrolled ? "blur(16px)" : "none", borderBottom: `1px solid ${p.border}` }}>
-        <div className="max-w-[1400px] mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-10 h-[56px] lg:h-[64px]">
-          <div className="hidden lg:flex items-center gap-7">
-            {navLeft.map((l) => (
-              <Link key={l.label} to={l.href} className="text-[12px] tracking-[0.12em] uppercase font-light transition-opacity hover:opacity-60" style={{ color: p.text }}>{l.label}</Link>
-            ))}
-          </div>
-          <Link to="/" className="flex flex-col items-center">
-            <span className="text-[12px] tracking-[0.2em] font-light" style={{ color: p.light }}>The Journal</span>
-            <span className="text-[18px] sm:text-[22px] tracking-[0.35em] font-light -mt-0.5" style={{ color: p.text }}>{BRAND_NAME}</span>
-          </Link>
-          <div className="hidden lg:flex items-center gap-7">
-            {navRight.map((l) => (
-              <Link key={l.label} to={l.href} className="text-[12px] tracking-[0.12em] uppercase font-light transition-opacity hover:opacity-60" style={{ color: p.text }}>{l.label}</Link>
-            ))}
-          </div>
+      {/* ─── CATEGORY BAR ─── */}
+      <div className="sticky top-[64px] sm:top-[80px] z-40" style={{ background: p.white, borderBottom: `1px solid ${p.border}` }}>
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 flex items-center justify-center gap-4 sm:gap-6 overflow-x-auto h-[40px]">
+          {CATEGORIES_NAV.map((cat) => (
+            <Link key={cat} to="/blog" className="text-[10px] sm:text-[11px] tracking-[0.1em] uppercase font-light whitespace-nowrap transition-opacity hover:opacity-60" style={{ color: p.muted }}>{cat}</Link>
+          ))}
         </div>
-
-        {/* Category bar */}
-        <div style={{ borderTop: `1px solid ${p.border}` }}>
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 flex items-center justify-center gap-6 overflow-x-auto h-[40px]">
-            {CATEGORIES_NAV.map((cat) => (
-              <Link key={cat} to="/blog" className="text-[11px] tracking-[0.1em] uppercase font-light whitespace-nowrap transition-opacity hover:opacity-60" style={{ color: p.muted }}>{cat}</Link>
-            ))}
-          </div>
-        </div>
-      </nav>
+      </div>
 
       {/* ─── ARTICLE HEADER ─── */}
       <header className="max-w-4xl mx-auto px-4 sm:px-6 pt-10 sm:pt-12 md:pt-20 pb-6 md:pb-10 text-center">
@@ -228,13 +164,9 @@ const BlogDetailPage = () => {
       {/* ─── ARTICLE BODY + SIDEBAR ─── */}
       <div className="max-w-5xl mx-auto px-5 sm:px-6 relative">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_60px] gap-8">
-
           {/* Content */}
           <article className="max-w-[720px] mx-auto lg:mx-0">
-            <div
-              className="blog-article-content"
-              dangerouslySetInnerHTML={{ __html: post.content }}
-            />
+            <div className="blog-article-content" dangerouslySetInnerHTML={{ __html: post.content }} />
 
             {/* Tags */}
             {post.tags && (
@@ -253,14 +185,12 @@ const BlogDetailPage = () => {
               </div>
               <div>
                 <p className="text-[13px] font-medium">{post.author}</p>
-                <p className="text-[12px] font-light mt-0.5" style={{ color: p.muted }}>Senior Editor at {BRAND_NAME}</p>
+                <p className="text-[12px] font-light mt-0.5" style={{ color: p.muted }}>Senior Editor at PRESTIGE ESTATES</p>
               </div>
             </div>
 
             {/* FAQ Section */}
-            {post.faq && post.faq.length > 0 && (
-              <FaqSection items={post.faq} />
-            )}
+            {post.faq && post.faq.length > 0 && <FaqSection items={post.faq} />}
           </article>
 
           {/* Floating social sidebar */}
@@ -277,15 +207,15 @@ const BlogDetailPage = () => {
       </div>
 
       {/* ─── NEWSLETTER CTA ─── */}
-      <section className="mt-16 md:mt-24" style={{ background: p.footer }}>
+      <section className="mt-16 md:mt-24" style={{ background: palette.footer }}>
         <div className="max-w-[1100px] mx-auto px-5 sm:px-6 py-12 md:py-16 grid grid-cols-1 md:grid-cols-[1fr_auto] items-center gap-8">
           <div>
             <p className="text-[10px] tracking-[0.25em] uppercase font-light mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>The Private List</p>
             <h3 className="text-[22px] md:text-[26px] font-extralight tracking-[0.02em]" style={{ color: p.white }}>Join Our Inside Knowledge</h3>
             <p className="text-[13px] font-light mt-2 max-w-md" style={{ color: "rgba(255,255,255,0.5)" }}>Receive exclusive off-market listings, market insights and invitations to private viewings.</p>
           </div>
-          <div className="flex gap-0">
-            <input type="email" placeholder="Your email address" className="px-4 py-3 text-[13px] w-[240px] focus:outline-none" style={{ background: "rgba(255,255,255,0.08)", border: `1px solid rgba(255,255,255,0.15)`, color: p.white }} />
+          <div className="flex flex-col sm:flex-row gap-0">
+            <input type="email" placeholder="Your email address" className="px-4 py-3 text-[13px] w-full sm:w-[240px] focus:outline-none" style={{ background: "rgba(255,255,255,0.08)", border: `1px solid rgba(255,255,255,0.15)`, color: p.white }} />
             <button className="px-6 py-3 text-[11px] tracking-[0.15em] uppercase font-medium" style={{ background: p.accent, color: p.white }}>Subscribe</button>
           </div>
         </div>
@@ -312,43 +242,6 @@ const BlogDetailPage = () => {
         </div>
       </section>
 
-      {/* ─── FOOTER ─── */}
-      <footer style={{ background: p.footer }}>
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
-            {[
-              { title: "Properties", items: ["For Sale", "For Rent", "New Developments", "Off-Market"] },
-              { title: "Locations", items: ["Marbella", "Ibiza", "Mallorca", "Costa del Sol"] },
-              { title: "Company", items: ["About Us", "Careers", "Press", "Contact"] },
-              { title: "Legal", items: ["Privacy Policy", "Terms", "Cookies", "Sitemap"] },
-            ].map((col) => (
-              <div key={col.title}>
-                <p className="text-[10px] tracking-[0.2em] uppercase font-medium mb-4" style={{ color: "rgba(255,255,255,0.4)" }}>{col.title}</p>
-                {col.items.map((item) => (
-                  <a key={item} href="#" className="block text-[12px] font-light py-1 transition-opacity hover:opacity-70" style={{ color: "rgba(255,255,255,0.6)" }}>{item}</a>
-                ))}
-              </div>
-            ))}
-          </div>
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-6" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
-            <span className="text-[14px] tracking-[0.35em] font-light" style={{ color: "rgba(255,255,255,0.6)" }}>{BRAND_NAME}</span>
-            <div className="flex gap-3">
-              {[Instagram, Linkedin, Facebook, Twitter].map((Icon, i) => (
-                <a key={i} href="#" className="w-8 h-8 flex items-center justify-center hover:opacity-70 transition-all" style={{ border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.3)" }}>
-                  <Icon className="w-3.5 h-3.5" strokeWidth={1.5} />
-                </a>
-              ))}
-            </div>
-            <p className="text-[10px] tracking-wider font-light" style={{ color: "rgba(255,255,255,0.2)" }}>© 2026 {BRAND_NAME}. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
-
-      {/* Back to top */}
-      <button onClick={scrollToTop} className="fixed bottom-6 right-6 z-40 w-10 h-10 flex items-center justify-center rounded-full shadow-lg transition-all hover:scale-110" style={{ background: p.text, color: p.white }}>
-        <ChevronUp className="w-4 h-4" />
-      </button>
-
       <style>{`
         .blog-article-content { font-size: 15px; line-height: 1.9; color: ${p.muted}; }
         .blog-article-content h2 { font-size: 22px; font-weight: 300; letter-spacing: 0.02em; margin: 2.5em 0 0.8em; color: ${p.text}; font-family: 'Jost', serif; }
@@ -363,7 +256,7 @@ const BlogDetailPage = () => {
         .blog-article-content .detail-label { color: ${p.light}; font-weight: 300; }
         .blog-article-content .detail-value { color: ${p.text}; font-weight: 400; }
       `}</style>
-    </div>
+    </Layout>
   );
 };
 

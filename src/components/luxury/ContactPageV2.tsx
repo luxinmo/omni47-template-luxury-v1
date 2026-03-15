@@ -102,7 +102,7 @@ const ContactPageV2 = () => {
         </div>
 
         {/* Right — Form */}
-        <div className="flex flex-col justify-center px-8 sm:px-14 lg:px-16 py-14 lg:py-20" style={{ background: palette.white }}>
+        <div className="flex flex-col justify-center px-5 sm:px-14 lg:px-16 py-10 sm:py-14 lg:py-20" style={{ background: palette.white }}>
           <FadeIn delay={0.15}>
             <p className="text-[10px] tracking-[0.2em] uppercase font-medium mb-2" style={{ color: palette.accent }}>
               Send a Message

@@ -184,7 +184,7 @@ const Home4LandingPage = () => {
         <FadeIn delay={0.5}>
           <button
             onClick={() => setChatOpen(true)}
-            className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex items-center gap-3 px-6 py-3.5 backdrop-blur-md transition-all duration-300 hover:scale-[1.02]"
+            className="hidden sm:flex absolute bottom-10 left-1/2 -translate-x-1/2 z-10 items-center gap-3 px-6 py-3.5 backdrop-blur-md transition-all duration-300 hover:scale-[1.02]"
             style={{ background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.2)" }}
           >
             <MessageCircle className="w-4 h-4 text-white" />
