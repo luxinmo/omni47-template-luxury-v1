@@ -71,6 +71,16 @@ import ProjectBrandServices from "@/components/blocks/projects/ProjectBrandServi
 import ProjectPriceSidebar from "@/components/blocks/projects/ProjectPriceSidebar";
 import ProjectLocationCard from "@/components/blocks/projects/ProjectLocationCard";
 import ProjectUnitsTable from "@/components/blocks/projects/ProjectUnitsTable";
+import BlogArticleCard from "@/components/blocks/blog/BlogArticleCard";
+import BlogFeaturedPost from "@/components/blocks/blog/BlogFeaturedPost";
+import BlogFaqAccordion from "@/components/blocks/blog/BlogFaqAccordion";
+import BlogTrendingGrid from "@/components/blocks/blog/BlogTrendingGrid";
+import ContactFormCentered from "@/components/blocks/contact/ContactFormCentered";
+import ContactFormSplit from "@/components/blocks/contact/ContactFormSplit";
+import ContactOfficeGrid from "@/components/blocks/contact/ContactOfficeGrid";
+import ContactOfficeTabs from "@/components/blocks/contact/ContactOfficeTabs";
+import FavoritesGrid from "@/components/blocks/favorites/FavoritesGrid";
+import FavoritesEmptyState from "@/components/blocks/favorites/FavoritesEmptyState";
 
 const CATEGORIES = [
   {
@@ -246,6 +256,31 @@ const CATEGORIES = [
       { id: "detail-info-header-wide", name: "Info Header Wide (6-col Grid)", origin: "Detail V5", component: DetailInfoHeaderWide },
       { id: "detail-breadcrumb-sticky", name: "Breadcrumb Sticky Bar", origin: "Detail V4", component: DetailBreadcrumbSticky },
       { id: "detail-related-list", name: "Related Properties List", origin: "Detail V4", component: DetailRelatedList },
+    ],
+  },
+  {
+    title: "📰 Blog / Journal Blocks",
+    blocks: [
+      { id: "blog-article-card", name: "Article Card (Grid)", origin: "BlogListing", component: BlogArticleCard },
+      { id: "blog-featured-post", name: "Featured Post (Split)", origin: "BlogListing", component: BlogFeaturedPost },
+      { id: "blog-faq-accordion", name: "FAQ Accordion (+/-)", origin: "BlogDetail", component: BlogFaqAccordion },
+      { id: "blog-trending-grid", name: "Trending Grid (4-col)", origin: "BlogDetail", component: BlogTrendingGrid },
+    ],
+  },
+  {
+    title: "📞 Contact",
+    blocks: [
+      { id: "contact-form-centered", name: "Form Centered + Office Selector", origin: "ContactPage V1", component: ContactFormCentered },
+      { id: "contact-form-split", name: "Form Split (Hero + Form)", origin: "ContactPage V2", component: ContactFormSplit },
+      { id: "contact-office-grid", name: "Office Cards Grid", origin: "ContactPage V1", component: ContactOfficeGrid },
+      { id: "contact-office-tabs", name: "Office Tabs + Detail", origin: "ContactPage V2", component: ContactOfficeTabs },
+    ],
+  },
+  {
+    title: "❤️ Favorites",
+    blocks: [
+      { id: "favorites-grid", name: "Saved Properties Grid", origin: "FavoritesPage", component: FavoritesGrid },
+      { id: "favorites-empty-state", name: "Empty State CTA", origin: "FavoritesPage", component: FavoritesEmptyState },
     ],
   },
 ];

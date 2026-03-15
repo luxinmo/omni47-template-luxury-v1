@@ -333,4 +333,41 @@
 | Detail — Recently Viewed | 1 |
 | Detail — Mobile Sticky Bar | 1 |
 | Detail — Buyer's Guide | 1 |
-| **TOTAL** | **~56 bloques** |
+| Blog — Article Card | 1 |
+| Blog — Featured Post | 1 |
+| Blog — FAQ Accordion | 1 |
+| Blog — Trending Grid | 1 |
+| Contact — Form Centered | 1 |
+| Contact — Form Split | 1 |
+| Contact — Office Grid | 1 |
+| Contact — Office Tabs | 1 |
+| Favorites — Grid | 1 |
+| Favorites — Empty State | 1 |
+| **TOTAL** | **~66 bloques** |
+
+---
+
+## 📰 Blog / Journal Blocks (4 variantes)
+
+| ID | Nombre | Origen | Descripción visual |
+|----|--------|--------|--------------------|
+| blog-article-card | Article Card (Grid) | BlogListing | Card con imagen 16/10, badge categoría, título, excerpt, author, readTime |
+| blog-featured-post | Featured Post (Split) | BlogListing | Layout 2-col: imagen izq, contenido derecha con badge "Featured", excerpt, CTA |
+| blog-faq-accordion | FAQ Accordion (+/-) | BlogDetail | Accordion con Plus/Minus toggle, preguntas + respuestas expandibles |
+| blog-trending-grid | Trending Grid (4-col) | BlogDetail | Grid 4 cols con thumbnails, categoría accent, título, fecha |
+
+## 📞 Contact (4 variantes)
+
+| ID | Nombre | Origen | Descripción visual |
+|----|--------|--------|--------------------|
+| contact-form-centered | Form Centered + Office Selector | ContactPage V1 | Form centrado con chips de oficinas seleccionables, campos estándar, confirmación |
+| contact-form-split | Form Split (Hero + Form) | ContactPage V2 | Split: imagen izq con reasons icons, form derecha con border-bottom inputs |
+| contact-office-grid | Office Cards Grid | ContactPage V1 | Grid 3 cols con imagen + overlay nombre, info contacto, botón directions |
+| contact-office-tabs | Office Tabs + Detail | ContactPage V2 | Tabs de oficinas + card horizontal detalle (imagen izq, info derecha) |
+
+## ❤️ Favorites (2 variantes)
+
+| ID | Nombre | Origen | Descripción visual |
+|----|--------|--------|--------------------|
+| favorites-grid | Saved Properties Grid | FavoritesPage | Grid 3 cols con cards: imagen, tag, location, specs, precio, acciones hover |
+| favorites-empty-state | Empty State CTA | FavoritesPage | Estado vacío con icono Heart, título, descripción, botón CTA |
