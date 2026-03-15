@@ -53,7 +53,7 @@ const Navbar = ({
   const mutedColor = isTransparent ? "rgba(255,255,255,0.55)" : palette.textLight;
   const linkColor = isTransparent ? "rgba(255,255,255,0.75)" : palette.textMuted;
 
-  const linkClass = "text-[11px] tracking-[0.15em] uppercase font-light transition-opacity hover:opacity-60";
+  const linkClass = "text-[12px] tracking-[0.12em] uppercase font-normal transition-opacity hover:opacity-60";
 
   return (
     <>
