@@ -10,7 +10,7 @@ import BlogListingPage from "./components/luxury/BlogListingPage";
 import BlogDetailPage from "./components/luxury/BlogDetailPage";
 import SystemPage from "./components/luxury/SystemPage";
 import ContactPage from "./components/luxury/ContactPage";
-
+import ContactPageV2 from "./components/luxury/ContactPageV2";
 import PropertyDetailV2 from "./components/luxury/PropertyDetailV2";
 import PropertyDetailV3 from "./components/luxury/PropertyDetailV3";
 import PropertyDetailV4 from "./components/luxury/PropertyDetailV4";
