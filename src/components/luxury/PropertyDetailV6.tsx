@@ -861,7 +861,7 @@ const PropertyDetailV6 = () => {
 
       {/* ═══ ENQUIRY MODAL ═══ */}
       <Dialog open={enquiryOpen} onOpenChange={(open) => { setEnquiryOpen(open); if (!open) { setEnquirySent("idle"); } }}>
-        <DialogContent className="max-w-lg p-0 rounded-md border-2 border-neutral-300 overflow-hidden shadow-xl !z-[110] [&~div]:!z-[110]" style={{ zIndex: 110 }}>
+        <DialogContent overlayClassName="!z-[110]" className="max-w-lg p-0 rounded-md border-2 border-neutral-300 overflow-hidden shadow-xl !z-[110]">
 
           {/* ── State: FORM ── */}
           {enquirySent === "idle" && (
