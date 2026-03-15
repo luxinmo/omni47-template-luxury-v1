@@ -57,6 +57,7 @@ const BRANDED_RESIDENCES: BrandedResidence[] = [
     description: "Elegant Mediterranean homes with signature Mandarin Oriental hospitality, wellness centre and fine dining.",
   },
   {
+    slug: "aman-javea",
     image: prop3, name: "Aman Residences", location: "Jávea, Costa Blanca", brand: "Aman", developer: "Aman Group", delivery: "Q3 2028",
     status: "Pre-Launch", construction: 0, availableUnits: 12, totalUnits: 12, priceMin: 5100000, priceMax: 15000000,
     typologies: [{ type: "Villa", from: 5100000 }, { type: "Estate", from: 9800000 }],
