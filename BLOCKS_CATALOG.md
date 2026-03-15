@@ -318,9 +318,9 @@
 | Destinations | 2 |
 | Property Types | 1 |
 | Collections | 2 |
-| Branded Residences | 1 |
-| Projects (Branded + NewDev) | 9 |
-| New Developments | 2 |
+| Branded Residences | 6 |
+| Projects (Branded + NewDev) | 12 |
+| New Developments | 8 |
 | Off-Market | 2 |
 | About/Services | 2 |
 | Testimonials | 2 |
