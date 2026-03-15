@@ -142,6 +142,7 @@ const PROJECTS: BrandedProject[] = [
       "Optional rental programme managed by Four Seasons",
       "Energy efficiency rating A",
     ],
+    estimatedROI: "6 – 8%",
   },
   {
     slug: "ritz-carlton-ibiza",
