@@ -903,7 +903,7 @@ const LuxuryPropertyListing = () => {
             <ChevronRight className="w-3 h-3 text-luxury-black/35" />
             <a href="/properties" className="hover:text-luxury-black transition-colors">Properties</a>
             <ChevronRight className="w-3 h-3 text-luxury-black/35" />
-            <span className="text-luxury-black font-medium">Ibiza & Costa Blanca</span>
+            <span className="text-luxury-black font-medium">All Locations</span>
           </div>
 
           {/* Search + filter chips row */}
