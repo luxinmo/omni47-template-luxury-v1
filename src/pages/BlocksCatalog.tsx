@@ -81,6 +81,8 @@ import ContactOfficeGrid from "@/components/blocks/contact/ContactOfficeGrid";
 import ContactOfficeTabs from "@/components/blocks/contact/ContactOfficeTabs";
 import FavoritesGrid from "@/components/blocks/favorites/FavoritesGrid";
 import FavoritesEmptyState from "@/components/blocks/favorites/FavoritesEmptyState";
+import MagazineEditorial from "@/components/blocks/journal/MagazineEditorial";
+import ChatbotPanel from "@/components/blocks/chat/ChatbotPanel";
 
 const CATEGORIES = [
   {
