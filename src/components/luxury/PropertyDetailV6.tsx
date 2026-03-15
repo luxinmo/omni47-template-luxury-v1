@@ -193,6 +193,8 @@ const PropertyDetailV6 = () => {
   const [chatOpen, setChatOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState("EN");
+  const [currentCurrency, setCurrentCurrency] = useState("EUR");
+  const [currentUnit, setCurrentUnit] = useState("m2");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [heroSlide, setHeroSlide] = useState(0);
   const [chatMessages, setChatMessages] = useState<{ role: "user" | "bot"; text: string }[]>([
