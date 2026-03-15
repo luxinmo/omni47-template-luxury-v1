@@ -646,7 +646,7 @@ const NewDevelopmentDetailPage = () => {
               <div className="overflow-x-auto border rounded-sm" style={{ borderColor: palette.border }}>
                 <table className="w-full text-sm">
                   <thead>
-                    <tr style={{ background: palette.card }}>
+                    <tr style={{ background: palette.bgAlt }}>
                       {["Ref", "Type", "Beds", "m²", "Price", "Status"].map((h) => (
                         <th key={h} className="text-left px-4 py-3 text-[10px] tracking-[0.15em] uppercase font-medium" style={{ color: palette.textMuted, borderBottom: `1px solid ${palette.border}` }}>
                           {h}
