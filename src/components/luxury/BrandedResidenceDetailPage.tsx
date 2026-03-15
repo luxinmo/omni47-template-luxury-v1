@@ -255,7 +255,7 @@ const BrandedResidenceDetailPage = () => {
   const typologyOptions = ["All", ...new Set(p.units.map((u) => u.type))];
 
   return (
-    <Layout navVariant="transparent" activePath="/" showBackToTop={false}>
+    <Layout navVariant="transparent" activePath="/" showBackToTop={false} showLanguage>
       <SEOHead
         title={`${p.name} — ${p.brand} Branded Residences in ${p.location}`}
         description={p.description}
@@ -528,8 +528,8 @@ const BrandedResidenceDetailPage = () => {
             ))}
           </div>
 
-          {/* Table */}
-          <div className="overflow-x-auto">
+          {/* Table — desktop */}
+          <div className="hidden sm:block overflow-x-auto">
             <table className="w-full text-left">
               <thead>
                 <tr style={{ borderBottom: `2px solid ${palette.border}` }}>
@@ -567,6 +567,57 @@ const BrandedResidenceDetailPage = () => {
                 })}
               </tbody>
             </table>
+          </div>
+
+          {/* Cards — mobile */}
+          <div className="sm:hidden space-y-3">
+            {filteredUnits.map((u, i) => {
+              const st = unitStatusStyle(u.status);
+              return (
+                <div key={i} className="p-4 rounded-sm border" style={{ background: palette.white, borderColor: palette.border }}>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[14px] font-medium" style={{ color: palette.text }}>{u.ref}</span>
+                    <span className="inline-flex px-2.5 py-1 text-[10px] tracking-[0.1em] uppercase font-medium rounded-sm" style={{ color: st.color, background: st.bg }}>
+                      {u.status}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-y-2 gap-x-4 text-[12px] mb-3">
+                    <div>
+                      <p className="font-medium" style={{ color: palette.textLight }}>Type</p>
+                      <p className="font-light" style={{ color: palette.text }}>{u.type}</p>
+                    </div>
+                    <div>
+                      <p className="font-medium" style={{ color: palette.textLight }}>Beds</p>
+                      <p className="font-light" style={{ color: palette.text }}>{u.beds}</p>
+                    </div>
+                    <div>
+                      <p className="font-medium" style={{ color: palette.textLight }}>Baths</p>
+                      <p className="font-light" style={{ color: palette.text }}>{u.baths}</p>
+                    </div>
+                    <div>
+                      <p className="font-medium" style={{ color: palette.textLight }}>Size</p>
+                      <p className="font-light" style={{ color: palette.text }}>{u.sqm} m²</p>
+                    </div>
+                    <div>
+                      <p className="font-medium" style={{ color: palette.textLight }}>Floor</p>
+                      <p className="font-light" style={{ color: palette.text }}>{u.floor}</p>
+                    </div>
+                    <div>
+                      <p className="font-medium" style={{ color: palette.textLight }}>Orient.</p>
+                      <p className="font-light" style={{ color: palette.text }}>{u.orientation}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between pt-3" style={{ borderTop: `1px solid ${palette.border}` }}>
+                    <span className="text-[16px] font-light" style={{ color: palette.text }}>{fmt(u.price)}</span>
+                    {u.status === "Available" && (
+                      <button onClick={() => { setShowEnquiry(true); setEnquirySent(false); }} className="text-[11px] tracking-[0.12em] uppercase font-light px-4 py-2 rounded-sm transition-opacity hover:opacity-90" style={{ background: palette.accent, color: "#fff" }}>
+                        Enquire
+                      </button>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -812,6 +863,26 @@ const BrandedResidenceDetailPage = () => {
           )}
         </DialogContent>
       </Dialog>
+
+      {/* ── MOBILE STICKY CONTACT BAR ── */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t shadow-[0_-4px_20px_rgba(0,0,0,0.08)] flex items-center gap-0" style={{ borderColor: palette.border }}>
+        <a href={`tel:${contact.phone}`} className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 transition-colors hover:bg-neutral-50" style={{ color: palette.text }}>
+          <Phone className="w-4 h-4" />
+          <span className="text-[10px] tracking-[0.1em] uppercase font-medium">Call</span>
+        </a>
+        <div className="w-px h-8" style={{ background: palette.border }} />
+        <a href={`https://wa.me/${contact.phone.replace(/[^0-9]/g, "")}`} target="_blank" rel="noopener noreferrer" className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 text-[#25D366] transition-colors hover:bg-neutral-50">
+          <MessageCircle className="w-4 h-4" />
+          <span className="text-[10px] tracking-[0.1em] uppercase font-medium">WhatsApp</span>
+        </a>
+        <div className="w-px h-8" style={{ background: palette.border }} />
+        <button onClick={() => { setShowEnquiry(true); setEnquirySent(false); }} className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 transition-colors hover:bg-neutral-50" style={{ color: palette.text }}>
+          <Mail className="w-4 h-4" />
+          <span className="text-[10px] tracking-[0.1em] uppercase font-medium">Enquiry</span>
+        </button>
+      </div>
+      {/* Bottom padding for sticky bar */}
+      <div className="lg:hidden h-16" />
     </Layout>
   );
 };

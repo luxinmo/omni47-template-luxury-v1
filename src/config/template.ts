@@ -121,3 +121,19 @@ export const languages = [
   { code: "FR", label: "Français", flag: "fr" },
   { code: "RU", label: "Русский", flag: "ru" },
 ];
+
+/* ─── Currencies ─── */
+export const currencies = [
+  { code: "EUR", symbol: "€", label: "EUR €" },
+  { code: "GBP", symbol: "£", label: "GBP £" },
+  { code: "USD", symbol: "$", label: "USD $" },
+  { code: "CAD", symbol: "$", label: "CAD $" },
+  { code: "AUD", symbol: "$", label: "AUD $" },
+  { code: "RUB", symbol: "₽", label: "RUB ₽" },
+];
+
+/* ─── Area Units ─── */
+export const areaUnits = [
+  { code: "m2", label: "Square Meters (m²)" },
+  { code: "ft2", label: "Square Feets (ft²)" },
+];
