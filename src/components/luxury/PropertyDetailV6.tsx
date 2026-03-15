@@ -871,7 +871,7 @@ const PropertyDetailV6 = () => {
               </div>
             </div>
           </div>
-          <form className="p-6 pt-2 space-y-3" onSubmit={(e) => { e.preventDefault(); setEnquiryOpen(false); }}>
+          <form className="p-6 pt-2 space-y-3" onSubmit={(e) => { e.preventDefault(); setEnquiryOpen(false); setGridView(false); setLightbox(null); }}>
             <input type="text" placeholder="Full name" className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/30 focus:outline-none focus:border-luxury-black/40 transition-colors rounded-sm" />
             <input type="email" placeholder="Email address" className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/30 focus:outline-none focus:border-luxury-black/40 transition-colors rounded-sm" />
             <LuxuryPhoneInput />
