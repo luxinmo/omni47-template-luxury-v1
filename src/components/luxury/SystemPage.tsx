@@ -31,7 +31,7 @@ const SystemPage = () => {
   const page = PAGES[slug || "about"] || PAGES["about"];
 
   return (
-    <Layout activePath="/page" background={palette.white}>
+    <Layout activePath="/page" background={palette.white} showLanguage>
       <SEOHead
         title={page.title}
         description={page.subtitle || `${page.title} — ${brand.fullName}`}

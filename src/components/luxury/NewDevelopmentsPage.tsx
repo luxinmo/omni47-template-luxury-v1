@@ -227,7 +227,7 @@ const NewDevelopmentsPage = () => {
     : "New Developments";
 
   return (
-    <Layout navVariant="transparent" activePath="/" showBackToTop={false}>
+    <Layout navVariant="transparent" activePath="/" showBackToTop={false} showLanguage>
       <SEOHead title={pageTitle} description={`Discover new developments and off-plan properties${locationFromUrl ? ` in ${locationFromUrl}` : " across Spain"}. Buy at pre-construction prices with payment plans and bank-guaranteed deposits.`} />
 
       {/* HERO */}

@@ -232,7 +232,7 @@ const BrandedResidencesPage = () => {
     : "Branded Residences";
 
   return (
-    <Layout navVariant="transparent" activePath="/" showBackToTop={false}>
+    <Layout navVariant="transparent" activePath="/" showBackToTop={false} showLanguage>
       <SEOHead title={pageTitle} description={`Discover branded residences${locationFromUrl ? ` in ${locationFromUrl}` : " across Spain"} by Four Seasons, Ritz-Carlton, Mandarin Oriental, Aman and more. Five-star services, world-class amenities and exceptional investment value.`} />
 
       {/* HERO */}

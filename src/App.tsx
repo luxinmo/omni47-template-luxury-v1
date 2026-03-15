@@ -27,6 +27,7 @@ import NewDevelopmentDetailPage from "./components/luxury/NewDevelopmentDetailPa
 import PropertyPdfV1 from "./components/pdf/PropertyPdfV1";
 import PropertyPdfV2 from "./components/pdf/PropertyPdfV2";
 import BlocksCatalog from "./pages/BlocksCatalog";
+import FavoritesPage from "./components/luxury/FavoritesPage";
 
 const queryClient = new QueryClient();
 
@@ -57,6 +58,7 @@ const App = () => (
             <Route path="/property5/:id" element={<PropertyDetailV5 />} />
             <Route path="/property6/:id" element={<PropertyDetailV6 />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/favorites" element={<FavoritesPage />} />
             <Route path="/contact2" element={<ContactPageV2 />} />
             <Route path="/branded-residences" element={<BrandedResidencesPage />} />
             
