@@ -452,10 +452,23 @@ const PropertyDetailV6 = () => {
             </h1>
 
             {/* Address */}
-            <p className="text-[12px] sm:text-[13px] text-luxury-black/50 font-light tracking-[0.1em] uppercase mb-4 flex items-center gap-2">
+            <p className="text-[12px] sm:text-[13px] text-luxury-black/50 font-light tracking-[0.1em] uppercase mb-2 flex items-center gap-2">
               <MapPin className="w-3.5 h-3.5 shrink-0" strokeWidth={1.5} />
               Santa Eulalia del Río, Ibiza · Balearic Islands, Spain
             </p>
+
+            {/* Inline price (mobile/tablet) */}
+            <div className="lg:hidden flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-4">
+              <p className="text-[26px] sm:text-[30px] font-medium text-luxury-black tracking-tight leading-none">{p.priceFormatted}</p>
+              <span className="text-[13px] text-luxury-black/35 line-through font-light">{p.originalPrice}</span>
+              <span className="text-[10px] font-medium tracking-[0.08em] uppercase text-luxury-gold">-{p.discount}%</span>
+              <span className="text-[11px] text-luxury-black/45 font-light">{p.pricePerSqm}</span>
+              {p.alsoForRent && (
+                <span className="text-[12px] text-luxury-black/50 flex items-center gap-1">
+                  <Home className="w-3 h-3 text-luxury-gold/80" /> Rent: <span className="font-medium text-luxury-black/70">{p.rentalPrice}</span>
+                </span>
+              )}
+            </div>
 
             {/* Compact property facts */}
             <div className="grid grid-cols-4 gap-1.5 sm:gap-2">
