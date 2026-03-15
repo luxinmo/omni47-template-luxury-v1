@@ -850,6 +850,7 @@ const PropertyDetailV6 = () => {
               <div className="py-2 pr-3 flex flex-col justify-center min-w-0">
                 <DialogTitle className="text-[13px] font-medium text-luxury-black leading-tight line-clamp-2 uppercase tracking-[0.02em]">{p.title}</DialogTitle>
                 <DialogDescription className="text-[14px] text-luxury-black/80 font-medium mt-1">{p.priceFormatted}</DialogDescription>
+                <span className="text-[11px] text-luxury-black/40 font-mono tracking-[0.05em] mt-0.5">REF-{p.ref}</span>
               </div>
             </div>
           </div>
