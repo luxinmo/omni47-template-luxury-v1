@@ -286,6 +286,12 @@ const CATEGORIES = [
       { id: "favorites-empty-state", name: "Empty State CTA", origin: "FavoritesPage", component: FavoritesEmptyState },
     ],
   },
+  {
+    title: "💬 Chatbot",
+    blocks: [
+      { id: "chatbot-panel", name: "Floating Chat Widget", origin: "Home4", component: ChatbotPanel },
+    ],
+  },
 ];
 
 const BlocksCatalog = () => {
