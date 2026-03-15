@@ -48,6 +48,14 @@ import DetailRelatedGrid from "@/components/blocks/detail/DetailRelatedGrid";
 import DetailFloorPlans from "@/components/blocks/detail/DetailFloorPlans";
 import DetailMarketData from "@/components/blocks/detail/DetailMarketData";
 import DetailSeoLinks from "@/components/blocks/detail/DetailSeoLinks";
+import DetailGallery from "@/components/blocks/detail/DetailGallery";
+import DetailContactForm from "@/components/blocks/detail/DetailContactForm";
+import DetailEnquiryModal from "@/components/blocks/detail/DetailEnquiryModal";
+import DetailAgencyInfo from "@/components/blocks/detail/DetailAgencyInfo";
+import DetailEnergyBadge from "@/components/blocks/detail/DetailEnergyBadge";
+import DetailRecentlyViewed from "@/components/blocks/detail/DetailRecentlyViewed";
+import DetailMobileStickyBar from "@/components/blocks/detail/DetailMobileStickyBar";
+import DetailBuyersGuide from "@/components/blocks/detail/DetailBuyersGuide";
 
 const CATEGORIES = [
   {
@@ -195,6 +203,14 @@ const CATEGORIES = [
       { id: "detail-floor-plans", name: "Floor Plans", origin: "Detail V6", component: DetailFloorPlans },
       { id: "detail-market-data", name: "Market Data Stats", origin: "Detail V6", component: DetailMarketData },
       { id: "detail-seo-links", name: "SEO Internal Links", origin: "Detail V6", component: DetailSeoLinks },
+      { id: "detail-gallery", name: "Gallery (Mosaic + Lightbox)", origin: "Detail V2–V6", component: DetailGallery },
+      { id: "detail-contact-form", name: "Contact Form (Inline)", origin: "Detail V2–V6", component: DetailContactForm },
+      { id: "detail-enquiry-modal", name: "Enquiry Modal (3 stages)", origin: "Detail V6", component: DetailEnquiryModal },
+      { id: "detail-agency-info", name: "Agency Info Card", origin: "Detail V6", component: DetailAgencyInfo },
+      { id: "detail-energy-badge", name: "Energy Rating Badge", origin: "Detail V2–V6", component: DetailEnergyBadge },
+      { id: "detail-recently-viewed", name: "Recently Viewed Strip", origin: "Detail V6", component: DetailRecentlyViewed },
+      { id: "detail-mobile-sticky-bar", name: "Mobile Sticky Contact Bar", origin: "Detail V2–V6", component: DetailMobileStickyBar },
+      { id: "detail-buyers-guide", name: "Buyer's Guide Banner", origin: "Detail V6", component: DetailBuyersGuide },
     ],
   },
 ];
