@@ -491,23 +491,10 @@ const PropertyDetailV6 = () => {
               <span>Status: <strong className="font-medium text-luxury-black/80">{p.status}</strong></span>
             </div>
 
-            {/* ─── PRICE BAR (mobile/tablet only) ─── */}
-            <div className="lg:hidden mt-4 mb-4 bg-neutral-50 border border-neutral-200 rounded-sm p-4">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[11px] tracking-[0.15em] uppercase border border-luxury-black/30 text-luxury-black/70 px-2.5 py-1 font-medium">{p.tag}</span>
-                <span className="text-[12px] text-luxury-black/60">{p.pricePerSqm}</span>
-              </div>
-              <div className="flex flex-wrap items-baseline gap-2 mb-1">
-                <p className="text-[28px] font-medium text-luxury-black tracking-tight leading-none">{p.priceFormatted}</p>
-                <span className="text-[13px] text-luxury-black/35 line-through font-light">{p.originalPrice}</span>
-                <span className="text-[11px] font-medium tracking-[0.08em] uppercase text-luxury-gold bg-luxury-gold/10 px-2 py-0.5">-{p.discount}%</span>
-              </div>
-              {p.alsoForRent && (
-                <p className="text-[13px] text-luxury-black/60 flex items-center gap-1.5 mb-3">
-                  <Home className="w-3.5 h-3.5 text-luxury-gold/80" /> Also for rent: <span className="font-medium text-luxury-black/80">{p.rentalPrice}</span>
-                </p>
-              )}
-              <p className="text-[12px] text-luxury-black/50 font-mono text-center mt-2 tracking-[0.05em]">REF-{p.ref}</p>
+            {/* Tag + Ref inline */}
+            <div className="lg:hidden flex items-center gap-3 mb-3">
+              <span className="text-[10px] tracking-[0.15em] uppercase border border-luxury-black/25 text-luxury-black/60 px-2 py-0.5 font-medium">{p.tag}</span>
+              <span className="text-[11px] text-luxury-black/40 font-mono tracking-[0.05em]">REF-{p.ref}</span>
             </div>
 
             {/* Property tags */}
