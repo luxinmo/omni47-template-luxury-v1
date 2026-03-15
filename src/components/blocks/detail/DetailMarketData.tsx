@@ -10,7 +10,7 @@ interface MarketStat {
   label: string;
   value: string;
   trend: string;
-  pct: number;
+  pct?: number;
 }
 
 interface DetailMarketDataProps {
