@@ -62,6 +62,7 @@ interface BrandedProject {
     airportDistance: string;
   };
   highlights: string[];
+  estimatedROI?: string;
 }
 
 const PROJECTS: BrandedProject[] = [
