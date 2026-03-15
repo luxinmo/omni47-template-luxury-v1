@@ -699,7 +699,7 @@ const NewDevelopmentDetailPage = () => {
             <div className="lg:sticky lg:top-24 space-y-6">
               {/* Enquiry card */}
               <FadeIn>
-                <div className="p-6 rounded-sm border" style={{ borderColor: palette.border, background: palette.card }}>
+                <div className="p-6 rounded-sm border" style={{ borderColor: palette.border, background: palette.bgAlt }}>
                   <h3 className="text-sm font-medium tracking-tight mb-4" style={{ fontFamily: fonts.heading, color: palette.text }}>
                     Interested in {p.name}?
                   </h3>
