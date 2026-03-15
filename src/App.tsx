@@ -10,7 +10,7 @@ import BlogListingPage from "./components/luxury/BlogListingPage";
 import BlogDetailPage from "./components/luxury/BlogDetailPage";
 import SystemPage from "./components/luxury/SystemPage";
 import ContactPage from "./components/luxury/ContactPage";
-
+import ContactPageV2 from "./components/luxury/ContactPageV2";
 import PropertyDetailV2 from "./components/luxury/PropertyDetailV2";
 import PropertyDetailV3 from "./components/luxury/PropertyDetailV3";
 import PropertyDetailV4 from "./components/luxury/PropertyDetailV4";
@@ -57,6 +57,7 @@ const App = () => (
             <Route path="/property5/:id" element={<PropertyDetailV5 />} />
             <Route path="/property6/:id" element={<PropertyDetailV6 />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/contact2" element={<ContactPageV2 />} />
             <Route path="/branded-residences" element={<BrandedResidencesPage />} />
             
             <Route path="/branded-residences/:slug" element={<BrandedResidenceDetailPage />} />
