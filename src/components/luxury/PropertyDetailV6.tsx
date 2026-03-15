@@ -974,24 +974,24 @@ const PropertyDetailV6 = () => {
                           <p className="text-[13px] font-medium text-luxury-black leading-tight line-clamp-1 group-hover:text-luxury-black/75 transition-colors">{s.name}</p>
                           <div className="flex items-center gap-3 mt-1 text-[12px] text-luxury-black/50 font-light">
                             <span>{s.beds} beds</span>
-                        <span>{s.baths} baths</span>
-                        <span>{s.sqm} m²</span>
-                      </div>
-                      <p className="text-[15px] font-light text-luxury-black mt-1">{s.price}</p>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-              <button
-                onClick={() => { setEnquiryOpen(false); setEnquirySent("idle"); setGridView(false); setLightbox(null); }}
-                className="w-full mt-5 border border-neutral-300 text-luxury-black text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-neutral-100 transition-all"
-              >
-                Back to Property
-              </button>
+                            <span>{s.baths} baths</span>
+                            <span>{s.sqm} m²</span>
+                          </div>
+                          <p className="text-[15px] font-light text-luxury-black mt-1">{s.price}</p>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                  <button
+                    onClick={() => { setEnquiryOpen(false); setEnquirySent("idle"); setGridView(false); setLightbox(null); }}
+                    className="w-full mt-5 border border-neutral-300 text-luxury-black text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-neutral-100 transition-all"
+                  >
+                    Back to Property
+                  </button>
+                </>
+              )}
             </div>
           )}
-
-        </DialogContent>
       </Dialog>
 
       {/* ═══ LANGUAGE MODAL ═══ */}
