@@ -261,41 +261,24 @@ const BrandedResidenceDetailPage = () => {
         description={p.description}
       />
 
-      {/* ── HERO FULLSCREEN ── */}
+      {/* ── HERO IMAGE (CLEAN) ── */}
       <section className="relative h-[55vh] sm:h-[70vh] lg:h-[85vh] min-h-[400px] sm:min-h-[500px] lg:min-h-[600px] cursor-pointer" onClick={() => setLightbox(0)}>
         <img src={p.images[0]} alt={p.name} className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(26,24,22,0.3) 0%, rgba(26,24,22,0.75) 100%)" }} />
 
         {/* Back link */}
         <div className="absolute top-24 left-6 sm:left-10 z-20">
-          <Link to="/branded-residences" className="inline-flex items-center gap-2 text-white/70 hover:text-white text-[13px] tracking-wide transition-colors">
+          <Link to="/branded-residences" className="inline-flex items-center gap-2 text-white/70 hover:text-white text-[13px] tracking-wide transition-colors drop-shadow-md">
             <ArrowLeft className="w-4 h-4" /> All Branded Residences
           </Link>
         </div>
 
-        <div className="relative z-10 h-full flex flex-col justify-end pb-16 sm:pb-20 px-5 sm:px-10 lg:px-16 max-w-[1400px] mx-auto">
-          <FadeIn>
-            <div className="inline-flex items-center gap-2 mb-4 px-4 py-2" style={{ background: "rgba(201,169,110,0.15)", border: "1px solid rgba(201,169,110,0.3)" }}>
-              <Crown className="w-4 h-4" style={{ color: "#c9a96e" }} />
-              <span className="text-[11px] tracking-[0.25em] uppercase font-light" style={{ color: "#c9a96e" }}>{p.brand}</span>
-            </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extralight text-white leading-[1.1] mb-3" style={{ fontFamily: fonts.heading, letterSpacing: "0.05em" }}>
-              {p.name}
-            </h1>
-            <div className="flex items-center gap-3 mb-6">
-              <MapPin className="w-4 h-4 text-white/50" />
-              <span className="text-[14px] font-light text-white/60">{p.location}</span>
-              <span className="text-white/20">·</span>
-              <span className="text-[14px] font-light text-white/60">Delivery {p.delivery}</span>
-            </div>
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="text-2xl sm:text-3xl font-extralight text-white">{fmt(p.priceMin)} — {fmt(p.priceMax)}</span>
-              <span className="ml-2 px-3 py-1 text-[10px] tracking-[0.12em] uppercase font-medium rounded-sm" style={{ color: statusColor(p.status), border: `1px solid ${statusColor(p.status)}50`, background: `${statusColor(p.status)}10` }}>
-                {p.status}
-              </span>
-            </div>
-          </FadeIn>
-        </div>
+        {/* Only Est. ROI badge on the image */}
+        {p.estimatedROI && (
+          <div className="absolute bottom-6 left-6 sm:left-10 z-20 px-4 py-3 bg-black/50 backdrop-blur-sm rounded-sm">
+            <p className="text-[9px] tracking-[0.2em] uppercase font-medium text-white/60 mb-0.5">Est. ROI</p>
+            <p className="text-lg font-light text-white">{p.estimatedROI}</p>
+          </div>
+        )}
 
         {/* Gallery count */}
         <button onClick={() => setLightbox(0)} className="absolute bottom-6 right-6 sm:right-10 z-20 flex items-center gap-2 px-4 py-2.5 bg-black/40 backdrop-blur-sm text-white text-[12px] tracking-wide hover:bg-black/60 transition-colors rounded-sm">
@@ -303,22 +286,46 @@ const BrandedResidenceDetailPage = () => {
         </button>
       </section>
 
-      {/* ── STATS RIBBON ── */}
+      {/* ── TITLE + INFO BELOW IMAGE ── */}
       <section className="border-b" style={{ background: palette.white, borderColor: palette.border }}>
-        <div className="max-w-[1400px] mx-auto px-5 sm:px-10 lg:px-16 py-6 flex flex-wrap gap-8 sm:gap-12">
-          {[
-            { label: "Total Units", value: String(p.totalUnits) },
-            { label: "Available", value: String(availableUnits.length) },
-            { label: "Construction", value: `${p.construction}%` },
-            { label: "Delivery", value: p.delivery },
-            { label: "Developer", value: p.developer },
-            ...(p.estimatedROI ? [{ label: "Est. ROI", value: p.estimatedROI }] : []),
-          ].map((s, i) => (
-            <div key={i}>
-              <p className="text-[9px] tracking-[0.2em] uppercase font-medium mb-1" style={{ color: palette.textLight }}>{s.label}</p>
-              <p className="text-[17px] font-light" style={{ color: palette.text }}>{s.value}</p>
+        <div className="max-w-[1400px] mx-auto px-5 sm:px-10 lg:px-16 py-8 sm:py-10">
+          <FadeIn>
+            <div className="inline-flex items-center gap-2 mb-4 px-4 py-2" style={{ background: "rgba(201,169,110,0.08)", border: `1px solid ${palette.accent}30` }}>
+              <Crown className="w-4 h-4" style={{ color: palette.accent }} />
+              <span className="text-[11px] tracking-[0.25em] uppercase font-light" style={{ color: palette.accent }}>{p.brand}</span>
             </div>
-          ))}
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extralight leading-[1.1] mb-3" style={{ fontFamily: fonts.heading, letterSpacing: "0.05em", color: palette.text }}>
+              {p.name}
+            </h1>
+            <div className="flex items-center gap-3 mb-5">
+              <MapPin className="w-4 h-4" style={{ color: palette.textLight }} />
+              <span className="text-[14px] font-light" style={{ color: palette.textMuted }}>{p.location}</span>
+              <span style={{ color: palette.border }}>·</span>
+              <span className="text-[14px] font-light" style={{ color: palette.textMuted }}>Delivery {p.delivery}</span>
+            </div>
+            <div className="flex flex-wrap items-center gap-3 mb-8">
+              <span className="text-xl sm:text-2xl font-extralight" style={{ color: palette.text }}>{fmt(p.priceMin)} — {fmt(p.priceMax)}</span>
+              <span className="ml-2 px-3 py-1 text-[10px] tracking-[0.12em] uppercase font-medium rounded-sm" style={{ color: statusColor(p.status), border: `1px solid ${statusColor(p.status)}50`, background: `${statusColor(p.status)}10` }}>
+                {p.status}
+              </span>
+            </div>
+          </FadeIn>
+
+          {/* Stats ribbon inline */}
+          <div className="flex flex-wrap gap-6 sm:gap-10 pt-6 border-t" style={{ borderColor: palette.border }}>
+            {[
+              { label: "Total Units", value: String(p.totalUnits) },
+              { label: "Available", value: String(availableUnits.length) },
+              { label: "Construction", value: `${p.construction}%` },
+              { label: "Delivery", value: p.delivery },
+              { label: "Developer", value: p.developer },
+            ].map((s, i) => (
+              <div key={i}>
+                <p className="text-[9px] tracking-[0.2em] uppercase font-medium mb-1" style={{ color: palette.textLight }}>{s.label}</p>
+                <p className="text-[17px] font-light" style={{ color: palette.text }}>{s.value}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
