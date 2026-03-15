@@ -897,11 +897,16 @@ const LuxuryPropertyListing = () => {
 
         {/* Property list */}
         <div>
-          {PROPERTIES.map((p) =>
-            p.offmarket
-              ? <OffMarketPropertyCard key={p.id} property={p} />
-              : <PropertyCard key={p.id} property={p} />
-          )}
+          {PROPERTIES.map((p, idx) => (
+            <div key={p.id}>
+              {/* Insert branded residence promo card at position 3 */}
+              {idx === 2 && <BrandedResidencePromoCard />}
+              {p.offmarket
+                ? <OffMarketPropertyCard property={p} />
+                : <PropertyCard property={p} />
+              }
+            </div>
+          ))}
         </div>
 
         {/* ─── PAGINATION ─── */}
