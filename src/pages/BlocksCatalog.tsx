@@ -36,6 +36,18 @@ import NewsletterBordered from "@/components/blocks/cta/NewsletterBordered";
 import NavbarLuxury from "@/components/blocks/navbar/NavbarLuxury";
 import FooterLuxury from "@/components/blocks/footer/FooterLuxury";
 import FooterEditorial from "@/components/blocks/footer/FooterEditorial";
+import DetailBreadcrumb from "@/components/blocks/detail/DetailBreadcrumb";
+import DetailInfoHeader from "@/components/blocks/detail/DetailInfoHeader";
+import DetailDescription from "@/components/blocks/detail/DetailDescription";
+import DetailFeaturesGrid from "@/components/blocks/detail/DetailFeaturesGrid";
+import DetailCharacteristics from "@/components/blocks/detail/DetailCharacteristics";
+import DetailPriceCard from "@/components/blocks/detail/DetailPriceCard";
+import DetailMortgageCalculator from "@/components/blocks/detail/DetailMortgageCalculator";
+import DetailNearbyPlaces from "@/components/blocks/detail/DetailNearbyPlaces";
+import DetailRelatedGrid from "@/components/blocks/detail/DetailRelatedGrid";
+import DetailFloorPlans from "@/components/blocks/detail/DetailFloorPlans";
+import DetailMarketData from "@/components/blocks/detail/DetailMarketData";
+import DetailSeoLinks from "@/components/blocks/detail/DetailSeoLinks";
 
 const CATEGORIES = [
   {
