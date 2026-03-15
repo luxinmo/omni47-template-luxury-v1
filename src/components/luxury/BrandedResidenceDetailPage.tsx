@@ -356,6 +356,26 @@ const BrandedResidenceDetailPage = () => {
                 </div>
               </FadeIn>
 
+              {/* Download Brochure */}
+              <FadeIn delay={0.12}>
+                <div className="mt-12 p-8 rounded-sm flex flex-col sm:flex-row items-center gap-6" style={{ background: palette.bg, border: `1px solid ${palette.border}` }}>
+                  <div className="flex-1">
+                    <p className="text-[10px] tracking-[0.2em] uppercase font-medium mb-2" style={{ color: palette.accent }}>Download</p>
+                    <h3 className="text-lg font-light mb-1" style={{ fontFamily: fonts.heading, color: palette.text }}>{p.name} Brochure</h3>
+                    <p className="text-[13px] font-light" style={{ color: palette.textMuted }}>
+                      Floor plans, specifications, amenities, pricing and investment details in a single document.
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => { setShowEnquiry(true); setEnquirySent(false); }}
+                    className="shrink-0 inline-flex items-center gap-2.5 text-[12px] tracking-[0.18em] uppercase font-light px-8 py-3.5 transition-all hover:opacity-90 rounded-sm"
+                    style={{ background: palette.accent, color: "#fff" }}
+                  >
+                    <ArrowRight className="w-4 h-4 -rotate-90" /> Download PDF
+                  </button>
+                </div>
+              </FadeIn>
+
               {/* Amenities */}
               <FadeIn delay={0.15}>
                 <div className="mt-14">
