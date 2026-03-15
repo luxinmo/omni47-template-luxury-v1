@@ -274,7 +274,7 @@ const BrandedResidencesPage = () => {
 
       {/* RESIDENCES LISTING */}
       <section className="py-16 sm:py-24 md:py-32" style={{ background: palette.white }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="max-w-[1320px] mx-auto px-5 sm:px-6 lg:px-12">
           <FadeIn>
             <div className="text-center mb-14">
               <p className="text-xs tracking-[0.3em] uppercase mb-3 font-normal" style={{ color: palette.accent }}>Our Portfolio</p>
