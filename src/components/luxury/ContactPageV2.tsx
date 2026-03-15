@@ -41,7 +41,7 @@ const ContactPageV2 = () => {
     `https://www.google.com/maps/dir/?api=1&destination=${o.lat},${o.lng}`;
 
   return (
-    <Layout activePath="/contact2" background={palette.bg}>
+    <Layout activePath="/contact2" background={palette.bg} showLanguage>
       <SEOHead
         title="Contact Us"
         description={`Get in touch with ${brand.fullName}. Our multilingual team of luxury real estate advisors is ready to assist you.`}
