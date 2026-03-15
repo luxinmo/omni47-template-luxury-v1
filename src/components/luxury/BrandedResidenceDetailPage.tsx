@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   Crown, MapPin, ArrowLeft, ArrowRight, ChevronLeft, ChevronRight,
   Building2, CalendarDays, TrendingUp, Percent, Phone, Mail, MessageCircle,
   CheckCircle2, Waves, Dumbbell, UtensilsCrossed, Car, ShieldCheck, Wifi,
   Sparkles, Star, Users, X, Calendar, Clock, Globe, BedDouble, Maximize, Bath,
+  Grid3X3,
 } from "lucide-react";
 import { Layout } from "@/components/layout";
 import FadeIn from "@/components/shared/FadeIn";
