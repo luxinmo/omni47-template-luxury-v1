@@ -863,6 +863,26 @@ const BrandedResidenceDetailPage = () => {
           )}
         </DialogContent>
       </Dialog>
+
+      {/* ── MOBILE STICKY CONTACT BAR ── */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t shadow-[0_-4px_20px_rgba(0,0,0,0.08)] flex items-center gap-0" style={{ borderColor: palette.border }}>
+        <a href={`tel:${contact.phone}`} className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 transition-colors hover:bg-neutral-50" style={{ color: palette.text }}>
+          <Phone className="w-4 h-4" />
+          <span className="text-[10px] tracking-[0.1em] uppercase font-medium">Call</span>
+        </a>
+        <div className="w-px h-8" style={{ background: palette.border }} />
+        <a href={`https://wa.me/${contact.phone.replace(/[^0-9]/g, "")}`} target="_blank" rel="noopener noreferrer" className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 text-[#25D366] transition-colors hover:bg-neutral-50">
+          <MessageCircle className="w-4 h-4" />
+          <span className="text-[10px] tracking-[0.1em] uppercase font-medium">WhatsApp</span>
+        </a>
+        <div className="w-px h-8" style={{ background: palette.border }} />
+        <button onClick={() => { setShowEnquiry(true); setEnquirySent(false); }} className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 transition-colors hover:bg-neutral-50" style={{ color: palette.text }}>
+          <Mail className="w-4 h-4" />
+          <span className="text-[10px] tracking-[0.1em] uppercase font-medium">Enquiry</span>
+        </button>
+      </div>
+      {/* Bottom padding for sticky bar */}
+      <div className="lg:hidden h-16" />
     </Layout>
   );
 };
