@@ -906,17 +906,16 @@ const LuxuryPropertyListing = () => {
             <span className="text-luxury-black font-medium">All Locations</span>
           </div>
 
-          {/* Search + filter chips row */}
-          <div className="flex items-center gap-3 pb-3">
-            <div className="hidden md:flex items-center shrink-0">
-              <LocationSearchDropdown
-                selected={filters.locations}
-                onSelectedChange={(locs) => setFilters(f => ({ ...f, locations: locs }))}
-                className="w-[420px]"
-              />
-            </div>
-
-            <div className="w-px h-5 bg-neutral-200 hidden md:block shrink-0" />
+          {/* Location search */}
+          <div className="pb-3">
+            <LocationSearchDropdown
+              selected={filters.locations}
+              onSelectedChange={(locs) => setFilters(f => ({ ...f, locations: locs }))}
+              className="w-full md:w-[420px]"
+            />
+          </div>
+          {/* Filter chips row */}
+          <div className="flex items-center gap-2 md:gap-3 pb-3 overflow-x-auto">
 
             <button
               onClick={() => setFiltersOpen(true)}
