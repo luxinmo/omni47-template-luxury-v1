@@ -339,12 +339,44 @@ const CATEGORIES = [
     blocks: [
       { id: "favorites-grid", name: "Saved Properties Grid", origin: "FavoritesPage", component: FavoritesGrid },
       { id: "favorites-empty-state", name: "Empty State CTA", origin: "FavoritesPage", component: FavoritesEmptyState },
+      { id: "saved-property-card", name: "Saved Property Card", origin: "FavoritesPage", component: SavedPropertyCard },
+      { id: "share-collection-dialog", name: "Share Collection Dialog", origin: "FavoritesPage", component: ShareCollectionDialog },
     ],
   },
   {
     title: "💬 Chatbot",
     blocks: [
       { id: "chatbot-panel", name: "Floating Chat Widget", origin: "Home4", component: ChatbotPanel },
+    ],
+  },
+  {
+    title: "📄 PDF Sheets",
+    blocks: [
+      { id: "pdf-sheet-v1", name: "Property Sheet V1 (1-page)", origin: "PropertyPdfV1", component: PropertyPdfSheetV1 },
+      { id: "pdf-sheet-v2", name: "Property Sheet V2 (3-page)", origin: "PropertyPdfV2", component: PropertyPdfSheetV2 },
+    ],
+  },
+  {
+    title: "🔧 System",
+    blocks: [
+      { id: "hero-mini", name: "Hero Mini (Page Header)", origin: "SystemPage", component: HeroMini },
+      { id: "breadcrumb-bar", name: "Breadcrumb Bar", origin: "SystemPage", component: BreadcrumbBar },
+      { id: "not-found-block", name: "404 Not Found", origin: "NotFound", component: NotFoundBlock },
+    ],
+  },
+  {
+    title: "🎨 Preview Combos",
+    blocks: [
+      { id: "home-combo-a", name: "Home A — Luxury Editorial", origin: "Combo", component: HomeComboA },
+      { id: "home-combo-b", name: "Home B — Classic Luxury", origin: "Combo", component: HomeComboB },
+      { id: "home-combo-c", name: "Home C — Interactive Premium", origin: "Combo", component: HomeComboC },
+      { id: "detail-combo-a", name: "Detail A — V6 Standard", origin: "Combo", component: DetailComboA },
+      { id: "detail-combo-b", name: "Detail B — Classic V2", origin: "Combo", component: DetailComboB },
+      { id: "detail-combo-c", name: "Detail C — Card Layout V4", origin: "Combo", component: DetailComboC },
+      { id: "branded-combo", name: "Branded Residence Detail", origin: "Combo", component: BrandedCombo },
+      { id: "newdev-combo", name: "New Development Detail", origin: "Combo", component: NewDevCombo },
+      { id: "blog-combo", name: "Blog Listing + Detail", origin: "Combo", component: BlogCombo },
+      { id: "contact-combo", name: "Contact Page", origin: "Combo", component: ContactCombo },
     ],
   },
 ];
