@@ -930,45 +930,50 @@ const PropertyDetailV6 = () => {
             </>
           )}
 
-          {/* ── State: THANK YOU ── */}
-          {enquirySent === "thanks" && (
-            <div className="p-8 text-center">
+          {/* ── State: THANK YOU + SUGGESTIONS (same screen) ── */}
+          {(enquirySent === "thanks" || enquirySent === "suggestions") && (
+            <div className="p-6 max-h-[80vh] overflow-y-auto">
               <DialogTitle className="sr-only">Enquiry sent</DialogTitle>
               <DialogDescription className="sr-only">Thank you for your enquiry</DialogDescription>
-              <div className="w-14 h-14 rounded-full bg-luxury-gold/10 flex items-center justify-center mx-auto mb-5">
-                <Check className="w-7 h-7 text-luxury-gold" strokeWidth={1.5} />
+              {/* Thank you header */}
+              <div className="text-center mb-6">
+                <div className="w-12 h-12 rounded-full bg-luxury-gold/10 flex items-center justify-center mx-auto mb-3">
+                  <Check className="w-6 h-6 text-luxury-gold" strokeWidth={1.5} />
+                </div>
+                <h3 className="text-[18px] font-medium text-luxury-black mb-1">Thank You!</h3>
+                <p className="text-[13px] text-luxury-black/60 font-light leading-relaxed">
+                  Your enquiry for <span className="font-medium text-luxury-black/80">{p.title}</span> has been received.
+                </p>
+                <p className="text-[11px] text-luxury-black/35 font-mono mt-1">REF-{p.ref}</p>
               </div>
-              <h3 className="text-[20px] font-medium text-luxury-black mb-2">Thank You!</h3>
-              <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-4">
-                Your enquiry for <span className="font-medium text-luxury-black/80">{p.title}</span> has been received. Our team will contact you shortly.
-              </p>
-              <p className="text-[12px] text-luxury-black/35 font-mono">REF-{p.ref}</p>
-              <div className="mt-6 flex items-center justify-center gap-1.5 text-luxury-black/30">
-                <div className="w-1.5 h-1.5 rounded-full bg-luxury-gold/60 animate-pulse" />
-                <span className="text-[12px] font-light">Finding similar properties for you…</span>
-              </div>
-            </div>
-          )}
 
-          {/* ── State: SUGGESTIONS ── */}
-          {enquirySent === "suggestions" && (
-            <div className="p-6">
-              <DialogTitle className="text-[16px] font-medium text-luxury-black mb-1">You May Also Like</DialogTitle>
-              <DialogDescription className="text-[13px] text-luxury-black/50 font-light mb-5">Properties similar to the one you enquired about</DialogDescription>
-              <div className="space-y-3 max-h-[360px] overflow-y-auto">
-                {SIMILAR.map((s, i) => (
-                  <Link
-                    key={i}
-                    to={s.href}
-                    onClick={() => { setEnquiryOpen(false); setEnquirySent("idle"); setGridView(false); setLightbox(null); }}
-                    className="flex gap-3 bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden hover:bg-neutral-100 hover:border-neutral-300 transition-all group"
-                  >
-                    <img src={s.image} alt={s.name} className="w-28 h-20 object-cover shrink-0" />
-                    <div className="py-2 pr-3 flex flex-col justify-center min-w-0">
-                      <p className="text-[12px] text-luxury-black/50 font-light tracking-[0.05em]">{s.location}</p>
-                      <p className="text-[13px] font-medium text-luxury-black leading-tight line-clamp-1 group-hover:text-luxury-black/75 transition-colors">{s.name}</p>
-                      <div className="flex items-center gap-3 mt-1 text-[12px] text-luxury-black/50 font-light">
-                        <span>{s.beds} beds</span>
+              {/* Suggestions section */}
+              {enquirySent === "thanks" && (
+                <div className="flex items-center justify-center gap-1.5 text-luxury-black/30 py-4">
+                  <div className="w-1.5 h-1.5 rounded-full bg-luxury-gold/60 animate-pulse" />
+                  <span className="text-[12px] font-light">Finding similar properties…</span>
+                </div>
+              )}
+              {enquirySent === "suggestions" && (
+                <>
+                  <div className="border-t border-neutral-200 pt-4 mb-3">
+                    <p className="text-[14px] font-medium text-luxury-black mb-1">You May Also Like</p>
+                    <p className="text-[12px] text-luxury-black/50 font-light">Similar properties that may interest you</p>
+                  </div>
+                  <div className="space-y-2.5">
+                    {SIMILAR.map((s, i) => (
+                      <Link
+                        key={i}
+                        to={s.href}
+                        onClick={() => { setEnquiryOpen(false); setEnquirySent("idle"); setGridView(false); setLightbox(null); }}
+                        className="flex gap-3 bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden hover:bg-neutral-100 hover:border-neutral-300 transition-all group"
+                      >
+                        <img src={s.image} alt={s.name} className="w-24 h-18 object-cover shrink-0" />
+                        <div className="py-2 pr-3 flex flex-col justify-center min-w-0">
+                          <p className="text-[11px] text-luxury-black/50 font-light tracking-[0.05em]">{s.location}</p>
+                          <p className="text-[13px] font-medium text-luxury-black leading-tight line-clamp-1 group-hover:text-luxury-black/75 transition-colors">{s.name}</p>
+                          <div className="flex items-center gap-3 mt-1 text-[12px] text-luxury-black/50 font-light">
+                            <span>{s.beds} beds</span>
                         <span>{s.baths} baths</span>
                         <span>{s.sqm} m²</span>
                       </div>
