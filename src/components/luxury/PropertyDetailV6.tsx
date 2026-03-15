@@ -11,7 +11,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Calendar } from "@/components/ui/calendar";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
-import { brand, navLeft, navRight, languages } from "@/config/template";
+import { brand, navLeft, navRight, languages, currencies, areaUnits } from "@/config/template";
 import SEOHead from "@/components/shared/SEOHead";
 import LuxuryPhoneInput from "./LuxuryPhoneInput";
 import LuxuryMortgageCalculator from "./LuxuryMortgageCalculator";
@@ -193,6 +193,8 @@ const PropertyDetailV6 = () => {
   const [chatOpen, setChatOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState("EN");
+  const [currentCurrency, setCurrentCurrency] = useState("EUR");
+  const [currentUnit, setCurrentUnit] = useState("m2");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [heroSlide, setHeroSlide] = useState(0);
   const [chatMessages, setChatMessages] = useState<{ role: "user" | "bot"; text: string }[]>([
@@ -322,7 +324,7 @@ const PropertyDetailV6 = () => {
             ))}
           </div>
 
-          {/* Language selector */}
+           {/* Language selector */}
           <div className="px-10 py-6 border-t border-neutral-100 shrink-0">
             <p className="text-[10px] tracking-[0.2em] uppercase text-luxury-black/40 font-medium mb-3 text-center">Language</p>
             <div className="flex flex-wrap justify-center gap-2">
@@ -334,6 +336,38 @@ const PropertyDetailV6 = () => {
                 >
                   <img src={`https://flagcdn.com/20x15/${lang.flag}.png`} alt="" className="w-5 h-[15px] object-cover rounded-[2px]" />
                   {lang.code}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Currency selector */}
+          <div className="px-10 pb-4 shrink-0">
+            <p className="text-[10px] tracking-[0.2em] uppercase text-luxury-black/40 font-medium mb-3 text-center">Currency</p>
+            <div className="flex flex-wrap justify-center gap-2">
+              {currencies.map((cur) => (
+                <button
+                  key={cur.code}
+                  onClick={() => setCurrentCurrency(cur.code)}
+                  className={`px-3 py-2 text-[12px] tracking-[0.05em] rounded-sm border transition-colors ${currentCurrency === cur.code ? "border-luxury-black/30 bg-neutral-50 font-medium text-luxury-black" : "border-neutral-200 font-light text-luxury-black/55 hover:bg-neutral-50"}`}
+                >
+                  {cur.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Units selector */}
+          <div className="px-10 pb-6 shrink-0">
+            <p className="text-[10px] tracking-[0.2em] uppercase text-luxury-black/40 font-medium mb-3 text-center">Units</p>
+            <div className="flex flex-wrap justify-center gap-2">
+              {areaUnits.map((u) => (
+                <button
+                  key={u.code}
+                  onClick={() => setCurrentUnit(u.code)}
+                  className={`px-3 py-2 text-[12px] tracking-[0.05em] rounded-sm border transition-colors ${currentUnit === u.code ? "border-luxury-black/30 bg-neutral-50 font-medium text-luxury-black" : "border-neutral-200 font-light text-luxury-black/55 hover:bg-neutral-50"}`}
+                >
+                  {u.label}
                 </button>
               ))}
             </div>
