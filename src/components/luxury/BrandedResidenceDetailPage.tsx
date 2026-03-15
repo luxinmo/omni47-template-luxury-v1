@@ -552,21 +552,21 @@ const BrandedResidenceDetailPage = () => {
       </section>
 
       {/* ── CTA ── */}
-      <section className="py-20 sm:py-28" style={{ background: "#2C2825" }}>
+      <section className="py-20 sm:py-28" style={{ background: palette.bg }}>
         <div className="max-w-[800px] mx-auto px-5 text-center">
           <FadeIn>
-            <Crown className="w-8 h-8 mx-auto mb-6" style={{ color: "#c9a96e" }} />
-            <h2 className="text-2xl sm:text-3xl font-extralight text-white leading-[1.15] mb-6" style={{ fontFamily: fonts.heading, letterSpacing: "0.06em" }}>
+            <Crown className="w-8 h-8 mx-auto mb-6" style={{ color: palette.accent }} />
+            <h2 className="text-2xl sm:text-3xl font-extralight leading-[1.15] mb-6" style={{ fontFamily: fonts.heading, letterSpacing: "0.06em", color: palette.text }}>
               Interested in {p.name}?
             </h2>
-            <p className="text-[15px] leading-[1.9] font-light mb-10" style={{ color: "rgba(255,255,255,0.55)" }}>
+            <p className="text-[15px] leading-[1.9] font-light mb-10" style={{ color: palette.textMuted }}>
               Contact our specialist team for private viewings, floor plans, investment analysis and priority access.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button onClick={() => { setShowEnquiry(true); setEnquirySent(false); }} className="inline-flex items-center justify-center gap-2.5 text-[13px] tracking-[0.18em] uppercase font-light px-10 py-4 transition-all hover:opacity-90" style={{ background: "#c9a96e", color: "#1a1816" }}>
+              <button onClick={() => { setShowEnquiry(true); setEnquirySent(false); }} className="inline-flex items-center justify-center gap-2.5 text-[13px] tracking-[0.18em] uppercase font-light px-10 py-4 transition-all hover:opacity-90" style={{ background: palette.accent, color: "#1a1816" }}>
                 Request Information
               </button>
-              <button onClick={() => { setShowVisit(true); setVisitSent(false); }} className="inline-flex items-center justify-center gap-2.5 text-[13px] tracking-[0.18em] uppercase font-light px-10 py-4 transition-all hover:opacity-80" style={{ border: "1px solid rgba(201,169,110,0.4)", color: "#c9a96e" }}>
+              <button onClick={() => { setShowVisit(true); setVisitSent(false); }} className="inline-flex items-center justify-center gap-2.5 text-[13px] tracking-[0.18em] uppercase font-light px-10 py-4 transition-all hover:opacity-80" style={{ border: `1px solid ${palette.accent}60`, color: palette.accent }}>
                 Schedule a Visit
               </button>
             </div>
