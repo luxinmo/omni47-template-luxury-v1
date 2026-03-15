@@ -56,8 +56,13 @@ import DetailEnergyBadge from "@/components/blocks/detail/DetailEnergyBadge";
 import DetailRecentlyViewed from "@/components/blocks/detail/DetailRecentlyViewed";
 import DetailMobileStickyBar from "@/components/blocks/detail/DetailMobileStickyBar";
 import DetailBuyersGuide from "@/components/blocks/detail/DetailBuyersGuide";
+import DetailGalleryClassic from "@/components/blocks/detail/DetailGalleryClassic";
+import DetailInfoHeaderInline from "@/components/blocks/detail/DetailInfoHeaderInline";
+import DetailInfoHeaderCard from "@/components/blocks/detail/DetailInfoHeaderCard";
+import DetailInfoHeaderWide from "@/components/blocks/detail/DetailInfoHeaderWide";
+import DetailBreadcrumbSticky from "@/components/blocks/detail/DetailBreadcrumbSticky";
+import DetailRelatedList from "@/components/blocks/detail/DetailRelatedList";
 
-const CATEGORIES = [
   {
     title: "🏠 Heroes",
     blocks: [
