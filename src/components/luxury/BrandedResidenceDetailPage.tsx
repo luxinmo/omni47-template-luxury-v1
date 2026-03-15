@@ -255,7 +255,7 @@ const BrandedResidenceDetailPage = () => {
   const typologyOptions = ["All", ...new Set(p.units.map((u) => u.type))];
 
   return (
-    <Layout navVariant="transparent" activePath="/" showBackToTop={false}>
+    <Layout navVariant="transparent" activePath="/" showBackToTop={false} showLanguage>
       <SEOHead
         title={`${p.name} — ${p.brand} Branded Residences in ${p.location}`}
         description={p.description}
