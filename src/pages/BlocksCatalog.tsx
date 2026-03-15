@@ -84,6 +84,20 @@ import FavoritesGrid from "@/components/blocks/favorites/FavoritesGrid";
 import FavoritesEmptyState from "@/components/blocks/favorites/FavoritesEmptyState";
 import MagazineEditorial from "@/components/blocks/journal/MagazineEditorial";
 import ChatbotPanel from "@/components/blocks/chat/ChatbotPanel";
+import ProjectInfoRibbon from "@/components/blocks/projects/ProjectInfoRibbon";
+import ProjectDescription from "@/components/blocks/projects/ProjectDescription";
+import ProjectGalleryMosaic from "@/components/blocks/projects/ProjectGalleryMosaic";
+import BrandedListingCard from "@/components/blocks/branded/BrandedListingCard";
+import BrandedDetailGallery from "@/components/blocks/branded/BrandedDetailGallery";
+import BrandedUnitTable from "@/components/blocks/branded/BrandedUnitTable";
+import BrandedAmenities from "@/components/blocks/branded/BrandedAmenities";
+import BrandedProgress from "@/components/blocks/branded/BrandedProgress";
+import NewDevListingCard from "@/components/blocks/new-developments/NewDevListingCard";
+import NewDevDetailGallery from "@/components/blocks/new-developments/NewDevDetailGallery";
+import NewDevUnitTable from "@/components/blocks/new-developments/NewDevUnitTable";
+import NewDevFloorPlans from "@/components/blocks/new-developments/NewDevFloorPlans";
+import NewDevAmenities from "@/components/blocks/new-developments/NewDevAmenities";
+import NewDevProgress from "@/components/blocks/new-developments/NewDevProgress";
 
 const CATEGORIES = [
   {
@@ -132,12 +146,23 @@ const CATEGORIES = [
     title: "👑 Branded Residences",
     blocks: [
       { id: "branded-fullwidth", name: "Branded Fullwidth", origin: "Home3", component: BrandedFullwidth },
+      { id: "branded-listing-card", name: "Branded Listing Card", origin: "BrandedResidences", component: BrandedListingCard },
+      { id: "branded-detail-gallery", name: "Branded Detail Gallery", origin: "BrandedResidence Detail", component: BrandedDetailGallery },
+      { id: "branded-unit-table", name: "Branded Unit Table", origin: "BrandedResidence Detail", component: BrandedUnitTable },
+      { id: "branded-amenities", name: "Branded Amenities", origin: "BrandedResidence Detail", component: BrandedAmenities },
+      { id: "branded-progress", name: "Branded Progress Bar", origin: "BrandedResidence Detail", component: BrandedProgress },
     ],
   },
   {
     title: "🏗️ Nuevas Promociones",
     blocks: [
       { id: "newdev-grid-simple", name: "Grid Simple", origin: "Home3/4", component: NewdevGridSimple },
+      { id: "newdev-listing-card", name: "NewDev Listing Card", origin: "NewDevelopments", component: NewDevListingCard },
+      { id: "newdev-detail-gallery", name: "NewDev Detail Gallery", origin: "NewDev Detail", component: NewDevDetailGallery },
+      { id: "newdev-unit-table", name: "NewDev Unit Table", origin: "NewDev Detail", component: NewDevUnitTable },
+      { id: "newdev-floor-plans", name: "NewDev Floor Plans", origin: "NewDev Detail", component: NewDevFloorPlans },
+      { id: "newdev-amenities", name: "NewDev Amenities", origin: "NewDev Detail", component: NewDevAmenities },
+      { id: "newdev-progress", name: "NewDev Progress Bar", origin: "NewDev Detail", component: NewDevProgress },
     ],
   },
   {
@@ -152,6 +177,9 @@ const CATEGORIES = [
       { id: "project-price-sidebar", name: "Price Sidebar + Progress", origin: "BrandedResidence Detail / NewDev Detail", component: ProjectPriceSidebar },
       { id: "project-location-card", name: "Location Card", origin: "BrandedResidence Detail / NewDev Detail", component: ProjectLocationCard },
       { id: "project-units-table", name: "Units Table + Mobile Cards", origin: "BrandedResidence Detail / NewDev Detail", component: ProjectUnitsTable },
+      { id: "project-info-ribbon", name: "Info Ribbon (Title + Stats)", origin: "BrandedResidence Detail / NewDev Detail", component: ProjectInfoRibbon },
+      { id: "project-description", name: "Project Description (Multi-paragraph)", origin: "BrandedResidence Detail / NewDev Detail", component: ProjectDescription },
+      { id: "project-gallery-mosaic", name: "Gallery Mosaic + ROI Badge", origin: "BrandedResidence Detail / NewDev Detail", component: ProjectGalleryMosaic },
     ],
   },
   {
