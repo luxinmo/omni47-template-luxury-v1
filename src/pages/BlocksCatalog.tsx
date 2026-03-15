@@ -258,6 +258,31 @@ const CATEGORIES = [
       { id: "detail-related-list", name: "Related Properties List", origin: "Detail V4", component: DetailRelatedList },
     ],
   },
+  {
+    title: "📰 Blog / Journal Blocks",
+    blocks: [
+      { id: "blog-article-card", name: "Article Card (Grid)", origin: "BlogListing", component: BlogArticleCard },
+      { id: "blog-featured-post", name: "Featured Post (Split)", origin: "BlogListing", component: BlogFeaturedPost },
+      { id: "blog-faq-accordion", name: "FAQ Accordion (+/-)", origin: "BlogDetail", component: BlogFaqAccordion },
+      { id: "blog-trending-grid", name: "Trending Grid (4-col)", origin: "BlogDetail", component: BlogTrendingGrid },
+    ],
+  },
+  {
+    title: "📞 Contact",
+    blocks: [
+      { id: "contact-form-centered", name: "Form Centered + Office Selector", origin: "ContactPage V1", component: ContactFormCentered },
+      { id: "contact-form-split", name: "Form Split (Hero + Form)", origin: "ContactPage V2", component: ContactFormSplit },
+      { id: "contact-office-grid", name: "Office Cards Grid", origin: "ContactPage V1", component: ContactOfficeGrid },
+      { id: "contact-office-tabs", name: "Office Tabs + Detail", origin: "ContactPage V2", component: ContactOfficeTabs },
+    ],
+  },
+  {
+    title: "❤️ Favorites",
+    blocks: [
+      { id: "favorites-grid", name: "Saved Properties Grid", origin: "FavoritesPage", component: FavoritesGrid },
+      { id: "favorites-empty-state", name: "Empty State CTA", origin: "FavoritesPage", component: FavoritesEmptyState },
+    ],
+  },
 ];
 
 const BlocksCatalog = () => {
