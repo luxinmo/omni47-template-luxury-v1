@@ -10,7 +10,7 @@ interface MarketStat {
   label: string;
   value: string;
   trend: string;
-  pct: number;
+  pct?: number;
 }
 
 interface DetailMarketDataProps {
@@ -38,9 +38,11 @@ const DetailMarketData = ({
         <div key={i} className="bg-neutral-50 border border-neutral-200 rounded-sm p-4">
           <p className="text-[12px] tracking-[0.1em] uppercase text-neutral-500 font-medium mb-1">{d.label}</p>
           <p className="text-[20px] font-light text-neutral-900 mb-2">{d.value}</p>
-          <div className="w-full h-2 bg-neutral-200 rounded-full overflow-hidden mb-1.5">
-            <div className="h-full bg-amber-700/60 rounded-full transition-all duration-700" style={{ width: `${d.pct}%` }} />
-          </div>
+          {d.pct != null && (
+            <div className="w-full h-2 bg-neutral-200 rounded-full overflow-hidden mb-1.5">
+              <div className="h-full bg-amber-700/60 rounded-full transition-all duration-700" style={{ width: `${d.pct}%` }} />
+            </div>
+          )}
           <p className="text-[12px] text-amber-700/80 font-medium flex items-center gap-1">
             <TrendingUp className="w-3 h-3" /> {d.trend}
           </p>

@@ -280,6 +280,12 @@
 |----|--------|--------|--------------------|
 | detail-mobile-sticky-bar | Barra Contacto Mobile | V2–V6 | Barra fija inferior con Call / WhatsApp / Enquiry |
 
+## 🗺️ Detalle — Nearby Areas (1 variante)
+
+| ID | Nombre | Origen | Descripción visual |
+|----|--------|--------|--------------------|
+| detail-nearby-areas | Grid de Áreas Cercanas | V6 | Grid 2 cols con links internos, count de propiedades + arrow hover |
+
 ## 📖 Detalle — Buyer's Guide (1 variante)
 
 | ID | Nombre | Origen | Descripción visual |
@@ -323,7 +329,8 @@
 | Detail — Floor Plans | 1 |
 | Detail — Market Data | 1 |
 | Detail — Mortgage | 1 |
-| Detail — Nearby | 1 |
+| Detail — Nearby Places | 1 |
+| Detail — Nearby Areas | 1 |
 | Detail — Related | 2 |
 | Detail — SEO Links | 1 |
 | Detail — Contact Form | 1 |
@@ -343,7 +350,7 @@
 | Contact — Office Tabs | 1 |
 | Favorites — Grid | 1 |
 | Favorites — Empty State | 1 |
-| **TOTAL** | **~66 bloques** |
+| **TOTAL** | **~68 bloques** |
 
 ---
 

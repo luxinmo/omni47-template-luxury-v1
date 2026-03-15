@@ -62,6 +62,7 @@ import DetailInfoHeaderCard from "@/components/blocks/detail/DetailInfoHeaderCar
 import DetailInfoHeaderWide from "@/components/blocks/detail/DetailInfoHeaderWide";
 import DetailBreadcrumbSticky from "@/components/blocks/detail/DetailBreadcrumbSticky";
 import DetailRelatedList from "@/components/blocks/detail/DetailRelatedList";
+import DetailNearbyAreas from "@/components/blocks/detail/DetailNearbyAreas";
 import ProjectCard from "@/components/blocks/projects/ProjectCard";
 import ProjectBenefitsGrid from "@/components/blocks/projects/ProjectBenefitsGrid";
 import ProjectHighlights from "@/components/blocks/projects/ProjectHighlights";
@@ -259,6 +260,7 @@ const CATEGORIES = [
       { id: "detail-info-header-wide", name: "Info Header Wide (6-col Grid)", origin: "Detail V5", component: DetailInfoHeaderWide },
       { id: "detail-breadcrumb-sticky", name: "Breadcrumb Sticky Bar", origin: "Detail V4", component: DetailBreadcrumbSticky },
       { id: "detail-related-list", name: "Related Properties List", origin: "Detail V4", component: DetailRelatedList },
+      { id: "detail-nearby-areas", name: "Nearby Areas (Links Grid)", origin: "Detail V6", component: DetailNearbyAreas },
     ],
   },
   {
