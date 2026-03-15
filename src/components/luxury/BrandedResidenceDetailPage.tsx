@@ -262,7 +262,7 @@ const BrandedResidenceDetailPage = () => {
       />
 
       {/* ── HERO FULLSCREEN ── */}
-      <section className="relative h-[85vh] min-h-[600px]">
+      <section className="relative h-[85vh] min-h-[600px] cursor-pointer" onClick={() => setLightbox(0)}>
         <img src={p.images[0]} alt={p.name} className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(26,24,22,0.3) 0%, rgba(26,24,22,0.75) 100%)" }} />
 
