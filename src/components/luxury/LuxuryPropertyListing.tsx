@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Search, SlidersHorizontal, X, ChevronDown, ChevronRight, Bed, Bath, Maximize, MapPin, Mail, Lock, Eye, Phone, User, Crown, ArrowRight, Building2, Menu } from "lucide-react";
 import { brand, navLeft, navRight, languages, currencies, areaUnits } from "@/config/template";
-import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Layout } from "@/components/layout";
 import SEOHead from "@/components/shared/SEOHead";
 import heroImg from "@/assets/luxury-hero.jpg";
 import LocationSearchDropdown from "./LocationSearchDropdown";
