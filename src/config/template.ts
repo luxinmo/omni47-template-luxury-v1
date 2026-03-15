@@ -27,7 +27,7 @@ export const palette = {
   accent: "#8B6F47",
   accentDark: "#6E5636",
   border: "#E2DCD4",
-  footer: "#2D2926",
+  footer: "#000000",
   offMarketBg: "#1E1C1A",
   offMarketAccent: "#C9A96E",
   newDevBg: "#F7F4EF",

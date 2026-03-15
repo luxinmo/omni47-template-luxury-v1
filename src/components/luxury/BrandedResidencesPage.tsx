@@ -59,8 +59,36 @@ const BrandedResidencesPage = () => {
         </div>
       </section>
 
-      {/* WHY BRANDED RESIDENCES */}
+      {/* WHAT ARE BRANDED RESIDENCES */}
       <section className="py-16 sm:py-24 md:py-32" style={{ background: palette.white }}>
+        <div className="max-w-[1000px] mx-auto px-5 sm:px-6 lg:px-12">
+          <FadeIn>
+            <div className="text-center mb-10">
+              <p className="text-xs tracking-[0.3em] uppercase mb-3 font-normal" style={{ color: palette.accent }}>Understanding the Concept</p>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight mb-8" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>What Are Branded Residences?</h2>
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.1}>
+            <div className="space-y-6 text-[15px] leading-[1.9] font-light" style={{ color: palette.textMuted }}>
+              <p>
+                Branded residences are luxury homes developed in partnership with world-renowned hospitality brands such as Four Seasons, Ritz-Carlton, Mandarin Oriental, Aman and Six Senses. Unlike traditional real estate, these properties carry the name, design standards and service philosophy of an internationally recognised hotel brand — bringing five-star living into a private residential setting.
+              </p>
+              <p>
+                Owners enjoy the best of both worlds: the privacy and permanence of owning a home, combined with the exceptional amenities and services typically reserved for guests of the finest hotels. This includes 24-hour concierge, housekeeping, valet parking, private chefs, spa and wellness facilities, fitness centres, fine dining restaurants and members-only beach or golf clubs — all managed to the exacting standards of the hospitality brand.
+              </p>
+              <p>
+                From an investment perspective, branded residences are among the most resilient segments of the luxury property market. According to leading global consultancies, branded residences command a <strong style={{ color: palette.text }}>25–35% price premium</strong> over comparable non-branded properties and tend to hold their value significantly better during market downturns. The brand association also provides a built-in rental programme, global marketing reach and professional management — making them an attractive option for both lifestyle buyers and investors.
+              </p>
+              <p>
+                Spain has emerged as one of Europe's most dynamic markets for branded residences, with new projects launching along the Costa del Sol, Costa Blanca, Ibiza and Mallorca. These developments attract an international clientele seeking a Mediterranean lifestyle with the assurance of world-class quality and service.
+              </p>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* WHY BRANDED RESIDENCES */}
+      <section className="py-16 sm:py-24 md:py-32" style={{ background: palette.bg }}>
         <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
           <FadeIn>
             <div className="text-center mb-14">
@@ -72,7 +100,7 @@ const BrandedResidencesPage = () => {
             {BENEFITS.map((b, i) => (
               <FadeIn key={i} delay={i * 0.1}>
                 <div className="text-center">
-                  <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5" style={{ background: palette.bg }}>
+                  <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5" style={{ background: palette.white }}>
                     <b.icon className="w-6 h-6" style={{ color: palette.accent }} />
                   </div>
                   <h3 className="text-base font-light tracking-wide mb-3" style={{ fontFamily: fonts.heading }}>{b.title}</h3>
@@ -85,7 +113,7 @@ const BrandedResidencesPage = () => {
       </section>
 
       {/* RESIDENCES LISTING */}
-      <section className="py-16 sm:py-24 md:py-32" style={{ background: palette.bg }}>
+      <section className="py-16 sm:py-24 md:py-32" style={{ background: palette.white }}>
         <div className="max-w-[1440px] mx-auto px-5 sm:px-6 lg:px-12">
           <FadeIn>
             <div className="text-center mb-14">
@@ -132,7 +160,7 @@ const BrandedResidencesPage = () => {
       </section>
 
       {/* CTA */}
-      <section className="py-16 sm:py-24 md:py-32" style={{ background: "#1a1816" }}>
+      <section className="py-20 sm:py-28 md:py-36" style={{ background: "#000000" }}>
         <div className="max-w-[800px] mx-auto px-5 text-center">
           <FadeIn>
             <Crown className="w-8 h-8 mx-auto mb-6" style={{ color: "#c9a96e" }} />
