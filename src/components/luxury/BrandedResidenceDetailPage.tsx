@@ -426,7 +426,7 @@ const BrandedResidenceDetailPage = () => {
                 <button
                   onClick={() => { setShowEnquiry(true); setEnquirySent(false); }}
                   className="w-full flex items-center justify-center gap-2 text-[12px] tracking-[0.18em] uppercase font-light py-3.5 mb-3 transition-all hover:opacity-90"
-                  style={{ background: palette.accent, color: "#1a1816" }}
+                   style={{ background: palette.accent, color: "#fff" }}
                 >
                   <Mail className="w-4 h-4" /> Request Information
                 </button>
