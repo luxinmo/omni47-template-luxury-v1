@@ -5,7 +5,7 @@ import {
   Building2, CalendarDays, TrendingUp, Percent, Phone, Mail, MessageCircle,
   CheckCircle2, Waves, Dumbbell, UtensilsCrossed, Car, ShieldCheck, Wifi,
   Sparkles, Star, Users, X, Calendar, Clock, Globe, BedDouble, Maximize, Bath,
-  Grid3X3,
+  Grid3X3, Send,
 } from "lucide-react";
 import { Layout } from "@/components/layout";
 import FadeIn from "@/components/shared/FadeIn";
