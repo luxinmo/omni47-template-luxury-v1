@@ -17,7 +17,8 @@ interface NewDevListingCardProps {
   construction?: number;
   availableUnits?: number;
   totalUnits?: number;
-  priceRange?: string;
+  priceMin?: number;
+  priceMax?: number;
   trending?: boolean;
   typologies?: { type: string; from: number }[];
   href?: string;
@@ -25,39 +26,9 @@ interface NewDevListingCardProps {
 
 const NewDevListingCard = ({
   name = "Marea Residences",
-  location = "Altea, Costa Blanca",
-  developer = "Grupo Prasa",
-  delivery = "Q2 2027",
-  status = "Selling",
-  construction = 55,
-  availableUnits = 28,
-  totalUnits = 64,
-  priceRange = "€485,000 — €1,250,000",
-  trending = true,
-  typologies = [
-    { type: "Apartment", from: 485000 },
-    { type: "Penthouse", from: 890000 },
-    { type: "Duplex", from: 720000 },
-  ],
-  href = "/new-developments/marea-residences-altea",
   ...rest
 }: NewDevListingCardProps) => (
-  <ProjectCard
-    name={name}
-    location={location}
-    badge="New Development"
-    developer={developer}
-    delivery={delivery}
-    status={status}
-    construction={construction}
-    availableUnits={availableUnits}
-    totalUnits={totalUnits}
-    priceRange={priceRange}
-    trending={trending}
-    typologies={typologies}
-    href={href}
-    {...rest}
-  />
+  <ProjectCard variant="newdev" name={name} {...rest} />
 );
 
 export default NewDevListingCard;
