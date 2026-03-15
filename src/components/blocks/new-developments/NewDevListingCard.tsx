@@ -19,7 +19,7 @@ interface NewDevListingCardProps {
   totalUnits?: number;
   priceRange?: string;
   trending?: boolean;
-  typologies?: { type: string; from: string }[];
+  typologies?: { type: string; from: number }[];
   href?: string;
 }
 
