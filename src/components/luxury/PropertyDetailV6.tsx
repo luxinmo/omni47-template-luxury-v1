@@ -491,11 +491,6 @@ const PropertyDetailV6 = () => {
               <span>Status: <strong className="font-medium text-luxury-black/80">{p.status}</strong></span>
             </div>
 
-            {/* Tag + Ref inline */}
-            <div className="lg:hidden flex items-center gap-3 mb-3">
-              <span className="text-[10px] tracking-[0.15em] uppercase border border-luxury-black/25 text-luxury-black/60 px-2 py-0.5 font-medium">{p.tag}</span>
-              <span className="text-[11px] text-luxury-black/40 font-mono tracking-[0.05em]">REF-{p.ref}</span>
-            </div>
 
             {/* Property tags */}
             <div className="flex flex-wrap gap-2 mt-4 lg:mt-0 mb-6">
