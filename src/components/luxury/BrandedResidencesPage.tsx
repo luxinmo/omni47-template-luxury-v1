@@ -92,11 +92,8 @@ const BENEFITS = [
 
 const fmt = (n: number) => new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(n);
 
-const statusColor = (s: string) => {
-  if (s === "Pre-Launch") return palette.accent;
-  if (s === "Selling") return "#2a7d5f";
-  if (s === "Last Units") return "#c0392b";
-  return palette.textLight;
+const statusColor = (_s: string) => {
+  return palette.text;
 };
 
 /* ── Branded Residence Card ── */
@@ -107,10 +104,10 @@ const BrandedCard = ({ r, i }: { r: BrandedResidence; i: number }) => (
       <div className="relative lg:w-[44%] min-h-[240px] lg:min-h-[360px] overflow-hidden">
         <img src={r.image} alt={`${r.name} — ${r.brand}`} loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.03]" />
         {r.status === "Last Units" && (
-          <span className="absolute top-4 left-4 px-3 py-1.5 text-[10px] tracking-[0.12em] uppercase font-medium text-white rounded-sm" style={{ background: "#c0392b" }}>Last units</span>
+          <span className="absolute top-4 left-4 px-3 py-1.5 text-[10px] tracking-[0.12em] uppercase font-medium text-white rounded-sm bg-black/60 backdrop-blur-sm">Last units</span>
         )}
         {r.trending && (
-          <span className="absolute top-4 right-4 inline-flex items-center gap-1.5 px-3 py-1.5 text-[10px] tracking-[0.1em] uppercase font-medium text-white rounded-sm" style={{ background: "#e67e22" }}>
+          <span className="absolute top-4 right-4 inline-flex items-center gap-1.5 px-3 py-1.5 text-[10px] tracking-[0.1em] uppercase font-medium text-white rounded-sm bg-black/60 backdrop-blur-sm">
             <TrendingUp className="w-3 h-3" /> Trending
           </span>
         )}
