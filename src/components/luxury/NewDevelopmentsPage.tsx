@@ -107,10 +107,10 @@ const fmt = (n: number) => new Intl.NumberFormat("de-DE", { style: "currency", c
 const Chip = ({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) => (
   <button
     onClick={onClick}
-    className="text-[12px] tracking-[0.08em] uppercase px-4 py-2 rounded-full transition-all duration-200 border whitespace-nowrap"
+    className="text-[12px] tracking-[0.1em] uppercase px-5 py-2.5 rounded-full transition-all duration-300 border whitespace-nowrap hover:shadow-sm"
     style={active
-      ? { background: palette.text, color: palette.white, borderColor: palette.text }
-      : { background: "transparent", color: palette.textMuted, borderColor: palette.border }
+      ? { background: palette.text, color: palette.white, borderColor: palette.text, boxShadow: "0 2px 8px rgba(0,0,0,0.15)" }
+      : { background: palette.white, color: palette.textMuted, borderColor: palette.border }
     }
   >
     {label}
