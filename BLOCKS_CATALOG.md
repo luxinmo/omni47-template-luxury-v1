@@ -214,6 +214,7 @@
 | ID | Nombre | Origen | Descripción visual |
 |----|--------|--------|--------------------|
 | detail-features-grid | Features Checklist | V2–V6 | Grid 2-3 cols con checkmarks verdes |
+| detail-amenities-full | Amenities Full Catalog | Omni47 Catalog | 7 categorías colapsables (Kitchen, Outdoor, Climate, Wellness, Security, Community, Location) con ~80 amenities, iconos Lucide SVG configurables en color/tamaño, grid 2-4 cols |
 | detail-characteristics | Characteristics Table | V6 | Tabla 2 columnas con label/value, specs técnicos |
 
 ## 💰 Detalle — Precio (1 variante)
