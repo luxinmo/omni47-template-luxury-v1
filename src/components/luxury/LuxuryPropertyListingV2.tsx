@@ -1142,41 +1142,63 @@ const PROPERTIES = [
 ];
 
 /* ─── Branded Residence Card ─── */
-const BrandedResidencePromoCard = () => (
+const BrandedResidencePromoCard = () => {
+  const isMobile = useIsMobile();
+  return (
   <Link to="/branded-residences/four-seasons-marbella" className="group relative grid grid-cols-1 md:grid-cols-12 gap-0 rounded-sm overflow-hidden mb-6 hover:shadow-lg transition-all duration-300 bg-[hsl(36,18%,96%)] border border-luxury-gold/25 ring-1 ring-luxury-gold/10">
     <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-luxury-gold/50 to-transparent" />
     <div className="md:col-span-5 relative overflow-hidden aspect-[16/10] md:aspect-auto md:h-full min-h-[220px]">
       <img src={prop1} alt="Four Seasons Private Residences" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 absolute inset-0" />
       <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-luxury-gold text-white text-[11px] tracking-[0.12em] uppercase font-medium px-3 py-1.5 rounded-sm"><Crown className="w-3 h-3" /> Branded Residence</span>
+      {isMobile && (
+        <>
+          <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
+          <span className="absolute bottom-3 left-3 text-white text-[14px] font-medium tracking-wide drop-shadow-md">€3,500,000 — €8,200,000</span>
+        </>
+      )}
     </div>
     <div className="md:col-span-7 flex flex-col p-5 md:p-6 lg:p-8">
       <p className="text-[13px] tracking-[0.14em] uppercase text-luxury-black/60 mb-1">Marbella · Costa del Sol</p>
       <h2 className="text-[17px] md:text-[19px] font-medium text-luxury-black leading-snug mb-1.5">FOUR SEASONS PRIVATE RESIDENCES</h2>
       <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2">Oceanfront residences with full Four Seasons hotel services, private beach club and world-class spa.</p>
-      <div className="mt-auto pt-5 border-t border-neutral-100">
-        <p className="text-2xl md:text-[28px] font-extralight text-luxury-black tracking-tight">€3,500,000 — €8,200,000</p>
-      </div>
+      {!isMobile && (
+        <div className="mt-auto pt-5 border-t border-neutral-100">
+          <p className="text-2xl md:text-[28px] font-extralight text-luxury-black tracking-tight">€3,500,000 — €8,200,000</p>
+        </div>
+      )}
     </div>
   </Link>
-);
+  );
+};
 
 /* ─── New Dev Promo Card ─── */
-const NewDevPromoCard = () => (
+const NewDevPromoCard = () => {
+  const isMobile = useIsMobile();
+  return (
   <Link to="/new-developments/marea-residences-altea" className="group relative grid grid-cols-1 md:grid-cols-12 gap-0 rounded-sm overflow-hidden mb-6 hover:shadow-lg transition-all duration-300 bg-[hsl(30,20%,96%)] border border-luxury-black/10">
     <div className="md:col-span-5 relative overflow-hidden aspect-[16/10] md:aspect-auto md:h-full min-h-[220px]">
       <img src={detail1} alt="Marea Residences" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 absolute inset-0" />
       <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-luxury-black/80 text-white text-[11px] tracking-[0.12em] uppercase font-medium px-3 py-1.5 rounded-sm"><Building2 className="w-3 h-3" /> New Development</span>
+      {isMobile && (
+        <>
+          <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
+          <span className="absolute bottom-3 left-3 text-white text-[14px] font-medium tracking-wide drop-shadow-md">€485,000 — €1,250,000</span>
+        </>
+      )}
     </div>
     <div className="md:col-span-7 flex flex-col p-5 md:p-6 lg:p-8">
       <p className="text-[13px] tracking-[0.14em] uppercase text-luxury-black/60 mb-1">Altea · Costa Blanca</p>
       <h2 className="text-[17px] md:text-[19px] font-medium text-luxury-black leading-snug mb-1.5">MAREA RESIDENCES</h2>
       <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2">Contemporary beachfront apartments with panoramic sea views and communal pools.</p>
-      <div className="mt-auto pt-5 border-t border-neutral-100">
-        <p className="text-2xl md:text-[28px] font-extralight text-luxury-black tracking-tight">€485,000 — €1,250,000</p>
-      </div>
+      {!isMobile && (
+        <div className="mt-auto pt-5 border-t border-neutral-100">
+          <p className="text-2xl md:text-[28px] font-extralight text-luxury-black tracking-tight">€485,000 — €1,250,000</p>
+        </div>
+      )}
     </div>
   </Link>
-);
+  );
+};
 
 /* ─── Property Card ─── */
 const PropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
@@ -1187,9 +1209,12 @@ const PropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
       <img src={property.image} alt={property.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 absolute inset-0" />
       {property.tag === "NEW BUILD" && <span className="absolute top-3 left-3 bg-luxury-black/60 backdrop-blur-sm text-white text-[12px] tracking-[0.12em] uppercase font-medium px-2.5 py-1">New Build</span>}
       {property.gallery.length > 1 && <span className="absolute bottom-3 right-3 bg-luxury-black/60 text-white text-[12px] px-2 py-1 font-light">1/{property.gallery.length}</span>}
-      {/* Mobile: price overlay on image */}
+      {/* Mobile: price overlay with gradient */}
       {isMobile && (
-        <span className="absolute bottom-3 left-3 bg-luxury-black/70 backdrop-blur-sm text-white text-[15px] font-medium px-3 py-1.5 tracking-wide">{property.price}</span>
+        <>
+          <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
+          <span className="absolute bottom-3 left-3 text-white text-[15px] font-medium tracking-wide drop-shadow-md">{property.price}</span>
+        </>
       )}
     </div>
     <div className="md:col-span-7 flex flex-col p-5 md:p-6 lg:p-8">
@@ -1227,6 +1252,7 @@ const PropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
 /* ─── Off-Market Card ─── */
 const OffMarketPropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
   const [modalOpen, setModalOpen] = useState(false);
+  const isMobile = useIsMobile();
   const offmarketTitle = `${property.style.toUpperCase()} FOR SALE OFF-MARKET`;
   return (
     <>
@@ -1237,23 +1263,33 @@ const OffMarketPropertyCard = ({ property }: { property: typeof PROPERTIES[0] })
             <Lock className="w-8 h-8 text-white/80" />
             <span className="text-[12px] tracking-[0.2em] uppercase text-white/90 font-medium">Off-Market</span>
           </div>
+          {isMobile && (
+            <>
+              <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
+              <span className="absolute bottom-3 left-3 text-white/80 text-[14px] font-light italic tracking-wide drop-shadow-md">Price on Request</span>
+            </>
+          )}
         </div>
         <div className="md:col-span-7 flex flex-col p-5 md:p-6 lg:p-8">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-[12px] tracking-[0.15em] uppercase border border-luxury-black/30 text-luxury-black/70 px-2.5 py-1 font-medium bg-amber-50">OFF-MARKET</span>
-            <Lock className="w-4 h-4 text-luxury-black/30" />
-          </div>
+          {!isMobile && (
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-[12px] tracking-[0.15em] uppercase border border-luxury-black/30 text-luxury-black/70 px-2.5 py-1 font-medium bg-amber-50">OFF-MARKET</span>
+              <Lock className="w-4 h-4 text-luxury-black/30" />
+            </div>
+          )}
           <h2 className="text-[17px] md:text-[19px] font-medium text-luxury-black leading-snug mb-1.5">{offmarketTitle}</h2>
-          <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2 italic">This property is part of our exclusive off-market portfolio.</p>
+          {!isMobile && <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2 italic">This property is part of our exclusive off-market portfolio.</p>}
           <div className="flex items-center gap-7 mb-5">
             <div className="text-center"><p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Beds</p><p className="text-[16px] text-luxury-black font-light">{property.beds}</p></div>
             <div className="text-center"><p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Baths</p><p className="text-[16px] text-luxury-black font-light">{property.baths}</p></div>
             <div className="text-center"><p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Built</p><p className="text-[16px] text-luxury-black font-light">{property.sqm} m²</p></div>
           </div>
-          <div className="mt-auto pt-5 border-t border-neutral-100 flex items-center justify-between">
-            <p className="text-2xl md:text-[28px] font-extralight text-luxury-black/50 tracking-tight italic">Price on Request</p>
-            <span className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 font-light flex items-center gap-1.5"><Lock className="w-3 h-3" /> Request access</span>
-          </div>
+          {!isMobile && (
+            <div className="mt-auto pt-5 border-t border-neutral-100 flex items-center justify-between">
+              <p className="text-2xl md:text-[28px] font-extralight text-luxury-black/50 tracking-tight italic">Price on Request</p>
+              <span className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 font-light flex items-center gap-1.5"><Lock className="w-3 h-3" /> Request access</span>
+            </div>
+          )}
         </div>
       </div>
       {modalOpen && (
