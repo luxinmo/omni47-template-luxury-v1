@@ -95,11 +95,14 @@ const DetailInfoHeaderCard: React.FC<DetailInfoHeaderCardProps> = ({
               <span className="text-[14px] text-neutral-400 line-through font-light">{originalPrice}</span>
               <span className="text-[11px] font-medium tracking-[0.08em] uppercase text-amber-600 bg-amber-50 px-2 py-0.5">-{discount}%</span>
             </div>
-            <p className="text-[12px] text-neutral-500 mb-1">{pricePerSqm}</p>
-            <button className="flex items-center gap-1.5 text-[11px] tracking-[0.04em] text-amber-700 hover:text-amber-800 font-medium mt-1 transition-colors">
-              <BellRing className="w-3.5 h-3.5" strokeWidth={1.5} />
-              Avísame si baja el precio
-            </button>
+            <div className="flex items-center gap-2.5 mt-1">
+              <p className="text-[12px] text-neutral-500">{pricePerSqm}</p>
+              <span className="w-px h-3 bg-neutral-200" />
+              <button className="group flex items-center gap-1.5 text-[11px] tracking-[0.06em] text-luxury-gold/80 hover:text-luxury-gold font-light transition-colors">
+                <BellRing className="w-3 h-3 group-hover:animate-[wiggle_0.4s_ease-in-out]" strokeWidth={1.4} />
+                Avísame si baja el precio
+              </button>
+            </div>
             {alsoForRent && (
               <p className="text-[13px] text-neutral-500 mb-6 flex items-center gap-1.5">
                 Also for rent: <span className="font-medium text-neutral-700">{rentalPrice}</span>
