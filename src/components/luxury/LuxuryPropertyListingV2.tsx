@@ -396,7 +396,7 @@ const MobilePriceSelect = ({ value, onChange, options, placeholder }: { value: s
           }}
           onFocus={() => setDropOpen(true)}
           placeholder={placeholder}
-          className="w-full px-4 py-3 text-[15px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none"
+          className="w-full px-4 py-3 text-[16px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none"
         />
         <button onClick={() => setDropOpen(!dropOpen)} className="pr-3 text-luxury-black/40">
           <ChevronDown className={`w-4 h-4 transition-transform ${dropOpen ? "rotate-180" : ""}`} />
