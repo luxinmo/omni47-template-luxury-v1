@@ -326,47 +326,12 @@ const NewDevelopmentsPage = () => {
 
           {/* ── Filter Bar ── */}
           <div className="mb-10 p-6 sm:p-8 rounded-sm" style={{ background: palette.bg, border: `1px solid ${palette.border}` }}>
-            {/* Location row */}
-            <div className="mb-6">
-              <p className="text-[11px] tracking-[0.25em] uppercase font-medium mb-3" style={{ color: palette.accent }}>Location</p>
-              <div className="flex flex-wrap gap-2.5">
-                <Chip label="All" active={!filterLocation} onClick={() => setFilterLocation(null)} />
-                {ALL_LOCATIONS.map(loc => (
-                  <Chip key={loc} label={loc} active={filterLocation === loc} onClick={() => setFilterLocation(filterLocation === loc ? null : loc)} />
-                ))}
-              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              <FilterSelect label="Location" value={filterLocation} options={ALL_LOCATIONS} onChange={setFilterLocation} />
+              <FilterSelect label="Status" value={filterStatus} options={ALL_STATUSES} onChange={setFilterStatus} />
+              <FilterSelect label="Typology" value={filterTypology} options={ALL_TYPOLOGIES} onChange={setFilterTypology} />
+              <FilterSelect label="Delivery" value={filterDelivery} options={ALL_DELIVERIES} onChange={setFilterDelivery} />
             </div>
-
-            {/* Status + Typology row */}
-            <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 mb-6">
-              <div>
-                <p className="text-[11px] tracking-[0.25em] uppercase font-medium mb-3" style={{ color: palette.accent }}>Status</p>
-                <div className="flex flex-wrap gap-2.5">
-                  {ALL_STATUSES.map(s => (
-                    <Chip key={s} label={s} active={filterStatus === s} onClick={() => setFilterStatus(filterStatus === s ? null : s)} />
-                  ))}
-                </div>
-              </div>
-              <div>
-                <p className="text-[11px] tracking-[0.25em] uppercase font-medium mb-3" style={{ color: palette.accent }}>Typology</p>
-                <div className="flex flex-wrap gap-2.5">
-                  {ALL_TYPOLOGIES.map(t => (
-                    <Chip key={t} label={t} active={filterTypology === t} onClick={() => setFilterTypology(filterTypology === t ? null : t)} />
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Delivery row */}
-            <div>
-              <p className="text-[11px] tracking-[0.25em] uppercase font-medium mb-3" style={{ color: palette.accent }}>Delivery</p>
-              <div className="flex flex-wrap gap-2.5">
-                {ALL_DELIVERIES.map(d => (
-                  <Chip key={d} label={d} active={filterDelivery === d} onClick={() => setFilterDelivery(filterDelivery === d ? null : d)} />
-                ))}
-              </div>
-            </div>
-
             {hasFilters && (
               <div className="mt-5 pt-4" style={{ borderTop: `1px solid ${palette.border}` }}>
                 <button onClick={clearFilters} className="inline-flex items-center gap-1.5 text-[12px] tracking-[0.1em] uppercase font-light transition-opacity hover:opacity-60" style={{ color: palette.textMuted }}>
