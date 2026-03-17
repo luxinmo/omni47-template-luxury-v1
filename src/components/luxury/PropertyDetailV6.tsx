@@ -522,7 +522,7 @@ const PropertyDetailV6 = () => {
                   <Home className="w-3 h-3 text-luxury-gold/80" /> Rent: <span className="font-medium text-luxury-black/70">{p.rentalPrice}</span>
                 </span>
               )}
-              <button className="group flex items-center gap-1.5 text-[11px] tracking-[0.06em] text-luxury-gold/80 hover:text-luxury-gold font-light transition-colors mt-1">
+              <button onClick={() => setPriceAlertOpen(true)} className="group flex items-center gap-1.5 text-[11px] tracking-[0.06em] text-luxury-gold/80 hover:text-luxury-gold font-light transition-colors mt-1">
                 <BellRing className="w-3 h-3 group-hover:animate-[wiggle_0.4s_ease-in-out]" strokeWidth={1.4} />
                 Avísame si baja el precio
               </button>
