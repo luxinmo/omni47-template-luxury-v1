@@ -5,7 +5,7 @@ import {
   Bed, Bath, Maximize, MapPin, Heart, Share2, ChevronLeft, ChevronRight, Menu,
   X, Check, Phone, Fence, Mail, ChevronDown, CalendarDays, Star,
   Play, View, FileDown, Home, Grid3X3, TrendingUp,
-  ArrowRight, MessageCircle, Send,
+  ArrowRight, MessageCircle, Send, BellRing,
 } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
