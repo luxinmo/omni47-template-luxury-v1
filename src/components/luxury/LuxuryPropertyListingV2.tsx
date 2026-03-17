@@ -371,51 +371,84 @@ const FilterSidebar = ({ open, onClose, filters, onChange }: { open: boolean; on
   );
 };
 
-/* ─── Mobile Price Select (dropdown + editable) ─── */
+/* ─── Mobile Price Select (popup overlay) ─── */
 const MobilePriceSelect = ({ value, onChange, options, placeholder }: { value: string; onChange: (v: string) => void; options: typeof MOBILE_PRICE_OPTIONS; placeholder: string }) => {
-  const [dropOpen, setDropOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handler = (e: MouseEvent) => { if (ref.current && !ref.current.contains(e.target as Node)) setDropOpen(false); };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, []);
+  const [popupOpen, setPopupOpen] = useState(false);
+  const [tempValue, setTempValue] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const displayValue = value ? (parseInt(value) >= 1000000 ? `${(parseInt(value) / 1000000)}M€` : `${parseInt(value).toLocaleString("es-ES")}€`) : "";
 
+  const openPopup = () => {
+    setTempValue(value);
+    setPopupOpen(true);
+    setTimeout(() => inputRef.current?.focus(), 100);
+  };
+
+  const confirm = (v: string) => {
+    onChange(v);
+    setPopupOpen(false);
+  };
+
+  const tempDisplay = tempValue ? (parseInt(tempValue) >= 1000000 ? `${(parseInt(tempValue) / 1000000)}M€` : `${parseInt(tempValue).toLocaleString("es-ES")}€`) : "";
+
   return (
-    <div ref={ref} className="relative flex-1">
-      <div className="flex items-center border border-neutral-200 rounded-lg overflow-hidden">
-        <input
-          type="text"
-          value={displayValue}
-          onChange={(e) => {
-            const raw = e.target.value.replace(/[^0-9]/g, "");
-            onChange(raw);
-          }}
-          onFocus={() => setDropOpen(true)}
-          placeholder={placeholder}
-          className="w-full px-4 py-3 text-[16px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none"
-        />
-        <button onClick={() => setDropOpen(!dropOpen)} className="pr-3 text-luxury-black/40">
-          <ChevronDown className={`w-4 h-4 transition-transform ${dropOpen ? "rotate-180" : ""}`} />
-        </button>
-      </div>
-      {dropOpen && (
-        <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-neutral-200 rounded-lg shadow-lg z-10 max-h-[200px] overflow-y-auto">
-          {options.map((opt, i) => (
-            <button
-              key={i}
-              onClick={() => { onChange(opt.value); setDropOpen(false); }}
-              className={`w-full text-left px-4 py-2.5 text-[14px] transition-colors hover:bg-neutral-50 ${value === opt.value && opt.value ? "text-luxury-black font-medium bg-neutral-50" : "text-luxury-black/70"}`}
-            >
-              {opt.label}
-            </button>
-          ))}
+    <>
+      <button onClick={openPopup} className="flex-1 flex items-center justify-between border border-neutral-200 rounded-lg px-4 py-3">
+        <span className={`text-[16px] ${displayValue ? "text-luxury-black" : "text-luxury-black/35"}`}>{displayValue || placeholder}</span>
+        <ChevronDown className="w-4 h-4 text-luxury-black/40" />
+      </button>
+
+      {popupOpen && (
+        <div className="fixed inset-0 z-[200] flex items-end justify-center" onClick={() => setPopupOpen(false)}>
+          <div className="absolute inset-0 bg-black/40" />
+          <div className="relative w-full max-w-md bg-white rounded-t-2xl animate-in slide-in-from-bottom duration-300" onClick={(e) => e.stopPropagation()}>
+            {/* Header */}
+            <div className="flex items-center justify-between px-5 py-4 border-b border-neutral-100">
+              <h4 className="text-[16px] font-medium text-luxury-black">{placeholder} price</h4>
+              <button onClick={() => setPopupOpen(false)} className="text-luxury-black/40">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Custom input */}
+            <div className="px-5 pt-4 pb-2">
+              <div className="flex items-center border border-neutral-200 rounded-lg overflow-hidden">
+                <span className="pl-4 text-luxury-black/40 text-[16px]">€</span>
+                <input
+                  ref={inputRef}
+                  type="text"
+                  inputMode="numeric"
+                  value={tempDisplay}
+                  onChange={(e) => setTempValue(e.target.value.replace(/[^0-9]/g, ""))}
+                  onKeyDown={(e) => { if (e.key === "Enter") confirm(tempValue); }}
+                  placeholder="Type amount"
+                  className="w-full px-3 py-3.5 text-[16px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none"
+                />
+                {tempValue && (
+                  <button onClick={() => confirm(tempValue)} className="pr-4 text-luxury-black font-medium text-[14px] whitespace-nowrap">
+                    OK
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Preset options */}
+            <div className="px-2 pb-6 max-h-[45vh] overflow-y-auto">
+              {options.map((opt, i) => (
+                <button
+                  key={i}
+                  onClick={() => confirm(opt.value)}
+                  className={`w-full text-left px-5 py-3 text-[15px] rounded-lg transition-colors ${value === opt.value && opt.value ? "text-luxury-black font-medium bg-neutral-100" : "text-luxury-black/70 active:bg-neutral-50"}`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
