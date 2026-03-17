@@ -735,7 +735,8 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
           <div>
             {/* Tourist zones */}
             {TOURIST_ZONES.map(zone => {
-              const zoneSelectedCount = zone.cities.filter(c => selected.some(s => s.id === c.id)).length;
+              const allAreaIds = zone.cities.flatMap(c => (c.areas || []).map(a => a.id));
+              const zoneSelectedCount = zone.cities.filter(c => selected.some(s => s.id === c.id)).length + allAreaIds.filter(id => selected.some(s => s.id === id)).length;
               return (
                 <button
                   key={zone.id}
