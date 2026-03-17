@@ -13,6 +13,7 @@ import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/compone
 import { cn } from "@/lib/utils";
 import { brand, navLeft, navRight, languages, currencies, areaUnits } from "@/config/template";
 import SEOHead from "@/components/shared/SEOHead";
+import DetailPriceAlertModal from "@/components/blocks/detail/DetailPriceAlertModal";
 import LuxuryPhoneInput from "./LuxuryPhoneInput";
 import LuxuryMortgageCalculator from "./LuxuryMortgageCalculator";
 
