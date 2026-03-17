@@ -41,6 +41,7 @@ import DetailBreadcrumb from "@/components/blocks/detail/DetailBreadcrumb";
 import DetailInfoHeader from "@/components/blocks/detail/DetailInfoHeader";
 import DetailDescription from "@/components/blocks/detail/DetailDescription";
 import DetailFeaturesGrid from "@/components/blocks/detail/DetailFeaturesGrid";
+import DetailAmenitiesFull from "@/components/blocks/detail/DetailAmenitiesFull";
 import DetailCharacteristics from "@/components/blocks/detail/DetailCharacteristics";
 import DetailPriceCard from "@/components/blocks/detail/DetailPriceCard";
 import DetailMortgageCalculator from "@/components/blocks/detail/DetailMortgageCalculator";
@@ -312,6 +313,7 @@ const CATEGORIES = [
       { id: "detail-breadcrumb-sticky", name: "Breadcrumb Sticky Bar", origin: "Detail V4", component: DetailBreadcrumbSticky },
       { id: "detail-related-list", name: "Related Properties List", origin: "Detail V4", component: DetailRelatedList },
       { id: "detail-nearby-areas", name: "Nearby Areas (Links Grid)", origin: "Detail V6", component: DetailNearbyAreas },
+      { id: "detail-amenities-full", name: "Amenities Full Catalog (7 cats)", origin: "Omni47 Catalog", component: DetailAmenitiesFull },
     ],
   },
   {
