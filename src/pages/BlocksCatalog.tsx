@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import { Search, X } from "lucide-react";
 import { Link } from "react-router-dom";
 
 /**
