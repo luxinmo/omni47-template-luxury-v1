@@ -28,12 +28,13 @@
 | featured-grid-3col | Grid 3 Columnas | Home3/4 | 3 columnas, aspect 4/3, con botón "Request Details" (Home4) |
 | featured-grid-portrait | Grid Retratos | Portal | 3 columnas, aspect 3/4, botón circular ArrowUpRight on hover, estilo editorial |
 
-## 🗺️ Destinos / Zonas (2 variantes)
+## 🗺️ Destinos / Zonas (3 variantes)
 
 | ID | Nombre | Origen | Descripción visual |
 |----|--------|--------|--------------------|
 | destinations-grid-tall | Grid Vertical | Home2/3 | 6 columnas, aspect 2/3, gradiente inferior, nombre + count |
 | destinations-asymmetric | Grid Asimétrico | Portal | 2 grandes (16/10) + 4 pequeños (3/4), tagline + nombre + count |
+| destinations-map-carousel | Carousel con Mapas | Home | Carrusel horizontal con tarjetas que combinan siluetas SVG de mapas (140px) + nombre, descripción y contador de propiedades. Flechas de navegación con visibilidad condicional |
 
 ## 🏷️ Tipos de Propiedad (1 variante)
 
