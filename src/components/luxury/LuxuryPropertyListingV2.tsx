@@ -454,22 +454,6 @@ const MobileFilterSheet = ({ open, onClose, filters, onChange }: { open: boolean
       {/* Scrollable content */}
       <div className="flex-1 overflow-y-auto px-4 py-5 space-y-6">
 
-        {/* For Sale | For Rent toggle */}
-        <div className="flex rounded-lg border border-neutral-200 overflow-hidden">
-          <button
-            onClick={() => onChange({ ...filters, listingMode: "sale" })}
-            className={`flex-1 py-3 text-[14px] font-medium transition-all ${filters.listingMode === "sale" ? "bg-luxury-black text-white" : "bg-white text-luxury-black/60"}`}
-          >
-            For Sale
-          </button>
-          <button
-            onClick={() => onChange({ ...filters, listingMode: "rent" })}
-            className={`flex-1 py-3 text-[14px] font-medium transition-all ${filters.listingMode === "rent" ? "bg-luxury-black text-white" : "bg-white text-luxury-black/60"}`}
-          >
-            For Rent
-          </button>
-        </div>
-
         {/* Property Type — Houses / Flats / Lands with expandable subcategories */}
         <div>
           <div className="flex items-center gap-2.5 mb-4">
@@ -481,20 +465,31 @@ const MobileFilterSheet = ({ open, onClose, filters, onChange }: { open: boolean
             {MOBILE_TYPE_CATEGORIES.map((cat) => {
               const isExpanded = expandedCat === cat.label;
               const selectedInCat = cat.subtypes.filter(s => filters.types.includes(s)).length;
+              const allSelected = cat.subtypes.every(s => filters.types.includes(s));
+              const toggleAll = () => {
+                if (allSelected) {
+                  onChange({ ...filters, types: filters.types.filter(t => !cat.subtypes.includes(t)) });
+                } else {
+                  const newTypes = [...new Set([...filters.types, ...cat.subtypes])];
+                  onChange({ ...filters, types: newTypes });
+                }
+              };
               return (
                 <div key={cat.label}>
-                  <button
-                    onClick={() => setExpandedCat(isExpanded ? null : cat.label)}
-                    className="w-full flex items-center justify-between px-4 py-3.5 rounded-lg border border-neutral-200 transition-all"
-                  >
-                    <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-0 rounded-lg border border-neutral-200 overflow-hidden">
+                    {/* Checkbox for selecting ALL subtypes of this category */}
+                    <label className="flex items-center gap-3 px-4 py-3.5 cursor-pointer flex-1">
+                      <input type="checkbox" checked={allSelected} onChange={toggleAll} className="w-[18px] h-[18px] border-neutral-300 rounded accent-luxury-black" />
                       <span className="text-[15px] text-luxury-black/80 font-medium">{cat.label}</span>
-                      {selectedInCat > 0 && <span className="bg-red-500 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">{selectedInCat}</span>}
-                    </div>
-                    <ChevronDown className={`w-4 h-4 text-luxury-black/30 transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`} />
-                  </button>
+                      {selectedInCat > 0 && !allSelected && <span className="bg-red-500 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">{selectedInCat}</span>}
+                    </label>
+                    {/* Expand arrow */}
+                    <button onClick={() => setExpandedCat(isExpanded ? null : cat.label)} className="px-4 py-3.5 text-luxury-black/30 hover:text-luxury-black/60 transition-colors">
+                      <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`} />
+                    </button>
+                  </div>
                   {isExpanded && (
-                    <div className="ml-4 mt-1 space-y-0.5 animate-in slide-in-from-top-1 duration-200">
+                    <div className="ml-6 mt-1 space-y-0.5 animate-in slide-in-from-top-1 duration-200">
                       {cat.subtypes.map((sub) => (
                         <label key={sub} className="flex items-center gap-3 px-4 py-2.5 cursor-pointer hover:bg-neutral-50 rounded-lg transition-colors">
                           <input type="checkbox" checked={filters.types.includes(sub)} onChange={() => toggleType(sub)} className="w-[18px] h-[18px] border-neutral-300 rounded accent-luxury-black" />
@@ -585,6 +580,26 @@ const MobileFilterSheet = ({ open, onClose, filters, onChange }: { open: boolean
             {AMENITY_SIDEBAR.map((a) => (
               <button key={a} onClick={() => onChange({ ...filters, amenities: filters.amenities.includes(a) ? filters.amenities.filter(x => x !== a) : [...filters.amenities, a] })} className={`px-4 py-2 text-[13px] rounded-full border transition-all ${filters.amenities.includes(a) ? "border-luxury-black bg-luxury-black text-white" : "border-neutral-200 text-luxury-black/60"}`}>{a}</button>
             ))}
+          </div>
+        </div>
+
+        {/* For Sale / For Rent — question at the bottom */}
+        <div className="bg-neutral-50 rounded-xl p-5">
+          <p className="text-[14px] font-medium text-luxury-black mb-1">Are you looking to buy or rent?</p>
+          <p className="text-[12px] text-luxury-black/45 mb-4">Select the type of listing you're interested in</p>
+          <div className="flex rounded-lg border border-neutral-200 overflow-hidden">
+            <button
+              onClick={() => onChange({ ...filters, listingMode: "sale" })}
+              className={`flex-1 py-3 text-[14px] font-medium transition-all ${filters.listingMode === "sale" ? "bg-luxury-black text-white" : "bg-white text-luxury-black/60"}`}
+            >
+              For Sale
+            </button>
+            <button
+              onClick={() => onChange({ ...filters, listingMode: "rent" })}
+              className={`flex-1 py-3 text-[14px] font-medium transition-all ${filters.listingMode === "rent" ? "bg-luxury-black text-white" : "bg-white text-luxury-black/60"}`}
+            >
+              For Rent
+            </button>
           </div>
         </div>
       </div>
