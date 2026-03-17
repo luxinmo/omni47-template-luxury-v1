@@ -21,6 +21,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 /* ─── Types ─── */
 interface FilterState {
   locations: { id: string; name: string; path: string; type: string }[];
+  listingMode: "sale" | "rent";
   types: string[];
   priceMin: string;
   priceMax: string;
@@ -31,10 +32,12 @@ interface FilterState {
   baths: string;
   amenities: string[];
   newBuilds: boolean;
+  quickTags: string[];
 }
 
 const defaultFilters: FilterState = {
   locations: [],
+  listingMode: "sale",
   types: [],
   priceMin: "",
   priceMax: "",
@@ -45,6 +48,7 @@ const defaultFilters: FilterState = {
   baths: "Any",
   amenities: [],
   newBuilds: false,
+  quickTags: [],
 };
 
 /* ─── Constants ─── */
