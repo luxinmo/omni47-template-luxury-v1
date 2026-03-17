@@ -1181,11 +1181,8 @@ const NewDevPromoCard = () => {
       <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-luxury-black/80 text-white text-[11px] tracking-[0.12em] uppercase font-medium px-3 py-1.5 rounded-sm"><Building2 className="w-3 h-3" /> New Development</span>
       {isMobile && (
         <>
-          <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
-          <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between drop-shadow-md">
-            <span className="text-white text-[17px] font-semibold tracking-wide">€485,000 — €1,250,000</span>
-            <span className="text-white/80 text-[11px] tracking-[0.05em] font-light">12 units · Q4 2026</span>
-          </div>
+          <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
+          <span className="absolute bottom-3 left-3 text-white text-[17px] font-semibold tracking-wide drop-shadow-md">€485,000 — €1,250,000</span>
         </>
       )}
     </div>
@@ -1193,7 +1190,7 @@ const NewDevPromoCard = () => {
       <p className="text-[13px] tracking-[0.14em] uppercase text-luxury-black/60 mb-1">Altea · Costa Blanca</p>
       <h2 className="text-[17px] md:text-[19px] font-medium text-luxury-black leading-snug mb-1.5">MAREA RESIDENCES</h2>
       <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-3 line-clamp-2">Contemporary beachfront apartments with panoramic sea views and communal pools.</p>
-      <div className="flex items-center gap-4 text-[13px] text-luxury-black/55 font-light mb-4">
+      <div className="flex items-center gap-4 text-[13px] text-luxury-black/55 font-light">
         <span className="flex items-center gap-1"><Building2 className="w-3.5 h-3.5 text-luxury-black/40" /> 12 units available</span>
         <span>Delivery Q4 2026</span>
       </div>
