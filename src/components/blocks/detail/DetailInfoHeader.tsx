@@ -62,9 +62,9 @@ const DetailInfoHeader = ({
       <p className="text-[26px] sm:text-[30px] font-medium text-neutral-900 tracking-tight leading-none">{priceFormatted}</p>
       {originalPrice && <span className="text-[13px] text-neutral-300 line-through font-light">{originalPrice}</span>}
       {discount > 0 && <span className="text-[10px] font-medium tracking-[0.08em] uppercase text-amber-700">-{discount}%</span>}
-      <span className="text-[11px] text-neutral-400 font-light">{pricePerSqm}</span>
-      <button className="flex items-center gap-1 text-[10px] sm:text-[11px] tracking-[0.04em] text-amber-700 hover:text-amber-800 font-medium transition-colors">
-        <BellRing className="w-3 h-3" strokeWidth={1.5} />
+      <span className="w-px h-3 bg-neutral-200" />
+      <button className="group flex items-center gap-1 text-[10px] sm:text-[11px] tracking-[0.06em] text-luxury-gold/80 hover:text-luxury-gold font-light transition-colors">
+        <BellRing className="w-3 h-3 group-hover:animate-[wiggle_0.4s_ease-in-out]" strokeWidth={1.4} />
         Avísame si baja
       </button>
       {alsoForRent && (

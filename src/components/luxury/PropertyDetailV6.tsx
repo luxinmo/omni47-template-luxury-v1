@@ -520,8 +520,8 @@ const PropertyDetailV6 = () => {
                   <Home className="w-3 h-3 text-luxury-gold/80" /> Rent: <span className="font-medium text-luxury-black/70">{p.rentalPrice}</span>
                 </span>
               )}
-              <button className="flex items-center gap-1.5 text-[11px] tracking-[0.04em] text-amber-700 hover:text-amber-800 font-medium transition-colors w-full mt-1">
-                <BellRing className="w-3.5 h-3.5" strokeWidth={1.5} />
+              <button className="group flex items-center gap-1.5 text-[11px] tracking-[0.06em] text-luxury-gold/80 hover:text-luxury-gold font-light transition-colors mt-1">
+                <BellRing className="w-3 h-3 group-hover:animate-[wiggle_0.4s_ease-in-out]" strokeWidth={1.4} />
                 Avísame si baja el precio
               </button>
             </div>
@@ -711,10 +711,11 @@ const PropertyDetailV6 = () => {
                 <span className="text-[14px] text-luxury-black/35 line-through font-light">{p.originalPrice}</span>
                 <span className="text-[11px] font-medium tracking-[0.08em] uppercase text-luxury-gold bg-luxury-gold/10 px-2 py-0.5">-{p.discount}%</span>
               </div>
-              <div className="flex items-center gap-3 mb-1">
+              <div className="flex items-center gap-2.5 mb-1">
                 <p className="text-[12px] text-luxury-black/60">{p.pricePerSqm}</p>
-                <button className="flex items-center gap-1.5 text-[11px] tracking-[0.04em] text-amber-700 hover:text-amber-800 font-medium transition-colors">
-                  <BellRing className="w-3.5 h-3.5" strokeWidth={1.5} />
+                <span className="w-px h-3 bg-luxury-black/15" />
+                <button className="group flex items-center gap-1.5 text-[11px] tracking-[0.06em] text-luxury-gold/80 hover:text-luxury-gold font-light transition-colors">
+                  <BellRing className="w-3 h-3 group-hover:animate-[wiggle_0.4s_ease-in-out]" strokeWidth={1.4} />
                   Avísame si baja el precio
                 </button>
               </div>
