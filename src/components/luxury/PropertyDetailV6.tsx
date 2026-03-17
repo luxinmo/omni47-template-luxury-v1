@@ -713,11 +713,6 @@ const PropertyDetailV6 = () => {
               </div>
               <div className="flex items-center gap-2.5 mb-1">
                 <p className="text-[12px] text-luxury-black/60">{p.pricePerSqm}</p>
-                <span className="w-px h-3 bg-luxury-black/15" />
-                <button className="group flex items-center gap-1.5 text-[11px] tracking-[0.06em] text-luxury-gold/80 hover:text-luxury-gold font-light transition-colors">
-                  <BellRing className="w-3 h-3 group-hover:animate-[wiggle_0.4s_ease-in-out]" strokeWidth={1.4} />
-                  Avísame si baja el precio
-                </button>
               </div>
               {p.alsoForRent && (
                 <p className="text-[13px] text-luxury-black/60 mb-4 flex items-center gap-1.5">
