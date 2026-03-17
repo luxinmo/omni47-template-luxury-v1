@@ -1040,6 +1040,7 @@ const LuxuryPropertyListingV2 = () => {
   const [sortValue, setSortValue] = useState("premium");
   const [filters, setFilters] = useState<FilterState>(defaultFilters);
   const [mobileSearch, setMobileSearch] = useState("");
+  const [locationPopupOpen, setLocationPopupOpen] = useState(false);
 
   const toggleType = (t: string) => setFilters(f => ({ ...f, types: f.types.includes(t) ? f.types.filter(x => x !== t) : [...f.types, t] }));
   const toggleAmenity = (a: string) => setFilters(f => ({ ...f, amenities: f.amenities.includes(a) ? f.amenities.filter(x => x !== a) : [...f.amenities, a] }));
