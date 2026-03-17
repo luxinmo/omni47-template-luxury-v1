@@ -651,7 +651,7 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
       {/* Content */}
       <div className="flex-1 overflow-y-auto">
         {activeZone ? (
-          /* ─── Zone detail: alphabetical city list ─── */
+          /* ─── Zone detail: alphabetical city list with expandable areas ─── */
           <div>
             {alphabetGroups.length > 0 ? alphabetGroups.map(([letter, cities]) => (
               <div key={letter}>
@@ -660,13 +660,44 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
                 </div>
                 {cities.map(city => {
                   const isSelected = selected.some(s => s.id === city.id);
+                  const hasAreas = city.areas && city.areas.length > 0;
+                  const isExpanded = expandedCity === city.id;
+                  const selectedAreaCount = hasAreas ? city.areas!.filter(a => selected.some(s => s.id === a.id)).length : 0;
                   return (
-                    <button key={city.id} onClick={() => toggleItem(city.id, city.name)} className={`w-full flex items-center gap-3 px-4 py-3 transition-colors ${isSelected ? "bg-neutral-50" : "active:bg-neutral-50"}`}>
-                      <MapPin className={`w-4 h-4 shrink-0 ${isSelected ? "text-luxury-black" : "text-luxury-black/25"}`} />
-                      <span className={`text-[15px] flex-1 text-left ${isSelected ? "text-luxury-black font-medium" : "text-luxury-black/70"}`}>{city.name}</span>
-                      <span className="text-[12px] text-luxury-black/30">{city.count}</span>
-                      <CheckBox checked={isSelected} />
-                    </button>
+                    <div key={city.id}>
+                      <div className={`flex items-center gap-3 px-4 py-3 transition-colors ${isSelected || selectedAreaCount > 0 ? "bg-neutral-50" : ""}`}>
+                        <button onClick={() => toggleItem(city.id, city.name)} className="flex items-center gap-3 flex-1 min-w-0">
+                          <MapPin className={`w-4 h-4 shrink-0 ${isSelected ? "text-luxury-black" : "text-luxury-black/25"}`} />
+                          <span className={`text-[15px] flex-1 text-left ${isSelected ? "text-luxury-black font-medium" : "text-luxury-black/70"}`}>{city.name}</span>
+                        </button>
+                        {hasAreas && isSelected && (
+                          <button
+                            onClick={() => setExpandedCity(isExpanded ? null : city.id)}
+                            className="text-[11px] font-medium text-luxury-black/50 border border-neutral-200 rounded-full px-2.5 py-1 flex items-center gap-1"
+                          >
+                            {selectedAreaCount > 0 ? `${selectedAreaCount} areas` : "All"}
+                            <ChevronDown className={`w-3 h-3 transition-transform ${isExpanded ? "rotate-180" : ""}`} />
+                          </button>
+                        )}
+                        {hasAreas && !isSelected && <span className="text-[12px] text-luxury-black/30">{city.count}</span>}
+                        {!hasAreas && <span className="text-[12px] text-luxury-black/30">{city.count}</span>}
+                        <CheckBox checked={isSelected} />
+                      </div>
+                      {isExpanded && hasAreas && (
+                        <div className="pl-11 pr-4 pb-2 bg-neutral-50/50">
+                          {city.areas!.map(area => {
+                            const areaSelected = selected.some(s => s.id === area.id);
+                            return (
+                              <button key={area.id} onClick={() => toggleItem(area.id, area.name)} className="w-full flex items-center gap-3 py-2.5 transition-colors active:bg-neutral-100">
+                                <span className={`text-[14px] flex-1 text-left ${areaSelected ? "text-luxury-black font-medium" : "text-luxury-black/55"}`}>{area.name}</span>
+                                <span className="text-[11px] text-luxury-black/25">{area.count}</span>
+                                <CheckBox checked={areaSelected} />
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
                   );
                 })}
               </div>
@@ -677,20 +708,18 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
             )}
           </div>
         ) : isSearching ? (
-          /* ─── Global search results ─── */
           <div>
             {globalSearchResults && globalSearchResults.length > 0 ? (
-              globalSearchResults.map(city => {
-                const isSelected = selected.some(s => s.id === city.id);
-                const zone = TOURIST_ZONES.find(z => z.cities.some(c => c.id === city.id));
+              globalSearchResults.map(item => {
+                const isSelected = selected.some(s => s.id === item.id);
                 return (
-                  <button key={city.id} onClick={() => toggleItem(city.id, city.name)} className={`w-full flex items-center gap-3 px-4 py-3.5 transition-colors ${isSelected ? "bg-neutral-50" : "active:bg-neutral-50"}`}>
+                  <button key={item.id} onClick={() => toggleItem(item.id, item.name)} className={`w-full flex items-center gap-3 px-4 py-3.5 transition-colors ${isSelected ? "bg-neutral-50" : "active:bg-neutral-50"}`}>
                     <Search className="w-4 h-4 shrink-0 text-luxury-black/20" />
                     <div className="flex-1 text-left">
-                      <span className={`text-[15px] block ${isSelected ? "text-luxury-black font-medium" : "text-luxury-black/70"}`}>{city.name}</span>
-                      {zone && <span className="text-[12px] text-luxury-black/35">{zone.name}</span>}
+                      <span className={`text-[15px] block ${isSelected ? "text-luxury-black font-medium" : "text-luxury-black/70"}`}>{item.name}</span>
+                      <span className="text-[12px] text-luxury-black/35">{item.zoneName}{item.type === "area" && ` · ${(item as any).cityName}`}</span>
                     </div>
-                    <span className="text-[12px] text-luxury-black/30">{city.count}</span>
+                    <span className="text-[12px] text-luxury-black/30">{item.count}</span>
                     <CheckBox checked={isSelected} />
                   </button>
                 );
