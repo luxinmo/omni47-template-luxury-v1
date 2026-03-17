@@ -311,48 +311,54 @@ const NewDevelopmentsPage = () => {
           </FadeIn>
 
           {/* ── Filter Bar ── */}
-          <div className="mb-8">
+          <div className="mb-10 p-6 sm:p-8 rounded-sm" style={{ background: palette.bg, border: `1px solid ${palette.border}` }}>
             {/* Location row */}
-            <div className="mb-3">
-              <p className="text-[10px] tracking-[0.2em] uppercase font-medium mb-2" style={{ color: palette.textLight }}>Location</p>
-              <div className="flex flex-wrap gap-2">
+            <div className="mb-6">
+              <p className="text-[11px] tracking-[0.25em] uppercase font-medium mb-3" style={{ color: palette.accent }}>Location</p>
+              <div className="flex flex-wrap gap-2.5">
                 <Chip label="All" active={!filterLocation} onClick={() => setFilterLocation(null)} />
                 {ALL_LOCATIONS.map(loc => (
                   <Chip key={loc} label={loc} active={filterLocation === loc} onClick={() => setFilterLocation(filterLocation === loc ? null : loc)} />
                 ))}
               </div>
             </div>
-            {/* Status + Typology + Delivery row */}
-            <div className="flex flex-wrap gap-6 mt-4">
+
+            {/* Status + Typology row */}
+            <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 mb-6">
               <div>
-                <p className="text-[10px] tracking-[0.2em] uppercase font-medium mb-2" style={{ color: palette.textLight }}>Status</p>
-                <div className="flex flex-wrap gap-2">
+                <p className="text-[11px] tracking-[0.25em] uppercase font-medium mb-3" style={{ color: palette.accent }}>Status</p>
+                <div className="flex flex-wrap gap-2.5">
                   {ALL_STATUSES.map(s => (
                     <Chip key={s} label={s} active={filterStatus === s} onClick={() => setFilterStatus(filterStatus === s ? null : s)} />
                   ))}
                 </div>
               </div>
               <div>
-                <p className="text-[10px] tracking-[0.2em] uppercase font-medium mb-2" style={{ color: palette.textLight }}>Typology</p>
-                <div className="flex flex-wrap gap-2">
+                <p className="text-[11px] tracking-[0.25em] uppercase font-medium mb-3" style={{ color: palette.accent }}>Typology</p>
+                <div className="flex flex-wrap gap-2.5">
                   {ALL_TYPOLOGIES.map(t => (
                     <Chip key={t} label={t} active={filterTypology === t} onClick={() => setFilterTypology(filterTypology === t ? null : t)} />
                   ))}
                 </div>
               </div>
-              <div>
-                <p className="text-[10px] tracking-[0.2em] uppercase font-medium mb-2" style={{ color: palette.textLight }}>Delivery</p>
-                <div className="flex flex-wrap gap-2">
-                  {ALL_DELIVERIES.map(d => (
-                    <Chip key={d} label={d} active={filterDelivery === d} onClick={() => setFilterDelivery(filterDelivery === d ? null : d)} />
-                  ))}
-                </div>
+            </div>
+
+            {/* Delivery row */}
+            <div>
+              <p className="text-[11px] tracking-[0.25em] uppercase font-medium mb-3" style={{ color: palette.accent }}>Delivery</p>
+              <div className="flex flex-wrap gap-2.5">
+                {ALL_DELIVERIES.map(d => (
+                  <Chip key={d} label={d} active={filterDelivery === d} onClick={() => setFilterDelivery(filterDelivery === d ? null : d)} />
+                ))}
               </div>
             </div>
+
             {hasFilters && (
-              <button onClick={clearFilters} className="mt-4 inline-flex items-center gap-1.5 text-[12px] font-light transition-opacity hover:opacity-60" style={{ color: palette.textMuted }}>
-                <X className="w-3 h-3" /> Clear all filters
-              </button>
+              <div className="mt-5 pt-4" style={{ borderTop: `1px solid ${palette.border}` }}>
+                <button onClick={clearFilters} className="inline-flex items-center gap-1.5 text-[12px] tracking-[0.1em] uppercase font-light transition-opacity hover:opacity-60" style={{ color: palette.textMuted }}>
+                  <X className="w-3.5 h-3.5" /> Clear all filters
+                </button>
+              </div>
             )}
           </div>
 
