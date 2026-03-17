@@ -371,25 +371,50 @@ const FilterSidebar = ({ open, onClose, filters, onChange }: { open: boolean; on
   );
 };
 
-/* ─── Location data: Tourist zones with cities ─── */
-const TOURIST_ZONES = [
+/* ─── Location data: Tourist zones → cities → areas ─── */
+type CityArea = { id: string; name: string; count: number };
+type CityData = { id: string; name: string; count: number; areas?: CityArea[] };
+
+const TOURIST_ZONES: { id: string; name: string; count: number; cities: CityData[] }[] = [
   {
     id: "ibiza", name: "Ibiza", count: 48,
     cities: [
-      { id: "es-ibiza-town", name: "Ibiza Town", count: 18 },
+      { id: "es-ibiza-town", name: "Ibiza Town", count: 18, areas: [
+        { id: "es-ibiza-marina", name: "Marina Botafoch", count: 6 },
+        { id: "es-ibiza-dalt-vila", name: "Dalt Vila", count: 4 },
+        { id: "es-ibiza-talamanca", name: "Talamanca", count: 5 },
+        { id: "es-ibiza-figueretas", name: "Figueretas", count: 3 },
+      ]},
       { id: "es-san-antonio", name: "San Antonio", count: 8 },
-      { id: "es-san-jose", name: "San José", count: 12 },
+      { id: "es-san-jose", name: "San José", count: 12, areas: [
+        { id: "es-sanjose-cala-jondal", name: "Cala Jondal", count: 5 },
+        { id: "es-sanjose-vedra", name: "Es Vedrà", count: 3 },
+        { id: "es-sanjose-cubells", name: "Es Cubells", count: 4 },
+      ]},
       { id: "es-san-juan", name: "San Juan", count: 4 },
-      { id: "es-santa-eulalia", name: "Santa Eulalia", count: 6 },
+      { id: "es-santa-eulalia", name: "Santa Eulalia", count: 6, areas: [
+        { id: "es-se-roca-llisa", name: "Roca Llisa", count: 3 },
+        { id: "es-se-jesus", name: "Jesús", count: 3 },
+      ]},
     ],
   },
   {
     id: "mallorca", name: "Mallorca", count: 35,
     cities: [
-      { id: "es-andratx", name: "Andratx", count: 6 },
-      { id: "es-calvia", name: "Calvià", count: 5 },
+      { id: "es-andratx", name: "Andratx", count: 6, areas: [
+        { id: "es-andratx-port", name: "Port d'Andratx", count: 4 },
+        { id: "es-andratx-camp", name: "Camp de Mar", count: 2 },
+      ]},
+      { id: "es-calvia", name: "Calvià", count: 5, areas: [
+        { id: "es-calvia-bendinat", name: "Bendinat", count: 2 },
+        { id: "es-calvia-portals", name: "Portals Nous", count: 3 },
+      ]},
       { id: "es-deia", name: "Deià", count: 3 },
-      { id: "es-palma", name: "Palma", count: 12 },
+      { id: "es-palma", name: "Palma", count: 12, areas: [
+        { id: "es-palma-old-town", name: "Old Town", count: 4 },
+        { id: "es-palma-portixol", name: "Portixol", count: 3 },
+        { id: "es-palma-son-vida", name: "Son Vida", count: 5 },
+      ]},
       { id: "es-pollensa", name: "Pollença", count: 4 },
       { id: "es-soller", name: "Sóller", count: 3 },
       { id: "es-valldemossa", name: "Valldemossa", count: 2 },
@@ -398,26 +423,52 @@ const TOURIST_ZONES = [
   {
     id: "costa-del-sol", name: "Costa del Sol", count: 109,
     cities: [
-      { id: "es-benahavis", name: "Benahavís", count: 19 },
+      { id: "es-benahavis", name: "Benahavís", count: 19, areas: [
+        { id: "es-benahavis-zagaleta", name: "La Zagaleta", count: 8 },
+        { id: "es-benahavis-monte-mayor", name: "Monte Mayor", count: 5 },
+        { id: "es-benahavis-el-madroñal", name: "El Madroñal", count: 6 },
+      ]},
       { id: "es-benalmadena", name: "Benalmádena", count: 8 },
-      { id: "es-estepona", name: "Estepona", count: 28 },
+      { id: "es-estepona", name: "Estepona", count: 28, areas: [
+        { id: "es-estepona-new-golden-mile", name: "New Golden Mile", count: 12 },
+        { id: "es-estepona-centro", name: "Estepona Centro", count: 8 },
+        { id: "es-estepona-cancelada", name: "Cancelada", count: 8 },
+      ]},
       { id: "es-fuengirola", name: "Fuengirola", count: 5 },
       { id: "es-malaga", name: "Málaga", count: 10 },
-      { id: "es-marbella", name: "Marbella", count: 62 },
+      { id: "es-marbella", name: "Marbella", count: 62, areas: [
+        { id: "es-marbella-golden-mile", name: "Golden Mile", count: 15 },
+        { id: "es-marbella-nueva-andalucia", name: "Nueva Andalucía", count: 18 },
+        { id: "es-marbella-puerto-banus", name: "Puerto Banús", count: 12 },
+        { id: "es-marbella-sierra-blanca", name: "Sierra Blanca", count: 8 },
+        { id: "es-marbella-east", name: "Marbella East", count: 9 },
+      ]},
       { id: "es-mijas", name: "Mijas", count: 7 },
       { id: "es-nerja", name: "Nerja", count: 4 },
-      { id: "es-sotogrande", name: "Sotogrande", count: 6 },
+      { id: "es-sotogrande", name: "Sotogrande", count: 6, areas: [
+        { id: "es-sotogrande-alto", name: "Sotogrande Alto", count: 3 },
+        { id: "es-sotogrande-costa", name: "Sotogrande Costa", count: 3 },
+      ]},
     ],
   },
   {
     id: "costa-blanca", name: "Costa Blanca", count: 37,
     cities: [
       { id: "es-alicante", name: "Alicante", count: 5 },
-      { id: "es-altea", name: "Altea", count: 15 },
+      { id: "es-altea", name: "Altea", count: 15, areas: [
+        { id: "es-altea-hills", name: "Altea Hills", count: 6 },
+        { id: "es-altea-old-town", name: "Altea Old Town", count: 5 },
+        { id: "es-altea-mascarat", name: "Mascarat", count: 4 },
+      ]},
       { id: "es-benidorm", name: "Benidorm", count: 3 },
       { id: "es-calpe", name: "Calpe", count: 4 },
       { id: "es-denia", name: "Dénia", count: 6 },
-      { id: "es-javea", name: "Jávea", count: 22 },
+      { id: "es-javea", name: "Jávea", count: 22, areas: [
+        { id: "es-javea-arenal", name: "El Arenal", count: 8 },
+        { id: "es-javea-port", name: "Jávea Port", count: 6 },
+        { id: "es-javea-montgo", name: "Montgó", count: 4 },
+        { id: "es-javea-tosalet", name: "Tosalet", count: 4 },
+      ]},
       { id: "es-moraira", name: "Moraira", count: 8 },
       { id: "es-torrevieja", name: "Torrevieja", count: 3 },
       { id: "es-villajoyosa", name: "Villajoyosa", count: 2 },
@@ -434,7 +485,9 @@ const POPULAR_CITIES = [
   { id: "es-estepona", name: "Estepona", count: 28 },
 ];
 
-const ALL_CITIES = TOURIST_ZONES.flatMap(z => z.cities);
+const ALL_CITIES_FLAT = TOURIST_ZONES.flatMap(z => z.cities);
+const ALL_AREAS_FLAT = TOURIST_ZONES.flatMap(z => z.cities.flatMap(c => (c.areas || []).map(a => ({ ...a, cityName: c.name, zoneName: z.name }))));
+const ALL_SEARCHABLE = [...ALL_CITIES_FLAT.map(c => ({ ...c, type: "city" as const, zoneName: TOURIST_ZONES.find(z => z.cities.some(cc => cc.id === c.id))?.name || "" })), ...ALL_AREAS_FLAT.map(a => ({ ...a, type: "area" as const }))];
 
 /* ─── Mobile Location Popup ─── */
 const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
