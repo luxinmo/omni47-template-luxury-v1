@@ -672,7 +672,16 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
                         </button>
                         {hasAreas && isSelected && (
                           <button
-                            onClick={() => setExpandedCity(isExpanded ? null : city.id)}
+                            onClick={() => {
+                              if (isExpanded) {
+                                setExpandedCity(null);
+                              } else {
+                                // Expand and auto-select all areas
+                                const areaItems = city.areas!.filter(a => !selected.some(s => s.id === a.id)).map(a => ({ id: a.id, name: a.name, path: a.name, type: "City" }));
+                                onSelectedChange([...selected, ...areaItems]);
+                                setExpandedCity(city.id);
+                              }
+                            }}
                             className="text-[11px] font-medium text-luxury-black/50 border border-neutral-200 rounded-full px-2.5 py-1 flex items-center gap-1"
                           >
                             {selectedAreaCount > 0 ? `${selectedAreaCount} areas` : "All"}
@@ -688,7 +697,23 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
                           {city.areas!.map(area => {
                             const areaSelected = selected.some(s => s.id === area.id);
                             return (
-                              <button key={area.id} onClick={() => toggleItem(area.id, area.name)} className="w-full flex items-center gap-3 py-2.5 transition-colors active:bg-neutral-100">
+                              <button key={area.id} onClick={() => {
+                                if (areaSelected) {
+                                  // Deselecting an area: remove area, and if city was selected as "All", remove city too, keep remaining areas
+                                  const remainingAreas = city.areas!.filter(a => a.id !== area.id && selected.some(s => s.id === a.id));
+                                  let newSelected = selected.filter(s => s.id !== area.id);
+                                  if (isSelected && remainingAreas.length > 0) {
+                                    // Remove city, keep individual areas
+                                    newSelected = newSelected.filter(s => s.id !== city.id);
+                                  } else if (isSelected && remainingAreas.length === 0) {
+                                    // Last area being removed, also remove city
+                                    newSelected = newSelected.filter(s => s.id !== city.id);
+                                  }
+                                  onSelectedChange(newSelected);
+                                } else {
+                                  toggleItem(area.id, area.name);
+                                }
+                              }} className="w-full flex items-center gap-3 py-2.5 transition-colors active:bg-neutral-100">
                                 <span className={`text-[14px] flex-1 text-left ${areaSelected ? "text-luxury-black font-medium" : "text-luxury-black/55"}`}>{area.name}</span>
                                 <span className="text-[11px] text-luxury-black/25">{area.count}</span>
                                 <CheckBox checked={areaSelected} />
