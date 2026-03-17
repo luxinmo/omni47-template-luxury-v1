@@ -1277,6 +1277,15 @@ const PropertyDetailV6 = () => {
 
       {/* Bottom padding for mobile/tablet sticky bar */}
       <div className="lg:hidden h-16" />
+
+      {/* Price Alert Modal */}
+      <DetailPriceAlertModal
+        open={priceAlertOpen}
+        onOpenChange={setPriceAlertOpen}
+        propertyRef={p.ref}
+        propertyTitle={p.title}
+        priceFormatted={p.priceFormatted}
+      />
     </div>
   );
 };
