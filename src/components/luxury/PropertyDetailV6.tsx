@@ -520,8 +520,8 @@ const PropertyDetailV6 = () => {
                   <Home className="w-3 h-3 text-luxury-gold/80" /> Rent: <span className="font-medium text-luxury-black/70">{p.rentalPrice}</span>
                 </span>
               )}
-              <button className="flex items-center gap-1.5 text-[11px] tracking-[0.04em] text-amber-700 hover:text-amber-800 font-medium transition-colors w-full mt-1">
-                <BellRing className="w-3.5 h-3.5" strokeWidth={1.5} />
+              <button className="group flex items-center gap-1.5 text-[11px] tracking-[0.06em] text-luxury-gold/80 hover:text-luxury-gold font-light transition-colors mt-1">
+                <BellRing className="w-3 h-3 group-hover:animate-[wiggle_0.4s_ease-in-out]" strokeWidth={1.4} />
                 Avísame si baja el precio
               </button>
             </div>
