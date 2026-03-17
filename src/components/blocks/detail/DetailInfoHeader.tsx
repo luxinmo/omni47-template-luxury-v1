@@ -4,7 +4,7 @@
  * Origin: PropertyDetail V6
  */
 
-import { Bed, Bath, Maximize, Fence, MapPin, Star, Home } from "lucide-react";
+import { Bed, Bath, Maximize, Fence, MapPin, Star, Home, BellRing } from "lucide-react";
 
 interface DetailInfoHeaderProps {
   title?: string;
@@ -63,6 +63,10 @@ const DetailInfoHeader = ({
       {originalPrice && <span className="text-[13px] text-neutral-300 line-through font-light">{originalPrice}</span>}
       {discount > 0 && <span className="text-[10px] font-medium tracking-[0.08em] uppercase text-amber-700">-{discount}%</span>}
       <span className="text-[11px] text-neutral-400 font-light">{pricePerSqm}</span>
+      <button className="flex items-center gap-1 text-[10px] sm:text-[11px] tracking-[0.04em] text-amber-700 hover:text-amber-800 font-medium transition-colors">
+        <BellRing className="w-3 h-3" strokeWidth={1.5} />
+        Avísame si baja
+      </button>
       {alsoForRent && (
         <span className="text-[12px] text-neutral-500 flex items-center gap-1">
           <Home className="w-3 h-3 text-amber-700/80" /> Rent: <span className="font-medium text-neutral-600">{rentalPrice}</span>

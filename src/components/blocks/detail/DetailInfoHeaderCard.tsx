@@ -1,5 +1,5 @@
 import React from "react";
-import { Phone, MessageCircle, Mail } from "lucide-react";
+import { Phone, MessageCircle, Mail, BellRing } from "lucide-react";
 
 interface DetailInfoHeaderCardProps {
   title?: string;
@@ -96,6 +96,10 @@ const DetailInfoHeaderCard: React.FC<DetailInfoHeaderCardProps> = ({
               <span className="text-[11px] font-medium tracking-[0.08em] uppercase text-amber-600 bg-amber-50 px-2 py-0.5">-{discount}%</span>
             </div>
             <p className="text-[12px] text-neutral-500 mb-1">{pricePerSqm}</p>
+            <button className="flex items-center gap-1.5 text-[11px] tracking-[0.04em] text-amber-700 hover:text-amber-800 font-medium mt-1 transition-colors">
+              <BellRing className="w-3.5 h-3.5" strokeWidth={1.5} />
+              Avísame si baja el precio
+            </button>
             {alsoForRent && (
               <p className="text-[13px] text-neutral-500 mb-6 flex items-center gap-1.5">
                 Also for rent: <span className="font-medium text-neutral-700">{rentalPrice}</span>
