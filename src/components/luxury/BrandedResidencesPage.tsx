@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Crown, ArrowRight, Star, Shield, Sparkles, Users, TrendingUp, X } from "lucide-react";
+import { Crown, ArrowRight, Star, Shield, Sparkles, Users, TrendingUp, X, ChevronDown } from "lucide-react";
 import { Layout } from "@/components/layout";
 import FadeIn from "@/components/shared/FadeIn";
 import SEOHead from "@/components/shared/SEOHead";
@@ -105,18 +105,32 @@ const BENEFITS = [
 
 const fmt = (n: number) => new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(n);
 
-/* ── Filter Chip ── */
-const Chip = ({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) => (
-  <button
-    onClick={onClick}
-    className="text-[12px] tracking-[0.08em] uppercase px-4 py-2 rounded-full transition-all duration-200 border whitespace-nowrap"
-    style={active
-      ? { background: palette.text, color: palette.white, borderColor: palette.text }
-      : { background: "transparent", color: palette.textMuted, borderColor: palette.border }
-    }
-  >
-    {label}
-  </button>
+/* ── Elegant Select Dropdown ── */
+const FilterSelect = ({ label, value, options, onChange }: {
+  label: string;
+  value: string | null;
+  options: string[];
+  onChange: (v: string | null) => void;
+}) => (
+  <div className="flex-1 min-w-[160px]">
+    <p className="text-[11px] tracking-[0.25em] uppercase font-medium mb-2" style={{ color: palette.accent }}>{label}</p>
+    <div className="relative">
+      <select
+        value={value || ""}
+        onChange={e => onChange(e.target.value || null)}
+        className="w-full appearance-none bg-transparent text-[13px] tracking-[0.04em] font-light pl-4 pr-10 py-3 rounded-none cursor-pointer transition-all duration-200 focus:outline-none"
+        style={{
+          border: `1px solid ${palette.border}`,
+          color: value ? palette.text : palette.textMuted,
+          background: palette.white,
+        }}
+      >
+        <option value="">All {label}</option>
+        {options.map(o => <option key={o} value={o}>{o}</option>)}
+      </select>
+      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" style={{ color: palette.textLight }} />
+    </div>
+  </div>
 );
 
 /* ── Branded Card ── */
@@ -316,54 +330,20 @@ const BrandedResidencesPage = () => {
           </FadeIn>
 
           {/* ── Filter Bar ── */}
-          <div className="mb-8">
-            <div className="mb-3">
-              <p className="text-[10px] tracking-[0.2em] uppercase font-medium mb-2" style={{ color: palette.textLight }}>Location</p>
-              <div className="flex flex-wrap gap-2">
-                <Chip label="All" active={!filterLocation} onClick={() => setFilterLocation(null)} />
-                {ALL_LOCATIONS.map(loc => (
-                  <Chip key={loc} label={loc} active={filterLocation === loc} onClick={() => setFilterLocation(filterLocation === loc ? null : loc)} />
-                ))}
-              </div>
-            </div>
-            <div className="flex flex-wrap gap-6 mt-4">
-              <div>
-                <p className="text-[10px] tracking-[0.2em] uppercase font-medium mb-2" style={{ color: palette.textLight }}>Brand</p>
-                <div className="flex flex-wrap gap-2">
-                  {ALL_BRANDS.map(b => (
-                    <Chip key={b} label={b} active={filterBrand === b} onClick={() => setFilterBrand(filterBrand === b ? null : b)} />
-                  ))}
-                </div>
-              </div>
-              <div>
-                <p className="text-[10px] tracking-[0.2em] uppercase font-medium mb-2" style={{ color: palette.textLight }}>Status</p>
-                <div className="flex flex-wrap gap-2">
-                  {ALL_STATUSES.map(s => (
-                    <Chip key={s} label={s} active={filterStatus === s} onClick={() => setFilterStatus(filterStatus === s ? null : s)} />
-                  ))}
-                </div>
-              </div>
-              <div>
-                <p className="text-[10px] tracking-[0.2em] uppercase font-medium mb-2" style={{ color: palette.textLight }}>Typology</p>
-                <div className="flex flex-wrap gap-2">
-                  {ALL_TYPOLOGIES.map(t => (
-                    <Chip key={t} label={t} active={filterTypology === t} onClick={() => setFilterTypology(filterTypology === t ? null : t)} />
-                  ))}
-                </div>
-              </div>
-              <div>
-                <p className="text-[10px] tracking-[0.2em] uppercase font-medium mb-2" style={{ color: palette.textLight }}>Delivery</p>
-                <div className="flex flex-wrap gap-2">
-                  {ALL_DELIVERIES.map(d => (
-                    <Chip key={d} label={d} active={filterDelivery === d} onClick={() => setFilterDelivery(filterDelivery === d ? null : d)} />
-                  ))}
-                </div>
-              </div>
+          <div className="mb-10 p-6 sm:p-8 rounded-sm" style={{ background: palette.bg, border: `1px solid ${palette.border}` }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+              <FilterSelect label="Location" value={filterLocation} options={ALL_LOCATIONS} onChange={setFilterLocation} />
+              <FilterSelect label="Brand" value={filterBrand} options={ALL_BRANDS} onChange={setFilterBrand} />
+              <FilterSelect label="Status" value={filterStatus} options={ALL_STATUSES} onChange={setFilterStatus} />
+              <FilterSelect label="Typology" value={filterTypology} options={ALL_TYPOLOGIES} onChange={setFilterTypology} />
+              <FilterSelect label="Delivery" value={filterDelivery} options={ALL_DELIVERIES} onChange={setFilterDelivery} />
             </div>
             {hasFilters && (
-              <button onClick={clearFilters} className="mt-4 inline-flex items-center gap-1.5 text-[12px] font-light transition-opacity hover:opacity-60" style={{ color: palette.textMuted }}>
-                <X className="w-3 h-3" /> Clear all filters
-              </button>
+              <div className="mt-5 pt-4" style={{ borderTop: `1px solid ${palette.border}` }}>
+                <button onClick={clearFilters} className="inline-flex items-center gap-1.5 text-[12px] tracking-[0.1em] uppercase font-light transition-opacity hover:opacity-60" style={{ color: palette.textMuted }}>
+                  <X className="w-3.5 h-3.5" /> Clear all filters
+                </button>
+              </div>
             )}
           </div>
 
