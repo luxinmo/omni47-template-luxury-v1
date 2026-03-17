@@ -1172,22 +1172,33 @@ const BrandedResidencePromoCard = () => {
 };
 
 /* ─── New Dev Promo Card ─── */
-const NewDevPromoCard = () => (
+const NewDevPromoCard = () => {
+  const isMobile = useIsMobile();
+  return (
   <Link to="/new-developments/marea-residences-altea" className="group relative grid grid-cols-1 md:grid-cols-12 gap-0 rounded-sm overflow-hidden mb-6 hover:shadow-lg transition-all duration-300 bg-[hsl(30,20%,96%)] border border-luxury-black/10">
     <div className="md:col-span-5 relative overflow-hidden aspect-[16/10] md:aspect-auto md:h-full min-h-[220px]">
       <img src={detail1} alt="Marea Residences" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 absolute inset-0" />
       <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-luxury-black/80 text-white text-[11px] tracking-[0.12em] uppercase font-medium px-3 py-1.5 rounded-sm"><Building2 className="w-3 h-3" /> New Development</span>
+      {isMobile && (
+        <>
+          <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
+          <span className="absolute bottom-3 left-3 text-white text-[14px] font-medium tracking-wide drop-shadow-md">€485,000 — €1,250,000</span>
+        </>
+      )}
     </div>
     <div className="md:col-span-7 flex flex-col p-5 md:p-6 lg:p-8">
       <p className="text-[13px] tracking-[0.14em] uppercase text-luxury-black/60 mb-1">Altea · Costa Blanca</p>
       <h2 className="text-[17px] md:text-[19px] font-medium text-luxury-black leading-snug mb-1.5">MAREA RESIDENCES</h2>
       <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2">Contemporary beachfront apartments with panoramic sea views and communal pools.</p>
-      <div className="mt-auto pt-5 border-t border-neutral-100">
-        <p className="text-2xl md:text-[28px] font-extralight text-luxury-black tracking-tight">€485,000 — €1,250,000</p>
-      </div>
+      {!isMobile && (
+        <div className="mt-auto pt-5 border-t border-neutral-100">
+          <p className="text-2xl md:text-[28px] font-extralight text-luxury-black tracking-tight">€485,000 — €1,250,000</p>
+        </div>
+      )}
     </div>
   </Link>
-);
+  );
+};
 
 /* ─── Property Card ─── */
 const PropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
