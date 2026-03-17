@@ -21,6 +21,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 /* ─── Types ─── */
 interface FilterState {
   locations: { id: string; name: string; path: string; type: string }[];
+  listingMode: "sale" | "rent";
   types: string[];
   priceMin: string;
   priceMax: string;
@@ -31,10 +32,12 @@ interface FilterState {
   baths: string;
   amenities: string[];
   newBuilds: boolean;
+  quickTags: string[];
 }
 
 const defaultFilters: FilterState = {
   locations: [],
+  listingMode: "sale",
   types: [],
   priceMin: "",
   priceMax: "",
@@ -45,6 +48,7 @@ const defaultFilters: FilterState = {
   baths: "Any",
   amenities: [],
   newBuilds: false,
+  quickTags: [],
 };
 
 /* ─── Constants ─── */
@@ -72,6 +76,29 @@ const PRICE_PRESETS = [
   { label: "€5M", value: "5000000" },
   { label: "€10M", value: "10000000" },
 ];
+
+/* Mobile-specific type categories with subcategories */
+const MOBILE_TYPE_CATEGORIES = [
+  { label: "Houses", subtypes: ["Villa", "Modern Villa", "Traditional Villa", "Luxury Villa", "Finca", "Townhouse", "Bungalow"] },
+  { label: "Flats", subtypes: ["Apartment", "Penthouse", "Duplex Penthouse", "Sky Penthouse", "Ground Floor", "Duplex", "Studio", "Loft"] },
+  { label: "Lands", subtypes: ["Urban Land", "Rustic Land", "Building Plot"] },
+];
+
+/* Mobile price presets */
+const MOBILE_PRICE_OPTIONS = [
+  { label: "Min", value: "" },
+  { label: "200.000€", value: "200000" },
+  { label: "400.000€", value: "400000" },
+  { label: "600.000€", value: "600000" },
+  { label: "800.000€", value: "800000" },
+  { label: "1M", value: "1000000" },
+  { label: "2M", value: "2000000" },
+  { label: "4M", value: "4000000" },
+  { label: "6M", value: "6000000" },
+  { label: "Max", value: "" },
+];
+
+const QUICK_TAGS = ["New Build", "Luxury", "Modern", "Sea Views", "1ª Línea Mar"];
 
 const SORT_OPTIONS = [
   { value: "premium", label: "Premium" },
@@ -235,6 +262,7 @@ function buildActiveChips(f: FilterState): ActiveChip[] {
   if (f.beds !== "Any") chips.push({ key: "beds", label: `${f.beds} Beds`, group: "beds" });
   if (f.baths !== "Any") chips.push({ key: "baths", label: `${f.baths} Baths`, group: "baths" });
   f.amenities.forEach(a => chips.push({ key: `amenity-${a}`, label: a, group: "amenity" }));
+  f.quickTags.forEach(t => chips.push({ key: `quick-${t}`, label: t, group: "quickTag" }));
   if (f.newBuilds) chips.push({ key: "newbuilds", label: "New Builds", group: "newBuilds" });
   if (f.hidePriceOnRequest) chips.push({ key: "hide-por", label: "Hide Price on Request", group: "hidePOR" });
   return chips;
@@ -250,6 +278,7 @@ function removeChip(f: FilterState, chip: ActiveChip): FilterState {
     case "beds": next.beds = "Any"; break;
     case "baths": next.baths = "Any"; break;
     case "amenity": next.amenities = f.amenities.filter(a => a !== chip.label); break;
+    case "quickTag": next.quickTags = f.quickTags.filter(t => t !== chip.label); break;
     case "newBuilds": next.newBuilds = false; break;
     case "hidePOR": next.hidePriceOnRequest = false; break;
   }
@@ -342,11 +371,65 @@ const FilterSidebar = ({ open, onClose, filters, onChange }: { open: boolean; on
   );
 };
 
+/* ─── Mobile Price Select (dropdown + editable) ─── */
+const MobilePriceSelect = ({ value, onChange, options, placeholder }: { value: string; onChange: (v: string) => void; options: typeof MOBILE_PRICE_OPTIONS; placeholder: string }) => {
+  const [dropOpen, setDropOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => { if (ref.current && !ref.current.contains(e.target as Node)) setDropOpen(false); };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
+  const displayValue = value ? (parseInt(value) >= 1000000 ? `${(parseInt(value) / 1000000)}M€` : `${parseInt(value).toLocaleString("es-ES")}€`) : "";
+
+  return (
+    <div ref={ref} className="relative flex-1">
+      <div className="flex items-center border border-neutral-200 rounded-lg overflow-hidden">
+        <input
+          type="text"
+          value={displayValue}
+          onChange={(e) => {
+            const raw = e.target.value.replace(/[^0-9]/g, "");
+            onChange(raw);
+          }}
+          onFocus={() => setDropOpen(true)}
+          placeholder={placeholder}
+          className="w-full px-4 py-3 text-[15px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none"
+        />
+        <button onClick={() => setDropOpen(!dropOpen)} className="pr-3 text-luxury-black/40">
+          <ChevronDown className={`w-4 h-4 transition-transform ${dropOpen ? "rotate-180" : ""}`} />
+        </button>
+      </div>
+      {dropOpen && (
+        <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-neutral-200 rounded-lg shadow-lg z-10 max-h-[200px] overflow-y-auto">
+          {options.map((opt, i) => (
+            <button
+              key={i}
+              onClick={() => { onChange(opt.value); setDropOpen(false); }}
+              className={`w-full text-left px-4 py-2.5 text-[14px] transition-colors hover:bg-neutral-50 ${value === opt.value && opt.value ? "text-luxury-black font-medium bg-neutral-50" : "text-luxury-black/70"}`}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
 /* ─── Mobile Filter Sheet (fullscreen) ─── */
 const MobileFilterSheet = ({ open, onClose, filters, onChange }: { open: boolean; onClose: () => void; filters: FilterState; onChange: (f: FilterState) => void }) => {
+  const [expandedCat, setExpandedCat] = useState<string | null>(null);
+
   if (!open) return null;
   const activeCount = buildActiveChips(filters).length;
   const toggleType = (t: string) => onChange({ ...filters, types: filters.types.includes(t) ? filters.types.filter(x => x !== t) : [...filters.types, t] });
+  const toggleQuickTag = (t: string) => onChange({ ...filters, quickTags: filters.quickTags.includes(t) ? filters.quickTags.filter(x => x !== t) : [...filters.quickTags, t] });
+
+  const minPriceOptions = MOBILE_PRICE_OPTIONS.filter(o => o.label !== "Max");
+  const maxPriceOptions = MOBILE_PRICE_OPTIONS.filter(o => o.label !== "Min");
 
   return (
     <div className="fixed inset-0 z-50 bg-white animate-in slide-in-from-bottom duration-300 flex flex-col">
@@ -370,7 +453,24 @@ const MobileFilterSheet = ({ open, onClose, filters, onChange }: { open: boolean
 
       {/* Scrollable content */}
       <div className="flex-1 overflow-y-auto px-4 py-5 space-y-6">
-        {/* Property Type */}
+
+        {/* For Sale | For Rent toggle */}
+        <div className="flex rounded-lg border border-neutral-200 overflow-hidden">
+          <button
+            onClick={() => onChange({ ...filters, listingMode: "sale" })}
+            className={`flex-1 py-3 text-[14px] font-medium transition-all ${filters.listingMode === "sale" ? "bg-luxury-black text-white" : "bg-white text-luxury-black/60"}`}
+          >
+            For Sale
+          </button>
+          <button
+            onClick={() => onChange({ ...filters, listingMode: "rent" })}
+            className={`flex-1 py-3 text-[14px] font-medium transition-all ${filters.listingMode === "rent" ? "bg-luxury-black text-white" : "bg-white text-luxury-black/60"}`}
+          >
+            For Rent
+          </button>
+        </div>
+
+        {/* Property Type — Houses / Flats / Lands with expandable subcategories */}
         <div>
           <div className="flex items-center gap-2.5 mb-4">
             <Building2 className="w-5 h-5 text-luxury-black/50" />
@@ -378,24 +478,62 @@ const MobileFilterSheet = ({ open, onClose, filters, onChange }: { open: boolean
             {filters.types.length > 0 && <span className="bg-red-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">{filters.types.length}</span>}
           </div>
           <div className="space-y-1">
-            {TYPE_OPTIONS_WITH_SUBTYPES.map((t) => (
-              <button key={t.label} onClick={() => toggleType(t.label)} className={`w-full flex items-center justify-between px-4 py-3.5 rounded-lg border transition-all ${filters.types.includes(t.label) ? "border-luxury-black bg-neutral-50" : "border-neutral-200"}`}>
-                <span className="text-[15px] text-luxury-black/80">{t.label}</span>
-                <ChevronRight className="w-4 h-4 text-luxury-black/30" />
+            {MOBILE_TYPE_CATEGORIES.map((cat) => {
+              const isExpanded = expandedCat === cat.label;
+              const selectedInCat = cat.subtypes.filter(s => filters.types.includes(s)).length;
+              return (
+                <div key={cat.label}>
+                  <button
+                    onClick={() => setExpandedCat(isExpanded ? null : cat.label)}
+                    className="w-full flex items-center justify-between px-4 py-3.5 rounded-lg border border-neutral-200 transition-all"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="text-[15px] text-luxury-black/80 font-medium">{cat.label}</span>
+                      {selectedInCat > 0 && <span className="bg-red-500 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">{selectedInCat}</span>}
+                    </div>
+                    <ChevronDown className={`w-4 h-4 text-luxury-black/30 transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`} />
+                  </button>
+                  {isExpanded && (
+                    <div className="ml-4 mt-1 space-y-0.5 animate-in slide-in-from-top-1 duration-200">
+                      {cat.subtypes.map((sub) => (
+                        <label key={sub} className="flex items-center gap-3 px-4 py-2.5 cursor-pointer hover:bg-neutral-50 rounded-lg transition-colors">
+                          <input type="checkbox" checked={filters.types.includes(sub)} onChange={() => toggleType(sub)} className="w-[18px] h-[18px] border-neutral-300 rounded accent-luxury-black" />
+                          <span className="text-[14px] text-luxury-black/75">{sub}</span>
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Quick Tags — below typology */}
+        <div>
+          <p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/45 font-medium mb-3">Quick filters</p>
+          <div className="flex flex-wrap gap-2">
+            {QUICK_TAGS.map((tag) => (
+              <button
+                key={tag}
+                onClick={() => toggleQuickTag(tag)}
+                className={`px-4 py-2 text-[13px] rounded-full border transition-all ${filters.quickTags.includes(tag) ? "border-luxury-black bg-luxury-black text-white" : "border-neutral-200 text-luxury-black/60"}`}
+              >
+                {tag}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Price */}
+        {/* Price — dropdowns with editable input */}
         <div>
           <div className="flex items-center gap-2.5 mb-4">
             <span className="text-luxury-black/50 text-lg">€</span>
             <h3 className="text-[16px] font-medium text-luxury-black">Price</h3>
           </div>
           <div className="flex gap-3">
-            <input type="text" value={filters.priceMin} onChange={(e) => onChange({ ...filters, priceMin: e.target.value })} placeholder="Min" className="w-full border border-neutral-200 rounded-lg px-4 py-3 text-[15px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40" />
-            <input type="text" value={filters.priceMax} onChange={(e) => onChange({ ...filters, priceMax: e.target.value })} placeholder="Max" className="w-full border border-neutral-200 rounded-lg px-4 py-3 text-[15px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40" />
+            <MobilePriceSelect value={filters.priceMin} onChange={(v) => onChange({ ...filters, priceMin: v })} options={minPriceOptions} placeholder="Min" />
+            <MobilePriceSelect value={filters.priceMax} onChange={(v) => onChange({ ...filters, priceMax: v })} options={maxPriceOptions} placeholder="Max" />
           </div>
         </div>
 
@@ -451,8 +589,11 @@ const MobileFilterSheet = ({ open, onClose, filters, onChange }: { open: boolean
         </div>
       </div>
 
-      {/* Footer with CTA */}
+      {/* Footer with CTA + clear all */}
       <div className="border-t border-neutral-200 px-4 py-3 flex items-center gap-3 bg-white">
+        <button onClick={() => onChange(defaultFilters)} className="px-4 py-3.5 text-[13px] text-luxury-black/50 font-medium">
+          Clear all
+        </button>
         <button onClick={onClose} className="flex-1 bg-luxury-black text-white text-[14px] tracking-[0.08em] uppercase py-3.5 rounded-lg font-medium">
           Show {8} properties
         </button>
