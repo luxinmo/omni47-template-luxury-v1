@@ -62,6 +62,7 @@ const App = () => (
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/favorites" element={<FavoritesPage />} />
             <Route path="/sell" element={<SellPropertyPage />} />
+            <Route path="/my-account" element={<UserDashboardPage />} />
             <Route path="/contact2" element={<ContactPageV2 />} />
             <Route path="/branded-residences" element={<BrandedResidencesPage />} />
             
