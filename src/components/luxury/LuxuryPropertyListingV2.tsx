@@ -1189,7 +1189,7 @@ const PropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
       {property.gallery.length > 1 && <span className="absolute bottom-3 right-3 bg-luxury-black/60 text-white text-[12px] px-2 py-1 font-light">1/{property.gallery.length}</span>}
       {/* Mobile: price overlay on image */}
       {isMobile && (
-        <span className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm text-luxury-black text-[15px] font-medium px-3 py-1.5 rounded-sm shadow-sm">{property.price}</span>
+        <span className="absolute bottom-3 left-3 bg-luxury-black/70 backdrop-blur-sm text-white text-[15px] font-medium px-3 py-1.5 tracking-wide">{property.price}</span>
       )}
     </div>
     <div className="md:col-span-7 flex flex-col p-5 md:p-6 lg:p-8">
