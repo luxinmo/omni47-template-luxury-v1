@@ -41,6 +41,7 @@ import DetailBreadcrumb from "@/components/blocks/detail/DetailBreadcrumb";
 import DetailInfoHeader from "@/components/blocks/detail/DetailInfoHeader";
 import DetailDescription from "@/components/blocks/detail/DetailDescription";
 import DetailFeaturesGrid from "@/components/blocks/detail/DetailFeaturesGrid";
+import DetailAmenitiesFull from "@/components/blocks/detail/DetailAmenitiesFull";
 import DetailCharacteristics from "@/components/blocks/detail/DetailCharacteristics";
 import DetailPriceCard from "@/components/blocks/detail/DetailPriceCard";
 import DetailMortgageCalculator from "@/components/blocks/detail/DetailMortgageCalculator";
