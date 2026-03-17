@@ -1181,8 +1181,11 @@ const NewDevPromoCard = () => {
       <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-luxury-black/80 text-white text-[11px] tracking-[0.12em] uppercase font-medium px-3 py-1.5 rounded-sm"><Building2 className="w-3 h-3" /> New Development</span>
       {isMobile && (
         <>
-          <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
-          <span className="absolute bottom-3 left-3 text-white text-[14px] font-medium tracking-wide drop-shadow-md">€485,000 — €1,250,000</span>
+          <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
+          <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between drop-shadow-md">
+            <span className="text-white text-[17px] font-semibold tracking-wide">€485,000 — €1,250,000</span>
+            <span className="text-white/80 text-[11px] tracking-[0.05em] font-light">12 units · Q4 2026</span>
+          </div>
         </>
       )}
     </div>
