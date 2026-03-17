@@ -371,25 +371,50 @@ const FilterSidebar = ({ open, onClose, filters, onChange }: { open: boolean; on
   );
 };
 
-/* ─── Location data: Tourist zones with cities ─── */
-const TOURIST_ZONES = [
+/* ─── Location data: Tourist zones → cities → areas ─── */
+type CityArea = { id: string; name: string; count: number };
+type CityData = { id: string; name: string; count: number; areas?: CityArea[] };
+
+const TOURIST_ZONES: { id: string; name: string; count: number; cities: CityData[] }[] = [
   {
     id: "ibiza", name: "Ibiza", count: 48,
     cities: [
-      { id: "es-ibiza-town", name: "Ibiza Town", count: 18 },
+      { id: "es-ibiza-town", name: "Ibiza Town", count: 18, areas: [
+        { id: "es-ibiza-marina", name: "Marina Botafoch", count: 6 },
+        { id: "es-ibiza-dalt-vila", name: "Dalt Vila", count: 4 },
+        { id: "es-ibiza-talamanca", name: "Talamanca", count: 5 },
+        { id: "es-ibiza-figueretas", name: "Figueretas", count: 3 },
+      ]},
       { id: "es-san-antonio", name: "San Antonio", count: 8 },
-      { id: "es-san-jose", name: "San José", count: 12 },
+      { id: "es-san-jose", name: "San José", count: 12, areas: [
+        { id: "es-sanjose-cala-jondal", name: "Cala Jondal", count: 5 },
+        { id: "es-sanjose-vedra", name: "Es Vedrà", count: 3 },
+        { id: "es-sanjose-cubells", name: "Es Cubells", count: 4 },
+      ]},
       { id: "es-san-juan", name: "San Juan", count: 4 },
-      { id: "es-santa-eulalia", name: "Santa Eulalia", count: 6 },
+      { id: "es-santa-eulalia", name: "Santa Eulalia", count: 6, areas: [
+        { id: "es-se-roca-llisa", name: "Roca Llisa", count: 3 },
+        { id: "es-se-jesus", name: "Jesús", count: 3 },
+      ]},
     ],
   },
   {
     id: "mallorca", name: "Mallorca", count: 35,
     cities: [
-      { id: "es-andratx", name: "Andratx", count: 6 },
-      { id: "es-calvia", name: "Calvià", count: 5 },
+      { id: "es-andratx", name: "Andratx", count: 6, areas: [
+        { id: "es-andratx-port", name: "Port d'Andratx", count: 4 },
+        { id: "es-andratx-camp", name: "Camp de Mar", count: 2 },
+      ]},
+      { id: "es-calvia", name: "Calvià", count: 5, areas: [
+        { id: "es-calvia-bendinat", name: "Bendinat", count: 2 },
+        { id: "es-calvia-portals", name: "Portals Nous", count: 3 },
+      ]},
       { id: "es-deia", name: "Deià", count: 3 },
-      { id: "es-palma", name: "Palma", count: 12 },
+      { id: "es-palma", name: "Palma", count: 12, areas: [
+        { id: "es-palma-old-town", name: "Old Town", count: 4 },
+        { id: "es-palma-portixol", name: "Portixol", count: 3 },
+        { id: "es-palma-son-vida", name: "Son Vida", count: 5 },
+      ]},
       { id: "es-pollensa", name: "Pollença", count: 4 },
       { id: "es-soller", name: "Sóller", count: 3 },
       { id: "es-valldemossa", name: "Valldemossa", count: 2 },
@@ -398,26 +423,52 @@ const TOURIST_ZONES = [
   {
     id: "costa-del-sol", name: "Costa del Sol", count: 109,
     cities: [
-      { id: "es-benahavis", name: "Benahavís", count: 19 },
+      { id: "es-benahavis", name: "Benahavís", count: 19, areas: [
+        { id: "es-benahavis-zagaleta", name: "La Zagaleta", count: 8 },
+        { id: "es-benahavis-monte-mayor", name: "Monte Mayor", count: 5 },
+        { id: "es-benahavis-el-madroñal", name: "El Madroñal", count: 6 },
+      ]},
       { id: "es-benalmadena", name: "Benalmádena", count: 8 },
-      { id: "es-estepona", name: "Estepona", count: 28 },
+      { id: "es-estepona", name: "Estepona", count: 28, areas: [
+        { id: "es-estepona-new-golden-mile", name: "New Golden Mile", count: 12 },
+        { id: "es-estepona-centro", name: "Estepona Centro", count: 8 },
+        { id: "es-estepona-cancelada", name: "Cancelada", count: 8 },
+      ]},
       { id: "es-fuengirola", name: "Fuengirola", count: 5 },
       { id: "es-malaga", name: "Málaga", count: 10 },
-      { id: "es-marbella", name: "Marbella", count: 62 },
+      { id: "es-marbella", name: "Marbella", count: 62, areas: [
+        { id: "es-marbella-golden-mile", name: "Golden Mile", count: 15 },
+        { id: "es-marbella-nueva-andalucia", name: "Nueva Andalucía", count: 18 },
+        { id: "es-marbella-puerto-banus", name: "Puerto Banús", count: 12 },
+        { id: "es-marbella-sierra-blanca", name: "Sierra Blanca", count: 8 },
+        { id: "es-marbella-east", name: "Marbella East", count: 9 },
+      ]},
       { id: "es-mijas", name: "Mijas", count: 7 },
       { id: "es-nerja", name: "Nerja", count: 4 },
-      { id: "es-sotogrande", name: "Sotogrande", count: 6 },
+      { id: "es-sotogrande", name: "Sotogrande", count: 6, areas: [
+        { id: "es-sotogrande-alto", name: "Sotogrande Alto", count: 3 },
+        { id: "es-sotogrande-costa", name: "Sotogrande Costa", count: 3 },
+      ]},
     ],
   },
   {
     id: "costa-blanca", name: "Costa Blanca", count: 37,
     cities: [
       { id: "es-alicante", name: "Alicante", count: 5 },
-      { id: "es-altea", name: "Altea", count: 15 },
+      { id: "es-altea", name: "Altea", count: 15, areas: [
+        { id: "es-altea-hills", name: "Altea Hills", count: 6 },
+        { id: "es-altea-old-town", name: "Altea Old Town", count: 5 },
+        { id: "es-altea-mascarat", name: "Mascarat", count: 4 },
+      ]},
       { id: "es-benidorm", name: "Benidorm", count: 3 },
       { id: "es-calpe", name: "Calpe", count: 4 },
       { id: "es-denia", name: "Dénia", count: 6 },
-      { id: "es-javea", name: "Jávea", count: 22 },
+      { id: "es-javea", name: "Jávea", count: 22, areas: [
+        { id: "es-javea-arenal", name: "El Arenal", count: 8 },
+        { id: "es-javea-port", name: "Jávea Port", count: 6 },
+        { id: "es-javea-montgo", name: "Montgó", count: 4 },
+        { id: "es-javea-tosalet", name: "Tosalet", count: 4 },
+      ]},
       { id: "es-moraira", name: "Moraira", count: 8 },
       { id: "es-torrevieja", name: "Torrevieja", count: 3 },
       { id: "es-villajoyosa", name: "Villajoyosa", count: 2 },
@@ -434,7 +485,9 @@ const POPULAR_CITIES = [
   { id: "es-estepona", name: "Estepona", count: 28 },
 ];
 
-const ALL_CITIES = TOURIST_ZONES.flatMap(z => z.cities);
+const ALL_CITIES_FLAT = TOURIST_ZONES.flatMap(z => z.cities);
+const ALL_AREAS_FLAT = TOURIST_ZONES.flatMap(z => z.cities.flatMap(c => (c.areas || []).map(a => ({ ...a, cityName: c.name, zoneName: z.name }))));
+const ALL_SEARCHABLE = [...ALL_CITIES_FLAT.map(c => ({ ...c, type: "city" as const, zoneName: TOURIST_ZONES.find(z => z.cities.some(cc => cc.id === c.id))?.name || "" })), ...ALL_AREAS_FLAT.map(a => ({ ...a, type: "area" as const }))];
 
 /* ─── Mobile Location Popup ─── */
 const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
@@ -450,6 +503,7 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
   const mapInstanceRef = useRef<any>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [zoneQuery, setZoneQuery] = useState("");
+  const [expandedCity, setExpandedCity] = useState<string | null>(null);
 
   // Map toggle
   useEffect(() => {
@@ -485,11 +539,11 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
     }
   }, [selected, onSelectedChange]);
 
-  // Global search across all cities
+  // Global search across all cities + areas
   const globalSearchResults = useMemo(() => {
     if (!query.trim()) return null;
     const q = query.toLowerCase();
-    return ALL_CITIES.filter(c => c.name.toLowerCase().includes(q));
+    return ALL_SEARCHABLE.filter(c => c.name.toLowerCase().includes(q));
   }, [query]);
 
   // Zone detail: alphabetical grouping with search
@@ -597,7 +651,7 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
       {/* Content */}
       <div className="flex-1 overflow-y-auto">
         {activeZone ? (
-          /* ─── Zone detail: alphabetical city list ─── */
+          /* ─── Zone detail: alphabetical city list with expandable areas ─── */
           <div>
             {alphabetGroups.length > 0 ? alphabetGroups.map(([letter, cities]) => (
               <div key={letter}>
@@ -606,13 +660,44 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
                 </div>
                 {cities.map(city => {
                   const isSelected = selected.some(s => s.id === city.id);
+                  const hasAreas = city.areas && city.areas.length > 0;
+                  const isExpanded = expandedCity === city.id;
+                  const selectedAreaCount = hasAreas ? city.areas!.filter(a => selected.some(s => s.id === a.id)).length : 0;
                   return (
-                    <button key={city.id} onClick={() => toggleItem(city.id, city.name)} className={`w-full flex items-center gap-3 px-4 py-3 transition-colors ${isSelected ? "bg-neutral-50" : "active:bg-neutral-50"}`}>
-                      <MapPin className={`w-4 h-4 shrink-0 ${isSelected ? "text-luxury-black" : "text-luxury-black/25"}`} />
-                      <span className={`text-[15px] flex-1 text-left ${isSelected ? "text-luxury-black font-medium" : "text-luxury-black/70"}`}>{city.name}</span>
-                      <span className="text-[12px] text-luxury-black/30">{city.count}</span>
-                      <CheckBox checked={isSelected} />
-                    </button>
+                    <div key={city.id}>
+                      <div className={`flex items-center gap-3 px-4 py-3 transition-colors ${isSelected || selectedAreaCount > 0 ? "bg-neutral-50" : ""}`}>
+                        <button onClick={() => toggleItem(city.id, city.name)} className="flex items-center gap-3 flex-1 min-w-0">
+                          <MapPin className={`w-4 h-4 shrink-0 ${isSelected ? "text-luxury-black" : "text-luxury-black/25"}`} />
+                          <span className={`text-[15px] flex-1 text-left ${isSelected ? "text-luxury-black font-medium" : "text-luxury-black/70"}`}>{city.name}</span>
+                        </button>
+                        {hasAreas && isSelected && (
+                          <button
+                            onClick={() => setExpandedCity(isExpanded ? null : city.id)}
+                            className="text-[11px] font-medium text-luxury-black/50 border border-neutral-200 rounded-full px-2.5 py-1 flex items-center gap-1"
+                          >
+                            {selectedAreaCount > 0 ? `${selectedAreaCount} areas` : "All"}
+                            <ChevronDown className={`w-3 h-3 transition-transform ${isExpanded ? "rotate-180" : ""}`} />
+                          </button>
+                        )}
+                        {hasAreas && !isSelected && <span className="text-[12px] text-luxury-black/30">{city.count}</span>}
+                        {!hasAreas && <span className="text-[12px] text-luxury-black/30">{city.count}</span>}
+                        <CheckBox checked={isSelected} />
+                      </div>
+                      {isExpanded && hasAreas && (
+                        <div className="pl-11 pr-4 pb-2 bg-neutral-50/50">
+                          {city.areas!.map(area => {
+                            const areaSelected = selected.some(s => s.id === area.id);
+                            return (
+                              <button key={area.id} onClick={() => toggleItem(area.id, area.name)} className="w-full flex items-center gap-3 py-2.5 transition-colors active:bg-neutral-100">
+                                <span className={`text-[14px] flex-1 text-left ${areaSelected ? "text-luxury-black font-medium" : "text-luxury-black/55"}`}>{area.name}</span>
+                                <span className="text-[11px] text-luxury-black/25">{area.count}</span>
+                                <CheckBox checked={areaSelected} />
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
                   );
                 })}
               </div>
@@ -623,20 +708,18 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
             )}
           </div>
         ) : isSearching ? (
-          /* ─── Global search results ─── */
           <div>
             {globalSearchResults && globalSearchResults.length > 0 ? (
-              globalSearchResults.map(city => {
-                const isSelected = selected.some(s => s.id === city.id);
-                const zone = TOURIST_ZONES.find(z => z.cities.some(c => c.id === city.id));
+              globalSearchResults.map(item => {
+                const isSelected = selected.some(s => s.id === item.id);
                 return (
-                  <button key={city.id} onClick={() => toggleItem(city.id, city.name)} className={`w-full flex items-center gap-3 px-4 py-3.5 transition-colors ${isSelected ? "bg-neutral-50" : "active:bg-neutral-50"}`}>
+                  <button key={item.id} onClick={() => toggleItem(item.id, item.name)} className={`w-full flex items-center gap-3 px-4 py-3.5 transition-colors ${isSelected ? "bg-neutral-50" : "active:bg-neutral-50"}`}>
                     <Search className="w-4 h-4 shrink-0 text-luxury-black/20" />
                     <div className="flex-1 text-left">
-                      <span className={`text-[15px] block ${isSelected ? "text-luxury-black font-medium" : "text-luxury-black/70"}`}>{city.name}</span>
-                      {zone && <span className="text-[12px] text-luxury-black/35">{zone.name}</span>}
+                      <span className={`text-[15px] block ${isSelected ? "text-luxury-black font-medium" : "text-luxury-black/70"}`}>{item.name}</span>
+                      <span className="text-[12px] text-luxury-black/35">{item.zoneName}{item.type === "area" && ` · ${(item as any).cityName}`}</span>
                     </div>
-                    <span className="text-[12px] text-luxury-black/30">{city.count}</span>
+                    <span className="text-[12px] text-luxury-black/30">{item.count}</span>
                     <CheckBox checked={isSelected} />
                   </button>
                 );
@@ -652,7 +735,8 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
           <div>
             {/* Tourist zones */}
             {TOURIST_ZONES.map(zone => {
-              const zoneSelectedCount = zone.cities.filter(c => selected.some(s => s.id === c.id)).length;
+              const allAreaIds = zone.cities.flatMap(c => (c.areas || []).map(a => a.id));
+              const zoneSelectedCount = zone.cities.filter(c => selected.some(s => s.id === c.id)).length + allAreaIds.filter(id => selected.some(s => s.id === id)).length;
               return (
                 <button
                   key={zone.id}
