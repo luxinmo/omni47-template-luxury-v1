@@ -278,6 +278,7 @@ function removeChip(f: FilterState, chip: ActiveChip): FilterState {
     case "beds": next.beds = "Any"; break;
     case "baths": next.baths = "Any"; break;
     case "amenity": next.amenities = f.amenities.filter(a => a !== chip.label); break;
+    case "quickTag": next.quickTags = f.quickTags.filter(t => t !== chip.label); break;
     case "newBuilds": next.newBuilds = false; break;
     case "hidePOR": next.hidePriceOnRequest = false; break;
   }
