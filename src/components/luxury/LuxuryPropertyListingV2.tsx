@@ -262,6 +262,7 @@ function buildActiveChips(f: FilterState): ActiveChip[] {
   if (f.beds !== "Any") chips.push({ key: "beds", label: `${f.beds} Beds`, group: "beds" });
   if (f.baths !== "Any") chips.push({ key: "baths", label: `${f.baths} Baths`, group: "baths" });
   f.amenities.forEach(a => chips.push({ key: `amenity-${a}`, label: a, group: "amenity" }));
+  f.quickTags.forEach(t => chips.push({ key: `quick-${t}`, label: t, group: "quickTag" }));
   if (f.newBuilds) chips.push({ key: "newbuilds", label: "New Builds", group: "newBuilds" });
   if (f.hidePriceOnRequest) chips.push({ key: "hide-por", label: "Hide Price on Request", group: "hidePOR" });
   return chips;
