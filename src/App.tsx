@@ -29,6 +29,7 @@ import PropertyPdfV2 from "./components/pdf/PropertyPdfV2";
 import BlocksCatalog from "./pages/BlocksCatalog";
 import FavoritesPage from "./components/luxury/FavoritesPage";
 import SellPropertyPage from "./components/luxury/SellPropertyPage";
+import UserDashboardPage from "./components/luxury/UserDashboardPage";
 
 const queryClient = new QueryClient();
 
