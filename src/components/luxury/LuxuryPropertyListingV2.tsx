@@ -1192,7 +1192,11 @@ const NewDevPromoCard = () => {
     <div className="md:col-span-7 flex flex-col p-5 md:p-6 lg:p-8">
       <p className="text-[13px] tracking-[0.14em] uppercase text-luxury-black/60 mb-1">Altea · Costa Blanca</p>
       <h2 className="text-[17px] md:text-[19px] font-medium text-luxury-black leading-snug mb-1.5">MAREA RESIDENCES</h2>
-      <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2">Contemporary beachfront apartments with panoramic sea views and communal pools.</p>
+      <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-3 line-clamp-2">Contemporary beachfront apartments with panoramic sea views and communal pools.</p>
+      <div className="flex items-center gap-4 text-[13px] text-luxury-black/55 font-light mb-4">
+        <span className="flex items-center gap-1"><Building2 className="w-3.5 h-3.5 text-luxury-black/40" /> 12 units available</span>
+        <span>Delivery Q4 2026</span>
+      </div>
       {!isMobile && (
         <div className="mt-auto pt-5 border-t border-neutral-100">
           <p className="text-2xl md:text-[28px] font-extralight text-luxury-black tracking-tight">€485,000 — €1,250,000</p>
