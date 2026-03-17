@@ -28,12 +28,13 @@
 | featured-grid-3col | Grid 3 Columnas | Home3/4 | 3 columnas, aspect 4/3, con botón "Request Details" (Home4) |
 | featured-grid-portrait | Grid Retratos | Portal | 3 columnas, aspect 3/4, botón circular ArrowUpRight on hover, estilo editorial |
 
-## 🗺️ Destinos / Zonas (2 variantes)
+## 🗺️ Destinos / Zonas (3 variantes)
 
 | ID | Nombre | Origen | Descripción visual |
 |----|--------|--------|--------------------|
 | destinations-grid-tall | Grid Vertical | Home2/3 | 6 columnas, aspect 2/3, gradiente inferior, nombre + count |
 | destinations-asymmetric | Grid Asimétrico | Portal | 2 grandes (16/10) + 4 pequeños (3/4), tagline + nombre + count |
+| destinations-map-carousel | Carousel con Mapas | Home | Carrusel horizontal con tarjetas que combinan siluetas SVG de mapas (140px) + nombre, descripción y contador de propiedades. Flechas de navegación con visibilidad condicional |
 
 ## 🏷️ Tipos de Propiedad (1 variante)
 
@@ -393,7 +394,7 @@
 | Heroes | 3 |
 | Stats | 2 |
 | Featured Properties | 3 |
-| Destinations | 2 |
+| Destinations | 3 |
 | Property Types | 1 |
 | Collections | 2 |
 | Branded Residences | 6 |
@@ -437,6 +438,6 @@
 | Favorites | 4 |
 | PDF | 2 |
 | System | 3 |
-| **TOTAL BLOQUES** | **~93** |
+| **TOTAL BLOQUES** | **~94** |
 | Preview Combos | 10 |
-| **TOTAL GENERAL** | **~103 componentes** |
+| **TOTAL GENERAL** | **~104 componentes** |
