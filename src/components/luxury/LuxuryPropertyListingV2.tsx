@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import {
   Search, SlidersHorizontal, X, ChevronDown, ChevronRight,
   Bed, Bath, Maximize, MapPin, Mail, Lock, Eye, Phone, User, Crown,
-  ArrowRight, Building2, Menu, ArrowUpDown, MessageCircle, Bot, Send,
+  ArrowRight, Building2, Menu, ArrowUpDown, MessageCircle, Bot, Send, Map,
 } from "lucide-react";
 import { brand } from "@/config/template";
 import { Layout } from "@/components/layout";
