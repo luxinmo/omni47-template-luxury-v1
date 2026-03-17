@@ -503,6 +503,7 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
   const mapInstanceRef = useRef<any>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [zoneQuery, setZoneQuery] = useState("");
+  const [expandedCity, setExpandedCity] = useState<string | null>(null);
 
   // Map toggle
   useEffect(() => {
