@@ -15,6 +15,7 @@ import FeaturedGrid3Col from "@/components/blocks/featured-properties/FeaturedGr
 import FeaturedGridPortrait from "@/components/blocks/featured-properties/FeaturedGridPortrait";
 import DestinationsGridTall from "@/components/blocks/destinations/DestinationsGridTall";
 import DestinationsAsymmetric from "@/components/blocks/destinations/DestinationsAsymmetric";
+import DestinationsMapCarousel from "@/components/blocks/destinations/DestinationsMapCarousel";
 import PropertyTypesGrid from "@/components/blocks/property-types/PropertyTypesGrid";
 import CollectionsLandscape from "@/components/blocks/collections/CollectionsLandscape";
 import CollectionsTagged from "@/components/blocks/collections/CollectionsTagged";
@@ -148,6 +149,7 @@ const CATEGORIES = [
     blocks: [
       { id: "destinations-grid-tall", name: "Grid Vertical", origin: "Home2/3", component: DestinationsGridTall },
       { id: "destinations-asymmetric", name: "Grid Asimétrico", origin: "Portal", component: DestinationsAsymmetric },
+      { id: "destinations-map-carousel", name: "Carousel con Mapas", origin: "Home", component: DestinationsMapCarousel },
     ],
   },
   {
