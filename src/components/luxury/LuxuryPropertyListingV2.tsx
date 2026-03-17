@@ -538,11 +538,11 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
     }
   }, [selected, onSelectedChange]);
 
-  // Global search across all cities
+  // Global search across all cities + areas
   const globalSearchResults = useMemo(() => {
     if (!query.trim()) return null;
     const q = query.toLowerCase();
-    return ALL_CITIES.filter(c => c.name.toLowerCase().includes(q));
+    return ALL_SEARCHABLE.filter(c => c.name.toLowerCase().includes(q));
   }, [query]);
 
   // Zone detail: alphabetical grouping with search
