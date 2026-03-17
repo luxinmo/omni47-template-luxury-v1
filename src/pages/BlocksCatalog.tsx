@@ -388,6 +388,25 @@ const CATEGORIES = [
 
 const BlocksCatalog = () => {
   const [expandedBlock, setExpandedBlock] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
+
+  const q = search.toLowerCase().trim();
+
+  const filtered = useMemo(() => {
+    if (!q) return CATEGORIES;
+    return CATEGORIES.map((cat) => ({
+      ...cat,
+      blocks: cat.blocks.filter(
+        (b) =>
+          b.name.toLowerCase().includes(q) ||
+          b.id.toLowerCase().includes(q) ||
+          b.origin.toLowerCase().includes(q) ||
+          cat.title.toLowerCase().includes(q)
+      ),
+    })).filter((cat) => cat.blocks.length > 0);
+  }, [q]);
+
+  const totalFiltered = filtered.reduce((acc, c) => acc + c.blocks.length, 0);
 
   return (
     <div className="min-h-screen bg-white" style={{ fontFamily: "'Jost', sans-serif" }}>
@@ -402,10 +421,29 @@ const BlocksCatalog = () => {
             Biblioteca completa de bloques visuales independientes extraídos del proyecto.
             Cada bloque funciona de forma aislada y acepta props configurables.
           </p>
-          <div className="flex gap-4 mt-8 text-[12px] tracking-[0.1em] text-white/30">
-            <span>{CATEGORIES.length} categorías</span>
+
+          {/* Search bar */}
+          <div className="relative mt-8 max-w-md">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Buscar bloque por nombre, id u origen…"
+              className="w-full bg-white/10 backdrop-blur-sm text-[14px] font-light text-white placeholder:text-white/30 pl-11 pr-10 py-3 border border-white/10 focus:border-white/30 focus:outline-none transition-colors"
+            />
+            {search && (
+              <button onClick={() => setSearch("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white/70">
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+
+          <div className="flex gap-4 mt-5 text-[12px] tracking-[0.1em] text-white/30">
+            <span>{filtered.length} categorías</span>
             <span>·</span>
-            <span>{CATEGORIES.reduce((acc, c) => acc + c.blocks.length, 0)} bloques</span>
+            <span>{totalFiltered} bloques</span>
+            {q && <span className="text-white/50">· buscando "{search}"</span>}
           </div>
           <div className="flex gap-3 mt-6">
             <Link to="/" className="text-[11px] tracking-[0.15em] uppercase px-6 py-2.5 border border-white/20 text-white/60 hover:bg-white/10 transition-colors">
@@ -426,7 +464,15 @@ const BlocksCatalog = () => {
 
       {/* Categories */}
       <div className="max-w-[1200px] mx-auto px-6 py-12">
-        {CATEGORIES.map((cat) => (
+        {q && totalFiltered === 0 && (
+          <div className="text-center py-20">
+            <p className="text-neutral-400 text-[15px] font-light">No se encontraron bloques para "{search}"</p>
+            <button onClick={() => setSearch("")} className="mt-4 text-[12px] tracking-[0.15em] uppercase text-neutral-500 hover:text-neutral-800 transition-colors">
+              Limpiar búsqueda
+            </button>
+          </div>
+        )}
+        {filtered.map((cat) => (
           <div key={cat.title} className="mb-12">
             <h2 className="text-[22px] font-extralight mb-6 pb-3 border-b border-neutral-100">
               {cat.title}
