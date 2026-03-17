@@ -203,6 +203,7 @@ const PropertyDetailV6 = () => {
   ]);
   const [chatInput, setChatInput] = useState("");
   const [gridView, setGridView] = useState(false);
+  const [priceAlertOpen, setPriceAlertOpen] = useState(false);
   const isMobile = useIsMobile();
 
   const p = PROPERTY;
