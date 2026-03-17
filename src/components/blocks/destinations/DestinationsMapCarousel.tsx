@@ -147,7 +147,7 @@ export default function DestinationsMapCarousel({
                 className="group snap-start shrink-0 w-[260px] sm:w-[290px] bg-muted/40 border border-border/60 hover:border-border hover:shadow-md transition-all duration-300 flex items-stretch"
               >
                 {/* Map illustration */}
-                <div className="w-[100px] sm:w-[110px] shrink-0 flex items-center justify-center p-4 text-muted-foreground/50 group-hover:text-muted-foreground/70 transition-colors">
+                <div className="w-[130px] sm:w-[140px] shrink-0 flex items-center justify-center p-5 text-muted-foreground/50 group-hover:text-muted-foreground/70 transition-colors">
                   {getMapShape(loc.name)}
                 </div>
 
