@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import {
   Search, SlidersHorizontal, X, ChevronDown, ChevronRight,
   Bed, Bath, Maximize, MapPin, Mail, Lock, Eye, Phone, User, Crown,
-  ArrowRight, Building2, Menu, ArrowUpDown, MessageCircle, Bot, Send,
+  ArrowRight, Building2, Menu, ArrowUpDown, MessageCircle, Bot, Send, Map,
 } from "lucide-react";
 import { brand } from "@/config/template";
 import { Layout } from "@/components/layout";
@@ -371,35 +371,27 @@ const FilterSidebar = ({ open, onClose, filters, onChange }: { open: boolean; on
   );
 };
 
-/* ─── Location data with coordinates ─── */
-const LOCATION_REGIONS = [
-  {
-    name: "Balearic Islands",
-    locations: [
-      { id: "es-ibiza", name: "Ibiza", lat: 38.9067, lng: 1.4206, count: 48 },
-      { id: "es-mallorca", name: "Mallorca", lat: 39.6953, lng: 3.0176, count: 35 },
-    ],
-  },
-  {
-    name: "Costa del Sol",
-    locations: [
-      { id: "es-marbella", name: "Marbella", lat: 36.5099, lng: -4.8862, count: 62 },
-      { id: "es-estepona", name: "Estepona", lat: 36.4268, lng: -5.1455, count: 28 },
-      { id: "es-benahavis", name: "Benahavís", lat: 36.5225, lng: -5.0485, count: 19 },
-    ],
-  },
-  {
-    name: "Costa Blanca",
-    locations: [
-      { id: "es-javea", name: "Jávea", lat: 38.7874, lng: 0.1661, count: 22 },
-      { id: "es-altea", name: "Altea", lat: 38.5988, lng: -0.0513, count: 15 },
-    ],
-  },
+/* ─── Location data ─── */
+const MAIN_LOCATIONS = [
+  { id: "es-ibiza", name: "Ibiza", count: 48 },
+  { id: "es-mallorca", name: "Mallorca", count: 35 },
+  { id: "es-marbella", name: "Marbella", count: 62 },
+  { id: "es-estepona", name: "Estepona", count: 28 },
+  { id: "es-benahavis", name: "Benahavís", count: 19 },
+  { id: "es-javea", name: "Jávea", count: 22 },
+  { id: "es-altea", name: "Altea", count: 15 },
+  { id: "es-costadelsol", name: "Costa del Sol", count: 109 },
+  { id: "es-costablanca", name: "Costa Blanca", count: 37 },
 ];
 
-const ALL_MAP_LOCATIONS = LOCATION_REGIONS.flatMap(r => r.locations);
+const POPULAR_LOCATIONS = [
+  { id: "es-ibiza", name: "Ibiza", count: 48 },
+  { id: "es-marbella", name: "Marbella", count: 62 },
+  { id: "es-mallorca", name: "Mallorca", count: 35 },
+  { id: "es-costadelsol", name: "Costa del Sol", count: 109 },
+];
 
-/* ─── Mobile Location Popup (map + list) ─── */
+/* ─── Mobile Location Popup (list first, search-like) ─── */
 const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
   open: boolean;
   onClose: () => void;
@@ -407,74 +399,50 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
   onSelectedChange: (items: { id: string; name: string; path: string; type: string }[]) => void;
 }) => {
   const [query, setQuery] = useState("");
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [showMap, setShowMap] = useState(false);
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<any>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  // Initialize Leaflet map
+  // Map toggle
   useEffect(() => {
-    if (!open || !mapRef.current || mapInstanceRef.current) return;
-
+    if (!showMap || !mapRef.current || mapInstanceRef.current) return;
     const loadMap = async () => {
       const L = await import("leaflet");
-      // Fix default icon
       delete (L.Icon.Default.prototype as any)._getIconUrl;
       L.Icon.Default.mergeOptions({
         iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png",
         iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png",
         shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
       });
-
-      const map = L.map(mapRef.current!, {
-        center: [38.5, -1.5],
-        zoom: 6,
-        zoomControl: false,
-        attributionControl: false,
+      const map = L.map(mapRef.current!, { center: [38.5, -1.5], zoom: 6, zoomControl: false, attributionControl: false });
+      L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", { maxZoom: 19 }).addTo(map);
+      MAIN_LOCATIONS.forEach((loc) => {
+        // Simple coordinates lookup
+        const coords: Record<string, [number, number]> = {
+          "es-ibiza": [38.91, 1.42], "es-mallorca": [39.70, 3.02], "es-marbella": [36.51, -4.89],
+          "es-estepona": [36.43, -5.15], "es-benahavis": [36.52, -5.05], "es-javea": [38.79, 0.17],
+          "es-altea": [38.60, -0.05], "es-costadelsol": [36.72, -4.42], "es-costablanca": [38.35, -0.49],
+        };
+        const c = coords[loc.id];
+        if (c) {
+          const marker = L.marker(c).addTo(map);
+          marker.bindTooltip(loc.name, { permanent: false, direction: "top" });
+        }
       });
-
-      L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
-        maxZoom: 19,
-      }).addTo(map);
-
-      // Add markers
-      ALL_MAP_LOCATIONS.forEach((loc) => {
-        const marker = L.marker([loc.lat, loc.lng]).addTo(map);
-        marker.bindTooltip(loc.name, { permanent: false, direction: "top" });
-        marker.on("click", () => {
-          const item = { id: loc.id, name: loc.name, path: loc.name, type: "City" };
-          const isSelected = selected.some(s => s.id === loc.id);
-          if (isSelected) {
-            onSelectedChange(selected.filter(s => s.id !== loc.id));
-          } else {
-            onSelectedChange([...selected, item]);
-          }
-        });
-      });
-
       mapInstanceRef.current = map;
       setTimeout(() => map.invalidateSize(), 100);
     };
-
     loadMap();
+    return () => { if (mapInstanceRef.current) { mapInstanceRef.current.remove(); mapInstanceRef.current = null; } };
+  }, [showMap]);
 
-    return () => {
-      if (mapInstanceRef.current) {
-        mapInstanceRef.current.remove();
-        mapInstanceRef.current = null;
-      }
-    };
+  // Clean up map when popup closes
+  useEffect(() => {
+    if (!open) { setShowMap(false); if (mapInstanceRef.current) { mapInstanceRef.current.remove(); mapInstanceRef.current = null; } }
   }, [open]);
 
-  const filteredRegions = useMemo(() => {
-    if (!query.trim()) return LOCATION_REGIONS;
-    const q = query.toLowerCase();
-    return LOCATION_REGIONS.map(r => ({
-      ...r,
-      locations: r.locations.filter(l => l.name.toLowerCase().includes(q) || r.name.toLowerCase().includes(q)),
-    })).filter(r => r.locations.length > 0);
-  }, [query]);
-
-  const toggleLocation = useCallback((loc: typeof ALL_MAP_LOCATIONS[0]) => {
+  const toggleLocation = useCallback((loc: { id: string; name: string; count: number }) => {
     const item = { id: loc.id, name: loc.name, path: loc.name, type: "City" };
     const isSelected = selected.some(s => s.id === loc.id);
     if (isSelected) {
@@ -484,7 +452,16 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
     }
   }, [selected, onSelectedChange]);
 
+  // Search: filter all locations, simulating web-search behavior
+  const searchResults = useMemo(() => {
+    if (!query.trim()) return null;
+    const q = query.toLowerCase();
+    return MAIN_LOCATIONS.filter(l => l.name.toLowerCase().includes(q));
+  }, [query]);
+
   if (!open) return null;
+
+  const isSearching = query.trim().length > 0;
 
   return (
     <div className="fixed inset-0 z-[200] bg-white flex flex-col animate-in slide-in-from-bottom duration-300">
@@ -494,11 +471,9 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
           <X className="w-5 h-5" />
         </button>
         <h3 className="text-[16px] font-medium text-luxury-black flex-1">Select Location</h3>
-        {selected.length > 0 && (
-          <button onClick={() => onSelectedChange([])} className="text-[13px] text-luxury-black/50">
-            Clear
-          </button>
-        )}
+        <button onClick={() => setShowMap(!showMap)} className={`w-9 h-9 flex items-center justify-center rounded-lg transition-colors ${showMap ? "bg-luxury-black text-white" : "border border-neutral-200 text-luxury-black/50"}`}>
+          <Map className="w-4.5 h-4.5" />
+        </button>
       </div>
 
       {/* Search input */}
@@ -510,7 +485,7 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search locations..."
+            placeholder="Search Altea, Marbella..."
             className="w-full pl-9 pr-9 py-3 text-[16px] bg-neutral-100 rounded-lg text-luxury-black placeholder:text-luxury-black/35 focus:outline-none"
           />
           {query && (
@@ -535,43 +510,90 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
         </div>
       )}
 
-      {/* Map */}
-      <div className="h-[200px] shrink-0 border-b border-neutral-100 relative overflow-hidden">
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-        <div ref={mapRef} className="w-full h-full absolute inset-0" />
-      </div>
+      {/* Map (toggleable) */}
+      {showMap && (
+        <div className="h-[180px] shrink-0 border-b border-neutral-100 relative overflow-hidden">
+          <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+          <div ref={mapRef} className="w-full h-full absolute inset-0" />
+        </div>
+      )}
 
-      {/* Location list grouped by region */}
+      {/* Content */}
       <div className="flex-1 overflow-y-auto">
-        {filteredRegions.map(region => (
-          <div key={region.name}>
-            <div className="px-4 pt-4 pb-2">
-              <span className="text-[11px] font-semibold text-luxury-black/40 uppercase tracking-[0.1em]">{region.name}</span>
-            </div>
-            {region.locations.map(loc => {
+        {isSearching ? (
+          /* Search results */
+          <div>
+            {searchResults && searchResults.length > 0 ? (
+              <>
+                <div className="px-4 pt-3 pb-1.5">
+                  <span className="text-[11px] font-semibold text-luxury-black/40 uppercase tracking-[0.1em]">Results</span>
+                </div>
+                {searchResults.map(loc => {
+                  const isSelected = selected.some(s => s.id === loc.id);
+                  return (
+                    <button key={loc.id} onClick={() => toggleLocation(loc)} className={`w-full flex items-center gap-3 px-4 py-3.5 transition-colors ${isSelected ? "bg-neutral-50" : "active:bg-neutral-50"}`}>
+                      <Search className="w-4 h-4 shrink-0 text-luxury-black/25" />
+                      <span className={`text-[15px] flex-1 text-left ${isSelected ? "text-luxury-black font-medium" : "text-luxury-black/70"}`}>{loc.name}</span>
+                      <span className="text-[12px] text-luxury-black/35">{loc.count}</span>
+                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${isSelected ? "bg-luxury-black border-luxury-black" : "border-neutral-300"}`}>
+                        {isSelected && <svg className="w-3 h-3 text-white" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>}
+                      </div>
+                    </button>
+                  );
+                })}
+              </>
+            ) : (
+              <div className="px-4 py-10 text-center">
+                <p className="text-[14px] text-luxury-black/40">No locations found for "{query}"</p>
+              </div>
+            )}
+          </div>
+        ) : (
+          /* Default: all locations + popular */
+          <div>
+            {/* All locations flat list */}
+            {MAIN_LOCATIONS.map(loc => {
               const isSelected = selected.some(s => s.id === loc.id);
               return (
-                <button
-                  key={loc.id}
-                  onClick={() => toggleLocation(loc)}
-                  className={`w-full flex items-center gap-3 px-4 py-3 transition-colors ${isSelected ? "bg-neutral-50" : "active:bg-neutral-50"}`}
-                >
+                <button key={loc.id} onClick={() => toggleLocation(loc)} className={`w-full flex items-center gap-3 px-4 py-3.5 transition-colors ${isSelected ? "bg-neutral-50" : "active:bg-neutral-50"}`}>
                   <MapPin className={`w-4 h-4 shrink-0 ${isSelected ? "text-luxury-black" : "text-luxury-black/30"}`} />
                   <span className={`text-[15px] flex-1 text-left ${isSelected ? "text-luxury-black font-medium" : "text-luxury-black/70"}`}>{loc.name}</span>
-                  <span className="text-[12px] text-luxury-black/35">{loc.count} props</span>
+                  <span className="text-[12px] text-luxury-black/35">{loc.count}</span>
                   <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${isSelected ? "bg-luxury-black border-luxury-black" : "border-neutral-300"}`}>
-                    {isSelected && <svg className="w-3 h-3 text-white" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                    {isSelected && <svg className="w-3 h-3 text-white" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>}
                   </div>
                 </button>
               );
             })}
+
+            {/* Separator */}
+            <div className="mx-4 my-2 border-t border-neutral-200" />
+
+            {/* Popular locations */}
+            <div className="px-4 pt-2 pb-1.5">
+              <span className="text-[11px] font-semibold text-luxury-black/40 uppercase tracking-[0.1em]">Popular locations</span>
+            </div>
+            <div className="px-4 pb-4 flex flex-wrap gap-2">
+              {POPULAR_LOCATIONS.map(loc => {
+                const isSelected = selected.some(s => s.id === loc.id);
+                return (
+                  <button
+                    key={loc.id}
+                    onClick={() => toggleLocation(loc)}
+                    className={`px-3.5 py-2 rounded-full text-[13px] border transition-colors ${isSelected ? "bg-luxury-black text-white border-luxury-black" : "border-neutral-200 text-luxury-black/60 active:bg-neutral-50"}`}
+                  >
+                    {loc.name}
+                  </button>
+                );
+              })}
+            </div>
           </div>
-        ))}
+        )}
       </div>
 
       {/* Footer */}
       <div className="border-t border-neutral-200 px-4 py-3 flex items-center gap-3 bg-white">
-        <button onClick={() => { onSelectedChange([]); }} className="px-4 py-3.5 text-[13px] text-luxury-black/50 font-medium">
+        <button onClick={() => onSelectedChange([])} className="px-4 py-3.5 text-[13px] text-luxury-black/50 font-medium">
           Clear all
         </button>
         <button onClick={onClose} className="flex-1 bg-luxury-black text-white text-[14px] tracking-[0.08em] uppercase py-3.5 rounded-lg font-medium">
