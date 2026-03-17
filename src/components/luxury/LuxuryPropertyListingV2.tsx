@@ -1213,7 +1213,7 @@ const PropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
       {isMobile && (
         <>
           <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
-          <span className="absolute bottom-3 left-3 text-white text-[15px] font-medium tracking-wide drop-shadow-md">{property.price}</span>
+          <span className="absolute bottom-3 left-3 text-white text-[17px] font-semibold tracking-wide drop-shadow-md">{property.price}</span>
         </>
       )}
     </div>
