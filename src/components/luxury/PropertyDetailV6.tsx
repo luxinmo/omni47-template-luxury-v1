@@ -1285,6 +1285,8 @@ const PropertyDetailV6 = () => {
         propertyRef={p.ref}
         propertyTitle={p.title}
         priceFormatted={p.priceFormatted}
+        propertyImage={p.images[0]}
+        propertyLocation={p.location}
       />
     </div>
   );
