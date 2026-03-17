@@ -1,5 +1,5 @@
 import React from "react";
-import { Phone, MessageCircle, Mail } from "lucide-react";
+import { Phone, MessageCircle, Mail, BellRing } from "lucide-react";
 
 interface DetailInfoHeaderCardProps {
   title?: string;
