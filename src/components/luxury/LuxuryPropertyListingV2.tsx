@@ -1187,9 +1187,12 @@ const PropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
       <img src={property.image} alt={property.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 absolute inset-0" />
       {property.tag === "NEW BUILD" && <span className="absolute top-3 left-3 bg-luxury-black/60 backdrop-blur-sm text-white text-[12px] tracking-[0.12em] uppercase font-medium px-2.5 py-1">New Build</span>}
       {property.gallery.length > 1 && <span className="absolute bottom-3 right-3 bg-luxury-black/60 text-white text-[12px] px-2 py-1 font-light">1/{property.gallery.length}</span>}
-      {/* Mobile: price overlay on image */}
+      {/* Mobile: price overlay with gradient */}
       {isMobile && (
-        <span className="absolute bottom-3 left-3 bg-luxury-black/70 backdrop-blur-sm text-white text-[15px] font-medium px-3 py-1.5 tracking-wide">{property.price}</span>
+        <>
+          <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
+          <span className="absolute bottom-3 left-3 text-white text-[15px] font-medium tracking-wide drop-shadow-md">{property.price}</span>
+        </>
       )}
     </div>
     <div className="md:col-span-7 flex flex-col p-5 md:p-6 lg:p-8">
