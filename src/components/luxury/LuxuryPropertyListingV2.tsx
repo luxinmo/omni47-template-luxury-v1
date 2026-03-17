@@ -1051,26 +1051,35 @@ const LuxuryPropertyListingV2 = () => {
     <Layout activePath="/properties" background="#fff" showBackToTop={!isMobile}>
       <SEOHead title="Luxury Properties for Sale" description="Discover luxury villas, penthouses and more." />
 
+      {/* ─── MOBILE: Location Popup ─── */}
+      {isMobile && (
+        <MobileLocationPopup
+          open={locationPopupOpen}
+          onClose={() => setLocationPopupOpen(false)}
+          selected={filters.locations}
+          onSelectedChange={(locs) => setFilters(f => ({ ...f, locations: locs }))}
+        />
+      )}
+
       {/* ─── MOBILE: Sticky search bar ─── */}
       {isMobile && (
         <div className="sticky top-[64px] z-40 bg-white border-b border-neutral-200 px-3 py-2.5">
           {/* Search row */}
           <div className="flex items-center gap-2">
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-black/40" strokeWidth={1.5} />
-              <input
-                type="text"
-                value={mobileSearch}
-                onChange={(e) => setMobileSearch(e.target.value)}
-                placeholder="What are you looking for?"
-                className="w-full pl-9 pr-3 py-2.5 text-[14px] bg-neutral-100 rounded-lg text-luxury-black placeholder:text-luxury-black/40 focus:outline-none focus:bg-neutral-200/70 transition-colors"
-              />
-              {mobileSearch && (
-                <button onClick={() => setMobileSearch("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-luxury-black/40">
-                  <X className="w-3.5 h-3.5" />
-                </button>
+            <button
+              onClick={() => setLocationPopupOpen(true)}
+              className="flex-1 flex items-center gap-2 bg-neutral-100 rounded-lg px-3 py-2.5 text-left"
+            >
+              <MapPin className="w-4 h-4 text-luxury-black/40 shrink-0" strokeWidth={1.5} />
+              {filters.locations.length > 0 ? (
+                <span className="text-[14px] text-luxury-black truncate">{filters.locations.map(l => l.name).join(", ")}</span>
+              ) : (
+                <span className="text-[14px] text-luxury-black/40">Where? City, region...</span>
               )}
-            </div>
+              {filters.locations.length > 0 && (
+                <span className="ml-auto bg-luxury-black text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center shrink-0 font-bold">{filters.locations.length}</span>
+              )}
+            </button>
             {/* Sort button */}
             <button
               onClick={() => setSortOpen(true)}
