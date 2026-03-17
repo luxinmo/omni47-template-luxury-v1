@@ -744,7 +744,7 @@ const PropertyDetailV6 = () => {
                   Get in touch for a personal consultation or to arrange a private viewing.
                 </p>
                 <p className="text-[14px] text-luxury-black/70 font-mono text-center mt-3 tracking-[0.05em]">REF-{p.ref}</p>
-                <button className="group w-full flex items-center justify-center gap-2 border border-luxury-gold/30 bg-luxury-gold/5 text-luxury-gold hover:bg-luxury-gold/10 text-[12px] tracking-[0.08em] uppercase font-medium py-2.5 mt-4 transition-all">
+                <button onClick={() => setPriceAlertOpen(true)} className="group w-full flex items-center justify-center gap-2 border border-luxury-gold/30 bg-luxury-gold/5 text-luxury-gold hover:bg-luxury-gold/10 text-[12px] tracking-[0.08em] uppercase font-medium py-2.5 mt-4 transition-all">
                   <BellRing className="w-3.5 h-3.5 group-hover:animate-[wiggle_0.4s_ease-in-out]" strokeWidth={1.5} />
                   Avísame si baja el precio
                 </button>
