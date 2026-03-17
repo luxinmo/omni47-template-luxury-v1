@@ -394,7 +394,7 @@
 | Heroes | 3 |
 | Stats | 2 |
 | Featured Properties | 3 |
-| Destinations | 2 |
+| Destinations | 3 |
 | Property Types | 1 |
 | Collections | 2 |
 | Branded Residences | 6 |
