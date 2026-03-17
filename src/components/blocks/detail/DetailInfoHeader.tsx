@@ -4,7 +4,7 @@
  * Origin: PropertyDetail V6
  */
 
-import { Bed, Bath, Maximize, Fence, MapPin, Star, Home } from "lucide-react";
+import { Bed, Bath, Maximize, Fence, MapPin, Star, Home, BellRing } from "lucide-react";
 
 interface DetailInfoHeaderProps {
   title?: string;
