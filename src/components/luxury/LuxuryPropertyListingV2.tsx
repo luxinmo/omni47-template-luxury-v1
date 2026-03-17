@@ -536,8 +536,9 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
       )}
 
       {/* Map */}
-      <div className="h-[200px] shrink-0 border-b border-neutral-100">
-        <div ref={mapRef} className="w-full h-full" />
+      <div className="h-[200px] shrink-0 border-b border-neutral-100 relative overflow-hidden">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+        <div ref={mapRef} className="w-full h-full absolute inset-0" />
       </div>
 
       {/* Location list grouped by region */}
