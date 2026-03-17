@@ -149,6 +149,7 @@ const CATEGORIES = [
     blocks: [
       { id: "destinations-grid-tall", name: "Grid Vertical", origin: "Home2/3", component: DestinationsGridTall },
       { id: "destinations-asymmetric", name: "Grid Asimétrico", origin: "Portal", component: DestinationsAsymmetric },
+      { id: "destinations-map-carousel", name: "Carousel con Mapas", origin: "Home", component: DestinationsMapCarousel },
     ],
   },
   {
