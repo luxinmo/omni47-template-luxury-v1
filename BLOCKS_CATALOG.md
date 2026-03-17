@@ -438,6 +438,6 @@
 | Favorites | 4 |
 | PDF | 2 |
 | System | 3 |
-| **TOTAL BLOQUES** | **~93** |
+| **TOTAL BLOQUES** | **~94** |
 | Preview Combos | 10 |
-| **TOTAL GENERAL** | **~103 componentes** |
+| **TOTAL GENERAL** | **~104 componentes** |
