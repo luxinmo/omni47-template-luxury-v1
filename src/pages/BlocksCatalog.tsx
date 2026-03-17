@@ -15,6 +15,7 @@ import FeaturedGrid3Col from "@/components/blocks/featured-properties/FeaturedGr
 import FeaturedGridPortrait from "@/components/blocks/featured-properties/FeaturedGridPortrait";
 import DestinationsGridTall from "@/components/blocks/destinations/DestinationsGridTall";
 import DestinationsAsymmetric from "@/components/blocks/destinations/DestinationsAsymmetric";
+import DestinationsMapCarousel from "@/components/blocks/destinations/DestinationsMapCarousel";
 import PropertyTypesGrid from "@/components/blocks/property-types/PropertyTypesGrid";
 import CollectionsLandscape from "@/components/blocks/collections/CollectionsLandscape";
 import CollectionsTagged from "@/components/blocks/collections/CollectionsTagged";
