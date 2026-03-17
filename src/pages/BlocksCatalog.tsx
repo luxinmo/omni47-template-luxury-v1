@@ -313,6 +313,7 @@ const CATEGORIES = [
       { id: "detail-breadcrumb-sticky", name: "Breadcrumb Sticky Bar", origin: "Detail V4", component: DetailBreadcrumbSticky },
       { id: "detail-related-list", name: "Related Properties List", origin: "Detail V4", component: DetailRelatedList },
       { id: "detail-nearby-areas", name: "Nearby Areas (Links Grid)", origin: "Detail V6", component: DetailNearbyAreas },
+      { id: "detail-amenities-full", name: "Amenities Full Catalog (7 cats)", origin: "Omni47 Catalog", component: DetailAmenitiesFull },
     ],
   },
   {
