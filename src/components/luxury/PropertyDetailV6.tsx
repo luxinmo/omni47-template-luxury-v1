@@ -13,6 +13,7 @@ import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/compone
 import { cn } from "@/lib/utils";
 import { brand, navLeft, navRight, languages, currencies, areaUnits } from "@/config/template";
 import SEOHead from "@/components/shared/SEOHead";
+import DetailPriceAlertModal from "@/components/blocks/detail/DetailPriceAlertModal";
 import LuxuryPhoneInput from "./LuxuryPhoneInput";
 import LuxuryMortgageCalculator from "./LuxuryMortgageCalculator";
 
@@ -202,6 +203,7 @@ const PropertyDetailV6 = () => {
   ]);
   const [chatInput, setChatInput] = useState("");
   const [gridView, setGridView] = useState(false);
+  const [priceAlertOpen, setPriceAlertOpen] = useState(false);
   const isMobile = useIsMobile();
 
   const p = PROPERTY;
@@ -520,7 +522,7 @@ const PropertyDetailV6 = () => {
                   <Home className="w-3 h-3 text-luxury-gold/80" /> Rent: <span className="font-medium text-luxury-black/70">{p.rentalPrice}</span>
                 </span>
               )}
-              <button className="group flex items-center gap-1.5 text-[11px] tracking-[0.06em] text-luxury-gold/80 hover:text-luxury-gold font-light transition-colors mt-1">
+              <button onClick={() => setPriceAlertOpen(true)} className="group flex items-center gap-1.5 text-[11px] tracking-[0.06em] text-luxury-gold/80 hover:text-luxury-gold font-light transition-colors mt-1">
                 <BellRing className="w-3 h-3 group-hover:animate-[wiggle_0.4s_ease-in-out]" strokeWidth={1.4} />
                 Avísame si baja el precio
               </button>
@@ -742,7 +744,7 @@ const PropertyDetailV6 = () => {
                   Get in touch for a personal consultation or to arrange a private viewing.
                 </p>
                 <p className="text-[14px] text-luxury-black/70 font-mono text-center mt-3 tracking-[0.05em]">REF-{p.ref}</p>
-                <button className="group w-full flex items-center justify-center gap-2 border border-luxury-gold/30 bg-luxury-gold/5 text-luxury-gold hover:bg-luxury-gold/10 text-[12px] tracking-[0.08em] uppercase font-medium py-2.5 mt-4 transition-all">
+                <button onClick={() => setPriceAlertOpen(true)} className="group w-full flex items-center justify-center gap-2 border border-luxury-gold/30 bg-luxury-gold/5 text-luxury-gold hover:bg-luxury-gold/10 text-[12px] tracking-[0.08em] uppercase font-medium py-2.5 mt-4 transition-all">
                   <BellRing className="w-3.5 h-3.5 group-hover:animate-[wiggle_0.4s_ease-in-out]" strokeWidth={1.5} />
                   Avísame si baja el precio
                 </button>
@@ -1275,6 +1277,15 @@ const PropertyDetailV6 = () => {
 
       {/* Bottom padding for mobile/tablet sticky bar */}
       <div className="lg:hidden h-16" />
+
+      {/* Price Alert Modal */}
+      <DetailPriceAlertModal
+        open={priceAlertOpen}
+        onOpenChange={setPriceAlertOpen}
+        propertyRef={p.ref}
+        propertyTitle={p.title}
+        priceFormatted={p.priceFormatted}
+      />
     </div>
   );
 };
