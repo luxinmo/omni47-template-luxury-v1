@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import { Link } from "react-router-dom";
 import {
   Search, SlidersHorizontal, X, ChevronDown, ChevronRight,
@@ -371,7 +371,216 @@ const FilterSidebar = ({ open, onClose, filters, onChange }: { open: boolean; on
   );
 };
 
-/* ─── Mobile Price Select (popup overlay) ─── */
+/* ─── Location data with coordinates ─── */
+const LOCATION_REGIONS = [
+  {
+    name: "Balearic Islands",
+    locations: [
+      { id: "es-ibiza", name: "Ibiza", lat: 38.9067, lng: 1.4206, count: 48 },
+      { id: "es-mallorca", name: "Mallorca", lat: 39.6953, lng: 3.0176, count: 35 },
+    ],
+  },
+  {
+    name: "Costa del Sol",
+    locations: [
+      { id: "es-marbella", name: "Marbella", lat: 36.5099, lng: -4.8862, count: 62 },
+      { id: "es-estepona", name: "Estepona", lat: 36.4268, lng: -5.1455, count: 28 },
+      { id: "es-benahavis", name: "Benahavís", lat: 36.5225, lng: -5.0485, count: 19 },
+    ],
+  },
+  {
+    name: "Costa Blanca",
+    locations: [
+      { id: "es-javea", name: "Jávea", lat: 38.7874, lng: 0.1661, count: 22 },
+      { id: "es-altea", name: "Altea", lat: 38.5988, lng: -0.0513, count: 15 },
+    ],
+  },
+];
+
+const ALL_MAP_LOCATIONS = LOCATION_REGIONS.flatMap(r => r.locations);
+
+/* ─── Mobile Location Popup (map + list) ─── */
+const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
+  open: boolean;
+  onClose: () => void;
+  selected: { id: string; name: string; path: string; type: string }[];
+  onSelectedChange: (items: { id: string; name: string; path: string; type: string }[]) => void;
+}) => {
+  const [query, setQuery] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+  const mapRef = useRef<HTMLDivElement>(null);
+  const mapInstanceRef = useRef<any>(null);
+
+  // Initialize Leaflet map
+  useEffect(() => {
+    if (!open || !mapRef.current || mapInstanceRef.current) return;
+
+    const loadMap = async () => {
+      const L = await import("leaflet");
+      // Fix default icon
+      delete (L.Icon.Default.prototype as any)._getIconUrl;
+      L.Icon.Default.mergeOptions({
+        iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png",
+        iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png",
+        shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
+      });
+
+      const map = L.map(mapRef.current!, {
+        center: [38.5, -1.5],
+        zoom: 6,
+        zoomControl: false,
+        attributionControl: false,
+      });
+
+      L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+        maxZoom: 19,
+      }).addTo(map);
+
+      // Add markers
+      ALL_MAP_LOCATIONS.forEach((loc) => {
+        const marker = L.marker([loc.lat, loc.lng]).addTo(map);
+        marker.bindTooltip(loc.name, { permanent: false, direction: "top" });
+        marker.on("click", () => {
+          const item = { id: loc.id, name: loc.name, path: loc.name, type: "City" };
+          const isSelected = selected.some(s => s.id === loc.id);
+          if (isSelected) {
+            onSelectedChange(selected.filter(s => s.id !== loc.id));
+          } else {
+            onSelectedChange([...selected, item]);
+          }
+        });
+      });
+
+      mapInstanceRef.current = map;
+      setTimeout(() => map.invalidateSize(), 100);
+    };
+
+    loadMap();
+
+    return () => {
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.remove();
+        mapInstanceRef.current = null;
+      }
+    };
+  }, [open]);
+
+  const filteredRegions = useMemo(() => {
+    if (!query.trim()) return LOCATION_REGIONS;
+    const q = query.toLowerCase();
+    return LOCATION_REGIONS.map(r => ({
+      ...r,
+      locations: r.locations.filter(l => l.name.toLowerCase().includes(q) || r.name.toLowerCase().includes(q)),
+    })).filter(r => r.locations.length > 0);
+  }, [query]);
+
+  const toggleLocation = useCallback((loc: typeof ALL_MAP_LOCATIONS[0]) => {
+    const item = { id: loc.id, name: loc.name, path: loc.name, type: "City" };
+    const isSelected = selected.some(s => s.id === loc.id);
+    if (isSelected) {
+      onSelectedChange(selected.filter(s => s.id !== loc.id));
+    } else {
+      onSelectedChange([...selected, item]);
+    }
+  }, [selected, onSelectedChange]);
+
+  if (!open) return null;
+
+  return (
+    <div className="fixed inset-0 z-[200] bg-white flex flex-col animate-in slide-in-from-bottom duration-300">
+      {/* Header */}
+      <div className="flex items-center gap-3 px-4 py-3 border-b border-neutral-100">
+        <button onClick={onClose} className="text-luxury-black/60">
+          <X className="w-5 h-5" />
+        </button>
+        <h3 className="text-[16px] font-medium text-luxury-black flex-1">Select Location</h3>
+        {selected.length > 0 && (
+          <button onClick={() => onSelectedChange([])} className="text-[13px] text-luxury-black/50">
+            Clear
+          </button>
+        )}
+      </div>
+
+      {/* Search input */}
+      <div className="px-4 py-3 border-b border-neutral-100">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-black/35" />
+          <input
+            ref={inputRef}
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search locations..."
+            className="w-full pl-9 pr-9 py-3 text-[16px] bg-neutral-100 rounded-lg text-luxury-black placeholder:text-luxury-black/35 focus:outline-none"
+          />
+          {query && (
+            <button onClick={() => setQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-luxury-black/35">
+              <X className="w-4 h-4" />
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Selected chips */}
+      {selected.length > 0 && (
+        <div className="px-4 py-2.5 flex flex-wrap gap-2 border-b border-neutral-100">
+          {selected.map(s => (
+            <span key={s.id} className="inline-flex items-center gap-1.5 bg-luxury-black text-white text-[12px] font-medium rounded-full pl-3 pr-2 py-1.5">
+              {s.name}
+              <button onClick={() => onSelectedChange(selected.filter(x => x.id !== s.id))}>
+                <X className="w-3 h-3" />
+              </button>
+            </span>
+          ))}
+        </div>
+      )}
+
+      {/* Map */}
+      <div className="h-[200px] shrink-0 border-b border-neutral-100">
+        <div ref={mapRef} className="w-full h-full" />
+      </div>
+
+      {/* Location list grouped by region */}
+      <div className="flex-1 overflow-y-auto">
+        {filteredRegions.map(region => (
+          <div key={region.name}>
+            <div className="px-4 pt-4 pb-2">
+              <span className="text-[11px] font-semibold text-luxury-black/40 uppercase tracking-[0.1em]">{region.name}</span>
+            </div>
+            {region.locations.map(loc => {
+              const isSelected = selected.some(s => s.id === loc.id);
+              return (
+                <button
+                  key={loc.id}
+                  onClick={() => toggleLocation(loc)}
+                  className={`w-full flex items-center gap-3 px-4 py-3 transition-colors ${isSelected ? "bg-neutral-50" : "active:bg-neutral-50"}`}
+                >
+                  <MapPin className={`w-4 h-4 shrink-0 ${isSelected ? "text-luxury-black" : "text-luxury-black/30"}`} />
+                  <span className={`text-[15px] flex-1 text-left ${isSelected ? "text-luxury-black font-medium" : "text-luxury-black/70"}`}>{loc.name}</span>
+                  <span className="text-[12px] text-luxury-black/35">{loc.count} props</span>
+                  <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${isSelected ? "bg-luxury-black border-luxury-black" : "border-neutral-300"}`}>
+                    {isSelected && <svg className="w-3 h-3 text-white" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        ))}
+      </div>
+
+      {/* Footer */}
+      <div className="border-t border-neutral-200 px-4 py-3 flex items-center gap-3 bg-white">
+        <button onClick={() => { onSelectedChange([]); }} className="px-4 py-3.5 text-[13px] text-luxury-black/50 font-medium">
+          Clear all
+        </button>
+        <button onClick={onClose} className="flex-1 bg-luxury-black text-white text-[14px] tracking-[0.08em] uppercase py-3.5 rounded-lg font-medium">
+          {selected.length > 0 ? `Apply (${selected.length})` : "Apply"}
+        </button>
+      </div>
+    </div>
+  );
+};
+
 const MobilePriceSelect = ({ value, onChange, options, placeholder }: { value: string; onChange: (v: string) => void; options: typeof MOBILE_PRICE_OPTIONS; placeholder: string }) => {
   const [popupOpen, setPopupOpen] = useState(false);
   const [tempValue, setTempValue] = useState("");
@@ -831,6 +1040,7 @@ const LuxuryPropertyListingV2 = () => {
   const [sortValue, setSortValue] = useState("premium");
   const [filters, setFilters] = useState<FilterState>(defaultFilters);
   const [mobileSearch, setMobileSearch] = useState("");
+  const [locationPopupOpen, setLocationPopupOpen] = useState(false);
 
   const toggleType = (t: string) => setFilters(f => ({ ...f, types: f.types.includes(t) ? f.types.filter(x => x !== t) : [...f.types, t] }));
   const toggleAmenity = (a: string) => setFilters(f => ({ ...f, amenities: f.amenities.includes(a) ? f.amenities.filter(x => x !== a) : [...f.amenities, a] }));
@@ -841,26 +1051,35 @@ const LuxuryPropertyListingV2 = () => {
     <Layout activePath="/properties" background="#fff" showBackToTop={!isMobile}>
       <SEOHead title="Luxury Properties for Sale" description="Discover luxury villas, penthouses and more." />
 
+      {/* ─── MOBILE: Location Popup ─── */}
+      {isMobile && (
+        <MobileLocationPopup
+          open={locationPopupOpen}
+          onClose={() => setLocationPopupOpen(false)}
+          selected={filters.locations}
+          onSelectedChange={(locs) => setFilters(f => ({ ...f, locations: locs }))}
+        />
+      )}
+
       {/* ─── MOBILE: Sticky search bar ─── */}
       {isMobile && (
         <div className="sticky top-[64px] z-40 bg-white border-b border-neutral-200 px-3 py-2.5">
           {/* Search row */}
           <div className="flex items-center gap-2">
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-black/40" strokeWidth={1.5} />
-              <input
-                type="text"
-                value={mobileSearch}
-                onChange={(e) => setMobileSearch(e.target.value)}
-                placeholder="What are you looking for?"
-                className="w-full pl-9 pr-3 py-2.5 text-[14px] bg-neutral-100 rounded-lg text-luxury-black placeholder:text-luxury-black/40 focus:outline-none focus:bg-neutral-200/70 transition-colors"
-              />
-              {mobileSearch && (
-                <button onClick={() => setMobileSearch("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-luxury-black/40">
-                  <X className="w-3.5 h-3.5" />
-                </button>
+            <button
+              onClick={() => setLocationPopupOpen(true)}
+              className="flex-1 flex items-center gap-2 bg-neutral-100 rounded-lg px-3 py-2.5 text-left"
+            >
+              <MapPin className="w-4 h-4 text-luxury-black/40 shrink-0" strokeWidth={1.5} />
+              {filters.locations.length > 0 ? (
+                <span className="text-[14px] text-luxury-black truncate">{filters.locations.map(l => l.name).join(", ")}</span>
+              ) : (
+                <span className="text-[14px] text-luxury-black/40">Where? City, region...</span>
               )}
-            </div>
+              {filters.locations.length > 0 && (
+                <span className="ml-auto bg-luxury-black text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center shrink-0 font-bold">{filters.locations.length}</span>
+              )}
+            </button>
             {/* Sort button */}
             <button
               onClick={() => setSortOpen(true)}
