@@ -112,6 +112,10 @@ import PropertyPdfSheetV2 from "@/components/blocks/pdf/PropertyPdfSheetV2";
 import HeroMini from "@/components/blocks/system/HeroMini";
 import BreadcrumbBar from "@/components/blocks/system/BreadcrumbBar";
 import NotFoundBlock from "@/components/blocks/system/NotFoundBlock";
+import ListingPropertyCard from "@/components/blocks/listing/ListingPropertyCard";
+import ListingBrandedCard from "@/components/blocks/listing/ListingBrandedCard";
+import ListingNewDevCard from "@/components/blocks/listing/ListingNewDevCard";
+import ListingOffMarketCard from "@/components/blocks/listing/ListingOffMarketCard";
 import HomeComboA from "@/components/combos/HomeComboA";
 import HomeComboB from "@/components/combos/HomeComboB";
 import HomeComboC from "@/components/combos/HomeComboC";
@@ -205,6 +209,15 @@ const CATEGORIES = [
       { id: "project-info-ribbon", name: "Info Ribbon (Title + Stats)", origin: "BrandedResidence Detail / NewDev Detail", component: ProjectInfoRibbon },
       { id: "project-description", name: "Project Description (Multi-paragraph)", origin: "BrandedResidence Detail / NewDev Detail", component: ProjectDescription },
       { id: "project-gallery-mosaic", name: "Gallery Mosaic + ROI Badge", origin: "BrandedResidence Detail / NewDev Detail", component: ProjectGalleryMosaic },
+    ],
+  },
+  {
+    title: "📋 Listing Cards",
+    blocks: [
+      { id: "listing-property-card", name: "Property Card (Mobile Optimized)", origin: "PropertyListing", component: ListingPropertyCard },
+      { id: "listing-branded-card", name: "Branded Residence Promo Card", origin: "PropertyListing", component: ListingBrandedCard },
+      { id: "listing-newdev-card", name: "New Development Promo Card", origin: "PropertyListing", component: ListingNewDevCard },
+      { id: "listing-offmarket-card", name: "Off-Market Card + Enquiry Modal", origin: "PropertyListing", component: ListingOffMarketCard },
     ],
   },
   {
