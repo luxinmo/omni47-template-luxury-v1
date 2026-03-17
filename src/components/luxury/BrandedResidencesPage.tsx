@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Crown, ArrowRight, Star, Shield, Sparkles, Users, TrendingUp, X } from "lucide-react";
+import { Crown, ArrowRight, Star, Shield, Sparkles, Users, TrendingUp, X, ChevronDown } from "lucide-react";
 import { Layout } from "@/components/layout";
 import FadeIn from "@/components/shared/FadeIn";
 import SEOHead from "@/components/shared/SEOHead";
