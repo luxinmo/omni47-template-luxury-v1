@@ -1153,7 +1153,7 @@ const BrandedResidencePromoCard = () => {
       {isMobile && (
         <>
           <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
-          <span className="absolute bottom-3 left-3 text-white text-[14px] font-medium tracking-wide drop-shadow-md">€3,500,000 — €8,200,000</span>
+          <span className="absolute bottom-3 left-3 text-white text-[17px] font-semibold tracking-wide drop-shadow-md">€3,500,000 — €8,200,000</span>
         </>
       )}
     </div>
@@ -1181,15 +1181,22 @@ const NewDevPromoCard = () => {
       <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-luxury-black/80 text-white text-[11px] tracking-[0.12em] uppercase font-medium px-3 py-1.5 rounded-sm"><Building2 className="w-3 h-3" /> New Development</span>
       {isMobile && (
         <>
-          <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
-          <span className="absolute bottom-3 left-3 text-white text-[14px] font-medium tracking-wide drop-shadow-md">€485,000 — €1,250,000</span>
+          <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
+          <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between drop-shadow-md">
+            <span className="text-white text-[17px] font-semibold tracking-wide">€485,000 — €1,250,000</span>
+            <span className="text-white/80 text-[11px] tracking-[0.05em] font-light">12 units · Q4 2026</span>
+          </div>
         </>
       )}
     </div>
     <div className="md:col-span-7 flex flex-col p-5 md:p-6 lg:p-8">
       <p className="text-[13px] tracking-[0.14em] uppercase text-luxury-black/60 mb-1">Altea · Costa Blanca</p>
       <h2 className="text-[17px] md:text-[19px] font-medium text-luxury-black leading-snug mb-1.5">MAREA RESIDENCES</h2>
-      <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2">Contemporary beachfront apartments with panoramic sea views and communal pools.</p>
+      <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-3 line-clamp-2">Contemporary beachfront apartments with panoramic sea views and communal pools.</p>
+      <div className="flex items-center gap-4 text-[13px] text-luxury-black/55 font-light mb-4">
+        <span className="flex items-center gap-1"><Building2 className="w-3.5 h-3.5 text-luxury-black/40" /> 12 units available</span>
+        <span>Delivery Q4 2026</span>
+      </div>
       {!isMobile && (
         <div className="mt-auto pt-5 border-t border-neutral-100">
           <p className="text-2xl md:text-[28px] font-extralight text-luxury-black tracking-tight">€485,000 — €1,250,000</p>
@@ -1213,7 +1220,7 @@ const PropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
       {isMobile && (
         <>
           <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
-          <span className="absolute bottom-3 left-3 text-white text-[15px] font-medium tracking-wide drop-shadow-md">{property.price}</span>
+          <span className="absolute bottom-3 left-3 text-white text-[17px] font-semibold tracking-wide drop-shadow-md">{property.price}</span>
         </>
       )}
     </div>
@@ -1254,6 +1261,7 @@ const OffMarketPropertyCard = ({ property }: { property: typeof PROPERTIES[0] })
   const [modalOpen, setModalOpen] = useState(false);
   const isMobile = useIsMobile();
   const offmarketTitle = `${property.style.toUpperCase()} FOR SALE OFF-MARKET`;
+  const propertyRef = `REF-${String(property.id).padStart(4, "0")}`;
   return (
     <>
       <div onClick={() => setModalOpen(true)} className="group grid grid-cols-1 md:grid-cols-12 gap-0 bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden mb-6 hover:shadow-md transition-shadow duration-300 cursor-pointer relative">
@@ -1265,8 +1273,8 @@ const OffMarketPropertyCard = ({ property }: { property: typeof PROPERTIES[0] })
           </div>
           {isMobile && (
             <>
-              <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
-              <span className="absolute bottom-3 left-3 text-white/80 text-[14px] font-light italic tracking-wide drop-shadow-md">Price on Request</span>
+              <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
+              <span className="absolute bottom-3 left-3 text-white text-[17px] font-semibold tracking-wide drop-shadow-md">{property.price !== "Price on Request" ? property.price : "Price on Request"}</span>
             </>
           )}
         </div>
@@ -1277,16 +1285,23 @@ const OffMarketPropertyCard = ({ property }: { property: typeof PROPERTIES[0] })
               <Lock className="w-4 h-4 text-luxury-black/30" />
             </div>
           )}
+          <p className="text-[13px] tracking-[0.14em] uppercase text-luxury-black/60 mb-1">{property.location}</p>
           <h2 className="text-[17px] md:text-[19px] font-medium text-luxury-black leading-snug mb-1.5">{offmarketTitle}</h2>
-          {!isMobile && <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2 italic">This property is part of our exclusive off-market portfolio.</p>}
-          <div className="flex items-center gap-7 mb-5">
+          <p className="text-[13px] text-luxury-black/50 font-light mb-3 italic flex items-center gap-1.5">
+            <Lock className="w-3 h-3" /> Exclusive listing — access restricted. Contact us to receive details.
+          </p>
+          <div className="flex items-center gap-7 mb-4">
             <div className="text-center"><p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Beds</p><p className="text-[16px] text-luxury-black font-light">{property.beds}</p></div>
             <div className="text-center"><p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Baths</p><p className="text-[16px] text-luxury-black font-light">{property.baths}</p></div>
             <div className="text-center"><p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Built</p><p className="text-[16px] text-luxury-black font-light">{property.sqm} m²</p></div>
+            {property.plot && <div className="text-center"><p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Plot</p><p className="text-[16px] text-luxury-black font-light">{property.plot.toLocaleString()} m²</p></div>}
+          </div>
+          <div className="flex flex-wrap gap-2.5 mb-4">
+            {property.features.map((f, i) => <span key={i} className="text-[12px] text-luxury-black/55 font-light flex items-center gap-1.5"><span className="w-1 h-1 rounded-full bg-luxury-black/30" />{f}</span>)}
           </div>
           {!isMobile && (
             <div className="mt-auto pt-5 border-t border-neutral-100 flex items-center justify-between">
-              <p className="text-2xl md:text-[28px] font-extralight text-luxury-black/50 tracking-tight italic">Price on Request</p>
+              <p className="text-2xl md:text-[28px] font-extralight text-luxury-black tracking-tight">{property.price}</p>
               <span className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 font-light flex items-center gap-1.5"><Lock className="w-3 h-3" /> Request access</span>
             </div>
           )}
@@ -1296,15 +1311,33 @@ const OffMarketPropertyCard = ({ property }: { property: typeof PROPERTIES[0] })
         <>
           <div className="fixed inset-0 bg-luxury-black/60 backdrop-blur-sm z-50" onClick={() => setModalOpen(false)} />
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <div className="bg-white w-full max-w-[520px] rounded-sm shadow-2xl animate-in fade-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto p-6">
-              <button onClick={() => setModalOpen(false)} className="float-right text-luxury-black/40 hover:text-luxury-black"><X className="w-5 h-5" /></button>
-              <div className="flex items-center gap-2 mb-3"><Lock className="w-4 h-4 text-luxury-black/50" /><span className="text-[12px] tracking-[0.15em] uppercase text-luxury-black/60 font-medium">Private Listing</span></div>
-              <h3 className="text-[18px] font-medium text-luxury-black">{property.style} for sale off-market</h3>
-              <form className="mt-6 space-y-4" onSubmit={(e) => { e.preventDefault(); setModalOpen(false); }}>
-                <input type="text" required placeholder="Full name" className="w-full border border-neutral-300 rounded-md px-3 py-2.5 text-[14px] focus:outline-none focus:border-luxury-black/40" />
-                <input type="email" required placeholder="Email" className="w-full border border-neutral-300 rounded-md px-3 py-2.5 text-[14px] focus:outline-none focus:border-luxury-black/40" />
-                <input type="tel" placeholder="Phone" className="w-full border border-neutral-300 rounded-md px-3 py-2.5 text-[14px] focus:outline-none focus:border-luxury-black/40" />
-                <button type="submit" className="w-full bg-luxury-black text-white text-[13px] tracking-[0.12em] uppercase py-3.5 hover:bg-luxury-black/85 transition-all">Request Property Dossier</button>
+            <div className="bg-white w-full max-w-[520px] rounded-sm shadow-2xl animate-in fade-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto">
+              <button onClick={() => setModalOpen(false)} className="absolute top-4 right-4 text-luxury-black/40 hover:text-luxury-black z-10"><X className="w-5 h-5" /></button>
+              {/* Property preview card */}
+              <div className="p-5 pb-0">
+                <div className="flex gap-3 mb-4 bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden">
+                  <img src={property.image} alt={offmarketTitle} className="w-24 h-20 object-cover shrink-0 filter blur-sm" />
+                  <div className="py-2 pr-3 flex flex-col justify-center min-w-0">
+                    <p className="text-[13px] font-medium text-luxury-black leading-tight line-clamp-2 uppercase tracking-[0.02em]">{offmarketTitle}</p>
+                    <p className="text-[14px] text-luxury-black/70 font-medium mt-1">{property.price}</p>
+                    <span className="text-[11px] text-luxury-black/40 font-mono tracking-[0.05em] mt-0.5">{propertyRef}</span>
+                  </div>
+                </div>
+              </div>
+              <div className="px-5 pb-2">
+                <div className="flex items-center gap-2 mb-2"><Lock className="w-4 h-4 text-luxury-black/50" /><span className="text-[12px] tracking-[0.15em] uppercase text-luxury-black/60 font-medium">Private Listing</span></div>
+                <p className="text-[13px] text-luxury-black/55 font-light leading-relaxed">This property is part of our exclusive off-market portfolio. Complete the form below and a specialist will contact you with full details.</p>
+              </div>
+              <form className="p-5 pt-4 space-y-3" onSubmit={(e) => { e.preventDefault(); setModalOpen(false); }}>
+                <input type="text" required placeholder="Full name" className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/40 focus:outline-none focus:border-luxury-black/50 transition-colors rounded-sm" />
+                <input type="email" required placeholder="Email address" className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/40 focus:outline-none focus:border-luxury-black/50 transition-colors rounded-sm" />
+                <input type="tel" placeholder="Phone number" className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/40 focus:outline-none focus:border-luxury-black/50 transition-colors rounded-sm" />
+                <textarea placeholder="I'm interested in this property..." rows={3} className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/40 focus:outline-none focus:border-luxury-black/50 transition-colors resize-none rounded-sm" />
+                <label className="flex items-start gap-2 cursor-pointer">
+                  <input type="checkbox" className="mt-1 accent-luxury-black" />
+                  <span className="text-[12px] text-luxury-black/50 font-light leading-relaxed">I accept the terms and privacy policy.</span>
+                </label>
+                <button type="submit" className="w-full bg-luxury-black text-white text-[13px] tracking-[0.12em] uppercase py-3.5 hover:bg-luxury-black/85 transition-all">Request Property Details</button>
               </form>
             </div>
           </div>
