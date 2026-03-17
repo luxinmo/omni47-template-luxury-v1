@@ -103,18 +103,32 @@ const BENEFITS = [
 
 const fmt = (n: number) => new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(n);
 
-/* ── Filter Chip ── */
-const Chip = ({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) => (
-  <button
-    onClick={onClick}
-    className="text-[12px] tracking-[0.1em] uppercase px-5 py-2.5 rounded-full transition-all duration-300 border whitespace-nowrap hover:shadow-sm"
-    style={active
-      ? { background: palette.text, color: palette.white, borderColor: palette.text, boxShadow: "0 2px 8px rgba(0,0,0,0.15)" }
-      : { background: palette.white, color: palette.textMuted, borderColor: palette.border }
-    }
-  >
-    {label}
-  </button>
+/* ── Elegant Select Dropdown ── */
+const FilterSelect = ({ label, value, options, onChange }: {
+  label: string;
+  value: string | null;
+  options: string[];
+  onChange: (v: string | null) => void;
+}) => (
+  <div className="flex-1 min-w-[180px]">
+    <p className="text-[11px] tracking-[0.25em] uppercase font-medium mb-2" style={{ color: palette.accent }}>{label}</p>
+    <div className="relative">
+      <select
+        value={value || ""}
+        onChange={e => onChange(e.target.value || null)}
+        className="w-full appearance-none bg-transparent text-[13px] tracking-[0.04em] font-light pl-4 pr-10 py-3 rounded-none cursor-pointer transition-all duration-200 focus:outline-none"
+        style={{
+          border: `1px solid ${palette.border}`,
+          color: value ? palette.text : palette.textMuted,
+          background: palette.white,
+        }}
+      >
+        <option value="">All {label}</option>
+        {options.map(o => <option key={o} value={o}>{o}</option>)}
+      </select>
+      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" style={{ color: palette.textLight }} />
+    </div>
+  </div>
 );
 
 /* ── Development Card ── */
