@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Building2, MapPin, ArrowRight, TrendingUp, Home, CheckCircle, Shield, X } from "lucide-react";
+import { Building2, MapPin, ArrowRight, TrendingUp, Home, CheckCircle, Shield, X, ChevronDown } from "lucide-react";
 import { Layout } from "@/components/layout";
 import FadeIn from "@/components/shared/FadeIn";
 import SEOHead from "@/components/shared/SEOHead";
@@ -103,18 +103,32 @@ const BENEFITS = [
 
 const fmt = (n: number) => new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(n);
 
-/* ── Filter Chip ── */
-const Chip = ({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) => (
-  <button
-    onClick={onClick}
-    className="text-[12px] tracking-[0.1em] uppercase px-5 py-2.5 rounded-full transition-all duration-300 border whitespace-nowrap hover:shadow-sm"
-    style={active
-      ? { background: palette.text, color: palette.white, borderColor: palette.text, boxShadow: "0 2px 8px rgba(0,0,0,0.15)" }
-      : { background: palette.white, color: palette.textMuted, borderColor: palette.border }
-    }
-  >
-    {label}
-  </button>
+/* ── Elegant Select Dropdown ── */
+const FilterSelect = ({ label, value, options, onChange }: {
+  label: string;
+  value: string | null;
+  options: string[];
+  onChange: (v: string | null) => void;
+}) => (
+  <div className="flex-1 min-w-[180px]">
+    <p className="text-[11px] tracking-[0.25em] uppercase font-medium mb-2" style={{ color: palette.accent }}>{label}</p>
+    <div className="relative">
+      <select
+        value={value || ""}
+        onChange={e => onChange(e.target.value || null)}
+        className="w-full appearance-none bg-transparent text-[13px] tracking-[0.04em] font-light pl-4 pr-10 py-3 rounded-none cursor-pointer transition-all duration-200 focus:outline-none"
+        style={{
+          border: `1px solid ${palette.border}`,
+          color: value ? palette.text : palette.textMuted,
+          background: palette.white,
+        }}
+      >
+        <option value="">All {label}</option>
+        {options.map(o => <option key={o} value={o}>{o}</option>)}
+      </select>
+      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" style={{ color: palette.textLight }} />
+    </div>
+  </div>
 );
 
 /* ── Development Card ── */
@@ -312,47 +326,12 @@ const NewDevelopmentsPage = () => {
 
           {/* ── Filter Bar ── */}
           <div className="mb-10 p-6 sm:p-8 rounded-sm" style={{ background: palette.bg, border: `1px solid ${palette.border}` }}>
-            {/* Location row */}
-            <div className="mb-6">
-              <p className="text-[11px] tracking-[0.25em] uppercase font-medium mb-3" style={{ color: palette.accent }}>Location</p>
-              <div className="flex flex-wrap gap-2.5">
-                <Chip label="All" active={!filterLocation} onClick={() => setFilterLocation(null)} />
-                {ALL_LOCATIONS.map(loc => (
-                  <Chip key={loc} label={loc} active={filterLocation === loc} onClick={() => setFilterLocation(filterLocation === loc ? null : loc)} />
-                ))}
-              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              <FilterSelect label="Location" value={filterLocation} options={ALL_LOCATIONS} onChange={setFilterLocation} />
+              <FilterSelect label="Status" value={filterStatus} options={ALL_STATUSES} onChange={setFilterStatus} />
+              <FilterSelect label="Typology" value={filterTypology} options={ALL_TYPOLOGIES} onChange={setFilterTypology} />
+              <FilterSelect label="Delivery" value={filterDelivery} options={ALL_DELIVERIES} onChange={setFilterDelivery} />
             </div>
-
-            {/* Status + Typology row */}
-            <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 mb-6">
-              <div>
-                <p className="text-[11px] tracking-[0.25em] uppercase font-medium mb-3" style={{ color: palette.accent }}>Status</p>
-                <div className="flex flex-wrap gap-2.5">
-                  {ALL_STATUSES.map(s => (
-                    <Chip key={s} label={s} active={filterStatus === s} onClick={() => setFilterStatus(filterStatus === s ? null : s)} />
-                  ))}
-                </div>
-              </div>
-              <div>
-                <p className="text-[11px] tracking-[0.25em] uppercase font-medium mb-3" style={{ color: palette.accent }}>Typology</p>
-                <div className="flex flex-wrap gap-2.5">
-                  {ALL_TYPOLOGIES.map(t => (
-                    <Chip key={t} label={t} active={filterTypology === t} onClick={() => setFilterTypology(filterTypology === t ? null : t)} />
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Delivery row */}
-            <div>
-              <p className="text-[11px] tracking-[0.25em] uppercase font-medium mb-3" style={{ color: palette.accent }}>Delivery</p>
-              <div className="flex flex-wrap gap-2.5">
-                {ALL_DELIVERIES.map(d => (
-                  <Chip key={d} label={d} active={filterDelivery === d} onClick={() => setFilterDelivery(filterDelivery === d ? null : d)} />
-                ))}
-              </div>
-            </div>
-
             {hasFilters && (
               <div className="mt-5 pt-4" style={{ borderTop: `1px solid ${palette.border}` }}>
                 <button onClick={clearFilters} className="inline-flex items-center gap-1.5 text-[12px] tracking-[0.1em] uppercase font-light transition-opacity hover:opacity-60" style={{ color: palette.textMuted }}>
