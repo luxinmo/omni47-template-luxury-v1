@@ -4,7 +4,7 @@
  * Origin: PropertyDetail V6
  */
 
-import { Phone, MessageCircle, Mail, Home } from "lucide-react";
+import { Phone, MessageCircle, Mail, Home, BellRing } from "lucide-react";
 
 interface DetailPriceCardProps {
   tag?: string;
