@@ -90,6 +90,15 @@
 | newdev-amenities | NewDev Amenities | NewDev Detail | Grid amenities comunidad (wrapper de ProjectAmenitiesGrid) |
 | newdev-progress | NewDev Progress Bar | NewDev Detail | Barra de progreso de construcción (wrapper de BrandedProgress) |
 
+## 📋 Listing Cards (4 variantes)
+
+| ID | Nombre | Origen | Descripción visual |
+|----|--------|--------|--------------------|
+| listing-property-card | Property Card (Mobile Optimized) | PropertyListing | Card horizontal: imagen con gradient overlay + precio en móvil, tag/mail/excerpt en desktop. Specs (beds/baths/built/plot) + features |
+| listing-branded-card | Branded Residence Promo Card | PropertyListing | Card horizontal premium: borde dorado, badge Crown, fondo beige. Mobile: precio con gradient. Desktop: precio en footer |
+| listing-newdev-card | New Development Promo Card | PropertyListing | Card horizontal: badge Building2, info de unidades disponibles y fecha de entrega. Mobile: precio con gradient. Desktop: precio en footer |
+| listing-offmarket-card | Off-Market Card + Enquiry Modal | PropertyListing | Card con imagen blur + Lock icon, specs completos, texto de acceso restringido. Click abre modal con foto (blur) + REF + formulario de contacto |
+
 ## 🔒 Off-Market (2 variantes)
 
 | ID | Nombre | Origen | Descripción visual |

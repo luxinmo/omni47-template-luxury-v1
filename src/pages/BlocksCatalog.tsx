@@ -212,6 +212,15 @@ const CATEGORIES = [
     ],
   },
   {
+    title: "📋 Listing Cards",
+    blocks: [
+      { id: "listing-property-card", name: "Property Card (Mobile Optimized)", origin: "PropertyListing", component: ListingPropertyCard },
+      { id: "listing-branded-card", name: "Branded Residence Promo Card", origin: "PropertyListing", component: ListingBrandedCard },
+      { id: "listing-newdev-card", name: "New Development Promo Card", origin: "PropertyListing", component: ListingNewDevCard },
+      { id: "listing-offmarket-card", name: "Off-Market Card + Enquiry Modal", origin: "PropertyListing", component: ListingOffMarketCard },
+    ],
+  },
+  {
     title: "🔒 Off-Market",
     blocks: [
       { id: "offmarket-split", name: "Off-Market Split", origin: "Home2/3/4", component: OffmarketSplit },
