@@ -77,6 +77,29 @@ const PRICE_PRESETS = [
   { label: "€10M", value: "10000000" },
 ];
 
+/* Mobile-specific type categories with subcategories */
+const MOBILE_TYPE_CATEGORIES = [
+  { label: "Houses", subtypes: ["Villa", "Modern Villa", "Traditional Villa", "Luxury Villa", "Finca", "Townhouse", "Bungalow"] },
+  { label: "Flats", subtypes: ["Apartment", "Penthouse", "Duplex Penthouse", "Sky Penthouse", "Ground Floor", "Duplex", "Studio", "Loft"] },
+  { label: "Lands", subtypes: ["Urban Land", "Rustic Land", "Building Plot"] },
+];
+
+/* Mobile price presets */
+const MOBILE_PRICE_OPTIONS = [
+  { label: "Min", value: "" },
+  { label: "200.000€", value: "200000" },
+  { label: "400.000€", value: "400000" },
+  { label: "600.000€", value: "600000" },
+  { label: "800.000€", value: "800000" },
+  { label: "1M", value: "1000000" },
+  { label: "2M", value: "2000000" },
+  { label: "4M", value: "4000000" },
+  { label: "6M", value: "6000000" },
+  { label: "Max", value: "" },
+];
+
+const QUICK_TAGS = ["New Build", "Luxury", "Modern", "Sea Views", "1ª Línea Mar"];
+
 const SORT_OPTIONS = [
   { value: "premium", label: "Premium" },
   { value: "price-asc", label: "Price: Low to High" },
