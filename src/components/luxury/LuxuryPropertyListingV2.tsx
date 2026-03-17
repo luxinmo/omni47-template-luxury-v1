@@ -954,18 +954,13 @@ const LuxuryPropertyListingV2 = () => {
               <span className="text-[10px] tracking-[0.1em] uppercase font-medium">Call</span>
             </a>
             <div className="w-px h-8 bg-neutral-200" />
-            <a href="https://wa.me/34600123456" target="_blank" rel="noopener noreferrer" className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 text-[#25D366] hover:bg-neutral-50 transition-colors">
-              <MessageCircle className="w-4 h-4" />
-              <span className="text-[10px] tracking-[0.1em] uppercase font-medium">WhatsApp</span>
-            </a>
-            <div className="w-px h-8 bg-neutral-200" />
             <button className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 text-luxury-black hover:bg-neutral-50 transition-colors">
-              <Bot className="w-4 h-4" />
-              <span className="text-[10px] tracking-[0.1em] uppercase font-medium">Chatbot</span>
+              <MessageCircle className="w-4 h-4" />
+              <span className="text-[10px] tracking-[0.1em] uppercase font-medium">Chat</span>
             </button>
             <div className="w-px h-8 bg-neutral-200" />
             <Link to="/contact" className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 text-luxury-black hover:bg-neutral-50 transition-colors">
-              <Send className="w-4 h-4" />
+              <Mail className="w-4 h-4" />
               <span className="text-[10px] tracking-[0.1em] uppercase font-medium">Contact</span>
             </Link>
           </div>
