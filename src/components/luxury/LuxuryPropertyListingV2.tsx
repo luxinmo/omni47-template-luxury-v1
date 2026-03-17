@@ -1252,6 +1252,7 @@ const PropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
 /* ─── Off-Market Card ─── */
 const OffMarketPropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
   const [modalOpen, setModalOpen] = useState(false);
+  const isMobile = useIsMobile();
   const offmarketTitle = `${property.style.toUpperCase()} FOR SALE OFF-MARKET`;
   return (
     <>
@@ -1262,23 +1263,33 @@ const OffMarketPropertyCard = ({ property }: { property: typeof PROPERTIES[0] })
             <Lock className="w-8 h-8 text-white/80" />
             <span className="text-[12px] tracking-[0.2em] uppercase text-white/90 font-medium">Off-Market</span>
           </div>
+          {isMobile && (
+            <>
+              <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
+              <span className="absolute bottom-3 left-3 text-white/80 text-[14px] font-light italic tracking-wide drop-shadow-md">Price on Request</span>
+            </>
+          )}
         </div>
         <div className="md:col-span-7 flex flex-col p-5 md:p-6 lg:p-8">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-[12px] tracking-[0.15em] uppercase border border-luxury-black/30 text-luxury-black/70 px-2.5 py-1 font-medium bg-amber-50">OFF-MARKET</span>
-            <Lock className="w-4 h-4 text-luxury-black/30" />
-          </div>
+          {!isMobile && (
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-[12px] tracking-[0.15em] uppercase border border-luxury-black/30 text-luxury-black/70 px-2.5 py-1 font-medium bg-amber-50">OFF-MARKET</span>
+              <Lock className="w-4 h-4 text-luxury-black/30" />
+            </div>
+          )}
           <h2 className="text-[17px] md:text-[19px] font-medium text-luxury-black leading-snug mb-1.5">{offmarketTitle}</h2>
-          <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2 italic">This property is part of our exclusive off-market portfolio.</p>
+          {!isMobile && <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2 italic">This property is part of our exclusive off-market portfolio.</p>}
           <div className="flex items-center gap-7 mb-5">
             <div className="text-center"><p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Beds</p><p className="text-[16px] text-luxury-black font-light">{property.beds}</p></div>
             <div className="text-center"><p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Baths</p><p className="text-[16px] text-luxury-black font-light">{property.baths}</p></div>
             <div className="text-center"><p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Built</p><p className="text-[16px] text-luxury-black font-light">{property.sqm} m²</p></div>
           </div>
-          <div className="mt-auto pt-5 border-t border-neutral-100 flex items-center justify-between">
-            <p className="text-2xl md:text-[28px] font-extralight text-luxury-black/50 tracking-tight italic">Price on Request</p>
-            <span className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 font-light flex items-center gap-1.5"><Lock className="w-3 h-3" /> Request access</span>
-          </div>
+          {!isMobile && (
+            <div className="mt-auto pt-5 border-t border-neutral-100 flex items-center justify-between">
+              <p className="text-2xl md:text-[28px] font-extralight text-luxury-black/50 tracking-tight italic">Price on Request</p>
+              <span className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 font-light flex items-center gap-1.5"><Lock className="w-3 h-3" /> Request access</span>
+            </div>
+          )}
         </div>
       </div>
       {modalOpen && (
