@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import Home2LandingPage from "./components/home-2/Home2LandingPage";
 import LuxuryPropertyListing from "./components/luxury/LuxuryPropertyListing";
+import LuxuryPropertyListingV2 from "./components/luxury/LuxuryPropertyListingV2";
 import BlogListingPage from "./components/luxury/BlogListingPage";
 import BlogDetailPage from "./components/luxury/BlogDetailPage";
 import SystemPage from "./components/luxury/SystemPage";
