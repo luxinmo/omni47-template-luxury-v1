@@ -177,7 +177,7 @@ const Home3LandingPage = () => {
           <FadeIn>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-y-8">
               {STATS.map((s, i) => (
-                <div key={i} className="text-center" style={{ borderRight: i < 3 ? `1px solid ${palette.border}` : "none" }}>
+                <div key={i} className={`text-center ${i % 2 === 0 ? "border-r" : ""} ${i < 3 ? "md:border-r" : "md:border-r-0"} ${i % 2 !== 0 ? "border-r-0" : ""}`} style={{ borderColor: palette.border }}>
                   <p className="text-3xl sm:text-4xl md:text-5xl font-extralight" style={{ fontFamily: fonts.heading, color: palette.accent, letterSpacing: "0.04em" }}>{s.value}</p>
                   <p className="text-[10px] sm:text-xs tracking-[0.18em] uppercase mt-2 font-normal" style={{ color: palette.textLight }}>{s.label}</p>
                 </div>
@@ -248,7 +248,7 @@ const Home3LandingPage = () => {
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>Browse by Destination</h2>
             </div>
           </FadeIn>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+          <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-4">
             {DESTINATIONS.map((d, i) => (
               <FadeIn key={i} delay={i * 0.05}>
                 <Link to={d.href} className="group block relative overflow-hidden aspect-[2/3]">
@@ -276,15 +276,15 @@ const Home3LandingPage = () => {
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>Explore by Property Type</h2>
             </div>
           </FadeIn>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-5">
             {PROPERTY_TYPES.map((t, i) => (
               <FadeIn key={i} delay={i * 0.06}>
-                <Link to={t.href} className="group flex items-center gap-4 p-5 sm:p-6 transition-all duration-300 hover:shadow-md" style={{ background: palette.white, border: `1px solid ${palette.border}` }}>
-                  <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0 transition-colors duration-300" style={{ border: `1px solid ${palette.border}` }}>
-                    <t.icon className="w-5 h-5" style={{ color: palette.accent }} strokeWidth={1.5} />
+                <Link to={t.href} className="group flex items-center gap-3 sm:gap-4 p-4 sm:p-6 transition-all duration-300 hover:shadow-md" style={{ background: palette.white, border: `1px solid ${palette.border}` }}>
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shrink-0 transition-colors duration-300" style={{ border: `1px solid ${palette.border}` }}>
+                    <t.icon className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: palette.accent }} strokeWidth={1.5} />
                   </div>
                   <div>
-                    <h3 className="text-[15px] font-light tracking-wide group-hover:opacity-70 transition-opacity" style={{ fontFamily: fonts.heading }}>{t.label}</h3>
+                    <h3 className="text-[13px] sm:text-[15px] font-light tracking-wide group-hover:opacity-70 transition-opacity" style={{ fontFamily: fonts.heading }}>{t.label}</h3>
                   </div>
                   <ChevronRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-50 transition-opacity" style={{ color: palette.text }} />
                 </Link>
@@ -417,7 +417,7 @@ const Home3LandingPage = () => {
                 <span className="text-xs tracking-[0.15em] uppercase font-normal" style={{ color: palette.offMarketAccent }}>Off-Market</span>
               </div>
             </FadeIn>
-            <FadeIn delay={0.15} className="flex flex-col justify-center px-8 sm:px-12 md:px-16 lg:px-24 py-16 md:py-20">
+            <FadeIn delay={0.15} className="flex flex-col justify-center px-5 sm:px-12 md:px-16 lg:px-24 py-12 sm:py-16 md:py-20">
               <div className="flex items-center gap-2.5 mb-8">
                 <div className="w-8 h-[1px]" style={{ background: palette.offMarketAccent }} />
                 <p className="text-xs tracking-[0.3em] uppercase font-normal" style={{ color: palette.offMarketAccent }}>Private & Confidential</p>
@@ -459,7 +459,7 @@ const Home3LandingPage = () => {
               <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
                 <div>
                   <label className="text-[11px] tracking-[0.15em] uppercase font-medium block mb-2" style={{ color: palette.textLight }}>Preferred Location</label>
-                  <select className="w-full px-4 py-3 text-[14px] font-light appearance-none cursor-pointer focus:outline-none transition-colors" style={{ border: `1px solid ${palette.border}`, background: palette.white, color: palette.text }}>
+                   <select className="w-full px-4 py-3 text-[16px] sm:text-[14px] font-light appearance-none cursor-pointer focus:outline-none transition-colors" style={{ border: `1px solid ${palette.border}`, background: palette.white, color: palette.text }}>
                     <option>Costa Blanca</option>
                     <option>Ibiza</option>
                     <option>Marbella</option>
@@ -469,7 +469,7 @@ const Home3LandingPage = () => {
                 </div>
                 <div>
                   <label className="text-[11px] tracking-[0.15em] uppercase font-medium block mb-2" style={{ color: palette.textLight }}>Budget Range</label>
-                  <select className="w-full px-4 py-3 text-[14px] font-light appearance-none cursor-pointer focus:outline-none transition-colors" style={{ border: `1px solid ${palette.border}`, background: palette.white, color: palette.text }}>
+                   <select className="w-full px-4 py-3 text-[16px] sm:text-[14px] font-light appearance-none cursor-pointer focus:outline-none transition-colors" style={{ border: `1px solid ${palette.border}`, background: palette.white, color: palette.text }}>
                     <option>€500,000 – €1,000,000</option>
                     <option>€1,000,000 – €3,000,000</option>
                     <option>€3,000,000 – €5,000,000</option>
@@ -479,7 +479,7 @@ const Home3LandingPage = () => {
                 </div>
                 <div>
                   <label className="text-[11px] tracking-[0.15em] uppercase font-medium block mb-2" style={{ color: palette.textLight }}>Property Type</label>
-                  <select className="w-full px-4 py-3 text-[14px] font-light appearance-none cursor-pointer focus:outline-none transition-colors" style={{ border: `1px solid ${palette.border}`, background: palette.white, color: palette.text }}>
+                  <select className="w-full px-4 py-3 text-[16px] sm:text-[14px] font-light appearance-none cursor-pointer focus:outline-none transition-colors" style={{ border: `1px solid ${palette.border}`, background: palette.white, color: palette.text }}>
                     <option>Luxury Villa</option>
                     <option>Penthouse</option>
                     <option>Beachfront Home</option>
@@ -504,7 +504,7 @@ const Home3LandingPage = () => {
           <FadeIn>
             <div className="text-center mb-12 sm:mb-16">
               <p className="text-xs tracking-[0.3em] uppercase mb-3 font-normal" style={{ color: palette.accent }}>Data</p>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>Costa Blanca & Ibiza Market Insights</h2>
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extralight" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>Costa Blanca & Ibiza<br className="sm:hidden" /> Market Insights</h2>
             </div>
           </FadeIn>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
@@ -623,7 +623,7 @@ const Home3LandingPage = () => {
               Receive exclusive off-market listings, market insights and invitations to private viewings — delivered discreetly to your inbox.
             </p>
             <form className="flex flex-col sm:flex-row gap-3" onSubmit={(e) => e.preventDefault()}>
-              <input type="email" placeholder="Your email address" className="flex-1 px-5 py-4 text-sm tracking-[0.05em] focus:outline-none transition-colors duration-300" style={{ border: `1px solid ${palette.border}`, background: palette.white, color: palette.text }} />
+              <input type="email" placeholder="Your email address" className="flex-1 px-5 py-4 text-[16px] sm:text-sm tracking-[0.05em] focus:outline-none transition-colors duration-300" style={{ border: `1px solid ${palette.border}`, background: palette.white, color: palette.text }} />
               <button type="submit" className="text-xs tracking-[0.18em] uppercase font-normal px-8 py-4 transition-all duration-300 hover:opacity-90 whitespace-nowrap" style={{ background: palette.accent, color: "#fff" }}>
                 Subscribe
               </button>
