@@ -1478,7 +1478,7 @@ const LuxuryPropertyListingV3 = () => {
                 <SlidersHorizontal className="w-3.5 h-3.5" /> Filters
               </button>
               <TypeDropdown selected={filters.types} onToggle={toggleType} />
-              <PriceDropdown priceMin={filters.priceMin} priceMax={filters.priceMax} hidePOR={filters.hidePriceOnRequest} onMinChange={v => setFilters(f => ({ ...f, priceMin: v }))} onMaxChange={v => setFilters(f => ({ ...f, priceMax: v }))} onHidePORChange={v => setFilters(f => ({ ...f, hidePriceOnRequest: v }))} />
+              <PriceDropdown priceMin={filters.priceMin} priceMax={filters.priceMax} hidePOR={filters.hidePriceOnRequest} listingMode={filters.listingMode} onMinChange={v => setFilters(f => ({ ...f, priceMin: v }))} onMaxChange={v => setFilters(f => ({ ...f, priceMax: v }))} onHidePORChange={v => setFilters(f => ({ ...f, hidePriceOnRequest: v }))} onListingModeChange={v => setFilters(f => ({ ...f, listingMode: v }))} />
               <BedsDropdown selected={filters.beds} onChange={v => setFilters(f => ({ ...f, beds: v }))} />
               <AmenitiesDropdown selected={filters.amenities} onToggle={toggleAmenity} />
               <button onClick={() => setFilters(f => ({ ...f, newBuilds: !f.newBuilds }))} className={`text-[14px] px-4 py-2 rounded-full transition-all duration-200 shrink-0 border ${filters.newBuilds ? "border-luxury-black bg-luxury-black text-white" : "border-neutral-200 text-luxury-black/65 hover:border-luxury-black/30"}`}>New Builds</button>
