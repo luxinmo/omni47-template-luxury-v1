@@ -1541,9 +1541,18 @@ const LuxuryPropertyListingV3 = () => {
             </div>
             <div className="flex items-center justify-between mb-5 pb-4 border-b border-neutral-200">
               <p className="text-[14px] text-luxury-black/55 font-light">{PROPERTIES.length} properties found</p>
-              <div className="flex items-center gap-2">
-                <span className="text-[13px] text-luxury-black/50 font-light">Sort:</span>
-                <button className="text-[13px] text-luxury-black font-medium flex items-center gap-1">Premium <ChevronDown className="w-3.5 h-3.5" /></button>
+              <div className="relative">
+                <div className="flex items-center gap-2">
+                  <span className="text-[13px] text-luxury-black/50 font-light">Sort:</span>
+                  <button onClick={() => setSortOpen(!sortOpen)} className="text-[13px] text-luxury-black font-medium flex items-center gap-1">{SORT_OPTIONS.find(s => s.value === sortValue)?.label || "Premium"} <ChevronDown className="w-3.5 h-3.5" /></button>
+                </div>
+                {sortOpen && (
+                  <div className="absolute top-full right-0 mt-2 bg-white border border-neutral-200 rounded-sm shadow-lg w-[220px] py-2 z-[60]">
+                    {SORT_OPTIONS.map((opt) => (
+                      <button key={opt.value} onClick={() => { setSortValue(opt.value); setSortOpen(false); }} className={`w-full text-left px-4 py-2.5 text-[14px] transition-colors ${sortValue === opt.value ? "text-luxury-black font-medium bg-neutral-50" : "text-luxury-black/65 hover:bg-neutral-50"}`}>{opt.label}</button>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </>
