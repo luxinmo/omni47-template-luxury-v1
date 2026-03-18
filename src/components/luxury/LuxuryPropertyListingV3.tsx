@@ -1498,7 +1498,7 @@ const LuxuryPropertyListingV3 = () => {
       )}
 
       {/* ─── PROPERTY STORIES ─── */}
-      <div className={`${isMobileOrTablet ? "border-b border-neutral-100" : "max-w-[1400px] mx-auto px-6 lg:px-10 pt-4"}`}>
+      <div className={`relative z-10 ${isMobileOrTablet ? "border-b border-neutral-100" : "max-w-[1400px] mx-auto px-6 lg:px-10 pt-4"}`}>
         <PropertyStories />
       </div>
 
