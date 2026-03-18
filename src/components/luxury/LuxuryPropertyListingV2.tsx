@@ -1375,6 +1375,7 @@ const OffMarketPropertyCard = ({ property }: { property: typeof PROPERTIES[0] })
 
 const LuxuryPropertyListingV2 = () => {
   const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [sortOpen, setSortOpen] = useState(false);
   const [sortValue, setSortValue] = useState("premium");
