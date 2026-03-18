@@ -655,29 +655,19 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
           <div>
             {/* Select all zone */}
             {currentZone && (() => {
-              const allCityIds = currentZone.cities.map(c => c.id);
-              const allAreaIds = currentZone.cities.flatMap(c => (c.areas || []).map(a => a.id));
-              const allIds = [...allCityIds, ...allAreaIds];
-              const allSelected = allIds.every(id => selected.some(s => s.id === id));
-              const selectedCount = allIds.filter(id => selected.some(s => s.id === id)).length;
-              const toggleAllZone = () => {
-                if (allSelected) {
-                  onSelectedChange(selected.filter(s => !allIds.includes(s.id)));
+              const zoneItem = { id: currentZone.id, name: currentZone.name, path: currentZone.name, type: "Region" };
+              const isZoneSelected = selected.some(s => s.id === currentZone.id);
+              const toggleZone = () => {
+                if (isZoneSelected) {
+                  onSelectedChange(selected.filter(s => s.id !== currentZone.id));
                 } else {
-                  const newItems = allIds.filter(id => !selected.some(s => s.id === id)).map(id => {
-                    const city = currentZone.cities.find(c => c.id === id);
-                    const area = currentZone.cities.flatMap(c => (c.areas || [])).find(a => a.id === id);
-                    const name = city?.name || area?.name || id;
-                    return { id, name, path: name, type: "City" };
-                  });
-                  onSelectedChange([...selected, ...newItems]);
+                  onSelectedChange([...selected, zoneItem]);
                 }
               };
               return (
-                <button onClick={toggleAllZone} className={`w-full flex items-center gap-3 px-4 py-3.5 border-b border-neutral-100 transition-colors ${allSelected ? "bg-neutral-50" : "active:bg-neutral-50"}`}>
-                  <CheckBox checked={allSelected} />
-                  <span className={`text-[15px] flex-1 text-left font-medium ${allSelected ? "text-luxury-black" : "text-luxury-black/70"}`}>All {currentZone.name}</span>
-                  {selectedCount > 0 && !allSelected && <span className="bg-luxury-black text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold">{selectedCount}</span>}
+                <button onClick={toggleZone} className={`w-full flex items-center gap-3 px-4 py-3.5 border-b border-neutral-100 transition-colors ${isZoneSelected ? "bg-neutral-50" : "active:bg-neutral-50"}`}>
+                  <CheckBox checked={isZoneSelected} />
+                  <span className={`text-[15px] flex-1 text-left font-medium ${isZoneSelected ? "text-luxury-black" : "text-luxury-black/70"}`}>All {currentZone.name}</span>
                   <span className="text-[12px] text-luxury-black/30">{currentZone.count}</span>
                 </button>
               );
