@@ -573,7 +573,12 @@ const Home3LandingPage = () => {
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          12. AREAS WE COVER
+          12. VIDEOS
+          ═══════════════════════════════════════════════════════ */}
+      <VideoGalleryBlock />
+
+      {/* ═══════════════════════════════════════════════════════
+          13. AREAS WE COVER
           ═══════════════════════════════════════════════════════ */}
       <section aria-label="Areas we cover in Costa Blanca and Ibiza" className="py-16 sm:py-24 md:py-32" style={{ background: palette.white }}>
         <div className="max-w-[1000px] mx-auto px-5 sm:px-6 lg:px-12">
