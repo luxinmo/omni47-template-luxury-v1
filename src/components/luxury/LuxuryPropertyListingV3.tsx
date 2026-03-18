@@ -1610,6 +1610,43 @@ const LuxuryPropertyListingV3 = () => {
           </div>
         </div>
       )}
+
+      {/* ─── ENQUIRY MODAL (triggered by Mail icon) ─── */}
+      {enquiryProperty && (
+        <>
+          <div className="fixed inset-0 bg-luxury-black/60 backdrop-blur-sm z-50" onClick={() => setEnquiryProperty(null)} />
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div className="bg-white w-full max-w-[520px] rounded-sm shadow-2xl animate-in fade-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto relative">
+              <button onClick={() => setEnquiryProperty(null)} className="absolute top-4 right-4 text-luxury-black/40 hover:text-luxury-black z-10"><X className="w-5 h-5" /></button>
+              <div className="p-5 pb-0">
+                <div className="flex gap-3 mb-4 bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden">
+                  <img src={enquiryProperty.image} alt={enquiryProperty.title} className="w-24 h-20 object-cover shrink-0" />
+                  <div className="py-2 pr-3 flex flex-col justify-center min-w-0">
+                    <p className="text-[13px] font-medium text-luxury-black leading-tight line-clamp-2 uppercase tracking-[0.02em]">{enquiryProperty.title}</p>
+                    <p className="text-[14px] text-luxury-black/70 font-medium mt-1">{enquiryProperty.price}</p>
+                    <span className="text-[11px] text-luxury-black/40 font-mono tracking-[0.05em] mt-0.5">REF-{String(enquiryProperty.id).padStart(4, "0")}</span>
+                  </div>
+                </div>
+              </div>
+              <div className="px-5 pb-2">
+                <p className="text-[14px] font-medium text-luxury-black mb-1">Interested in this property?</p>
+                <p className="text-[13px] text-luxury-black/55 font-light leading-relaxed">Complete the form below and one of our specialists will get back to you shortly.</p>
+              </div>
+              <form className="p-5 pt-4 space-y-3" onSubmit={(e) => { e.preventDefault(); setEnquiryProperty(null); }}>
+                <input type="text" required placeholder="Full name" className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/40 focus:outline-none focus:border-luxury-black/50 transition-colors rounded-sm" />
+                <input type="email" required placeholder="Email address" className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/40 focus:outline-none focus:border-luxury-black/50 transition-colors rounded-sm" />
+                <input type="tel" placeholder="Phone number" className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/40 focus:outline-none focus:border-luxury-black/50 transition-colors rounded-sm" />
+                <textarea placeholder="I'm interested in this property..." rows={3} className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/40 focus:outline-none focus:border-luxury-black/50 transition-colors resize-none rounded-sm" />
+                <label className="flex items-start gap-2 cursor-pointer">
+                  <input type="checkbox" className="mt-1 accent-luxury-black" />
+                  <span className="text-[12px] text-luxury-black/50 font-light leading-relaxed">I accept the terms and privacy policy.</span>
+                </label>
+                <button type="submit" className="w-full bg-luxury-black text-white text-[13px] tracking-[0.12em] uppercase py-3.5 hover:bg-luxury-black/85 transition-all">Send Enquiry</button>
+              </form>
+            </div>
+          </div>
+        </>
+      )}
     </Layout>
   );
 };
