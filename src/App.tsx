@@ -32,6 +32,7 @@ import BlocksCatalog from "./pages/BlocksCatalog";
 import FavoritesPage from "./components/luxury/FavoritesPage";
 import SellPropertyPage from "./components/luxury/SellPropertyPage";
 import UserDashboardPage from "./components/luxury/UserDashboardPage";
+import VideosPage from "./components/luxury/VideosPage";
 
 const queryClient = new QueryClient();
 
