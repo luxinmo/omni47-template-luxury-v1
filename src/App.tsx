@@ -7,6 +7,7 @@ import { HelmetProvider } from "react-helmet-async";
 import Home2LandingPage from "./components/home-2/Home2LandingPage";
 import LuxuryPropertyListing from "./components/luxury/LuxuryPropertyListing";
 import LuxuryPropertyListingV2 from "./components/luxury/LuxuryPropertyListingV2";
+import LuxuryPropertyListingV3 from "./components/luxury/LuxuryPropertyListingV3";
 import BlogListingPage from "./components/luxury/BlogListingPage";
 import BlogDetailPage from "./components/luxury/BlogDetailPage";
 import SystemPage from "./components/luxury/SystemPage";
@@ -52,6 +53,7 @@ const App = () => (
             <Route path="/home4" element={<Home4LandingPage />} />
             <Route path="/properties" element={<LuxuryPropertyListing />} />
             <Route path="/properties2" element={<LuxuryPropertyListingV2 />} />
+            <Route path="/properties3" element={<LuxuryPropertyListingV3 />} />
             <Route path="/blog" element={<BlogListingPage />} />
             <Route path="/blog/:slug" element={<BlogDetailPage />} />
             <Route path="/page/:slug" element={<SystemPage />} />
