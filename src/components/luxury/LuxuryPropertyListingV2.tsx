@@ -1398,7 +1398,7 @@ const LuxuryPropertyListingV2 = () => {
       <SEOHead title="Luxury Properties for Sale" description="Discover luxury villas, penthouses and more." />
 
       {/* ─── MOBILE: Location Popup ─── */}
-      {isMobile && (
+      {isMobileOrTablet && (
         <MobileLocationPopup
           open={locationPopupOpen}
           onClose={() => setLocationPopupOpen(false)}
