@@ -32,6 +32,7 @@ import BlocksCatalog from "./pages/BlocksCatalog";
 import FavoritesPage from "./components/luxury/FavoritesPage";
 import SellPropertyPage from "./components/luxury/SellPropertyPage";
 import UserDashboardPage from "./components/luxury/UserDashboardPage";
+import VideosPage from "./components/luxury/VideosPage";
 
 const queryClient = new QueryClient();
 
@@ -67,6 +68,7 @@ const App = () => (
             <Route path="/favorites" element={<FavoritesPage />} />
             <Route path="/sell" element={<SellPropertyPage />} />
             <Route path="/my-account" element={<UserDashboardPage />} />
+            <Route path="/videos" element={<VideosPage />} />
             <Route path="/contact2" element={<ContactPageV2 />} />
             <Route path="/branded-residences" element={<BrandedResidencesPage />} />
             

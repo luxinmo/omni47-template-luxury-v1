@@ -10,6 +10,7 @@ import { Layout } from "@/components/layout";
 import FadeIn from "@/components/shared/FadeIn";
 import SEOHead from "@/components/shared/SEOHead";
 import { brand, palette, fonts, contact } from "@/config/template";
+import VideoGalleryBlock from "@/components/blocks/videos/VideoGalleryBlock";
 import heroImg from "@/assets/luxury-hero.jpg";
 import prop1 from "@/assets/luxury-property-1.jpg";
 import prop2 from "@/assets/luxury-property-2.jpg";
@@ -573,7 +574,12 @@ const Home3LandingPage = () => {
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          12. AREAS WE COVER
+          12. VIDEOS
+          ═══════════════════════════════════════════════════════ */}
+      <VideoGalleryBlock />
+
+      {/* ═══════════════════════════════════════════════════════
+          13. AREAS WE COVER
           ═══════════════════════════════════════════════════════ */}
       <section aria-label="Areas we cover in Costa Blanca and Ibiza" className="py-16 sm:py-24 md:py-32" style={{ background: palette.white }}>
         <div className="max-w-[1000px] mx-auto px-5 sm:px-6 lg:px-12">
