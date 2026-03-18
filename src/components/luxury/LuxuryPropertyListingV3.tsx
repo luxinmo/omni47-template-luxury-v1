@@ -1569,7 +1569,7 @@ const LuxuryPropertyListingV3 = () => {
               items.push(
                 p.offmarket
                   ? <OffMarketPropertyCard key={p.id} property={p} />
-                  : <PropertyCard key={p.id} property={p} />
+                  : <PropertyCard key={p.id} property={p} onEnquiry={(prop) => setEnquiryProperty(prop)} />
               );
             });
             return items;
