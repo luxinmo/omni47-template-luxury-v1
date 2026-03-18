@@ -871,8 +871,8 @@ const MobilePriceSelect = ({ value, onChange, options, placeholder }: { value: s
 
       {popupOpen && (
         <div className="fixed inset-0 z-[200] flex items-end justify-center" onClick={() => setPopupOpen(false)}>
-          <div className="absolute inset-0 bg-black/40" />
-          <div className="relative w-full max-w-md bg-white rounded-t-2xl animate-in slide-in-from-bottom duration-300" onClick={(e) => e.stopPropagation()}>
+          <div className="absolute inset-0 bg-black/40 animate-in fade-in duration-200" />
+          <div className="relative w-full max-w-lg bg-white rounded-t-2xl shadow-2xl animate-in slide-in-from-bottom duration-500 ease-out" onClick={(e) => e.stopPropagation()}>
             {/* Header */}
             <div className="flex items-center justify-between px-5 py-4 border-b border-neutral-100">
               <h4 className="text-[16px] font-medium text-luxury-black">{placeholder} price</h4>
