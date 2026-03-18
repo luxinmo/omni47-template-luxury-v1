@@ -1502,7 +1502,7 @@ const LuxuryPropertyListingV2 = () => {
         )}
 
         {/* Results header — desktop only */}
-        {!isMobile && (
+        {!isMobileOrTablet && (
           <>
             <div className="mb-8">
               <h1 className="text-2xl md:text-3xl font-extralight text-luxury-black tracking-[0.02em] leading-snug">Luxury Properties for Sale</h1>
