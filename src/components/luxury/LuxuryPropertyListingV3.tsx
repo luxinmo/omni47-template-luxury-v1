@@ -1223,7 +1223,7 @@ const NewDevPromoCard = () => {
     </div>
     <div className={`${isCompact ? "" : "md:col-span-7"} flex flex-col p-4 ${isCompact ? "" : "md:p-6 lg:p-8"}`}>
       <p className="text-[13px] tracking-[0.14em] uppercase text-luxury-black/60 mb-1">Altea · Costa Blanca</p>
-      <p className="text-[13px] text-luxury-black/55 font-light mb-1.5">New Development <span className="mx-1 text-luxury-black/30">|</span> <span className="italic">Residential</span></p>
+      <p className="text-[13px] text-luxury-black/55 font-light mb-1.5">New Development <span className="mx-1 text-luxury-black/30">|</span> Residential</p>
       <h2 className={`text-[15px] ${isCompact ? "" : "md:text-[19px]"} font-medium text-luxury-black leading-snug mb-1.5`}>MAREA RESIDENCES</h2>
       {!isCompact && <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2">Contemporary beachfront apartments with panoramic sea views and communal pools.</p>}
       <div className="flex items-center gap-5 mb-3">
