@@ -17,6 +17,7 @@ import detail1 from "@/assets/property-detail-1.jpg";
 import detail2 from "@/assets/property-detail-2.jpg";
 import detail3 from "@/assets/property-detail-3.jpg";
 import { useIsMobile, useIsTablet } from "@/hooks/use-mobile";
+import PropertyStories from "@/components/blocks/listing/PropertyStories";
 
 /* ─── Types ─── */
 interface FilterState {
