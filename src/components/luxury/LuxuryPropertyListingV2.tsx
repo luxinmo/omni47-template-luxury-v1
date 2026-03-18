@@ -1166,7 +1166,7 @@ const BrandedResidencePromoCard = () => {
   const isTablet = useIsTablet();
   const isCompact = isMobile || isTablet;
   return (
-  <Link to="/branded-residences/four-seasons-marbella" className={`group relative ${isCompact ? "grid grid-cols-1" : "grid grid-cols-1 md:grid-cols-12"} gap-0 rounded-sm overflow-hidden mb-4 md:mb-6 hover:shadow-lg transition-all duration-300 bg-[hsl(36,18%,96%)] border border-luxury-gold/25 ring-1 ring-luxury-gold/10`}>
+  <Link to="/branded-residences/four-seasons-marbella" className={`group relative ${isCompact ? "grid grid-cols-1 h-full" : "grid grid-cols-1 md:grid-cols-12 mb-6"} gap-0 rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 bg-[hsl(36,18%,96%)] border border-luxury-gold/25 ring-1 ring-luxury-gold/10`}>
     <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-luxury-gold/50 to-transparent" />
     <div className={`${isCompact ? "" : "md:col-span-5 md:aspect-auto md:h-full"} relative overflow-hidden aspect-[16/10] min-h-[180px] ${isCompact ? "min-h-[200px]" : "md:min-h-[220px]"}`}>
       <img src={prop1} alt="Four Seasons Private Residences" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 absolute inset-0" />
