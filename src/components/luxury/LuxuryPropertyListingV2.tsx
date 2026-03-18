@@ -1295,7 +1295,7 @@ const OffMarketPropertyCard = ({ property }: { property: typeof PROPERTIES[0] })
   const propertyRef = `REF-${String(property.id).padStart(4, "0")}`;
   return (
     <>
-      <div onClick={() => setModalOpen(true)} className={`group ${isTablet ? "grid grid-cols-1" : "grid grid-cols-1 md:grid-cols-12"} gap-0 bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden mb-4 md:mb-6 hover:shadow-md transition-shadow duration-300 cursor-pointer relative`}>
+      <div onClick={() => setModalOpen(true)} className={`group ${isTablet ? "grid grid-cols-1 h-full" : "grid grid-cols-1 md:grid-cols-12 mb-6"} gap-0 bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden hover:shadow-md transition-shadow duration-300 cursor-pointer relative`}>
         <div className={`${isTablet ? "" : "md:col-span-5 md:aspect-auto md:h-full"} relative overflow-hidden aspect-[16/10] min-h-[180px] ${isTablet ? "min-h-[200px]" : "md:min-h-[220px]"}`}>
           <img src={property.image} alt="Off-market" className="w-full h-full object-cover absolute inset-0 filter blur-lg scale-110" />
           <div className="absolute inset-0 bg-luxury-black/40 flex flex-col items-center justify-center gap-3">
