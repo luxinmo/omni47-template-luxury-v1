@@ -1166,7 +1166,7 @@ const BrandedResidencePromoCard = () => {
   const isTablet = useIsTablet();
   const isCompact = isMobile || isTablet;
   return (
-  <Link to="/branded-residences/four-seasons-marbella" className={`group relative ${isCompact ? "grid grid-cols-1" : "grid grid-cols-1 md:grid-cols-12"} gap-0 rounded-sm overflow-hidden mb-4 md:mb-6 hover:shadow-lg transition-all duration-300 bg-[hsl(36,18%,96%)] border border-luxury-gold/25 ring-1 ring-luxury-gold/10`}>
+  <Link to="/branded-residences/four-seasons-marbella" className={`group relative ${isCompact ? "grid grid-cols-1 h-full" : "grid grid-cols-1 md:grid-cols-12 mb-6"} gap-0 rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 bg-[hsl(36,18%,96%)] border border-luxury-gold/25 ring-1 ring-luxury-gold/10`}>
     <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-luxury-gold/50 to-transparent" />
     <div className={`${isCompact ? "" : "md:col-span-5 md:aspect-auto md:h-full"} relative overflow-hidden aspect-[16/10] min-h-[180px] ${isCompact ? "min-h-[200px]" : "md:min-h-[220px]"}`}>
       <img src={prop1} alt="Four Seasons Private Residences" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 absolute inset-0" />
@@ -1204,7 +1204,7 @@ const NewDevPromoCard = () => {
   const isTablet = useIsTablet();
   const isCompact = isMobile || isTablet;
   return (
-  <Link to="/new-developments/marea-residences-altea" className={`group relative ${isCompact ? "grid grid-cols-1" : "grid grid-cols-1 md:grid-cols-12"} gap-0 rounded-sm overflow-hidden mb-4 md:mb-6 hover:shadow-lg transition-all duration-300 bg-[hsl(30,20%,96%)] border border-luxury-black/10`}>
+  <Link to="/new-developments/marea-residences-altea" className={`group relative ${isCompact ? "grid grid-cols-1 h-full" : "grid grid-cols-1 md:grid-cols-12 mb-6"} gap-0 rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 bg-[hsl(30,20%,96%)] border border-luxury-black/10`}>
     <div className={`${isCompact ? "" : "md:col-span-5 md:aspect-auto md:h-full"} relative overflow-hidden aspect-[16/10] min-h-[180px] ${isCompact ? "min-h-[200px]" : "md:min-h-[220px]"}`}>
       <img src={detail1} alt="Marea Residences" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 absolute inset-0" />
       <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-luxury-black/80 text-white text-[11px] tracking-[0.12em] uppercase font-medium px-3 py-1.5 rounded-sm"><Building2 className="w-3 h-3" /> New Development</span>
@@ -1241,7 +1241,7 @@ const PropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
   const isTablet = useIsTablet();
   const isCompact = isMobile || isTablet;
   return (
-  <a href={`/property/${property.id}`} className={`group bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden mb-4 md:mb-6 hover:shadow-md transition-shadow duration-300 ${isTablet ? "grid grid-cols-1" : "grid grid-cols-1 md:grid-cols-12"} gap-0`}>
+  <a href={`/property/${property.id}`} className={`group bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden hover:shadow-md transition-shadow duration-300 ${isTablet ? "grid grid-cols-1 h-full" : "grid grid-cols-1 md:grid-cols-12 mb-6"} gap-0`}>
     <div className={`${isTablet ? "" : "md:col-span-5 md:aspect-auto md:h-full"} relative overflow-hidden aspect-[16/10] min-h-[180px] ${isTablet ? "min-h-[200px]" : "md:min-h-[220px]"}`}>
       <img src={property.image} alt={property.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 absolute inset-0" />
       {property.tag === "NEW BUILD" && <span className="absolute top-3 left-3 bg-luxury-black/60 backdrop-blur-sm text-white text-[12px] tracking-[0.12em] uppercase font-medium px-2.5 py-1">New Build</span>}
@@ -1295,7 +1295,7 @@ const OffMarketPropertyCard = ({ property }: { property: typeof PROPERTIES[0] })
   const propertyRef = `REF-${String(property.id).padStart(4, "0")}`;
   return (
     <>
-      <div onClick={() => setModalOpen(true)} className={`group ${isTablet ? "grid grid-cols-1" : "grid grid-cols-1 md:grid-cols-12"} gap-0 bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden mb-4 md:mb-6 hover:shadow-md transition-shadow duration-300 cursor-pointer relative`}>
+      <div onClick={() => setModalOpen(true)} className={`group ${isTablet ? "grid grid-cols-1 h-full" : "grid grid-cols-1 md:grid-cols-12 mb-6"} gap-0 bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden hover:shadow-md transition-shadow duration-300 cursor-pointer relative`}>
         <div className={`${isTablet ? "" : "md:col-span-5 md:aspect-auto md:h-full"} relative overflow-hidden aspect-[16/10] min-h-[180px] ${isTablet ? "min-h-[200px]" : "md:min-h-[220px]"}`}>
           <img src={property.image} alt="Off-market" className="w-full h-full object-cover absolute inset-0 filter blur-lg scale-110" />
           <div className="absolute inset-0 bg-luxury-black/40 flex flex-col items-center justify-center gap-3">
@@ -1539,14 +1539,20 @@ const LuxuryPropertyListingV2 = () => {
         )}
 
         {/* Property list */}
-        <div className={isTablet ? "grid grid-cols-2 gap-4" : ""}>
-          {PROPERTIES.map((p, idx) => (
-            <div key={p.id}>
-              {idx === 2 && <BrandedResidencePromoCard />}
-              {idx === 4 && <NewDevPromoCard />}
-              {p.offmarket ? <OffMarketPropertyCard property={p} /> : <PropertyCard property={p} />}
-            </div>
-          ))}
+        <div className={isTablet ? "grid grid-cols-2 gap-4 items-stretch" : ""}>
+          {(() => {
+            const items: React.ReactNode[] = [];
+            PROPERTIES.forEach((p, idx) => {
+              if (idx === 2) items.push(<BrandedResidencePromoCard key="branded-promo" />);
+              if (idx === 4) items.push(<NewDevPromoCard key="newdev-promo" />);
+              items.push(
+                p.offmarket
+                  ? <OffMarketPropertyCard key={p.id} property={p} />
+                  : <PropertyCard key={p.id} property={p} />
+              );
+            });
+            return items;
+          })()}
         </div>
 
         {/* Pagination */}
