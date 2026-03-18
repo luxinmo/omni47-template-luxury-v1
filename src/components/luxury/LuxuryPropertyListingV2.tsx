@@ -1543,7 +1543,7 @@ const LuxuryPropertyListingV2 = () => {
       </main>
 
       {/* ─── MOBILE: Bottom Sticky Navigation Bar ─── */}
-      {isMobile && (
+      {isMobileOrTablet && (
         <div className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-neutral-200 shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
           <div className="flex items-center">
             <a href="tel:+34600123456" className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 text-luxury-black hover:bg-neutral-50 transition-colors">
