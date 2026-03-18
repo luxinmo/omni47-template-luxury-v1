@@ -1119,6 +1119,7 @@ const MobileFilterSheet = ({ open, onClose, filters, onChange }: { open: boolean
         </button>
       </div>
     </div>
+    </>
   );
 };
 
