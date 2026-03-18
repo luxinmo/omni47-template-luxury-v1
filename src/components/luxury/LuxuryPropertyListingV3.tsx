@@ -1222,16 +1222,16 @@ const BrandedResidencePromoCard = () => {
   );
 };
 
-/* ─── New Dev Promo Card ─── */
+/* ─── New Dev Promo Card (same structure as PropertyCard) ─── */
 const NewDevPromoCard = () => {
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
   const isCompact = isMobile || isTablet;
   return (
-  <Link to="/new-developments/marea-residences-altea" className={`group relative ${isCompact ? "grid grid-cols-1 h-full" : "grid grid-cols-1 md:grid-cols-12 mb-6"} gap-0 rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 bg-[hsl(30,20%,96%)] border border-luxury-black/10`}>
-    <div className={`${isCompact ? "" : "md:col-span-5 md:aspect-auto md:h-full"} relative overflow-hidden aspect-[16/10] min-h-[180px] ${isCompact ? "min-h-[200px]" : "md:min-h-[220px]"}`}>
+  <Link to="/new-developments/marea-residences-altea" className={`group bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden hover:shadow-md transition-shadow duration-300 ${isTablet ? "grid grid-cols-1 h-full" : "grid grid-cols-1 md:grid-cols-12 mb-6"} gap-0`}>
+    <div className={`${isTablet ? "" : "md:col-span-5 md:aspect-auto md:h-full"} relative overflow-hidden aspect-[16/10] min-h-[180px] ${isTablet ? "min-h-[200px]" : "md:min-h-[220px]"}`}>
       <img src={detail1} alt="Marea Residences" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 absolute inset-0" />
-      <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-luxury-black/80 text-white text-[11px] tracking-[0.12em] uppercase font-medium px-3 py-1.5 rounded-sm"><Building2 className="w-3 h-3" /> New Development</span>
+      <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-luxury-black/60 backdrop-blur-sm text-white text-[11px] tracking-[0.12em] uppercase font-medium px-3 py-1.5 rounded-sm"><Building2 className="w-3 h-3" /> New Development</span>
       {isCompact && (
         <>
           <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
@@ -1239,16 +1239,28 @@ const NewDevPromoCard = () => {
         </>
       )}
     </div>
-    <div className={`${isCompact ? "" : "md:col-span-7"} flex flex-col p-4 ${isCompact ? "" : "md:p-6 lg:p-8"}`}>
+    <div className={`${isTablet ? "" : "md:col-span-7"} flex flex-col p-4 ${isTablet ? "" : "md:p-6 lg:p-8"}`}>
+      {!isCompact && (
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-[12px] tracking-[0.15em] uppercase border border-luxury-black/30 text-luxury-black/70 px-2.5 py-1 font-medium">NEW DEVELOPMENT</span>
+        </div>
+      )}
       <p className="text-[13px] tracking-[0.14em] uppercase text-luxury-black/60 mb-1">Altea · Costa Blanca</p>
       <p className="text-[13px] text-luxury-black/55 font-light mb-1.5">New Development <span className="mx-1 text-luxury-black/30">|</span> Residential</p>
-      <h2 className={`text-[15px] ${isCompact ? "" : "md:text-[19px]"} font-medium text-luxury-black leading-snug mb-1.5`}>MAREA RESIDENCES</h2>
+      <h2 className={`text-[15px] ${isTablet ? "" : "md:text-[19px]"} font-medium text-luxury-black leading-snug mb-1.5`}>MAREA RESIDENCES</h2>
       {!isCompact && <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2">Contemporary beachfront apartments with panoramic sea views and communal pools.</p>}
       <div className="flex items-center gap-5 mb-3">
         <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Units</p><p className="text-[15px] text-luxury-black font-light">12</p></div>
         <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">From</p><p className="text-[15px] text-luxury-black font-light">1 bed</p></div>
         <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Delivery</p><p className="text-[15px] text-luxury-black font-light">Q4 2026</p></div>
       </div>
+      {!isTablet && (
+        <div className="flex flex-wrap gap-2.5">
+          <span className="text-[12px] text-luxury-black/55 font-light flex items-center gap-1.5"><span className="w-1 h-1 rounded-full bg-luxury-black/30" />Sea Views</span>
+          <span className="text-[12px] text-luxury-black/55 font-light flex items-center gap-1.5"><span className="w-1 h-1 rounded-full bg-luxury-black/30" />Pool</span>
+          <span className="text-[12px] text-luxury-black/55 font-light flex items-center gap-1.5"><span className="w-1 h-1 rounded-full bg-luxury-black/30" />Parking</span>
+        </div>
+      )}
       {!isCompact && (
         <div className="mt-auto pt-5 border-t border-neutral-100">
           <p className="text-2xl md:text-[28px] font-extralight text-luxury-black tracking-tight">€485,000 — €1,250,000</p>
