@@ -145,7 +145,7 @@ function VideoRow({ video, onPlay }: { video: Video; onPlay: (id: string) => voi
       {/* Thumbnail */}
       <button
         onClick={() => onPlay(video.youtubeId)}
-        className="relative flex-shrink-0 overflow-hidden rounded-lg w-[160px] sm:w-[260px] lg:w-[360px]"
+        className="relative flex-shrink-0 overflow-hidden rounded-lg w-[208px] sm:w-[338px] lg:w-[468px]"
         style={{ aspectRatio: "16/9" }}
       >
         <img
