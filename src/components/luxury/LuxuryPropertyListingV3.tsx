@@ -22,7 +22,7 @@ import PropertyStories from "@/components/blocks/listing/PropertyStories";
 /* ─── Types ─── */
 interface FilterState {
   locations: { id: string; name: string; path: string; type: string }[];
-  listingMode: "sale" | "rent";
+  listingMode: "sale" | "rent" | "holiday";
   types: string[];
   priceMin: string;
   priceMax: string;
