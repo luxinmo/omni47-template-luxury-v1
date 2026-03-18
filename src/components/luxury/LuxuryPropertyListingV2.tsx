@@ -935,7 +935,9 @@ const MobileFilterSheet = ({ open, onClose, filters, onChange }: { open: boolean
   const maxPriceOptions = MOBILE_PRICE_OPTIONS.filter(o => o.label !== "Min");
 
   return (
-    <div className="fixed inset-0 z-50 bg-white animate-in slide-in-from-bottom duration-300 flex flex-col">
+    <>
+      <div className="fixed inset-0 bg-luxury-black/40 backdrop-blur-sm z-50 animate-in fade-in duration-200" onClick={onClose} />
+      <div className="fixed inset-x-0 bottom-0 top-0 md:top-auto md:max-h-[85vh] z-50 bg-white md:rounded-t-2xl md:shadow-2xl animate-in slide-in-from-bottom duration-500 ease-out flex flex-col">
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3.5 border-b border-neutral-200">
         <button onClick={onClose} className="text-luxury-black/70"><X className="w-5 h-5" /></button>
