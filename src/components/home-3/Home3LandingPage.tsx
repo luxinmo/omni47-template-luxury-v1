@@ -479,7 +479,7 @@ const Home3LandingPage = () => {
                 </div>
                 <div>
                   <label className="text-[11px] tracking-[0.15em] uppercase font-medium block mb-2" style={{ color: palette.textLight }}>Property Type</label>
-                  <select className="w-full px-4 py-3 text-[14px] font-light appearance-none cursor-pointer focus:outline-none transition-colors" style={{ border: `1px solid ${palette.border}`, background: palette.white, color: palette.text }}>
+                  <select className="w-full px-4 py-3 text-[16px] sm:text-[14px] font-light appearance-none cursor-pointer focus:outline-none transition-colors" style={{ border: `1px solid ${palette.border}`, background: palette.white, color: palette.text }}>
                     <option>Luxury Villa</option>
                     <option>Penthouse</option>
                     <option>Beachfront Home</option>
