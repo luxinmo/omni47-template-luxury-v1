@@ -284,7 +284,7 @@ const Home3LandingPage = () => {
                     <t.icon className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: palette.accent }} strokeWidth={1.5} />
                   </div>
                   <div>
-                    <h3 className="text-[15px] font-light tracking-wide group-hover:opacity-70 transition-opacity" style={{ fontFamily: fonts.heading }}>{t.label}</h3>
+                    <h3 className="text-[13px] sm:text-[15px] font-light tracking-wide group-hover:opacity-70 transition-opacity" style={{ fontFamily: fonts.heading }}>{t.label}</h3>
                   </div>
                   <ChevronRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-50 transition-opacity" style={{ color: palette.text }} />
                 </Link>
