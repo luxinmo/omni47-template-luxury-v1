@@ -132,7 +132,7 @@ const TypeDropdown = ({ selected, onToggle }: { selected: string[]; onToggle: (v
         Type {selected.length > 0 && <span className="bg-white text-luxury-black text-[12px] w-4 h-4 rounded-full flex items-center justify-center font-medium">{selected.length}</span>} <ChevronDown className="w-3.5 h-3.5" />
       </button>
       {open && (
-        <div className="absolute top-full left-0 mt-2 bg-white border border-neutral-200 rounded-sm shadow-lg w-[300px] py-2 z-50">
+        <div className="absolute top-full left-0 mt-2 bg-white border border-neutral-200 rounded-sm shadow-lg w-[300px] py-2 z-[60]">
           {TYPE_OPTIONS.map((t) => (
             <label key={t} className="flex items-center gap-3 px-4 py-2.5 cursor-pointer hover:bg-neutral-50 transition-colors">
               <input type="checkbox" checked={selected.includes(t)} onChange={() => onToggle(t)} className="w-4 h-4 border-neutral-300 rounded-sm accent-luxury-black" />
