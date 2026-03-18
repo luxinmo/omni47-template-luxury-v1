@@ -107,7 +107,7 @@ function ShortsSection({ onPlay }: { onPlay: (id: string) => void }) {
             key={s.id}
             onClick={() => onPlay(s.youtubeId)}
             className="group flex-shrink-0 text-left"
-            style={{ width: "200px" }}
+            style={{ width: "140px" }}
           >
             {/* Thumbnail — rounded like YouTube shorts */}
             <div className="relative overflow-hidden rounded-xl" style={{ aspectRatio: "9/16" }}>
