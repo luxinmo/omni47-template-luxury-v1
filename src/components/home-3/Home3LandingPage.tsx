@@ -177,7 +177,7 @@ const Home3LandingPage = () => {
           <FadeIn>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-y-8">
               {STATS.map((s, i) => (
-                <div key={i} className="text-center" style={{ borderRight: (i % 2 === 0 || (i < 3 && typeof window !== "undefined" && window.innerWidth >= 768)) ? `1px solid ${palette.border}` : "none" }}>
+                <div key={i} className={`text-center ${i % 2 === 0 ? "border-r" : ""} ${i < 3 ? "md:border-r" : "md:border-r-0"} ${i % 2 !== 0 ? "border-r-0" : ""}`} style={{ borderColor: palette.border }}>
                   <p className="text-3xl sm:text-4xl md:text-5xl font-extralight" style={{ fontFamily: fonts.heading, color: palette.accent, letterSpacing: "0.04em" }}>{s.value}</p>
                   <p className="text-[10px] sm:text-xs tracking-[0.18em] uppercase mt-2 font-normal" style={{ color: palette.textLight }}>{s.label}</p>
                 </div>
