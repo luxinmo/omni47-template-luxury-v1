@@ -623,7 +623,7 @@ const Home3LandingPage = () => {
               Receive exclusive off-market listings, market insights and invitations to private viewings — delivered discreetly to your inbox.
             </p>
             <form className="flex flex-col sm:flex-row gap-3" onSubmit={(e) => e.preventDefault()}>
-              <input type="email" placeholder="Your email address" className="flex-1 px-5 py-4 text-sm tracking-[0.05em] focus:outline-none transition-colors duration-300" style={{ border: `1px solid ${palette.border}`, background: palette.white, color: palette.text }} />
+              <input type="email" placeholder="Your email address" className="flex-1 px-5 py-4 text-[16px] sm:text-sm tracking-[0.05em] focus:outline-none transition-colors duration-300" style={{ border: `1px solid ${palette.border}`, background: palette.white, color: palette.text }} />
               <button type="submit" className="text-xs tracking-[0.18em] uppercase font-normal px-8 py-4 transition-all duration-300 hover:opacity-90 whitespace-nowrap" style={{ background: palette.accent, color: "#fff" }}>
                 Subscribe
               </button>
