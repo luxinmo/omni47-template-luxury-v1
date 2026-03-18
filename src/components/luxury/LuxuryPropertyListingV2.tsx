@@ -1127,8 +1127,8 @@ const MobileSortSheet = ({ open, onClose, selected, onSelect }: { open: boolean;
   if (!open) return null;
   return (
     <>
-      <div className="fixed inset-0 bg-luxury-black/40 backdrop-blur-sm z-50" onClick={onClose} />
-      <div className="fixed bottom-0 left-0 right-0 z-50 animate-in slide-in-from-bottom duration-300">
+      <div className="fixed inset-0 bg-luxury-black/40 backdrop-blur-sm z-50 animate-in fade-in duration-200" onClick={onClose} />
+      <div className="fixed bottom-0 left-0 right-0 z-50 animate-in slide-in-from-bottom duration-500 ease-out">
         <div className="bg-white rounded-t-2xl shadow-2xl max-h-[70vh] flex flex-col">
           <div className="text-center py-4 border-b border-neutral-100">
             <div className="w-10 h-1 rounded-full bg-neutral-300 mx-auto mb-3" />
