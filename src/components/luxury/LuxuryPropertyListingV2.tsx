@@ -1408,7 +1408,7 @@ const LuxuryPropertyListingV2 = () => {
       )}
 
       {/* ─── MOBILE: Sticky search bar ─── */}
-      {isMobile && (
+      {isMobileOrTablet && (
         <div className="sticky top-[64px] z-40 bg-white border-b border-neutral-200 px-3 py-2.5">
           {/* Search row */}
           <div className="flex items-center gap-2">
