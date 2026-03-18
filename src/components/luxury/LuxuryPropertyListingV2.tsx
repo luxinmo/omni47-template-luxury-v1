@@ -1241,7 +1241,7 @@ const PropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
   const isTablet = useIsTablet();
   const isCompact = isMobile || isTablet;
   return (
-  <a href={`/property/${property.id}`} className={`group bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden mb-4 md:mb-6 hover:shadow-md transition-shadow duration-300 ${isTablet ? "grid grid-cols-1" : "grid grid-cols-1 md:grid-cols-12"} gap-0`}>
+  <a href={`/property/${property.id}`} className={`group bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden hover:shadow-md transition-shadow duration-300 ${isTablet ? "grid grid-cols-1 h-full" : "grid grid-cols-1 md:grid-cols-12 mb-6"} gap-0`}>
     <div className={`${isTablet ? "" : "md:col-span-5 md:aspect-auto md:h-full"} relative overflow-hidden aspect-[16/10] min-h-[180px] ${isTablet ? "min-h-[200px]" : "md:min-h-[220px]"}`}>
       <img src={property.image} alt={property.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 absolute inset-0" />
       {property.tag === "NEW BUILD" && <span className="absolute top-3 left-3 bg-luxury-black/60 backdrop-blur-sm text-white text-[12px] tracking-[0.12em] uppercase font-medium px-2.5 py-1">New Build</span>}
