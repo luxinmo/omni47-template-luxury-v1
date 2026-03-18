@@ -417,7 +417,7 @@ const Home3LandingPage = () => {
                 <span className="text-xs tracking-[0.15em] uppercase font-normal" style={{ color: palette.offMarketAccent }}>Off-Market</span>
               </div>
             </FadeIn>
-            <FadeIn delay={0.15} className="flex flex-col justify-center px-8 sm:px-12 md:px-16 lg:px-24 py-16 md:py-20">
+            <FadeIn delay={0.15} className="flex flex-col justify-center px-5 sm:px-12 md:px-16 lg:px-24 py-12 sm:py-16 md:py-20">
               <div className="flex items-center gap-2.5 mb-8">
                 <div className="w-8 h-[1px]" style={{ background: palette.offMarketAccent }} />
                 <p className="text-xs tracking-[0.3em] uppercase font-normal" style={{ color: palette.offMarketAccent }}>Private & Confidential</p>
