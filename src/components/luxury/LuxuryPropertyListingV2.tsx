@@ -1204,7 +1204,7 @@ const NewDevPromoCard = () => {
   const isTablet = useIsTablet();
   const isCompact = isMobile || isTablet;
   return (
-  <Link to="/new-developments/marea-residences-altea" className={`group relative ${isCompact ? "grid grid-cols-1" : "grid grid-cols-1 md:grid-cols-12"} gap-0 rounded-sm overflow-hidden mb-4 md:mb-6 hover:shadow-lg transition-all duration-300 bg-[hsl(30,20%,96%)] border border-luxury-black/10`}>
+  <Link to="/new-developments/marea-residences-altea" className={`group relative ${isCompact ? "grid grid-cols-1 h-full" : "grid grid-cols-1 md:grid-cols-12 mb-6"} gap-0 rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 bg-[hsl(30,20%,96%)] border border-luxury-black/10`}>
     <div className={`${isCompact ? "" : "md:col-span-5 md:aspect-auto md:h-full"} relative overflow-hidden aspect-[16/10] min-h-[180px] ${isCompact ? "min-h-[200px]" : "md:min-h-[220px]"}`}>
       <img src={detail1} alt="Marea Residences" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 absolute inset-0" />
       <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-luxury-black/80 text-white text-[11px] tracking-[0.12em] uppercase font-medium px-3 py-1.5 rounded-sm"><Building2 className="w-3 h-3" /> New Development</span>
