@@ -1382,7 +1382,7 @@ const OffMarketPropertyCard = ({ property }: { property: typeof PROPERTIES[0] })
 /* ─── MAIN COMPONENT ─── */
 /* ═══════════════════════════════════════════════════════════ */
 
-const LuxuryPropertyListingV2 = () => {
+const LuxuryPropertyListingV3 = () => {
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
   const [filtersOpen, setFiltersOpen] = useState(false);
