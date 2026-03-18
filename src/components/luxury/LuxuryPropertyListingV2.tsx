@@ -1477,7 +1477,7 @@ const LuxuryPropertyListingV2 = () => {
       )}
 
       {/* ─── FILTER / SORT Overlays ─── */}
-      {isMobile ? (
+      {isMobileOrTablet ? (
         <>
           <MobileFilterSheet open={filtersOpen} onClose={() => setFiltersOpen(false)} filters={filters} onChange={setFilters} />
           <MobileSortSheet open={sortOpen} onClose={() => setSortOpen(false)} selected={sortValue} onSelect={setSortValue} />
