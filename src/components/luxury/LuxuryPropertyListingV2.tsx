@@ -1286,52 +1286,54 @@ const PropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
 const OffMarketPropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
+  const isCompact = isMobile || isTablet;
   const offmarketTitle = `${property.style.toUpperCase()} FOR SALE OFF-MARKET`;
   const propertyRef = `REF-${String(property.id).padStart(4, "0")}`;
   return (
     <>
-      <div onClick={() => setModalOpen(true)} className="group grid grid-cols-1 md:grid-cols-12 gap-0 bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden mb-6 hover:shadow-md transition-shadow duration-300 cursor-pointer relative">
-        <div className="md:col-span-5 relative overflow-hidden aspect-[16/10] md:aspect-auto md:h-full min-h-[220px]">
+      <div onClick={() => setModalOpen(true)} className={`group ${isTablet ? "grid grid-cols-1" : "grid grid-cols-1 md:grid-cols-12"} gap-0 bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden mb-4 md:mb-6 hover:shadow-md transition-shadow duration-300 cursor-pointer relative`}>
+        <div className={`${isTablet ? "" : "md:col-span-5 md:aspect-auto md:h-full"} relative overflow-hidden aspect-[16/10] min-h-[180px] ${isTablet ? "min-h-[200px]" : "md:min-h-[220px]"}`}>
           <img src={property.image} alt="Off-market" className="w-full h-full object-cover absolute inset-0 filter blur-lg scale-110" />
           <div className="absolute inset-0 bg-luxury-black/40 flex flex-col items-center justify-center gap-3">
             <Lock className="w-8 h-8 text-white/80" />
             <span className="text-[12px] tracking-[0.2em] uppercase text-white/90 font-medium">Off-Market</span>
           </div>
-          {isMobile && (
+          {isCompact && (
             <>
               <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
               <span className="absolute bottom-3 left-3 text-white text-[17px] font-semibold tracking-wide drop-shadow-md">{property.price !== "Price on Request" ? property.price : "Price on Request"}</span>
             </>
           )}
         </div>
-        <div className="md:col-span-7 flex flex-col p-5 md:p-6 lg:p-8">
-          {!isMobile && (
+        <div className={`${isTablet ? "" : "md:col-span-7"} flex flex-col p-4 ${isTablet ? "" : "md:p-6 lg:p-8"}`}>
+          {!isCompact && (
             <div className="flex items-center justify-between mb-3">
               <span className="text-[12px] tracking-[0.15em] uppercase border border-luxury-black/30 text-luxury-black/70 px-2.5 py-1 font-medium bg-amber-50">OFF-MARKET</span>
               <Lock className="w-4 h-4 text-luxury-black/30" />
             </div>
           )}
           <p className="text-[13px] tracking-[0.14em] uppercase text-luxury-black/60 mb-1">{property.location}</p>
-          <h2 className="text-[17px] md:text-[19px] font-medium text-luxury-black leading-snug mb-1.5">{offmarketTitle}</h2>
-          <p className="text-[13px] text-luxury-black/50 font-light mb-3 italic flex items-center gap-1.5">
-            <Lock className="w-3 h-3" /> Exclusive listing — access restricted. Contact us to receive details.
-          </p>
-          <div className="flex items-center gap-7 mb-4">
-            <div className="text-center"><p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Beds</p><p className="text-[16px] text-luxury-black font-light">{property.beds}</p></div>
-            <div className="text-center"><p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Baths</p><p className="text-[16px] text-luxury-black font-light">{property.baths}</p></div>
-            <div className="text-center"><p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Built</p><p className="text-[16px] text-luxury-black font-light">{property.sqm} m²</p></div>
-            {property.plot && <div className="text-center"><p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Plot</p><p className="text-[16px] text-luxury-black font-light">{property.plot.toLocaleString()} m²</p></div>}
+          <h2 className={`text-[15px] ${isTablet ? "" : "md:text-[19px]"} font-medium text-luxury-black leading-snug mb-1.5`}>{offmarketTitle}</h2>
+          {!isTablet && (
+            <p className="text-[13px] text-luxury-black/50 font-light mb-3 italic flex items-center gap-1.5">
+              <Lock className="w-3 h-3" /> Exclusive listing — contact us for details.
+            </p>
+          )}
+          <div className="flex items-center gap-5 mb-3">
+            <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Beds</p><p className="text-[15px] text-luxury-black font-light">{property.beds}</p></div>
+            <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Baths</p><p className="text-[15px] text-luxury-black font-light">{property.baths}</p></div>
+            <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Built</p><p className="text-[15px] text-luxury-black font-light">{property.sqm} m²</p></div>
+            {property.plot && <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Plot</p><p className="text-[15px] text-luxury-black font-light">{property.plot.toLocaleString()} m²</p></div>}
           </div>
-          <div className="flex flex-wrap gap-2.5 mb-4">
-            {property.features.map((f, i) => <span key={i} className="text-[12px] text-luxury-black/55 font-light flex items-center gap-1.5"><span className="w-1 h-1 rounded-full bg-luxury-black/30" />{f}</span>)}
-          </div>
-          {!isMobile && (
+          {!isCompact && (
             <div className="mt-auto pt-5 border-t border-neutral-100 flex items-center justify-between">
               <p className="text-2xl md:text-[28px] font-extralight text-luxury-black tracking-tight">{property.price}</p>
               <span className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 font-light flex items-center gap-1.5"><Lock className="w-3 h-3" /> Request access</span>
             </div>
           )}
         </div>
+      </div>
       </div>
       {modalOpen && (
         <>
