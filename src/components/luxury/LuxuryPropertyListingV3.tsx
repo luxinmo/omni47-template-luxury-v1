@@ -1086,10 +1086,10 @@ const MobileFilterSheet = ({ open, onClose, filters, onChange }: { open: boolean
           </div>
         </div>
 
-        {/* For Sale / For Rent — question at the bottom */}
+        {/* For Sale / For Rent / Holiday — question at the bottom */}
         <div className="bg-neutral-50 rounded-xl p-5">
-          <p className="text-[14px] font-medium text-luxury-black mb-1">Are you looking to buy or rent?</p>
-          <p className="text-[12px] text-luxury-black/45 mb-4">Select the type of listing you're interested in</p>
+          <p className="text-[14px] font-medium text-luxury-black mb-1">What type of listing are you looking for?</p>
+          <p className="text-[12px] text-luxury-black/45 mb-4">Select the operation type</p>
           <div className="flex rounded-lg border border-neutral-200 overflow-hidden">
             <button
               onClick={() => onChange({ ...filters, listingMode: "sale" })}
@@ -1102,6 +1102,12 @@ const MobileFilterSheet = ({ open, onClose, filters, onChange }: { open: boolean
               className={`flex-1 py-3 text-[14px] font-medium transition-all ${filters.listingMode === "rent" ? "bg-luxury-black text-white" : "bg-white text-luxury-black/60"}`}
             >
               For Rent
+            </button>
+            <button
+              onClick={() => onChange({ ...filters, listingMode: "holiday" })}
+              className={`flex-1 py-3 text-[14px] font-medium transition-all ${filters.listingMode === "holiday" ? "bg-luxury-black text-white" : "bg-white text-luxury-black/60"}`}
+            >
+              Holiday
             </button>
           </div>
         </div>
