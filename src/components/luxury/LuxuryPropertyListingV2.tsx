@@ -1217,20 +1217,14 @@ const NewDevPromoCard = () => {
     </div>
     <div className={`${isCompact ? "" : "md:col-span-7"} flex flex-col p-4 ${isCompact ? "" : "md:p-6 lg:p-8"}`}>
       <p className="text-[13px] tracking-[0.14em] uppercase text-luxury-black/60 mb-1">Altea · Costa Blanca</p>
+      <p className="text-[13px] text-luxury-black/55 font-light mb-1.5">New Development <span className="mx-1 text-luxury-black/30">|</span> <span className="italic">Residential</span></p>
       <h2 className={`text-[15px] ${isCompact ? "" : "md:text-[19px]"} font-medium text-luxury-black leading-snug mb-1.5`}>MAREA RESIDENCES</h2>
-      <p className={`text-[14px] text-luxury-black/60 font-light leading-relaxed ${isCompact ? "line-clamp-2 mb-2" : "mb-3 line-clamp-2"}`}>Contemporary beachfront apartments with panoramic sea views and communal pools.</p>
-      {!isCompact && (
-        <div className="flex items-center gap-4 text-[13px] text-luxury-black/55 font-light">
-          <span className="flex items-center gap-1"><Building2 className="w-3.5 h-3.5 text-luxury-black/40" /> 12 units available</span>
-          <span>Delivery Q4 2026</span>
-        </div>
-      )}
-      {isCompact && (
-        <div className="flex items-center gap-4 text-[12px] text-luxury-black/55 font-light">
-          <span className="flex items-center gap-1"><Building2 className="w-3.5 h-3.5 text-luxury-black/40" /> 12 units</span>
-          <span>Q4 2026</span>
-        </div>
-      )}
+      {!isCompact && <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2">Contemporary beachfront apartments with panoramic sea views and communal pools.</p>}
+      <div className="flex items-center gap-5 mb-3">
+        <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Units</p><p className="text-[15px] text-luxury-black font-light">12</p></div>
+        <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">From</p><p className="text-[15px] text-luxury-black font-light">1 bed</p></div>
+        <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Delivery</p><p className="text-[15px] text-luxury-black font-light">Q4 2026</p></div>
+      </div>
       {!isCompact && (
         <div className="mt-auto pt-5 border-t border-neutral-100">
           <p className="text-2xl md:text-[28px] font-extralight text-luxury-black tracking-tight">€485,000 — €1,250,000</p>
