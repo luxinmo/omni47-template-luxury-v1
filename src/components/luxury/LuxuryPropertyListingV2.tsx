@@ -1494,6 +1494,21 @@ const LuxuryPropertyListingV2 = () => {
           </div>
         )}
 
+        {/* Results header — tablet shows breadcrumbs + title */}
+        {isTablet && (
+          <div className="px-2 mb-6">
+            <div className="flex items-center gap-2 mb-3 text-[13px] tracking-[0.04em] text-luxury-black/60 font-normal">
+              <a href="/" className="hover:text-luxury-black transition-colors">Home</a>
+              <ChevronRight className="w-3 h-3 text-luxury-black/35" />
+              <a href="/properties" className="hover:text-luxury-black transition-colors">Properties</a>
+              <ChevronRight className="w-3 h-3 text-luxury-black/35" />
+              <span className="text-luxury-black font-medium">All Locations</span>
+            </div>
+            <h1 className="text-2xl font-extralight text-luxury-black tracking-[0.02em] leading-snug">Luxury Properties for Sale</h1>
+            <p className="text-[14px] text-luxury-black/60 font-light mt-2 leading-relaxed">Discover the finest selection of luxury villas, penthouses, fincas and new-build properties across Ibiza and the Costa Blanca.</p>
+          </div>
+        )}
+
         {/* Results header — desktop only */}
         {!isMobileOrTablet && (
           <>
@@ -1514,7 +1529,7 @@ const LuxuryPropertyListingV2 = () => {
         {/* Property list */}
         <div className={isTablet ? "grid grid-cols-2 gap-4" : ""}>
           {PROPERTIES.map((p, idx) => (
-            <div key={p.id} className={isTablet && (idx === 2 || idx === 4) ? "col-span-2" : ""}>
+            <div key={p.id}>
               {idx === 2 && <BrandedResidencePromoCard />}
               {idx === 4 && <NewDevPromoCard />}
               {p.offmarket ? <OffMarketPropertyCard property={p} /> : <PropertyCard property={p} />}
