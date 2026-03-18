@@ -504,7 +504,7 @@ const Home3LandingPage = () => {
           <FadeIn>
             <div className="text-center mb-12 sm:mb-16">
               <p className="text-xs tracking-[0.3em] uppercase mb-3 font-normal" style={{ color: palette.accent }}>Data</p>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>Costa Blanca & Ibiza Market Insights</h2>
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extralight" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>Costa Blanca & Ibiza<br className="sm:hidden" /> Market Insights</h2>
             </div>
           </FadeIn>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
