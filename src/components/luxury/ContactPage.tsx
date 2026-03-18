@@ -136,13 +136,16 @@ const ContactPage = () => {
                 <label className="block text-[11px] tracking-[0.1em] uppercase font-medium mb-2" style={{ color: palette.textMuted }}>Message *</label>
                 <textarea value={formMessage} onChange={(e) => setFormMessage(e.target.value)} required placeholder="Tell us about your requirements..." rows={5} className="w-full px-4 py-3 text-[13px] focus:outline-none resize-none" style={{ border: `1px solid ${palette.border}`, background: palette.white, color: palette.text }} />
               </div>
+              <label className="flex items-start gap-2 cursor-pointer pt-1">
+                <input type="checkbox" required className="mt-1 accent-neutral-900 w-4 h-4" />
+                <span className="text-[12px] font-light leading-relaxed" style={{ color: palette.textMuted }}>
+                  I accept the <Link to="/page/terms" className="underline" style={{ color: palette.accent }}>Terms & Conditions</Link> and <Link to="/page/privacy" className="underline" style={{ color: palette.accent }}>Privacy Policy</Link>.
+                </span>
+              </label>
               <div className="text-center pt-2">
                 <button type="submit" className="inline-flex items-center gap-2 px-10 py-3.5 text-[11px] tracking-[0.15em] uppercase font-medium transition-all duration-300 hover:opacity-90" style={{ background: palette.text, color: palette.white }}>
                   Send Message <ArrowRight className="w-3.5 h-3.5" />
                 </button>
-                <p className="text-[11px] font-light mt-4" style={{ color: palette.textLight }}>
-                  By submitting this form you agree to our <Link to="/page/privacy" className="underline" style={{ color: palette.accent }}>Privacy Policy</Link>.
-                </p>
               </div>
             </form>
           )}

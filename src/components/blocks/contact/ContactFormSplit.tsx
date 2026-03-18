@@ -117,6 +117,12 @@ export default function ContactFormSplit({
               <label className="block text-[11px] tracking-[0.1em] uppercase font-medium mb-1.5 text-[#8a8580]">Message *</label>
               <textarea required placeholder="Tell us about your requirements..." rows={4} className="w-full px-4 py-3 text-[13px] focus:outline-none resize-none transition-colors border-b-2 border-[#e8e4df] bg-transparent text-[#2C2825]" />
             </div>
+            <label className="flex items-start gap-2 cursor-pointer pt-1">
+              <input type="checkbox" required className="mt-1 accent-neutral-900 w-4 h-4" />
+              <span className="text-[12px] text-[#8a8580] font-light leading-relaxed">
+                I accept the <a href="/page/terms" className="underline text-[#8b6f47]">Terms & Conditions</a> and <a href="/page/privacy" className="underline text-[#8b6f47]">Privacy Policy</a>.
+              </span>
+            </label>
             <div className="pt-2">
               <button type="submit" className="inline-flex items-center gap-2 px-10 py-3.5 text-[11px] tracking-[0.15em] uppercase font-medium transition-all duration-300 hover:opacity-90 bg-[#2C2825] text-white">
                 Send Message <ArrowRight className="w-3.5 h-3.5" />

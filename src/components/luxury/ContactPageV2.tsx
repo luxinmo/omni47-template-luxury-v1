@@ -186,6 +186,12 @@ const ContactPageV2 = () => {
                     onBlur={(e) => (e.target.style.borderBottomColor = palette.border)}
                   />
                 </div>
+                <label className="flex items-start gap-2 cursor-pointer pt-1">
+                  <input type="checkbox" required className="mt-1 accent-neutral-900 w-4 h-4" />
+                  <span className="text-[12px] font-light leading-relaxed" style={{ color: palette.textMuted }}>
+                    I accept the <Link to="/page/terms" className="underline" style={{ color: palette.accent }}>Terms & Conditions</Link> and <Link to="/page/privacy" className="underline" style={{ color: palette.accent }}>Privacy Policy</Link>.
+                  </span>
+                </label>
                 <div className="pt-2">
                   <button type="submit"
                     className="inline-flex items-center gap-2 px-10 py-3.5 text-[11px] tracking-[0.15em] uppercase font-medium transition-all duration-300 hover:opacity-90"
@@ -193,10 +199,6 @@ const ContactPageV2 = () => {
                   >
                     Send Message <ArrowRight className="w-3.5 h-3.5" />
                   </button>
-                  <p className="text-[11px] font-light mt-4" style={{ color: palette.textLight }}>
-                    By submitting you agree to our{" "}
-                    <Link to="/page/privacy" className="underline" style={{ color: palette.accent }}>Privacy Policy</Link>.
-                  </p>
                 </div>
               </form>
             )}
