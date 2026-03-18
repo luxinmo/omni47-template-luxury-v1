@@ -459,7 +459,7 @@ const Home3LandingPage = () => {
               <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
                 <div>
                   <label className="text-[11px] tracking-[0.15em] uppercase font-medium block mb-2" style={{ color: palette.textLight }}>Preferred Location</label>
-                  <select className="w-full px-4 py-3 text-[14px] font-light appearance-none cursor-pointer focus:outline-none transition-colors" style={{ border: `1px solid ${palette.border}`, background: palette.white, color: palette.text }}>
+                   <select className="w-full px-4 py-3 text-[16px] sm:text-[14px] font-light appearance-none cursor-pointer focus:outline-none transition-colors" style={{ border: `1px solid ${palette.border}`, background: palette.white, color: palette.text }}>
                     <option>Costa Blanca</option>
                     <option>Ibiza</option>
                     <option>Marbella</option>
