@@ -248,7 +248,7 @@ const Home3LandingPage = () => {
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>Browse by Destination</h2>
             </div>
           </FadeIn>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+          <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-4">
             {DESTINATIONS.map((d, i) => (
               <FadeIn key={i} delay={i * 0.05}>
                 <Link to={d.href} className="group block relative overflow-hidden aspect-[2/3]">
