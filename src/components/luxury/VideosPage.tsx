@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Play, X, Search, Filter } from "lucide-react";
+import { Play, X, Search, Clock, Eye, ArrowUpRight, TrendingUp } from "lucide-react";
 import { Layout } from "@/components/layout";
 import SEOHead from "@/components/shared/SEOHead";
 import FadeIn from "@/components/shared/FadeIn";
 import { palette, fonts, brand } from "@/config/template";
 
+/* ─── Types ─── */
 interface Video {
   id: string;
   title: string;
@@ -16,6 +17,15 @@ interface Video {
   views?: string;
 }
 
+interface Short {
+  id: string;
+  title: string;
+  youtubeId: string;
+  views?: string;
+  thumbnail?: string;
+}
+
+/* ─── Data ─── */
 const CATEGORIES = ["All", "Property Tours", "Lifestyle", "Market Insights", "Company", "Area Guides"];
 
 const VIDEOS: Video[] = [
@@ -33,10 +43,90 @@ const VIDEOS: Video[] = [
   { id: "12", title: "Jávea: Complete Area Guide", description: "Everything you need to know before buying property in this coveted coastal town.", youtubeId: "dQw4w9WgXcQ", category: "Area Guides", date: "Apr 2025", duration: "10:22", views: "8.4K" },
 ];
 
+const SHORTS: Short[] = [
+  { id: "s1", title: "Villa reveal in 30 seconds 🏡", youtubeId: "dQw4w9WgXcQ", views: "45K" },
+  { id: "s2", title: "Sea view morning routine ☀️", youtubeId: "dQw4w9WgXcQ", views: "32K" },
+  { id: "s3", title: "€3M penthouse walkthrough", youtubeId: "dQw4w9WgXcQ", views: "67K" },
+  { id: "s4", title: "Infinity pool at sunset 🌅", youtubeId: "dQw4w9WgXcQ", views: "28K" },
+  { id: "s5", title: "Before & after renovation", youtubeId: "dQw4w9WgXcQ", views: "51K" },
+  { id: "s6", title: "Inside a €12M Ibiza estate", youtubeId: "dQw4w9WgXcQ", views: "89K" },
+  { id: "s7", title: "The view you wake up to", youtubeId: "dQw4w9WgXcQ", views: "22K" },
+  { id: "s8", title: "Moraira's hidden gem 💎", youtubeId: "dQw4w9WgXcQ", views: "38K" },
+];
+
 function getThumb(youtubeId: string) {
   return `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
 }
 
+/* ─── Sub-components ─── */
+function VideoCard({ video, onPlay }: { video: Video; onPlay: (id: string) => void }) {
+  return (
+    <div className="group">
+      <button
+        onClick={() => onPlay(video.youtubeId)}
+        className="relative w-full overflow-hidden block"
+        style={{ aspectRatio: "16/10" }}
+      >
+        <img src={getThumb(video.youtubeId)} alt={video.title} loading="lazy" className="w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.06]" />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.05) 50%)" }} />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 backdrop-blur-sm" style={{ background: "rgba(255,255,255,0.18)", border: "1px solid rgba(255,255,255,0.35)" }}>
+            <Play className="w-5 h-5 text-white ml-0.5" fill="white" />
+          </div>
+        </div>
+        <span className="absolute top-2.5 left-2.5 text-[9px] tracking-[0.12em] uppercase px-2.5 py-1 font-medium backdrop-blur-sm" style={{ background: "rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.9)", border: "1px solid rgba(255,255,255,0.25)" }}>
+          {video.category}
+        </span>
+        <span className="absolute bottom-2.5 right-2.5 text-[10px] text-white/90 font-medium px-2 py-0.5 backdrop-blur-sm" style={{ background: "rgba(0,0,0,0.55)" }}>
+          {video.duration}
+        </span>
+      </button>
+
+      {/* Card body — property-card style info area */}
+      <div className="py-4 px-0.5 space-y-2" style={{ borderBottom: `1px solid ${palette.border}` }}>
+        <h3 className="text-[15px] font-light tracking-wide leading-tight group-hover:opacity-70 transition-opacity" style={{ fontFamily: fonts.heading, color: palette.text }}>
+          {video.title}
+        </h3>
+        <p className="text-[13px] font-light leading-[1.55] line-clamp-2" style={{ color: palette.textMuted }}>
+          {video.description}
+        </p>
+        <div className="flex items-center gap-4 pt-1 text-[12px] font-light" style={{ color: palette.textLight }}>
+          <span>{video.date}</span>
+          <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {video.duration}</span>
+          {video.views && <span className="flex items-center gap-1"><Eye className="w-3 h-3" /> {video.views}</span>}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ShortCard({ short, onPlay }: { short: Short; onPlay: (id: string) => void }) {
+  return (
+    <button
+      onClick={() => onPlay(short.youtubeId)}
+      className="group relative overflow-hidden flex-shrink-0 w-[160px] sm:w-[180px]"
+      style={{ aspectRatio: "9/16" }}
+    >
+      <img src={getThumb(short.youtubeId)} alt={short.title} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+      <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 40%)" }} />
+      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-sm" style={{ background: "rgba(255,255,255,0.2)", border: "1px solid rgba(255,255,255,0.35)" }}>
+          <Play className="w-4 h-4 text-white ml-0.5" fill="white" />
+        </div>
+      </div>
+      <div className="absolute bottom-0 left-0 right-0 p-3">
+        <p className="text-[12px] font-light text-white leading-tight line-clamp-2">{short.title}</p>
+        {short.views && (
+          <span className="text-[10px] text-white/50 mt-1 flex items-center gap-1">
+            <Eye className="w-2.5 h-2.5" /> {short.views}
+          </span>
+        )}
+      </div>
+    </button>
+  );
+}
+
+/* ─── Page ─── */
 export default function VideosPage() {
   const [playingId, setPlayingId] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState("All");
@@ -55,9 +145,9 @@ export default function VideosPage() {
     <Layout>
       <SEOHead title={`Videos — ${brand.name}`} description="Watch property tours, market insights and lifestyle content from our team." />
 
-      {/* Hero mini */}
-      <section className="pt-28 pb-12 sm:pt-36 sm:pb-16" style={{ background: palette.bg }}>
-        <div className="max-w-[1400px] mx-auto px-5 sm:px-6 text-center">
+      {/* Hero */}
+      <section className="pt-28 pb-10 sm:pt-36 sm:pb-14" style={{ background: palette.bg }}>
+        <div className="max-w-[1440px] mx-auto px-5 sm:px-6 lg:px-12 text-center">
           <FadeIn>
             <p className="text-xs tracking-[0.3em] uppercase mb-3 font-normal" style={{ color: palette.accent }}>Video Channel</p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extralight mb-4" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>
@@ -70,12 +160,33 @@ export default function VideosPage() {
         </div>
       </section>
 
-      {/* Filters */}
+      {/* ═══ SHORTS ═══ */}
       <section style={{ background: palette.bg }}>
-        <div className="max-w-[1400px] mx-auto px-5 sm:px-6 pb-8">
+        <div className="max-w-[1440px] mx-auto px-5 sm:px-6 lg:px-12 pb-12 sm:pb-16">
+          <FadeIn>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="flex items-center gap-2">
+                <TrendingUp className="w-4 h-4" style={{ color: palette.accent }} />
+                <h2 className="text-lg font-light tracking-wide" style={{ fontFamily: fonts.heading }}>Shorts</h2>
+              </div>
+              <div className="flex-1 h-px" style={{ background: palette.border }} />
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.05}>
+            <div className="flex gap-3 sm:gap-4 overflow-x-auto pb-2 scrollbar-hide" style={{ scrollbarWidth: "none" }}>
+              {SHORTS.map((s) => (
+                <ShortCard key={s.id} short={s} onPlay={setPlayingId} />
+              ))}
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ═══ FILTERS ═══ */}
+      <section style={{ background: palette.bg }}>
+        <div className="max-w-[1440px] mx-auto px-5 sm:px-6 lg:px-12 pb-8">
           <FadeIn delay={0.05}>
             <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
-              {/* Categories */}
               <div className="flex gap-2 flex-wrap">
                 {CATEGORIES.map((cat) => (
                   <button
@@ -92,7 +203,6 @@ export default function VideosPage() {
                   </button>
                 ))}
               </div>
-              {/* Search */}
               <div className="relative w-full sm:w-64">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: palette.textLight }} />
                 <input
@@ -109,9 +219,9 @@ export default function VideosPage() {
         </div>
       </section>
 
-      {/* Video Grid */}
+      {/* ═══ FEATURED + GRID ═══ */}
       <section className="pb-20 sm:pb-28" style={{ background: palette.bg }}>
-        <div className="max-w-[1400px] mx-auto px-5 sm:px-6">
+        <div className="max-w-[1440px] mx-auto px-5 sm:px-6 lg:px-12">
           {filtered.length === 0 ? (
             <div className="text-center py-20">
               <p className="text-sm font-light" style={{ color: palette.textMuted }}>No videos found matching your criteria.</p>
@@ -121,60 +231,40 @@ export default function VideosPage() {
               {/* Featured */}
               {featured && (
                 <FadeIn>
-                  <button
-                    onClick={() => setPlayingId(featured.youtubeId)}
-                    className="group relative w-full overflow-hidden mb-6 text-left"
-                    style={{ aspectRatio: "21/9" }}
-                  >
-                    <img src={getThumb(featured.youtubeId)} alt={featured.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                    <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.2) 100%)" }} />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 backdrop-blur-sm" style={{ background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.3)" }}>
-                        <Play className="w-8 h-8 text-white ml-1" fill="white" />
+                  <div className="group mb-8">
+                    <button
+                      onClick={() => setPlayingId(featured.youtubeId)}
+                      className="relative w-full overflow-hidden text-left"
+                      style={{ aspectRatio: "21/9" }}
+                    >
+                      <img src={getThumb(featured.youtubeId)} alt={featured.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.04]" />
+                      <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.2) 100%)" }} />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 backdrop-blur-sm" style={{ background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.3)" }}>
+                          <Play className="w-8 h-8 text-white ml-1" fill="white" />
+                        </div>
+                      </div>
+                      <span className="absolute top-4 left-4 text-[10px] tracking-[0.15em] uppercase px-3 py-1 font-medium backdrop-blur-sm" style={{ background: "rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.9)", border: "1px solid rgba(255,255,255,0.2)" }}>{featured.category}</span>
+                    </button>
+                    {/* Featured card body */}
+                    <div className="py-5 space-y-2" style={{ borderBottom: `1px solid ${palette.border}` }}>
+                      <h2 className="text-xl sm:text-2xl font-light" style={{ fontFamily: fonts.heading, color: palette.text }}>{featured.title}</h2>
+                      <p className="text-sm font-light max-w-2xl" style={{ color: palette.textMuted }}>{featured.description}</p>
+                      <div className="flex items-center gap-4 pt-1 text-[12px] font-light" style={{ color: palette.textLight }}>
+                        <span>{featured.date}</span>
+                        <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {featured.duration}</span>
+                        {featured.views && <span className="flex items-center gap-1"><Eye className="w-3 h-3" /> {featured.views}</span>}
                       </div>
                     </div>
-                    <span className="absolute top-4 left-4 text-[10px] tracking-[0.15em] uppercase px-3 py-1 font-medium backdrop-blur-sm" style={{ background: "rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.9)", border: "1px solid rgba(255,255,255,0.2)" }}>{featured.category}</span>
-                    <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-                      <h2 className="text-xl sm:text-2xl md:text-3xl font-light text-white mb-2" style={{ fontFamily: fonts.heading, letterSpacing: "0.02em" }}>{featured.title}</h2>
-                      <p className="text-sm text-white/60 font-light max-w-xl">{featured.description}</p>
-                      <div className="flex items-center gap-4 mt-3">
-                        <span className="text-[10px] tracking-[0.1em] uppercase text-white/40">{featured.date}</span>
-                        <span className="text-[10px] tracking-[0.1em] uppercase text-white/40">{featured.duration}</span>
-                        {featured.views && <span className="text-[10px] tracking-[0.1em] uppercase text-white/40">{featured.views} views</span>}
-                      </div>
-                    </div>
-                  </button>
+                  </div>
                 </FadeIn>
               )}
 
               {/* Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
                 {rest.map((v, i) => (
                   <FadeIn key={v.id} delay={0.05 * i}>
-                    <button
-                      onClick={() => setPlayingId(v.youtubeId)}
-                      className="group relative w-full overflow-hidden text-left"
-                    >
-                      <div className="relative" style={{ aspectRatio: "16/9" }}>
-                        <img src={getThumb(v.youtubeId)} alt={v.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.05) 50%)" }} />
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 backdrop-blur-sm" style={{ background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.3)" }}>
-                            <Play className="w-5 h-5 text-white ml-0.5" fill="white" />
-                          </div>
-                        </div>
-                        <span className="absolute top-2.5 left-2.5 text-[9px] tracking-[0.12em] uppercase px-2 py-0.5 font-medium backdrop-blur-sm" style={{ background: "rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.9)", border: "1px solid rgba(255,255,255,0.2)" }}>{v.category}</span>
-                        <span className="absolute bottom-2.5 right-2.5 text-[10px] text-white/80 font-medium px-2 py-0.5 backdrop-blur-sm" style={{ background: "rgba(0,0,0,0.5)" }}>{v.duration}</span>
-                      </div>
-                      <div className="pt-3 pb-1">
-                        <h3 className="text-sm font-light leading-tight mb-1" style={{ fontFamily: fonts.heading, color: palette.text }}>{v.title}</h3>
-                        <p className="text-xs font-light line-clamp-2" style={{ color: palette.textMuted }}>{v.description}</p>
-                        <div className="flex items-center gap-3 mt-2">
-                          <span className="text-[10px] tracking-[0.08em] uppercase" style={{ color: palette.textLight }}>{v.date}</span>
-                          {v.views && <span className="text-[10px] tracking-[0.08em] uppercase" style={{ color: palette.textLight }}>{v.views} views</span>}
-                        </div>
-                      </div>
-                    </button>
+                    <VideoCard video={v} onPlay={setPlayingId} />
                   </FadeIn>
                 ))}
               </div>
