@@ -1173,15 +1173,14 @@ const PROPERTIES = [
   { id: 6, image: detail2, gallery: [detail2, prop3, heroImg], tag: "FOR SALE", style: "Classic", location: "Jávea · Costa Blanca", title: "FRONTLINE GOLF ESTATE WITH MOUNTAIN AND SEA VIEWS", excerpt: "Impressive estate located on the frontline of a prestigious golf course in Jávea...", beds: 5, baths: 5, sqm: 520, plot: 2500, price: "€3,750,000", features: ["Golf Views", "Pool", "Gym", "Staff Quarters"], offmarket: false },
 ];
 
-/* ─── Branded Residence Card ─── */
+/* ─── Branded Residence Card (same structure as PropertyCard) ─── */
 const BrandedResidencePromoCard = () => {
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
   const isCompact = isMobile || isTablet;
   return (
-  <Link to="/branded-residences/four-seasons-marbella" className={`group relative ${isCompact ? "grid grid-cols-1 h-full" : "grid grid-cols-1 md:grid-cols-12 mb-6"} gap-0 rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 bg-[hsl(36,18%,96%)] border border-luxury-gold/25 ring-1 ring-luxury-gold/10`}>
-    <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-luxury-gold/50 to-transparent" />
-    <div className={`${isCompact ? "" : "md:col-span-5 md:aspect-auto md:h-full"} relative overflow-hidden aspect-[16/10] min-h-[180px] ${isCompact ? "min-h-[200px]" : "md:min-h-[220px]"}`}>
+  <Link to="/branded-residences/four-seasons-marbella" className={`group bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden hover:shadow-md transition-shadow duration-300 ${isTablet ? "grid grid-cols-1 h-full" : "grid grid-cols-1 md:grid-cols-12 mb-6"} gap-0`}>
+    <div className={`${isTablet ? "" : "md:col-span-5 md:aspect-auto md:h-full"} relative overflow-hidden aspect-[16/10] min-h-[180px] ${isTablet ? "min-h-[200px]" : "md:min-h-[220px]"}`}>
       <img src={prop1} alt="Four Seasons Private Residences" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 absolute inset-0" />
       <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-luxury-gold text-white text-[11px] tracking-[0.12em] uppercase font-medium px-3 py-1.5 rounded-sm"><Crown className="w-3 h-3" /> Branded Residence</span>
       {isCompact && (
@@ -1191,16 +1190,28 @@ const BrandedResidencePromoCard = () => {
         </>
       )}
     </div>
-    <div className={`${isCompact ? "" : "md:col-span-7"} flex flex-col p-4 ${isCompact ? "" : "md:p-6 lg:p-8"}`}>
+    <div className={`${isTablet ? "" : "md:col-span-7"} flex flex-col p-4 ${isTablet ? "" : "md:p-6 lg:p-8"}`}>
+      {!isCompact && (
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-[12px] tracking-[0.15em] uppercase border border-luxury-gold/40 text-luxury-gold px-2.5 py-1 font-medium">BRANDED RESIDENCE</span>
+        </div>
+      )}
       <p className="text-[13px] tracking-[0.14em] uppercase text-luxury-black/60 mb-1">Marbella · Costa del Sol</p>
-      <p className="text-[13px] text-luxury-black/55 font-light mb-1.5">Branded Residence <span className="mx-1 text-luxury-black/30">|</span> <span className="italic">Four Seasons</span></p>
-      <h2 className={`text-[15px] ${isCompact ? "" : "md:text-[19px]"} font-medium text-luxury-black leading-snug mb-1.5`}>FOUR SEASONS PRIVATE RESIDENCES</h2>
+      <p className="text-[13px] text-luxury-black/55 font-light mb-1.5">Branded Residence <span className="mx-1 text-luxury-black/30">|</span> Four Seasons</p>
+      <h2 className={`text-[15px] ${isTablet ? "" : "md:text-[19px]"} font-medium text-luxury-black leading-snug mb-1.5`}>FOUR SEASONS PRIVATE RESIDENCES</h2>
       {!isCompact && <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2">Oceanfront residences with full Four Seasons hotel services, private beach club and world-class spa.</p>}
       <div className="flex items-center gap-5 mb-3">
         <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Units</p><p className="text-[15px] text-luxury-black font-light">8</p></div>
         <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Built</p><p className="text-[15px] text-luxury-black font-light">45%</p></div>
         <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Delivery</p><p className="text-[15px] text-luxury-black font-light">Q2 2027</p></div>
       </div>
+      {!isTablet && (
+        <div className="flex flex-wrap gap-2.5">
+          <span className="text-[12px] text-luxury-black/55 font-light flex items-center gap-1.5"><span className="w-1 h-1 rounded-full bg-luxury-black/30" />Beach Club</span>
+          <span className="text-[12px] text-luxury-black/55 font-light flex items-center gap-1.5"><span className="w-1 h-1 rounded-full bg-luxury-black/30" />Spa</span>
+          <span className="text-[12px] text-luxury-black/55 font-light flex items-center gap-1.5"><span className="w-1 h-1 rounded-full bg-luxury-black/30" />Concierge</span>
+        </div>
+      )}
       {!isCompact && (
         <div className="mt-auto pt-5 border-t border-neutral-100">
           <p className="text-2xl md:text-[28px] font-extralight text-luxury-black tracking-tight">€3,500,000 — €8,200,000</p>
