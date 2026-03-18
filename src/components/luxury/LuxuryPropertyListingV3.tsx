@@ -145,9 +145,9 @@ const TypeDropdown = ({ selected, onToggle }: { selected: string[]; onToggle: (v
   );
 };
 
-const PriceDropdown = ({ priceMin, priceMax, hidePOR, onMinChange, onMaxChange, onHidePORChange }: {
-  priceMin: string; priceMax: string; hidePOR: boolean;
-  onMinChange: (v: string) => void; onMaxChange: (v: string) => void; onHidePORChange: (v: boolean) => void;
+const PriceDropdown = ({ priceMin, priceMax, hidePOR, listingMode, onMinChange, onMaxChange, onHidePORChange, onListingModeChange }: {
+  priceMin: string; priceMax: string; hidePOR: boolean; listingMode: "sale" | "rent";
+  onMinChange: (v: string) => void; onMaxChange: (v: string) => void; onHidePORChange: (v: boolean) => void; onListingModeChange: (v: "sale" | "rent") => void;
 }) => {
   const { open, setOpen, ref } = useDropdown();
   const hasValue = priceMin || priceMax;
@@ -157,11 +157,16 @@ const PriceDropdown = ({ priceMin, priceMax, hidePOR, onMinChange, onMaxChange, 
         Price {hasValue && "●"} <ChevronDown className="w-3.5 h-3.5" />
       </button>
       {open && (
-        <div className="absolute top-full left-0 mt-2 bg-white border border-neutral-200 rounded-lg shadow-xl w-[400px] p-6 z-50">
+        <div className="absolute top-full left-0 mt-2 bg-white border border-neutral-200 rounded-lg shadow-xl w-[400px] p-6 z-[60]">
+          {/* Operation type toggle */}
+          <div className="flex rounded-lg border border-neutral-200 overflow-hidden mb-5">
+            <button onClick={() => onListingModeChange("sale")} className={`flex-1 py-2 text-[13px] font-medium transition-all ${listingMode === "sale" ? "bg-luxury-black text-white" : "bg-white text-luxury-black/60 hover:bg-neutral-50"}`}>For Sale</button>
+            <button onClick={() => onListingModeChange("rent")} className={`flex-1 py-2 text-[13px] font-medium transition-all ${listingMode === "rent" ? "bg-luxury-black text-white" : "bg-white text-luxury-black/60 hover:bg-neutral-50"}`}>For Rent</button>
+          </div>
           <div className="flex gap-4 mb-4">
             <div className="flex-1">
               <label className="text-[12px] uppercase tracking-wider text-luxury-black/65 font-medium mb-2 block">Min price</label>
-              <input type="text" value={priceMin} onChange={(e) => onMinChange(e.target.value)} placeholder="€ No Min" className="w-full border border-neutral-300 rounded-md px-3 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40 focus:ring-1 focus:ring-luxury-black/10" />
+              <input type="text" inputMode="numeric" value={priceMin} onChange={(e) => onMinChange(e.target.value.replace(/[^0-9]/g, ""))} placeholder="€ No Min" className="w-full border border-neutral-300 rounded-md px-3 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40 focus:ring-1 focus:ring-luxury-black/10" />
               <div className="flex flex-wrap gap-2 mt-2.5">
                 {PRICE_PRESETS.slice(0, 3).map(p => (
                   <button key={p.value} onClick={() => onMinChange(p.value)} className={`text-[12px] px-3 py-1 rounded-full border transition-colors font-light ${priceMin === p.value ? "border-luxury-black bg-luxury-black text-white" : "border-neutral-300 text-luxury-black/65 hover:border-luxury-black/40"}`}>{p.label}</button>
@@ -170,7 +175,7 @@ const PriceDropdown = ({ priceMin, priceMax, hidePOR, onMinChange, onMaxChange, 
             </div>
             <div className="flex-1">
               <label className="text-[12px] uppercase tracking-wider text-luxury-black/65 font-medium mb-2 block">Max price</label>
-              <input type="text" value={priceMax} onChange={(e) => onMaxChange(e.target.value)} placeholder="€ No Max" className="w-full border border-neutral-300 rounded-md px-3 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40 focus:ring-1 focus:ring-luxury-black/10" />
+              <input type="text" inputMode="numeric" value={priceMax} onChange={(e) => onMaxChange(e.target.value.replace(/[^0-9]/g, ""))} placeholder="€ No Max" className="w-full border border-neutral-300 rounded-md px-3 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40 focus:ring-1 focus:ring-luxury-black/10" />
               <div className="flex flex-wrap gap-2 mt-2.5">
                 {PRICE_PRESETS.slice(2).map(p => (
                   <button key={p.value} onClick={() => onMaxChange(p.value)} className={`text-[12px] px-3 py-1 rounded-full border transition-colors font-light ${priceMax === p.value ? "border-luxury-black bg-luxury-black text-white" : "border-neutral-300 text-luxury-black/65 hover:border-luxury-black/40"}`}>{p.label}</button>
