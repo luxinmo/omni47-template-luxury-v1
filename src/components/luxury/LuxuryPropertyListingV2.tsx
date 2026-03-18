@@ -628,7 +628,7 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
 
       {/* Selected chips */}
       {selected.length > 0 && (
-        <div className="px-4 py-2.5 flex flex-wrap gap-2 border-b border-neutral-100">
+        <div className="px-4 py-2.5 flex flex-wrap items-center gap-2 border-b border-neutral-100">
           {selected.map(s => (
             <span key={s.id} className="inline-flex items-center gap-1.5 bg-luxury-black text-white text-[12px] font-medium rounded-full pl-3 pr-2 py-1.5">
               {s.name}
@@ -637,6 +637,7 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
               </button>
             </span>
           ))}
+          <button onClick={() => onSelectedChange([])} className="text-[12px] text-luxury-black/40 hover:text-luxury-black/70 underline transition-colors ml-1">Clear</button>
         </div>
       )}
 
@@ -655,29 +656,19 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
           <div>
             {/* Select all zone */}
             {currentZone && (() => {
-              const allCityIds = currentZone.cities.map(c => c.id);
-              const allAreaIds = currentZone.cities.flatMap(c => (c.areas || []).map(a => a.id));
-              const allIds = [...allCityIds, ...allAreaIds];
-              const allSelected = allIds.every(id => selected.some(s => s.id === id));
-              const selectedCount = allIds.filter(id => selected.some(s => s.id === id)).length;
-              const toggleAllZone = () => {
-                if (allSelected) {
-                  onSelectedChange(selected.filter(s => !allIds.includes(s.id)));
+              const zoneItem = { id: currentZone.id, name: currentZone.name, path: currentZone.name, type: "Region" };
+              const isZoneSelected = selected.some(s => s.id === currentZone.id);
+              const toggleZone = () => {
+                if (isZoneSelected) {
+                  onSelectedChange(selected.filter(s => s.id !== currentZone.id));
                 } else {
-                  const newItems = allIds.filter(id => !selected.some(s => s.id === id)).map(id => {
-                    const city = currentZone.cities.find(c => c.id === id);
-                    const area = currentZone.cities.flatMap(c => (c.areas || [])).find(a => a.id === id);
-                    const name = city?.name || area?.name || id;
-                    return { id, name, path: name, type: "City" };
-                  });
-                  onSelectedChange([...selected, ...newItems]);
+                  onSelectedChange([...selected, zoneItem]);
                 }
               };
               return (
-                <button onClick={toggleAllZone} className={`w-full flex items-center gap-3 px-4 py-3.5 border-b border-neutral-100 transition-colors ${allSelected ? "bg-neutral-50" : "active:bg-neutral-50"}`}>
-                  <CheckBox checked={allSelected} />
-                  <span className={`text-[15px] flex-1 text-left font-medium ${allSelected ? "text-luxury-black" : "text-luxury-black/70"}`}>All {currentZone.name}</span>
-                  {selectedCount > 0 && !allSelected && <span className="bg-luxury-black text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold">{selectedCount}</span>}
+                <button onClick={toggleZone} className={`w-full flex items-center gap-3 px-4 py-3.5 border-b border-neutral-100 transition-colors ${isZoneSelected ? "bg-neutral-50" : "active:bg-neutral-50"}`}>
+                  <CheckBox checked={isZoneSelected} />
+                  <span className={`text-[15px] flex-1 text-left font-medium ${isZoneSelected ? "text-luxury-black" : "text-luxury-black/70"}`}>All {currentZone.name}</span>
                   <span className="text-[12px] text-luxury-black/30">{currentZone.count}</span>
                 </button>
               );
@@ -1503,6 +1494,21 @@ const LuxuryPropertyListingV2 = () => {
           </div>
         )}
 
+        {/* Results header — tablet shows breadcrumbs + title */}
+        {isTablet && (
+          <div className="px-2 mb-6">
+            <div className="flex items-center gap-2 mb-3 text-[13px] tracking-[0.04em] text-luxury-black/60 font-normal">
+              <a href="/" className="hover:text-luxury-black transition-colors">Home</a>
+              <ChevronRight className="w-3 h-3 text-luxury-black/35" />
+              <a href="/properties" className="hover:text-luxury-black transition-colors">Properties</a>
+              <ChevronRight className="w-3 h-3 text-luxury-black/35" />
+              <span className="text-luxury-black font-medium">All Locations</span>
+            </div>
+            <h1 className="text-2xl font-extralight text-luxury-black tracking-[0.02em] leading-snug">Luxury Properties for Sale</h1>
+            <p className="text-[14px] text-luxury-black/60 font-light mt-2 leading-relaxed">Discover the finest selection of luxury villas, penthouses, fincas and new-build properties across Ibiza and the Costa Blanca.</p>
+          </div>
+        )}
+
         {/* Results header — desktop only */}
         {!isMobileOrTablet && (
           <>
@@ -1523,7 +1529,7 @@ const LuxuryPropertyListingV2 = () => {
         {/* Property list */}
         <div className={isTablet ? "grid grid-cols-2 gap-4" : ""}>
           {PROPERTIES.map((p, idx) => (
-            <div key={p.id} className={isTablet && (idx === 2 || idx === 4) ? "col-span-2" : ""}>
+            <div key={p.id}>
               {idx === 2 && <BrandedResidencePromoCard />}
               {idx === 4 && <NewDevPromoCard />}
               {p.offmarket ? <OffMarketPropertyCard property={p} /> : <PropertyCard property={p} />}
