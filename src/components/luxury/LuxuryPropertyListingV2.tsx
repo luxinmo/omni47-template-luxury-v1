@@ -16,7 +16,7 @@ import prop3 from "@/assets/luxury-property-3.jpg";
 import detail1 from "@/assets/property-detail-1.jpg";
 import detail2 from "@/assets/property-detail-2.jpg";
 import detail3 from "@/assets/property-detail-3.jpg";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useIsMobile, useIsTablet } from "@/hooks/use-mobile";
 
 /* ─── Types ─── */
 interface FilterState {
@@ -871,8 +871,8 @@ const MobilePriceSelect = ({ value, onChange, options, placeholder }: { value: s
 
       {popupOpen && (
         <div className="fixed inset-0 z-[200] flex items-end justify-center" onClick={() => setPopupOpen(false)}>
-          <div className="absolute inset-0 bg-black/40" />
-          <div className="relative w-full max-w-md bg-white rounded-t-2xl animate-in slide-in-from-bottom duration-300" onClick={(e) => e.stopPropagation()}>
+          <div className="absolute inset-0 bg-black/40 animate-in fade-in duration-200" />
+          <div className="relative w-full max-w-lg bg-white rounded-t-2xl shadow-2xl animate-in slide-in-from-bottom duration-500 ease-out" onClick={(e) => e.stopPropagation()}>
             {/* Header */}
             <div className="flex items-center justify-between px-5 py-4 border-b border-neutral-100">
               <h4 className="text-[16px] font-medium text-luxury-black">{placeholder} price</h4>
@@ -935,7 +935,9 @@ const MobileFilterSheet = ({ open, onClose, filters, onChange }: { open: boolean
   const maxPriceOptions = MOBILE_PRICE_OPTIONS.filter(o => o.label !== "Min");
 
   return (
-    <div className="fixed inset-0 z-50 bg-white animate-in slide-in-from-bottom duration-300 flex flex-col">
+    <>
+      <div className="fixed inset-0 bg-luxury-black/40 backdrop-blur-sm z-50 animate-in fade-in duration-200" onClick={onClose} />
+      <div className="fixed inset-x-0 bottom-0 top-0 md:top-auto md:max-h-[85vh] z-50 bg-white md:rounded-t-2xl md:shadow-2xl animate-in slide-in-from-bottom duration-500 ease-out flex flex-col">
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3.5 border-b border-neutral-200">
         <button onClick={onClose} className="text-luxury-black/70"><X className="w-5 h-5" /></button>
@@ -1117,6 +1119,7 @@ const MobileFilterSheet = ({ open, onClose, filters, onChange }: { open: boolean
         </button>
       </div>
     </div>
+    </>
   );
 };
 
@@ -1125,8 +1128,8 @@ const MobileSortSheet = ({ open, onClose, selected, onSelect }: { open: boolean;
   if (!open) return null;
   return (
     <>
-      <div className="fixed inset-0 bg-luxury-black/40 backdrop-blur-sm z-50" onClick={onClose} />
-      <div className="fixed bottom-0 left-0 right-0 z-50 animate-in slide-in-from-bottom duration-300">
+      <div className="fixed inset-0 bg-luxury-black/40 backdrop-blur-sm z-50 animate-in fade-in duration-200" onClick={onClose} />
+      <div className="fixed bottom-0 left-0 right-0 z-50 animate-in slide-in-from-bottom duration-500 ease-out">
         <div className="bg-white rounded-t-2xl shadow-2xl max-h-[70vh] flex flex-col">
           <div className="text-center py-4 border-b border-neutral-100">
             <div className="w-10 h-1 rounded-full bg-neutral-300 mx-auto mb-3" />
@@ -1232,23 +1235,23 @@ const NewDevPromoCard = () => {
 /* ─── Property Card ─── */
 const PropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
   const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
+  const isCompact = isMobile || isTablet;
   return (
-  <a href={`/property/${property.id}`} className="group grid grid-cols-1 md:grid-cols-12 gap-0 bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden mb-6 hover:shadow-md transition-shadow duration-300">
-    <div className="md:col-span-5 relative overflow-hidden aspect-[16/10] md:aspect-auto md:h-full min-h-[220px]">
+  <a href={`/property/${property.id}`} className={`group bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden mb-4 md:mb-6 hover:shadow-md transition-shadow duration-300 ${isTablet ? "grid grid-cols-1" : "grid grid-cols-1 md:grid-cols-12"} gap-0`}>
+    <div className={`${isTablet ? "" : "md:col-span-5 md:aspect-auto md:h-full"} relative overflow-hidden aspect-[16/10] min-h-[180px] ${isTablet ? "min-h-[200px]" : "md:min-h-[220px]"}`}>
       <img src={property.image} alt={property.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 absolute inset-0" />
       {property.tag === "NEW BUILD" && <span className="absolute top-3 left-3 bg-luxury-black/60 backdrop-blur-sm text-white text-[12px] tracking-[0.12em] uppercase font-medium px-2.5 py-1">New Build</span>}
       {property.gallery.length > 1 && <span className="absolute bottom-3 right-3 bg-luxury-black/60 text-white text-[12px] px-2 py-1 font-light">1/{property.gallery.length}</span>}
-      {/* Mobile: price overlay with gradient */}
-      {isMobile && (
+      {isCompact && (
         <>
           <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
           <span className="absolute bottom-3 left-3 text-white text-[17px] font-semibold tracking-wide drop-shadow-md">{property.price}</span>
         </>
       )}
     </div>
-    <div className="md:col-span-7 flex flex-col p-5 md:p-6 lg:p-8">
-      {/* Desktop: tag + mail icon */}
-      {!isMobile && (
+    <div className={`${isTablet ? "" : "md:col-span-7"} flex flex-col p-4 ${isTablet ? "" : "md:p-6 lg:p-8"}`}>
+      {!isCompact && (
         <div className="flex items-center justify-between mb-3">
           <span className="text-[12px] tracking-[0.15em] uppercase border border-luxury-black/30 text-luxury-black/70 px-2.5 py-1 font-medium">{property.tag}</span>
           <button onClick={(e) => e.preventDefault()} className="text-luxury-black/30 hover:text-luxury-black transition-colors"><Mail className="w-4.5 h-4.5" /></button>
@@ -1256,19 +1259,20 @@ const PropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
       )}
       <p className="text-[13px] tracking-[0.14em] uppercase text-luxury-black/60 mb-1">{property.location}</p>
       <p className="text-[13px] text-luxury-black/55 font-light mb-1.5">Detached houses <span className="mx-1 text-luxury-black/30">|</span> <span className="italic">{property.style}</span> <span className="mx-1 text-luxury-black/30">|</span> <span className="font-mono text-luxury-black/45 tracking-wide text-[12px]">REF-{String(property.id).padStart(4, "0")}</span></p>
-      <h2 className="text-[17px] md:text-[19px] font-medium text-luxury-black leading-snug mb-1.5 group-hover:text-luxury-black/75 transition-colors duration-300">{property.title}</h2>
-      {!isMobile && <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2">{property.excerpt}</p>}
-      <div className="flex items-center gap-7 mb-5">
-        <div className="text-center"><p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Beds</p><p className="text-[16px] text-luxury-black font-light">{property.beds}</p></div>
-        <div className="text-center"><p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Baths</p><p className="text-[16px] text-luxury-black font-light">{property.baths}</p></div>
-        <div className="text-center"><p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Built</p><p className="text-[16px] text-luxury-black font-light">{property.sqm} m²</p></div>
-        {property.plot && <div className="text-center"><p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Plot</p><p className="text-[16px] text-luxury-black font-light">{property.plot.toLocaleString()} m²</p></div>}
+      <h2 className={`text-[15px] ${isTablet ? "" : "md:text-[19px]"} font-medium text-luxury-black leading-snug mb-1.5 group-hover:text-luxury-black/75 transition-colors duration-300`}>{property.title}</h2>
+      {!isCompact && <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2">{property.excerpt}</p>}
+      <div className="flex items-center gap-5 mb-3">
+        <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Beds</p><p className="text-[15px] text-luxury-black font-light">{property.beds}</p></div>
+        <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Baths</p><p className="text-[15px] text-luxury-black font-light">{property.baths}</p></div>
+        <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Built</p><p className="text-[15px] text-luxury-black font-light">{property.sqm} m²</p></div>
+        {property.plot && <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Plot</p><p className="text-[15px] text-luxury-black font-light">{property.plot.toLocaleString()} m²</p></div>}
       </div>
-      <div className="flex flex-wrap gap-2.5">
-        {property.features.map((f, i) => <span key={i} className="text-[12px] text-luxury-black/55 font-light flex items-center gap-1.5"><span className="w-1 h-1 rounded-full bg-luxury-black/30" />{f}</span>)}
-      </div>
-      {/* Desktop: price at bottom */}
-      {!isMobile && (
+      {!isTablet && (
+        <div className="flex flex-wrap gap-2.5">
+          {property.features.map((f, i) => <span key={i} className="text-[12px] text-luxury-black/55 font-light flex items-center gap-1.5"><span className="w-1 h-1 rounded-full bg-luxury-black/30" />{f}</span>)}
+        </div>
+      )}
+      {!isCompact && (
         <div className="mt-auto pt-5 border-t border-neutral-100">
           <p className="text-2xl md:text-[28px] font-extralight text-luxury-black tracking-tight">{property.price}</p>
         </div>
@@ -1282,46 +1286,47 @@ const PropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
 const OffMarketPropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
+  const isCompact = isMobile || isTablet;
   const offmarketTitle = `${property.style.toUpperCase()} FOR SALE OFF-MARKET`;
   const propertyRef = `REF-${String(property.id).padStart(4, "0")}`;
   return (
     <>
-      <div onClick={() => setModalOpen(true)} className="group grid grid-cols-1 md:grid-cols-12 gap-0 bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden mb-6 hover:shadow-md transition-shadow duration-300 cursor-pointer relative">
-        <div className="md:col-span-5 relative overflow-hidden aspect-[16/10] md:aspect-auto md:h-full min-h-[220px]">
+      <div onClick={() => setModalOpen(true)} className={`group ${isTablet ? "grid grid-cols-1" : "grid grid-cols-1 md:grid-cols-12"} gap-0 bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden mb-4 md:mb-6 hover:shadow-md transition-shadow duration-300 cursor-pointer relative`}>
+        <div className={`${isTablet ? "" : "md:col-span-5 md:aspect-auto md:h-full"} relative overflow-hidden aspect-[16/10] min-h-[180px] ${isTablet ? "min-h-[200px]" : "md:min-h-[220px]"}`}>
           <img src={property.image} alt="Off-market" className="w-full h-full object-cover absolute inset-0 filter blur-lg scale-110" />
           <div className="absolute inset-0 bg-luxury-black/40 flex flex-col items-center justify-center gap-3">
             <Lock className="w-8 h-8 text-white/80" />
             <span className="text-[12px] tracking-[0.2em] uppercase text-white/90 font-medium">Off-Market</span>
           </div>
-          {isMobile && (
+          {isCompact && (
             <>
               <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
               <span className="absolute bottom-3 left-3 text-white text-[17px] font-semibold tracking-wide drop-shadow-md">{property.price !== "Price on Request" ? property.price : "Price on Request"}</span>
             </>
           )}
         </div>
-        <div className="md:col-span-7 flex flex-col p-5 md:p-6 lg:p-8">
-          {!isMobile && (
+        <div className={`${isTablet ? "" : "md:col-span-7"} flex flex-col p-4 ${isTablet ? "" : "md:p-6 lg:p-8"}`}>
+          {!isCompact && (
             <div className="flex items-center justify-between mb-3">
               <span className="text-[12px] tracking-[0.15em] uppercase border border-luxury-black/30 text-luxury-black/70 px-2.5 py-1 font-medium bg-amber-50">OFF-MARKET</span>
               <Lock className="w-4 h-4 text-luxury-black/30" />
             </div>
           )}
           <p className="text-[13px] tracking-[0.14em] uppercase text-luxury-black/60 mb-1">{property.location}</p>
-          <h2 className="text-[17px] md:text-[19px] font-medium text-luxury-black leading-snug mb-1.5">{offmarketTitle}</h2>
-          <p className="text-[13px] text-luxury-black/50 font-light mb-3 italic flex items-center gap-1.5">
-            <Lock className="w-3 h-3" /> Exclusive listing — access restricted. Contact us to receive details.
-          </p>
-          <div className="flex items-center gap-7 mb-4">
-            <div className="text-center"><p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Beds</p><p className="text-[16px] text-luxury-black font-light">{property.beds}</p></div>
-            <div className="text-center"><p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Baths</p><p className="text-[16px] text-luxury-black font-light">{property.baths}</p></div>
-            <div className="text-center"><p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Built</p><p className="text-[16px] text-luxury-black font-light">{property.sqm} m²</p></div>
-            {property.plot && <div className="text-center"><p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Plot</p><p className="text-[16px] text-luxury-black font-light">{property.plot.toLocaleString()} m²</p></div>}
+          <h2 className={`text-[15px] ${isTablet ? "" : "md:text-[19px]"} font-medium text-luxury-black leading-snug mb-1.5`}>{offmarketTitle}</h2>
+          {!isTablet && (
+            <p className="text-[13px] text-luxury-black/50 font-light mb-3 italic flex items-center gap-1.5">
+              <Lock className="w-3 h-3" /> Exclusive listing — contact us for details.
+            </p>
+          )}
+          <div className="flex items-center gap-5 mb-3">
+            <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Beds</p><p className="text-[15px] text-luxury-black font-light">{property.beds}</p></div>
+            <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Baths</p><p className="text-[15px] text-luxury-black font-light">{property.baths}</p></div>
+            <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Built</p><p className="text-[15px] text-luxury-black font-light">{property.sqm} m²</p></div>
+            {property.plot && <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Plot</p><p className="text-[15px] text-luxury-black font-light">{property.plot.toLocaleString()} m²</p></div>}
           </div>
-          <div className="flex flex-wrap gap-2.5 mb-4">
-            {property.features.map((f, i) => <span key={i} className="text-[12px] text-luxury-black/55 font-light flex items-center gap-1.5"><span className="w-1 h-1 rounded-full bg-luxury-black/30" />{f}</span>)}
-          </div>
-          {!isMobile && (
+          {!isCompact && (
             <div className="mt-auto pt-5 border-t border-neutral-100 flex items-center justify-between">
               <p className="text-2xl md:text-[28px] font-extralight text-luxury-black tracking-tight">{property.price}</p>
               <span className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/50 font-light flex items-center gap-1.5"><Lock className="w-3 h-3" /> Request access</span>
@@ -1375,6 +1380,7 @@ const OffMarketPropertyCard = ({ property }: { property: typeof PROPERTIES[0] })
 
 const LuxuryPropertyListingV2 = () => {
   const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [sortOpen, setSortOpen] = useState(false);
   const [sortValue, setSortValue] = useState("premium");
@@ -1387,12 +1393,14 @@ const LuxuryPropertyListingV2 = () => {
   const activeChips = buildActiveChips(filters);
   const activeFilterCount = activeChips.length;
 
+  const isMobileOrTablet = isMobile || isTablet;
+
   return (
-    <Layout activePath="/properties" background="#fff" showBackToTop={!isMobile}>
+    <Layout activePath="/properties" background="#fff" showBackToTop={!isMobileOrTablet}>
       <SEOHead title="Luxury Properties for Sale" description="Discover luxury villas, penthouses and more." />
 
       {/* ─── MOBILE: Location Popup ─── */}
-      {isMobile && (
+      {isMobileOrTablet && (
         <MobileLocationPopup
           open={locationPopupOpen}
           onClose={() => setLocationPopupOpen(false)}
@@ -1402,7 +1410,7 @@ const LuxuryPropertyListingV2 = () => {
       )}
 
       {/* ─── MOBILE: Sticky search bar ─── */}
-      {isMobile && (
+      {isMobileOrTablet && (
         <div className="sticky top-[64px] z-40 bg-white border-b border-neutral-200 px-3 py-2.5">
           {/* Search row */}
           <div className="flex items-center gap-2">
@@ -1443,7 +1451,7 @@ const LuxuryPropertyListingV2 = () => {
       )}
 
       {/* ─── DESKTOP: Sticky breadcrumbs + search bar ─── */}
-      {!isMobile && (
+      {!isMobileOrTablet && (
         <div className="sticky top-[64px] sm:top-[80px] z-40 bg-white border-b border-neutral-200">
           <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
             <div className="flex items-center gap-2 pt-3.5 pb-2.5 text-[13px] tracking-[0.04em] text-luxury-black/60 font-normal">
@@ -1471,7 +1479,7 @@ const LuxuryPropertyListingV2 = () => {
       )}
 
       {/* ─── FILTER / SORT Overlays ─── */}
-      {isMobile ? (
+      {isMobileOrTablet ? (
         <>
           <MobileFilterSheet open={filtersOpen} onClose={() => setFiltersOpen(false)} filters={filters} onChange={setFilters} />
           <MobileSortSheet open={sortOpen} onClose={() => setSortOpen(false)} selected={sortValue} onSelect={setSortValue} />
@@ -1481,7 +1489,7 @@ const LuxuryPropertyListingV2 = () => {
       )}
 
       {/* ─── RESULTS ─── */}
-      <main className={`max-w-[1400px] mx-auto px-0 md:px-6 lg:px-10 py-6 md:py-8 ${isMobile ? "pb-24" : ""}`}>
+      <main className={`max-w-[1400px] mx-auto px-0 md:px-6 lg:px-10 py-6 md:py-8 ${isMobileOrTablet ? "pb-24" : ""}`}>
         {/* Active filter chips */}
         {activeChips.length > 0 && (
           <div className="flex flex-wrap items-center gap-2 mb-5">
@@ -1496,7 +1504,7 @@ const LuxuryPropertyListingV2 = () => {
         )}
 
         {/* Results header — desktop only */}
-        {!isMobile && (
+        {!isMobileOrTablet && (
           <>
             <div className="mb-8">
               <h1 className="text-2xl md:text-3xl font-extralight text-luxury-black tracking-[0.02em] leading-snug">Luxury Properties for Sale</h1>
@@ -1513,9 +1521,9 @@ const LuxuryPropertyListingV2 = () => {
         )}
 
         {/* Property list */}
-        <div>
+        <div className={isTablet ? "grid grid-cols-2 gap-4" : ""}>
           {PROPERTIES.map((p, idx) => (
-            <div key={p.id}>
+            <div key={p.id} className={isTablet && (idx === 2 || idx === 4) ? "col-span-2" : ""}>
               {idx === 2 && <BrandedResidencePromoCard />}
               {idx === 4 && <NewDevPromoCard />}
               {p.offmarket ? <OffMarketPropertyCard property={p} /> : <PropertyCard property={p} />}
@@ -1537,7 +1545,7 @@ const LuxuryPropertyListingV2 = () => {
       </main>
 
       {/* ─── MOBILE: Bottom Sticky Navigation Bar ─── */}
-      {isMobile && (
+      {isMobileOrTablet && (
         <div className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-neutral-200 shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
           <div className="flex items-center">
             <a href="tel:+34600123456" className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 text-luxury-black hover:bg-neutral-50 transition-colors">
