@@ -1395,13 +1395,6 @@ const LuxuryPropertyListingV2 = () => {
                 <span className="ml-auto bg-luxury-black text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center shrink-0 font-bold">{filters.locations.length}</span>
               )}
             </button>
-            {/* Sort button */}
-            <button
-              onClick={() => setSortOpen(true)}
-              className="w-10 h-10 flex items-center justify-center rounded-lg border border-neutral-200 text-luxury-black/60 hover:bg-neutral-50 transition-colors shrink-0"
-            >
-              <ArrowUpDown className="w-4.5 h-4.5" />
-            </button>
             {/* Filter button */}
             <button
               onClick={() => setFiltersOpen(true)}
@@ -1413,8 +1406,14 @@ const LuxuryPropertyListingV2 = () => {
               )}
             </button>
           </div>
-          {/* Results count */}
-          <p className="text-[13px] text-luxury-black/50 font-light text-center mt-2">{PROPERTIES.length} properties</p>
+          {/* Results + Sort inline */}
+          <div className="flex items-center justify-between mt-2">
+            <p className="text-[13px] text-luxury-black/50 font-light">{PROPERTIES.length} properties</p>
+            <button onClick={() => setSortOpen(true)} className="text-[13px] text-luxury-black/50 font-light flex items-center gap-1">
+              Sort: <span className="text-luxury-black font-medium">{SORT_OPTIONS.find(s => s.value === sortValue)?.label || "Premium"}</span>
+              <ChevronDown className="w-3 h-3 text-luxury-black/40" />
+            </button>
+          </div>
         </div>
       )}
 
