@@ -280,7 +280,7 @@ const Home3LandingPage = () => {
             {PROPERTY_TYPES.map((t, i) => (
               <FadeIn key={i} delay={i * 0.06}>
                 <Link to={t.href} className="group flex items-center gap-3 sm:gap-4 p-4 sm:p-6 transition-all duration-300 hover:shadow-md" style={{ background: palette.white, border: `1px solid ${palette.border}` }}>
-                  <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0 transition-colors duration-300" style={{ border: `1px solid ${palette.border}` }}>
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shrink-0 transition-colors duration-300" style={{ border: `1px solid ${palette.border}` }}>
                     <t.icon className="w-5 h-5" style={{ color: palette.accent }} strokeWidth={1.5} />
                   </div>
                   <div>
