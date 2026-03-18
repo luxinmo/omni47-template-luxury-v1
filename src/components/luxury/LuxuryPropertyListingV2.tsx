@@ -1195,27 +1195,37 @@ const BrandedResidencePromoCard = () => {
 /* ─── New Dev Promo Card ─── */
 const NewDevPromoCard = () => {
   const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
+  const isCompact = isMobile || isTablet;
   return (
-  <Link to="/new-developments/marea-residences-altea" className="group relative grid grid-cols-1 md:grid-cols-12 gap-0 rounded-sm overflow-hidden mb-6 hover:shadow-lg transition-all duration-300 bg-[hsl(30,20%,96%)] border border-luxury-black/10">
-    <div className="md:col-span-5 relative overflow-hidden aspect-[16/10] md:aspect-auto md:h-full min-h-[220px]">
+  <Link to="/new-developments/marea-residences-altea" className={`group relative ${isCompact ? "grid grid-cols-1" : "grid grid-cols-1 md:grid-cols-12"} gap-0 rounded-sm overflow-hidden mb-4 md:mb-6 hover:shadow-lg transition-all duration-300 bg-[hsl(30,20%,96%)] border border-luxury-black/10`}>
+    <div className={`${isCompact ? "" : "md:col-span-5 md:aspect-auto md:h-full"} relative overflow-hidden aspect-[16/10] min-h-[180px] ${isCompact ? "min-h-[200px]" : "md:min-h-[220px]"}`}>
       <img src={detail1} alt="Marea Residences" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 absolute inset-0" />
       <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-luxury-black/80 text-white text-[11px] tracking-[0.12em] uppercase font-medium px-3 py-1.5 rounded-sm"><Building2 className="w-3 h-3" /> New Development</span>
-      {isMobile && (
+      {isCompact && (
         <>
           <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
           <span className="absolute bottom-3 left-3 text-white text-[17px] font-semibold tracking-wide drop-shadow-md">€485,000 — €1,250,000</span>
         </>
       )}
     </div>
-    <div className="md:col-span-7 flex flex-col p-5 md:p-6 lg:p-8">
+    <div className={`${isCompact ? "" : "md:col-span-7"} flex flex-col p-4 ${isCompact ? "" : "md:p-6 lg:p-8"}`}>
       <p className="text-[13px] tracking-[0.14em] uppercase text-luxury-black/60 mb-1">Altea · Costa Blanca</p>
-      <h2 className="text-[17px] md:text-[19px] font-medium text-luxury-black leading-snug mb-1.5">MAREA RESIDENCES</h2>
-      <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-3 line-clamp-2">Contemporary beachfront apartments with panoramic sea views and communal pools.</p>
-      <div className="flex items-center gap-4 text-[13px] text-luxury-black/55 font-light">
-        <span className="flex items-center gap-1"><Building2 className="w-3.5 h-3.5 text-luxury-black/40" /> 12 units available</span>
-        <span>Delivery Q4 2026</span>
-      </div>
-      {!isMobile && (
+      <h2 className={`text-[15px] ${isCompact ? "" : "md:text-[19px]"} font-medium text-luxury-black leading-snug mb-1.5`}>MAREA RESIDENCES</h2>
+      <p className={`text-[14px] text-luxury-black/60 font-light leading-relaxed ${isCompact ? "line-clamp-2 mb-2" : "mb-3 line-clamp-2"}`}>Contemporary beachfront apartments with panoramic sea views and communal pools.</p>
+      {!isCompact && (
+        <div className="flex items-center gap-4 text-[13px] text-luxury-black/55 font-light">
+          <span className="flex items-center gap-1"><Building2 className="w-3.5 h-3.5 text-luxury-black/40" /> 12 units available</span>
+          <span>Delivery Q4 2026</span>
+        </div>
+      )}
+      {isCompact && (
+        <div className="flex items-center gap-4 text-[12px] text-luxury-black/55 font-light">
+          <span className="flex items-center gap-1"><Building2 className="w-3.5 h-3.5 text-luxury-black/40" /> 12 units</span>
+          <span>Q4 2026</span>
+        </div>
+      )}
+      {!isCompact && (
         <div className="mt-auto pt-5 border-t border-neutral-100">
           <p className="text-2xl md:text-[28px] font-extralight text-luxury-black tracking-tight">€485,000 — €1,250,000</p>
         </div>
