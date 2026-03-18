@@ -1449,7 +1449,7 @@ const LuxuryPropertyListingV2 = () => {
       )}
 
       {/* ─── DESKTOP: Sticky breadcrumbs + search bar ─── */}
-      {!isMobile && (
+      {!isMobileOrTablet && (
         <div className="sticky top-[64px] sm:top-[80px] z-40 bg-white border-b border-neutral-200">
           <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
             <div className="flex items-center gap-2 pt-3.5 pb-2.5 text-[13px] tracking-[0.04em] text-luxury-black/60 font-normal">
