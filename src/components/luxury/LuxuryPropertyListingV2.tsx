@@ -1391,8 +1391,10 @@ const LuxuryPropertyListingV2 = () => {
   const activeChips = buildActiveChips(filters);
   const activeFilterCount = activeChips.length;
 
+  const isMobileOrTablet = isMobile || isTablet;
+
   return (
-    <Layout activePath="/properties" background="#fff" showBackToTop={!isMobile}>
+    <Layout activePath="/properties" background="#fff" showBackToTop={!isMobileOrTablet}>
       <SEOHead title="Luxury Properties for Sale" description="Discover luxury villas, penthouses and more." />
 
       {/* ─── MOBILE: Location Popup ─── */}
