@@ -1519,9 +1519,9 @@ const LuxuryPropertyListingV2 = () => {
         )}
 
         {/* Property list */}
-        <div>
+        <div className={isTablet ? "grid grid-cols-2 gap-4" : ""}>
           {PROPERTIES.map((p, idx) => (
-            <div key={p.id}>
+            <div key={p.id} className={isTablet && (idx === 2 || idx === 4) ? "col-span-2" : ""}>
               {idx === 2 && <BrandedResidencePromoCard />}
               {idx === 4 && <NewDevPromoCard />}
               {p.offmarket ? <OffMarketPropertyCard property={p} /> : <PropertyCard property={p} />}
