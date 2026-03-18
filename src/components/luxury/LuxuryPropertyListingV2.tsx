@@ -1432,7 +1432,7 @@ const LuxuryPropertyListingV2 = () => {
             </button>
           </div>
           {/* Results + Sort inline */}
-          <div className="flex items-center justify-between mt-2">
+          <div className="flex items-center justify-between mt-3 pt-2 border-t border-neutral-100">
             <p className="text-[13px] text-luxury-black/50 font-light">{PROPERTIES.length} properties</p>
             <button onClick={() => setSortOpen(true)} className="text-[13px] text-luxury-black/50 font-light flex items-center gap-1">
               Sort: <span className="text-luxury-black font-medium">{SORT_OPTIONS.find(s => s.value === sortValue)?.label || "Premium"}</span>
