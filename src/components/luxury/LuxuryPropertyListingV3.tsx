@@ -146,8 +146,8 @@ const TypeDropdown = ({ selected, onToggle }: { selected: string[]; onToggle: (v
 };
 
 const PriceDropdown = ({ priceMin, priceMax, hidePOR, listingMode, onMinChange, onMaxChange, onHidePORChange, onListingModeChange }: {
-  priceMin: string; priceMax: string; hidePOR: boolean; listingMode: "sale" | "rent";
-  onMinChange: (v: string) => void; onMaxChange: (v: string) => void; onHidePORChange: (v: boolean) => void; onListingModeChange: (v: "sale" | "rent") => void;
+  priceMin: string; priceMax: string; hidePOR: boolean; listingMode: "sale" | "rent" | "holiday";
+  onMinChange: (v: string) => void; onMaxChange: (v: string) => void; onHidePORChange: (v: boolean) => void; onListingModeChange: (v: "sale" | "rent" | "holiday") => void;
 }) => {
   const { open, setOpen, ref } = useDropdown();
   const hasValue = priceMin || priceMax;
@@ -157,11 +157,12 @@ const PriceDropdown = ({ priceMin, priceMax, hidePOR, listingMode, onMinChange, 
         Price {hasValue && "●"} <ChevronDown className="w-3.5 h-3.5" />
       </button>
       {open && (
-        <div className="absolute top-full left-0 mt-2 bg-white border border-neutral-200 rounded-lg shadow-xl w-[400px] p-6 z-[60]">
+        <div className="absolute top-full left-0 mt-2 bg-white border border-neutral-200 rounded-lg shadow-xl w-[420px] p-6 z-[60]">
           {/* Operation type toggle */}
           <div className="flex rounded-lg border border-neutral-200 overflow-hidden mb-5">
             <button onClick={() => onListingModeChange("sale")} className={`flex-1 py-2 text-[13px] font-medium transition-all ${listingMode === "sale" ? "bg-luxury-black text-white" : "bg-white text-luxury-black/60 hover:bg-neutral-50"}`}>For Sale</button>
             <button onClick={() => onListingModeChange("rent")} className={`flex-1 py-2 text-[13px] font-medium transition-all ${listingMode === "rent" ? "bg-luxury-black text-white" : "bg-white text-luxury-black/60 hover:bg-neutral-50"}`}>For Rent</button>
+            <button onClick={() => onListingModeChange("holiday")} className={`flex-1 py-2 text-[13px] font-medium transition-all ${listingMode === "holiday" ? "bg-luxury-black text-white" : "bg-white text-luxury-black/60 hover:bg-neutral-50"}`}>Holiday</button>
           </div>
           <div className="flex gap-4 mb-4">
             <div className="flex-1">
