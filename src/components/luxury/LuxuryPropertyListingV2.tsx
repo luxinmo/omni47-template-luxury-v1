@@ -653,6 +653,35 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
         {activeZone ? (
           /* ─── Zone detail: alphabetical city list with expandable areas ─── */
           <div>
+            {/* Select all zone */}
+            {currentZone && (() => {
+              const allCityIds = currentZone.cities.map(c => c.id);
+              const allAreaIds = currentZone.cities.flatMap(c => (c.areas || []).map(a => a.id));
+              const allIds = [...allCityIds, ...allAreaIds];
+              const allSelected = allIds.every(id => selected.some(s => s.id === id));
+              const selectedCount = allIds.filter(id => selected.some(s => s.id === id)).length;
+              const toggleAllZone = () => {
+                if (allSelected) {
+                  onSelectedChange(selected.filter(s => !allIds.includes(s.id)));
+                } else {
+                  const newItems = allIds.filter(id => !selected.some(s => s.id === id)).map(id => {
+                    const city = currentZone.cities.find(c => c.id === id);
+                    const area = currentZone.cities.flatMap(c => (c.areas || [])).find(a => a.id === id);
+                    const name = city?.name || area?.name || id;
+                    return { id, name, path: name, type: "City" };
+                  });
+                  onSelectedChange([...selected, ...newItems]);
+                }
+              };
+              return (
+                <button onClick={toggleAllZone} className={`w-full flex items-center gap-3 px-4 py-3.5 border-b border-neutral-100 transition-colors ${allSelected ? "bg-neutral-50" : "active:bg-neutral-50"}`}>
+                  <CheckBox checked={allSelected} />
+                  <span className={`text-[15px] flex-1 text-left font-medium ${allSelected ? "text-luxury-black" : "text-luxury-black/70"}`}>All {currentZone.name}</span>
+                  {selectedCount > 0 && !allSelected && <span className="bg-luxury-black text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold">{selectedCount}</span>}
+                  <span className="text-[12px] text-luxury-black/30">{currentZone.count}</span>
+                </button>
+              );
+            })()}
             {alphabetGroups.length > 0 ? alphabetGroups.map(([letter, cities]) => (
               <div key={letter}>
                 <div className="px-4 pt-4 pb-1.5 sticky top-0 bg-white z-10">
@@ -676,7 +705,6 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
                               if (isExpanded) {
                                 setExpandedCity(null);
                               } else {
-                                // Expand and auto-select all areas
                                 const areaItems = city.areas!.filter(a => !selected.some(s => s.id === a.id)).map(a => ({ id: a.id, name: a.name, path: a.name, type: "City" }));
                                 onSelectedChange([...selected, ...areaItems]);
                                 setExpandedCity(city.id);
@@ -690,7 +718,7 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
                         )}
                         {hasAreas && !isSelected && <span className="text-[12px] text-luxury-black/30">{city.count}</span>}
                         {!hasAreas && <span className="text-[12px] text-luxury-black/30">{city.count}</span>}
-                        <CheckBox checked={isSelected} />
+                        <button onClick={() => toggleItem(city.id, city.name)} className="shrink-0"><CheckBox checked={isSelected} /></button>
                       </div>
                       {isExpanded && hasAreas && (
                         <div className="pl-11 pr-4 pb-2 bg-neutral-50/50">
@@ -699,14 +727,11 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
                             return (
                               <button key={area.id} onClick={() => {
                                 if (areaSelected) {
-                                  // Deselecting an area: remove area, and if city was selected as "All", remove city too, keep remaining areas
                                   const remainingAreas = city.areas!.filter(a => a.id !== area.id && selected.some(s => s.id === a.id));
                                   let newSelected = selected.filter(s => s.id !== area.id);
                                   if (isSelected && remainingAreas.length > 0) {
-                                    // Remove city, keep individual areas
                                     newSelected = newSelected.filter(s => s.id !== city.id);
                                   } else if (isSelected && remainingAreas.length === 0) {
-                                    // Last area being removed, also remove city
                                     newSelected = newSelected.filter(s => s.id !== city.id);
                                   }
                                   onSelectedChange(newSelected);
