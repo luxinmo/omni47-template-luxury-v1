@@ -116,6 +116,12 @@ import ListingPropertyCard from "@/components/blocks/listing/ListingPropertyCard
 import ListingBrandedCard from "@/components/blocks/listing/ListingBrandedCard";
 import ListingNewDevCard from "@/components/blocks/listing/ListingNewDevCard";
 import ListingOffMarketCard from "@/components/blocks/listing/ListingOffMarketCard";
+import ListingSearchBar from "@/components/blocks/listing/ListingSearchBar";
+import ListingFilterSidebar from "@/components/blocks/listing/ListingFilterSidebar";
+import ListingMobileSearchBar from "@/components/blocks/listing/ListingMobileSearchBar";
+import ListingMobileFilterSheet from "@/components/blocks/listing/ListingMobileFilterSheet";
+import ListingMobileSortSheet from "@/components/blocks/listing/ListingMobileSortSheet";
+import ListingMobileStickyNav from "@/components/blocks/listing/ListingMobileStickyNav";
 import HomeComboA from "@/components/combos/HomeComboA";
 import HomeComboB from "@/components/combos/HomeComboB";
 import HomeComboC from "@/components/combos/HomeComboC";
@@ -218,6 +224,17 @@ const CATEGORIES = [
       { id: "listing-branded-card", name: "Branded Residence Promo Card", origin: "PropertyListing", component: ListingBrandedCard },
       { id: "listing-newdev-card", name: "New Development Promo Card", origin: "PropertyListing", component: ListingNewDevCard },
       { id: "listing-offmarket-card", name: "Off-Market Card + Enquiry Modal", origin: "PropertyListing", component: ListingOffMarketCard },
+    ],
+  },
+  {
+    title: "🔍 Listing Search & Filters",
+    blocks: [
+      { id: "listing-search-bar", name: "Desktop Search Bar + Filter Chips", origin: "PropertyListing", component: () => <ListingSearchBar filters={{ types: [], priceMin: "", priceMax: "", hidePriceOnRequest: false, beds: "Any", amenities: [], newBuilds: false }} onChange={() => {}} /> },
+      { id: "listing-filter-sidebar", name: "Desktop Filter Sidebar", origin: "PropertyListing", component: () => <ListingFilterSidebar open={true} onClose={() => {}} filters={{ types: [], priceMin: "", priceMax: "", areaMin: "", areaMax: "", beds: "Any", baths: "Any", amenities: [] }} onChange={() => {}} /> },
+      { id: "listing-mobile-search-bar", name: "Mobile Sticky Search Bar", origin: "PropertyListing", component: () => <ListingMobileSearchBar resultsCount={48} activeFilterCount={2} locationNames={["Ibiza", "Marbella"]} /> },
+      { id: "listing-mobile-filter-sheet", name: "Mobile Filter Sheet (Fullscreen)", origin: "PropertyListing", component: () => <ListingMobileFilterSheet open={true} onClose={() => {}} filters={{ types: [], quickTags: [], priceMin: "", priceMax: "", beds: "Any", baths: "Any", areaMin: "", areaMax: "", amenities: [], listingMode: "sale" }} onChange={() => {}} resultsCount={48} /> },
+      { id: "listing-mobile-sort-sheet", name: "Mobile Sort Bottom Sheet", origin: "PropertyListing", component: () => <ListingMobileSortSheet open={true} onClose={() => {}} selected="premium" onSelect={() => {}} /> },
+      { id: "listing-mobile-sticky-nav", name: "Mobile Bottom Nav (Call/Chat/Contact)", origin: "PropertyListing", component: ListingMobileStickyNav },
     ],
   },
   {

@@ -99,7 +99,44 @@
 | listing-newdev-card | New Development Promo Card | PropertyListing | Card horizontal: badge Building2, info de unidades disponibles y fecha de entrega. Mobile: precio con gradient. Desktop: precio en footer |
 | listing-offmarket-card | Off-Market Card + Enquiry Modal | PropertyListing | Card con imagen blur + Lock icon, specs completos, texto de acceso restringido. Click abre modal con foto (blur) + REF + formulario de contacto |
 
-## 🔒 Off-Market (2 variantes)
+## 🔍 Listing Search & Filters (6 bloques)
+
+| ID | Nombre | Origen | Descripción visual |
+|----|--------|--------|---------------------|
+| listing-search-bar | Desktop Search Bar + Filter Chips | PropertyListing | Barra sticky con breadcrumbs, slot para buscador de ubicación, fila de dropdowns (Type, Price, Beds, Amenities) como chips rounded-full con estado activo negro |
+| listing-filter-sidebar | Desktop Filter Sidebar | PropertyListing | Panel lateral slide-in 340px con secciones: Property Type (con subtypes), Price range (inputs + presets), Living area (m²), Bedrooms, Bathrooms, Amenities (checkboxes). Footer sticky con "Clear all" + "Show results" |
+| listing-mobile-search-bar | Mobile Sticky Search Bar | PropertyListing | Barra compacta sticky: botón ubicación con chips, botón sort (ArrowUpDown), botón filtros (SlidersHorizontal) con badge rojo de count. Contador de resultados centrado |
+| listing-mobile-filter-sheet | Mobile Filter Sheet (Fullscreen) | PropertyListing | Overlay fullscreen con categorías expandibles (Houses/Flats/Lands), quick-tag chips, precio con inputs, Beds/Baths/Area, amenities chips, toggle Buy/Rent. Footer con "Clear all" + "Show N properties" |
+| listing-mobile-sort-sheet | Mobile Sort Bottom Sheet | PropertyListing | Bottom sheet con backdrop blur, opciones de ordenación (Premium, Price asc/desc, Newest, etc.), botón Cancel |
+| listing-mobile-sticky-nav | Mobile Bottom Nav (Call/Chat/Contact) | PropertyListing | Barra fija inferior con 3 acciones: Call (tel:), Chat (callback), Contact (link). Iconos + labels uppercase 10px |
+
+### Props principales
+
+**ListingSearchBar** (Desktop):
+- `filters: ListingFilterState` — estado controlado (types, priceMin/Max, hidePriceOnRequest, beds, amenities, newBuilds)
+- `onChange` — callback al cambiar filtros
+- `onOpenFilters` — abrir sidebar completo
+- `locationSlot` — slot para componente de búsqueda de ubicación
+- `typeOptions`, `bedOptions`, `pricePresetsMin/Max`, `amenityGroups`, `breadcrumbs`
+
+**ListingFilterSidebar** (Desktop):
+- `open/onClose` — control de visibilidad
+- `filters: SidebarFilterState` — types, price, area, beds, baths, amenities
+- `typeOptions` (con subtypes), `bedOptions`, `bathOptions`, `pricePresets`, `amenities`
+
+**ListingMobileFilterSheet**:
+- `filters: MobileFilterState` — types, quickTags, price, beds, baths, area, amenities, listingMode
+- `typeCategories` — categorías expandibles (Houses→subtypes, Flats→subtypes, Lands→subtypes)
+- `quickTags`, `bedOptions`, `bathOptions`, `amenities`, `resultsCount`
+
+**ListingMobileSortSheet**:
+- `selected/onSelect` — valor actual y callback
+- `options: SortOption[]` — array de {value, label}
+
+**ListingMobileStickyNav**:
+- `phoneNumber`, `onChat`, `contactHref`
+
+
 
 | ID | Nombre | Origen | Descripción visual |
 |----|--------|--------|--------------------|
