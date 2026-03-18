@@ -1599,4 +1599,4 @@ const LuxuryPropertyListingV3 = () => {
   );
 };
 
-export default LuxuryPropertyListingV2;
+export default LuxuryPropertyListingV3;
