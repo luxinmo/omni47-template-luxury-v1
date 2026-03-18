@@ -1539,14 +1539,20 @@ const LuxuryPropertyListingV2 = () => {
         )}
 
         {/* Property list */}
-        <div className={isTablet ? "grid grid-cols-2 gap-4" : ""}>
-          {PROPERTIES.map((p, idx) => (
-            <div key={p.id}>
-              {idx === 2 && <BrandedResidencePromoCard />}
-              {idx === 4 && <NewDevPromoCard />}
-              {p.offmarket ? <OffMarketPropertyCard property={p} /> : <PropertyCard property={p} />}
-            </div>
-          ))}
+        <div className={isTablet ? "grid grid-cols-2 gap-4 items-stretch" : ""}>
+          {(() => {
+            const items: React.ReactNode[] = [];
+            PROPERTIES.forEach((p, idx) => {
+              if (idx === 2) items.push(<BrandedResidencePromoCard key="branded-promo" />);
+              if (idx === 4) items.push(<NewDevPromoCard key="newdev-promo" />);
+              items.push(
+                p.offmarket
+                  ? <OffMarketPropertyCard key={p.id} property={p} />
+                  : <PropertyCard key={p.id} property={p} />
+              );
+            });
+            return items;
+          })()}
         </div>
 
         {/* Pagination */}
