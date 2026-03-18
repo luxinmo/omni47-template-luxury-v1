@@ -1457,7 +1457,7 @@ const LuxuryPropertyListingV2 = () => {
       )}
 
       {/* ─── RESULTS ─── */}
-      <main className={`max-w-[1400px] mx-auto px-4 md:px-6 lg:px-10 py-6 md:py-8 ${isMobile ? "pb-24" : ""}`}>
+      <main className={`max-w-[1400px] mx-auto px-0 md:px-6 lg:px-10 py-6 md:py-8 ${isMobile ? "pb-24" : ""}`}>
         {/* Active filter chips */}
         {activeChips.length > 0 && (
           <div className="flex flex-wrap items-center gap-2 mb-5">
