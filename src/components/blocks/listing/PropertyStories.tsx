@@ -116,7 +116,7 @@ const STORY_GROUPS: StoryGroup[] = [
   },
 ];
 
-const PROPERTY_DURATION = 15000; // 15s per property
+const PROPERTY_DURATION = 10000; // 10s per property
 const END_CARD_DURATION = 8000;  // 8s for end card
 
 /* ─── Story Viewer (fullscreen) ─── */

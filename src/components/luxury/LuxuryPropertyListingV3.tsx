@@ -132,7 +132,7 @@ const TypeDropdown = ({ selected, onToggle }: { selected: string[]; onToggle: (v
         Type {selected.length > 0 && <span className="bg-white text-luxury-black text-[12px] w-4 h-4 rounded-full flex items-center justify-center font-medium">{selected.length}</span>} <ChevronDown className="w-3.5 h-3.5" />
       </button>
       {open && (
-        <div className="absolute top-full left-0 mt-2 bg-white border border-neutral-200 rounded-sm shadow-lg w-[300px] py-2 z-50">
+        <div className="absolute top-full left-0 mt-2 bg-white border border-neutral-200 rounded-sm shadow-lg w-[300px] py-2 z-[60]">
           {TYPE_OPTIONS.map((t) => (
             <label key={t} className="flex items-center gap-3 px-4 py-2.5 cursor-pointer hover:bg-neutral-50 transition-colors">
               <input type="checkbox" checked={selected.includes(t)} onChange={() => onToggle(t)} className="w-4 h-4 border-neutral-300 rounded-sm accent-luxury-black" />
@@ -145,9 +145,9 @@ const TypeDropdown = ({ selected, onToggle }: { selected: string[]; onToggle: (v
   );
 };
 
-const PriceDropdown = ({ priceMin, priceMax, hidePOR, onMinChange, onMaxChange, onHidePORChange }: {
-  priceMin: string; priceMax: string; hidePOR: boolean;
-  onMinChange: (v: string) => void; onMaxChange: (v: string) => void; onHidePORChange: (v: boolean) => void;
+const PriceDropdown = ({ priceMin, priceMax, hidePOR, listingMode, onMinChange, onMaxChange, onHidePORChange, onListingModeChange }: {
+  priceMin: string; priceMax: string; hidePOR: boolean; listingMode: "sale" | "rent";
+  onMinChange: (v: string) => void; onMaxChange: (v: string) => void; onHidePORChange: (v: boolean) => void; onListingModeChange: (v: "sale" | "rent") => void;
 }) => {
   const { open, setOpen, ref } = useDropdown();
   const hasValue = priceMin || priceMax;
@@ -157,11 +157,16 @@ const PriceDropdown = ({ priceMin, priceMax, hidePOR, onMinChange, onMaxChange, 
         Price {hasValue && "●"} <ChevronDown className="w-3.5 h-3.5" />
       </button>
       {open && (
-        <div className="absolute top-full left-0 mt-2 bg-white border border-neutral-200 rounded-lg shadow-xl w-[400px] p-6 z-50">
+        <div className="absolute top-full left-0 mt-2 bg-white border border-neutral-200 rounded-lg shadow-xl w-[400px] p-6 z-[60]">
+          {/* Operation type toggle */}
+          <div className="flex rounded-lg border border-neutral-200 overflow-hidden mb-5">
+            <button onClick={() => onListingModeChange("sale")} className={`flex-1 py-2 text-[13px] font-medium transition-all ${listingMode === "sale" ? "bg-luxury-black text-white" : "bg-white text-luxury-black/60 hover:bg-neutral-50"}`}>For Sale</button>
+            <button onClick={() => onListingModeChange("rent")} className={`flex-1 py-2 text-[13px] font-medium transition-all ${listingMode === "rent" ? "bg-luxury-black text-white" : "bg-white text-luxury-black/60 hover:bg-neutral-50"}`}>For Rent</button>
+          </div>
           <div className="flex gap-4 mb-4">
             <div className="flex-1">
               <label className="text-[12px] uppercase tracking-wider text-luxury-black/65 font-medium mb-2 block">Min price</label>
-              <input type="text" value={priceMin} onChange={(e) => onMinChange(e.target.value)} placeholder="€ No Min" className="w-full border border-neutral-300 rounded-md px-3 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40 focus:ring-1 focus:ring-luxury-black/10" />
+              <input type="text" inputMode="numeric" value={priceMin} onChange={(e) => onMinChange(e.target.value.replace(/[^0-9]/g, ""))} placeholder="€ No Min" className="w-full border border-neutral-300 rounded-md px-3 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40 focus:ring-1 focus:ring-luxury-black/10" />
               <div className="flex flex-wrap gap-2 mt-2.5">
                 {PRICE_PRESETS.slice(0, 3).map(p => (
                   <button key={p.value} onClick={() => onMinChange(p.value)} className={`text-[12px] px-3 py-1 rounded-full border transition-colors font-light ${priceMin === p.value ? "border-luxury-black bg-luxury-black text-white" : "border-neutral-300 text-luxury-black/65 hover:border-luxury-black/40"}`}>{p.label}</button>
@@ -170,7 +175,7 @@ const PriceDropdown = ({ priceMin, priceMax, hidePOR, onMinChange, onMaxChange, 
             </div>
             <div className="flex-1">
               <label className="text-[12px] uppercase tracking-wider text-luxury-black/65 font-medium mb-2 block">Max price</label>
-              <input type="text" value={priceMax} onChange={(e) => onMaxChange(e.target.value)} placeholder="€ No Max" className="w-full border border-neutral-300 rounded-md px-3 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40 focus:ring-1 focus:ring-luxury-black/10" />
+              <input type="text" inputMode="numeric" value={priceMax} onChange={(e) => onMaxChange(e.target.value.replace(/[^0-9]/g, ""))} placeholder="€ No Max" className="w-full border border-neutral-300 rounded-md px-3 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40 focus:ring-1 focus:ring-luxury-black/10" />
               <div className="flex flex-wrap gap-2 mt-2.5">
                 {PRICE_PRESETS.slice(2).map(p => (
                   <button key={p.value} onClick={() => onMaxChange(p.value)} className={`text-[12px] px-3 py-1 rounded-full border transition-colors font-light ${priceMax === p.value ? "border-luxury-black bg-luxury-black text-white" : "border-neutral-300 text-luxury-black/65 hover:border-luxury-black/40"}`}>{p.label}</button>
@@ -196,7 +201,7 @@ const BedsDropdown = ({ selected, onChange }: { selected: string; onChange: (v: 
         Beds {selected !== "Any" && <span className="text-[12px]">{selected}</span>} <ChevronDown className="w-3.5 h-3.5" />
       </button>
       {open && (
-        <div className="absolute top-full left-0 mt-2 bg-white border border-neutral-200 rounded-sm shadow-lg w-[320px] p-5 z-50">
+        <div className="absolute top-full left-0 mt-2 bg-white border border-neutral-200 rounded-sm shadow-lg w-[320px] p-5 z-[60]">
           <div className="flex gap-1">
             {BED_OPTIONS.map((b) => (
               <button key={b} onClick={() => onChange(b)} className={`flex-1 py-2 text-[13px] border transition-all duration-200 ${selected === b ? "bg-luxury-black text-white border-luxury-black" : "border-neutral-200 text-luxury-black/60 hover:border-luxury-black/30"}`}>{b}</button>
@@ -216,7 +221,7 @@ const AmenitiesDropdown = ({ selected, onToggle }: { selected: string[]; onToggl
         Amenities {selected.length > 0 && <span className="bg-white text-luxury-black text-[12px] w-4 h-4 rounded-full flex items-center justify-center font-medium">{selected.length}</span>} <ChevronDown className="w-3.5 h-3.5" />
       </button>
       {open && (
-        <div className="absolute top-full right-0 mt-2 bg-white border border-neutral-200 rounded-sm shadow-lg w-[480px] max-h-[420px] overflow-y-auto p-5 z-50">
+        <div className="absolute top-full right-0 mt-2 bg-white border border-neutral-200 rounded-sm shadow-lg w-[480px] max-h-[420px] overflow-y-auto p-5 z-[60]">
           <div className="flex items-center justify-between mb-4">
             <span className="text-[12px] text-luxury-black/40 uppercase tracking-wide">Select amenities</span>
             {selected.length > 0 && <button onClick={() => selected.forEach(s => onToggle(s))} className="text-[12px] text-luxury-black/50 hover:text-luxury-black">Clear</button>}
@@ -1218,7 +1223,7 @@ const NewDevPromoCard = () => {
     </div>
     <div className={`${isCompact ? "" : "md:col-span-7"} flex flex-col p-4 ${isCompact ? "" : "md:p-6 lg:p-8"}`}>
       <p className="text-[13px] tracking-[0.14em] uppercase text-luxury-black/60 mb-1">Altea · Costa Blanca</p>
-      <p className="text-[13px] text-luxury-black/55 font-light mb-1.5">New Development <span className="mx-1 text-luxury-black/30">|</span> <span className="italic">Residential</span></p>
+      <p className="text-[13px] text-luxury-black/55 font-light mb-1.5">New Development <span className="mx-1 text-luxury-black/30">|</span> Residential</p>
       <h2 className={`text-[15px] ${isCompact ? "" : "md:text-[19px]"} font-medium text-luxury-black leading-snug mb-1.5`}>MAREA RESIDENCES</h2>
       {!isCompact && <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2">Contemporary beachfront apartments with panoramic sea views and communal pools.</p>}
       <div className="flex items-center gap-5 mb-3">
@@ -1237,7 +1242,7 @@ const NewDevPromoCard = () => {
 };
 
 /* ─── Property Card ─── */
-const PropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
+const PropertyCard = ({ property, onEnquiry }: { property: typeof PROPERTIES[0]; onEnquiry?: (property: typeof PROPERTIES[0]) => void }) => {
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
   const isCompact = isMobile || isTablet;
@@ -1258,11 +1263,11 @@ const PropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
       {!isCompact && (
         <div className="flex items-center justify-between mb-3">
           <span className="text-[12px] tracking-[0.15em] uppercase border border-luxury-black/30 text-luxury-black/70 px-2.5 py-1 font-medium">{property.tag}</span>
-          <button onClick={(e) => e.preventDefault()} className="text-luxury-black/30 hover:text-luxury-black transition-colors"><Mail className="w-4.5 h-4.5" /></button>
+          <button onClick={(e) => { e.preventDefault(); e.stopPropagation(); onEnquiry?.(property); }} className="text-luxury-black/30 hover:text-luxury-black transition-colors"><Mail className="w-4.5 h-4.5" /></button>
         </div>
       )}
       <p className="text-[13px] tracking-[0.14em] uppercase text-luxury-black/60 mb-1">{property.location}</p>
-      <p className="text-[13px] text-luxury-black/55 font-light mb-1.5">Detached houses <span className="mx-1 text-luxury-black/30">|</span> <span className="italic">{property.style}</span> <span className="mx-1 text-luxury-black/30">|</span> <span className="font-mono text-luxury-black/45 tracking-wide text-[12px]">REF-{String(property.id).padStart(4, "0")}</span></p>
+      <p className="text-[13px] text-luxury-black/55 font-light mb-1.5">Detached houses <span className="mx-1 text-luxury-black/30">|</span> {property.style} <span className="mx-1 text-luxury-black/30">|</span> <span className="font-mono text-luxury-black/45 tracking-wide text-[12px]">REF-{String(property.id).padStart(4, "0")}</span></p>
       <h2 className={`text-[15px] ${isTablet ? "" : "md:text-[19px]"} font-medium text-luxury-black leading-snug mb-1.5 group-hover:text-luxury-black/75 transition-colors duration-300`}>{property.title}</h2>
       {!isCompact && <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2">{property.excerpt}</p>}
       <div className="flex items-center gap-5 mb-3">
@@ -1391,6 +1396,7 @@ const LuxuryPropertyListingV3 = () => {
   const [filters, setFilters] = useState<FilterState>(defaultFilters);
   const [mobileSearch, setMobileSearch] = useState("");
   const [locationPopupOpen, setLocationPopupOpen] = useState(false);
+  const [enquiryProperty, setEnquiryProperty] = useState<typeof PROPERTIES[0] | null>(null);
 
   const toggleType = (t: string) => setFilters(f => ({ ...f, types: f.types.includes(t) ? f.types.filter(x => x !== t) : [...f.types, t] }));
   const toggleAmenity = (a: string) => setFilters(f => ({ ...f, amenities: f.amenities.includes(a) ? f.amenities.filter(x => x !== a) : [...f.amenities, a] }));
@@ -1456,7 +1462,7 @@ const LuxuryPropertyListingV3 = () => {
 
       {/* ─── DESKTOP: Sticky breadcrumbs + search bar ─── */}
       {!isMobileOrTablet && (
-        <div className="sticky top-[64px] sm:top-[80px] z-40 bg-white border-b border-neutral-200">
+        <div className="sticky top-[64px] sm:top-[80px] z-50 bg-white border-b border-neutral-200">
           <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
             <div className="flex items-center gap-2 pt-3.5 pb-2.5 text-[13px] tracking-[0.04em] text-luxury-black/60 font-normal">
               <a href="/" className="hover:text-luxury-black transition-colors">Home</a>
@@ -1465,7 +1471,7 @@ const LuxuryPropertyListingV3 = () => {
               <ChevronRight className="w-3 h-3 text-luxury-black/35" />
               <span className="text-luxury-black font-medium">All Locations</span>
             </div>
-            <div className="pb-3">
+            <div className="flex items-center gap-3 pb-3">
               <LocationSearchDropdown selected={filters.locations} onSelectedChange={(locs) => setFilters(f => ({ ...f, locations: locs }))} className="w-full md:w-[420px]" />
             </div>
             <div className="flex items-center gap-2 md:gap-3 pb-3 overflow-x-auto">
@@ -1473,7 +1479,7 @@ const LuxuryPropertyListingV3 = () => {
                 <SlidersHorizontal className="w-3.5 h-3.5" /> Filters
               </button>
               <TypeDropdown selected={filters.types} onToggle={toggleType} />
-              <PriceDropdown priceMin={filters.priceMin} priceMax={filters.priceMax} hidePOR={filters.hidePriceOnRequest} onMinChange={v => setFilters(f => ({ ...f, priceMin: v }))} onMaxChange={v => setFilters(f => ({ ...f, priceMax: v }))} onHidePORChange={v => setFilters(f => ({ ...f, hidePriceOnRequest: v }))} />
+              <PriceDropdown priceMin={filters.priceMin} priceMax={filters.priceMax} hidePOR={filters.hidePriceOnRequest} listingMode={filters.listingMode} onMinChange={v => setFilters(f => ({ ...f, priceMin: v }))} onMaxChange={v => setFilters(f => ({ ...f, priceMax: v }))} onHidePORChange={v => setFilters(f => ({ ...f, hidePriceOnRequest: v }))} onListingModeChange={v => setFilters(f => ({ ...f, listingMode: v }))} />
               <BedsDropdown selected={filters.beds} onChange={v => setFilters(f => ({ ...f, beds: v }))} />
               <AmenitiesDropdown selected={filters.amenities} onToggle={toggleAmenity} />
               <button onClick={() => setFilters(f => ({ ...f, newBuilds: !f.newBuilds }))} className={`text-[14px] px-4 py-2 rounded-full transition-all duration-200 shrink-0 border ${filters.newBuilds ? "border-luxury-black bg-luxury-black text-white" : "border-neutral-200 text-luxury-black/65 hover:border-luxury-black/30"}`}>New Builds</button>
@@ -1493,7 +1499,7 @@ const LuxuryPropertyListingV3 = () => {
       )}
 
       {/* ─── PROPERTY STORIES ─── */}
-      <div className={`${isMobileOrTablet ? "border-b border-neutral-100" : "max-w-[1400px] mx-auto px-6 lg:px-10 pt-4"}`}>
+      <div className={`relative z-10 ${isMobileOrTablet ? "border-b border-neutral-100" : "max-w-[1400px] mx-auto px-6 lg:px-10 pt-4"}`}>
         <PropertyStories />
       </div>
 
@@ -1536,9 +1542,18 @@ const LuxuryPropertyListingV3 = () => {
             </div>
             <div className="flex items-center justify-between mb-5 pb-4 border-b border-neutral-200">
               <p className="text-[14px] text-luxury-black/55 font-light">{PROPERTIES.length} properties found</p>
-              <div className="flex items-center gap-2">
-                <span className="text-[13px] text-luxury-black/50 font-light">Sort:</span>
-                <button className="text-[13px] text-luxury-black font-medium flex items-center gap-1">Premium <ChevronDown className="w-3.5 h-3.5" /></button>
+              <div className="relative">
+                <div className="flex items-center gap-2">
+                  <span className="text-[13px] text-luxury-black/50 font-light">Sort:</span>
+                  <button onClick={() => setSortOpen(!sortOpen)} className="text-[13px] text-luxury-black font-medium flex items-center gap-1">{SORT_OPTIONS.find(s => s.value === sortValue)?.label || "Premium"} <ChevronDown className="w-3.5 h-3.5" /></button>
+                </div>
+                {sortOpen && (
+                  <div className="absolute top-full right-0 mt-2 bg-white border border-neutral-200 rounded-sm shadow-lg w-[220px] py-2 z-[60]">
+                    {SORT_OPTIONS.map((opt) => (
+                      <button key={opt.value} onClick={() => { setSortValue(opt.value); setSortOpen(false); }} className={`w-full text-left px-4 py-2.5 text-[14px] transition-colors ${sortValue === opt.value ? "text-luxury-black font-medium bg-neutral-50" : "text-luxury-black/65 hover:bg-neutral-50"}`}>{opt.label}</button>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </>
@@ -1554,7 +1569,7 @@ const LuxuryPropertyListingV3 = () => {
               items.push(
                 p.offmarket
                   ? <OffMarketPropertyCard key={p.id} property={p} />
-                  : <PropertyCard key={p.id} property={p} />
+                  : <PropertyCard key={p.id} property={p} onEnquiry={(prop) => setEnquiryProperty(prop)} />
               );
             });
             return items;
@@ -1594,6 +1609,43 @@ const LuxuryPropertyListingV3 = () => {
             </Link>
           </div>
         </div>
+      )}
+
+      {/* ─── ENQUIRY MODAL (triggered by Mail icon) ─── */}
+      {enquiryProperty && (
+        <>
+          <div className="fixed inset-0 bg-luxury-black/60 backdrop-blur-sm z-50" onClick={() => setEnquiryProperty(null)} />
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div className="bg-white w-full max-w-[520px] rounded-sm shadow-2xl animate-in fade-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto relative">
+              <button onClick={() => setEnquiryProperty(null)} className="absolute top-4 right-4 text-luxury-black/40 hover:text-luxury-black z-10"><X className="w-5 h-5" /></button>
+              <div className="p-5 pb-0">
+                <div className="flex gap-3 mb-4 bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden">
+                  <img src={enquiryProperty.image} alt={enquiryProperty.title} className="w-24 h-20 object-cover shrink-0" />
+                  <div className="py-2 pr-3 flex flex-col justify-center min-w-0">
+                    <p className="text-[13px] font-medium text-luxury-black leading-tight line-clamp-2 uppercase tracking-[0.02em]">{enquiryProperty.title}</p>
+                    <p className="text-[14px] text-luxury-black/70 font-medium mt-1">{enquiryProperty.price}</p>
+                    <span className="text-[11px] text-luxury-black/40 font-mono tracking-[0.05em] mt-0.5">REF-{String(enquiryProperty.id).padStart(4, "0")}</span>
+                  </div>
+                </div>
+              </div>
+              <div className="px-5 pb-2">
+                <p className="text-[14px] font-medium text-luxury-black mb-1">Interested in this property?</p>
+                <p className="text-[13px] text-luxury-black/55 font-light leading-relaxed">Complete the form below and one of our specialists will get back to you shortly.</p>
+              </div>
+              <form className="p-5 pt-4 space-y-3" onSubmit={(e) => { e.preventDefault(); setEnquiryProperty(null); }}>
+                <input type="text" required placeholder="Full name" className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/40 focus:outline-none focus:border-luxury-black/50 transition-colors rounded-sm" />
+                <input type="email" required placeholder="Email address" className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/40 focus:outline-none focus:border-luxury-black/50 transition-colors rounded-sm" />
+                <input type="tel" placeholder="Phone number" className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/40 focus:outline-none focus:border-luxury-black/50 transition-colors rounded-sm" />
+                <textarea placeholder="I'm interested in this property..." rows={3} className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/40 focus:outline-none focus:border-luxury-black/50 transition-colors resize-none rounded-sm" />
+                <label className="flex items-start gap-2 cursor-pointer">
+                  <input type="checkbox" className="mt-1 accent-luxury-black" />
+                  <span className="text-[12px] text-luxury-black/50 font-light leading-relaxed">I accept the terms and privacy policy.</span>
+                </label>
+                <button type="submit" className="w-full bg-luxury-black text-white text-[13px] tracking-[0.12em] uppercase py-3.5 hover:bg-luxury-black/85 transition-all">Send Enquiry</button>
+              </form>
+            </div>
+          </div>
+        </>
       )}
     </Layout>
   );
