@@ -276,7 +276,7 @@ const Home3LandingPage = () => {
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>Explore by Property Type</h2>
             </div>
           </FadeIn>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-5">
             {PROPERTY_TYPES.map((t, i) => (
               <FadeIn key={i} delay={i * 0.06}>
                 <Link to={t.href} className="group flex items-center gap-4 p-5 sm:p-6 transition-all duration-300 hover:shadow-md" style={{ background: palette.white, border: `1px solid ${palette.border}` }}>
