@@ -628,7 +628,7 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
 
       {/* Selected chips */}
       {selected.length > 0 && (
-        <div className="px-4 py-2.5 flex flex-wrap gap-2 border-b border-neutral-100">
+        <div className="px-4 py-2.5 flex flex-wrap items-center gap-2 border-b border-neutral-100">
           {selected.map(s => (
             <span key={s.id} className="inline-flex items-center gap-1.5 bg-luxury-black text-white text-[12px] font-medium rounded-full pl-3 pr-2 py-1.5">
               {s.name}
@@ -637,6 +637,7 @@ const MobileLocationPopup = ({ open, onClose, selected, onSelectedChange }: {
               </button>
             </span>
           ))}
+          <button onClick={() => onSelectedChange([])} className="text-[12px] text-luxury-black/40 hover:text-luxury-black/70 underline transition-colors ml-1">Clear</button>
         </div>
       )}
 
