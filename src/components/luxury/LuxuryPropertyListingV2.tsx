@@ -1334,7 +1334,6 @@ const OffMarketPropertyCard = ({ property }: { property: typeof PROPERTIES[0] })
           )}
         </div>
       </div>
-      </div>
       {modalOpen && (
         <>
           <div className="fixed inset-0 bg-luxury-black/60 backdrop-blur-sm z-50" onClick={() => setModalOpen(false)} />
