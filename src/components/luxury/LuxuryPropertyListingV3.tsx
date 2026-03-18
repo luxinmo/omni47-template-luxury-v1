@@ -1461,7 +1461,7 @@ const LuxuryPropertyListingV3 = () => {
 
       {/* ─── DESKTOP: Sticky breadcrumbs + search bar ─── */}
       {!isMobileOrTablet && (
-        <div className="sticky top-[64px] sm:top-[80px] z-40 bg-white border-b border-neutral-200">
+        <div className="sticky top-[64px] sm:top-[80px] z-50 bg-white border-b border-neutral-200">
           <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
             <div className="flex items-center gap-2 pt-3.5 pb-2.5 text-[13px] tracking-[0.04em] text-luxury-black/60 font-normal">
               <a href="/" className="hover:text-luxury-black transition-colors">Home</a>
@@ -1470,7 +1470,7 @@ const LuxuryPropertyListingV3 = () => {
               <ChevronRight className="w-3 h-3 text-luxury-black/35" />
               <span className="text-luxury-black font-medium">All Locations</span>
             </div>
-            <div className="pb-3">
+            <div className="flex items-center gap-3 pb-3">
               <LocationSearchDropdown selected={filters.locations} onSelectedChange={(locs) => setFilters(f => ({ ...f, locations: locs }))} className="w-full md:w-[420px]" />
             </div>
             <div className="flex items-center gap-2 md:gap-3 pb-3 overflow-x-auto">
