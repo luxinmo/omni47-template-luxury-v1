@@ -1163,24 +1163,26 @@ const PROPERTIES = [
 /* ─── Branded Residence Card ─── */
 const BrandedResidencePromoCard = () => {
   const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
+  const isCompact = isMobile || isTablet;
   return (
-  <Link to="/branded-residences/four-seasons-marbella" className="group relative grid grid-cols-1 md:grid-cols-12 gap-0 rounded-sm overflow-hidden mb-6 hover:shadow-lg transition-all duration-300 bg-[hsl(36,18%,96%)] border border-luxury-gold/25 ring-1 ring-luxury-gold/10">
+  <Link to="/branded-residences/four-seasons-marbella" className={`group relative ${isCompact ? "grid grid-cols-1" : "grid grid-cols-1 md:grid-cols-12"} gap-0 rounded-sm overflow-hidden mb-4 md:mb-6 hover:shadow-lg transition-all duration-300 bg-[hsl(36,18%,96%)] border border-luxury-gold/25 ring-1 ring-luxury-gold/10`}>
     <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-luxury-gold/50 to-transparent" />
-    <div className="md:col-span-5 relative overflow-hidden aspect-[16/10] md:aspect-auto md:h-full min-h-[220px]">
+    <div className={`${isCompact ? "" : "md:col-span-5 md:aspect-auto md:h-full"} relative overflow-hidden aspect-[16/10] min-h-[180px] ${isCompact ? "min-h-[200px]" : "md:min-h-[220px]"}`}>
       <img src={prop1} alt="Four Seasons Private Residences" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 absolute inset-0" />
       <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-luxury-gold text-white text-[11px] tracking-[0.12em] uppercase font-medium px-3 py-1.5 rounded-sm"><Crown className="w-3 h-3" /> Branded Residence</span>
-      {isMobile && (
+      {isCompact && (
         <>
           <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
           <span className="absolute bottom-3 left-3 text-white text-[17px] font-semibold tracking-wide drop-shadow-md">€3,500,000 — €8,200,000</span>
         </>
       )}
     </div>
-    <div className="md:col-span-7 flex flex-col p-5 md:p-6 lg:p-8">
+    <div className={`${isCompact ? "" : "md:col-span-7"} flex flex-col p-4 ${isCompact ? "" : "md:p-6 lg:p-8"}`}>
       <p className="text-[13px] tracking-[0.14em] uppercase text-luxury-black/60 mb-1">Marbella · Costa del Sol</p>
-      <h2 className="text-[17px] md:text-[19px] font-medium text-luxury-black leading-snug mb-1.5">FOUR SEASONS PRIVATE RESIDENCES</h2>
-      <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2">Oceanfront residences with full Four Seasons hotel services, private beach club and world-class spa.</p>
-      {!isMobile && (
+      <h2 className={`text-[15px] ${isCompact ? "" : "md:text-[19px]"} font-medium text-luxury-black leading-snug mb-1.5`}>FOUR SEASONS PRIVATE RESIDENCES</h2>
+      <p className={`text-[14px] text-luxury-black/60 font-light leading-relaxed ${isCompact ? "line-clamp-2 mb-0" : "mb-5 line-clamp-2"}`}>Oceanfront residences with full Four Seasons hotel services, private beach club and world-class spa.</p>
+      {!isCompact && (
         <div className="mt-auto pt-5 border-t border-neutral-100">
           <p className="text-2xl md:text-[28px] font-extralight text-luxury-black tracking-tight">€3,500,000 — €8,200,000</p>
         </div>
