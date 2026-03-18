@@ -1492,6 +1492,11 @@ const LuxuryPropertyListingV3 = () => {
         <FilterSidebar open={filtersOpen} onClose={() => setFiltersOpen(false)} filters={filters} onChange={setFilters} />
       )}
 
+      {/* ─── PROPERTY STORIES ─── */}
+      <div className={`${isMobileOrTablet ? "border-b border-neutral-100" : "max-w-[1400px] mx-auto px-6 lg:px-10 pt-4"}`}>
+        <PropertyStories />
+      </div>
+
       {/* ─── RESULTS ─── */}
       <main className={`max-w-[1400px] mx-auto px-0 md:px-6 lg:px-10 py-6 md:py-8 ${isMobileOrTablet ? "pb-24" : ""}`}>
         {/* Active filter chips */}
