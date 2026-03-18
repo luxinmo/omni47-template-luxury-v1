@@ -1242,7 +1242,7 @@ const NewDevPromoCard = () => {
 };
 
 /* ─── Property Card ─── */
-const PropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
+const PropertyCard = ({ property, onEnquiry }: { property: typeof PROPERTIES[0]; onEnquiry?: (property: typeof PROPERTIES[0]) => void }) => {
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
   const isCompact = isMobile || isTablet;
@@ -1263,11 +1263,11 @@ const PropertyCard = ({ property }: { property: typeof PROPERTIES[0] }) => {
       {!isCompact && (
         <div className="flex items-center justify-between mb-3">
           <span className="text-[12px] tracking-[0.15em] uppercase border border-luxury-black/30 text-luxury-black/70 px-2.5 py-1 font-medium">{property.tag}</span>
-          <button onClick={(e) => e.preventDefault()} className="text-luxury-black/30 hover:text-luxury-black transition-colors"><Mail className="w-4.5 h-4.5" /></button>
+          <button onClick={(e) => { e.preventDefault(); e.stopPropagation(); onEnquiry?.(property); }} className="text-luxury-black/30 hover:text-luxury-black transition-colors"><Mail className="w-4.5 h-4.5" /></button>
         </div>
       )}
       <p className="text-[13px] tracking-[0.14em] uppercase text-luxury-black/60 mb-1">{property.location}</p>
-      <p className="text-[13px] text-luxury-black/55 font-light mb-1.5">Detached houses <span className="mx-1 text-luxury-black/30">|</span> <span className="italic">{property.style}</span> <span className="mx-1 text-luxury-black/30">|</span> <span className="font-mono text-luxury-black/45 tracking-wide text-[12px]">REF-{String(property.id).padStart(4, "0")}</span></p>
+      <p className="text-[13px] text-luxury-black/55 font-light mb-1.5">Detached houses <span className="mx-1 text-luxury-black/30">|</span> {property.style} <span className="mx-1 text-luxury-black/30">|</span> <span className="font-mono text-luxury-black/45 tracking-wide text-[12px]">REF-{String(property.id).padStart(4, "0")}</span></p>
       <h2 className={`text-[15px] ${isTablet ? "" : "md:text-[19px]"} font-medium text-luxury-black leading-snug mb-1.5 group-hover:text-luxury-black/75 transition-colors duration-300`}>{property.title}</h2>
       {!isCompact && <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2">{property.excerpt}</p>}
       <div className="flex items-center gap-5 mb-3">
