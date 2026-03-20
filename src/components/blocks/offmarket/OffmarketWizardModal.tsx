@@ -402,26 +402,26 @@ export default function OffmarketWizardModal({
   return (
     <>
       {/* Backdrop */}
-      <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50" onClick={handleClose} />
+      <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50" onClick={handleClose} />
 
-      {/* Modal */}
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* Modal — full-screen on mobile, wider on desktop */}
+      <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4">
         <div
-          className="w-full max-w-[460px] rounded-sm shadow-2xl animate-in fade-in zoom-in-95 duration-200 flex flex-col overflow-hidden"
-          style={{ background: bgColor, maxHeight: "min(92vh, 680px)" }}
+          className="bg-white w-full sm:max-w-[580px] sm:rounded-sm shadow-2xl animate-in fade-in slide-in-from-bottom-4 sm:zoom-in-95 duration-200 flex flex-col overflow-hidden h-full sm:h-auto"
+          style={{ maxHeight: "100vh", minHeight: "0" }}
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/[0.06]">
+          <div className="flex items-center justify-between px-5 py-3.5 border-b border-neutral-100 shrink-0">
             {flow || submitted ? (
-              <button onClick={goBack} className="text-white/40 hover:text-white/70 transition-colors flex items-center gap-1.5">
+              <button onClick={goBack} className="text-neutral-400 hover:text-neutral-700 transition-colors flex items-center gap-1.5">
                 <ArrowLeft className="w-4 h-4" />
                 <span className="text-[12px] tracking-[0.1em] uppercase">Back</span>
               </button>
             ) : (
               <span className="text-[12px] tracking-[0.2em] uppercase font-normal" style={{ color: accentColor }}>Off-Market</span>
             )}
-            <button onClick={handleClose} className="text-white/30 hover:text-white/60 transition-colors">
-              <X className="w-4.5 h-4.5" />
+            <button onClick={handleClose} className="text-neutral-300 hover:text-neutral-600 transition-colors">
+              <X className="w-5 h-5" />
             </button>
           </div>
 
