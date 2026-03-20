@@ -110,6 +110,8 @@ const AREAS = {
 const Home3LandingPage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [offmarketWizardOpen, setOffmarketWizardOpen] = useState(false);
+  const [nlEmail, setNlEmail] = useState("");
+  const [nlModalOpen, setNlModalOpen] = useState(false);
   const heroImages = [heroImg, prop1, prop2, prop3];
 
   useEffect(() => {
