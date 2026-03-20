@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import NewsletterPreferencesModal from "@/components/blocks/cta/NewsletterPreferencesModal";
 import { Link } from "react-router-dom";
 import {
   Bed, Bath, Maximize, ArrowRight, ArrowUpRight, Lock, EyeOff,
