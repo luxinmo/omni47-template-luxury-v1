@@ -364,27 +364,96 @@ export default function OffmarketWizardModal({
   );
 
   // === SUCCESS SCREEN ===
-  const SuccessScreen = () => (
-    <div className="flex flex-col items-center justify-center h-full px-6 py-12 text-center">
-      <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6" style={{ background: `${accentColor}20` }}>
-        <Check className="w-7 h-7" style={{ color: accentColor }} />
+  const SuccessScreen = () => {
+    const data = flow === "sell" ? sell : buy;
+    const langLabel = LANGUAGES.find(l => l.code === data.language)?.label || "—";
+
+    const summaryItems: { icon: React.ReactNode; label: string; value: string }[] = [];
+
+    if (flow === "sell") {
+      summaryItems.push(
+        { icon: <User className="w-3.5 h-3.5" />, label: "Role", value: sell.ownerType === "owner" ? "Property owner" : "Authorized representative" },
+        { icon: <Building2 className="w-3.5 h-3.5" />, label: "Other agencies", value: sell.otherAgencies === "yes" ? "Yes" : "No" },
+        { icon: <MapPin className="w-3.5 h-3.5" />, label: "Location", value: sell.location },
+      );
+      if (sell.price) summaryItems.push({ icon: <DollarSign className="w-3.5 h-3.5" />, label: "Price", value: sell.price });
+    } else {
+      summaryItems.push(
+        { icon: <MapPin className="w-3.5 h-3.5" />, label: "Location", value: buy.location },
+      );
+      if (buy.priceMin || buy.priceMax) summaryItems.push({ icon: <DollarSign className="w-3.5 h-3.5" />, label: "Budget", value: `${buy.priceMin || "—"} – ${buy.priceMax || "—"}` });
+      if (buy.timeline) summaryItems.push({ icon: <Calendar className="w-3.5 h-3.5" />, label: "Timeline", value: TIMELINES.find(t => t.value === buy.timeline)?.label || "—" });
+    }
+
+    return (
+      <div className="flex flex-col px-6 py-8 overflow-y-auto">
+        {/* Success header */}
+        <div className="text-center mb-7">
+          <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: `${accentColor}18` }}>
+            <Check className="w-6 h-6" style={{ color: accentColor }} />
+          </div>
+          <h2 className="text-[21px] font-light text-neutral-900 mb-1.5" style={{ letterSpacing: "0.02em" }}>
+            Enquiry received
+          </h2>
+          <p className="text-[13px] text-neutral-400 font-light leading-relaxed">
+            A personal advisor will contact you shortly.
+          </p>
+        </div>
+
+        {/* Summary card */}
+        <div className="bg-neutral-50 border border-neutral-100 rounded-sm p-5 mb-5">
+          <p className="text-[11px] tracking-[0.2em] uppercase text-neutral-400 mb-3.5 font-medium">
+            {flow === "sell" ? "Property for sale" : "Property search"}
+          </p>
+          <div className="space-y-3">
+            {summaryItems.map((item, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <span className="text-neutral-300 shrink-0">{item.icon}</span>
+                <span className="text-[12px] text-neutral-400 w-24 shrink-0">{item.label}</span>
+                <span className="text-[13px] text-neutral-900 font-medium">{item.value}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Contact details card */}
+        <div className="bg-neutral-50 border border-neutral-100 rounded-sm p-5 mb-6">
+          <p className="text-[11px] tracking-[0.2em] uppercase text-neutral-400 mb-3.5 font-medium">Your details</p>
+          <div className="space-y-3">
+            <div className="flex items-center gap-3">
+              <User className="w-3.5 h-3.5 text-neutral-300 shrink-0" />
+              <span className="text-[13px] text-neutral-900">{data.fullName}</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <Phone className="w-3.5 h-3.5 text-neutral-300 shrink-0" />
+              <span className="text-[13px] text-neutral-900">{data.phone}</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <Mail className="w-3.5 h-3.5 text-neutral-300 shrink-0" />
+              <span className="text-[13px] text-neutral-900">{data.email}</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <Globe className="w-3.5 h-3.5 text-neutral-300 shrink-0" />
+              <span className="text-[13px] text-neutral-900">{langLabel}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Confidentiality note */}
+        <div className="flex items-start gap-3 mb-6">
+          <Shield className="w-4 h-4 shrink-0 mt-0.5" style={{ color: accentColor }} />
+          <p className="text-[12px] text-neutral-400 font-light leading-relaxed">
+            Your information is treated with strict confidentiality. We will never share your data with third parties.
+          </p>
+        </div>
+
+        {/* Close button */}
+        <button onClick={handleClose} className="w-full py-3 text-[13px] tracking-[0.12em] uppercase border border-neutral-200 text-neutral-500 hover:bg-neutral-50 transition-colors rounded-sm">
+          Close
+        </button>
       </div>
-      <h2 className="text-[22px] font-extralight text-neutral-900 mb-3" style={{ letterSpacing: "0.03em" }}>
-        Thank you for your enquiry
-      </h2>
-      <p className="text-[14px] text-neutral-400 font-light leading-relaxed max-w-[340px] mb-8">
-        A personal advisor will contact you shortly to {flow === "sell" ? "discuss the private sale of your property" : "provide access to our off-market portfolio"}.
-      </p>
-      <div className="flex items-center gap-6 text-neutral-300">
-        <div className="flex items-center gap-2"><Phone className="w-4 h-4" /><span className="text-[13px]">Phone</span></div>
-        <div className="flex items-center gap-2"><Mail className="w-4 h-4" /><span className="text-[13px]">Email</span></div>
-        <div className="flex items-center gap-2"><Globe className="w-4 h-4" /><span className="text-[13px]">{LANGUAGES.find(l => l.code === (flow === "sell" ? sell.language : buy.language))?.label}</span></div>
-      </div>
-      <button onClick={handleClose} className="mt-10 text-[13px] tracking-[0.12em] uppercase text-neutral-400 hover:text-neutral-600 transition-colors">
-        Close
-      </button>
-    </div>
-  );
+    );
+  };
 
   // === Step wrapper ===
   function StepWrapper({ title, subtitle, children }: { title: string; subtitle: string; children: React.ReactNode }) {
