@@ -178,10 +178,10 @@ export default function OffmarketWizardModal({
       <div className="space-y-3">
         {([["owner", "I am the owner", User] as const, ["authorized", "I am an authorized representative", Users] as const]).map(([val, label, Icon]) => (
           <button key={val} onClick={() => { setSell(s => ({ ...s, ownerType: val })); setSellStep(1); }}
-            className={optionBtn(sell.ownerType === val)} style={{ color: sell.ownerType === val ? accentColor : "rgba(255,255,255,0.6)" }}>
-            <Icon className="w-5 h-5 shrink-0" />
-            <span className="text-[15px] text-white">{label}</span>
-            <ChevronRight className="w-4 h-4 text-white/20 ml-auto shrink-0" />
+            className={optionBtn(sell.ownerType === val)} style={{ color: sell.ownerType === val ? accentColor : undefined }}>
+            <Icon className="w-5 h-5 shrink-0 text-neutral-500" />
+            <span className="text-[15px] text-neutral-900">{label}</span>
+            <ChevronRight className="w-4 h-4 text-neutral-300 ml-auto shrink-0" />
           </button>
         ))}
       </div>
