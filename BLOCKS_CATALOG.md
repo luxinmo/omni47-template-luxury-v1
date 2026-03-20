@@ -573,6 +573,6 @@ onSubmit={(e) => { e.preventDefault(); if (nlEmail.trim()) setNlModalOpen(true);
 | Favorites | 4 |
 | PDF | 2 |
 | System | 3 |
-| **TOTAL BLOQUES** | **~94** |
+| **TOTAL BLOQUES** | **~95** |
 | Preview Combos | 10 |
-| **TOTAL GENERAL** | **~104 componentes** |
+| **TOTAL GENERAL** | **~105 componentes** |
