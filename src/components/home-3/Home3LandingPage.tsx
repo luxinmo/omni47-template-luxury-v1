@@ -117,6 +117,7 @@ const Home3LandingPage = () => {
   }, []);
 
   return (
+    <>
     <Layout navVariant="transparent" activePath="/" showBackToTop={false} showLanguage={true}>
       <SEOHead
         title="Luxury Real Estate in Costa Blanca & Ibiza — Villas, Sea-View Homes & New Developments"
