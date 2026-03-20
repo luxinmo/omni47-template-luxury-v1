@@ -37,6 +37,7 @@ import AreasTextList from "@/components/blocks/areas/AreasTextList";
 import InvestmentGrid from "@/components/blocks/investments/InvestmentGrid";
 import NewsletterCentered from "@/components/blocks/cta/NewsletterCentered";
 import NewsletterBordered from "@/components/blocks/cta/NewsletterBordered";
+import NewsletterPreferencesModal from "@/components/blocks/cta/NewsletterPreferencesModal";
 import NavbarLuxury from "@/components/blocks/navbar/NavbarLuxury";
 import FooterLuxury from "@/components/blocks/footer/FooterLuxury";
 import FooterEditorial from "@/components/blocks/footer/FooterEditorial";
