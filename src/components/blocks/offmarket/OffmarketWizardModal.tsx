@@ -66,6 +66,7 @@ export default function OffmarketWizardModal({
   onClose,
   accentColor = "#c9a96e",
   bgColor = "#1e1c1a",
+  heroImage = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
 }: OffmarketWizardModalProps) {
   const [flow, setFlow] = useState<Flow>(null);
   const [sellStep, setSellStep] = useState(0);
