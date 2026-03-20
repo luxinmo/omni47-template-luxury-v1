@@ -419,10 +419,10 @@ export default function OffmarketWizardModal({
       <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50" onClick={handleClose} />
 
       {/* Modal — full-screen on mobile, wider on desktop */}
-      <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div
-          className="bg-white w-full sm:max-w-[580px] sm:rounded-sm shadow-2xl animate-in fade-in slide-in-from-bottom-4 sm:zoom-in-95 duration-200 flex flex-col overflow-hidden h-full sm:h-auto"
-          style={{ maxHeight: "100vh", minHeight: "0" }}
+          className="bg-white w-full max-w-[580px] rounded-sm shadow-2xl animate-in fade-in zoom-in-95 duration-200 flex flex-col overflow-hidden"
+          style={{ maxHeight: "min(92vh, 720px)" }}
         >
           {/* Header */}
           <div className="flex items-center justify-between px-5 py-3.5 border-b border-neutral-100 shrink-0">
