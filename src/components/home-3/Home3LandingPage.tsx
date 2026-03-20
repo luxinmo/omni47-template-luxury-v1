@@ -11,6 +11,7 @@ import FadeIn from "@/components/shared/FadeIn";
 import SEOHead from "@/components/shared/SEOHead";
 import { brand, palette, fonts, contact } from "@/config/template";
 import VideoGalleryBlock from "@/components/blocks/videos/VideoGalleryBlock";
+import OffmarketWizardModal from "@/components/blocks/offmarket/OffmarketWizardModal";
 import heroImg from "@/assets/luxury-hero.jpg";
 import prop1 from "@/assets/luxury-property-1.jpg";
 import prop2 from "@/assets/luxury-property-2.jpg";
@@ -107,6 +108,7 @@ const AREAS = {
 
 const Home3LandingPage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [offmarketWizardOpen, setOffmarketWizardOpen] = useState(false);
   const heroImages = [heroImg, prop1, prop2, prop3];
 
   useEffect(() => {
@@ -115,6 +117,7 @@ const Home3LandingPage = () => {
   }, []);
 
   return (
+    <>
     <Layout navVariant="transparent" activePath="/" showBackToTop={false} showLanguage={true}>
       <SEOHead
         title="Luxury Real Estate in Costa Blanca & Ibiza — Villas, Sea-View Homes & New Developments"
@@ -428,9 +431,9 @@ const Home3LandingPage = () => {
               <p className="text-[15px] leading-[1.9] font-light mb-10" style={{ color: "rgba(255,255,255,0.55)" }}>
                 Not all properties are publicly available. Our off-market collection features exclusive listings shown only to verified buyers through our private network.
               </p>
-              <Link to="/contact" className="inline-flex items-center justify-center gap-2.5 text-[13px] tracking-[0.18em] uppercase font-light px-8 py-4 transition-all duration-500 hover:opacity-90 self-start" style={{ background: palette.offMarketAccent, color: palette.offMarketBg }}>
+              <button onClick={() => setOffmarketWizardOpen(true)} className="inline-flex items-center justify-center gap-2.5 text-[13px] tracking-[0.18em] uppercase font-light px-8 py-4 transition-all duration-500 hover:opacity-90 self-start" style={{ background: palette.offMarketAccent, color: palette.offMarketBg }}>
                 <Lock className="w-4 h-4" /> Request Private Access
-              </Link>
+              </button>
               <p className="text-xs font-light mt-8" style={{ color: "rgba(255,255,255,0.3)" }}>
                 <span style={{ color: palette.offMarketAccent }} className="font-normal">120+</span> off-market properties currently available
               </p>
@@ -633,6 +636,8 @@ const Home3LandingPage = () => {
         </div>
       </section>
     </Layout>
+    <OffmarketWizardModal open={offmarketWizardOpen} onClose={() => setOffmarketWizardOpen(false)} accentColor={palette.offMarketAccent} bgColor={palette.offMarketBg} />
+    </>
   );
 };
 
