@@ -243,10 +243,10 @@ const BlogListingPage = () => {
             <p className="text-[10px] tracking-[0.35em] uppercase mb-3" style={{ color: p.accent }}>{NEWSLETTER_SUBTITLE}</p>
             <h2 className="text-2xl md:text-3xl font-extralight tracking-[0.04em]">{NEWSLETTER_TITLE}</h2>
             <p className="text-[13px] font-light mt-3 mb-8 leading-relaxed" style={{ color: p.muted }}>{NEWSLETTER_DESC}</p>
-            <form className="flex flex-col sm:flex-row gap-3" onSubmit={(e) => e.preventDefault()}>
-              <input type="email" placeholder={NEWSLETTER_PLACEHOLDER}
+            <form className="flex flex-col sm:flex-row gap-3" onSubmit={(e) => { e.preventDefault(); if (nlEmail.trim()) setNlModalOpen(true); }}>
+              <input type="email" value={nlEmail} onChange={(e) => setNlEmail(e.target.value)} placeholder={NEWSLETTER_PLACEHOLDER}
                 className="flex-1 px-4 py-3 text-[13px] focus:outline-none transition-colors duration-300"
-                style={{ border: `1px solid ${p.border}`, background: p.white, color: p.text }} />
+                style={{ border: `1px solid ${p.border}`, background: p.white, color: p.text }} required />
               <button type="submit" className="text-[11px] tracking-[0.15em] uppercase px-8 py-3 transition-all duration-300 whitespace-nowrap hover:opacity-90"
                 style={{ background: p.accent, color: p.white }}>{NEWSLETTER_BUTTON}</button>
             </form>
@@ -254,6 +254,14 @@ const BlogListingPage = () => {
           </FadeIn>
         </div>
       </section>
+
+      <NewsletterPreferencesModal
+        open={nlModalOpen}
+        onClose={() => setNlModalOpen(false)}
+        email={nlEmail}
+        accentColor={p.accent}
+        onConfirm={() => setNlEmail("")}
+      />
     </Layout>
   );
 };
