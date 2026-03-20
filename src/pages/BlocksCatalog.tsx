@@ -23,6 +23,8 @@ import CollectionsTagged from "@/components/blocks/collections/CollectionsTagged
 import BrandedFullwidth from "@/components/blocks/branded/BrandedFullwidth";
 import NewdevGridSimple from "@/components/blocks/new-developments/NewdevGridSimple";
 import OffmarketSplit from "@/components/blocks/offmarket/OffmarketSplit";
+import { OffmarketEmailTemplate } from "@/components/blocks/offmarket/OffmarketEmailTemplate";
+import OffmarketWizardModal from "@/components/blocks/offmarket/OffmarketWizardModal";
 import AboutServicesSplit from "@/components/blocks/about/AboutServicesSplit";
 import IntroSplitImage from "@/components/blocks/about/IntroSplitImage";
 import TestimonialCinematic from "@/components/blocks/testimonials/TestimonialCinematic";
