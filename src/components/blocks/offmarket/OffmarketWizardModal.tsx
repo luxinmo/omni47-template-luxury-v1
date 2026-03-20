@@ -6,13 +6,14 @@
  */
 
 import { useState, useCallback } from "react";
-import { X, ArrowLeft, Home, Search, User, Building2, Users, ChevronRight, Check, Globe, Phone, Mail } from "lucide-react";
+import { X, ArrowLeft, Home, Search, User, Building2, Users, ChevronRight, Check, Globe, Phone, Mail, Lock, EyeOff } from "lucide-react";
 
 interface OffmarketWizardModalProps {
   open: boolean;
   onClose: () => void;
   accentColor?: string;
   bgColor?: string;
+  heroImage?: string;
 }
 
 type Flow = null | "sell" | "buy";
