@@ -194,12 +194,12 @@ export default function OffmarketWizardModal({
       <div className="space-y-3">
         {([["no", "No, it's not listed anywhere"] as const, ["yes", "Yes, with other agencies"] as const]).map(([val, label]) => (
           <button key={val} onClick={() => { setSell(s => ({ ...s, otherAgencies: val })); setSellStep(2); }}
-            className={optionBtn(sell.otherAgencies === val)} style={{ color: sell.otherAgencies === val ? accentColor : "rgba(255,255,255,0.6)" }}>
-            <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ background: sell.otherAgencies === val ? `${accentColor}20` : "rgba(255,255,255,0.05)" }}>
-              <Building2 className="w-4 h-4" />
+            className={optionBtn(sell.otherAgencies === val)} style={{ color: sell.otherAgencies === val ? accentColor : undefined }}>
+            <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ background: sell.otherAgencies === val ? `${accentColor}20` : "rgba(0,0,0,0.04)" }}>
+              <Building2 className="w-4 h-4 text-neutral-500" />
             </div>
-            <span className="text-[15px] text-white">{label}</span>
-            <ChevronRight className="w-4 h-4 text-white/20 ml-auto shrink-0" />
+            <span className="text-[15px] text-neutral-900">{label}</span>
+            <ChevronRight className="w-4 h-4 text-neutral-300 ml-auto shrink-0" />
           </button>
         ))}
       </div>
