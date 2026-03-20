@@ -47,7 +47,7 @@ const styles = {
     WebkitTextSizeAdjust: "100%" as const,
   } as React.CSSProperties,
   wrapper: {
-    maxWidth: 600, margin: "0 auto", padding: "32px 16px",
+    maxWidth: 680, margin: "0 auto", padding: "32px 16px",
   } as React.CSSProperties,
   card: {
     backgroundColor: "#ffffff",
