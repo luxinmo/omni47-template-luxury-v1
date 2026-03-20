@@ -142,6 +142,9 @@
 |----|--------|--------|--------------------|
 | offmarket-split | Off-Market Split | Home2/3/4 | Split 50/50: imagen izquierda con gradiente, contenido derecho sobre fondo oscuro |
 | offmarket-split-portal | Off-Market Split Portal | Portal | Split 50/50: imagen izquierda sobre fondo neutro, contenido derecho sobre bg-neutral-900, estilo editorial |
+| offmarket-wizard-modal | Off-Market Wizard (Sell/Buy) | Home3 Modal | Modal multi-paso tipo app con hero image, barra de progreso, flujo Sell (5 pasos: owner → agencies → property → contact → language) y Buy (4 pasos: search → timeline → contact → language). Pantalla de éxito con resumen. Inline styles, max-height 92vh en móvil, 580px max-width en desktop |
+| offmarket-email-sell | Email Template — Sell Confirmation | Email / Preview | Plantilla de email transaccional con inline styles (email-safe). Hero oscuro con icono EyeOff + "Off-Market / Private & Confidential". Tabla de resumen: relación propietario, agencias, ubicación, precio. Tabla de contacto: nombre, teléfono, email, idioma. Footer con copyright. max-width 680px, responsive |
+| offmarket-email-buy | Email Template — Buy Confirmation | Email / Preview | Misma estructura que Sell pero con campos de compra: ubicación preferida, rango de presupuesto (min–max), timeline. Texto introductorio adaptado al flujo de comprador. Preview en `/email-offmarket?flow=buy` |
 
 ## ℹ️ Sobre Nosotros / Servicios (2 variantes)
 
