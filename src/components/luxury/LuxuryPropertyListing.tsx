@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import NewsletterPreferencesModal from "@/components/blocks/cta/NewsletterPreferencesModal";
 import { Link } from "react-router-dom";
 import { Search, SlidersHorizontal, X, ChevronDown, ChevronRight, Bed, Bath, Maximize, MapPin, Mail, Lock, Eye, Phone, User, Crown, ArrowRight, Building2, Menu } from "lucide-react";
 import { brand, navLeft, navRight, languages, currencies, areaUnits } from "@/config/template";
