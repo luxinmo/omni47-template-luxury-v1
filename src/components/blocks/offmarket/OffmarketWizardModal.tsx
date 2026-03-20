@@ -108,16 +108,16 @@ export default function OffmarketWizardModal({
 
   const handleSubmit = () => setSubmitted(true);
 
-  /* ─── shared styles ─── */
+  /* ─── shared styles (white theme) ─── */
   const optionBtn = (selected: boolean) =>
     `w-full text-left px-5 py-4 rounded-sm border transition-all duration-200 flex items-center gap-4 ${
       selected
-        ? "border-current bg-white/[0.08]"
-        : "border-white/10 hover:border-white/25 hover:bg-white/[0.04]"
+        ? "border-neutral-900/30 bg-neutral-50"
+        : "border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50"
     }`;
 
-  const inputCls = "w-full bg-transparent border border-white/15 rounded-sm px-4 py-3 text-[15px] text-white placeholder:text-white/30 focus:outline-none focus:border-white/40 transition-colors";
-  const labelCls = "text-[12px] tracking-[0.15em] uppercase text-white/40 mb-2 block";
+  const inputCls = "w-full bg-white border border-neutral-200 rounded-sm px-4 py-3 text-[16px] sm:text-[15px] text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:border-neutral-400 transition-colors";
+  const labelCls = "text-[12px] tracking-[0.15em] uppercase text-neutral-400 mb-2 block";
   const nextBtn = (disabled: boolean) =>
     `w-full py-3.5 text-[13px] tracking-[0.14em] uppercase font-medium rounded-sm transition-all duration-300 ${
       disabled ? "opacity-30 cursor-not-allowed" : "hover:opacity-90 active:scale-[0.98]"
@@ -128,7 +128,7 @@ export default function OffmarketWizardModal({
     totalSteps > 0 && !submitted ? (
       <div className="flex gap-1.5 px-6 pt-4">
         {Array.from({ length: totalSteps }).map((_, i) => (
-          <div key={i} className="h-[2px] flex-1 rounded-full transition-all duration-500" style={{ background: i <= currentStep ? accentColor : "rgba(255,255,255,0.1)" }} />
+          <div key={i} className="h-[2px] flex-1 rounded-full transition-all duration-500" style={{ background: i <= currentStep ? accentColor : "rgba(0,0,0,0.08)" }} />
         ))}
       </div>
     ) : null;
