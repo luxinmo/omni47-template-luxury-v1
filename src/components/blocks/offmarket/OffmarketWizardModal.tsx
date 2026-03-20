@@ -300,9 +300,9 @@ export default function OffmarketWizardModal({
       <div className="space-y-2.5">
         {TIMELINES.map(t => (
           <button key={t.value} onClick={() => { setBuy(s => ({ ...s, timeline: t.value as BuyData["timeline"] })); setBuyStep(2); }}
-            className={optionBtn(buy.timeline === t.value)} style={{ color: buy.timeline === t.value ? accentColor : "rgba(255,255,255,0.6)" }}>
-            <span className="text-[15px] text-white">{t.label}</span>
-            <ChevronRight className="w-4 h-4 text-white/20 ml-auto shrink-0" />
+            className={optionBtn(buy.timeline === t.value)} style={{ color: buy.timeline === t.value ? accentColor : undefined }}>
+            <span className="text-[15px] text-neutral-900">{t.label}</span>
+            <ChevronRight className="w-4 h-4 text-neutral-300 ml-auto shrink-0" />
           </button>
         ))}
       </div>
