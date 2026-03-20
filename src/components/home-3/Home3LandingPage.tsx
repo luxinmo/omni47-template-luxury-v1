@@ -11,6 +11,7 @@ import FadeIn from "@/components/shared/FadeIn";
 import SEOHead from "@/components/shared/SEOHead";
 import { brand, palette, fonts, contact } from "@/config/template";
 import VideoGalleryBlock from "@/components/blocks/videos/VideoGalleryBlock";
+import OffmarketWizardModal from "@/components/blocks/offmarket/OffmarketWizardModal";
 import heroImg from "@/assets/luxury-hero.jpg";
 import prop1 from "@/assets/luxury-property-1.jpg";
 import prop2 from "@/assets/luxury-property-2.jpg";
