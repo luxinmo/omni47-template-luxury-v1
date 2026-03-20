@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import NewsletterPreferencesModal from "@/components/blocks/cta/NewsletterPreferencesModal";
 import { Link } from "react-router-dom";
 import { Search, SlidersHorizontal, X, ChevronDown, ChevronRight, Bed, Bath, Maximize, MapPin, Mail, Lock, Eye, Phone, User, Crown, ArrowRight, Building2, Menu } from "lucide-react";
 import { brand, navLeft, navRight, languages, currencies, areaUnits } from "@/config/template";
@@ -875,6 +876,8 @@ const OffMarketPropertyCard = ({ property }: { property: typeof PROPERTIES[0] })
 const LuxuryPropertyListing = () => {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [filters, setFilters] = useState<FilterState>(defaultFilters);
+  const [nlEmail, setNlEmail] = useState("");
+  const [nlModalOpen, setNlModalOpen] = useState(false);
 
   const toggleType = (t: string) => setFilters(f => ({ ...f, types: f.types.includes(t) ? f.types.filter(x => x !== t) : [...f.types, t] }));
   const toggleAmenity = (a: string) => setFilters(f => ({ ...f, amenities: f.amenities.includes(a) ? f.amenities.filter(x => x !== a) : [...f.amenities, a] }));
@@ -1053,8 +1056,8 @@ const LuxuryPropertyListing = () => {
               </p>
             </div>
             <div>
-              <form className="flex flex-col gap-3" onSubmit={(e) => e.preventDefault()}>
-                <input type="email" placeholder="Your email address" className="w-full border border-neutral-300 px-4 py-3 text-[14px] text-luxury-black placeholder:text-luxury-black/30 focus:outline-none focus:border-luxury-black/40 transition-colors" />
+              <form className="flex flex-col gap-3" onSubmit={(e) => { e.preventDefault(); if (nlEmail.trim()) setNlModalOpen(true); }}>
+                <input type="email" value={nlEmail} onChange={(e) => setNlEmail(e.target.value)} placeholder="Your email address" className="w-full border border-neutral-300 px-4 py-3 text-[14px] text-luxury-black placeholder:text-luxury-black/30 focus:outline-none focus:border-luxury-black/40 transition-colors" required />
                 <button type="submit" className="bg-luxury-black text-white text-[13px] tracking-[0.1em] uppercase py-3 w-full hover:bg-luxury-black/85 transition-all duration-300">
                   Subscribe to Newsletter
                 </button>
@@ -1066,6 +1069,13 @@ const LuxuryPropertyListing = () => {
           </div>
         </div>
       </section>
+
+      <NewsletterPreferencesModal
+        open={nlModalOpen}
+        onClose={() => setNlModalOpen(false)}
+        email={nlEmail}
+        onConfirm={() => setNlEmail("")}
+      />
 
     </Layout>
   );
