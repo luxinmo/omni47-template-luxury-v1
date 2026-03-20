@@ -258,7 +258,7 @@ export default function OffmarketWizardModal({
       <div className="grid grid-cols-2 gap-2.5">
         {LANGUAGES.map(l => (
           <button key={l.code} onClick={() => { setSell(s => ({ ...s, language: l.code })); handleSubmit(); }}
-            className={`px-4 py-3 rounded-sm border text-[14px] text-white transition-all duration-200 ${sell.language === l.code ? "border-current bg-white/[0.08]" : "border-white/10 hover:border-white/25"}`}
+            className={`px-4 py-3 rounded-sm border text-[14px] text-neutral-900 transition-all duration-200 ${sell.language === l.code ? "border-neutral-900/30 bg-neutral-50" : "border-neutral-200 hover:border-neutral-300"}`}
             style={{ color: sell.language === l.code ? accentColor : undefined }}>
             {l.label}
           </button>
