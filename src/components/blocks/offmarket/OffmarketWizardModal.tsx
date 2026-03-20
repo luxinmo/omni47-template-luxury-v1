@@ -355,18 +355,18 @@ export default function OffmarketWizardModal({
       <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6" style={{ background: `${accentColor}20` }}>
         <Check className="w-7 h-7" style={{ color: accentColor }} />
       </div>
-      <h2 className="text-[22px] font-extralight text-white mb-3" style={{ letterSpacing: "0.03em" }}>
+      <h2 className="text-[22px] font-extralight text-neutral-900 mb-3" style={{ letterSpacing: "0.03em" }}>
         Thank you for your enquiry
       </h2>
-      <p className="text-[14px] text-white/45 font-light leading-relaxed max-w-[340px] mb-8">
+      <p className="text-[14px] text-neutral-400 font-light leading-relaxed max-w-[340px] mb-8">
         A personal advisor will contact you shortly to {flow === "sell" ? "discuss the private sale of your property" : "provide access to our off-market portfolio"}.
       </p>
-      <div className="flex items-center gap-6 text-white/30">
+      <div className="flex items-center gap-6 text-neutral-300">
         <div className="flex items-center gap-2"><Phone className="w-4 h-4" /><span className="text-[13px]">Phone</span></div>
         <div className="flex items-center gap-2"><Mail className="w-4 h-4" /><span className="text-[13px]">Email</span></div>
         <div className="flex items-center gap-2"><Globe className="w-4 h-4" /><span className="text-[13px]">{LANGUAGES.find(l => l.code === (flow === "sell" ? sell.language : buy.language))?.label}</span></div>
       </div>
-      <button onClick={handleClose} className="mt-10 text-[13px] tracking-[0.12em] uppercase text-white/40 hover:text-white/60 transition-colors">
+      <button onClick={handleClose} className="mt-10 text-[13px] tracking-[0.12em] uppercase text-neutral-400 hover:text-neutral-600 transition-colors">
         Close
       </button>
     </div>
