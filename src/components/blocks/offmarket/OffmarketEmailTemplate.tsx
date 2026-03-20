@@ -47,7 +47,7 @@ const styles = {
     WebkitTextSizeAdjust: "100%" as const,
   } as React.CSSProperties,
   wrapper: {
-    maxWidth: 600, margin: "0 auto", padding: "32px 16px",
+    maxWidth: 680, margin: "0 auto", padding: "32px 16px",
   } as React.CSSProperties,
   card: {
     backgroundColor: "#ffffff",
@@ -214,10 +214,6 @@ export function OffmarketEmailTemplate({ data }: { data: EmailData }) {
             <p style={styles.note}>
               If any of the above details are incorrect, simply reply to this email and we'll update your request.
             </p>
-
-            <div style={{ textAlign: "center" as const }}>
-              <a href="#" style={styles.cta}>View our portfolio</a>
-            </div>
           </div>
 
           {/* Footer */}

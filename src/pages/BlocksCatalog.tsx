@@ -23,6 +23,8 @@ import CollectionsTagged from "@/components/blocks/collections/CollectionsTagged
 import BrandedFullwidth from "@/components/blocks/branded/BrandedFullwidth";
 import NewdevGridSimple from "@/components/blocks/new-developments/NewdevGridSimple";
 import OffmarketSplit from "@/components/blocks/offmarket/OffmarketSplit";
+import { OffmarketEmailTemplate } from "@/components/blocks/offmarket/OffmarketEmailTemplate";
+import OffmarketWizardModal from "@/components/blocks/offmarket/OffmarketWizardModal";
 import AboutServicesSplit from "@/components/blocks/about/AboutServicesSplit";
 import IntroSplitImage from "@/components/blocks/about/IntroSplitImage";
 import TestimonialCinematic from "@/components/blocks/testimonials/TestimonialCinematic";
@@ -241,6 +243,21 @@ const CATEGORIES = [
     title: "🔒 Off-Market",
     blocks: [
       { id: "offmarket-split", name: "Off-Market Split", origin: "Home2/3/4", component: OffmarketSplit },
+      { id: "offmarket-wizard-modal", name: "Off-Market Wizard (Sell/Buy)", origin: "Home3 Modal", component: () => {
+        const [open, setOpen] = useState(true);
+        return (
+          <div className="relative bg-neutral-100 p-8 min-h-[400px] flex items-center justify-center">
+            <button onClick={() => setOpen(true)} className="text-[12px] tracking-[0.15em] uppercase px-6 py-3 bg-neutral-900 text-white hover:bg-neutral-800 transition-colors">Open Wizard</button>
+            <OffmarketWizardModal open={open} onClose={() => setOpen(false)} />
+          </div>
+        );
+      }},
+      { id: "offmarket-email-sell", name: "Email Template — Sell Confirmation", origin: "Email / Preview", component: () => (
+        <OffmarketEmailTemplate data={{ flow: "sell", ownerType: "owner", otherAgencies: "no", location: "Ibiza, Santa Eulalia", price: "€3,200,000", fullName: "María García Fernández", phone: "+34 612 345 678", email: "maria.garcia@email.com", language: "es" }} />
+      )},
+      { id: "offmarket-email-buy", name: "Email Template — Buy Confirmation", origin: "Email / Preview", component: () => (
+        <OffmarketEmailTemplate data={{ flow: "buy", location: "Marbella, Golden Mile", priceMin: "€1,500,000", priceMax: "€4,000,000", timeline: "3months", fullName: "James Whitfield", phone: "+44 7700 123456", email: "j.whitfield@email.com", language: "en" }} />
+      )},
     ],
   },
   {
