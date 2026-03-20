@@ -431,6 +431,7 @@ const CATEGORIES = [
     blocks: [
       { id: "hero-mini", name: "Hero Mini (Page Header)", origin: "SystemPage", component: HeroMini },
       { id: "breadcrumb-bar", name: "Breadcrumb Bar", origin: "SystemPage", component: BreadcrumbBar },
+      { id: "system-content-sidebar", name: "Content + Sidebar (V2 Layout)", origin: "SystemPageV2", component: SystemContentSidebar },
       { id: "not-found-block", name: "404 Not Found", origin: "NotFound", component: NotFoundBlock },
     ],
   },
