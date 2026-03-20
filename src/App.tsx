@@ -33,6 +33,7 @@ import FavoritesPage from "./components/luxury/FavoritesPage";
 import SellPropertyPage from "./components/luxury/SellPropertyPage";
 import UserDashboardPage from "./components/luxury/UserDashboardPage";
 import VideosPage from "./components/luxury/VideosPage";
+import OffmarketEmailPreviewPage from "./components/blocks/offmarket/OffmarketEmailTemplate";
 
 const queryClient = new QueryClient();
 
