@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import NewsletterPreferencesModal from "@/components/blocks/cta/NewsletterPreferencesModal";
 import { Link } from "react-router-dom";
 import { ArrowRight, Search } from "lucide-react";
 import { palette, fonts } from "@/config/template";
