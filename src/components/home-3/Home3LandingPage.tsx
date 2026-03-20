@@ -635,6 +635,8 @@ const Home3LandingPage = () => {
         </div>
       </section>
     </Layout>
+    <OffmarketWizardModal open={offmarketWizardOpen} onClose={() => setOffmarketWizardOpen(false)} accentColor={palette.offMarketAccent} bgColor={palette.offMarketBg} />
+    </>
   );
 };
 
