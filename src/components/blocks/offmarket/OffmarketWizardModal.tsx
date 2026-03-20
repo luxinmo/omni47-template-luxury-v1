@@ -377,8 +377,8 @@ export default function OffmarketWizardModal({
     return (
       <div className="flex flex-col h-full">
         <div className="flex-1 px-6 py-6 overflow-y-auto">
-          <h3 className="text-[20px] font-light text-white mb-1" style={{ letterSpacing: "0.02em" }}>{title}</h3>
-          <p className="text-[13px] text-white/35 font-light mb-7">{subtitle}</p>
+          <h3 className="text-[20px] font-light text-neutral-900 mb-1" style={{ letterSpacing: "0.02em" }}>{title}</h3>
+          <p className="text-[13px] text-neutral-400 font-light mb-7">{subtitle}</p>
           {children}
         </div>
       </div>
