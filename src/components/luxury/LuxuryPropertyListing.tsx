@@ -1046,11 +1046,36 @@ const LuxuryPropertyListing = () => {
       </section>
 
       {/* ─── NEWSLETTER ─── */}
-      {(() => {
-        const [nlEmail, setNlEmail] = useState("");
-        const [nlModal, setNlModal] = useState(false);
-        return null;
-      })()}
+      <section className="border-t border-neutral-100">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div>
+              <h2 className="text-xl md:text-2xl font-light text-luxury-black tracking-tight">Get Luxury Trends & Tips</h2>
+              <p className="text-[13px] text-luxury-black/55 font-light mt-2 leading-relaxed">
+                Receive our top luxury picks and tips from our experts delivered to your inbox each week.
+              </p>
+            </div>
+            <div>
+              <form className="flex flex-col gap-3" onSubmit={(e) => { e.preventDefault(); if (nlEmail.trim()) setNlModalOpen(true); }}>
+                <input type="email" value={nlEmail} onChange={(e) => setNlEmail(e.target.value)} placeholder="Your email address" className="w-full border border-neutral-300 px-4 py-3 text-[14px] text-luxury-black placeholder:text-luxury-black/30 focus:outline-none focus:border-luxury-black/40 transition-colors" required />
+                <button type="submit" className="bg-luxury-black text-white text-[13px] tracking-[0.1em] uppercase py-3 w-full hover:bg-luxury-black/85 transition-all duration-300">
+                  Subscribe to Newsletter
+                </button>
+              </form>
+              <p className="text-[12px] text-luxury-black/35 mt-2 font-light uppercase tracking-wide">
+                By sharing your email, you agree to our <a href="#" className="underline">Terms of Use</a> and <a href="#" className="underline">Privacy</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <NewsletterPreferencesModal
+        open={nlModalOpen}
+        onClose={() => setNlModalOpen(false)}
+        email={nlEmail}
+        onConfirm={() => setNlEmail("")}
+      />
 
     </Layout>
   );
