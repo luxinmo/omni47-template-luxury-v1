@@ -429,9 +429,9 @@ const Home3LandingPage = () => {
               <p className="text-[15px] leading-[1.9] font-light mb-10" style={{ color: "rgba(255,255,255,0.55)" }}>
                 Not all properties are publicly available. Our off-market collection features exclusive listings shown only to verified buyers through our private network.
               </p>
-              <Link to="/contact" className="inline-flex items-center justify-center gap-2.5 text-[13px] tracking-[0.18em] uppercase font-light px-8 py-4 transition-all duration-500 hover:opacity-90 self-start" style={{ background: palette.offMarketAccent, color: palette.offMarketBg }}>
+              <button onClick={() => setOffmarketWizardOpen(true)} className="inline-flex items-center justify-center gap-2.5 text-[13px] tracking-[0.18em] uppercase font-light px-8 py-4 transition-all duration-500 hover:opacity-90 self-start" style={{ background: palette.offMarketAccent, color: palette.offMarketBg }}>
                 <Lock className="w-4 h-4" /> Request Private Access
-              </Link>
+              </button>
               <p className="text-xs font-light mt-8" style={{ color: "rgba(255,255,255,0.3)" }}>
                 <span style={{ color: palette.offMarketAccent }} className="font-normal">120+</span> off-market properties currently available
               </p>
