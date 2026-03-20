@@ -140,10 +140,10 @@ export default function OffmarketWizardModal({
     <div className="flex flex-col h-full">
       <div className="flex-1 flex flex-col justify-center px-6 py-8">
         <p className="text-[12px] tracking-[0.25em] uppercase mb-3 font-normal" style={{ color: accentColor }}>Off-Market</p>
-        <h2 className="text-[26px] font-extralight text-white leading-tight mb-2" style={{ letterSpacing: "0.03em" }}>
+        <h2 className="text-[26px] font-extralight text-neutral-900 leading-tight mb-2" style={{ letterSpacing: "0.03em" }}>
           How can we help you?
         </h2>
-        <p className="text-[14px] text-white/40 font-light mb-10">Select an option to get started.</p>
+        <p className="text-[14px] text-neutral-400 font-light mb-10">Select an option to get started.</p>
 
         <div className="space-y-3">
           <button onClick={() => setFlow("sell")} className={optionBtn(false)} style={{ color: accentColor }}>
@@ -151,10 +151,10 @@ export default function OffmarketWizardModal({
               <Home className="w-5 h-5" style={{ color: accentColor }} />
             </div>
             <div className="min-w-0">
-              <p className="text-[15px] text-white font-medium mb-0.5">I want to sell off-market</p>
-              <p className="text-[13px] text-white/40 font-light">List your property privately through our network</p>
+              <p className="text-[15px] text-neutral-900 font-medium mb-0.5">I want to sell off-market</p>
+              <p className="text-[13px] text-neutral-400 font-light">List your property privately through our network</p>
             </div>
-            <ChevronRight className="w-4 h-4 text-white/20 ml-auto shrink-0" />
+            <ChevronRight className="w-4 h-4 text-neutral-300 ml-auto shrink-0" />
           </button>
 
           <button onClick={() => setFlow("buy")} className={optionBtn(false)} style={{ color: accentColor }}>
@@ -162,10 +162,10 @@ export default function OffmarketWizardModal({
               <Search className="w-5 h-5" style={{ color: accentColor }} />
             </div>
             <div className="min-w-0">
-              <p className="text-[15px] text-white font-medium mb-0.5">I want to buy off-market</p>
-              <p className="text-[13px] text-white/40 font-light">Access our exclusive private portfolio</p>
+              <p className="text-[15px] text-neutral-900 font-medium mb-0.5">I want to buy off-market</p>
+              <p className="text-[13px] text-neutral-400 font-light">Access our exclusive private portfolio</p>
             </div>
-            <ChevronRight className="w-4 h-4 text-white/20 ml-auto shrink-0" />
+            <ChevronRight className="w-4 h-4 text-neutral-300 ml-auto shrink-0" />
           </button>
         </div>
       </div>
