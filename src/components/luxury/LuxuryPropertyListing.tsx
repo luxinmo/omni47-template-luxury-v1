@@ -1044,7 +1044,11 @@ const LuxuryPropertyListing = () => {
       </section>
 
       {/* ─── NEWSLETTER ─── */}
-      <NewsletterInlineSection />
+      {(() => {
+        const [nlEmail, setNlEmail] = useState("");
+        const [nlModal, setNlModal] = useState(false);
+        return null;
+      })()}
 
     </Layout>
   );
