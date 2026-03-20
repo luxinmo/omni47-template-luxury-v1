@@ -6,7 +6,7 @@
  */
 
 import { useState, useCallback } from "react";
-import { X, ArrowLeft, Home, Search, User, Building2, Users, ChevronRight, Check, Globe, Phone, Mail, Lock, EyeOff } from "lucide-react";
+import { X, ArrowLeft, Home, Search, User, Building2, Users, ChevronRight, Check, Globe, Phone, Mail, Lock, EyeOff, MapPin, Calendar, DollarSign, Shield } from "lucide-react";
 
 interface OffmarketWizardModalProps {
   open: boolean;
