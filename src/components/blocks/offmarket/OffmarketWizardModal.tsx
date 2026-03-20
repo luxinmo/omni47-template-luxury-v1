@@ -6,13 +6,14 @@
  */
 
 import { useState, useCallback } from "react";
-import { X, ArrowLeft, Home, Search, User, Building2, Users, ChevronRight, Check, Globe, Phone, Mail } from "lucide-react";
+import { X, ArrowLeft, Home, Search, User, Building2, Users, ChevronRight, Check, Globe, Phone, Mail, Lock, EyeOff } from "lucide-react";
 
 interface OffmarketWizardModalProps {
   open: boolean;
   onClose: () => void;
   accentColor?: string;
   bgColor?: string;
+  heroImage?: string;
 }
 
 type Flow = null | "sell" | "buy";
@@ -65,6 +66,7 @@ export default function OffmarketWizardModal({
   onClose,
   accentColor = "#c9a96e",
   bgColor = "#1e1c1a",
+  heroImage = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
 }: OffmarketWizardModalProps) {
   const [flow, setFlow] = useState<Flow>(null);
   const [sellStep, setSellStep] = useState(0);
@@ -137,13 +139,25 @@ export default function OffmarketWizardModal({
 
   // === INITIAL: choose sell or buy ===
   const ChooseScreen = () => (
-    <div className="flex flex-col h-full">
-      <div className="flex-1 flex flex-col justify-center px-6 py-8">
-        <p className="text-[12px] tracking-[0.25em] uppercase mb-3 font-normal" style={{ color: accentColor }}>Off-Market</p>
-        <h2 className="text-[26px] font-extralight text-neutral-900 leading-tight mb-2" style={{ letterSpacing: "0.03em" }}>
+    <div className="flex flex-col">
+      {/* Hero image with off-market branding */}
+      <div className="relative h-[180px] sm:h-[200px] overflow-hidden">
+        <img src={heroImage} alt="Off-market property" className="w-full h-full object-cover" />
+        <div className="absolute inset-0" style={{ background: `linear-gradient(to bottom, ${bgColor}99, ${bgColor}e6)` }} />
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2.5">
+          <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ background: "rgba(255,255,255,0.12)", backdropFilter: "blur(8px)" }}>
+            <EyeOff className="w-5 h-5" style={{ color: accentColor }} />
+          </div>
+          <p className="text-[11px] tracking-[0.3em] uppercase font-normal" style={{ color: accentColor }}>Off-Market</p>
+          <p className="text-[13px] text-white/50 font-light">Private & Confidential</p>
+        </div>
+      </div>
+
+      <div className="px-6 py-6">
+        <h2 className="text-[24px] font-extralight text-neutral-900 leading-tight mb-1.5" style={{ letterSpacing: "0.03em" }}>
           How can we help you?
         </h2>
-        <p className="text-[14px] text-neutral-400 font-light mb-10">Select an option to get started.</p>
+        <p className="text-[14px] text-neutral-400 font-light mb-7">Select an option to get started.</p>
 
         <div className="space-y-3">
           <button onClick={() => setFlow("sell")} className={optionBtn(false)} style={{ color: accentColor }}>
@@ -405,10 +419,10 @@ export default function OffmarketWizardModal({
       <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50" onClick={handleClose} />
 
       {/* Modal — full-screen on mobile, wider on desktop */}
-      <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div
-          className="bg-white w-full sm:max-w-[580px] sm:rounded-sm shadow-2xl animate-in fade-in slide-in-from-bottom-4 sm:zoom-in-95 duration-200 flex flex-col overflow-hidden h-full sm:h-auto"
-          style={{ maxHeight: "100vh", minHeight: "0" }}
+          className="bg-white w-full max-w-[580px] rounded-sm shadow-2xl animate-in fade-in zoom-in-95 duration-200 flex flex-col overflow-hidden"
+          style={{ maxHeight: "min(92vh, 720px)" }}
         >
           {/* Header */}
           <div className="flex items-center justify-between px-5 py-3.5 border-b border-neutral-100 shrink-0">
