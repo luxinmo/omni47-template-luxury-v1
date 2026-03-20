@@ -75,6 +75,8 @@ const BlogListingPage = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [visibleCount, setVisibleCount] = useState(6);
+  const [nlEmail, setNlEmail] = useState("");
+  const [nlModalOpen, setNlModalOpen] = useState(false);
 
   const filteredPosts = BLOG_POSTS.filter((post) => {
     const matchesCategory = activeCategory === "all" || post.category === activeCategory;
