@@ -37,6 +37,7 @@ import AreasTextList from "@/components/blocks/areas/AreasTextList";
 import InvestmentGrid from "@/components/blocks/investments/InvestmentGrid";
 import NewsletterCentered from "@/components/blocks/cta/NewsletterCentered";
 import NewsletterBordered from "@/components/blocks/cta/NewsletterBordered";
+import NewsletterPreferencesModal from "@/components/blocks/cta/NewsletterPreferencesModal";
 import NavbarLuxury from "@/components/blocks/navbar/NavbarLuxury";
 import FooterLuxury from "@/components/blocks/footer/FooterLuxury";
 import FooterEditorial from "@/components/blocks/footer/FooterEditorial";
@@ -316,6 +317,23 @@ const CATEGORIES = [
     blocks: [
       { id: "newsletter-centered", name: "Newsletter Centrado", origin: "Home2/3/4", component: NewsletterCentered },
       { id: "newsletter-bordered", name: "Newsletter con Líneas", origin: "Portal", component: NewsletterBordered },
+      { id: "newsletter-preferences-modal", name: "Newsletter Preferences Modal", origin: "Global (popup)", component: () => {
+        const [open, setOpen] = useState(true);
+        return (
+          <div className="relative bg-neutral-50 py-16 text-center">
+            <p className="text-sm text-neutral-500 mb-4">El modal se abre automáticamente al introducir email en cualquier Newsletter</p>
+            <button onClick={() => setOpen(true)} className="text-xs tracking-[0.15em] uppercase px-6 py-3 border border-neutral-300 hover:border-neutral-500 transition-colors">
+              Abrir Modal de Preferencias
+            </button>
+            <NewsletterPreferencesModal
+              open={open}
+              onClose={() => setOpen(false)}
+              email="demo@example.com"
+              onConfirm={() => {}}
+            />
+          </div>
+        );
+      }},
     ],
   },
   {

@@ -198,12 +198,97 @@
 |----|--------|--------|--------------------|
 | investment-grid | Grid de Inversiones | Portal | 4 columnas, aspect 3/4, badge precio/ROI, título + descripción |
 
-## 📣 CTA / Newsletter (2 variantes)
+## 📣 CTA / Newsletter (3 variantes)
 
 | ID | Nombre | Origen | Descripción visual |
 |----|--------|--------|--------------------|
-| newsletter-centered | Newsletter Centrado | Home2/3/4 | Centrado, input + botón, texto privacy, fondo alternativo |
-| newsletter-bordered | Newsletter con Líneas | Portal | Centrado, decoración con líneas laterales, italic "Informed", estilo editorial |
+| newsletter-centered | Newsletter Centrado | Home2/3/4 | Centrado, input + botón, texto privacy, fondo alternativo. Al enviar → abre `NewsletterPreferencesModal` |
+| newsletter-bordered | Newsletter con Líneas | Portal | Centrado, decoración con líneas laterales, italic "Informed", estilo editorial. Al enviar → abre `NewsletterPreferencesModal` |
+| newsletter-preferences-modal | Newsletter Preferences Modal | Global (popup) | Modal de preferencias post-suscripción. Se activa desde cualquier newsletter del sistema |
+
+### 📋 NewsletterPreferencesModal — Especificación de implementación
+
+**Archivo:** `src/components/blocks/cta/NewsletterPreferencesModal.tsx`
+
+**Propósito:** Modal que aparece tras introducir email en cualquier formulario de newsletter. Permite al usuario elegir categorías de notificación y aceptar términos antes de confirmar la suscripción.
+
+**Props:**
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `open` | `boolean` | — | Controla visibilidad del modal |
+| `onClose` | `() => void` | — | Callback al cerrar |
+| `email` | `string` | — | Email capturado del formulario |
+| `accentColor` | `string` | `#c9a96e` | Color de acento para checkboxes y CTA |
+| `onConfirm` | `(data: NewsletterPreferencesData) => void` | — | Callback con preferencias seleccionadas |
+
+**Interfaz de datos de salida (`NewsletterPreferencesData`):**
+```ts
+{
+  email: string;
+  preferences: {
+    market: boolean;   // Market Insights
+    company: boolean;  // Company News
+    journal: boolean;  // The Journal (Blog)
+    offers: boolean;   // Exclusive Offers
+  };
+}
+```
+
+**Categorías de suscripción:**
+| Key | Icono | Título | Descripción |
+|-----|-------|--------|-------------|
+| `market` | `TrendingUp` | Market Insights | Análisis de mercado, tendencias de precios y oportunidades de inversión |
+| `company` | `Building2` | Company News | Novedades de la empresa, nuevos servicios y eventos exclusivos |
+| `journal` | `BookOpen` | The Journal | Artículos sobre lifestyle, arquitectura, destinos y guías de compra |
+| `offers` | `Tag` | Exclusive Offers | Propiedades destacadas, oportunidades off-market y promociones |
+
+**Defaults:** `market: true`, `company: false`, `journal: true`, `offers: true`
+
+**Estructura visual (implementación pixel-perfect):**
+1. **Backdrop:** `bg-black/50` + `backdrop-blur-sm`, fade-in 0.3s
+2. **Modal:** `max-width: 520px`, `border-radius: 2px`, slideUp animation 0.4s cubic-bezier(0.16,1,0.3,1)
+3. **Header (dark):** `background: #1e1c1a`, icono `Mail` en círculo con borde accent, título 20-22px font-extralight, subtexto con email del usuario
+4. **Categorías:** 4 filas interactivas, cada una con:
+   - Checkbox custom 20×20px (accent cuando activo, borde `#d4d4d4` inactivo)
+   - Icono 32×32px en cuadrado con fondo tintado
+   - Título 13px font-medium + descripción 11px font-light
+   - Borde: `1px solid accent` activo / `1px solid #e5e5e5` inactivo
+   - Background: `accent + 06` activo / transparent inactivo
+5. **Términos:** Checkbox 18×18px obligatorio con links a Política de Privacidad y Términos. Error en rojo si no se acepta
+6. **Footer:** Contador de categorías seleccionadas (11px) + botón "Confirmar" con tracking 0.15em uppercase
+7. **Success state:** Icono Check en círculo accent, badges de categorías seleccionadas, texto "Puedes cancelar en cualquier momento", auto-cierre en 2.4s
+
+**Integración actual:**
+- `NewsletterCentered` — integrado vía estado interno
+- `NewsletterBordered` — integrado vía estado interno
+- `BlogListingPage` — integrado con estado `nlEmail` / `nlModalOpen`
+- `LuxuryPropertyListing` — integrado con estado `nlEmail` / `nlModalOpen`
+- `Home3LandingPage` — integrado con estado `nlEmail` / `nlModalOpen`
+
+**Para nuevas integraciones:**
+```tsx
+import { useState } from "react";
+import NewsletterPreferencesModal from "@/components/blocks/cta/NewsletterPreferencesModal";
+
+// En el componente:
+const [nlEmail, setNlEmail] = useState("");
+const [nlModalOpen, setNlModalOpen] = useState(false);
+
+// En el form onSubmit:
+onSubmit={(e) => { e.preventDefault(); if (nlEmail.trim()) setNlModalOpen(true); }}
+
+// Renderizar modal:
+<NewsletterPreferencesModal
+  open={nlModalOpen}
+  onClose={() => setNlModalOpen(false)}
+  email={nlEmail}
+  accentColor={palette.accent}
+  onConfirm={(data) => {
+    console.log("Subscribed:", data);
+    setNlEmail("");
+  }}
+/>
+```
 
 ## 💬 Chatbot (1 variante)
 
@@ -459,7 +544,7 @@
 | Journal/Blog — Home | 2 |
 | Areas | 1 |
 | Investment | 1 |
-| Newsletter | 2 |
+| Newsletter / CTA | 3 |
 | Chatbot | 1 |
 | Navbar | 2 |
 | Footer | 2 |
@@ -488,6 +573,6 @@
 | Favorites | 4 |
 | PDF | 2 |
 | System | 3 |
-| **TOTAL BLOQUES** | **~94** |
+| **TOTAL BLOQUES** | **~95** |
 | Preview Combos | 10 |
-| **TOTAL GENERAL** | **~104 componentes** |
+| **TOTAL GENERAL** | **~105 componentes** |
