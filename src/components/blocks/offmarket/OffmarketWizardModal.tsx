@@ -139,13 +139,25 @@ export default function OffmarketWizardModal({
 
   // === INITIAL: choose sell or buy ===
   const ChooseScreen = () => (
-    <div className="flex flex-col h-full">
-      <div className="flex-1 flex flex-col justify-center px-6 py-8">
-        <p className="text-[12px] tracking-[0.25em] uppercase mb-3 font-normal" style={{ color: accentColor }}>Off-Market</p>
-        <h2 className="text-[26px] font-extralight text-neutral-900 leading-tight mb-2" style={{ letterSpacing: "0.03em" }}>
+    <div className="flex flex-col">
+      {/* Hero image with off-market branding */}
+      <div className="relative h-[180px] sm:h-[200px] overflow-hidden">
+        <img src={heroImage} alt="Off-market property" className="w-full h-full object-cover" />
+        <div className="absolute inset-0" style={{ background: `linear-gradient(to bottom, ${bgColor}99, ${bgColor}e6)` }} />
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2.5">
+          <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ background: "rgba(255,255,255,0.12)", backdropFilter: "blur(8px)" }}>
+            <EyeOff className="w-5 h-5" style={{ color: accentColor }} />
+          </div>
+          <p className="text-[11px] tracking-[0.3em] uppercase font-normal" style={{ color: accentColor }}>Off-Market</p>
+          <p className="text-[13px] text-white/50 font-light">Private & Confidential</p>
+        </div>
+      </div>
+
+      <div className="px-6 py-6">
+        <h2 className="text-[24px] font-extralight text-neutral-900 leading-tight mb-1.5" style={{ letterSpacing: "0.03em" }}>
           How can we help you?
         </h2>
-        <p className="text-[14px] text-neutral-400 font-light mb-10">Select an option to get started.</p>
+        <p className="text-[14px] text-neutral-400 font-light mb-7">Select an option to get started.</p>
 
         <div className="space-y-3">
           <button onClick={() => setFlow("sell")} className={optionBtn(false)} style={{ color: accentColor }}>
