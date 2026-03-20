@@ -544,7 +544,7 @@ onSubmit={(e) => { e.preventDefault(); if (nlEmail.trim()) setNlModalOpen(true);
 | Journal/Blog — Home | 2 |
 | Areas | 1 |
 | Investment | 1 |
-| Newsletter | 2 |
+| Newsletter / CTA | 3 |
 | Chatbot | 1 |
 | Navbar | 2 |
 | Footer | 2 |
