@@ -79,6 +79,7 @@ const App = () => (
             <Route path="/new-developments/:slug" element={<NewDevelopmentDetailPage />} />
             <Route path="/pdf-v1" element={<PropertyPdfV1 />} />
             <Route path="/pdf-v2" element={<PropertyPdfV2 />} />
+            <Route path="/email-offmarket" element={<OffmarketEmailPreviewPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
