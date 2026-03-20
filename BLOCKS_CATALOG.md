@@ -450,7 +450,7 @@
 | Branded Residences | 6 |
 | Projects (Branded + NewDev) | 12 |
 | New Developments | 8 |
-| Off-Market | 2 |
+| Off-Market | 5 |
 | About/Services | 2 |
 | Testimonials | 2 |
 | Property Finder | 2 |
