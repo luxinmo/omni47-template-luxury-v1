@@ -482,13 +482,59 @@ onSubmit={(e) => { e.preventDefault(); if (nlEmail.trim()) setNlModalOpen(true);
 | property-pdf-v1 | PDF Sheet V1 (Single Page) | PDF Export | A4 una página: header agencia, imagen principal, specs grid, descripción, features, footer |
 | property-pdf-v2 | PDF Sheet V2 (Multi Page) | PDF Export | A4 tres páginas: portada hero, página specs+descripción, página galería+contacto |
 
-## ⚙️ System (3 variantes)
+## ⚙️ System (4 variantes)
 
 | ID | Nombre | Origen | Descripción visual |
 |----|--------|--------|--------------------|
 | hero-mini | Hero Mini (Page Header) | System | Banner compacto con título + breadcrumb, fondo con imagen dimmed |
 | breadcrumb-bar | Breadcrumb Bar | System | Barra horizontal con breadcrumb links separados por chevrons |
+| system-content-sidebar | Content + Sidebar (V2 Layout) | SystemPageV2 | Layout editorial con contenido principal (breadcrumb, título bold uppercase, hero image, TOC, artículo justified) + sidebar derecha (páginas relacionadas, portales externos con ExternalLink icon, CTA card con botón contacto). Grid responsive: sidebar debajo en mobile. Ruta: `/page2/:slug` |
 | not-found-block | 404 Not Found | System | Página 404 con título grande, descripción, botón "Go Home" |
+
+### SystemContentSidebar — Props
+
+```tsx
+interface SystemContentSidebarProps {
+  breadcrumbItems?: { label: string; href?: string }[];   // Trail de navegación
+  title?: string;                                          // Título uppercase bold
+  subtitle?: string;                                       // Párrafo introductorio
+  image?: string;                                          // Hero image URL (aspect 2.2:1)
+  toc?: { id: string; label: string }[];                   // Tabla de contenidos con anchors
+  content?: string;                                        // HTML string del artículo
+  sidebarPages?: { label: string; href: string }[];        // Links de páginas internas
+  sidebarPortals?: { label: string; href: string }[];      // Links externos con icono
+  currentSlug?: string;                                    // Slug activo para highlight
+  showCta?: boolean;                                       // Mostrar card CTA en sidebar
+}
+```
+
+### Implementación rápida
+
+```tsx
+import SystemContentSidebar from "@/components/blocks/system/SystemContentSidebar";
+
+<SystemContentSidebar
+  breadcrumbItems={[{ label: "Home", href: "/" }, { label: "About" }]}
+  title="ABOUT OUR COMPANY"
+  subtitle="Introduction text here."
+  image="/images/hero.jpg"
+  toc={[{ id: "mission", label: "Our Mission" }]}
+  content="<h2 id='mission'>OUR MISSION</h2><p>Content here...</p>"
+  sidebarPages={[{ label: "Terms", href: "/page2/terms" }]}
+  sidebarPortals={[{ label: "Idealista", href: "https://idealista.com" }]}
+  currentSlug="about"
+  showCta
+/>
+```
+
+### Páginas disponibles en SystemPageV2
+
+| Ruta | Slug | Contenido |
+|------|------|-----------|
+| `/page2/about` | about | Misión, historia, servicios, valores |
+| `/page2/terms` | terms | Términos y condiciones (5 secciones) |
+| `/page2/privacy` | privacy | Política de privacidad GDPR |
+| `/page2/services` | services | Servicios: buying, selling, investment, concierge |
 
 ## 📰 Journal / Blog — Home (2 variantes)
 
