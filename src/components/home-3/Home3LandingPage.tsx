@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import NewsletterPreferencesModal from "@/components/blocks/cta/NewsletterPreferencesModal";
 import { Link } from "react-router-dom";
 import {
   Bed, Bath, Maximize, ArrowRight, ArrowUpRight, Lock, EyeOff,
@@ -109,6 +110,8 @@ const AREAS = {
 const Home3LandingPage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [offmarketWizardOpen, setOffmarketWizardOpen] = useState(false);
+  const [nlEmail, setNlEmail] = useState("");
+  const [nlModalOpen, setNlModalOpen] = useState(false);
   const heroImages = [heroImg, prop1, prop2, prop3];
 
   useEffect(() => {
@@ -625,8 +628,8 @@ const Home3LandingPage = () => {
             <p className="text-sm font-light mb-8 leading-relaxed" style={{ color: palette.textMuted }}>
               Receive exclusive off-market listings, market insights and invitations to private viewings — delivered discreetly to your inbox.
             </p>
-            <form className="flex flex-col sm:flex-row gap-3" onSubmit={(e) => e.preventDefault()}>
-              <input type="email" placeholder="Your email address" className="flex-1 px-5 py-4 text-[16px] sm:text-sm tracking-[0.05em] focus:outline-none transition-colors duration-300" style={{ border: `1px solid ${palette.border}`, background: palette.white, color: palette.text }} />
+            <form className="flex flex-col sm:flex-row gap-3" onSubmit={(e) => { e.preventDefault(); if (nlEmail.trim()) setNlModalOpen(true); }}>
+              <input type="email" value={nlEmail} onChange={(e) => setNlEmail(e.target.value)} placeholder="Your email address" className="flex-1 px-5 py-4 text-[16px] sm:text-sm tracking-[0.05em] focus:outline-none transition-colors duration-300" style={{ border: `1px solid ${palette.border}`, background: palette.white, color: palette.text }} required />
               <button type="submit" className="text-xs tracking-[0.18em] uppercase font-normal px-8 py-4 transition-all duration-300 hover:opacity-90 whitespace-nowrap" style={{ background: palette.accent, color: "#fff" }}>
                 Subscribe
               </button>
@@ -636,6 +639,13 @@ const Home3LandingPage = () => {
         </div>
       </section>
     </Layout>
+    <NewsletterPreferencesModal
+      open={nlModalOpen}
+      onClose={() => setNlModalOpen(false)}
+      email={nlEmail}
+      accentColor={palette.accent}
+      onConfirm={() => setNlEmail("")}
+    />
     <OffmarketWizardModal open={offmarketWizardOpen} onClose={() => setOffmarketWizardOpen(false)} accentColor={palette.offMarketAccent} bgColor={palette.offMarketBg} heroImage={prop3} />
     </>
   );
