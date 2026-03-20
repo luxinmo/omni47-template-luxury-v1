@@ -33,6 +33,7 @@ import FavoritesPage from "./components/luxury/FavoritesPage";
 import SellPropertyPage from "./components/luxury/SellPropertyPage";
 import UserDashboardPage from "./components/luxury/UserDashboardPage";
 import VideosPage from "./components/luxury/VideosPage";
+import OffmarketEmailPreviewPage from "./components/blocks/offmarket/OffmarketEmailTemplate";
 
 const queryClient = new QueryClient();
 
@@ -78,6 +79,7 @@ const App = () => (
             <Route path="/new-developments/:slug" element={<NewDevelopmentDetailPage />} />
             <Route path="/pdf-v1" element={<PropertyPdfV1 />} />
             <Route path="/pdf-v2" element={<PropertyPdfV2 />} />
+            <Route path="/email-offmarket" element={<OffmarketEmailPreviewPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
