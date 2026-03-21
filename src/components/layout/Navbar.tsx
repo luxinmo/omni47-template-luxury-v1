@@ -13,6 +13,7 @@ const NAV_LEFT = [
 
 const NAV_RIGHT = [
   { label: "Branded", href: "/branded-residences" },
+  { label: "Resources", href: "/resources" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
@@ -23,6 +24,7 @@ const MENU_LINKS = [
   { label: "For Rent", href: "#" },
   { label: "New Developments", href: "/new-developments" },
   { label: "Branded Residences", href: "/branded-residences" },
+  { label: "Resources & Guides", href: "/resources" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
   { label: "Favorites", href: "/favorites" },
