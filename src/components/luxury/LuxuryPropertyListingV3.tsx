@@ -307,7 +307,7 @@ const FilterSidebar = ({ open, onClose, filters, onChange }: { open: boolean; on
   return (
     <>
       <div className="fixed inset-0 bg-luxury-black/40 backdrop-blur-sm z-50 animate-in fade-in duration-200" onClick={onClose} />
-      <aside className="fixed top-0 right-0 h-full w-[420px] bg-white z-50 shadow-2xl animate-in slide-in-from-right duration-300 flex flex-col">
+      <aside className="fixed top-0 left-0 h-full w-[420px] bg-white z-50 shadow-2xl animate-in slide-in-from-left duration-300 flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-200">
           <h2 className="text-[17px] font-medium text-luxury-black">Filters</h2>
