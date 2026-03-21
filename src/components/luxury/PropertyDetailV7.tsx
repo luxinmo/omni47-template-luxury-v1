@@ -277,20 +277,18 @@ const PropertyDetailV7 = () => {
 
       {/* ═══ HERO GALLERY ═══ */}
       <section aria-label="Property photos">
-        {/* Mobile: taller hero, edge-to-edge */}
+        {/* Mobile: shorter hero */}
         <div className="lg:hidden relative overflow-hidden" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
           <div className="flex transition-transform duration-300 ease-out" style={{ transform: `translateX(-${heroSlide * 100}%)` }}>
             {p.images.map((img, i) => (
-              <div key={i} className="w-full shrink-0 aspect-[3/4] sm:aspect-[4/3]" onClick={() => setLightbox(i)}>
+              <div key={i} className="w-full shrink-0 aspect-[4/3] sm:aspect-[16/10]" onClick={() => setLightbox(i)}>
                 <img src={img} alt={`${p.title} — photo ${i + 1}`} loading={i === 0 ? "eager" : "lazy"} className="w-full h-full object-cover" />
               </div>
             ))}
           </div>
-          {/* Slide dots */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5">
-            {p.images.map((_, i) => (
-              <button key={i} onClick={() => setHeroSlide(i)} className={cn("rounded-full transition-all duration-300", heroSlide === i ? "w-6 h-1.5 bg-white" : "w-1.5 h-1.5 bg-white/50")} />
-            ))}
+          {/* Slide counter */}
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-sm text-white text-[12px] font-medium px-3 py-1 rounded-full">
+            {heroSlide + 1} / {p.images.length}
           </div>
           {/* Top overlay actions */}
           <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
@@ -306,15 +304,25 @@ const PropertyDetailV7 = () => {
               </button>
             </div>
           </div>
-          {/* Bottom overlay: quick actions */}
-          <div className="absolute bottom-4 right-3 flex items-center gap-2">
+        </div>
+        {/* Actions bar below photo on mobile */}
+        <div className="lg:hidden flex items-center justify-between px-4 py-3 border-b border-neutral-100">
+          <div className="flex items-center gap-3.5">
             {p.hasVideo && (
-              <button className="h-8 px-3 rounded-full bg-black/40 backdrop-blur-sm flex items-center gap-1.5 text-white text-[11px] font-medium">
-                <Play className="w-3.5 h-3.5" /> Video
+              <button className="flex items-center gap-1.5 text-[13px] text-luxury-black/70 font-medium">
+                <Play className="w-4 h-4" /> Video
               </button>
             )}
-            <button onClick={() => setGridView(true)} className="h-8 px-3 rounded-full bg-black/40 backdrop-blur-sm flex items-center gap-1.5 text-white text-[11px] font-medium">
-              <Grid3X3 className="w-3.5 h-3.5" /> {p.images.length}
+            <Link to="/pdf-v2" target="_blank" className="flex items-center gap-1.5 text-[13px] text-luxury-black/70 font-medium">
+              <FileDown className="w-4 h-4" /> PDF
+            </Link>
+          </div>
+          <div className="flex items-center gap-3.5">
+            <button className="text-luxury-black/50 hover:text-luxury-black transition-colors" aria-label="Share">
+              <Share2 className="w-[18px] h-[18px]" />
+            </button>
+            <button onClick={() => setLiked(!liked)} className={`transition-colors ${liked ? "text-luxury-black" : "text-luxury-black/50 hover:text-luxury-black"}`} aria-label={liked ? "Unsave" : "Save"}>
+              <Heart className="w-[18px] h-[18px]" fill={liked ? "currentColor" : "none"} />
             </button>
           </div>
         </div>
@@ -340,29 +348,7 @@ const PropertyDetailV7 = () => {
         </div>
       </section>
 
-      {/* ─── MOBILE: Sticky price summary card (below hero) ─── */}
-      <div className="lg:hidden bg-white border-b border-neutral-200 px-4 py-3">
-        <div className="flex items-center justify-between mb-1">
-          <div>
-            <p className="text-[11px] tracking-[0.12em] uppercase text-luxury-black/45 font-medium">{p.tag}</p>
-            <p className="text-[24px] font-medium text-luxury-black tracking-tight leading-none mt-0.5">{p.priceFormatted}</p>
-          </div>
-          <div className="text-right">
-            <span className="text-[12px] text-luxury-black/35 line-through font-light">{p.originalPrice}</span>
-            <span className="ml-1.5 text-[10px] font-medium tracking-[0.08em] uppercase text-luxury-gold bg-luxury-gold/10 px-1.5 py-0.5">-{p.discount}%</span>
-          </div>
-        </div>
-        <div className="flex items-center gap-4 text-[12px] text-luxury-black/60 font-light">
-          <span>{p.pricePerSqm}</span>
-          {p.alsoForRent && (
-            <span className="flex items-center gap-1"><Home className="w-3 h-3 text-luxury-gold/80" /> Rent: <strong className="font-medium text-luxury-black/70">{p.rentalPrice}</strong></span>
-          )}
-        </div>
-        <button onClick={() => setPriceAlertOpen(true)} className="group flex items-center gap-1.5 text-[11px] tracking-[0.06em] text-luxury-gold/80 hover:text-luxury-gold font-light transition-colors mt-1.5">
-          <BellRing className="w-3 h-3" strokeWidth={1.4} />
-          Avísame si baja el precio
-        </button>
-      </div>
+      {/* ─── MOBILE: Inline price (matches V6) ─── */}
 
       {/* ─── MAIN CONTENT ─── */}
       <main className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-4 lg:py-8">
@@ -411,23 +397,45 @@ const PropertyDetailV7 = () => {
               )}
             </div>
 
-            {/* Property specs — horizontal scroll on mobile */}
-            <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-hide mb-3">
+            {/* Inline price (mobile/tablet) */}
+            <div className="lg:hidden flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-4">
+              <p className="text-[26px] sm:text-[30px] font-medium text-luxury-black tracking-tight leading-none">{p.priceFormatted}</p>
+              <span className="text-[13px] text-luxury-black/35 line-through font-light">{p.originalPrice}</span>
+              <span className="text-[10px] font-medium tracking-[0.08em] uppercase text-luxury-gold">-{p.discount}%</span>
+              <span className="text-[11px] text-luxury-black/45 font-light">{p.pricePerSqm}</span>
+              {p.alsoForRent && (
+                <span className="text-[12px] text-luxury-black/50 flex items-center gap-1">
+                  <Home className="w-3 h-3 text-luxury-gold/80" /> Rent: <span className="font-medium text-luxury-black/70">{p.rentalPrice}</span>
+                </span>
+              )}
+            </div>
+
+            {/* Compact property facts (V6 style — 4-column grid) */}
+            <div className="grid grid-cols-4 gap-1.5 sm:gap-2">
               {[
-                { icon: Bed, label: "Beds", value: p.beds },
-                { icon: Bath, label: "Baths", value: p.baths },
-                { icon: Maximize, label: "Built", value: `${p.sqm} m²` },
-                { icon: Fence, label: "Plot", value: `${p.plot.toLocaleString()} m²` },
+                { icon: Bed, label: "Bedrooms", value: p.beds },
+                { icon: Bath, label: "Bathrooms", value: p.baths },
+                { icon: Maximize, label: "Built Area", value: <>{p.sqm} m<sup>2</sup></> },
+                { icon: Fence, label: p.plot ? "Plot Size" : "Useful Area", value: p.plot ? <>{p.plot.toLocaleString()} m<sup>2</sup></> : <>{p.sqm} m<sup>2</sup></> },
               ].map((s, i) => (
-                <div key={i} className="shrink-0 bg-neutral-50 border border-neutral-200 rounded-sm px-4 py-2.5 flex items-center gap-2.5 min-w-0">
-                  <s.icon className="w-4 h-4 text-luxury-black/40 shrink-0" strokeWidth={1.5} />
-                  <div>
-                    <p className="text-[15px] font-light text-luxury-black leading-tight">{s.value}</p>
-                    <p className="text-[9px] tracking-[0.1em] uppercase text-luxury-black/50 font-medium">{s.label}</p>
-                  </div>
+                <div key={i} className="bg-neutral-50 border border-neutral-200 rounded-sm p-2 sm:p-2.5 text-center">
+                  <s.icon className="w-4 h-4 text-luxury-black/40 mx-auto mb-1.5" strokeWidth={1.5} />
+                  <p className="text-[14px] sm:text-[16px] font-light text-luxury-black mb-0.5 leading-tight">{s.value}</p>
+                  <p className="text-[9px] sm:text-[10px] tracking-[0.08em] uppercase text-luxury-black/60 font-medium leading-tight">{s.label}</p>
                 </div>
               ))}
             </div>
+            <div className="flex items-center gap-4 mt-2 text-[11px] sm:text-[12px] text-luxury-black/60 font-light">
+              <span>Year built: <strong className="font-medium text-luxury-black/80">{p.year}</strong></span>
+              <span className="text-luxury-black/30">·</span>
+              <span>Status: <strong className="font-medium text-luxury-black/80">{p.status}</strong></span>
+            </div>
+
+            {/* Price alert CTA — prominent (mobile) */}
+            <button onClick={() => setPriceAlertOpen(true)} className="lg:hidden group w-full flex items-center justify-center gap-2 border border-luxury-gold/30 bg-luxury-gold/5 text-luxury-gold hover:bg-luxury-gold/10 text-[12px] tracking-[0.08em] uppercase font-medium py-2.5 mt-4 transition-all">
+              <BellRing className="w-3.5 h-3.5" strokeWidth={1.5} />
+              Avísame si baja el precio
+            </button>
 
             {/* Tags */}
             <div className="flex flex-wrap gap-1.5 mb-4">
@@ -914,7 +922,9 @@ const PropertyDetailV7 = () => {
               <div className="absolute inset-0 flex items-center justify-center">
                 <img src={p.images[0]} alt="" className="absolute inset-0 w-full h-full object-cover blur-xl opacity-30" />
                 <div className="relative z-10 text-center px-6 max-w-lg">
-                  <h3 className="text-[20px] sm:text-[28px] font-light text-white tracking-[0.04em] uppercase mb-2">{p.title}</h3>
+                  <h3 className="text-[22px] sm:text-[28px] font-light text-white tracking-[0.04em] uppercase mb-2 leading-tight">{p.title}</h3>
+                  <p className="text-[14px] text-white/50 font-light mb-1">{p.location}</p>
+                  <p className="text-[13px] text-white/35 font-mono tracking-[0.05em] mb-2">REF-{p.ref}</p>
                   <p className="text-[24px] font-light text-white/90 mb-8">{p.priceFormatted}</p>
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                     <a href={`tel:${p.agency.phone}`} className="w-full sm:w-auto flex items-center justify-center gap-2 bg-white text-luxury-black text-[12px] tracking-[0.1em] uppercase px-8 py-3"><Phone className="w-3.5 h-3.5" /> Call</a>
@@ -951,9 +961,26 @@ const PropertyDetailV7 = () => {
             {p.images.map((img, i) => (
               <button key={i} onClick={() => { setGridView(false); setLightbox(i); }} className="relative aspect-[4/3] overflow-hidden group">
                 <img src={img} alt={`Photo ${i + 1}`} loading="lazy" className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
                 <span className="absolute bottom-2 left-2 text-white/70 text-[11px] font-light">{i + 1}</span>
               </button>
             ))}
+          </div>
+          {/* Contact CTA at the end */}
+          <div className="px-4 sm:px-8 py-10 text-center shrink-0">
+            <h3 className="text-[18px] sm:text-[22px] font-light text-white/90 tracking-[0.04em] uppercase mb-2">{p.title}</h3>
+            <p className="text-[13px] text-white/40 font-mono tracking-[0.05em] mb-6">REF-{p.ref}</p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
+              <a href={`tel:${p.agency.phone}`} className="w-full sm:w-auto flex items-center justify-center gap-2 bg-white text-luxury-black text-[12px] tracking-[0.1em] uppercase px-8 py-3 hover:bg-white/90 transition-all">
+                <Phone className="w-3.5 h-3.5" /> Call
+              </a>
+              <a href={`https://wa.me/${p.agency.whatsapp}`} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#25D366] text-white text-[12px] tracking-[0.1em] uppercase px-8 py-3 hover:bg-[#22bf5b] transition-all">
+                <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
+              </a>
+              <button onClick={() => { setGridView(false); setEnquiryOpen(true); }} className="w-full sm:w-auto flex items-center justify-center gap-2 border border-white/30 text-white text-[12px] tracking-[0.1em] uppercase px-8 py-3 hover:bg-white/10 transition-all">
+                <Mail className="w-3.5 h-3.5" /> Enquiry
+              </button>
+            </div>
           </div>
         </div>
       )}
