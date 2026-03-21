@@ -348,29 +348,7 @@ const PropertyDetailV7 = () => {
         </div>
       </section>
 
-      {/* ─── MOBILE: Sticky price summary card (below hero) ─── */}
-      <div className="lg:hidden bg-white border-b border-neutral-200 px-4 py-3">
-        <div className="flex items-center justify-between mb-1">
-          <div>
-            <p className="text-[11px] tracking-[0.12em] uppercase text-luxury-black/45 font-medium">{p.tag}</p>
-            <p className="text-[24px] font-medium text-luxury-black tracking-tight leading-none mt-0.5">{p.priceFormatted}</p>
-          </div>
-          <div className="text-right">
-            <span className="text-[12px] text-luxury-black/35 line-through font-light">{p.originalPrice}</span>
-            <span className="ml-1.5 text-[10px] font-medium tracking-[0.08em] uppercase text-luxury-gold bg-luxury-gold/10 px-1.5 py-0.5">-{p.discount}%</span>
-          </div>
-        </div>
-        <div className="flex items-center gap-4 text-[12px] text-luxury-black/60 font-light">
-          <span>{p.pricePerSqm}</span>
-          {p.alsoForRent && (
-            <span className="flex items-center gap-1"><Home className="w-3 h-3 text-luxury-gold/80" /> Rent: <strong className="font-medium text-luxury-black/70">{p.rentalPrice}</strong></span>
-          )}
-        </div>
-        <button onClick={() => setPriceAlertOpen(true)} className="group flex items-center gap-1.5 text-[11px] tracking-[0.06em] text-luxury-gold/80 hover:text-luxury-gold font-light transition-colors mt-1.5">
-          <BellRing className="w-3 h-3" strokeWidth={1.4} />
-          Avísame si baja el precio
-        </button>
-      </div>
+      {/* ─── MOBILE: Inline price (matches V6) ─── */}
 
       {/* ─── MAIN CONTENT ─── */}
       <main className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-4 lg:py-8">
