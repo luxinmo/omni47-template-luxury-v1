@@ -6,6 +6,7 @@
  */
 
 import { useState, useRef, useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
 import { X, MapPin, Bed, Maximize, TrendingUp, Waves, Sparkles, BarChart3, Eye, ArrowRight, CheckCircle2 } from "lucide-react";
 import heroImg from "@/assets/luxury-hero.jpg";
 import prop1 from "@/assets/luxury-property-1.jpg";
