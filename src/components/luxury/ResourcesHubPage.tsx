@@ -7,7 +7,7 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Building2, Globe, BookOpen, MapPin } from "lucide-react";
+import { ArrowRight, Building2, Globe, BookOpen, MapPin, Search, X } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import SEOHead from "@/components/shared/SEOHead";
 import { palette, fonts, brand } from "@/config/template";
