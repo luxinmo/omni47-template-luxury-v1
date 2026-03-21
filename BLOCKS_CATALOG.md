@@ -482,13 +482,14 @@ onSubmit={(e) => { e.preventDefault(); if (nlEmail.trim()) setNlModalOpen(true);
 | property-pdf-v1 | PDF Sheet V1 (Single Page) | PDF Export | A4 una página: header agencia, imagen principal, specs grid, descripción, features, footer |
 | property-pdf-v2 | PDF Sheet V2 (Multi Page) | PDF Export | A4 tres páginas: portada hero, página specs+descripción, página galería+contacto |
 
-## ⚙️ System (4 variantes)
+## ⚙️ System (5 variantes)
 
 | ID | Nombre | Origen | Descripción visual |
 |----|--------|--------|--------------------|
 | hero-mini | Hero Mini (Page Header) | System | Banner compacto con título + breadcrumb, fondo con imagen dimmed |
 | breadcrumb-bar | Breadcrumb Bar | System | Barra horizontal con breadcrumb links separados por chevrons |
-| system-content-sidebar | Content + Sidebar (V2 Layout) | SystemPageV2 | Layout editorial con contenido principal (breadcrumb, título bold uppercase, hero image, TOC, artículo justified) + sidebar derecha (páginas relacionadas, portales externos con ExternalLink icon, CTA card con botón contacto). Grid responsive: sidebar debajo en mobile. Ruta: `/page2/:slug` |
+| system-content-sidebar | Content + Sidebar (V2 Layout) | SystemPageV2 | Layout editorial con contenido principal + sidebar derecha. Grid responsive. Ruta: `/page2/:slug` |
+| resources-hub-grid | Resources Hub Grid | ResourcesHubPage | Índice categorizado de páginas de contenido. Hero oscuro, sticky tabs (All/Company/Portals/Guides/Locations), buscador inline, tarjetas con thumbnail + excerpt en grid 2-col, stats ribbon final. Ruta: `/resources` |
 | not-found-block | 404 Not Found | System | Página 404 con título grande, descripción, botón "Go Home" |
 
 ### SystemContentSidebar — Props
