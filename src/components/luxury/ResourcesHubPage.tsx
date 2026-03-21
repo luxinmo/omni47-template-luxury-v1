@@ -161,9 +161,9 @@ const PageCard = ({ page }: { page: PageItem }) => {
       className="w-4 h-4 mt-1 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-all group-hover:translate-x-1"
       style={{ color: palette.accent }}
     />
-  </Link>
-);
-
+    </Wrapper>
+  );
+};
 /* ─── Main Component ─── */
 const ResourcesHubPage = () => {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
