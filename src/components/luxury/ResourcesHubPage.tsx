@@ -115,16 +115,24 @@ const CATEGORIES: CategorySection[] = [
   },
 ];
 
+/* ─── Known slugs that have real content in SystemPageV2 ─── */
+const LIVE_SLUGS = new Set(["about", "about-us", "terms", "privacy", "services"]);
+
 /* ─── Page Card with thumbnail ─── */
-const PageCard = ({ page }: { page: PageItem }) => (
-  <Link
-    to={`/page2/${page.slug}`}
-    className="group flex gap-4 rounded-sm p-4 transition-all duration-300 hover:-translate-y-0.5"
-    style={{
-      background: palette.white,
-      border: `1px solid ${palette.border}`,
-    }}
-  >
+const PageCard = ({ page }: { page: PageItem }) => {
+  const hasPage = LIVE_SLUGS.has(page.slug);
+  const Wrapper = hasPage ? Link : "div";
+  const linkProps = hasPage ? { to: `/page2/${page.slug}` } : {};
+
+  return (
+    <Wrapper
+      {...(linkProps as any)}
+      className="group flex gap-4 rounded-sm p-4 transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
+      style={{
+        background: palette.white,
+        border: `1px solid ${palette.border}`,
+      }}
+    >
     {/* Thumbnail */}
     <div className="w-20 h-20 sm:w-24 sm:h-[72px] flex-shrink-0 rounded-sm overflow-hidden">
       <img
