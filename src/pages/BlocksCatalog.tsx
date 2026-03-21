@@ -127,6 +127,7 @@ import ListingMobileSearchBar from "@/components/blocks/listing/ListingMobileSea
 import ListingMobileFilterSheet from "@/components/blocks/listing/ListingMobileFilterSheet";
 import ListingMobileSortSheet from "@/components/blocks/listing/ListingMobileSortSheet";
 import ListingMobileStickyNav from "@/components/blocks/listing/ListingMobileStickyNav";
+import PropertyStories from "@/components/blocks/listing/PropertyStories";
 import HomeComboA from "@/components/combos/HomeComboA";
 import HomeComboB from "@/components/combos/HomeComboB";
 import HomeComboC from "@/components/combos/HomeComboC";
