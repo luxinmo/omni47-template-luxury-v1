@@ -405,11 +405,25 @@ const FilterSidebar = ({ open, onClose, filters, onChange }: { open: boolean; on
               <input type="text" value={filters.priceMin} onChange={(e) => onChange({ ...filters, priceMin: e.target.value })} placeholder="€ No Min" className="w-full border border-neutral-200 rounded-lg px-4 py-3 text-[14px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40 transition-colors" />
               <input type="text" value={filters.priceMax} onChange={(e) => onChange({ ...filters, priceMax: e.target.value })} placeholder="€ No Max" className="w-full border border-neutral-200 rounded-lg px-4 py-3 text-[14px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40 transition-colors" />
             </div>
-            <div className="flex flex-wrap gap-2">
-              {PRICE_PRESETS.map(p => (
-                <button key={p.value} onClick={() => onChange({ ...filters, priceMin: filters.priceMin === p.value ? "" : p.value })} className={`text-[12px] px-3 py-1.5 rounded-full border transition-colors ${filters.priceMin === p.value ? "border-luxury-black bg-luxury-black text-white" : "border-neutral-200 text-luxury-black/60 hover:border-neutral-300"}`}>{p.label}+</button>
-              ))}
-            </div>
+            {!filters.priceMin ? (
+              <>
+                <p className="text-[12px] text-luxury-black/40 mb-2">Minimum price</p>
+                <div className="flex flex-wrap gap-2">
+                  {PRICE_PRESETS.map(p => (
+                    <button key={p.value} onClick={() => onChange({ ...filters, priceMin: p.value })} className={`text-[12px] px-3 py-1.5 rounded-full border transition-colors border-neutral-200 text-luxury-black/60 hover:border-neutral-300`}>{p.label}</button>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <>
+                <p className="text-[12px] text-luxury-black/40 mb-2">Maximum price</p>
+                <div className="flex flex-wrap gap-2">
+                  {PRICE_PRESETS.filter(p => parseInt(p.value) > parseInt(filters.priceMin)).map(p => (
+                    <button key={p.value} onClick={() => onChange({ ...filters, priceMax: p.value })} className={`text-[12px] px-3 py-1.5 rounded-full border transition-colors ${filters.priceMax === p.value ? "border-luxury-black bg-luxury-black text-white" : "border-neutral-200 text-luxury-black/60 hover:border-neutral-300"}`}>{p.label}</button>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
 
           {/* Bedrooms */}
