@@ -922,7 +922,9 @@ const PropertyDetailV7 = () => {
               <div className="absolute inset-0 flex items-center justify-center">
                 <img src={p.images[0]} alt="" className="absolute inset-0 w-full h-full object-cover blur-xl opacity-30" />
                 <div className="relative z-10 text-center px-6 max-w-lg">
-                  <h3 className="text-[20px] sm:text-[28px] font-light text-white tracking-[0.04em] uppercase mb-2">{p.title}</h3>
+                  <h3 className="text-[22px] sm:text-[28px] font-light text-white tracking-[0.04em] uppercase mb-2 leading-tight">{p.title}</h3>
+                  <p className="text-[14px] text-white/50 font-light mb-1">{p.location}</p>
+                  <p className="text-[13px] text-white/35 font-mono tracking-[0.05em] mb-2">REF-{p.ref}</p>
                   <p className="text-[24px] font-light text-white/90 mb-8">{p.priceFormatted}</p>
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                     <a href={`tel:${p.agency.phone}`} className="w-full sm:w-auto flex items-center justify-center gap-2 bg-white text-luxury-black text-[12px] tracking-[0.1em] uppercase px-8 py-3"><Phone className="w-3.5 h-3.5" /> Call</a>
