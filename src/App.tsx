@@ -36,6 +36,7 @@ import UserDashboardPage from "./components/luxury/UserDashboardPage";
 import VideosPage from "./components/luxury/VideosPage";
 import OffmarketEmailPreviewPage from "./components/blocks/offmarket/OffmarketEmailTemplate";
 import ResourcesHubPage from "./components/luxury/ResourcesHubPage";
+import AboutPage from "./components/luxury/AboutPage";
 
 const queryClient = new QueryClient();
 
@@ -83,6 +84,7 @@ const App = () => (
             <Route path="/pdf-v1" element={<PropertyPdfV1 />} />
             <Route path="/pdf-v2" element={<PropertyPdfV2 />} />
             <Route path="/resources" element={<ResourcesHubPage />} />
+            <Route path="/about" element={<AboutPage />} />
             <Route path="/email-offmarket" element={<OffmarketEmailPreviewPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
