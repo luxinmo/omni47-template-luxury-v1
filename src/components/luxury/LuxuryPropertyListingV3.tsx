@@ -1611,8 +1611,8 @@ const LuxuryPropertyListingV3 = () => {
             <div className="flex items-center gap-3 pb-3">
               <LocationSearchDropdown selected={filters.locations} onSelectedChange={(locs) => setFilters(f => ({ ...f, locations: locs }))} className="w-[380px] shrink-0" />
               <div className="w-px h-8 bg-neutral-200 shrink-0" />
-              <button onClick={() => setFiltersOpen(true)} className="flex items-center gap-1.5 bg-luxury-black text-white text-[14px] px-4 py-2 rounded-full hover:bg-luxury-black/85 transition-all duration-200 shrink-0">
-                <SlidersHorizontal className="w-3.5 h-3.5" /> Filters
+              <button onClick={() => setFiltersOpen(true)} className={`flex items-center gap-1.5 text-[14px] px-4 py-2 rounded-full transition-all duration-200 shrink-0 border ${activeFilterCount > 0 ? "bg-luxury-black text-white border-luxury-black" : "border-neutral-200 text-luxury-black/65 hover:border-luxury-black/30"}`}>
+                <SlidersHorizontal className="w-3.5 h-3.5" /> Filters {activeFilterCount > 0 && <span className="bg-white text-luxury-black text-[12px] w-4 h-4 rounded-full flex items-center justify-center font-medium">{activeFilterCount}</span>}
               </button>
               <TypeDropdown selected={filters.types} onToggle={toggleType} />
               <PriceDropdown priceMin={filters.priceMin} priceMax={filters.priceMax} hidePOR={filters.hidePriceOnRequest} listingMode={filters.listingMode} onMinChange={v => setFilters(f => ({ ...f, priceMin: v }))} onMaxChange={v => setFilters(f => ({ ...f, priceMax: v }))} onHidePORChange={v => setFilters(f => ({ ...f, hidePriceOnRequest: v }))} onListingModeChange={v => setFilters(f => ({ ...f, listingMode: v }))} />
