@@ -167,10 +167,23 @@ const PageCard = ({ page }: { page: PageItem }) => {
 /* ─── Main Component ─── */
 const ResourcesHubPage = () => {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const visibleCategories = activeCategory
-    ? CATEGORIES.filter((c) => c.id === activeCategory)
-    : CATEGORIES;
+  const query = searchQuery.toLowerCase().trim();
+
+  const visibleCategories = CATEGORIES
+    .filter((c) => !activeCategory || c.id === activeCategory)
+    .map((c) => ({
+      ...c,
+      pages: query
+        ? c.pages.filter(
+            (p) =>
+              p.title.toLowerCase().includes(query) ||
+              p.excerpt.toLowerCase().includes(query)
+          )
+        : c.pages,
+    }))
+    .filter((c) => c.pages.length > 0);
 
   return (
     <Layout>
