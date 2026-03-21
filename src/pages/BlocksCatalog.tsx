@@ -244,6 +244,12 @@ const CATEGORIES = [
     ],
   },
   {
+    title: "📖 Property Stories",
+    blocks: [
+      { id: "property-stories", name: "Stories Carousel (Instagram-style)", origin: "PropertyListingV3", component: PropertyStories },
+    ],
+  },
+  {
     title: "🔒 Off-Market",
     blocks: [
       { id: "offmarket-split", name: "Off-Market Split", origin: "Home2/3/4", component: OffmarketSplit },
