@@ -225,10 +225,11 @@ const StoryViewer = ({
 
   return (
     <div className="fixed inset-0 z-[300] bg-black">
-      {/* Close */}
-      <button onClick={onClose} className="absolute top-4 right-4 z-50 text-white/80 hover:text-white">
-        <X className="w-6 h-6" />
-      </button>
+      <div className="absolute top-3 left-3 right-3 z-50 flex justify-end">
+        <button onClick={onClose} className="text-white/80 hover:text-white">
+          <X className="w-6 h-6" />
+        </button>
+      </div>
 
       {/* Background — full bleed image */}
       {!showEndCard && (
