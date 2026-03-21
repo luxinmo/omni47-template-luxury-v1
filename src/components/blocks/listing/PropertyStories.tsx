@@ -405,13 +405,14 @@ const PropertyStories = ({ onActiveChange }: { onActiveChange?: (active: boolean
         )}
       </div>
 
-      {activeStory !== null && (
+      {activeStory !== null && createPortal(
         <StoryViewer
           groups={STORY_GROUPS}
           initialGroupIndex={activeStory}
           onClose={() => setActiveStory(null)}
           onMarkViewed={markViewed}
-        />
+        />,
+        document.body
       )}
     </>
   );
