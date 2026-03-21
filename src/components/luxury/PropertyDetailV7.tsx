@@ -565,7 +565,7 @@ const PropertyDetailV7 = () => {
 
             {/* Mortgage Calculator */}
             <Section title="Mortgage Calculator" defaultOpen={false}>
-              <LuxuryMortgageCalculator propertyPrice={p.price} />
+              <LuxuryMortgageCalculator />
             </Section>
 
             {/* Location */}
