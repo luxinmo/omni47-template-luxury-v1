@@ -397,23 +397,45 @@ const PropertyDetailV7 = () => {
               )}
             </div>
 
-            {/* Property specs — horizontal scroll on mobile */}
-            <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-hide mb-3">
+            {/* Inline price (mobile/tablet) */}
+            <div className="lg:hidden flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-4">
+              <p className="text-[26px] sm:text-[30px] font-medium text-luxury-black tracking-tight leading-none">{p.priceFormatted}</p>
+              <span className="text-[13px] text-luxury-black/35 line-through font-light">{p.originalPrice}</span>
+              <span className="text-[10px] font-medium tracking-[0.08em] uppercase text-luxury-gold">-{p.discount}%</span>
+              <span className="text-[11px] text-luxury-black/45 font-light">{p.pricePerSqm}</span>
+              {p.alsoForRent && (
+                <span className="text-[12px] text-luxury-black/50 flex items-center gap-1">
+                  <Home className="w-3 h-3 text-luxury-gold/80" /> Rent: <span className="font-medium text-luxury-black/70">{p.rentalPrice}</span>
+                </span>
+              )}
+            </div>
+
+            {/* Compact property facts (V6 style — 4-column grid) */}
+            <div className="grid grid-cols-4 gap-1.5 sm:gap-2">
               {[
-                { icon: Bed, label: "Beds", value: p.beds },
-                { icon: Bath, label: "Baths", value: p.baths },
-                { icon: Maximize, label: "Built", value: `${p.sqm} m²` },
-                { icon: Fence, label: "Plot", value: `${p.plot.toLocaleString()} m²` },
+                { icon: Bed, label: "Bedrooms", value: p.beds },
+                { icon: Bath, label: "Bathrooms", value: p.baths },
+                { icon: Maximize, label: "Built Area", value: <>{p.sqm} m<sup>2</sup></> },
+                { icon: Fence, label: p.plot ? "Plot Size" : "Useful Area", value: p.plot ? <>{p.plot.toLocaleString()} m<sup>2</sup></> : <>{p.sqm} m<sup>2</sup></> },
               ].map((s, i) => (
-                <div key={i} className="shrink-0 bg-neutral-50 border border-neutral-200 rounded-sm px-4 py-2.5 flex items-center gap-2.5 min-w-0">
-                  <s.icon className="w-4 h-4 text-luxury-black/40 shrink-0" strokeWidth={1.5} />
-                  <div>
-                    <p className="text-[15px] font-light text-luxury-black leading-tight">{s.value}</p>
-                    <p className="text-[9px] tracking-[0.1em] uppercase text-luxury-black/50 font-medium">{s.label}</p>
-                  </div>
+                <div key={i} className="bg-neutral-50 border border-neutral-200 rounded-sm p-2 sm:p-2.5 text-center">
+                  <s.icon className="w-4 h-4 text-luxury-black/40 mx-auto mb-1.5" strokeWidth={1.5} />
+                  <p className="text-[14px] sm:text-[16px] font-light text-luxury-black mb-0.5 leading-tight">{s.value}</p>
+                  <p className="text-[9px] sm:text-[10px] tracking-[0.08em] uppercase text-luxury-black/60 font-medium leading-tight">{s.label}</p>
                 </div>
               ))}
             </div>
+            <div className="flex items-center gap-4 mt-2 text-[11px] sm:text-[12px] text-luxury-black/60 font-light">
+              <span>Year built: <strong className="font-medium text-luxury-black/80">{p.year}</strong></span>
+              <span className="text-luxury-black/30">·</span>
+              <span>Status: <strong className="font-medium text-luxury-black/80">{p.status}</strong></span>
+            </div>
+
+            {/* Price alert CTA — prominent (mobile) */}
+            <button onClick={() => setPriceAlertOpen(true)} className="lg:hidden group w-full flex items-center justify-center gap-2 border border-luxury-gold/30 bg-luxury-gold/5 text-luxury-gold hover:bg-luxury-gold/10 text-[12px] tracking-[0.08em] uppercase font-medium py-2.5 mt-4 transition-all">
+              <BellRing className="w-3.5 h-3.5" strokeWidth={1.5} />
+              Avísame si baja el precio
+            </button>
 
             {/* Tags */}
             <div className="flex flex-wrap gap-1.5 mb-4">
