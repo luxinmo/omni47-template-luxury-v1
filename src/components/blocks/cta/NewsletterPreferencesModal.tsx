@@ -119,15 +119,14 @@ export default function NewsletterPreferencesModal({
       >
         {/* Header */}
         <div
-          className="relative px-6 sm:px-8 pt-8 pb-6 text-center"
+          className="relative px-6 sm:px-8 pt-6 pb-6 text-center"
           style={{ background: "#1e1c1a" }}
         >
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors"
-          >
-            <X className="w-5 h-5" strokeWidth={1.5} />
-          </button>
+          <div className="flex justify-end mb-3">
+            <button onClick={onClose} className="text-white/50 hover:text-white transition-colors">
+              <X className="w-5 h-5" strokeWidth={1.5} />
+            </button>
+          </div>
 
           <div
             className="w-11 h-11 rounded-full flex items-center justify-center mx-auto mb-4"
