@@ -168,22 +168,31 @@ const PriceDropdown = ({ priceMin, priceMax, hidePOR, listingMode, onMinChange, 
             <div className="flex-1">
               <label className="text-[12px] uppercase tracking-wider text-luxury-black/65 font-medium mb-2 block">Min price</label>
               <input type="text" inputMode="numeric" value={priceMin} onChange={(e) => onMinChange(e.target.value.replace(/[^0-9]/g, ""))} placeholder="€ No Min" className="w-full border border-neutral-300 rounded-md px-3 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40 focus:ring-1 focus:ring-luxury-black/10" />
-              <div className="flex flex-wrap gap-2 mt-2.5">
-                {PRICE_PRESETS.slice(0, 3).map(p => (
-                  <button key={p.value} onClick={() => onMinChange(p.value)} className={`text-[12px] px-3 py-1 rounded-full border transition-colors font-light ${priceMin === p.value ? "border-luxury-black bg-luxury-black text-white" : "border-neutral-300 text-luxury-black/65 hover:border-luxury-black/40"}`}>{p.label}</button>
-                ))}
-              </div>
             </div>
             <div className="flex-1">
               <label className="text-[12px] uppercase tracking-wider text-luxury-black/65 font-medium mb-2 block">Max price</label>
               <input type="text" inputMode="numeric" value={priceMax} onChange={(e) => onMaxChange(e.target.value.replace(/[^0-9]/g, ""))} placeholder="€ No Max" className="w-full border border-neutral-300 rounded-md px-3 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40 focus:ring-1 focus:ring-luxury-black/10" />
-              <div className="flex flex-wrap gap-2 mt-2.5">
-                {PRICE_PRESETS.slice(2).map(p => (
+            </div>
+          </div>
+          {!priceMin ? (
+            <div>
+              <p className="text-[11px] text-luxury-black/40 uppercase tracking-wider mb-2">Select minimum</p>
+              <div className="flex flex-wrap gap-2">
+                {PRICE_PRESETS.map(p => (
+                  <button key={p.value} onClick={() => onMinChange(p.value)} className={`text-[12px] px-3 py-1 rounded-full border transition-colors font-light border-neutral-300 text-luxury-black/65 hover:border-luxury-black/40`}>{p.label}</button>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div>
+              <p className="text-[11px] text-luxury-black/40 uppercase tracking-wider mb-2">Select maximum</p>
+              <div className="flex flex-wrap gap-2">
+                {PRICE_PRESETS.filter(p => parseInt(p.value) > parseInt(priceMin)).map(p => (
                   <button key={p.value} onClick={() => onMaxChange(p.value)} className={`text-[12px] px-3 py-1 rounded-full border transition-colors font-light ${priceMax === p.value ? "border-luxury-black bg-luxury-black text-white" : "border-neutral-300 text-luxury-black/65 hover:border-luxury-black/40"}`}>{p.label}</button>
                 ))}
               </div>
             </div>
-          </div>
+          )}
           <label className="flex items-center gap-2.5 cursor-pointer mt-1 pt-3 border-t border-neutral-100">
             <input type="checkbox" checked={hidePOR} onChange={() => onHidePORChange(!hidePOR)} className="w-4 h-4 border-neutral-300 rounded-sm accent-luxury-black" />
             <span className="text-[14px] text-luxury-black/75">Hide "Price on Request" listings</span>
