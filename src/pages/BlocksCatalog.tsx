@@ -116,6 +116,7 @@ import HeroMini from "@/components/blocks/system/HeroMini";
 import BreadcrumbBar from "@/components/blocks/system/BreadcrumbBar";
 import NotFoundBlock from "@/components/blocks/system/NotFoundBlock";
 import SystemContentSidebar from "@/components/blocks/system/SystemContentSidebar";
+import ResourcesHubGrid from "@/components/blocks/system/ResourcesHubGrid";
 import ListingPropertyCard from "@/components/blocks/listing/ListingPropertyCard";
 import ListingBrandedCard from "@/components/blocks/listing/ListingBrandedCard";
 import ListingNewDevCard from "@/components/blocks/listing/ListingNewDevCard";
@@ -433,6 +434,7 @@ const CATEGORIES = [
       { id: "hero-mini", name: "Hero Mini (Page Header)", origin: "SystemPage", component: HeroMini },
       { id: "breadcrumb-bar", name: "Breadcrumb Bar", origin: "SystemPage", component: BreadcrumbBar },
       { id: "system-content-sidebar", name: "Content + Sidebar (V2 Layout)", origin: "SystemPageV2", component: SystemContentSidebar },
+      { id: "resources-hub-grid", name: "Resources Hub Grid", origin: "ResourcesHubPage", component: ResourcesHubGrid },
       { id: "not-found-block", name: "404 Not Found", origin: "NotFound", component: NotFoundBlock },
     ],
   },

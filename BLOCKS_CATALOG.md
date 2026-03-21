@@ -137,6 +137,62 @@
 - `phoneNumber`, `onChat`, `contactHref`
 
 
+### ResourcesHubGrid — Props
+
+```tsx
+interface ResourcesHubGridProps {
+  heroTitle?: string;          // Título principal del hero
+  heroSubtitle?: string;       // Párrafo debajo del título
+  heroLabel?: string;          // Etiqueta uppercase sobre el título
+  heroImage?: string;          // Imagen de fondo del hero
+  categories?: CategorySection[]; // Categorías con páginas agrupadas
+  stats?: StatItem[];          // Stats para el ribbon inferior
+  linkPrefix?: string;         // Prefijo de URL para tarjetas (default "/page2/")
+  liveSlugs?: Set<string>;     // Slugs con contenido real (resto = no clickable)
+}
+
+interface CategorySection {
+  id: string;
+  label: string;
+  title: string;
+  description: string;
+  icon: React.ElementType;     // Icono lucide (Building2, Globe, BookOpen, MapPin)
+  pages: PageItem[];
+}
+
+interface PageItem {
+  slug: string;
+  title: string;
+  excerpt: string;
+  image: string;               // URL de thumbnail
+}
+```
+
+### Implementación rápida
+
+```tsx
+import ResourcesHubGrid from "@/components/blocks/system/ResourcesHubGrid";
+
+// Con defaults (demo data incluida):
+<ResourcesHubGrid />
+
+// Personalizado:
+<ResourcesHubGrid
+  heroTitle="Knowledge Centre"
+  categories={myCategories}
+  liveSlugs={new Set(["about-us", "golden-visa"])}
+  linkPrefix="/page2/"
+/>
+```
+
+### Funcionalidades incluidas
+
+- **Sticky category tabs**: All / Company / Portals / Guides / Locations con underline activo
+- **Búsqueda inline**: Filtra tarjetas por título y excerpt en tiempo real
+- **Tarjetas con thumbnail**: Imagen 80×80, título, excerpt (line-clamp-2), flecha hover
+- **Live/disabled cards**: Solo los slugs en `liveSlugs` enlazan a páginas reales
+- **Stats ribbon**: 4 métricas centradas con separadores
+
 
 | ID | Nombre | Origen | Descripción visual |
 |----|--------|--------|--------------------|
@@ -482,13 +538,14 @@ onSubmit={(e) => { e.preventDefault(); if (nlEmail.trim()) setNlModalOpen(true);
 | property-pdf-v1 | PDF Sheet V1 (Single Page) | PDF Export | A4 una página: header agencia, imagen principal, specs grid, descripción, features, footer |
 | property-pdf-v2 | PDF Sheet V2 (Multi Page) | PDF Export | A4 tres páginas: portada hero, página specs+descripción, página galería+contacto |
 
-## ⚙️ System (4 variantes)
+## ⚙️ System (5 variantes)
 
 | ID | Nombre | Origen | Descripción visual |
 |----|--------|--------|--------------------|
 | hero-mini | Hero Mini (Page Header) | System | Banner compacto con título + breadcrumb, fondo con imagen dimmed |
 | breadcrumb-bar | Breadcrumb Bar | System | Barra horizontal con breadcrumb links separados por chevrons |
-| system-content-sidebar | Content + Sidebar (V2 Layout) | SystemPageV2 | Layout editorial con contenido principal (breadcrumb, título bold uppercase, hero image, TOC, artículo justified) + sidebar derecha (páginas relacionadas, portales externos con ExternalLink icon, CTA card con botón contacto). Grid responsive: sidebar debajo en mobile. Ruta: `/page2/:slug` |
+| system-content-sidebar | Content + Sidebar (V2 Layout) | SystemPageV2 | Layout editorial con contenido principal + sidebar derecha. Grid responsive. Ruta: `/page2/:slug` |
+| resources-hub-grid | Resources Hub Grid | ResourcesHubPage | Índice categorizado de páginas de contenido. Hero oscuro, sticky tabs (All/Company/Portals/Guides/Locations), buscador inline, tarjetas con thumbnail + excerpt en grid 2-col, stats ribbon final. Ruta: `/resources` |
 | not-found-block | 404 Not Found | System | Página 404 con título grande, descripción, botón "Go Home" |
 
 ### SystemContentSidebar — Props
@@ -618,7 +675,7 @@ import SystemContentSidebar from "@/components/blocks/system/SystemContentSideba
 | Contact | 5 |
 | Favorites | 4 |
 | PDF | 2 |
-| System | 3 |
-| **TOTAL BLOQUES** | **~95** |
+| System | 5 |
+| **TOTAL BLOQUES** | **~96** |
 | Preview Combos | 10 |
 | **TOTAL GENERAL** | **~105 componentes** |
