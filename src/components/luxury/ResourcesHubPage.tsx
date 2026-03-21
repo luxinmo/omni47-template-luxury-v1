@@ -259,8 +259,36 @@ const ResourcesHubPage = () => {
         </div>
       </nav>
 
+      {/* Search bar in body */}
+      <div className="max-w-5xl mx-auto px-5 sm:px-8 pt-10 sm:pt-14">
+        <div className="relative max-w-md">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: palette.textLight }} />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search pages, guides, locations…"
+            className="w-full pl-11 pr-10 py-3 text-[14px] rounded-sm outline-none transition-colors"
+            style={{
+              background: palette.white,
+              border: `1px solid ${palette.border}`,
+              color: palette.text,
+              fontFamily: fonts.body,
+            }}
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery("")}
+              className="absolute right-3 top-1/2 -translate-y-1/2"
+            >
+              <X className="w-4 h-4" style={{ color: palette.textLight }} />
+            </button>
+          )}
+        </div>
+      </div>
+
       {/* Category Sections */}
-      <div className="max-w-5xl mx-auto px-5 sm:px-8 py-14 sm:py-20 space-y-16">
+      <div className="max-w-5xl mx-auto px-5 sm:px-8 py-10 sm:py-14 space-y-16">
         {visibleCategories.map((cat) => {
           const Icon = cat.icon;
           return (
