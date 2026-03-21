@@ -676,10 +676,12 @@ const OffMarketModal = ({ open, onClose, property }: { open: boolean; onClose: (
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div className="bg-white w-full max-w-[520px] rounded-sm shadow-2xl animate-in fade-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto">
           {/* Header */}
-          <div className="relative p-6 pb-4 border-b border-neutral-100">
-            <button onClick={onClose} className="absolute top-4 right-4 text-luxury-black/40 hover:text-luxury-black transition-colors">
-              <X className="w-5 h-5" />
-            </button>
+          <div className="p-6 pb-4 border-b border-neutral-100">
+            <div className="flex justify-end mb-2">
+              <button onClick={onClose} className="text-luxury-black/40 hover:text-luxury-black transition-colors">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
             <div className="flex items-center gap-2 mb-3">
               <Lock className="w-4 h-4 text-luxury-black/50" />
               <span className="text-[12px] tracking-[0.15em] uppercase text-luxury-black/60 font-medium">Private Listing</span>
