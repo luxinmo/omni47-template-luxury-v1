@@ -675,7 +675,7 @@ import SystemContentSidebar from "@/components/blocks/system/SystemContentSideba
 | Contact | 5 |
 | Favorites | 4 |
 | PDF | 2 |
-| System | 3 |
-| **TOTAL BLOQUES** | **~95** |
+| System | 5 |
+| **TOTAL BLOQUES** | **~96** |
 | Preview Combos | 10 |
 | **TOTAL GENERAL** | **~105 componentes** |
