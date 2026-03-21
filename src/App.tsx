@@ -36,6 +36,7 @@ import UserDashboardPage from "./components/luxury/UserDashboardPage";
 import VideosPage from "./components/luxury/VideosPage";
 import OffmarketEmailPreviewPage from "./components/blocks/offmarket/OffmarketEmailTemplate";
 import ResourcesHubPage from "./components/luxury/ResourcesHubPage";
+import AboutPage from "./components/luxury/AboutPage";
 
 const queryClient = new QueryClient();
 
