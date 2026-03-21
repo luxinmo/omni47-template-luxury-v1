@@ -277,20 +277,18 @@ const PropertyDetailV7 = () => {
 
       {/* ═══ HERO GALLERY ═══ */}
       <section aria-label="Property photos">
-        {/* Mobile: taller hero, edge-to-edge */}
+        {/* Mobile: shorter hero */}
         <div className="lg:hidden relative overflow-hidden" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
           <div className="flex transition-transform duration-300 ease-out" style={{ transform: `translateX(-${heroSlide * 100}%)` }}>
             {p.images.map((img, i) => (
-              <div key={i} className="w-full shrink-0 aspect-[3/4] sm:aspect-[4/3]" onClick={() => setLightbox(i)}>
+              <div key={i} className="w-full shrink-0 aspect-[4/3] sm:aspect-[16/10]" onClick={() => setLightbox(i)}>
                 <img src={img} alt={`${p.title} — photo ${i + 1}`} loading={i === 0 ? "eager" : "lazy"} className="w-full h-full object-cover" />
               </div>
             ))}
           </div>
-          {/* Slide dots */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5">
-            {p.images.map((_, i) => (
-              <button key={i} onClick={() => setHeroSlide(i)} className={cn("rounded-full transition-all duration-300", heroSlide === i ? "w-6 h-1.5 bg-white" : "w-1.5 h-1.5 bg-white/50")} />
-            ))}
+          {/* Slide counter */}
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-sm text-white text-[12px] font-medium px-3 py-1 rounded-full">
+            {heroSlide + 1} / {p.images.length}
           </div>
           {/* Top overlay actions */}
           <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
@@ -306,15 +304,25 @@ const PropertyDetailV7 = () => {
               </button>
             </div>
           </div>
-          {/* Bottom overlay: quick actions */}
-          <div className="absolute bottom-4 right-3 flex items-center gap-2">
+        </div>
+        {/* Actions bar below photo on mobile */}
+        <div className="lg:hidden flex items-center justify-between px-4 py-3 border-b border-neutral-100">
+          <div className="flex items-center gap-3.5">
             {p.hasVideo && (
-              <button className="h-8 px-3 rounded-full bg-black/40 backdrop-blur-sm flex items-center gap-1.5 text-white text-[11px] font-medium">
-                <Play className="w-3.5 h-3.5" /> Video
+              <button className="flex items-center gap-1.5 text-[13px] text-luxury-black/70 font-medium">
+                <Play className="w-4 h-4" /> Video
               </button>
             )}
-            <button onClick={() => setGridView(true)} className="h-8 px-3 rounded-full bg-black/40 backdrop-blur-sm flex items-center gap-1.5 text-white text-[11px] font-medium">
-              <Grid3X3 className="w-3.5 h-3.5" /> {p.images.length}
+            <Link to="/pdf-v2" target="_blank" className="flex items-center gap-1.5 text-[13px] text-luxury-black/70 font-medium">
+              <FileDown className="w-4 h-4" /> PDF
+            </Link>
+          </div>
+          <div className="flex items-center gap-3.5">
+            <button className="text-luxury-black/50 hover:text-luxury-black transition-colors" aria-label="Share">
+              <Share2 className="w-[18px] h-[18px]" />
+            </button>
+            <button onClick={() => setLiked(!liked)} className={`transition-colors ${liked ? "text-luxury-black" : "text-luxury-black/50 hover:text-luxury-black"}`} aria-label={liked ? "Unsave" : "Save"}>
+              <Heart className="w-[18px] h-[18px]" fill={liked ? "currentColor" : "none"} />
             </button>
           </div>
         </div>
