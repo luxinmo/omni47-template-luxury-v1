@@ -35,6 +35,7 @@ import SellPropertyPage from "./components/luxury/SellPropertyPage";
 import UserDashboardPage from "./components/luxury/UserDashboardPage";
 import VideosPage from "./components/luxury/VideosPage";
 import OffmarketEmailPreviewPage from "./components/blocks/offmarket/OffmarketEmailTemplate";
+import ResourcesHubPage from "./components/luxury/ResourcesHubPage";
 
 const queryClient = new QueryClient();
 
