@@ -230,33 +230,6 @@ const ResourcesHubPage = () => {
         }}
       >
         <div className="max-w-5xl mx-auto px-5 sm:px-8 flex items-center gap-1 overflow-x-auto scrollbar-hide">
-          {/* Search */}
-          <div className="relative flex items-center mr-2 flex-shrink-0">
-            <Search className="absolute left-3 w-3.5 h-3.5" style={{ color: palette.textLight }} />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search pages…"
-              className="pl-9 pr-8 py-2 text-[13px] rounded-sm w-[180px] sm:w-[220px] outline-none transition-colors"
-              style={{
-                background: palette.bg,
-                border: `1px solid ${palette.border}`,
-                color: palette.text,
-                fontFamily: fonts.body,
-              }}
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery("")}
-                className="absolute right-2.5"
-              >
-                <X className="w-3.5 h-3.5" style={{ color: palette.textLight }} />
-              </button>
-            )}
-          </div>
-          {/* Divider */}
-          <div className="w-px h-6 mx-1 flex-shrink-0" style={{ background: palette.border }} />
           {[{ id: null, label: "All" }, ...CATEGORIES.map((c) => ({ id: c.id, label: c.label }))].map(
             (tab) => {
               const isActive = activeCategory === tab.id;
