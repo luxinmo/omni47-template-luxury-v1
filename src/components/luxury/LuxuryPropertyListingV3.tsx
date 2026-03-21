@@ -1303,7 +1303,7 @@ const PROPERTIES = [
   { id: 6, image: detail2, gallery: [detail2, prop3, heroImg], tag: "FOR SALE", style: "Classic", location: "Jávea · Costa Blanca", title: "FRONTLINE GOLF ESTATE WITH MOUNTAIN AND SEA VIEWS", excerpt: "Impressive estate located on the frontline of a prestigious golf course in Jávea...", beds: 5, baths: 5, sqm: 520, plot: 2500, price: "€3,750,000", features: ["Golf Views", "Pool", "Gym", "Staff Quarters"], offmarket: false },
 ];
 
-/* ─── Branded Residence Card (same structure as PropertyCard) ─── */
+/* ─── Branded Residence Card (identical layout to PropertyCard) ─── */
 const BrandedResidencePromoCard = () => {
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
@@ -1324,22 +1324,25 @@ const BrandedResidencePromoCard = () => {
       {!isCompact && (
         <div className="flex items-center justify-between mb-3">
           <span className="text-[12px] tracking-[0.15em] uppercase border border-luxury-gold/40 text-luxury-gold px-2.5 py-1 font-medium">BRANDED RESIDENCE</span>
+          <Mail className="w-4.5 h-4.5 text-luxury-black/30" />
         </div>
       )}
       <p className="text-[13px] tracking-[0.14em] uppercase text-luxury-black/60 mb-1">Marbella · Costa del Sol</p>
-      <p className="text-[13px] text-luxury-black/55 font-light mb-1.5">Branded Residence <span className="mx-1 text-luxury-black/30">|</span> Four Seasons</p>
-      <h2 className={`text-[15px] ${isTablet ? "" : "md:text-[19px]"} font-medium text-luxury-black leading-snug mb-1.5`}>FOUR SEASONS PRIVATE RESIDENCES</h2>
-      {!isCompact && <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2">Oceanfront residences with full Four Seasons hotel services, private beach club and world-class spa.</p>}
+      <p className="text-[13px] text-luxury-black/55 font-light mb-1.5">Branded Residence <span className="mx-1 text-luxury-black/30">|</span> Four Seasons <span className="mx-1 text-luxury-black/30">|</span> <span className="font-mono text-luxury-black/45 tracking-wide text-[12px]">REF-BR01</span></p>
+      <h2 className={`text-[15px] ${isTablet ? "" : "md:text-[19px]"} font-medium text-luxury-black leading-snug mb-1.5 group-hover:text-luxury-black/75 transition-colors duration-300`}>FOUR SEASONS PRIVATE RESIDENCES</h2>
+      {!isCompact && <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2">Oceanfront residences with full Four Seasons hotel services, private beach club and world-class spa. 8 exclusive units remaining.</p>}
       <div className="flex items-center gap-5 mb-3">
-        <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Units</p><p className="text-[15px] text-luxury-black font-light">8</p></div>
-        <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Built</p><p className="text-[15px] text-luxury-black font-light">45%</p></div>
-        <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Delivery</p><p className="text-[15px] text-luxury-black font-light">Q2 2027</p></div>
+        <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Beds</p><p className="text-[15px] text-luxury-black font-light">3–5</p></div>
+        <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Baths</p><p className="text-[15px] text-luxury-black font-light">3–6</p></div>
+        <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Built</p><p className="text-[15px] text-luxury-black font-light">180–450 m²</p></div>
+        <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Plot</p><p className="text-[15px] text-luxury-black font-light">—</p></div>
       </div>
       {!isTablet && (
         <div className="flex flex-wrap gap-2.5">
           <span className="text-[12px] text-luxury-black/55 font-light flex items-center gap-1.5"><span className="w-1 h-1 rounded-full bg-luxury-black/30" />Beach Club</span>
           <span className="text-[12px] text-luxury-black/55 font-light flex items-center gap-1.5"><span className="w-1 h-1 rounded-full bg-luxury-black/30" />Spa</span>
           <span className="text-[12px] text-luxury-black/55 font-light flex items-center gap-1.5"><span className="w-1 h-1 rounded-full bg-luxury-black/30" />Concierge</span>
+          <span className="text-[12px] text-luxury-black/55 font-light flex items-center gap-1.5"><span className="w-1 h-1 rounded-full bg-luxury-black/30" />Q2 2027</span>
         </div>
       )}
       {!isCompact && (
@@ -1352,7 +1355,7 @@ const BrandedResidencePromoCard = () => {
   );
 };
 
-/* ─── New Dev Promo Card (same structure as PropertyCard) ─── */
+/* ─── New Dev Promo Card (identical layout to PropertyCard) ─── */
 const NewDevPromoCard = () => {
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
@@ -1373,22 +1376,25 @@ const NewDevPromoCard = () => {
       {!isCompact && (
         <div className="flex items-center justify-between mb-3">
           <span className="text-[12px] tracking-[0.15em] uppercase border border-luxury-black/30 text-luxury-black/70 px-2.5 py-1 font-medium">NEW DEVELOPMENT</span>
+          <Mail className="w-4.5 h-4.5 text-luxury-black/30" />
         </div>
       )}
       <p className="text-[13px] tracking-[0.14em] uppercase text-luxury-black/60 mb-1">Altea · Costa Blanca</p>
-      <p className="text-[13px] text-luxury-black/55 font-light mb-1.5">New Development <span className="mx-1 text-luxury-black/30">|</span> Residential</p>
-      <h2 className={`text-[15px] ${isTablet ? "" : "md:text-[19px]"} font-medium text-luxury-black leading-snug mb-1.5`}>MAREA RESIDENCES</h2>
-      {!isCompact && <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2">Contemporary beachfront apartments with panoramic sea views and communal pools.</p>}
+      <p className="text-[13px] text-luxury-black/55 font-light mb-1.5">New Development <span className="mx-1 text-luxury-black/30">|</span> Residential <span className="mx-1 text-luxury-black/30">|</span> <span className="font-mono text-luxury-black/45 tracking-wide text-[12px]">REF-ND01</span></p>
+      <h2 className={`text-[15px] ${isTablet ? "" : "md:text-[19px]"} font-medium text-luxury-black leading-snug mb-1.5 group-hover:text-luxury-black/75 transition-colors duration-300`}>MAREA RESIDENCES</h2>
+      {!isCompact && <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2">Contemporary beachfront apartments with panoramic sea views, communal pools and underground parking. 12 units available.</p>}
       <div className="flex items-center gap-5 mb-3">
-        <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Units</p><p className="text-[15px] text-luxury-black font-light">12</p></div>
-        <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">From</p><p className="text-[15px] text-luxury-black font-light">1 bed</p></div>
-        <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Delivery</p><p className="text-[15px] text-luxury-black font-light">Q4 2026</p></div>
+        <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Beds</p><p className="text-[15px] text-luxury-black font-light">1–4</p></div>
+        <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Baths</p><p className="text-[15px] text-luxury-black font-light">1–3</p></div>
+        <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Built</p><p className="text-[15px] text-luxury-black font-light">65–280 m²</p></div>
+        <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Plot</p><p className="text-[15px] text-luxury-black font-light">—</p></div>
       </div>
       {!isTablet && (
         <div className="flex flex-wrap gap-2.5">
           <span className="text-[12px] text-luxury-black/55 font-light flex items-center gap-1.5"><span className="w-1 h-1 rounded-full bg-luxury-black/30" />Sea Views</span>
           <span className="text-[12px] text-luxury-black/55 font-light flex items-center gap-1.5"><span className="w-1 h-1 rounded-full bg-luxury-black/30" />Pool</span>
           <span className="text-[12px] text-luxury-black/55 font-light flex items-center gap-1.5"><span className="w-1 h-1 rounded-full bg-luxury-black/30" />Parking</span>
+          <span className="text-[12px] text-luxury-black/55 font-light flex items-center gap-1.5"><span className="w-1 h-1 rounded-full bg-luxury-black/30" />Q4 2026</span>
         </div>
       )}
       {!isCompact && (
