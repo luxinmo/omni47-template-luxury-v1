@@ -1519,8 +1519,8 @@ const OffMarketPropertyCard = ({ property }: { property: typeof PROPERTIES[0] })
         <>
           <div className="fixed inset-0 bg-luxury-black/60 backdrop-blur-sm z-50" onClick={() => setModalOpen(false)} />
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <div className="bg-white w-full max-w-[520px] rounded-sm shadow-2xl animate-in fade-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto">
-              <button onClick={() => setModalOpen(false)} className="absolute top-4 right-4 text-luxury-black/40 hover:text-luxury-black z-10"><X className="w-5 h-5" /></button>
+            <div className="bg-white w-full max-w-[520px] rounded-sm shadow-2xl animate-in fade-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto relative">
+              <button onClick={(e) => { e.stopPropagation(); setModalOpen(false); }} className="absolute top-4 right-4 text-luxury-black/40 hover:text-luxury-black z-10"><X className="w-5 h-5" /></button>
               {/* Property preview card */}
               <div className="p-5 pb-0">
                 <div className="flex gap-3 mb-4 bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden">
