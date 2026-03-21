@@ -127,6 +127,7 @@ import ListingMobileSearchBar from "@/components/blocks/listing/ListingMobileSea
 import ListingMobileFilterSheet from "@/components/blocks/listing/ListingMobileFilterSheet";
 import ListingMobileSortSheet from "@/components/blocks/listing/ListingMobileSortSheet";
 import ListingMobileStickyNav from "@/components/blocks/listing/ListingMobileStickyNav";
+import PropertyStories from "@/components/blocks/listing/PropertyStories";
 import HomeComboA from "@/components/combos/HomeComboA";
 import HomeComboB from "@/components/combos/HomeComboB";
 import HomeComboC from "@/components/combos/HomeComboC";
@@ -240,6 +241,12 @@ const CATEGORIES = [
       { id: "listing-mobile-filter-sheet", name: "Mobile Filter Sheet (Fullscreen)", origin: "PropertyListing", component: () => <ListingMobileFilterSheet open={true} onClose={() => {}} filters={{ types: [], quickTags: [], priceMin: "", priceMax: "", beds: "Any", baths: "Any", areaMin: "", areaMax: "", amenities: [], listingMode: "sale" }} onChange={() => {}} resultsCount={48} /> },
       { id: "listing-mobile-sort-sheet", name: "Mobile Sort Bottom Sheet", origin: "PropertyListing", component: () => <ListingMobileSortSheet open={true} onClose={() => {}} selected="premium" onSelect={() => {}} /> },
       { id: "listing-mobile-sticky-nav", name: "Mobile Bottom Nav (Call/Chat/Contact)", origin: "PropertyListing", component: ListingMobileStickyNav },
+    ],
+  },
+  {
+    title: "📖 Property Stories",
+    blocks: [
+      { id: "property-stories", name: "Stories Carousel (Instagram-style)", origin: "PropertyListingV3", component: PropertyStories },
     ],
   },
   {
