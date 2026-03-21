@@ -223,24 +223,26 @@ const StoryViewer = ({
   const activeSegment = showEndCard ? total : propIdx;
 
   return (
-    <div className="fixed inset-0 z-[300] bg-black flex items-center justify-center">
+    <div className="fixed inset-0 z-[300] bg-black">
       {/* Close */}
       <button onClick={onClose} className="absolute top-4 right-4 z-50 text-white/80 hover:text-white">
         <X className="w-6 h-6" />
       </button>
 
-      {/* Background */}
+      {/* Background — full bleed image */}
       {!showEndCard && (
-        <>
-          <img src={property.image} alt={property.title} className="absolute inset-0 w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40" />
-        </>
+        <img src={property.image} alt={property.title} className="absolute inset-0 w-full h-full object-cover" />
       )}
       {showEndCard && (
         <>
           <div className={`absolute inset-0 bg-gradient-to-br ${group.gradient} opacity-90`} />
           <div className="absolute inset-0 bg-black/30" />
         </>
+      )}
+
+      {/* Gradient overlay for readability — only on property slides */}
+      {!showEndCard && (
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30" />
       )}
 
       {/* Progress bars */}
@@ -338,7 +340,7 @@ const StoryViewer = ({
 };
 
 /* ─── Main Stories Strip ─── */
-const PropertyStories = () => {
+const PropertyStories = ({ onActiveChange }: { onActiveChange?: (active: boolean) => void }) => {
   const [viewedGroups, setViewedGroups] = useState<Set<string>>(new Set());
   const [activeStory, setActiveStory] = useState<number | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -348,6 +350,11 @@ const PropertyStories = () => {
   const markViewed = (id: string) => {
     setViewedGroups((prev) => new Set(prev).add(id));
   };
+
+  // Notify parent when story viewer opens/closes
+  useEffect(() => {
+    onActiveChange?.(activeStory !== null);
+  }, [activeStory, onActiveChange]);
 
   return (
     <>

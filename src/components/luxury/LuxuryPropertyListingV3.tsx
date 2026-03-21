@@ -168,22 +168,31 @@ const PriceDropdown = ({ priceMin, priceMax, hidePOR, listingMode, onMinChange, 
             <div className="flex-1">
               <label className="text-[12px] uppercase tracking-wider text-luxury-black/65 font-medium mb-2 block">Min price</label>
               <input type="text" inputMode="numeric" value={priceMin} onChange={(e) => onMinChange(e.target.value.replace(/[^0-9]/g, ""))} placeholder="€ No Min" className="w-full border border-neutral-300 rounded-md px-3 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40 focus:ring-1 focus:ring-luxury-black/10" />
-              <div className="flex flex-wrap gap-2 mt-2.5">
-                {PRICE_PRESETS.slice(0, 3).map(p => (
-                  <button key={p.value} onClick={() => onMinChange(p.value)} className={`text-[12px] px-3 py-1 rounded-full border transition-colors font-light ${priceMin === p.value ? "border-luxury-black bg-luxury-black text-white" : "border-neutral-300 text-luxury-black/65 hover:border-luxury-black/40"}`}>{p.label}</button>
-                ))}
-              </div>
             </div>
             <div className="flex-1">
               <label className="text-[12px] uppercase tracking-wider text-luxury-black/65 font-medium mb-2 block">Max price</label>
               <input type="text" inputMode="numeric" value={priceMax} onChange={(e) => onMaxChange(e.target.value.replace(/[^0-9]/g, ""))} placeholder="€ No Max" className="w-full border border-neutral-300 rounded-md px-3 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40 focus:ring-1 focus:ring-luxury-black/10" />
-              <div className="flex flex-wrap gap-2 mt-2.5">
-                {PRICE_PRESETS.slice(2).map(p => (
+            </div>
+          </div>
+          {!priceMin ? (
+            <div>
+              <p className="text-[11px] text-luxury-black/40 uppercase tracking-wider mb-2">Select minimum</p>
+              <div className="flex flex-wrap gap-2">
+                {PRICE_PRESETS.map(p => (
+                  <button key={p.value} onClick={() => onMinChange(p.value)} className={`text-[12px] px-3 py-1 rounded-full border transition-colors font-light border-neutral-300 text-luxury-black/65 hover:border-luxury-black/40`}>{p.label}</button>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div>
+              <p className="text-[11px] text-luxury-black/40 uppercase tracking-wider mb-2">Select maximum</p>
+              <div className="flex flex-wrap gap-2">
+                {PRICE_PRESETS.filter(p => parseInt(p.value) > parseInt(priceMin)).map(p => (
                   <button key={p.value} onClick={() => onMaxChange(p.value)} className={`text-[12px] px-3 py-1 rounded-full border transition-colors font-light ${priceMax === p.value ? "border-luxury-black bg-luxury-black text-white" : "border-neutral-300 text-luxury-black/65 hover:border-luxury-black/40"}`}>{p.label}</button>
                 ))}
               </div>
             </div>
-          </div>
+          )}
           <label className="flex items-center gap-2.5 cursor-pointer mt-1 pt-3 border-t border-neutral-100">
             <input type="checkbox" checked={hidePOR} onChange={() => onHidePORChange(!hidePOR)} className="w-4 h-4 border-neutral-300 rounded-sm accent-luxury-black" />
             <span className="text-[14px] text-luxury-black/75">Hide "Price on Request" listings</span>
@@ -405,11 +414,25 @@ const FilterSidebar = ({ open, onClose, filters, onChange }: { open: boolean; on
               <input type="text" value={filters.priceMin} onChange={(e) => onChange({ ...filters, priceMin: e.target.value })} placeholder="€ No Min" className="w-full border border-neutral-200 rounded-lg px-4 py-3 text-[14px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40 transition-colors" />
               <input type="text" value={filters.priceMax} onChange={(e) => onChange({ ...filters, priceMax: e.target.value })} placeholder="€ No Max" className="w-full border border-neutral-200 rounded-lg px-4 py-3 text-[14px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40 transition-colors" />
             </div>
-            <div className="flex flex-wrap gap-2">
-              {PRICE_PRESETS.map(p => (
-                <button key={p.value} onClick={() => onChange({ ...filters, priceMin: filters.priceMin === p.value ? "" : p.value })} className={`text-[12px] px-3 py-1.5 rounded-full border transition-colors ${filters.priceMin === p.value ? "border-luxury-black bg-luxury-black text-white" : "border-neutral-200 text-luxury-black/60 hover:border-neutral-300"}`}>{p.label}+</button>
-              ))}
-            </div>
+            {!filters.priceMin ? (
+              <>
+                <p className="text-[12px] text-luxury-black/40 mb-2">Minimum price</p>
+                <div className="flex flex-wrap gap-2">
+                  {PRICE_PRESETS.map(p => (
+                    <button key={p.value} onClick={() => onChange({ ...filters, priceMin: p.value })} className={`text-[12px] px-3 py-1.5 rounded-full border transition-colors border-neutral-200 text-luxury-black/60 hover:border-neutral-300`}>{p.label}</button>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <>
+                <p className="text-[12px] text-luxury-black/40 mb-2">Maximum price</p>
+                <div className="flex flex-wrap gap-2">
+                  {PRICE_PRESETS.filter(p => parseInt(p.value) > parseInt(filters.priceMin)).map(p => (
+                    <button key={p.value} onClick={() => onChange({ ...filters, priceMax: p.value })} className={`text-[12px] px-3 py-1.5 rounded-full border transition-colors ${filters.priceMax === p.value ? "border-luxury-black bg-luxury-black text-white" : "border-neutral-200 text-luxury-black/60 hover:border-neutral-300"}`}>{p.label}</button>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
 
           {/* Bedrooms */}
@@ -1534,6 +1557,7 @@ const LuxuryPropertyListingV3 = () => {
   const [mobileSearch, setMobileSearch] = useState("");
   const [locationPopupOpen, setLocationPopupOpen] = useState(false);
   const [enquiryProperty, setEnquiryProperty] = useState<typeof PROPERTIES[0] | null>(null);
+  const [storiesActive, setStoriesActive] = useState(false);
 
   const toggleType = (t: string) => setFilters(f => ({ ...f, types: f.types.includes(t) ? f.types.filter(x => x !== t) : [...f.types, t] }));
   const toggleAmenity = (a: string) => setFilters(f => ({ ...f, amenities: f.amenities.includes(a) ? f.amenities.filter(x => x !== a) : [...f.amenities, a] }));
@@ -1611,8 +1635,8 @@ const LuxuryPropertyListingV3 = () => {
             <div className="flex items-center gap-3 pb-3">
               <LocationSearchDropdown selected={filters.locations} onSelectedChange={(locs) => setFilters(f => ({ ...f, locations: locs }))} className="w-[380px] shrink-0" />
               <div className="w-px h-8 bg-neutral-200 shrink-0" />
-              <button onClick={() => setFiltersOpen(true)} className="flex items-center gap-1.5 bg-luxury-black text-white text-[14px] px-4 py-2 rounded-full hover:bg-luxury-black/85 transition-all duration-200 shrink-0">
-                <SlidersHorizontal className="w-3.5 h-3.5" /> Filters
+              <button onClick={() => setFiltersOpen(true)} className={`flex items-center gap-1.5 text-[14px] px-4 py-2 rounded-full transition-all duration-200 shrink-0 border ${activeFilterCount > 0 ? "bg-luxury-black text-white border-luxury-black" : "border-neutral-200 text-luxury-black/65 hover:border-luxury-black/30"}`}>
+                <SlidersHorizontal className="w-3.5 h-3.5" /> Filters {activeFilterCount > 0 && <span className="bg-white text-luxury-black text-[12px] w-4 h-4 rounded-full flex items-center justify-center font-medium">{activeFilterCount}</span>}
               </button>
               <TypeDropdown selected={filters.types} onToggle={toggleType} />
               <PriceDropdown priceMin={filters.priceMin} priceMax={filters.priceMax} hidePOR={filters.hidePriceOnRequest} listingMode={filters.listingMode} onMinChange={v => setFilters(f => ({ ...f, priceMin: v }))} onMaxChange={v => setFilters(f => ({ ...f, priceMax: v }))} onHidePORChange={v => setFilters(f => ({ ...f, hidePriceOnRequest: v }))} onListingModeChange={v => setFilters(f => ({ ...f, listingMode: v }))} />
@@ -1636,7 +1660,7 @@ const LuxuryPropertyListingV3 = () => {
 
       {/* ─── PROPERTY STORIES ─── */}
       <div className={`relative z-10 ${isMobileOrTablet ? "border-b border-neutral-100" : "max-w-[1400px] mx-auto px-6 lg:px-10 pt-4"}`}>
-        <PropertyStories />
+        <PropertyStories onActiveChange={setStoriesActive} />
       </div>
 
       {/* ─── RESULTS ─── */}
@@ -1726,7 +1750,7 @@ const LuxuryPropertyListingV3 = () => {
       </main>
 
       {/* ─── MOBILE: Bottom Sticky Navigation Bar ─── */}
-      {isMobileOrTablet && (
+      {isMobileOrTablet && !storiesActive && (
         <div className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-neutral-200 shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
           <div className="flex items-center">
             <a href="tel:+34600123456" className="flex-1 flex flex-col items-center justify-center gap-0.5 py-3 text-luxury-black hover:bg-neutral-50 transition-colors">
