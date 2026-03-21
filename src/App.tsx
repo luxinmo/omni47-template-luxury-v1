@@ -71,6 +71,7 @@ const App = () => (
             <Route path="/property4/:id" element={<PropertyDetailV4 />} />
             <Route path="/property5/:id" element={<PropertyDetailV5 />} />
             <Route path="/property6/:id" element={<PropertyDetailV6 />} />
+            <Route path="/property7/:id" element={<PropertyDetailV7 />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/favorites" element={<FavoritesPage />} />
             <Route path="/sell" element={<SellPropertyPage />} />
