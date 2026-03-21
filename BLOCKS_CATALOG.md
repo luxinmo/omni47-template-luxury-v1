@@ -137,6 +137,62 @@
 - `phoneNumber`, `onChat`, `contactHref`
 
 
+### ResourcesHubGrid — Props
+
+```tsx
+interface ResourcesHubGridProps {
+  heroTitle?: string;          // Título principal del hero
+  heroSubtitle?: string;       // Párrafo debajo del título
+  heroLabel?: string;          // Etiqueta uppercase sobre el título
+  heroImage?: string;          // Imagen de fondo del hero
+  categories?: CategorySection[]; // Categorías con páginas agrupadas
+  stats?: StatItem[];          // Stats para el ribbon inferior
+  linkPrefix?: string;         // Prefijo de URL para tarjetas (default "/page2/")
+  liveSlugs?: Set<string>;     // Slugs con contenido real (resto = no clickable)
+}
+
+interface CategorySection {
+  id: string;
+  label: string;
+  title: string;
+  description: string;
+  icon: React.ElementType;     // Icono lucide (Building2, Globe, BookOpen, MapPin)
+  pages: PageItem[];
+}
+
+interface PageItem {
+  slug: string;
+  title: string;
+  excerpt: string;
+  image: string;               // URL de thumbnail
+}
+```
+
+### Implementación rápida
+
+```tsx
+import ResourcesHubGrid from "@/components/blocks/system/ResourcesHubGrid";
+
+// Con defaults (demo data incluida):
+<ResourcesHubGrid />
+
+// Personalizado:
+<ResourcesHubGrid
+  heroTitle="Knowledge Centre"
+  categories={myCategories}
+  liveSlugs={new Set(["about-us", "golden-visa"])}
+  linkPrefix="/page2/"
+/>
+```
+
+### Funcionalidades incluidas
+
+- **Sticky category tabs**: All / Company / Portals / Guides / Locations con underline activo
+- **Búsqueda inline**: Filtra tarjetas por título y excerpt en tiempo real
+- **Tarjetas con thumbnail**: Imagen 80×80, título, excerpt (line-clamp-2), flecha hover
+- **Live/disabled cards**: Solo los slugs en `liveSlugs` enlazan a páginas reales
+- **Stats ribbon**: 4 métricas centradas con separadores
+
 
 | ID | Nombre | Origen | Descripción visual |
 |----|--------|--------|--------------------|
