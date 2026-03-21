@@ -1637,7 +1637,7 @@ const LuxuryPropertyListingV3 = () => {
 
       {/* ─── PROPERTY STORIES ─── */}
       <div className={`relative z-10 ${isMobileOrTablet ? "border-b border-neutral-100" : "max-w-[1400px] mx-auto px-6 lg:px-10 pt-4"}`}>
-        <PropertyStories />
+        <PropertyStories onActiveChange={setStoriesActive} />
       </div>
 
       {/* ─── RESULTS ─── */}
