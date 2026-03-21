@@ -116,6 +116,7 @@ import HeroMini from "@/components/blocks/system/HeroMini";
 import BreadcrumbBar from "@/components/blocks/system/BreadcrumbBar";
 import NotFoundBlock from "@/components/blocks/system/NotFoundBlock";
 import SystemContentSidebar from "@/components/blocks/system/SystemContentSidebar";
+import ResourcesHubGrid from "@/components/blocks/system/ResourcesHubGrid";
 import ListingPropertyCard from "@/components/blocks/listing/ListingPropertyCard";
 import ListingBrandedCard from "@/components/blocks/listing/ListingBrandedCard";
 import ListingNewDevCard from "@/components/blocks/listing/ListingNewDevCard";
