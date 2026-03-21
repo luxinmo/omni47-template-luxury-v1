@@ -294,84 +294,191 @@ function removeChip(f: FilterState, chip: ActiveChip): FilterState {
 
 /* ─── Filter Sidebar (Desktop) ─── */
 const FilterSidebar = ({ open, onClose, filters, onChange }: { open: boolean; onClose: () => void; filters: FilterState; onChange: (f: FilterState) => void }) => {
+  const [expandedCat, setExpandedCat] = useState<string | null>(null);
+
   if (!open) return null;
+  const activeCount = buildActiveChips(filters).length;
   const toggleType = (t: string) => onChange({ ...filters, types: filters.types.includes(t) ? filters.types.filter(x => x !== t) : [...filters.types, t] });
-  const toggleAmenity = (a: string) => onChange({ ...filters, amenities: filters.amenities.includes(a) ? filters.amenities.filter(x => x !== a) : [...filters.amenities, a] });
+  const toggleQuickTag = (t: string) => onChange({ ...filters, quickTags: filters.quickTags.includes(t) ? filters.quickTags.filter(x => x !== t) : [...filters.quickTags, t] });
+
+  const minPriceOptions = MOBILE_PRICE_OPTIONS.filter(o => o.label !== "Max");
+  const maxPriceOptions = MOBILE_PRICE_OPTIONS.filter(o => o.label !== "Min");
 
   return (
     <>
-      <div className="fixed inset-0 bg-luxury-black/30 z-40" onClick={onClose} />
-      <aside className="fixed top-0 left-0 h-full w-[340px] bg-white z-50 overflow-y-auto border-r border-neutral-200 shadow-lg animate-in slide-in-from-left duration-300">
-        <div className="flex items-center justify-between p-5 border-b border-neutral-200">
+      <div className="fixed inset-0 bg-luxury-black/40 backdrop-blur-sm z-50 animate-in fade-in duration-200" onClick={onClose} />
+      <aside className="fixed top-0 right-0 h-full w-[420px] bg-white z-50 shadow-2xl animate-in slide-in-from-right duration-300 flex flex-col">
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-200">
           <h2 className="text-[17px] font-medium text-luxury-black">Filters</h2>
-          <button onClick={onClose} className="text-luxury-black/50 hover:text-luxury-black transition-colors"><X className="w-5 h-5" /></button>
+          <div className="flex items-center gap-4">
+            <button onClick={() => onChange(defaultFilters)} className="text-[14px] font-medium text-luxury-black/60 hover:text-luxury-black transition-colors">Clear filters</button>
+            <button onClick={onClose} className="text-luxury-black/50 hover:text-luxury-black transition-colors"><X className="w-5 h-5" /></button>
+          </div>
         </div>
-        <div className="p-6 space-y-8">
+
+        {/* Active chips */}
+        {activeCount > 0 && (
+          <div className="px-6 py-3 flex flex-wrap gap-2 border-b border-neutral-100">
+            {buildActiveChips(filters).map(chip => (
+              <span key={chip.key} className="inline-flex items-center gap-1.5 bg-neutral-100 text-luxury-black text-[12px] font-medium rounded-full pl-3 pr-2 py-1.5">
+                {chip.label}
+                <button onClick={() => onChange(removeChip(filters, chip))} className="text-luxury-black/40 hover:text-luxury-black/70"><X className="w-3 h-3" /></button>
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* Scrollable content */}
+        <div className="flex-1 overflow-y-auto px-6 py-6 space-y-7">
+          {/* Property Type */}
           <div>
-            <h3 className="text-[15px] font-medium text-luxury-black mb-4">Property type</h3>
-            <div className="space-y-3">
-              {TYPE_OPTIONS_WITH_SUBTYPES.map((t) => (
-                <label key={t.label} className="flex items-center justify-between cursor-pointer group">
-                  <div className="flex items-center gap-3">
-                    <input type="checkbox" checked={filters.types.includes(t.label)} onChange={() => toggleType(t.label)} className="w-[18px] h-[18px] border-neutral-300 rounded accent-luxury-black" />
-                    <span className="text-[15px] text-luxury-black/80 group-hover:text-luxury-black transition-colors">{t.label}</span>
+            <div className="flex items-center gap-2.5 mb-4">
+              <Building2 className="w-5 h-5 text-luxury-black/50" />
+              <h3 className="text-[15px] font-medium text-luxury-black">Property Type</h3>
+              {filters.types.length > 0 && <span className="bg-red-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">{filters.types.length}</span>}
+            </div>
+            <div className="space-y-1.5">
+              {MOBILE_TYPE_CATEGORIES.map((cat) => {
+                const isExpanded = expandedCat === cat.label;
+                const selectedInCat = cat.subtypes.filter(s => filters.types.includes(s)).length;
+                const allSelected = cat.subtypes.every(s => filters.types.includes(s));
+                const toggleAll = () => {
+                  if (allSelected) {
+                    onChange({ ...filters, types: filters.types.filter(t => !cat.subtypes.includes(t)) });
+                  } else {
+                    const newTypes = [...new Set([...filters.types, ...cat.subtypes])];
+                    onChange({ ...filters, types: newTypes });
+                  }
+                };
+                return (
+                  <div key={cat.label}>
+                    <div className="flex items-center gap-0 rounded-lg border border-neutral-200 overflow-hidden hover:border-neutral-300 transition-colors">
+                      <label className="flex items-center gap-3 px-4 py-3 cursor-pointer flex-1">
+                        <input type="checkbox" checked={allSelected} onChange={toggleAll} className="w-[18px] h-[18px] border-neutral-300 rounded accent-luxury-black" />
+                        <span className="text-[14px] text-luxury-black/80 font-medium">{cat.label}</span>
+                        {selectedInCat > 0 && !allSelected && <span className="bg-red-500 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">{selectedInCat}</span>}
+                      </label>
+                      <button onClick={() => setExpandedCat(isExpanded ? null : cat.label)} className="px-4 py-3 text-luxury-black/30 hover:text-luxury-black/60 transition-colors">
+                        <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`} />
+                      </button>
+                    </div>
+                    {isExpanded && (
+                      <div className="ml-6 mt-1 space-y-0.5 animate-in slide-in-from-top-1 duration-200">
+                        {cat.subtypes.map((sub) => (
+                          <label key={sub} className="flex items-center gap-3 px-4 py-2.5 cursor-pointer hover:bg-neutral-50 rounded-lg transition-colors">
+                            <input type="checkbox" checked={filters.types.includes(sub)} onChange={() => toggleType(sub)} className="w-[18px] h-[18px] border-neutral-300 rounded accent-luxury-black" />
+                            <span className="text-[14px] text-luxury-black/75">{sub}</span>
+                          </label>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                  {t.subtypes && <span className="text-[13px] text-luxury-black/45 flex items-center gap-1">All subtypes <ChevronDown className="w-3 h-3" /></span>}
-                </label>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Quick Tags */}
+          <div>
+            <p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/45 font-medium mb-3">Quick filters</p>
+            <div className="flex flex-wrap gap-2">
+              {QUICK_TAGS.map((tag) => (
+                <button
+                  key={tag}
+                  onClick={() => toggleQuickTag(tag)}
+                  className={`px-4 py-2 text-[13px] rounded-full border transition-all ${filters.quickTags.includes(tag) ? "border-luxury-black bg-luxury-black text-white" : "border-neutral-200 text-luxury-black/60 hover:border-neutral-300"}`}
+                >
+                  {tag}
+                </button>
               ))}
             </div>
           </div>
+
+          {/* Price */}
           <div>
-            <h3 className="text-[15px] font-medium text-luxury-black mb-4">Price range</h3>
+            <div className="flex items-center gap-2.5 mb-4">
+              <span className="text-luxury-black/50 text-lg">€</span>
+              <h3 className="text-[15px] font-medium text-luxury-black">Price</h3>
+            </div>
             <div className="flex gap-3 mb-3">
-              <input type="text" value={filters.priceMin} onChange={(e) => onChange({ ...filters, priceMin: e.target.value })} placeholder="€ No Min" className="w-full border border-neutral-300 rounded-md px-3 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40" />
-              <input type="text" value={filters.priceMax} onChange={(e) => onChange({ ...filters, priceMax: e.target.value })} placeholder="€ No Max" className="w-full border border-neutral-300 rounded-md px-3 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40" />
+              <input type="text" value={filters.priceMin} onChange={(e) => onChange({ ...filters, priceMin: e.target.value })} placeholder="€ No Min" className="w-full border border-neutral-200 rounded-lg px-4 py-3 text-[14px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40 transition-colors" />
+              <input type="text" value={filters.priceMax} onChange={(e) => onChange({ ...filters, priceMax: e.target.value })} placeholder="€ No Max" className="w-full border border-neutral-200 rounded-lg px-4 py-3 text-[14px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40 transition-colors" />
             </div>
             <div className="flex flex-wrap gap-2">
               {PRICE_PRESETS.map(p => (
-                <button key={p.value} onClick={() => onChange({ ...filters, priceMin: filters.priceMin === p.value ? "" : p.value })} className={`text-[12px] px-3 py-1 rounded-full border transition-colors ${filters.priceMin === p.value ? "border-luxury-black bg-luxury-black text-white" : "border-neutral-300 text-luxury-black/60 hover:border-luxury-black/40"}`}>{p.label}+</button>
+                <button key={p.value} onClick={() => onChange({ ...filters, priceMin: filters.priceMin === p.value ? "" : p.value })} className={`text-[12px] px-3 py-1.5 rounded-full border transition-colors ${filters.priceMin === p.value ? "border-luxury-black bg-luxury-black text-white" : "border-neutral-200 text-luxury-black/60 hover:border-neutral-300"}`}>{p.label}+</button>
               ))}
             </div>
           </div>
+
+          {/* Bedrooms */}
           <div>
-            <h3 className="text-[15px] font-medium text-luxury-black mb-4">Living area</h3>
-            <div className="flex gap-3">
-              <input type="text" value={filters.areaMin} onChange={(e) => onChange({ ...filters, areaMin: e.target.value })} placeholder="No Min" className="w-full border border-neutral-300 rounded-md px-3 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40" />
-              <input type="text" value={filters.areaMax} onChange={(e) => onChange({ ...filters, areaMax: e.target.value })} placeholder="No Max" className="w-full border border-neutral-300 rounded-md px-3 py-2.5 text-[14px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40" />
+            <div className="flex items-center gap-2.5 mb-4">
+              <Bed className="w-5 h-5 text-luxury-black/50" />
+              <h3 className="text-[15px] font-medium text-luxury-black">Bedrooms</h3>
             </div>
-            <span className="text-[12px] text-luxury-black/45 mt-1.5 block">m²</span>
-          </div>
-          <div>
-            <h3 className="text-[15px] font-medium text-luxury-black mb-4">Bedrooms</h3>
             <div className="flex gap-2">
               {BED_OPTIONS.map((b) => (
-                <button key={b} onClick={() => onChange({ ...filters, beds: b })} className={`px-4 py-2 text-[14px] border rounded-md transition-all duration-200 ${filters.beds === b ? "bg-luxury-black text-white border-luxury-black" : "border-neutral-300 text-luxury-black/65 hover:border-luxury-black/40"}`}>{b}</button>
+                <button key={b} onClick={() => onChange({ ...filters, beds: b })} className={`flex-1 py-2.5 text-[14px] rounded-lg border transition-all ${filters.beds === b ? "bg-luxury-black text-white border-luxury-black" : "border-neutral-200 text-luxury-black/60 hover:border-neutral-300"}`}>{b}</button>
               ))}
             </div>
           </div>
+
+          {/* Bathrooms */}
           <div>
-            <h3 className="text-[15px] font-medium text-luxury-black mb-4">Bathrooms</h3>
+            <div className="flex items-center gap-2.5 mb-4">
+              <Bath className="w-5 h-5 text-luxury-black/50" />
+              <h3 className="text-[15px] font-medium text-luxury-black">Bathrooms</h3>
+            </div>
             <div className="flex gap-2">
               {BATH_OPTIONS.map((b) => (
-                <button key={b} onClick={() => onChange({ ...filters, baths: b })} className={`px-4 py-2 text-[14px] border rounded-md transition-all duration-200 ${filters.baths === b ? "bg-luxury-black text-white border-luxury-black" : "border-neutral-300 text-luxury-black/65 hover:border-luxury-black/40"}`}>{b}</button>
+                <button key={b} onClick={() => onChange({ ...filters, baths: b })} className={`flex-1 py-2.5 text-[14px] rounded-lg border transition-all ${filters.baths === b ? "bg-luxury-black text-white border-luxury-black" : "border-neutral-200 text-luxury-black/60 hover:border-neutral-300"}`}>{b}</button>
               ))}
             </div>
           </div>
+
+          {/* Living Area */}
           <div>
-            <h3 className="text-[15px] font-medium text-luxury-black mb-4">Amenities</h3>
-            <div className="space-y-3">
+            <div className="flex items-center gap-2.5 mb-4">
+              <Maximize className="w-5 h-5 text-luxury-black/50" />
+              <h3 className="text-[15px] font-medium text-luxury-black">Living Area (m²)</h3>
+            </div>
+            <div className="flex gap-3">
+              <input type="text" value={filters.areaMin} onChange={(e) => onChange({ ...filters, areaMin: e.target.value })} placeholder="Min" className="w-full border border-neutral-200 rounded-lg px-4 py-3 text-[14px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40 transition-colors" />
+              <input type="text" value={filters.areaMax} onChange={(e) => onChange({ ...filters, areaMax: e.target.value })} placeholder="Max" className="w-full border border-neutral-200 rounded-lg px-4 py-3 text-[14px] text-luxury-black placeholder:text-luxury-black/35 focus:outline-none focus:border-luxury-black/40 transition-colors" />
+            </div>
+          </div>
+
+          {/* Amenities */}
+          <div>
+            <div className="flex items-center gap-2.5 mb-4">
+              <MapPin className="w-5 h-5 text-luxury-black/50" />
+              <h3 className="text-[15px] font-medium text-luxury-black">Amenities</h3>
+            </div>
+            <div className="flex flex-wrap gap-2">
               {AMENITY_SIDEBAR.map((a) => (
-                <label key={a} className="flex items-center gap-3 cursor-pointer group">
-                  <input type="checkbox" checked={filters.amenities.includes(a)} onChange={() => onChange({ ...filters, amenities: filters.amenities.includes(a) ? filters.amenities.filter(x => x !== a) : [...filters.amenities, a] })} className="w-[18px] h-[18px] border-neutral-300 rounded accent-luxury-black" />
-                  <span className="text-[15px] text-luxury-black/75 group-hover:text-luxury-black transition-colors">{a}</span>
-                </label>
+                <button key={a} onClick={() => onChange({ ...filters, amenities: filters.amenities.includes(a) ? filters.amenities.filter(x => x !== a) : [...filters.amenities, a] })} className={`px-4 py-2 text-[13px] rounded-full border transition-all ${filters.amenities.includes(a) ? "border-luxury-black bg-luxury-black text-white" : "border-neutral-200 text-luxury-black/60 hover:border-neutral-300"}`}>{a}</button>
               ))}
+            </div>
+          </div>
+
+          {/* Listing Mode */}
+          <div className="bg-neutral-50 rounded-xl p-5">
+            <p className="text-[14px] font-medium text-luxury-black mb-1">What type of listing are you looking for?</p>
+            <p className="text-[12px] text-luxury-black/45 mb-4">Select the operation type</p>
+            <div className="flex rounded-lg border border-neutral-200 overflow-hidden">
+              <button onClick={() => onChange({ ...filters, listingMode: "sale" })} className={`flex-1 py-3 text-[14px] font-medium transition-all ${filters.listingMode === "sale" ? "bg-luxury-black text-white" : "bg-white text-luxury-black/60 hover:bg-neutral-100"}`}>For Sale</button>
+              <button onClick={() => onChange({ ...filters, listingMode: "rent" })} className={`flex-1 py-3 text-[14px] font-medium transition-all ${filters.listingMode === "rent" ? "bg-luxury-black text-white" : "bg-white text-luxury-black/60 hover:bg-neutral-100"}`}>For Rent</button>
+              <button onClick={() => onChange({ ...filters, listingMode: "holiday" })} className={`flex-1 py-3 text-[14px] font-medium transition-all ${filters.listingMode === "holiday" ? "bg-luxury-black text-white" : "bg-white text-luxury-black/60 hover:bg-neutral-100"}`}>Holiday</button>
             </div>
           </div>
         </div>
-        <div className="sticky bottom-0 border-t border-neutral-200 bg-white p-5 flex gap-4 items-center">
-          <button onClick={() => onChange(defaultFilters)} className="text-[13px] text-luxury-black/50 hover:text-luxury-black transition-colors font-light">Clear all</button>
-          <button onClick={onClose} className="flex-1 bg-luxury-black text-white text-[13px] tracking-[0.1em] uppercase py-3 rounded-md hover:bg-luxury-black/85 transition-all duration-300 font-medium">Show results</button>
+
+        {/* Sticky footer */}
+        <div className="border-t border-neutral-200 px-6 py-4 flex items-center gap-4 bg-white">
+          <button onClick={() => onChange(defaultFilters)} className="px-4 py-3 text-[13px] text-luxury-black/50 hover:text-luxury-black font-medium transition-colors">Clear all</button>
+          <button onClick={onClose} className="flex-1 bg-luxury-black text-white text-[13px] tracking-[0.1em] uppercase py-3.5 rounded-lg hover:bg-luxury-black/85 transition-all duration-300 font-medium">Show {8} properties</button>
         </div>
       </aside>
     </>
