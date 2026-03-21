@@ -961,9 +961,26 @@ const PropertyDetailV7 = () => {
             {p.images.map((img, i) => (
               <button key={i} onClick={() => { setGridView(false); setLightbox(i); }} className="relative aspect-[4/3] overflow-hidden group">
                 <img src={img} alt={`Photo ${i + 1}`} loading="lazy" className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
                 <span className="absolute bottom-2 left-2 text-white/70 text-[11px] font-light">{i + 1}</span>
               </button>
             ))}
+          </div>
+          {/* Contact CTA at the end */}
+          <div className="px-4 sm:px-8 py-10 text-center shrink-0">
+            <h3 className="text-[18px] sm:text-[22px] font-light text-white/90 tracking-[0.04em] uppercase mb-2">{p.title}</h3>
+            <p className="text-[13px] text-white/40 font-mono tracking-[0.05em] mb-6">REF-{p.ref}</p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
+              <a href={`tel:${p.agency.phone}`} className="w-full sm:w-auto flex items-center justify-center gap-2 bg-white text-luxury-black text-[12px] tracking-[0.1em] uppercase px-8 py-3 hover:bg-white/90 transition-all">
+                <Phone className="w-3.5 h-3.5" /> Call
+              </a>
+              <a href={`https://wa.me/${p.agency.whatsapp}`} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#25D366] text-white text-[12px] tracking-[0.1em] uppercase px-8 py-3 hover:bg-[#22bf5b] transition-all">
+                <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
+              </a>
+              <button onClick={() => { setGridView(false); setEnquiryOpen(true); }} className="w-full sm:w-auto flex items-center justify-center gap-2 border border-white/30 text-white text-[12px] tracking-[0.1em] uppercase px-8 py-3 hover:bg-white/10 transition-all">
+                <Mail className="w-3.5 h-3.5" /> Enquiry
+              </button>
+            </div>
           </div>
         </div>
       )}
