@@ -1489,10 +1489,11 @@ const OffMarketPropertyCard = ({ property }: { property: typeof PROPERTIES[0] })
             </div>
           )}
           <p className="text-[13px] tracking-[0.14em] uppercase text-luxury-black/60 mb-1">{property.location}</p>
+          <p className="text-[13px] text-luxury-black/55 font-light mb-1.5">Detached houses <span className="mx-1 text-luxury-black/30">|</span> {property.style} <span className="mx-1 text-luxury-black/30">|</span> <span className="font-mono text-luxury-black/45 tracking-wide text-[12px]">{propertyRef}</span></p>
           <h2 className={`text-[15px] ${isTablet ? "" : "md:text-[19px]"} font-medium text-luxury-black leading-snug mb-1.5`}>{offmarketTitle}</h2>
-          {!isTablet && (
-            <p className="text-[13px] text-luxury-black/50 font-light mb-3 italic flex items-center gap-1.5">
-              <Lock className="w-3 h-3" /> Exclusive listing — contact us for details.
+          {!isCompact && (
+            <p className="text-[14px] text-luxury-black/60 font-light leading-relaxed mb-5 line-clamp-2 italic flex items-center gap-1.5">
+              <Lock className="w-3 h-3 shrink-0" /> Exclusive listing — contact us for full details and private viewing.
             </p>
           )}
           <div className="flex items-center gap-5 mb-3">
@@ -1501,6 +1502,11 @@ const OffMarketPropertyCard = ({ property }: { property: typeof PROPERTIES[0] })
             <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Built</p><p className="text-[15px] text-luxury-black font-light">{property.sqm} m²</p></div>
             {property.plot && <div className="text-center"><p className="text-[11px] tracking-[0.1em] uppercase text-luxury-black/50 mb-0.5">Plot</p><p className="text-[15px] text-luxury-black font-light">{property.plot.toLocaleString()} m²</p></div>}
           </div>
+          {!isTablet && (
+            <div className="flex flex-wrap gap-2.5">
+              {property.features.map((f, i) => <span key={i} className="text-[12px] text-luxury-black/55 font-light flex items-center gap-1.5"><span className="w-1 h-1 rounded-full bg-luxury-black/30" />{f}</span>)}
+            </div>
+          )}
           {!isCompact && (
             <div className="mt-auto pt-5 border-t border-neutral-100 flex items-center justify-between">
               <p className="text-2xl md:text-[28px] font-extralight text-luxury-black tracking-tight">{property.price}</p>
