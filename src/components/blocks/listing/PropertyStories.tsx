@@ -340,7 +340,7 @@ const StoryViewer = ({
 };
 
 /* ─── Main Stories Strip ─── */
-const PropertyStories = () => {
+const PropertyStories = ({ onActiveChange }: { onActiveChange?: (active: boolean) => void }) => {
   const [viewedGroups, setViewedGroups] = useState<Set<string>>(new Set());
   const [activeStory, setActiveStory] = useState<number | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -350,6 +350,11 @@ const PropertyStories = () => {
   const markViewed = (id: string) => {
     setViewedGroups((prev) => new Set(prev).add(id));
   };
+
+  // Notify parent when story viewer opens/closes
+  useEffect(() => {
+    onActiveChange?.(activeStory !== null);
+  }, [activeStory, onActiveChange]);
 
   return (
     <>
