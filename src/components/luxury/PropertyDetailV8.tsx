@@ -253,7 +253,7 @@ const PropertyDetailV8 = () => {
       )}
 
       {/* ═══ HERO GALLERY ═══ */}
-      <section aria-label="Property photos">
+      <section aria-label="Property photos" className="relative">
         {/* Mobile: swipeable */}
         <div className="lg:hidden relative overflow-hidden" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
           <div className="flex transition-transform duration-300 ease-out" style={{ transform: `translateX(-${heroSlide * 100}%)` }}>
@@ -283,16 +283,13 @@ const PropertyDetailV8 = () => {
           </div>
         </div>
 
-        {/* Desktop: cinematic 3-column asymmetric mosaic */}
-        <div className="hidden lg:grid grid-cols-3 gap-1 h-[600px]">
-          {/* Big left hero */}
-          <div className="col-span-2 row-span-1 relative overflow-hidden cursor-pointer group" onClick={() => setLightbox(0)}>
+        {/* Desktop: full-width gallery with overlapping price card */}
+        <div className="hidden lg:grid grid-cols-[65%_35%] h-[88vh] min-h-[600px] max-h-[820px] relative">
+          {/* Big hero left */}
+          <div className="relative overflow-hidden cursor-pointer group" onClick={() => setLightbox(0)}>
             <img src={p.images[0]} alt={p.title} loading="eager" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
-            <div className="absolute bottom-4 left-4 bg-white/80 backdrop-blur-sm px-3 py-1.5">
-              <span className="text-[11px] tracking-[0.2em] font-medium text-luxury-black uppercase">{brand.name}</span>
-            </div>
             {/* Floating top-right actions */}
-            <div className="absolute top-4 right-4 flex items-center gap-2">
+            <div className="absolute top-5 right-5 flex items-center gap-2">
               <button onClick={(e) => { e.stopPropagation(); }} className="flex items-center gap-1.5 bg-white/90 backdrop-blur-sm text-luxury-black text-[12px] font-medium px-3.5 py-2 rounded-full shadow-sm hover:bg-white transition-all">
                 <Share2 className="w-3.5 h-3.5" /> Share
               </button>
@@ -301,14 +298,14 @@ const PropertyDetailV8 = () => {
               </button>
             </div>
           </div>
-          {/* Right column: 3 stacked images */}
-          <div className="grid grid-rows-3 gap-1">
+          {/* Right column: 2 stacked images */}
+          <div className="grid grid-rows-2 gap-[2px] ml-[2px]">
             <div className="relative overflow-hidden cursor-pointer group" onClick={() => setLightbox(1)}>
               <img src={p.images[1]} alt="" loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
             </div>
             <div className="relative overflow-hidden cursor-pointer group" onClick={() => setLightbox(2)}>
               <img src={p.images[2]} alt="" loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-              <div className="absolute bottom-3 left-3 flex items-center gap-2">
+              <div className="absolute bottom-4 left-4 flex items-center gap-2">
                 {p.hasVideo && (
                   <button onClick={(e) => e.stopPropagation()} className="flex items-center gap-1.5 bg-white/90 backdrop-blur-sm text-luxury-black text-[12px] font-medium px-3 py-2 rounded-full shadow-sm hover:bg-white transition-all">
                     <Play className="w-3.5 h-3.5" /> Video
@@ -320,294 +317,278 @@ const PropertyDetailV8 = () => {
                   </button>
                 )}
               </div>
-            </div>
-            <div className="relative overflow-hidden cursor-pointer group" onClick={() => setLightbox(3)}>
-              <img src={p.images[3]} alt="" loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-              <button onClick={(e) => { e.stopPropagation(); setGridView(true); }} className="absolute bottom-3 right-3 flex items-center gap-2 bg-white/90 backdrop-blur-sm text-luxury-black text-[13px] font-medium px-4 py-2.5 rounded-lg shadow-md hover:bg-white transition-all">
+              <button onClick={(e) => { e.stopPropagation(); setGridView(true); }} className="absolute bottom-4 right-4 flex items-center gap-2 bg-white/90 backdrop-blur-sm text-luxury-black text-[13px] font-medium px-4 py-2.5 rounded-lg shadow-md hover:bg-white transition-all">
                 <Grid3X3 className="w-4 h-4" /> Show all photos
               </button>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* ═══ MAIN CONTENT ═══ */}
-      <main className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-5 lg:py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8">
+          {/* ─── Floating Price Card overlapping gallery ─── */}
+          <div className="absolute bottom-0 left-[52%] w-[420px] bg-white border border-neutral-200 shadow-xl p-6 z-20">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-[11px] tracking-[0.15em] uppercase border border-neutral-400 text-neutral-600 px-2.5 py-1 font-medium">{p.tag}</span>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <button className="w-8 h-8 flex items-center justify-center rounded-full border border-neutral-200 text-luxury-black/40 hover:text-luxury-black hover:border-neutral-400 transition-all"><FileDown className="w-3.5 h-3.5" /></button>
+                </PopoverTrigger>
+                <PopoverContent align="end" className="w-[180px] p-0 rounded-none border-luxury-black/10">
+                  <Link to="/pdf-v1" target="_blank" className="block px-4 py-3 text-[11px] tracking-wider text-luxury-black hover:bg-neutral-50 transition-colors">FICHA (1 PAGE)</Link>
+                  <Link to="/pdf-v2" target="_blank" className="block px-4 py-3 text-[11px] tracking-wider text-luxury-black hover:bg-neutral-50 transition-colors border-t border-neutral-100">CATÁLOGO (3 PAGES)</Link>
+                </PopoverContent>
+              </Popover>
+            </div>
 
-          {/* ─── LEFT COLUMN ─── */}
-          <div className="lg:col-span-7">
+            <div className="flex flex-wrap items-baseline gap-3 mb-1">
+              <p className="text-[32px] font-medium text-luxury-black tracking-tight leading-none">{p.priceFormatted}</p>
+              <span className="text-[14px] text-luxury-black/30 line-through font-light">{p.originalPrice}</span>
+              <span className="text-[11px] font-medium tracking-[0.08em] uppercase text-luxury-gold bg-luxury-gold/10 px-2 py-0.5">-{p.discount}%</span>
+            </div>
+            <p className="text-[12px] text-luxury-black/50 mb-1">{p.pricePerSqm}</p>
+            {p.alsoForRent && (
+              <p className="text-[13px] text-luxury-black/55 mb-4 flex items-center gap-1.5">
+                <Home className="w-3.5 h-3.5 text-luxury-gold/80" /> Also for rent: <span className="font-medium text-luxury-black/80">{p.rentalPrice}</span>
+              </p>
+            )}
 
-            {/* Breadcrumb */}
-            <nav aria-label="Breadcrumb" className="mb-3 hidden sm:block">
-              <ol className="flex items-center gap-2 text-[13px] text-luxury-black/50 font-light">
-                {p.breadcrumb.map((crumb, i) => (
-                  <li key={i} className="flex items-center gap-2">
-                    {i < p.breadcrumb.length - 1 ? (
-                      <Link to={p.breadcrumbLinks[i]} className="hover:text-luxury-black transition-colors">{crumb}</Link>
-                    ) : (
-                      <span className="text-luxury-black/70 font-normal">{crumb}</span>
-                    )}
-                    {i < p.breadcrumb.length - 1 && <ChevronRight className="w-3 h-3 text-luxury-black/30" />}
-                  </li>
-                ))}
-              </ol>
-            </nav>
+            <div className="flex gap-2 mb-2">
+              <a href={`tel:${p.agency.phone}`} className="flex-1 flex items-center justify-center gap-2 bg-luxury-black text-white text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-luxury-black/85 transition-all">
+                <Phone className="w-3.5 h-3.5" /> Call
+              </a>
+              <a href={`https://wa.me/${p.agency.whatsapp}`} target="_blank" rel="noopener noreferrer" className="flex-1 flex items-center justify-center gap-2 bg-[#25D366] text-white text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-[#22bf5b] transition-all">
+                <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
+              </a>
+            </div>
+            <button onClick={() => setEnquiryOpen(true)} className="w-full flex items-center justify-center gap-2 border border-neutral-300 text-luxury-black text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-neutral-100 transition-all mb-5">
+              <Mail className="w-3.5 h-3.5" /> Send Enquiry
+            </button>
 
-            {/* Title + Location */}
-            <h1 className="text-[20px] sm:text-[24px] md:text-[30px] lg:text-[36px] font-medium text-luxury-black leading-tight tracking-[0.04em] uppercase mb-1">
-              {p.title}
-            </h1>
-            <p className="text-[12px] sm:text-[13px] text-luxury-black/50 font-light tracking-[0.1em] uppercase mb-3 flex items-center gap-2">
-              <MapPin className="w-3.5 h-3.5 shrink-0" strokeWidth={1.5} />
-              {p.location} · {p.region}
-            </p>
-
-            {/* ── Inline Price + Specs row (mobile/tablet) ── */}
-            <div className="lg:hidden mb-4">
-              <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-2">
-                <p className="text-[26px] sm:text-[30px] font-medium text-luxury-black tracking-tight leading-none">{p.priceFormatted}</p>
-                <span className="text-[13px] text-luxury-black/35 line-through font-light">{p.originalPrice}</span>
-                <span className="text-[10px] font-medium tracking-[0.08em] uppercase text-luxury-gold">-{p.discount}%</span>
-              </div>
-              <div className="flex items-center gap-3 text-[11px] text-luxury-black/50 font-light mb-1">
-                <span>{p.pricePerSqm}</span>
-                {p.alsoForRent && (
-                  <span className="flex items-center gap-1">
-                    <Home className="w-3 h-3 text-luxury-gold/80" /> Rent: <strong className="font-medium text-luxury-black/70">{p.rentalPrice}</strong>
-                  </span>
-                )}
-              </div>
-              <button onClick={() => setPriceAlertOpen(true)} className="group flex items-center gap-1.5 text-[11px] text-luxury-gold/80 hover:text-luxury-gold font-light transition-colors">
-                <BellRing className="w-3 h-3 group-hover:animate-[wiggle_0.4s_ease-in-out]" strokeWidth={1.4} />
+            <div className="border-t border-neutral-200 pt-4">
+              <p className="text-[13px] text-luxury-black/40 font-light leading-relaxed text-center">
+                Get in touch for a personal consultation or to arrange a private viewing.
+              </p>
+              <p className="text-[14px] text-luxury-black/50 font-mono text-center mt-2 tracking-[0.05em]">REF-{p.ref}</p>
+              <button onClick={() => setPriceAlertOpen(true)} className="group w-full flex items-center justify-center gap-2 mt-3 border border-luxury-gold/30 text-luxury-gold text-[11px] tracking-[0.12em] uppercase py-2.5 hover:bg-luxury-gold/5 transition-all">
+                <BellRing className="w-3.5 h-3.5 group-hover:animate-[wiggle_0.4s_ease-in-out]" strokeWidth={1.5} />
                 Avísame si baja el precio
               </button>
             </div>
+          </div>
+        </div>
 
-            {/* ── Specs grid — compact 4-col ── */}
-            <div className="grid grid-cols-4 gap-1.5 sm:gap-2 mb-3">
-              {[
-                { icon: Bed, label: "Bedrooms", value: p.beds },
-                { icon: Bath, label: "Bathrooms", value: p.baths },
-                { icon: Maximize, label: "Built Area", value: <>{p.sqm} m<sup>2</sup></> },
-                { icon: Fence, label: p.plot ? "Plot Size" : "Useful Area", value: p.plot ? <>{p.plot.toLocaleString()} m<sup>2</sup></> : <>{p.sqm} m<sup>2</sup></> },
-              ].map((s, i) => (
-                <div key={i} className="bg-neutral-50 border border-neutral-200 rounded-sm p-2 sm:p-2.5 text-center">
-                  <s.icon className="w-4 h-4 text-luxury-black/40 mx-auto mb-1.5" strokeWidth={1.5} />
-                  <p className="text-[14px] sm:text-[16px] font-light text-luxury-black mb-0.5 leading-tight">{s.value}</p>
-                  <p className="text-[9px] sm:text-[10px] tracking-[0.08em] uppercase text-luxury-black/60 font-medium leading-tight">{s.label}</p>
-                </div>
-              ))}
-            </div>
-            <div className="flex items-center gap-4 text-[11px] sm:text-[12px] text-luxury-black/60 font-light mb-4">
-              <span>Year built: <strong className="font-medium text-luxury-black/80">{p.year}</strong></span>
-              <span className="text-luxury-black/30">·</span>
-              <span>Status: <strong className="font-medium text-luxury-black/80">{p.status}</strong></span>
-            </div>
-
-            {/* Tags */}
-            <div className="flex flex-wrap gap-2 mb-5">
-              <span className="text-[12px] text-luxury-gold font-medium border border-luxury-gold/40 bg-luxury-gold/5 px-3.5 py-2 tracking-[0.05em] flex items-center gap-1.5">
-                <Star className="w-3.5 h-3.5" strokeWidth={1.5} /> Exclusive
+        {/* ── Inline Price for mobile ── */}
+        <div className="lg:hidden px-4 pt-4 pb-2">
+          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-2">
+            <p className="text-[26px] sm:text-[30px] font-medium text-luxury-black tracking-tight leading-none">{p.priceFormatted}</p>
+            <span className="text-[13px] text-luxury-black/35 line-through font-light">{p.originalPrice}</span>
+            <span className="text-[10px] font-medium tracking-[0.08em] uppercase text-luxury-gold">-{p.discount}%</span>
+          </div>
+          <div className="flex items-center gap-3 text-[11px] text-luxury-black/50 font-light mb-1">
+            <span>{p.pricePerSqm}</span>
+            {p.alsoForRent && (
+              <span className="flex items-center gap-1">
+                <Home className="w-3 h-3 text-luxury-gold/80" /> Rent: <strong className="font-medium text-luxury-black/70">{p.rentalPrice}</strong>
               </span>
-              {["Gated Community", "Newly Built", "Sea Views"].map((tag, i) => (
-                <span key={i} className="text-[12px] text-luxury-black/80 border border-neutral-200 px-3.5 py-2 font-light">{tag}</span>
+            )}
+          </div>
+          <button onClick={() => setPriceAlertOpen(true)} className="group flex items-center gap-1.5 text-[11px] text-luxury-gold/80 hover:text-luxury-gold font-light transition-colors">
+            <BellRing className="w-3 h-3 group-hover:animate-[wiggle_0.4s_ease-in-out]" strokeWidth={1.4} />
+            Avísame si baja el precio
+          </button>
+        </div>
+      </section>
+
+      {/* ═══ MAIN CONTENT — single column ═══ */}
+      <main className="max-w-[900px] mx-auto px-4 sm:px-6 lg:px-10 py-5 lg:py-8">
+
+          {/* Breadcrumb */}
+          <nav aria-label="Breadcrumb" className="mb-3 hidden sm:block">
+            <ol className="flex items-center gap-2 text-[13px] text-luxury-black/50 font-light">
+              {p.breadcrumb.map((crumb, i) => (
+                <li key={i} className="flex items-center gap-2">
+                  {i < p.breadcrumb.length - 1 ? (
+                    <Link to={p.breadcrumbLinks[i]} className="hover:text-luxury-black transition-colors">{crumb}</Link>
+                  ) : (
+                    <span className="text-luxury-black/70 font-normal">{crumb}</span>
+                  )}
+                  {i < p.breadcrumb.length - 1 && <ChevronRight className="w-3 h-3 text-luxury-black/30" />}
+                </li>
               ))}
-            </div>
+            </ol>
+          </nav>
 
-            {/* ─── ABOUT ─── */}
-            <section className="border-t border-neutral-200 pt-5 mb-6">
-              <h2 className="text-[18px] font-medium text-luxury-black mb-3">About This Property</h2>
-              <div className={cn("text-[14px] leading-[1.9] text-luxury-black/85 font-light whitespace-pre-line", !expandDesc && "line-clamp-[12]")}>
-                {p.description}
+          {/* Title + Location */}
+          <h1 className="text-[20px] sm:text-[24px] md:text-[30px] lg:text-[36px] font-medium text-luxury-black leading-tight tracking-[0.04em] uppercase mb-1">
+            {p.title}
+          </h1>
+          <p className="text-[12px] sm:text-[13px] text-luxury-black/50 font-light tracking-[0.1em] uppercase mb-4 flex items-center gap-2">
+            <MapPin className="w-3.5 h-3.5 shrink-0" strokeWidth={1.5} />
+            {p.location} · {p.region}
+          </p>
+
+          {/* ── Specs grid — compact 4-col ── */}
+          <div className="grid grid-cols-4 gap-1.5 sm:gap-2 mb-3">
+            {[
+              { icon: Bed, label: "Bedrooms", value: p.beds },
+              { icon: Bath, label: "Bathrooms", value: p.baths },
+              { icon: Maximize, label: "Built Area", value: <>{p.sqm} m<sup>2</sup></> },
+              { icon: Fence, label: p.plot ? "Plot Size" : "Useful Area", value: p.plot ? <>{p.plot.toLocaleString()} m<sup>2</sup></> : <>{p.sqm} m<sup>2</sup></> },
+            ].map((s, i) => (
+              <div key={i} className="bg-neutral-50 border border-neutral-200 rounded-sm p-2 sm:p-2.5 text-center">
+                <s.icon className="w-4 h-4 text-luxury-black/40 mx-auto mb-1.5" strokeWidth={1.5} />
+                <p className="text-[14px] sm:text-[16px] font-light text-luxury-black mb-0.5 leading-tight">{s.value}</p>
+                <p className="text-[9px] sm:text-[10px] tracking-[0.08em] uppercase text-luxury-black/60 font-medium leading-tight">{s.label}</p>
               </div>
-              <button onClick={() => setExpandDesc(!expandDesc)} className="flex items-center gap-1 mt-2 text-[12px] tracking-[0.1em] uppercase text-luxury-black/75 hover:text-luxury-black font-medium transition-colors">
-                {expandDesc ? "Show less" : "Read more"} <ChevronDown className={cn("w-3.5 h-3.5 transition-transform", expandDesc && "rotate-180")} />
-              </button>
-            </section>
+            ))}
+          </div>
+          <div className="flex items-center gap-4 text-[11px] sm:text-[12px] text-luxury-black/60 font-light mb-4">
+            <span>Year built: <strong className="font-medium text-luxury-black/80">{p.year}</strong></span>
+            <span className="text-luxury-black/30">·</span>
+            <span>Status: <strong className="font-medium text-luxury-black/80">{p.status}</strong></span>
+          </div>
 
-            {/* ─── HIGHLIGHTS ─── */}
-            <section className="mb-6">
-              <h2 className="text-[18px] font-medium text-luxury-black mb-3">Key Highlights</h2>
-              <div className="bg-neutral-50 border border-neutral-200 rounded-sm p-5">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  {p.highlights.map((h, i) => (
-                    <div key={i} className="flex items-start gap-2.5 text-[13px] text-luxury-black/80 font-light">
-                      <Check className="w-3.5 h-3.5 text-luxury-gold/70 mt-0.5 shrink-0" strokeWidth={2} />
-                      {h}
+          {/* Tags */}
+          <div className="flex flex-wrap gap-2 mb-5">
+            <span className="text-[12px] text-luxury-gold font-medium border border-luxury-gold/40 bg-luxury-gold/5 px-3.5 py-2 tracking-[0.05em] flex items-center gap-1.5">
+              <Star className="w-3.5 h-3.5" strokeWidth={1.5} /> Exclusive
+            </span>
+            {["Gated Community", "Newly Built", "Sea Views"].map((tag, i) => (
+              <span key={i} className="text-[12px] text-luxury-black/80 border border-neutral-200 px-3.5 py-2 font-light">{tag}</span>
+            ))}
+          </div>
+
+          {/* ─── ABOUT ─── */}
+          <section className="border-t border-neutral-200 pt-5 mb-6">
+            <h2 className="text-[18px] font-medium text-luxury-black mb-3">About This Property</h2>
+            <div className={cn("text-[14px] leading-[1.9] text-luxury-black/85 font-light whitespace-pre-line", !expandDesc && "line-clamp-[12]")}>
+              {p.description}
+            </div>
+            <button onClick={() => setExpandDesc(!expandDesc)} className="flex items-center gap-1 mt-2 text-[12px] tracking-[0.1em] uppercase text-luxury-black/75 hover:text-luxury-black font-medium transition-colors">
+              {expandDesc ? "Show less" : "Read more"} <ChevronDown className={cn("w-3.5 h-3.5 transition-transform", expandDesc && "rotate-180")} />
+            </button>
+          </section>
+
+          {/* ─── HIGHLIGHTS ─── */}
+          <section className="mb-6">
+            <h2 className="text-[18px] font-medium text-luxury-black mb-3">Key Highlights</h2>
+            <div className="bg-neutral-50 border border-neutral-200 rounded-sm p-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                {p.highlights.map((h, i) => (
+                  <div key={i} className="flex items-start gap-2.5 text-[13px] text-luxury-black/80 font-light">
+                    <Check className="w-3.5 h-3.5 text-luxury-gold/70 mt-0.5 shrink-0" strokeWidth={2} />
+                    {h}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* ─── CHARACTERISTICS ─── */}
+          <section className="border-t border-neutral-200 pt-5 mb-6">
+            <h2 className="text-[18px] font-medium text-luxury-black mb-4">Basic Characteristics</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12">
+              {[
+                [
+                  { label: "Reference", value: p.ref },
+                  { label: "Property type", value: "Detached house" },
+                  { label: "Price", value: p.priceFormatted },
+                  { label: "Built area", value: <>{p.sqm} m<sup>2</sup></> },
+                  { label: "Energy rating", value: p.energyClass },
+                ],
+                [
+                  { label: "Bedrooms", value: p.beds },
+                  { label: "Bathrooms", value: p.baths },
+                  { label: "Useful area", value: <>{Math.round(p.sqm * 0.67)} m<sup>2</sup></> },
+                  { label: "Plot", value: <>{p.plot.toLocaleString()} m<sup>2</sup></> },
+                  { label: "Garage", value: `${p.garage} cars` },
+                ],
+              ].map((col, ci) => (
+                <div key={ci}>
+                  {col.map((row, i) => (
+                    <div key={i} className="flex items-center justify-between py-2.5 border-b border-neutral-200">
+                      <span className="text-[14px] text-luxury-black/80 font-light">{row.label}</span>
+                      <span className="text-[14px] text-luxury-black font-medium">{row.value}</span>
                     </div>
                   ))}
                 </div>
-              </div>
-            </section>
-
-            {/* ─── CHARACTERISTICS ─── */}
-            <section className="border-t border-neutral-200 pt-5 mb-6">
-              <h2 className="text-[18px] font-medium text-luxury-black mb-4">Basic Characteristics</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12">
-                {[
-                  [
-                    { label: "Reference", value: p.ref },
-                    { label: "Property type", value: "Detached house" },
-                    { label: "Price", value: p.priceFormatted },
-                    { label: "Built area", value: <>{p.sqm} m<sup>2</sup></> },
-                    { label: "Energy rating", value: p.energyClass },
-                  ],
-                  [
-                    { label: "Bedrooms", value: p.beds },
-                    { label: "Bathrooms", value: p.baths },
-                    { label: "Useful area", value: <>{Math.round(p.sqm * 0.67)} m<sup>2</sup></> },
-                    { label: "Plot", value: <>{p.plot.toLocaleString()} m<sup>2</sup></> },
-                    { label: "Garage", value: `${p.garage} cars` },
-                  ],
-                ].map((col, ci) => (
-                  <div key={ci}>
-                    {col.map((row, i) => (
-                      <div key={i} className="flex items-center justify-between py-2.5 border-b border-neutral-200">
-                        <span className="text-[14px] text-luxury-black/80 font-light">{row.label}</span>
-                        <span className="text-[14px] text-luxury-black font-medium">{row.value}</span>
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* ─── FEATURES ─── */}
-            <section className="border-t border-neutral-200 pt-5 mb-6">
-              <h2 className="text-[18px] font-medium text-luxury-black mb-4">Features & Amenities</h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-2.5">
-                {p.features.map((f, i) => (
-                  <div key={i} className="flex items-center gap-2 text-[14px] text-luxury-black/80 font-light">
-                    <Check className="w-3.5 h-3.5 text-luxury-black/50" strokeWidth={2} /> {f}
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* ─── FLOOR PLANS ─── */}
-            <section className="border-t border-neutral-200 pt-5 mb-6">
-              <h2 className="text-[18px] font-medium text-luxury-black mb-4">Floor Plans</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {["Ground Floor", "First Floor"].map((floor, i) => (
-                  <div key={i} className="bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden">
-                    <div className="aspect-[4/3] flex items-center justify-center text-luxury-black/30">
-                      <div className="text-center">
-                        <Grid3X3 className="w-10 h-10 mx-auto mb-2 text-luxury-black/20" strokeWidth={1} />
-                        <p className="text-[13px] font-light">{floor} Plan</p>
-                      </div>
-                    </div>
-                    <div className="px-4 py-3 border-t border-neutral-200">
-                      <p className="text-[14px] font-medium text-luxury-black">{floor}</p>
-                      <p className="text-[12px] text-luxury-black/50 font-light">{i === 0 ? `${Math.round(p.sqm * 0.6)} m²` : `${Math.round(p.sqm * 0.4)} m²`}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* ─── MARKET DATA ─── */}
-            <section className="border-t border-neutral-200 pt-5 mb-6">
-              <h2 className="text-[18px] font-medium text-luxury-black mb-4">Real Estate Market in Santa Eulalia</h2>
-              <div className="grid grid-cols-2 gap-3 mb-4">
-                {MARKET_DATA.map((d, i) => (
-                  <div key={i} className="bg-neutral-50 border border-neutral-200 rounded-sm p-4">
-                    <p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/65 font-medium mb-1">{d.label}</p>
-                    <p className="text-[20px] font-light text-luxury-black mb-2">{d.value}</p>
-                    <div className="w-full h-2 bg-neutral-200 rounded-full overflow-hidden mb-1.5">
-                      <div className="h-full bg-luxury-gold/60 rounded-full transition-all duration-700" style={{ width: `${d.pct}%` }} />
-                    </div>
-                    <p className="text-[12px] text-luxury-gold/80 font-medium flex items-center gap-1">
-                      <TrendingUp className="w-3 h-3" /> {d.trend}
-                    </p>
-                  </div>
-                ))}
-              </div>
-              <p className="text-[14px] leading-[1.85] text-luxury-black/80 font-light">
-                The luxury villa market in Santa Eulalia, Ibiza, has experienced consistent growth over the past five years, driven by strong international demand and limited supply of premium coastal properties.
-              </p>
-            </section>
-
-            {/* ─── NEARBY AREAS ─── */}
-            <section className="border-t border-neutral-200 pt-5 mb-6">
-              <h2 className="text-[18px] font-medium text-luxury-black mb-4">Nearby Areas</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {NEARBY_AREAS.map((area, i) => (
-                  <Link key={i} to={area.href} className="flex items-center justify-between bg-neutral-50 border border-neutral-200 rounded-sm px-4 py-3 hover:bg-neutral-100 hover:border-neutral-300 transition-all group">
-                    <span className="text-[13px] text-luxury-black/75 font-light">{area.label}</span>
-                    <span className="flex items-center gap-2 text-[12px] text-luxury-black/40 group-hover:text-luxury-gold transition-colors">
-                      {area.count} <ArrowUpRight className="w-3 h-3" />
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            </section>
-
-            {/* ─── MORTGAGE ─── */}
-            <section className="border-t border-neutral-200 pt-5 mb-6">
-              <LuxuryMortgageCalculator />
-            </section>
-          </div>
-
-          {/* ─── RIGHT: Sticky Price Card ─── */}
-          <aside className="lg:col-span-5 hidden lg:block">
-            <div className="sticky top-[84px]">
-              <div className="bg-neutral-50 border border-neutral-200 rounded-sm p-6">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-[11px] tracking-[0.15em] uppercase border border-neutral-400 text-neutral-600 px-2.5 py-1 font-medium">{p.tag}</span>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <button className="w-8 h-8 flex items-center justify-center rounded-full border border-neutral-200 text-luxury-black/40 hover:text-luxury-black hover:border-neutral-400 transition-all"><FileDown className="w-3.5 h-3.5" /></button>
-                    </PopoverTrigger>
-                    <PopoverContent align="end" className="w-[180px] p-0 rounded-none border-luxury-black/10">
-                      <Link to="/pdf-v1" target="_blank" className="block px-4 py-3 text-[11px] tracking-wider text-luxury-black hover:bg-neutral-50 transition-colors">FICHA (1 PAGE)</Link>
-                      <Link to="/pdf-v2" target="_blank" className="block px-4 py-3 text-[11px] tracking-wider text-luxury-black hover:bg-neutral-50 transition-colors border-t border-neutral-100">CATÁLOGO (3 PAGES)</Link>
-                    </PopoverContent>
-                  </Popover>
-                </div>
-
-                <div className="flex flex-wrap items-baseline gap-3 mb-1">
-                  <p className="text-[32px] font-medium text-luxury-black tracking-tight leading-none">{p.priceFormatted}</p>
-                  <span className="text-[14px] text-luxury-black/35 line-through font-light">{p.originalPrice}</span>
-                  <span className="text-[11px] font-medium tracking-[0.08em] uppercase text-luxury-gold bg-luxury-gold/10 px-2 py-0.5">-{p.discount}%</span>
-                </div>
-                <p className="text-[12px] text-luxury-black/60 mb-1">{p.pricePerSqm}</p>
-                {p.alsoForRent && (
-                  <p className="text-[13px] text-luxury-black/60 mb-4 flex items-center gap-1.5">
-                    <Home className="w-3.5 h-3.5 text-luxury-gold/80" /> Also for rent: <span className="font-medium text-luxury-black/80">{p.rentalPrice}</span>
-                  </p>
-                )}
-
-                {/* CTA */}
-                <div className="flex gap-2 mb-2">
-                  <a href={`tel:${p.agency.phone}`} className="flex-1 flex items-center justify-center gap-2 bg-luxury-black text-white text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-luxury-black/85 transition-all">
-                    <Phone className="w-3.5 h-3.5" /> Call
-                  </a>
-                  <a href={`https://wa.me/${p.agency.whatsapp}`} target="_blank" rel="noopener noreferrer" className="flex-1 flex items-center justify-center gap-2 bg-[#25D366] text-white text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-[#22bf5b] transition-all">
-                    <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
-                  </a>
-                </div>
-                <button onClick={() => setEnquiryOpen(true)} className="w-full flex items-center justify-center gap-2 border border-neutral-300 text-luxury-black text-[12px] tracking-[0.1em] uppercase py-3 hover:bg-neutral-100 transition-all mb-5">
-                  <Mail className="w-3.5 h-3.5" /> Send Enquiry
-                </button>
-
-                <div className="border-t border-neutral-200 pt-5">
-                  <p className="text-[13px] text-luxury-black/55 font-light leading-relaxed text-center">
-                    Get in touch for a personal consultation or to arrange a private viewing.
-                  </p>
-                  <p className="text-[14px] text-luxury-black/70 font-mono text-center mt-3 tracking-[0.05em]">REF-{p.ref}</p>
-                  <button onClick={() => setPriceAlertOpen(true)} className="group w-full flex items-center justify-center gap-2 border border-luxury-gold/30 bg-luxury-gold/5 text-luxury-gold hover:bg-luxury-gold/10 text-[12px] tracking-[0.08em] uppercase font-medium py-2.5 mt-4 transition-all">
-                    <BellRing className="w-3.5 h-3.5 group-hover:animate-[wiggle_0.4s_ease-in-out]" strokeWidth={1.5} />
-                    Avísame si baja el precio
-                  </button>
-                </div>
-              </div>
+              ))}
             </div>
-          </aside>
+          </section>
 
-        </div>
+          {/* ─── FEATURES ─── */}
+          <section className="border-t border-neutral-200 pt-5 mb-6">
+            <h2 className="text-[18px] font-medium text-luxury-black mb-4">Features & Amenities</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-2.5">
+              {p.features.map((f, i) => (
+                <div key={i} className="flex items-center gap-2 text-[14px] text-luxury-black/80 font-light">
+                  <Check className="w-3.5 h-3.5 text-luxury-black/50" strokeWidth={2} /> {f}
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ─── FLOOR PLANS ─── */}
+          <section className="border-t border-neutral-200 pt-5 mb-6">
+            <h2 className="text-[18px] font-medium text-luxury-black mb-4">Floor Plans</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {["Ground Floor", "First Floor"].map((floor, i) => (
+                <div key={i} className="bg-neutral-50 border border-neutral-200 rounded-sm overflow-hidden">
+                  <div className="aspect-[4/3] flex items-center justify-center text-luxury-black/30">
+                    <div className="text-center">
+                      <Grid3X3 className="w-10 h-10 mx-auto mb-2 text-luxury-black/20" strokeWidth={1} />
+                      <p className="text-[13px] font-light">{floor} Plan</p>
+                    </div>
+                  </div>
+                  <div className="px-4 py-3 border-t border-neutral-200">
+                    <p className="text-[14px] font-medium text-luxury-black">{floor}</p>
+                    <p className="text-[12px] text-luxury-black/50 font-light">{i === 0 ? `${Math.round(p.sqm * 0.6)} m²` : `${Math.round(p.sqm * 0.4)} m²`}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ─── MARKET DATA ─── */}
+          <section className="border-t border-neutral-200 pt-5 mb-6">
+            <h2 className="text-[18px] font-medium text-luxury-black mb-4">Real Estate Market in Santa Eulalia</h2>
+            <div className="grid grid-cols-2 gap-3 mb-4">
+              {MARKET_DATA.map((d, i) => (
+                <div key={i} className="bg-neutral-50 border border-neutral-200 rounded-sm p-4">
+                  <p className="text-[12px] tracking-[0.1em] uppercase text-luxury-black/65 font-medium mb-1">{d.label}</p>
+                  <p className="text-[20px] font-light text-luxury-black mb-2">{d.value}</p>
+                  <div className="w-full h-2 bg-neutral-200 rounded-full overflow-hidden mb-1.5">
+                    <div className="h-full bg-luxury-gold/60 rounded-full transition-all duration-700" style={{ width: `${d.pct}%` }} />
+                  </div>
+                  <p className="text-[12px] text-luxury-gold/80 font-medium flex items-center gap-1">
+                    <TrendingUp className="w-3 h-3" /> {d.trend}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <p className="text-[14px] leading-[1.85] text-luxury-black/80 font-light">
+              The luxury villa market in Santa Eulalia, Ibiza, has experienced consistent growth over the past five years, driven by strong international demand and limited supply of premium coastal properties.
+            </p>
+          </section>
+
+          {/* ─── NEARBY AREAS ─── */}
+          <section className="border-t border-neutral-200 pt-5 mb-6">
+            <h2 className="text-[18px] font-medium text-luxury-black mb-4">Nearby Areas</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {NEARBY_AREAS.map((area, i) => (
+                <Link key={i} to={area.href} className="flex items-center justify-between bg-neutral-50 border border-neutral-200 rounded-sm px-4 py-3 hover:bg-neutral-100 hover:border-neutral-300 transition-all group">
+                  <span className="text-[13px] text-luxury-black/75 font-light">{area.label}</span>
+                  <span className="flex items-center gap-2 text-[12px] text-luxury-black/40 group-hover:text-luxury-gold transition-colors">
+                    {area.count} <ArrowUpRight className="w-3 h-3" />
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </section>
+
+          {/* ─── MORTGAGE ─── */}
+          <section className="border-t border-neutral-200 pt-5 mb-6">
+            <LuxuryMortgageCalculator />
+          </section>
       </main>
-
       {/* ─── BUYER'S GUIDE ─── */}
       <section className="max-w-[1400px] mx-auto px-6 lg:px-10 py-5">
         <div className="border border-neutral-200 rounded-sm px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
