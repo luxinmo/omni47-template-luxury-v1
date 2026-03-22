@@ -625,6 +625,292 @@ import SystemContentSidebar from "@/components/blocks/system/SystemContentSideba
 
 ---
 
+## 🏠 Full Page: PropertyDetailV6 (`/property6/:id`)
+
+> **Archivo:** `src/components/luxury/PropertyDetailV6.tsx` — 1295 líneas
+> **Estándar de conversión del proyecto.** La variante más completa con agency info, chatbot, enquiry modal multi-stage y price alert.
+
+### Estructura de secciones (orden de aparición)
+
+| # | Sección | Tipo | Descripción |
+|---|---------|------|-------------|
+| 1 | **Navbar Sticky** | Inline (no usa `<Layout>`) | Logo centrado, links izq/dcha, selector idioma (dialog), bg-white/95 + backdrop-blur |
+| 2 | **Mobile Menu** | Overlay fullscreen | Links centrados + selectores de Language, Currency, Units + CTA Call |
+| 3 | **Hero Gallery** | Mobile: carousel swipeable · Desktop: mosaic 4-col (2 rows, 620px) | Click abre lightbox. Badges: Share, Save, Video, 3D Tour, PDF, "Show all photos" |
+| 4 | **Mobile Actions Bar** | Barra bajo galería | Botones Video, PDF, Share, Save |
+| 5 | **Breadcrumb** | Schema.org BreadcrumbList | 4 niveles con links, oculto en xs |
+| 6 | **Title + Address** | H1 uppercase + MapPin | Título SEO grande, dirección con region |
+| 7 | **Inline Price (mobile)** | Visible solo < lg | Precio, descuento, precio/m², rental, botón "Avísame si baja" |
+| 8 | **Specs Grid 4-col** | Beds/Baths/Built/Plot | Cajas con iconos + year/status debajo |
+| 9 | **Property Tags** | Pills | Exclusive (gold), Gated Community, Newly Built, Sea Views |
+| 10 | **About This Property** | Descripción expandible | `line-clamp-[12]` + "Read more / Show less" |
+| 11 | **Basic Characteristics** | Tabla 2-col | REF, tipo, precio, áreas, dormitorios, baños, energía, plot |
+| 12 | **Features & Amenities** | Grid 2-3 cols con checks | 16 features con checkmarks |
+| 13 | **Floor Plans** | Grid 2 cols | Placeholders por planta con m² calculados |
+| 14 | **Market Data** | Grid 2x2 cards | Progress bar + tendencia YoY + texto de mercado |
+| 15 | **Nearby Areas** | Grid 2 cols | Links internos con count de propiedades + arrow hover |
+| 16 | **Mortgage Calculator** | Componente externo | `<LuxuryMortgageCalculator />` wrapeado con overrides CSS |
+| 17 | **Price Card (desktop)** | Sidebar sticky (col-span-5) | Precio + descuento + pricePerSqm + rental + CTAs (Call/WhatsApp/Enquiry) + Brochure PDF dropdown + REF + "Avísame si baja" |
+| 18 | **Buyer's Guide Banner** | CTA horizontal | Título + descripción + botón "Download Guide" |
+| 19 | **About Location** | Sección full-width | 2 párrafos SEO + grid 2-col (Map placeholder + Area Video placeholder/iframe) |
+| 20 | **Similar Properties** | Grid 3 cols | Cards con imagen 4/3, location, nombre, specs, precio |
+| 21 | **SEO Links** | Pills/tags | 8 links internos con hover bg-luxury-black |
+| 22 | **Newsletter** | 2-col (texto + form) | Email input + botón Subscribe + privacy |
+| 23 | **Recently Viewed** | Scroll horizontal | Strip de thumbnails con nombre, specs, precio |
+| 24 | **Footer** | Inline (no usa `<Layout>`) | Brand + 4 cols links + social + copyright, bg-[#1e1c1a] |
+| 25 | **Enquiry Modal** | Dialog 3 etapas | Form → Thanks (5s) → Suggestions con propiedades similares |
+| 26 | **Language Modal** | Dialog grid 3-col | Flags + labels, selección visual |
+| 27 | **Price Alert Modal** | `<DetailPriceAlertModal>` | Componente externo importado |
+| 28 | **Mobile Sticky Bar** | Fijo bottom | Call / WhatsApp / Enquiry — oculto en lg+ |
+| 29 | **Chatbot** | Flotante esquina inferior dcha | Panel 380×520 con property card, mensajes, input, bot responses |
+| 30 | **Lightbox** | Fullscreen z-100 | Click-zones invisibles (PC), swipe (mobile), grid view, contact slide final |
+
+### Datos hardcoded
+
+| Constante | Campos clave | Items |
+|-----------|-------------|-------|
+| `PROPERTY` | title, subtitle, breadcrumb[], breadcrumbLinks[], location, region, price, priceFormatted, originalPrice, discount, pricePerSqm, rentalPrice, alsoForRent, beds, baths, sqm, plot, garage, year, ref, energyClass, status, tag, style, hasVideo, hasVirtualTour, videoUrl, virtualTourUrl, areaVideoUrl, images[7], description, highlights[6], features[16], agency{name,phone,whatsapp,email,logo}, lat, lng | 1 |
+| `SIMILAR` | image, name, location, price, beds, baths, sqm, tag, href | 3 |
+| `MARKET_DATA` | label, value, trend, pct | 4 |
+| `INTERNAL_LINKS` | label, href | 8 |
+| `NEARBY_AREAS` | label, href, count | 6 |
+
+### Estado interno (21 states)
+
+| Estado | Tipo | Uso |
+|--------|------|-----|
+| `lightbox` | `number \| null` | Índice foto en lightbox |
+| `liked` | `boolean` | Corazón toggle |
+| `expandDesc` | `boolean` | Descripción expandida |
+| `enquiryOpen` | `boolean` | Modal enquiry visible |
+| `enquirySent` | `"idle" \| "thanks" \| "suggestions"` | Etapa del enquiry |
+| `wantVisit` | `boolean` | Checkbox visita |
+| `visitDate` | `Date \| undefined` | Fecha visita |
+| `visitTime` | `string` | Hora visita |
+| `chatOpen` | `boolean` | Panel chat visible |
+| `langOpen` | `boolean` | Modal idioma |
+| `currentLang` | `string` | Idioma seleccionado |
+| `currentCurrency` | `string` | Moneda seleccionada |
+| `currentUnit` | `string` | Unidad de medida |
+| `mobileMenuOpen` | `boolean` | Menú mobile |
+| `heroSlide` | `number` | Slide actual galería mobile |
+| `chatMessages` | `{role, text}[]` | Mensajes del chat |
+| `chatInput` | `string` | Input del chat |
+| `gridView` | `boolean` | Vista grid de fotos |
+| `priceAlertOpen` | `boolean` | Modal price alert |
+
+### JSON-LD Schema
+
+Genera 5 schemas: `RealEstateListing`, `Product`, `Residence`, `Place`, `BreadcrumbList`.
+
+### Dependencias internas
+
+| Componente/Hook | Import |
+|-----------------|--------|
+| `SEOHead` | `@/components/shared/SEOHead` |
+| `DetailPriceAlertModal` | `@/components/blocks/detail/DetailPriceAlertModal` |
+| `LuxuryPhoneInput` | `./LuxuryPhoneInput` |
+| `LuxuryMortgageCalculator` | `./LuxuryMortgageCalculator` |
+| `useIsMobile` | `@/hooks/use-mobile` |
+| `brand, navLeft, navRight, languages, currencies, areaUnits` | `@/config/template` |
+
+### Dependencias externas
+
+| Paquete | Uso |
+|---------|-----|
+| `react-router-dom` | `Link` |
+| `date-fns` | `format` para fechas de visita |
+| `lucide-react` | 20+ iconos |
+| `@radix-ui/react-popover` | Popover para calendar y brochure |
+| `@radix-ui/react-dialog` | Dialog para enquiry y language |
+| `@/components/ui/calendar` | Calendar date picker |
+
+### Assets (imágenes)
+
+```
+heroImg, prop1, prop2, prop3, detail1, detail2, detail3, agencyLogo, luxinmoLogo
+```
+
+### APIs necesarias (futuro backend)
+
+| Feature | Endpoint necesario |
+|---------|-------------------|
+| Datos de propiedad | `GET /properties/:id` |
+| Enviar enquiry | `POST /enquiries` |
+| Enviar price alert | `POST /price-alerts` |
+| Newsletter | `POST /newsletter` |
+| Chat IA | WebSocket / `POST /chat` |
+| Favoritos | `POST /favorites` |
+| Recently viewed | `GET /recently-viewed` (o localStorage) |
+| Market data | `GET /market-data/:area` |
+| Similar properties | `GET /properties/:id/similar` |
+
+---
+
+## 🔍 Full Page: LuxuryPropertyListingV3 (`/properties3`)
+
+> **Archivo:** `src/components/luxury/LuxuryPropertyListingV3.tsx` — 1830 líneas
+> **Sistema de búsqueda y filtrado más completo del proyecto.** Incluye búsqueda por ubicación jerárquica, filtros desktop/mobile diferenciados, 4 tipos de cards, stories y chatbot.
+
+### Estructura de secciones (orden de aparición)
+
+| # | Sección | Tipo | Descripción |
+|---|---------|------|-------------|
+| 1 | **Layout Wrapper** | `<Layout>` | Usa Navbar/Footer globales con `activePath="/properties"` |
+| 2 | **Mobile Location Popup** | Overlay fullscreen z-200 | Búsqueda jerárquica: Tourist Zones → Cities → Areas. Mapa Leaflet toggle. Checkboxes. Popular locations chips |
+| 3 | **Mobile Sticky Search Bar** | Sticky bajo navbar | Botón ubicación + chip count + botón filtros (badge rojo) + Sort inline |
+| 4 | **Desktop Sticky Search Bar** | Sticky bajo navbar z-50 | Breadcrumbs + LocationSearchDropdown (380px) + divider + Filters + Type + Price + Beds + Amenities + "New Builds" toggle |
+| 5 | **Desktop Filter Sidebar** | Slide-in izquierda (420px) | Property Type (expandable categories) + Quick Tags + Price (inputs + presets smart) + Beds + Baths + Area + Amenities + Listing Mode (Sale/Rent/Holiday) |
+| 6 | **Mobile Filter Sheet** | Bottom sheet fullscreen | Mismo contenido que sidebar pero optimizado para touch |
+| 7 | **Mobile Sort Sheet** | Bottom sheet con backdrop | 7 opciones de ordenación + Cancel |
+| 8 | **Property Stories** | Componente externo | `<PropertyStories>` — Instagram-style stories |
+| 9 | **Active Filter Chips** | Pills removibles | Chips de filtros activos + "Clear all" |
+| 10 | **Results Header** | Desktop: H1 + descripción + count + Sort. Tablet: breadcrumbs + título | Responsive por breakpoint |
+| 11 | **Property List** | Grid/List adaptable | Desktop: list (1 col). Tablet: grid 2-col. Cards intercaladas con promos |
+| 12 | **Pagination** | Visual only | Botón "Next" + números 1-3...50 |
+| 13 | **Mobile Bottom Nav** | Sticky bottom z-40 | Call / Chat / Contact — oculto cuando stories activo |
+| 14 | **Enquiry Modal** | Overlay z-50 | Form con property preview card, nombre, email, tel, mensaje, terms |
+
+### Tipos de cards (4 variantes integradas inline)
+
+| Card | Posición | Descripción |
+|------|----------|-------------|
+| `PropertyCard` | Normal | Imagen + tag + style + location + ref + título + excerpt + specs (4-col) + features + precio. Mobile: precio con gradient overlay |
+| `OffMarketPropertyCard` | Normal (offmarket=true) | Imagen blur + Lock icon + specs + texto acceso restringido. Click abre modal con form |
+| `BrandedResidencePromoCard` | Después del item #2 | Card promo branded: badge Crown dorado, rango de precios, features five-star |
+| `NewDevPromoCard` | Después del item #4 | Card promo new dev: badge Building2, rango de precios, fecha entrega |
+
+### FilterState (interfaz completa)
+
+```ts
+interface FilterState {
+  locations: { id: string; name: string; path: string; type: string }[];
+  listingMode: "sale" | "rent" | "holiday";
+  types: string[];
+  priceMin: string;
+  priceMax: string;
+  hidePriceOnRequest: boolean;
+  areaMin: string;
+  areaMax: string;
+  beds: string;       // "Any" | "1+" | "2+" | ...
+  baths: string;      // "Any" | "1+" | ...
+  amenities: string[];
+  newBuilds: boolean;
+  quickTags: string[];
+}
+```
+
+### Datos hardcoded
+
+| Constante | Campos clave | Items |
+|-----------|-------------|-------|
+| `PROPERTIES` | id, image, gallery[], tag, style, location, title, excerpt, beds, baths, sqm, plot, price, features[], offmarket | 8 (6 normales + 2 off-market) |
+| `TYPE_OPTIONS_WITH_SUBTYPES` | label, subtypes[] | 6 tipos con subtipos |
+| `MOBILE_TYPE_CATEGORIES` | label, subtypes[] | 3 categorías (Houses/Flats/Lands) |
+| `BED_OPTIONS` | — | 6 opciones (Any, 1+...5+) |
+| `BATH_OPTIONS` | — | 5 opciones (Any, 1+...4+) |
+| `AMENITY_GROUPS` | title, items[] | 3 grupos (View/Outdoor/Indoor) |
+| `AMENITY_SIDEBAR` | — | 8 amenities rápidas |
+| `PRICE_PRESETS` | label, value | 5 (500K—10M) |
+| `MOBILE_PRICE_OPTIONS` | label, value | 10 opciones (Min—Max) |
+| `QUICK_TAGS` | — | 5 tags rápidos |
+| `SORT_OPTIONS` | value, label | 7 opciones de ordenación |
+| `TOURIST_ZONES` | id, name, count, cities[{id, name, count, areas[]}] | 4 zonas (Ibiza, Mallorca, Costa del Sol, Costa Blanca) con ~30 ciudades y ~25 áreas |
+| `POPULAR_CITIES` | id, name, count | 6 ciudades |
+
+### Componentes inline (definidos dentro del archivo)
+
+| Componente | Descripción |
+|------------|-------------|
+| `TypeDropdown` | Dropdown checkboxes para tipos de propiedad (desktop) |
+| `PriceDropdown` | Dropdown con inputs min/max + presets + toggle Sale/Rent/Holiday + hide POR |
+| `BedsDropdown` | Dropdown con botones Any/1+/2+/3+/4+/5+ |
+| `AmenitiesDropdown` | Dropdown multi-grupo con chips toggle (480px, scrollable) |
+| `FilterSidebar` | Panel lateral 420px slide-in (desktop) con todas las categorías |
+| `MobileFilterSheet` | Bottom sheet fullscreen con categorías expandibles |
+| `MobileSortSheet` | Bottom sheet con opciones de ordenación |
+| `MobileLocationPopup` | Fullscreen con zonas turísticas, búsqueda global, mapa Leaflet, checkboxes jerárquicos |
+| `MobilePriceSelect` | Botón que abre bottom sheet con input numérico + presets |
+| `PropertyCard` | Card de propiedad estándar (desktop: list horizontal, tablet: grid vertical) |
+| `OffMarketPropertyCard` | Card off-market con blur + modal de contacto |
+| `BrandedResidencePromoCard` | Card promo branded (posición fija en listing) |
+| `NewDevPromoCard` | Card promo new dev (posición fija en listing) |
+
+### Helpers
+
+| Función | Propósito |
+|---------|-----------|
+| `useDropdown()` | Hook para dropdowns con click-outside dismiss |
+| `formatPrice(val)` | Formatea número a €500K / €1M / etc |
+| `buildActiveChips(filters)` | Construye array de chips activos desde FilterState |
+| `removeChip(filters, chip)` | Devuelve nuevo FilterState sin el chip indicado |
+
+### Estado interno (8 states)
+
+| Estado | Tipo | Uso |
+|--------|------|-----|
+| `filtersOpen` | `boolean` | Sidebar/sheet de filtros |
+| `sortOpen` | `boolean` | Sheet/dropdown de ordenación |
+| `sortValue` | `string` | Valor de ordenación actual |
+| `filters` | `FilterState` | Estado completo de filtros |
+| `mobileSearch` | `string` | Query de búsqueda mobile (no usado actualmente) |
+| `locationPopupOpen` | `boolean` | Popup de ubicación mobile |
+| `enquiryProperty` | `Property \| null` | Propiedad seleccionada para enquiry |
+| `storiesActive` | `boolean` | Stories activo (oculta bottom nav) |
+
+### Dependencias internas
+
+| Componente/Hook | Import |
+|-----------------|--------|
+| `Layout` | `@/components/layout` |
+| `SEOHead` | `@/components/shared/SEOHead` |
+| `LocationSearchDropdown` | `./LocationSearchDropdown` |
+| `PropertyStories` | `@/components/blocks/listing/PropertyStories` |
+| `useIsMobile, useIsTablet` | `@/hooks/use-mobile` |
+| `brand` | `@/config/template` |
+
+### Dependencias externas
+
+| Paquete | Uso |
+|---------|-----|
+| `react-router-dom` | `Link` |
+| `lucide-react` | 15+ iconos |
+| `leaflet` | Dynamic import para mapa en MobileLocationPopup |
+
+### Assets (imágenes)
+
+```
+heroImg, prop1, prop2, prop3, detail1, detail2, detail3
+```
+
+### Lógica de filtrado
+
+> **IMPORTANTE:** El filtrado NO se aplica realmente a los datos. Los 8 properties siempre se muestran. El sistema de filtros es puramente visual/UI, preparado para backend.
+
+### Lógica de precio inteligente
+
+- Al seleccionar un preset de precio mínimo, automáticamente muestra presets de máximo filtrando los valores inferiores
+- Toggle Sale/Rent/Holiday integrado en el dropdown de precio
+- Mobile: bottom sheet dedicado (`MobilePriceSelect`) con input numérico + presets
+
+### Posición de cards promo
+
+```
+[Property 1] [Property 2] [BrandedResidencePromoCard] [OffMarket 1] [Property 3] [NewDevPromoCard] [OffMarket 2] [Property 4] [Property 5] [Property 6]
+```
+
+### APIs necesarias (futuro backend)
+
+| Feature | Endpoint necesario |
+|---------|-------------------|
+| Lista de propiedades | `GET /properties?filters...&sort=...&page=...` |
+| Ubicaciones | `GET /locations` (zonas, ciudades, áreas con counts) |
+| Enviar enquiry | `POST /enquiries` |
+| Stories | `GET /stories` (contenido Instagram-style) |
+| Off-market access | `POST /off-market-requests` |
+
+---
+
 ## Resumen Final
 
 | Categoría | Total |
@@ -676,6 +962,7 @@ import SystemContentSidebar from "@/components/blocks/system/SystemContentSideba
 | Favorites | 4 |
 | PDF | 2 |
 | System | 5 |
+| **Full Pages documentadas** | 2 (PropertyDetailV6, LuxuryPropertyListingV3) |
 | **TOTAL BLOQUES** | **~96** |
 | Preview Combos | 10 |
 | **TOTAL GENERAL** | **~105 componentes** |
