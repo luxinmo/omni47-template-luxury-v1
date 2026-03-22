@@ -206,13 +206,13 @@ const PropertyDetailV9 = () => {
         </div>
       )}
 
-      {/* ═══ GALLERY — full bleed, 2+2 grid ═══ */}
+      {/* ═══ GALLERY — compact, 2+2 grid ═══ */}
       <section>
         {/* Mobile swipe */}
         <div className="lg:hidden relative" onTouchStart={onTouchStart} onTouchEnd={e => onTouchEnd(e, p.images.length)}>
           <div className="flex transition-transform duration-300" style={{ transform: `translateX(-${heroSlide * 100}%)` }}>
             {p.images.map((img, i) => (
-              <div key={i} className="w-full shrink-0 aspect-[4/3]" onClick={() => setLightbox(i)}>
+              <div key={i} className="w-full shrink-0 aspect-[16/10]" onClick={() => setLightbox(i)}>
                 <img src={img} alt={`Photo ${i + 1}`} loading={i === 0 ? "eager" : "lazy"} className="w-full h-full object-cover" />
               </div>
             ))}
@@ -233,8 +233,8 @@ const PropertyDetailV9 = () => {
           </div>
         </div>
 
-        {/* Desktop: hero left + 2 stacked right, edge-to-edge */}
-        <div className="hidden lg:grid grid-cols-[1fr_1fr] gap-[2px] h-[80vh] min-h-[560px] max-h-[780px] relative">
+        {/* Desktop: hero left + 2 stacked right, constrained and shorter */}
+        <div className="hidden lg:grid grid-cols-[1fr_1fr] gap-[2px] h-[52vh] min-h-[420px] max-h-[560px] max-w-[1320px] mx-auto relative">
           {/* Hero */}
           <div className="relative overflow-hidden cursor-pointer group" onClick={() => setLightbox(0)}>
             <img src={p.images[0]} alt={p.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.015]" />
@@ -265,12 +265,12 @@ const PropertyDetailV9 = () => {
           </div>
 
           {/* ─── Floating price card ─── */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-[520px] bg-white shadow-[0_8px_40px_rgba(0,0,0,0.12)] p-6 z-20">
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-[460px] bg-white shadow-[0_8px_40px_rgba(0,0,0,0.12)] p-5 z-20">
             <div className="flex items-start justify-between mb-4">
               <div>
                 <span className="text-[10px] tracking-[0.18em] uppercase text-luxury-black/40 font-medium">{p.tag}</span>
                 <div className="flex items-baseline gap-3 mt-1">
-                  <p className="text-[30px] font-medium text-luxury-black tracking-tight leading-none">{p.priceFormatted}</p>
+                  <p className="text-[26px] font-medium text-luxury-black tracking-tight leading-none">{p.priceFormatted}</p>
                   <span className="text-[13px] text-luxury-black/25 line-through">{p.originalPrice}</span>
                   <span className="text-[10px] font-medium tracking-[0.08em] uppercase text-luxury-gold">-{p.discount}%</span>
                 </div>
