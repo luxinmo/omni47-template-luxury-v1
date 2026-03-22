@@ -560,7 +560,7 @@ const PropertyDetailV8 = () => {
 
             {/* ─── MORTGAGE ─── */}
             <section className="mb-10">
-              <LuxuryMortgageCalculator propertyPrice={p.price} />
+              <LuxuryMortgageCalculator />
             </section>
           </div>
 
