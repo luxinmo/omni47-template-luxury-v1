@@ -20,6 +20,7 @@ import PropertyDetailV4 from "./components/luxury/PropertyDetailV4";
 import PropertyDetailV5 from "./components/luxury/PropertyDetailV5";
 import PropertyDetailV6 from "./components/luxury/PropertyDetailV6";
 import PropertyDetailV7 from "./components/luxury/PropertyDetailV7";
+import PropertyDetailV8 from "./components/luxury/PropertyDetailV8";
 import NotFound from "./pages/NotFound";
 import HomePortal from "./pages/HomePortal";
 import Home3LandingPage from "./components/home-3/Home3LandingPage";
@@ -72,6 +73,7 @@ const App = () => (
             <Route path="/property5/:id" element={<PropertyDetailV5 />} />
             <Route path="/property6/:id" element={<PropertyDetailV6 />} />
             <Route path="/property7/:id" element={<PropertyDetailV7 />} />
+            <Route path="/property8/:id" element={<PropertyDetailV8 />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/favorites" element={<FavoritesPage />} />
             <Route path="/sell" element={<SellPropertyPage />} />
