@@ -32,6 +32,7 @@ import NewDevelopmentDetailPage from "./components/luxury/NewDevelopmentDetailPa
 import NewDevelopmentDetailPageV2 from "./components/luxury/NewDevelopmentDetailPageV2";
 import PropertyPdfV1 from "./components/pdf/PropertyPdfV1";
 import PropertyPdfV2 from "./components/pdf/PropertyPdfV2";
+import PropertyPdfV3 from "./components/pdf/PropertyPdfV3";
 import BlocksCatalog from "./pages/BlocksCatalog";
 import FavoritesPage from "./components/luxury/FavoritesPage";
 import SellPropertyPage from "./components/luxury/SellPropertyPage";
@@ -91,6 +92,7 @@ const App = () => (
             <Route path="/new-developments2/:slug" element={<NewDevelopmentDetailPageV2 />} />
             <Route path="/pdf-v1" element={<PropertyPdfV1 />} />
             <Route path="/pdf-v2" element={<PropertyPdfV2 />} />
+            <Route path="/pdf-v3" element={<PropertyPdfV3 />} />
             <Route path="/resources" element={<ResourcesHubPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/our-offices" element={<OurOfficesPage />} />
