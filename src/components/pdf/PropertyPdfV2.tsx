@@ -202,10 +202,10 @@ const PropertyPdfV2: React.FC = () => {
         >
           <HeaderBar pageNum={3} total={3} />
 
-          {/* Top section: Gallery + Agent */}
+          {/* Top section: Gallery grid + QR */}
           <div style={{ padding: "20px 32px 0 32px" }}>
-            {/* Gallery grid */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, height: 300, overflow: "hidden" }}>
+            {/* Gallery grid — 2 rows */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, height: 280, overflow: "hidden" }}>
               <div style={{ overflow: "hidden", height: "100%" }}>
                 <img src={p.images[4]} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
               </div>
@@ -219,23 +219,62 @@ const PropertyPdfV2: React.FC = () => {
               </div>
             </div>
 
-            {/* Agent card */}
-            <div style={{ display: "flex", alignItems: "center", gap: 20, border: "1px solid #E2DCD4", padding: 16, marginTop: 12 }}>
-              <div style={{ width: 56, height: 56, background: "#2D2926", display: "flex", alignItems: "center", justifyContent: "center", color: "#8B6F47", fontSize: 18, fontWeight: 300, flexShrink: 0 }}>
-                {p.agent.name.split(" ").map(n => n[0]).join("")}
+            {/* Second row of photos */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 8, height: 160, overflow: "hidden", marginTop: 8 }}>
+              {[p.images[0], p.images[1], p.images[2], p.images[3]].map((img, i) => (
+                <div key={i} style={{ overflow: "hidden" }}>
+                  <img src={img} alt={`Gallery ${i}`} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                </div>
+              ))}
+            </div>
+
+            {/* QR Code + contact info */}
+            <div style={{ display: "flex", alignItems: "center", gap: 16, marginTop: 12, padding: "12px 16px", border: "1px solid #E2DCD4" }}>
+              <div style={{ width: 72, height: 72, background: "white", border: "1px solid #E2DCD4", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                {/* QR placeholder — replace with real QR in production */}
+                <svg viewBox="0 0 100 100" width="60" height="60">
+                  <rect x="5" y="5" width="25" height="25" fill="#2D2926" rx="2"/>
+                  <rect x="70" y="5" width="25" height="25" fill="#2D2926" rx="2"/>
+                  <rect x="5" y="70" width="25" height="25" fill="#2D2926" rx="2"/>
+                  <rect x="10" y="10" width="15" height="15" fill="white" rx="1"/>
+                  <rect x="75" y="10" width="15" height="15" fill="white" rx="1"/>
+                  <rect x="10" y="75" width="15" height="15" fill="white" rx="1"/>
+                  <rect x="14" y="14" width="7" height="7" fill="#2D2926"/>
+                  <rect x="79" y="14" width="7" height="7" fill="#2D2926"/>
+                  <rect x="14" y="79" width="7" height="7" fill="#2D2926"/>
+                  <rect x="38" y="5" width="5" height="5" fill="#2D2926"/>
+                  <rect x="48" y="5" width="5" height="5" fill="#2D2926"/>
+                  <rect x="58" y="5" width="5" height="5" fill="#2D2926"/>
+                  <rect x="38" y="15" width="5" height="5" fill="#2D2926"/>
+                  <rect x="48" y="15" width="5" height="5" fill="#2D2926"/>
+                  <rect x="38" y="38" width="5" height="5" fill="#2D2926"/>
+                  <rect x="48" y="38" width="5" height="5" fill="#2D2926"/>
+                  <rect x="48" y="48" width="5" height="5" fill="#2D2926"/>
+                  <rect x="58" y="48" width="5" height="5" fill="#2D2926"/>
+                  <rect x="70" y="38" width="5" height="5" fill="#2D2926"/>
+                  <rect x="80" y="48" width="5" height="5" fill="#2D2926"/>
+                  <rect x="90" y="38" width="5" height="5" fill="#2D2926"/>
+                  <rect x="70" y="58" width="5" height="5" fill="#2D2926"/>
+                  <rect x="80" y="70" width="5" height="5" fill="#2D2926"/>
+                  <rect x="90" y="80" width="5" height="5" fill="#2D2926"/>
+                  <rect x="70" y="90" width="5" height="5" fill="#2D2926"/>
+                  <rect x="38" y="58" width="5" height="5" fill="#2D2926"/>
+                  <rect x="5" y="38" width="5" height="5" fill="#2D2926"/>
+                  <rect x="5" y="48" width="5" height="5" fill="#2D2926"/>
+                  <rect x="5" y="58" width="5" height="5" fill="#2D2926"/>
+                  <rect x="15" y="48" width="5" height="5" fill="#2D2926"/>
+                  <rect x="25" y="38" width="5" height="5" fill="#2D2926"/>
+                  <rect x="25" y="58" width="5" height="5" fill="#2D2926"/>
+                </svg>
               </div>
               <div style={{ flex: 1 }}>
-                <h3 style={{ fontSize: 9, color: "#8B6F47", letterSpacing: "0.15em", marginBottom: 2 }}>YOUR DEDICATED ADVISOR</h3>
-                <p style={{ fontSize: 14, color: "#2D2926", fontWeight: 300 }}>{p.agent.name}</p>
-                <p style={{ fontSize: 9, color: "#9A938B" }}>{p.agent.role}</p>
+                <p style={{ fontSize: 9, color: "#8B6F47", letterSpacing: "0.15em", marginBottom: 4 }}>SCAN FOR MORE DETAILS</p>
+                <p style={{ fontSize: 11, color: "#2D2926", fontWeight: 300, marginBottom: 2 }}>{contact.phone}</p>
+                <p style={{ fontSize: 11, color: "#2D2926", fontWeight: 300 }}>{contact.email}</p>
               </div>
               <div style={{ textAlign: "right" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 10, color: "#6B6560", marginBottom: 6 }}>
-                  <Phone style={{ width: 12, height: 12, color: "#8B6F47" }} /> {p.agent.phone}
-                </div>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 10, color: "#6B6560" }}>
-                  <Mail style={{ width: 12, height: 12, color: "#8B6F47" }} /> {p.agent.email}
-                </div>
+                <p style={{ fontSize: 9, color: "#9A938B", marginBottom: 2 }}>prestigeestates.com</p>
+                <p style={{ fontSize: 9, color: "#9A938B" }}>REF: {p.ref}</p>
               </div>
             </div>
           </div>
