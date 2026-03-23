@@ -41,6 +41,7 @@ import OffmarketEmailPreviewPage from "./components/blocks/offmarket/OffmarketEm
 import ResourcesHubPage from "./components/luxury/ResourcesHubPage";
 import AboutPage from "./components/luxury/AboutPage";
 import OurOfficesPage from "./components/luxury/OurOfficesPage";
+import IconsPage from "./pages/IconsPage";
 
 const queryClient = new QueryClient();
 
@@ -94,6 +95,7 @@ const App = () => (
             <Route path="/about" element={<AboutPage />} />
             <Route path="/our-offices" element={<OurOfficesPage />} />
             <Route path="/email-offmarket" element={<OffmarketEmailPreviewPage />} />
+            <Route path="/icons" element={<IconsPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
