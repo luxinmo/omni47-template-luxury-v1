@@ -219,10 +219,12 @@ const DevCard = ({ d, i }: { d: NewDevelopment; i: number }) => (
 
 /* ── Page ── */
 const NewDevelopmentsPageV2 = () => {
+  const isMobile = useIsMobile();
   const [filterLocation, setFilterLocation] = useState<string | null>(null);
   const [filterStatus, setFilterStatus] = useState<string | null>(null);
   const [filterTypology, setFilterTypology] = useState<string | null>(null);
   const [filterDelivery, setFilterDelivery] = useState<string | null>(null);
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
 
   const filtered = useMemo(() => {
     return NEW_DEVELOPMENTS.filter(d => {
@@ -235,6 +237,7 @@ const NewDevelopmentsPageV2 = () => {
   }, [filterLocation, filterStatus, filterTypology, filterDelivery]);
 
   const hasFilters = filterLocation || filterStatus || filterTypology || filterDelivery;
+  const activeFilterCount = [filterLocation, filterStatus, filterTypology, filterDelivery].filter(Boolean).length;
 
   const clearFilters = () => {
     setFilterLocation(null);
@@ -250,57 +253,100 @@ const NewDevelopmentsPageV2 = () => {
         description="Discover exclusive new developments and off-plan properties across Spain's most desirable coastal locations. Buy at pre-construction prices with flexible payment plans and full legal protection."
       />
 
-      {/* ── Title + SEO Text (replaces Hero) ── */}
-      <section className="pt-28 sm:pt-32 pb-12 sm:pb-16" style={{ background: palette.white }}>
-        <div className="max-w-[1320px] mx-auto px-5 sm:px-6 lg:px-12">
+      {/* ── Title + SEO Text ── */}
+      <section className="pt-20 sm:pt-28 md:pt-32 pb-6 sm:pb-10 md:pb-16" style={{ background: palette.white }}>
+        <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-12">
           <FadeIn>
-            <div className="flex items-center gap-2 mb-4">
+            <div className="flex items-center gap-2 mb-3 sm:mb-4">
               <Building2 className="w-4 h-4" style={{ color: palette.accent }} />
               <span className="text-[11px] tracking-[0.25em] uppercase font-medium" style={{ color: palette.accent }}>New Developments</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extralight leading-[1.1] mb-5" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em", color: palette.text }}>
+            <h1 className="text-[26px] sm:text-4xl md:text-5xl font-extralight leading-[1.1] mb-3 sm:mb-5" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em", color: palette.text }}>
               Off-Plan Properties in Spain
             </h1>
-            <p className="text-[15px] leading-[1.9] font-light max-w-3xl" style={{ color: palette.textMuted }}>
+            <p className="text-[14px] sm:text-[15px] leading-[1.8] sm:leading-[1.9] font-light max-w-3xl" style={{ color: palette.textMuted }}>
               Explore our curated portfolio of new-build developments across Spain's most sought-after coastal destinations. 
               Buying off-plan lets you secure a home at pre-construction prices — typically 20–30% below completed values — with 
-              flexible payment plans spread over the build period and full bank-guaranteed deposit protection under Spanish law.
+              flexible payment plans and full bank-guaranteed deposit protection.
             </p>
           </FadeIn>
         </div>
       </section>
 
-      {/* ── Filter Bar + Listings ── */}
-      <section className="pb-16 sm:pb-24" style={{ background: palette.white }}>
-        <div className="max-w-[1320px] mx-auto px-5 sm:px-6 lg:px-12">
-          {/* Filter Bar */}
-          <div className="mb-8 p-6 sm:p-8 rounded-sm" style={{ background: palette.bg, border: `1px solid ${palette.border}` }}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              <FilterSelect label="Location" value={filterLocation} options={ALL_LOCATIONS} onChange={setFilterLocation} />
-              <FilterSelect label="Status" value={filterStatus} options={ALL_STATUSES} onChange={setFilterStatus} />
-              <FilterSelect label="Typology" value={filterTypology} options={ALL_TYPOLOGIES} onChange={setFilterTypology} />
-              <FilterSelect label="Delivery" value={filterDelivery} options={ALL_DELIVERIES} onChange={setFilterDelivery} />
-            </div>
-            {hasFilters && (
-              <div className="mt-5 pt-4" style={{ borderTop: `1px solid ${palette.border}` }}>
-                <button onClick={clearFilters} className="inline-flex items-center gap-1.5 text-[12px] tracking-[0.1em] uppercase font-light transition-opacity hover:opacity-60" style={{ color: palette.textMuted }}>
-                  <X className="w-3.5 h-3.5" /> Clear all filters
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* Results count */}
-          <p className="text-[13px] font-light mb-6 pb-4" style={{ color: palette.textLight, borderBottom: `1px solid ${palette.border}` }}>
-            {filtered.length} development{filtered.length !== 1 ? "s" : ""} found
+      {/* ── Mobile: sticky filter bar ── */}
+      {isMobile && (
+        <div className="sticky top-[52px] z-30 flex items-center justify-between px-4 py-3" style={{ background: palette.white, borderBottom: `1px solid ${palette.border}` }}>
+          <p className="text-[13px] font-light" style={{ color: palette.textMuted }}>
+            {filtered.length} development{filtered.length !== 1 ? "s" : ""}
           </p>
+          <button
+            onClick={() => setShowMobileFilters(!showMobileFilters)}
+            className="inline-flex items-center gap-1.5 text-[13px] tracking-[0.08em] uppercase font-light px-3 py-2 rounded-sm"
+            style={{ border: `1px solid ${palette.border}`, color: palette.text }}
+          >
+            <SlidersHorizontal className="w-3.5 h-3.5" />
+            Filters
+            {activeFilterCount > 0 && (
+              <span className="ml-1 w-5 h-5 rounded-full text-[10px] flex items-center justify-center text-white" style={{ background: palette.accent }}>
+                {activeFilterCount}
+              </span>
+            )}
+          </button>
+        </div>
+      )}
+
+      {/* ── Mobile: collapsible filter panel ── */}
+      {isMobile && showMobileFilters && (
+        <div className="px-4 py-4 space-y-4" style={{ background: palette.bg, borderBottom: `1px solid ${palette.border}` }}>
+          <div className="grid grid-cols-2 gap-3">
+            <FilterSelect label="Location" value={filterLocation} options={ALL_LOCATIONS} onChange={setFilterLocation} />
+            <FilterSelect label="Status" value={filterStatus} options={ALL_STATUSES} onChange={setFilterStatus} />
+            <FilterSelect label="Typology" value={filterTypology} options={ALL_TYPOLOGIES} onChange={setFilterTypology} />
+            <FilterSelect label="Delivery" value={filterDelivery} options={ALL_DELIVERIES} onChange={setFilterDelivery} />
+          </div>
+          {hasFilters && (
+            <button onClick={clearFilters} className="inline-flex items-center gap-1.5 text-[12px] tracking-[0.1em] uppercase font-light" style={{ color: palette.textMuted }}>
+              <X className="w-3.5 h-3.5" /> Clear all
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* ── Filter Bar + Listings ── */}
+      <section className="pb-10 sm:pb-16 md:pb-24" style={{ background: palette.white }}>
+        <div className="max-w-[1320px] mx-auto px-0 sm:px-6 lg:px-12">
+          {/* Desktop Filter Bar */}
+          {!isMobile && (
+            <div className="mb-8 p-6 sm:p-8 rounded-sm mx-4 sm:mx-0" style={{ background: palette.bg, border: `1px solid ${palette.border}` }}>
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
+                <FilterSelect label="Location" value={filterLocation} options={ALL_LOCATIONS} onChange={setFilterLocation} />
+                <FilterSelect label="Status" value={filterStatus} options={ALL_STATUSES} onChange={setFilterStatus} />
+                <FilterSelect label="Typology" value={filterTypology} options={ALL_TYPOLOGIES} onChange={setFilterTypology} />
+                <FilterSelect label="Delivery" value={filterDelivery} options={ALL_DELIVERIES} onChange={setFilterDelivery} />
+              </div>
+              {hasFilters && (
+                <div className="mt-5 pt-4" style={{ borderTop: `1px solid ${palette.border}` }}>
+                  <button onClick={clearFilters} className="inline-flex items-center gap-1.5 text-[12px] tracking-[0.1em] uppercase font-light transition-opacity hover:opacity-60" style={{ color: palette.textMuted }}>
+                    <X className="w-3.5 h-3.5" /> Clear all filters
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Desktop: Results count */}
+          {!isMobile && (
+            <p className="text-[13px] font-light mb-6 pb-4 px-4 sm:px-0" style={{ color: palette.textLight, borderBottom: `1px solid ${palette.border}` }}>
+              {filtered.length} development{filtered.length !== 1 ? "s" : ""} found
+            </p>
+          )}
 
           {/* Cards */}
-          <div className="space-y-6">
+          <div className="space-y-0 sm:space-y-6">
             {filtered.length > 0 ? (
               filtered.map((d, i) => <DevCard key={d.slug} d={d} i={i} />)
             ) : (
-              <div className="text-center py-20">
+              <div className="text-center py-20 px-4">
                 <Building2 className="w-10 h-10 mx-auto mb-4" style={{ color: palette.textLight }} />
                 <p className="text-[15px] font-light" style={{ color: palette.textMuted }}>No developments match your current filters.</p>
                 <button onClick={clearFilters} className="mt-4 text-[13px] underline font-light" style={{ color: palette.accent }}>Clear filters</button>
@@ -309,7 +355,7 @@ const NewDevelopmentsPageV2 = () => {
           </div>
 
           {/* Location links for SEO */}
-          <div className="mt-16 pt-8" style={{ borderTop: `1px solid ${palette.border}` }}>
+          <div className="mt-12 sm:mt-16 pt-8 px-4 sm:px-0" style={{ borderTop: `1px solid ${palette.border}` }}>
             <p className="text-[10px] tracking-[0.2em] uppercase font-medium mb-4" style={{ color: palette.textLight }}>Browse by Location</p>
             <div className="flex flex-wrap gap-3">
               {ALL_LOCATIONS.map(loc => {
