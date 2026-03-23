@@ -121,46 +121,62 @@ const FilterSelect = ({ label, value, options, onChange }: {
 /* ── Development Card ── */
 const DevCard = ({ d, i }: { d: NewDevelopment; i: number }) => (
   <FadeIn delay={i * 0.08}>
-    <div className="group flex flex-col lg:flex-row overflow-hidden rounded-sm border" style={{ background: palette.white, borderColor: palette.border }}>
-      <div className="relative lg:w-[44%] min-h-[240px] lg:min-h-[360px] overflow-hidden">
+    {/* Mobile: vertical card, edge-to-edge, price overlay */}
+    <div className="group flex flex-col lg:flex-row overflow-hidden rounded-none sm:rounded-sm border-x-0 sm:border-x border-y sm:border" style={{ background: palette.white, borderColor: palette.border }}>
+      {/* Image */}
+      <div className="relative lg:w-[44%] min-h-[200px] sm:min-h-[240px] lg:min-h-[360px] overflow-hidden">
         <img src={d.image} alt={`${d.name} — ${d.location}`} loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.03]" />
         {d.status === "Last Units" && (
-          <span className="absolute top-4 left-4 px-3 py-1.5 text-[10px] tracking-[0.12em] uppercase font-medium text-white rounded-sm bg-black/60 backdrop-blur-sm">Last units</span>
+          <span className="absolute top-3 left-3 sm:top-4 sm:left-4 px-2.5 py-1 sm:px-3 sm:py-1.5 text-[10px] tracking-[0.12em] uppercase font-medium text-white rounded-sm bg-black/60 backdrop-blur-sm">Last units</span>
         )}
         {d.trending && (
-          <span className="absolute top-4 right-4 inline-flex items-center gap-1.5 px-3 py-1.5 text-[10px] tracking-[0.1em] uppercase font-medium text-white rounded-sm bg-black/60 backdrop-blur-sm">
+          <span className="absolute top-3 right-3 sm:top-4 sm:right-4 inline-flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 text-[10px] tracking-[0.1em] uppercase font-medium text-white rounded-sm bg-black/60 backdrop-blur-sm">
             <TrendingUp className="w-3 h-3" /> Trending
           </span>
         )}
+        {/* Mobile: price overlay on gradient */}
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/60 to-transparent pointer-events-none lg:hidden" />
+        <span className="absolute bottom-3 left-3 text-white text-[17px] font-semibold tracking-wide drop-shadow-md lg:hidden">
+          {fmt(d.priceMin)} — {fmt(d.priceMax)}
+        </span>
       </div>
-      <div className="flex-1 p-6 lg:p-8 flex flex-col">
+
+      {/* Content */}
+      <div className="flex-1 p-4 sm:p-6 lg:p-8 flex flex-col">
+        {/* Header */}
         <div className="flex items-center justify-between mb-1">
           <div className="flex items-center gap-2">
             <span className="text-[11px] tracking-[0.15em] uppercase font-medium" style={{ color: palette.textMuted }}>{d.location}</span>
-            <span className="px-2 py-0.5 text-[10px] tracking-[0.1em] uppercase rounded-sm border" style={{ borderColor: palette.border, color: palette.textMuted }}>New Development</span>
+            <span className="hidden sm:inline px-2 py-0.5 text-[10px] tracking-[0.1em] uppercase rounded-sm border" style={{ borderColor: palette.border, color: palette.textMuted }}>New Development</span>
           </div>
-          <span className="text-[11px] tracking-[0.1em] uppercase font-medium px-2.5 py-1 rounded-sm" style={{ color: palette.text, border: `1px solid ${palette.text}30` }}>
+          <span className="text-[10px] sm:text-[11px] tracking-[0.1em] uppercase font-medium px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-sm" style={{ color: palette.text, border: `1px solid ${palette.text}30` }}>
             {d.status}
           </span>
         </div>
-        <h3 className="text-xl lg:text-[22px] font-light tracking-wide mb-1" style={{ fontFamily: fonts.heading }}>{d.name}</h3>
-        <p className="text-[13px] font-light mb-4" style={{ color: palette.textMuted }}>{d.developer} · Delivery {d.delivery}</p>
-        <div className="flex gap-6 mb-4 pb-4" style={{ borderBottom: `1px solid ${palette.border}` }}>
+        <h3 className="text-lg sm:text-xl lg:text-[22px] font-light tracking-wide mb-1" style={{ fontFamily: fonts.heading }}>{d.name}</h3>
+        <p className="text-[12px] sm:text-[13px] font-light mb-3 sm:mb-4" style={{ color: palette.textMuted }}>{d.developer} · Delivery {d.delivery}</p>
+
+        {/* Stats row — compact on mobile */}
+        <div className="flex gap-4 sm:gap-6 mb-3 sm:mb-4 pb-3 sm:pb-4" style={{ borderBottom: `1px solid ${palette.border}` }}>
           <div>
-            <p className="text-[9px] tracking-[0.2em] uppercase font-medium mb-1" style={{ color: palette.textLight }}>Availability</p>
-            <p className="text-[17px] font-light" style={{ color: palette.text }}>{d.availableUnits} <span className="text-[13px]" style={{ color: palette.textLight }}>/ {d.totalUnits}</span></p>
+            <p className="text-[9px] tracking-[0.2em] uppercase font-medium mb-0.5 sm:mb-1" style={{ color: palette.textLight }}>Available</p>
+            <p className="text-[15px] sm:text-[17px] font-light" style={{ color: palette.text }}>{d.availableUnits} <span className="text-[12px] sm:text-[13px]" style={{ color: palette.textLight }}>/ {d.totalUnits}</span></p>
           </div>
           <div>
-            <p className="text-[9px] tracking-[0.2em] uppercase font-medium mb-1" style={{ color: palette.textLight }}>Construction</p>
-            <p className="text-[17px] font-light" style={{ color: palette.text }}>{d.construction}%</p>
+            <p className="text-[9px] tracking-[0.2em] uppercase font-medium mb-0.5 sm:mb-1" style={{ color: palette.textLight }}>Built</p>
+            <p className="text-[15px] sm:text-[17px] font-light" style={{ color: palette.text }}>{d.construction}%</p>
           </div>
           <div>
-            <p className="text-[9px] tracking-[0.2em] uppercase font-medium mb-1" style={{ color: palette.textLight }}>Delivery</p>
-            <p className="text-[17px] font-light" style={{ color: palette.text }}>{d.delivery}</p>
+            <p className="text-[9px] tracking-[0.2em] uppercase font-medium mb-0.5 sm:mb-1" style={{ color: palette.textLight }}>Delivery</p>
+            <p className="text-[15px] sm:text-[17px] font-light" style={{ color: palette.text }}>{d.delivery}</p>
           </div>
         </div>
-        <p className="text-[22px] lg:text-[24px] font-light mb-4" style={{ color: palette.text }}>{fmt(d.priceMin)} — {fmt(d.priceMax)}</p>
-        <div className="flex flex-col sm:flex-row gap-6 mb-5">
+
+        {/* Desktop: price inline */}
+        <p className="hidden lg:block text-[22px] lg:text-[24px] font-light mb-4" style={{ color: palette.text }}>{fmt(d.priceMin)} — {fmt(d.priceMax)}</p>
+
+        {/* Typologies + Units — hidden on mobile, visible sm+ */}
+        <div className="hidden sm:flex flex-col sm:flex-row gap-6 mb-5">
           <div className="flex-1">
             <p className="text-[9px] tracking-[0.2em] uppercase font-medium mb-2" style={{ color: palette.textLight }}>Typologies</p>
             {d.typologies.map((t) => (
@@ -176,13 +192,24 @@ const DevCard = ({ d, i }: { d: NewDevelopment; i: number }) => (
             ))}
           </div>
         </div>
-        <div className="mt-auto flex items-center justify-between pt-4" style={{ borderTop: `1px solid ${palette.border}` }}>
-          <p className="text-[12px] font-light" style={{ color: palette.textLight }}>
+
+        {/* Mobile: compact typology summary */}
+        <div className="flex sm:hidden flex-wrap gap-2 mb-3">
+          {d.typologies.map((t) => (
+            <span key={t.type} className="text-[12px] font-light px-2.5 py-1 rounded-sm" style={{ background: palette.bg, color: palette.textMuted }}>
+              {t.type} from {fmt(t.from)}
+            </span>
+          ))}
+        </div>
+
+        {/* Footer */}
+        <div className="mt-auto flex items-center justify-between pt-3 sm:pt-4" style={{ borderTop: `1px solid ${palette.border}` }}>
+          <p className="text-[11px] sm:text-[12px] font-light" style={{ color: palette.textLight }}>
             {d.availableUnits === d.totalUnits ? "All units available" : `${d.availableUnits} of ${d.totalUnits} available`}
-            {d.construction > 0 && <span className="ml-3">{d.construction}% built</span>}
+            {d.construction > 0 && <span className="ml-2 sm:ml-3">{d.construction}% built</span>}
           </p>
-          <Link to={`/new-developments/${d.slug}`} className="inline-flex items-center gap-2 text-[12px] tracking-[0.15em] uppercase font-light transition-opacity hover:opacity-60" style={{ color: palette.accent }}>
-            View Project <ArrowRight className="w-3.5 h-3.5" />
+          <Link to={`/new-developments/${d.slug}`} className="inline-flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-[12px] tracking-[0.15em] uppercase font-light transition-opacity hover:opacity-60" style={{ color: palette.accent }}>
+            View <span className="hidden sm:inline">Project</span> <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
       </div>
