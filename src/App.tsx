@@ -95,6 +95,7 @@ const App = () => (
             <Route path="/about" element={<AboutPage />} />
             <Route path="/our-offices" element={<OurOfficesPage />} />
             <Route path="/email-offmarket" element={<OffmarketEmailPreviewPage />} />
+            <Route path="/icons" element={<IconsPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
