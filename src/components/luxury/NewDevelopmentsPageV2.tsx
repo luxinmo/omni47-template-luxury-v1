@@ -124,7 +124,7 @@ const DevCard = ({ d, i }: { d: NewDevelopment; i: number }) => (
     {/* Mobile: vertical card, edge-to-edge, price overlay */}
     <div className="group flex flex-col lg:flex-row overflow-hidden rounded-none sm:rounded-sm border-x-0 sm:border-x border-y sm:border" style={{ background: palette.white, borderColor: palette.border }}>
       {/* Image */}
-      <div className="relative lg:w-[44%] min-h-[200px] sm:min-h-[240px] lg:min-h-[360px] overflow-hidden">
+      <div className="relative lg:w-[44%] min-h-[260px] sm:min-h-[240px] lg:min-h-[360px] overflow-hidden">
         <img src={d.image} alt={`${d.name} — ${d.location}`} loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.03]" />
         {d.status === "Last Units" && (
           <span className="absolute top-3 left-3 sm:top-4 sm:left-4 px-2.5 py-1 sm:px-3 sm:py-1.5 text-[10px] tracking-[0.12em] uppercase font-medium text-white rounded-sm bg-black/60 backdrop-blur-sm">Last units</span>
