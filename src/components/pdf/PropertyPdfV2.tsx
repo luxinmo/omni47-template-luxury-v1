@@ -40,10 +40,10 @@ const PROPERTY = {
 
 /* ─── Shared sub-components ─── */
 const HeaderBar: React.FC<{ pageNum: number; total: number }> = ({ pageNum, total }) => (
-  <div className="flex items-center justify-between px-8 py-3 bg-[#2D2926]">
-    <div>
-      <span className="text-white text-base font-light tracking-[0.3em]">{brand.name}</span>
-      <span className="text-[#8B6F47] text-[9px] ml-2 tracking-[0.2em] font-light">{brand.subtitle}</span>
+  <div className="flex items-center justify-between px-8 py-5 bg-[#2D2926]">
+    <div className="flex items-center gap-3">
+      <span className="text-white text-xl font-light tracking-[0.35em]">{brand.name}</span>
+      <span className="text-[#8B6F47] text-[10px] tracking-[0.2em] font-light">{brand.subtitle}</span>
     </div>
     <span className="text-white/40 text-[9px] tracking-wider">REF: {PROPERTY.ref} · {pageNum}/{total}</span>
   </div>
