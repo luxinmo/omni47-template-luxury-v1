@@ -283,16 +283,16 @@ const UnitCard = ({
 
   return (
     <div
-      className={`group rounded-sm overflow-hidden border transition-all duration-300 ${isSold ? "opacity-60" : "hover:shadow-lg"}`}
+      className={`group rounded-sm overflow-hidden border transition-all duration-300 grid grid-cols-1 sm:grid-cols-[280px_1fr] lg:grid-cols-[320px_1fr] ${isSold ? "opacity-60" : "hover:shadow-lg"}`}
       style={{ borderColor: palette.border, background: palette.white }}
     >
       {/* Image */}
-      <div className="relative overflow-hidden aspect-[16/10]">
+      <div className="relative overflow-hidden aspect-[16/10] sm:aspect-auto sm:min-h-[200px]">
         <img
           src={img}
           alt={`${projectName} — Unit ${unit.ref}`}
           loading="lazy"
-          className={`w-full h-full object-cover transition-transform duration-700 ${isSold ? "" : "group-hover:scale-105"}`}
+          className={`w-full h-full object-cover transition-transform duration-700 absolute inset-0 ${isSold ? "" : "group-hover:scale-105"}`}
         />
         {/* Status badge */}
         <span
@@ -303,7 +303,7 @@ const UnitCard = ({
         </span>
         {/* Type badge */}
         <span
-          className="absolute top-3 right-3 inline-flex items-center gap-1 text-[10px] tracking-[0.12em] uppercase font-medium px-2.5 py-1 rounded-sm"
+          className="absolute top-3 right-3 sm:bottom-3 sm:top-auto inline-flex items-center gap-1 text-[10px] tracking-[0.12em] uppercase font-medium px-2.5 py-1 rounded-sm"
           style={{ background: "rgba(0,0,0,0.6)", color: "#fff" }}
         >
           <Building2 className="w-3 h-3" /> {unit.type}
@@ -316,28 +316,30 @@ const UnitCard = ({
       </div>
 
       {/* Content */}
-      <div className="p-4 sm:p-5">
-        {/* Ref + Floor */}
-        <div className="flex items-center justify-between mb-2">
-          <h3 className="text-[15px] font-medium" style={{ color: palette.text }}>
-            Unit {unit.ref}
-          </h3>
-          <span className="text-[12px] font-light" style={{ color: palette.textLight }}>
-            {unit.floor} floor · {unit.orientation}
-          </span>
-        </div>
+      <div className="p-4 sm:p-5 flex flex-col justify-between">
+        <div>
+          {/* Ref + Floor */}
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-[15px] font-medium" style={{ color: palette.text }}>
+              Unit {unit.ref}
+            </h3>
+            <span className="text-[12px] font-light" style={{ color: palette.textLight }}>
+              {unit.floor} floor · {unit.orientation}
+            </span>
+          </div>
 
-        {/* Specs row */}
-        <div className="flex items-center gap-4 text-[13px] font-light mb-3" style={{ color: palette.textMuted }}>
-          <span className="flex items-center gap-1">
-            <Bed className="w-3.5 h-3.5" style={{ color: palette.textLight }} /> {unit.beds} bed
-          </span>
-          <span className="flex items-center gap-1">
-            <Bath className="w-3.5 h-3.5" style={{ color: palette.textLight }} /> {unit.baths} bath
-          </span>
-          <span className="flex items-center gap-1">
-            <Expand className="w-3.5 h-3.5" style={{ color: palette.textLight }} /> {unit.sqm} m²
-          </span>
+          {/* Specs row */}
+          <div className="flex items-center gap-4 text-[13px] font-light mb-3" style={{ color: palette.textMuted }}>
+            <span className="flex items-center gap-1">
+              <Bed className="w-3.5 h-3.5" style={{ color: palette.textLight }} /> {unit.beds} bed
+            </span>
+            <span className="flex items-center gap-1">
+              <Bath className="w-3.5 h-3.5" style={{ color: palette.textLight }} /> {unit.baths} bath
+            </span>
+            <span className="flex items-center gap-1">
+              <Expand className="w-3.5 h-3.5" style={{ color: palette.textLight }} /> {unit.sqm} m²
+            </span>
+          </div>
         </div>
 
         {/* Price + CTA */}
