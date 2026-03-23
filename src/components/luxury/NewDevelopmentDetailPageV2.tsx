@@ -734,7 +734,7 @@ const NewDevelopmentDetailPageV2 = () => {
           </div>
 
           {/* Cards grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
             {filteredUnits.map((u, i) => (
               <FadeIn key={u.ref} delay={i * 0.05}>
                 <UnitCard
