@@ -29,6 +29,7 @@ import BrandedResidenceDetailPage from "./components/luxury/BrandedResidenceDeta
 import NewDevelopmentsPage from "./components/luxury/NewDevelopmentsPage";
 import NewDevelopmentsPageV2 from "./components/luxury/NewDevelopmentsPageV2";
 import NewDevelopmentDetailPage from "./components/luxury/NewDevelopmentDetailPage";
+import NewDevelopmentDetailPageV2 from "./components/luxury/NewDevelopmentDetailPageV2";
 import PropertyPdfV1 from "./components/pdf/PropertyPdfV1";
 import PropertyPdfV2 from "./components/pdf/PropertyPdfV2";
 import BlocksCatalog from "./pages/BlocksCatalog";
@@ -86,6 +87,7 @@ const App = () => (
             <Route path="/new-developments2" element={<NewDevelopmentsPageV2 />} />
             
             <Route path="/new-developments/:slug" element={<NewDevelopmentDetailPage />} />
+            <Route path="/new-developments2/:slug" element={<NewDevelopmentDetailPageV2 />} />
             <Route path="/pdf-v1" element={<PropertyPdfV1 />} />
             <Route path="/pdf-v2" element={<PropertyPdfV2 />} />
             <Route path="/resources" element={<ResourcesHubPage />} />
