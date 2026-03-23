@@ -41,6 +41,7 @@ import OffmarketEmailPreviewPage from "./components/blocks/offmarket/OffmarketEm
 import ResourcesHubPage from "./components/luxury/ResourcesHubPage";
 import AboutPage from "./components/luxury/AboutPage";
 import OurOfficesPage from "./components/luxury/OurOfficesPage";
+import IconsPage from "./pages/IconsPage";
 
 const queryClient = new QueryClient();
 
