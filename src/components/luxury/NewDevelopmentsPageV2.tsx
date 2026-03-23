@@ -1,8 +1,9 @@
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { Building2, X, ChevronDown, TrendingUp, ArrowRight } from "lucide-react";
+import { Building2, X, ChevronDown, TrendingUp, ArrowRight, SlidersHorizontal } from "lucide-react";
 import { Layout } from "@/components/layout";
 import FadeIn from "@/components/shared/FadeIn";
+import { useIsMobile } from "@/hooks/use-mobile";
 import SEOHead from "@/components/shared/SEOHead";
 import { palette, fonts } from "@/config/template";
 import prop1 from "@/assets/luxury-property-1.jpg";
@@ -100,19 +101,19 @@ const FilterSelect = ({ label, value, options, onChange }: {
   options: string[];
   onChange: (v: string | null) => void;
 }) => (
-  <div className="flex-1 min-w-[160px]">
-    <p className="text-[11px] tracking-[0.25em] uppercase font-medium mb-2" style={{ color: palette.accent }}>{label}</p>
+  <div className="flex-1 min-w-0">
+    <p className="text-[10px] sm:text-[11px] tracking-[0.25em] uppercase font-medium mb-1.5 sm:mb-2" style={{ color: palette.accent }}>{label}</p>
     <div className="relative">
       <select
         value={value || ""}
         onChange={e => onChange(e.target.value || null)}
-        className="w-full appearance-none bg-transparent text-[13px] tracking-[0.04em] font-light pl-4 pr-10 py-3 rounded-none cursor-pointer transition-all duration-200 focus:outline-none"
+        className="w-full appearance-none bg-transparent text-[16px] sm:text-[13px] tracking-[0.04em] font-light pl-3 sm:pl-4 pr-8 sm:pr-10 py-2.5 sm:py-3 rounded-none cursor-pointer transition-all duration-200 focus:outline-none"
         style={{ border: `1px solid ${palette.border}`, color: value ? palette.text : palette.textMuted, background: palette.white }}
       >
-        <option value="">All {label}</option>
+        <option value="">All</option>
         {options.map(o => <option key={o} value={o}>{o}</option>)}
       </select>
-      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" style={{ color: palette.textLight }} />
+      <ChevronDown className="absolute right-2.5 sm:right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" style={{ color: palette.textLight }} />
     </div>
   </div>
 );
@@ -120,46 +121,62 @@ const FilterSelect = ({ label, value, options, onChange }: {
 /* ── Development Card ── */
 const DevCard = ({ d, i }: { d: NewDevelopment; i: number }) => (
   <FadeIn delay={i * 0.08}>
-    <div className="group flex flex-col lg:flex-row overflow-hidden rounded-sm border" style={{ background: palette.white, borderColor: palette.border }}>
-      <div className="relative lg:w-[44%] min-h-[240px] lg:min-h-[360px] overflow-hidden">
+    {/* Mobile: vertical card, edge-to-edge, price overlay */}
+    <div className="group flex flex-col lg:flex-row overflow-hidden rounded-none sm:rounded-sm border-x-0 sm:border-x border-y sm:border" style={{ background: palette.white, borderColor: palette.border }}>
+      {/* Image */}
+      <div className="relative lg:w-[44%] min-h-[200px] sm:min-h-[240px] lg:min-h-[360px] overflow-hidden">
         <img src={d.image} alt={`${d.name} — ${d.location}`} loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.03]" />
         {d.status === "Last Units" && (
-          <span className="absolute top-4 left-4 px-3 py-1.5 text-[10px] tracking-[0.12em] uppercase font-medium text-white rounded-sm bg-black/60 backdrop-blur-sm">Last units</span>
+          <span className="absolute top-3 left-3 sm:top-4 sm:left-4 px-2.5 py-1 sm:px-3 sm:py-1.5 text-[10px] tracking-[0.12em] uppercase font-medium text-white rounded-sm bg-black/60 backdrop-blur-sm">Last units</span>
         )}
         {d.trending && (
-          <span className="absolute top-4 right-4 inline-flex items-center gap-1.5 px-3 py-1.5 text-[10px] tracking-[0.1em] uppercase font-medium text-white rounded-sm bg-black/60 backdrop-blur-sm">
+          <span className="absolute top-3 right-3 sm:top-4 sm:right-4 inline-flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 text-[10px] tracking-[0.1em] uppercase font-medium text-white rounded-sm bg-black/60 backdrop-blur-sm">
             <TrendingUp className="w-3 h-3" /> Trending
           </span>
         )}
+        {/* Mobile: price overlay on gradient */}
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/60 to-transparent pointer-events-none lg:hidden" />
+        <span className="absolute bottom-3 left-3 text-white text-[17px] font-semibold tracking-wide drop-shadow-md lg:hidden">
+          {fmt(d.priceMin)} — {fmt(d.priceMax)}
+        </span>
       </div>
-      <div className="flex-1 p-6 lg:p-8 flex flex-col">
+
+      {/* Content */}
+      <div className="flex-1 p-4 sm:p-6 lg:p-8 flex flex-col">
+        {/* Header */}
         <div className="flex items-center justify-between mb-1">
           <div className="flex items-center gap-2">
             <span className="text-[11px] tracking-[0.15em] uppercase font-medium" style={{ color: palette.textMuted }}>{d.location}</span>
-            <span className="px-2 py-0.5 text-[10px] tracking-[0.1em] uppercase rounded-sm border" style={{ borderColor: palette.border, color: palette.textMuted }}>New Development</span>
+            <span className="hidden sm:inline px-2 py-0.5 text-[10px] tracking-[0.1em] uppercase rounded-sm border" style={{ borderColor: palette.border, color: palette.textMuted }}>New Development</span>
           </div>
-          <span className="text-[11px] tracking-[0.1em] uppercase font-medium px-2.5 py-1 rounded-sm" style={{ color: palette.text, border: `1px solid ${palette.text}30` }}>
+          <span className="text-[10px] sm:text-[11px] tracking-[0.1em] uppercase font-medium px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-sm" style={{ color: palette.text, border: `1px solid ${palette.text}30` }}>
             {d.status}
           </span>
         </div>
-        <h3 className="text-xl lg:text-[22px] font-light tracking-wide mb-1" style={{ fontFamily: fonts.heading }}>{d.name}</h3>
-        <p className="text-[13px] font-light mb-4" style={{ color: palette.textMuted }}>{d.developer} · Delivery {d.delivery}</p>
-        <div className="flex gap-6 mb-4 pb-4" style={{ borderBottom: `1px solid ${palette.border}` }}>
+        <h3 className="text-lg sm:text-xl lg:text-[22px] font-light tracking-wide mb-1" style={{ fontFamily: fonts.heading }}>{d.name}</h3>
+        <p className="text-[12px] sm:text-[13px] font-light mb-3 sm:mb-4" style={{ color: palette.textMuted }}>{d.developer} · Delivery {d.delivery}</p>
+
+        {/* Stats row — compact on mobile */}
+        <div className="flex gap-4 sm:gap-6 mb-3 sm:mb-4 pb-3 sm:pb-4" style={{ borderBottom: `1px solid ${palette.border}` }}>
           <div>
-            <p className="text-[9px] tracking-[0.2em] uppercase font-medium mb-1" style={{ color: palette.textLight }}>Availability</p>
-            <p className="text-[17px] font-light" style={{ color: palette.text }}>{d.availableUnits} <span className="text-[13px]" style={{ color: palette.textLight }}>/ {d.totalUnits}</span></p>
+            <p className="text-[9px] tracking-[0.2em] uppercase font-medium mb-0.5 sm:mb-1" style={{ color: palette.textLight }}>Available</p>
+            <p className="text-[15px] sm:text-[17px] font-light" style={{ color: palette.text }}>{d.availableUnits} <span className="text-[12px] sm:text-[13px]" style={{ color: palette.textLight }}>/ {d.totalUnits}</span></p>
           </div>
           <div>
-            <p className="text-[9px] tracking-[0.2em] uppercase font-medium mb-1" style={{ color: palette.textLight }}>Construction</p>
-            <p className="text-[17px] font-light" style={{ color: palette.text }}>{d.construction}%</p>
+            <p className="text-[9px] tracking-[0.2em] uppercase font-medium mb-0.5 sm:mb-1" style={{ color: palette.textLight }}>Built</p>
+            <p className="text-[15px] sm:text-[17px] font-light" style={{ color: palette.text }}>{d.construction}%</p>
           </div>
           <div>
-            <p className="text-[9px] tracking-[0.2em] uppercase font-medium mb-1" style={{ color: palette.textLight }}>Delivery</p>
-            <p className="text-[17px] font-light" style={{ color: palette.text }}>{d.delivery}</p>
+            <p className="text-[9px] tracking-[0.2em] uppercase font-medium mb-0.5 sm:mb-1" style={{ color: palette.textLight }}>Delivery</p>
+            <p className="text-[15px] sm:text-[17px] font-light" style={{ color: palette.text }}>{d.delivery}</p>
           </div>
         </div>
-        <p className="text-[22px] lg:text-[24px] font-light mb-4" style={{ color: palette.text }}>{fmt(d.priceMin)} — {fmt(d.priceMax)}</p>
-        <div className="flex flex-col sm:flex-row gap-6 mb-5">
+
+        {/* Desktop: price inline */}
+        <p className="hidden lg:block text-[22px] lg:text-[24px] font-light mb-4" style={{ color: palette.text }}>{fmt(d.priceMin)} — {fmt(d.priceMax)}</p>
+
+        {/* Typologies + Units — hidden on mobile, visible sm+ */}
+        <div className="hidden sm:flex flex-col sm:flex-row gap-6 mb-5">
           <div className="flex-1">
             <p className="text-[9px] tracking-[0.2em] uppercase font-medium mb-2" style={{ color: palette.textLight }}>Typologies</p>
             {d.typologies.map((t) => (
@@ -175,13 +192,24 @@ const DevCard = ({ d, i }: { d: NewDevelopment; i: number }) => (
             ))}
           </div>
         </div>
-        <div className="mt-auto flex items-center justify-between pt-4" style={{ borderTop: `1px solid ${palette.border}` }}>
-          <p className="text-[12px] font-light" style={{ color: palette.textLight }}>
+
+        {/* Mobile: compact typology summary */}
+        <div className="flex sm:hidden flex-wrap gap-2 mb-3">
+          {d.typologies.map((t) => (
+            <span key={t.type} className="text-[12px] font-light px-2.5 py-1 rounded-sm" style={{ background: palette.bg, color: palette.textMuted }}>
+              {t.type} from {fmt(t.from)}
+            </span>
+          ))}
+        </div>
+
+        {/* Footer */}
+        <div className="mt-auto flex items-center justify-between pt-3 sm:pt-4" style={{ borderTop: `1px solid ${palette.border}` }}>
+          <p className="text-[11px] sm:text-[12px] font-light" style={{ color: palette.textLight }}>
             {d.availableUnits === d.totalUnits ? "All units available" : `${d.availableUnits} of ${d.totalUnits} available`}
-            {d.construction > 0 && <span className="ml-3">{d.construction}% built</span>}
+            {d.construction > 0 && <span className="ml-2 sm:ml-3">{d.construction}% built</span>}
           </p>
-          <Link to={`/new-developments/${d.slug}`} className="inline-flex items-center gap-2 text-[12px] tracking-[0.15em] uppercase font-light transition-opacity hover:opacity-60" style={{ color: palette.accent }}>
-            View Project <ArrowRight className="w-3.5 h-3.5" />
+          <Link to={`/new-developments/${d.slug}`} className="inline-flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-[12px] tracking-[0.15em] uppercase font-light transition-opacity hover:opacity-60" style={{ color: palette.accent }}>
+            View <span className="hidden sm:inline">Project</span> <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
       </div>
@@ -191,10 +219,12 @@ const DevCard = ({ d, i }: { d: NewDevelopment; i: number }) => (
 
 /* ── Page ── */
 const NewDevelopmentsPageV2 = () => {
+  const isMobile = useIsMobile();
   const [filterLocation, setFilterLocation] = useState<string | null>(null);
   const [filterStatus, setFilterStatus] = useState<string | null>(null);
   const [filterTypology, setFilterTypology] = useState<string | null>(null);
   const [filterDelivery, setFilterDelivery] = useState<string | null>(null);
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
 
   const filtered = useMemo(() => {
     return NEW_DEVELOPMENTS.filter(d => {
@@ -207,6 +237,7 @@ const NewDevelopmentsPageV2 = () => {
   }, [filterLocation, filterStatus, filterTypology, filterDelivery]);
 
   const hasFilters = filterLocation || filterStatus || filterTypology || filterDelivery;
+  const activeFilterCount = [filterLocation, filterStatus, filterTypology, filterDelivery].filter(Boolean).length;
 
   const clearFilters = () => {
     setFilterLocation(null);
@@ -222,57 +253,100 @@ const NewDevelopmentsPageV2 = () => {
         description="Discover exclusive new developments and off-plan properties across Spain's most desirable coastal locations. Buy at pre-construction prices with flexible payment plans and full legal protection."
       />
 
-      {/* ── Title + SEO Text (replaces Hero) ── */}
-      <section className="pt-28 sm:pt-32 pb-12 sm:pb-16" style={{ background: palette.white }}>
-        <div className="max-w-[1320px] mx-auto px-5 sm:px-6 lg:px-12">
+      {/* ── Title + SEO Text ── */}
+      <section className="pt-20 sm:pt-28 md:pt-32 pb-6 sm:pb-10 md:pb-16" style={{ background: palette.white }}>
+        <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-12">
           <FadeIn>
-            <div className="flex items-center gap-2 mb-4">
+            <div className="flex items-center gap-2 mb-3 sm:mb-4">
               <Building2 className="w-4 h-4" style={{ color: palette.accent }} />
               <span className="text-[11px] tracking-[0.25em] uppercase font-medium" style={{ color: palette.accent }}>New Developments</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extralight leading-[1.1] mb-5" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em", color: palette.text }}>
+            <h1 className="text-[26px] sm:text-4xl md:text-5xl font-extralight leading-[1.1] mb-3 sm:mb-5" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em", color: palette.text }}>
               Off-Plan Properties in Spain
             </h1>
-            <p className="text-[15px] leading-[1.9] font-light max-w-3xl" style={{ color: palette.textMuted }}>
+            <p className="text-[14px] sm:text-[15px] leading-[1.8] sm:leading-[1.9] font-light max-w-3xl" style={{ color: palette.textMuted }}>
               Explore our curated portfolio of new-build developments across Spain's most sought-after coastal destinations. 
               Buying off-plan lets you secure a home at pre-construction prices — typically 20–30% below completed values — with 
-              flexible payment plans spread over the build period and full bank-guaranteed deposit protection under Spanish law.
+              flexible payment plans and full bank-guaranteed deposit protection.
             </p>
           </FadeIn>
         </div>
       </section>
 
-      {/* ── Filter Bar + Listings ── */}
-      <section className="pb-16 sm:pb-24" style={{ background: palette.white }}>
-        <div className="max-w-[1320px] mx-auto px-5 sm:px-6 lg:px-12">
-          {/* Filter Bar */}
-          <div className="mb-8 p-6 sm:p-8 rounded-sm" style={{ background: palette.bg, border: `1px solid ${palette.border}` }}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              <FilterSelect label="Location" value={filterLocation} options={ALL_LOCATIONS} onChange={setFilterLocation} />
-              <FilterSelect label="Status" value={filterStatus} options={ALL_STATUSES} onChange={setFilterStatus} />
-              <FilterSelect label="Typology" value={filterTypology} options={ALL_TYPOLOGIES} onChange={setFilterTypology} />
-              <FilterSelect label="Delivery" value={filterDelivery} options={ALL_DELIVERIES} onChange={setFilterDelivery} />
-            </div>
-            {hasFilters && (
-              <div className="mt-5 pt-4" style={{ borderTop: `1px solid ${palette.border}` }}>
-                <button onClick={clearFilters} className="inline-flex items-center gap-1.5 text-[12px] tracking-[0.1em] uppercase font-light transition-opacity hover:opacity-60" style={{ color: palette.textMuted }}>
-                  <X className="w-3.5 h-3.5" /> Clear all filters
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* Results count */}
-          <p className="text-[13px] font-light mb-6 pb-4" style={{ color: palette.textLight, borderBottom: `1px solid ${palette.border}` }}>
-            {filtered.length} development{filtered.length !== 1 ? "s" : ""} found
+      {/* ── Mobile: sticky filter bar ── */}
+      {isMobile && (
+        <div className="sticky top-[52px] z-30 flex items-center justify-between px-4 py-3" style={{ background: palette.white, borderBottom: `1px solid ${palette.border}` }}>
+          <p className="text-[13px] font-light" style={{ color: palette.textMuted }}>
+            {filtered.length} development{filtered.length !== 1 ? "s" : ""}
           </p>
+          <button
+            onClick={() => setShowMobileFilters(!showMobileFilters)}
+            className="inline-flex items-center gap-1.5 text-[13px] tracking-[0.08em] uppercase font-light px-3 py-2 rounded-sm"
+            style={{ border: `1px solid ${palette.border}`, color: palette.text }}
+          >
+            <SlidersHorizontal className="w-3.5 h-3.5" />
+            Filters
+            {activeFilterCount > 0 && (
+              <span className="ml-1 w-5 h-5 rounded-full text-[10px] flex items-center justify-center text-white" style={{ background: palette.accent }}>
+                {activeFilterCount}
+              </span>
+            )}
+          </button>
+        </div>
+      )}
+
+      {/* ── Mobile: collapsible filter panel ── */}
+      {isMobile && showMobileFilters && (
+        <div className="px-4 py-4 space-y-4" style={{ background: palette.bg, borderBottom: `1px solid ${palette.border}` }}>
+          <div className="grid grid-cols-2 gap-3">
+            <FilterSelect label="Location" value={filterLocation} options={ALL_LOCATIONS} onChange={setFilterLocation} />
+            <FilterSelect label="Status" value={filterStatus} options={ALL_STATUSES} onChange={setFilterStatus} />
+            <FilterSelect label="Typology" value={filterTypology} options={ALL_TYPOLOGIES} onChange={setFilterTypology} />
+            <FilterSelect label="Delivery" value={filterDelivery} options={ALL_DELIVERIES} onChange={setFilterDelivery} />
+          </div>
+          {hasFilters && (
+            <button onClick={clearFilters} className="inline-flex items-center gap-1.5 text-[12px] tracking-[0.1em] uppercase font-light" style={{ color: palette.textMuted }}>
+              <X className="w-3.5 h-3.5" /> Clear all
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* ── Filter Bar + Listings ── */}
+      <section className="pb-10 sm:pb-16 md:pb-24" style={{ background: palette.white }}>
+        <div className="max-w-[1320px] mx-auto px-0 sm:px-6 lg:px-12">
+          {/* Desktop Filter Bar */}
+          {!isMobile && (
+            <div className="mb-8 p-6 sm:p-8 rounded-sm mx-4 sm:mx-0" style={{ background: palette.bg, border: `1px solid ${palette.border}` }}>
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
+                <FilterSelect label="Location" value={filterLocation} options={ALL_LOCATIONS} onChange={setFilterLocation} />
+                <FilterSelect label="Status" value={filterStatus} options={ALL_STATUSES} onChange={setFilterStatus} />
+                <FilterSelect label="Typology" value={filterTypology} options={ALL_TYPOLOGIES} onChange={setFilterTypology} />
+                <FilterSelect label="Delivery" value={filterDelivery} options={ALL_DELIVERIES} onChange={setFilterDelivery} />
+              </div>
+              {hasFilters && (
+                <div className="mt-5 pt-4" style={{ borderTop: `1px solid ${palette.border}` }}>
+                  <button onClick={clearFilters} className="inline-flex items-center gap-1.5 text-[12px] tracking-[0.1em] uppercase font-light transition-opacity hover:opacity-60" style={{ color: palette.textMuted }}>
+                    <X className="w-3.5 h-3.5" /> Clear all filters
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Desktop: Results count */}
+          {!isMobile && (
+            <p className="text-[13px] font-light mb-6 pb-4 px-4 sm:px-0" style={{ color: palette.textLight, borderBottom: `1px solid ${palette.border}` }}>
+              {filtered.length} development{filtered.length !== 1 ? "s" : ""} found
+            </p>
+          )}
 
           {/* Cards */}
-          <div className="space-y-6">
+          <div className="space-y-0 sm:space-y-6">
             {filtered.length > 0 ? (
               filtered.map((d, i) => <DevCard key={d.slug} d={d} i={i} />)
             ) : (
-              <div className="text-center py-20">
+              <div className="text-center py-20 px-4">
                 <Building2 className="w-10 h-10 mx-auto mb-4" style={{ color: palette.textLight }} />
                 <p className="text-[15px] font-light" style={{ color: palette.textMuted }}>No developments match your current filters.</p>
                 <button onClick={clearFilters} className="mt-4 text-[13px] underline font-light" style={{ color: palette.accent }}>Clear filters</button>
@@ -281,7 +355,7 @@ const NewDevelopmentsPageV2 = () => {
           </div>
 
           {/* Location links for SEO */}
-          <div className="mt-16 pt-8" style={{ borderTop: `1px solid ${palette.border}` }}>
+          <div className="mt-12 sm:mt-16 pt-8 px-4 sm:px-0" style={{ borderTop: `1px solid ${palette.border}` }}>
             <p className="text-[10px] tracking-[0.2em] uppercase font-medium mb-4" style={{ color: palette.textLight }}>Browse by Location</p>
             <div className="flex flex-wrap gap-3">
               {ALL_LOCATIONS.map(loc => {
