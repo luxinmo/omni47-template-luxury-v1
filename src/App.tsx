@@ -87,6 +87,7 @@ const App = () => (
             <Route path="/new-developments2" element={<NewDevelopmentsPageV2 />} />
             
             <Route path="/new-developments/:slug" element={<NewDevelopmentDetailPage />} />
+            <Route path="/new-developments2/:slug" element={<NewDevelopmentDetailPageV2 />} />
             <Route path="/pdf-v1" element={<PropertyPdfV1 />} />
             <Route path="/pdf-v2" element={<PropertyPdfV2 />} />
             <Route path="/resources" element={<ResourcesHubPage />} />
