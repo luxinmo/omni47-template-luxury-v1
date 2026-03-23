@@ -101,19 +101,19 @@ const FilterSelect = ({ label, value, options, onChange }: {
   options: string[];
   onChange: (v: string | null) => void;
 }) => (
-  <div className="flex-1 min-w-[160px]">
-    <p className="text-[11px] tracking-[0.25em] uppercase font-medium mb-2" style={{ color: palette.accent }}>{label}</p>
+  <div className="flex-1 min-w-0">
+    <p className="text-[10px] sm:text-[11px] tracking-[0.25em] uppercase font-medium mb-1.5 sm:mb-2" style={{ color: palette.accent }}>{label}</p>
     <div className="relative">
       <select
         value={value || ""}
         onChange={e => onChange(e.target.value || null)}
-        className="w-full appearance-none bg-transparent text-[13px] tracking-[0.04em] font-light pl-4 pr-10 py-3 rounded-none cursor-pointer transition-all duration-200 focus:outline-none"
+        className="w-full appearance-none bg-transparent text-[16px] sm:text-[13px] tracking-[0.04em] font-light pl-3 sm:pl-4 pr-8 sm:pr-10 py-2.5 sm:py-3 rounded-none cursor-pointer transition-all duration-200 focus:outline-none"
         style={{ border: `1px solid ${palette.border}`, color: value ? palette.text : palette.textMuted, background: palette.white }}
       >
-        <option value="">All {label}</option>
+        <option value="">All</option>
         {options.map(o => <option key={o} value={o}>{o}</option>)}
       </select>
-      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" style={{ color: palette.textLight }} />
+      <ChevronDown className="absolute right-2.5 sm:right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" style={{ color: palette.textLight }} />
     </div>
   </div>
 );
