@@ -1,8 +1,9 @@
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { Building2, X, ChevronDown, TrendingUp, ArrowRight } from "lucide-react";
+import { Building2, X, ChevronDown, TrendingUp, ArrowRight, SlidersHorizontal } from "lucide-react";
 import { Layout } from "@/components/layout";
 import FadeIn from "@/components/shared/FadeIn";
+import { useIsMobile } from "@/hooks/use-mobile";
 import SEOHead from "@/components/shared/SEOHead";
 import { palette, fonts } from "@/config/template";
 import prop1 from "@/assets/luxury-property-1.jpg";
