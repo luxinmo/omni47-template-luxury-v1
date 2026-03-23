@@ -342,7 +342,7 @@ const NewDevelopmentsPageV2 = () => {
           )}
 
           {/* Cards */}
-          <div className="space-y-0 sm:space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {filtered.length > 0 ? (
               filtered.map((d, i) => <DevCard key={d.slug} d={d} i={i} />)
             ) : (
