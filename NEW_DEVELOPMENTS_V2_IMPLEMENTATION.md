@@ -1,62 +1,48 @@
-# NEW DEVELOPMENTS V2 — Implementación Pixel-Perfect
+# NEW DEVELOPMENTS V2 — Documentación Pixel-Perfect Completa
 
 > **Ruta**: `/new-developments2`  
 > **Archivo**: `src/components/luxury/NewDevelopmentsPageV2.tsx`  
-> **Líneas**: ~377  
+> **Líneas**: 377  
 > **Última actualización**: 2026-03-23
 
 ---
 
-## 1. Filosofía de Diseño
+## 1. Mapa de Archivos
 
-Página de listado de obra nueva **sin hero visual**. A diferencia de `/new-developments` (V1), esta versión prioriza el **acceso directo al contenido**: título SEO + texto descriptivo → filtros → tarjetas de promoción. El usuario llega y ve inmediatamente las promociones disponibles sin scroll.
+| Archivo | Líneas | Propósito |
+|---------|--------|-----------|
+| `src/components/luxury/NewDevelopmentsPageV2.tsx` | 1–377 | Página completa (monolítica) |
+| `src/components/shared/FadeIn.tsx` | 1–37 | Animación de entrada con IntersectionObserver |
+| `src/components/shared/SEOHead.tsx` | — | Meta tags, Open Graph, Twitter Card |
+| `src/components/layout/Layout.tsx` | — | Wrapper con navbar + footer |
+| `src/config/template.ts` | — | Tokens de diseño: `palette`, `fonts` |
+| `src/hooks/use-mobile.tsx` | — | Hook `useIsMobile()` para lógica condicional por breakpoint |
 
-**Sentido**: En un contexto de remarketing o tráfico orgánico, el usuario ya sabe lo que busca. El hero es un obstáculo. Eliminar el hero y las secciones informativas (benefits, off-plan explanation) reduce el tiempo hasta la primera interacción con el contenido real.
+### Ubicación de cada pieza dentro del archivo principal
+
+| Pieza | Líneas | Descripción |
+|-------|--------|-------------|
+| Imports | 1–14 | React, router, icons, layout, config, assets |
+| `NewDevelopment` interface | 17–35 | Modelo de datos |
+| `NEW_DEVELOPMENTS` (mock data) | 38–87 | 6 promociones de ejemplo |
+| Filtros derivados + `fmt()` | 89–95 | `ALL_LOCATIONS`, `ALL_STATUSES`, etc. |
+| `FilterSelect` componente | 97–119 | Dropdown nativo estilizado |
+| `DevCard` componente | 121–218 | Tarjeta de promoción responsive |
+| `NewDevelopmentsPageV2` página | 220–377 | Componente principal con estado y layout |
 
 ---
 
-## 2. Arquitectura de la Página
+## 2. Filosofía de Diseño
 
-```
-┌─────────────────────────────────────────────────┐
-│  Layout (navVariant="solid")                     │
-│  ┌─────────────────────────────────────────────┐ │
-│  │  SEOHead                                     │ │
-│  ├─────────────────────────────────────────────┤ │
-│  │  Section: Título + Texto SEO                 │ │
-│  │  ├── Etiqueta "New Developments" + icono     │ │
-│  │  ├── H1: "Off-Plan Properties in Spain"      │ │
-│  │  └── Párrafo descriptivo (max-w-3xl)         │ │
-│  ├─────────────────────────────────────────────┤ │
-│  │  Mobile: Sticky Filter Bar (top-[52px])      │ │
-│  │  ├── Contador de resultados                  │ │
-│  │  └── Botón "Filters" con badge contador      │ │
-│  ├─────────────────────────────────────────────┤ │
-│  │  Mobile: Collapsible Filter Panel            │ │
-│  │  └── Grid 2 columnas de FilterSelect         │ │
-│  ├─────────────────────────────────────────────┤ │
-│  │  Desktop: Filter Bar (4 columnas)            │ │
-│  │  ├── Location / Status / Typology / Delivery │ │
-│  │  └── "Clear all filters" (condicional)       │ │
-│  ├─────────────────────────────────────────────┤ │
-│  │  Contador de resultados (desktop)            │ │
-│  ├─────────────────────────────────────────────┤ │
-│  │  Lista de DevCards                           │ │
-│  │  ├── DevCard 1                               │ │
-│  │  ├── DevCard 2                               │ │
-│  │  └── ...                                     │ │
-│  ├─────────────────────────────────────────────┤ │
-│  │  SEO: Browse by Location (enlaces internos)  │ │
-│  └─────────────────────────────────────────────┘ │
-│  Footer                                          │
-└─────────────────────────────────────────────────┘
-```
+Página de listado de obra nueva **sin hero visual**. A diferencia de `/new-developments` (V1), esta versión prioriza el **acceso directo al contenido**: título SEO + texto descriptivo → filtros → tarjetas de promoción. El usuario llega y ve inmediatamente las promociones disponibles sin scroll.
+
+**Sentido**: En un contexto de remarketing o tráfico orgánico, el usuario ya sabe lo que busca. El hero es un obstáculo.
 
 ---
 
 ## 3. Modelo de Datos
 
-### 3.1 Interface `NewDevelopment`
+### 3.1 Interface `NewDevelopment` (líneas 17–35)
 
 ```ts
 interface NewDevelopment {
@@ -73,21 +59,14 @@ interface NewDevelopment {
   totalUnits: number;        // Total de unidades del proyecto
   priceMin: number;          // Precio mínimo (EUR)
   priceMax: number;          // Precio máximo (EUR)
-  typologies: { type: string; from: number }[];  // Tipos disponibles con precio desde
-  units: { ref: string; type: string; price: number; beds: number; sqm: number }[];  // Unidades específicas
-  description: string;       // Descripción del proyecto (no se usa en card, solo en data)
+  typologies: { type: string; from: number }[];
+  units: { ref: string; type: string; price: number; beds: number; sqm: number }[];
+  description: string;       // Para detalle y meta description (no se muestra en card)
   trending?: boolean;        // Marca visual de tendencia
 }
 ```
 
-**Sentido de cada campo**:
-- `municipality` se usa para filtrado, `location` para display (puede incluir zona turística)
-- `status` controla badges visuales: "Last Units" muestra badge negro en la imagen
-- `trending` muestra badge "Trending" con icono TrendingUp en la imagen
-- `typologies` vs `units`: tipologías son resumen (Apartment from €X), units son detalles específicos (ref, beds, sqm)
-- `description` existe en data pero NO se muestra en la tarjeta (se usa en la página de detalle)
-
-### 3.2 Filtros Derivados
+### 3.2 Filtros Derivados (líneas 89–93)
 
 ```ts
 ALL_LOCATIONS   = [...new Set(developments.map(d => d.municipality))]
@@ -96,11 +75,21 @@ ALL_TYPOLOGIES  = [...new Set(developments.flatMap(d => d.typologies.map(t => t.
 ALL_DELIVERIES  = [...new Set(developments.map(d => d.delivery))].sort()
 ```
 
-**Sentido**: Los filtros se generan dinámicamente desde los datos. No hay opciones hardcodeadas. Cuando se conecte al backend, estos arrays vendrán del API (faceted search).
+**Sentido**: Los filtros se generan dinámicamente desde los datos. Con backend, vendrán del API (faceted search).
+
+### 3.3 Formato de Precios (línea 95)
+
+```ts
+const fmt = (n: number) => new Intl.NumberFormat("de-DE", {
+  style: "currency", currency: "EUR", maximumFractionDigits: 0
+}).format(n);
+```
+
+Locale `de-DE` → punto como separador de miles (€485.000). Sin decimales.
 
 ---
 
-## 4. Estado Interno
+## 4. Estado Interno (líneas 222–247)
 
 | Variable | Tipo | Default | Propósito |
 |----------|------|---------|-----------|
@@ -110,7 +99,7 @@ ALL_DELIVERIES  = [...new Set(developments.map(d => d.delivery))].sort()
 | `filterDelivery` | `string \| null` | `null` | Fecha de entrega |
 | `showMobileFilters` | `boolean` | `false` | Panel de filtros móvil abierto/cerrado |
 
-### Variables Derivadas
+### Variables Derivadas (líneas 229–240)
 
 | Variable | Lógica |
 |----------|--------|
@@ -120,9 +109,11 @@ ALL_DELIVERIES  = [...new Set(developments.map(d => d.delivery))].sort()
 
 ---
 
-## 5. Componentes Internos
+## 5. Componentes — Diseño Pixel-Perfect
 
-### 5.1 `FilterSelect`
+### 5.1 `FilterSelect` (líneas 97–119)
+
+**Archivo**: `NewDevelopmentsPageV2.tsx`, inline.
 
 Dropdown nativo estilizado con apariencia custom.
 
@@ -133,11 +124,29 @@ Dropdown nativo estilizado con apariencia custom.
 | `options` | `string[]` | Opciones disponibles |
 | `onChange` | `(v: string \| null) => void` | Callback de cambio |
 
+#### Diseño pixel-perfect
+
+```
+┌─────────────────────────────────┐
+│  LOCATION                       │  ← label: text-[10px] sm:text-[11px], tracking-[0.25em], uppercase, palette.accent
+├─────────────────────────────────┤
+│  All                        ▼   │  ← select: text-[16px] sm:text-[13px], font-light, tracking-[0.04em]
+│                                 │     border: 1px solid palette.border
+│                                 │     bg: palette.white
+│                                 │     padding: pl-3 sm:pl-4 pr-8 sm:pr-10 py-2.5 sm:py-3
+│                                 │     ▼ = ChevronDown w-4 h-4, palette.textLight
+└─────────────────────────────────┘
+```
+
 **UX crítica**: `font-size: 16px` en móvil (`text-[16px] sm:text-[13px]`) para **prevenir zoom automático en iOS Safari** al enfocar el select.
 
-**Sentido**: Se usa un `<select>` nativo en lugar de un dropdown custom porque en móvil el select nativo ofrece mejor UX (picker nativo del OS). El icono `ChevronDown` se superpone como indicador visual.
+**Sentido**: Se usa `<select>` nativo porque en móvil ofrece el picker nativo del OS → mejor UX que un dropdown custom.
 
-### 5.2 `DevCard`
+---
+
+### 5.2 `DevCard` (líneas 121–218)
+
+**Archivo**: `NewDevelopmentsPageV2.tsx`, inline.
 
 Tarjeta horizontal (desktop) / vertical (móvil) de promoción.
 
@@ -145,38 +154,99 @@ Tarjeta horizontal (desktop) / vertical (móvil) de promoción.
 
 | Breakpoint | Layout | Imagen | Contenido |
 |------------|--------|--------|-----------|
-| **Móvil** (<640px) | Vertical (flex-col) | 260px min-h, edge-to-edge (sin border-x) | Padding 16px, precio en overlay sobre imagen |
-| **Tablet** (640-1023px) | Vertical (flex-col) | 240px min-h, con bordes y rounded-sm | Padding 24px, tipologías + unidades visibles |
-| **Desktop** (1024px+) | Horizontal (flex-row) | 44% width, 360px min-h | Padding 32px, precio inline, todo visible |
+| **Móvil** (<640px) | Vertical (flex-col) | 260px min-h, edge-to-edge (sin border-x, rounded-none) | Padding 16px (p-4), precio en overlay sobre imagen |
+| **Tablet** (640-1023px) | Vertical (flex-col) | 240px min-h, con border-x y rounded-sm | Padding 24px (p-6), tipologías + unidades visibles |
+| **Desktop** (1024px+) | Horizontal (flex-row) | 44% width, 360px min-h | Padding 32px (p-8), precio inline, todo visible |
 
-#### Anatomía de la Tarjeta
+#### Anatomía visual completa
 
 ```
-┌──────────────────────────────────────────────────────────┐
-│  IMAGEN (44% desktop / 100% mobile)                      │
-│  ┌──────────┐                           ┌──────────────┐ │
-│  │Last Units│                           │ ↗ Trending   │ │
-│  └──────────┘                           └──────────────┘ │
-│  ▓▓▓▓▓▓▓▓▓▓▓▓▓ gradient (mobile only) ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ │
-│  €485.000 — €1.250.000  (mobile overlay)                 │
-├──────────────────────────────────────────────────────────┤
-│  CONTENT                                                  │
-│  Location · [New Development]            [Status Badge]   │
-│  Nombre del Proyecto (h3)                                 │
-│  Developer · Delivery Q2 2027                             │
-│  ┌──────────┬──────────┬──────────┐                      │
-│  │Available │  Built   │ Delivery │  ← Stats row          │
-│  │ 28 / 64  │   55%   │ Q2 2027  │                      │
-│  └──────────┴──────────┴──────────┘                      │
-│  €485.000 — €1.250.000  (desktop only)                   │
-│  ┌─ Typologies ────────┬─ Available Units ──────────┐    │
-│  │ Apartment from €485k │ MR-4A · Apt · 2bd · 95m²  │ sm+│
-│  │ Penthouse from €890k │ MR-12B · PH · 3bd · 160m² │    │
-│  └─────────────────────┴───────────────────────────┘    │
-│  [Apt from €485k] [PH from €890k]  ← mobile chips       │
-│  ─────────────────────────────────────────────────────   │
-│  28 of 64 available · 55% built        View [Project] →  │
-└──────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────┐
+│  IMAGEN (lg:w-[44%] / 100% en mobile)                           │
+│  ┌────────────┐                                ┌──────────────┐ │
+│  │ Last Units │ top-3 left-3                    │ ↗ Trending   │ │
+│  │ text-[10px] │ bg-black/60                    │ top-3 right-3│ │
+│  │ tracking-[0.12em]│ backdrop-blur-sm          │ text-[10px]  │ │
+│  │ uppercase  │ rounded-sm                      │ TrendingUp   │ │
+│  │ px-2.5 py-1│                                 │ w-3 h-3     │ │
+│  └────────────┘                                 └──────────────┘ │
+│                                                                  │
+│  ▓▓▓ gradient h-16 bg-gradient-to-t from-black/60 (lg:hidden) ▓ │
+│  €485.000 — €1.250.000                                           │
+│  ↑ bottom-3 left-3, text-[17px] font-semibold text-white        │
+│    tracking-wide drop-shadow-md (lg:hidden)                      │
+├──────────────────────────────────────────────────────────────────┤
+│  CONTENT (flex-1, p-4 sm:p-6 lg:p-8, flex flex-col)             │
+│                                                                  │
+│  ┌── Header (flex justify-between, mb-1) ─────────────────────┐ │
+│  │ Altea, Costa Blanca                   [Under Construction]  │ │
+│  │ ↑ text-[11px] tracking-[0.15em]       ↑ text-[10px] sm:[11]│ │
+│  │   uppercase, palette.textMuted          tracking-[0.1em]   │ │
+│  │ [New Development] (hidden sm:inline)    uppercase, border   │ │
+│  │  text-[10px] tracking-[0.1em]           px-2 py-0.5       │ │
+│  │  border palette.border                  palette.text + 30% │ │
+│  └─────────────────────────────────────────────────────────────┘ │
+│                                                                  │
+│  Marea Residences                                                │
+│  ↑ h3: text-lg sm:text-xl lg:text-[22px]                        │
+│    font-light tracking-wide, fonts.heading, mb-1                 │
+│                                                                  │
+│  Grupo Prasa · Delivery Q2 2027                                  │
+│  ↑ text-[12px] sm:text-[13px] font-light, palette.textMuted     │
+│    mb-3 sm:mb-4                                                  │
+│                                                                  │
+│  ┌── Stats Row (flex gap-4 sm:gap-6, border-bottom) ──────────┐ │
+│  │  Available        Built           Delivery                  │ │
+│  │  ↑ text-[9px]     ↑ text-[9px]    ↑ text-[9px]             │ │
+│  │  tracking-[0.2em] tracking-[0.2em] tracking-[0.2em]        │ │
+│  │  uppercase         uppercase       uppercase                │ │
+│  │  palette.textLight palette.textLight palette.textLight      │ │
+│  │  mb-0.5 sm:mb-1   mb-0.5 sm:mb-1  mb-0.5 sm:mb-1          │ │
+│  │                                                             │ │
+│  │  28 / 64          55%             Q2 2027                   │ │
+│  │  ↑ text-[15px]    ↑ text-[15px]   ↑ text-[15px]            │ │
+│  │    sm:text-[17px]   sm:text-[17px]  sm:text-[17px]          │ │
+│  │    font-light       font-light      font-light              │ │
+│  │  "/ 64" = text-[12px] sm:text-[13px] palette.textLight     │ │
+│  └─────────────────────────────────────────────────────────────┘ │
+│  ↑ padding: mb-3 sm:mb-4, pb-3 sm:pb-4                          │
+│                                                                  │
+│  €485.000 — €1.250.000  (hidden lg:block)                        │
+│  ↑ text-[22px] lg:text-[24px] font-light, palette.text, mb-4    │
+│                                                                  │
+│  ┌── Typologies + Units (hidden sm:flex, flex-row gap-6) ──────┐ │
+│  │  Typologies              Available Units                    │ │
+│  │  ↑ text-[9px]            ↑ text-[9px]                      │ │
+│  │  tracking-[0.2em] mb-2   tracking-[0.2em] mb-2             │ │
+│  │  palette.textLight       palette.textLight                  │ │
+│  │                                                             │ │
+│  │  Apartment from €485.000   MR-4A · Apt · 2 bed · 95 m²     │ │
+│  │  Penthouse from €890.000   MR-12B · PH · 3 bed · 160 m²    │ │
+│  │  ↑ text-[13px] font-light ↑ text-[13px] font-light         │ │
+│  │    leading-relaxed          leading-relaxed                 │ │
+│  │    palette.textMuted        palette.textMuted               │ │
+│  │    "from €X" = palette.text ref = palette.text              │ │
+│  └─────────────────────────────────────────────────────────────┘ │
+│  ↑ mb-5                                                          │
+│                                                                  │
+│  ┌── Mobile Chips (flex sm:hidden, flex-wrap gap-2) ───────────┐ │
+│  │  [Apartment from €485.000] [Penthouse from €890.000]        │ │
+│  │  ↑ text-[12px] font-light px-2.5 py-1 rounded-sm           │ │
+│  │    bg: palette.bg, color: palette.textMuted                 │ │
+│  └─────────────────────────────────────────────────────────────┘ │
+│  ↑ mb-3                                                          │
+│                                                                  │
+│  ┌── Footer (mt-auto, flex justify-between, border-top) ──────┐ │
+│  │  28 of 64 available · 55% built         View Project →     │ │
+│  │  ↑ text-[11px] sm:text-[12px]           ↑ text-[11px]      │ │
+│  │    font-light, palette.textLight          sm:text-[12px]    │ │
+│  │  "· 55% built" solo si construction > 0   tracking-[0.15em]│ │
+│  │                                           uppercase         │ │
+│  │  Mobile: "View →" (sin "Project")         palette.accent    │ │
+│  │  Desktop: "View Project →"                ArrowRight w-3.5  │ │
+│  └─────────────────────────────────────────────────────────────┘ │
+│  ↑ pt-3 sm:pt-4                                                  │
+└──────────────────────────────────────────────────────────────────┘
 ```
 
 #### Elementos Condicionales por Breakpoint
@@ -191,67 +261,174 @@ Tarjeta horizontal (desktop) / vertical (móvil) de promoción.
 | "View Project" (full text) | ❌ | ✅ | ✅ |
 | "View →" (short) | ✅ | ❌ | ❌ |
 | Border-x (laterales) | ❌ | ✅ | ✅ |
-| Rounded corners | ❌ | ✅ | ✅ |
+| Rounded corners | ❌ (rounded-none) | ✅ (rounded-sm) | ✅ (rounded-sm) |
 
-**Sentido del price overlay móvil**: En móvil el precio es la información más importante. Mostrarlo sobre la imagen con un gradient oscuro permite al usuario escanear rápidamente sin necesidad de leer el contenido debajo.
+#### Card container
 
-**Sentido de ocultar typologies/units en móvil**: En pantalla pequeña, la densidad de información es contraproducente. Se reemplazan por chips compactos que muestran el resumen esencial.
+```
+className="group flex flex-col lg:flex-row overflow-hidden rounded-none sm:rounded-sm border-x-0 sm:border-x border-y sm:border"
+style={{ background: palette.white, borderColor: palette.border }}
+```
+
+#### Imagen
+
+```
+className="relative lg:w-[44%] min-h-[260px] sm:min-h-[240px] lg:min-h-[360px] overflow-hidden"
+```
+
+- `img`: `absolute inset-0 w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.03]`
+- Loading: `lazy`
 
 ---
 
-## 6. Secciones de la Página
+## 6. Secciones de la Página — Diseño Pixel-Perfect
 
-### 6.1 Título + Texto SEO
+### 6.1 Título + Texto SEO (líneas 256–274)
 
-- **Padding top**: `pt-20 sm:pt-28 md:pt-32` — compensa la navbar fija
-- **Contenido**:
-  - Etiqueta con icono Building2 + "New Developments"
-  - H1: `text-[26px] sm:text-4xl md:text-5xl font-extralight`
-  - Párrafo SEO: max-width 3xl, describe el valor de comprar sobre plano
-- **Sentido**: El H1 y el párrafo están optimizados para SEO. El título usa "Off-Plan Properties in Spain" como keyword principal. El texto incluye porcentajes y términos clave ("pre-construction prices", "bank-guaranteed deposit protection").
+**Archivo**: `NewDevelopmentsPageV2.tsx`, líneas 256–274.
 
-### 6.2 Barra de Filtros Móvil (Sticky)
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  padding: pt-20 sm:pt-28 md:pt-32 pb-6 sm:pb-10 md:pb-16      │
+│  background: palette.white                                      │
+│  container: max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-12       │
+│                                                                 │
+│  🏗 New Developments                                            │
+│  ↑ Building2 w-4 h-4 + text-[11px] tracking-[0.25em]           │
+│    uppercase font-medium, palette.accent, mb-3 sm:mb-4          │
+│                                                                 │
+│  Off-Plan Properties in Spain                                   │
+│  ↑ H1: text-[26px] sm:text-4xl md:text-5xl                     │
+│    font-extralight leading-[1.1] tracking-[0.04em]              │
+│    fonts.heading, palette.text, mb-3 sm:mb-5                    │
+│                                                                 │
+│  Explore our curated portfolio of new-build...                  │
+│  ↑ p: text-[14px] sm:text-[15px] leading-[1.8] sm:leading-[1.9]│
+│    font-light max-w-3xl, palette.textMuted                      │
+└─────────────────────────────────────────────────────────────────┘
+```
 
-- **Posición**: `sticky top-[52px] z-30` — se ancla debajo de la navbar (52px)
-- **Contenido**: Contador de resultados (izquierda) + Botón "Filters" (derecha)
-- **Badge**: Círculo con color accent mostrando el número de filtros activos
-- **Sentido**: En móvil los filtros no caben en pantalla. El botón sticky permite acceder a ellos en cualquier momento del scroll. El badge numérico comunica que hay filtros activos sin necesidad de abrir el panel.
+### 6.2 Barra de Filtros Móvil — Sticky (líneas 277–296)
 
-### 6.3 Panel de Filtros Móvil (Colapsable)
+**Archivo**: `NewDevelopmentsPageV2.tsx`, líneas 277–296.  
+**Condición**: Solo `isMobile`.
 
-- **Trigger**: `showMobileFilters` toggle
-- **Layout**: Grid 2 columnas (`grid-cols-2 gap-3`)
-- **Background**: `palette.bg` para distinguir visualmente del contenido
-- **Incluye**: 4 FilterSelect + botón "Clear all" condicional
-- **Sentido**: Grid de 2 columnas en lugar de 1 aprovecha mejor el ancho en móvil sin ser demasiado apretado. Se colapsa para no ocupar espacio permanente.
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  sticky top-[52px] z-30                                         │
+│  flex items-center justify-between                              │
+│  px-4 py-3                                                      │
+│  background: palette.white                                      │
+│  borderBottom: 1px solid palette.border                         │
+│                                                                 │
+│  6 developments              [🔧 Filters (3)]                  │
+│  ↑ text-[13px] font-light    ↑ text-[13px] tracking-[0.08em]   │
+│    palette.textMuted            uppercase font-light            │
+│                                 px-3 py-2 rounded-sm            │
+│                                 border: 1px solid palette.border│
+│                                 SlidersHorizontal w-3.5 h-3.5   │
+│                                                                 │
+│                               (3) = badge:                      │
+│                                 w-5 h-5 rounded-full            │
+│                                 text-[10px] text-white           │
+│                                 bg: palette.accent              │
+│                                 solo si activeFilterCount > 0   │
+└─────────────────────────────────────────────────────────────────┘
+```
 
-### 6.4 Barra de Filtros Desktop
+**Sentido del `top-[52px]`**: Se ancla debajo de la navbar (que mide 52px).
 
-- **Layout**: Grid 4 columnas (`grid-cols-2 lg:grid-cols-4`)
-- **Background**: `palette.bg` con borde
-- **Padding**: `p-6 sm:p-8`
-- **Incluye**: 4 FilterSelect + "Clear all filters" condicional
-- **Solo visible**: cuando `!isMobile`
-- **Sentido**: En desktop hay espacio suficiente para mostrar los 4 filtros en una sola fila. El fondo diferenciado separa visualmente los controles del contenido.
+### 6.3 Panel de Filtros Móvil — Colapsable (líneas 298–313)
 
-### 6.5 Contador de Resultados (Desktop)
+**Archivo**: `NewDevelopmentsPageV2.tsx`, líneas 298–313.  
+**Condición**: `isMobile && showMobileFilters`.
 
-- **Formato**: `"X development(s) found"`
-- **Estilo**: `text-[13px] font-light` con border-bottom separador
-- **Solo visible**: cuando `!isMobile` (en móvil está en la sticky bar)
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  px-4 py-4 space-y-4                                            │
+│  background: palette.bg                                         │
+│  borderBottom: 1px solid palette.border                         │
+│                                                                 │
+│  ┌── grid grid-cols-2 gap-3 ──────────────────────────────────┐ │
+│  │  [Location ▼]    [Status ▼]                                │ │
+│  │  [Typology ▼]    [Delivery ▼]                              │ │
+│  └────────────────────────────────────────────────────────────┘ │
+│                                                                 │
+│  ✕ Clear all   (solo si hasFilters)                             │
+│  ↑ text-[12px] tracking-[0.1em] uppercase font-light           │
+│    palette.textMuted, X w-3.5 h-3.5                             │
+└─────────────────────────────────────────────────────────────────┘
+```
 
-### 6.6 Lista de Tarjetas
+### 6.4 Barra de Filtros Desktop (líneas 319–334)
 
-- **Spacing**: `space-y-4 sm:space-y-6` — 16px entre cards en móvil, 24px en tablet+
-- **Container**: `px-0 sm:px-6 lg:px-12` — edge-to-edge en móvil
-- **Empty state**: Icono Building2 + texto + botón "Clear filters"
-- **Animación**: `FadeIn` con delay escalonado (`i * 0.08`)
+**Archivo**: `NewDevelopmentsPageV2.tsx`, líneas 319–334.  
+**Condición**: `!isMobile`.
 
-### 6.7 SEO: Browse by Location
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  mb-8 p-6 sm:p-8 rounded-sm mx-4 sm:mx-0                       │
+│  background: palette.bg                                         │
+│  border: 1px solid palette.border                               │
+│                                                                 │
+│  ┌── grid grid-cols-2 lg:grid-cols-4 gap-5 ───────────────────┐ │
+│  │  [Location ▼]  [Status ▼]  [Typology ▼]  [Delivery ▼]    │ │
+│  └────────────────────────────────────────────────────────────┘ │
+│                                                                 │
+│  ── border-top (mt-5 pt-4) ──  (solo si hasFilters)             │
+│  ✕ Clear all filters                                            │
+│  ↑ text-[12px] tracking-[0.1em] uppercase font-light           │
+│    palette.textMuted, hover:opacity-60                          │
+└─────────────────────────────────────────────────────────────────┘
+```
 
-- **Posición**: Final de la página, separada por border-top
-- **Contenido**: Lista de municipios con conteo de promociones
-- **Sentido**: Internal linking para SEO. Cada ubicación podría enlazar a una versión filtrada de la página (preparado para implementar con query params o subrutas).
+### 6.5 Contador de Resultados Desktop (líneas 338–342)
+
+**Archivo**: `NewDevelopmentsPageV2.tsx`, líneas 338–342.  
+**Condición**: `!isMobile`.
+
+```
+6 developments found
+↑ text-[13px] font-light, palette.textLight
+  mb-6 pb-4 px-4 sm:px-0
+  borderBottom: 1px solid palette.border
+```
+
+### 6.6 Lista de Tarjetas (líneas 344–355)
+
+**Archivo**: `NewDevelopmentsPageV2.tsx`, líneas 344–355.
+
+```
+container: space-y-4 sm:space-y-6
+wrapper: max-w-[1320px] mx-auto px-0 sm:px-6 lg:px-12
+
+Empty state (py-20 px-4, text-center):
+  Building2 w-10 h-10, palette.textLight, mb-4
+  "No developments match..." text-[15px] font-light, palette.textMuted
+  "Clear filters" mt-4 text-[13px] underline font-light, palette.accent
+```
+
+**Animación**: Cada `DevCard` envuelto en `FadeIn` con `delay={i * 0.08}`.
+
+### 6.7 SEO: Browse by Location (líneas 357–370)
+
+**Archivo**: `NewDevelopmentsPageV2.tsx`, líneas 357–370.
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  mt-12 sm:mt-16 pt-8 px-4 sm:px-0                              │
+│  borderTop: 1px solid palette.border                            │
+│                                                                 │
+│  BROWSE BY LOCATION                                             │
+│  ↑ text-[10px] tracking-[0.2em] uppercase font-medium mb-4     │
+│    palette.textLight                                            │
+│                                                                 │
+│  Altea (1)  Jávea (1)  Moraira (1)  Calpe (1)  Benidorm (1)   │
+│  ↑ flex flex-wrap gap-3                                         │
+│    text-[13px] font-light, palette.accent                       │
+│    count = filtro por municipality                              │
+└─────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
@@ -265,31 +442,36 @@ Tarjeta horizontal (desktop) / vertical (móvil) de promoción.
 
 ---
 
-## 8. Formato de Precios
+## 8. Dependencias
 
-```ts
-const fmt = (n: number) => new Intl.NumberFormat("de-DE", {
-  style: "currency",
-  currency: "EUR",
-  maximumFractionDigits: 0
-}).format(n);
-```
-
-- **Locale**: `de-DE` — usa punto como separador de miles (€485.000)
-- **Sentido**: Formato europeo estándar para el mercado español/europeo. Sin decimales porque los precios inmobiliarios no requieren céntimos.
+| Dependencia | Import | Uso |
+|-------------|--------|-----|
+| `Layout` | `@/components/layout` | Wrapper con navbar (`navVariant="solid"`) + footer. `activePath="/new-developments"`, `showBackToTop` |
+| `SEOHead` | `@/components/shared/SEOHead` | Meta tags, Open Graph, Twitter Card |
+| `FadeIn` | `@/components/shared/FadeIn` | Animación de entrada con IntersectionObserver (threshold 0.15, translateY 28px, duration 0.9s) |
+| `useIsMobile` | `@/hooks/use-mobile` | Detección de breakpoint para lógica condicional |
+| `palette` | `@/config/template` | Tokens de color: `.white`, `.bg`, `.text`, `.textMuted`, `.textLight`, `.accent`, `.border` |
+| `fonts` | `@/config/template` | Token de fuente: `.heading` |
+| `lucide-react` | — | Building2, X, ChevronDown, TrendingUp, ArrowRight, SlidersHorizontal |
 
 ---
 
-## 9. Dependencias
+## 9. Diferencias con V1 (`/new-developments`)
 
-| Dependencia | Uso |
-|-------------|-----|
-| `Layout` | Wrapper con navbar + footer |
-| `SEOHead` | Meta tags, Open Graph, Twitter Card |
-| `FadeIn` | Animación de entrada con intersection observer |
-| `useIsMobile` | Detección de breakpoint para lógica condicional |
-| `palette` / `fonts` | Tokens de diseño centralizados |
-| `lucide-react` | Iconos: Building2, X, ChevronDown, TrendingUp, ArrowRight, SlidersHorizontal |
+| Aspecto | V1 (`NewDevelopmentsPage.tsx`) | V2 (`NewDevelopmentsPageV2.tsx`) |
+|---------|----|----|
+| Hero | Sí (70vh con imagen de fondo) | No |
+| Sección "Why Buy Off-Plan" | Sí | No |
+| Sección "Benefits" (4 cards) | Sí | No |
+| CTA final | Sí (dark section) | No |
+| URL params (location slug) | Sí (`/in/:location`) | No |
+| Mobile sticky filter | No | Sí |
+| Mobile filter panel colapsable | No | Sí |
+| Edge-to-edge cards móvil | No | Sí (rounded-none, border-x-0) |
+| Price overlay en imagen (móvil) | No | Sí (gradient + text overlay) |
+| Typology chips (móvil) | No | Sí |
+| Min image height móvil | — | 260px |
+| Card spacing móvil | — | space-y-4 (16px) |
 
 ---
 
@@ -299,11 +481,11 @@ const fmt = (n: number) => new Intl.NumberFormat("de-DE", {
 
 | Endpoint | Método | Descripción | Parámetros |
 |----------|--------|-------------|------------|
-| `GET /api/new-developments` | GET | Lista de promociones con filtros | `?location=&status=&typology=&delivery=&page=&limit=` |
+| `GET /api/new-developments` | GET | Lista con filtros | `?location=&status=&typology=&delivery=&page=&limit=` |
 | `GET /api/new-developments/:slug` | GET | Detalle de una promoción | — |
-| `GET /api/new-developments/filters` | GET | Opciones de filtro disponibles (faceted) | — |
+| `GET /api/new-developments/filters` | GET | Opciones de filtro (faceted) | — |
 
-### 10.2 Respuesta esperada de `GET /api/new-developments`
+### 10.2 Respuesta esperada
 
 ```json
 {
@@ -315,36 +497,12 @@ const fmt = (n: number) => new Intl.NumberFormat("de-DE", {
     "locations": ["Altea", "Jávea", "Moraira"],
     "statuses": ["Pre-Launch", "Selling", "Under Construction", "Last Units"],
     "typologies": ["Apartment", "Penthouse", "Villa", "Duplex", "Townhouse"],
-    "deliveries": ["Q2 2026", "Q4 2026", "Q2 2027", "Q3 2027", "Q4 2027", "Q1 2028"]
+    "deliveries": ["Q2 2026", "Q4 2026", "Q2 2027"]
   }
 }
 ```
 
-**Sentido del campo `filters`**: Devolver las opciones de filtro junto con los resultados permite mostrar solo opciones con resultados (faceted search) y evita una segunda llamada al API.
-
-### 10.3 CMS — Campos Requeridos por Promoción
-
-| Campo | Tipo | Requerido | Notas |
-|-------|------|-----------|-------|
-| `slug` | string | ✅ | Auto-generado desde nombre |
-| `name` | string | ✅ | |
-| `location` | string | ✅ | Display text |
-| `municipality` | string | ✅ | Para filtrado (puede ser FK a tabla de municipios) |
-| `developer` | string | ✅ | |
-| `delivery` | string | ✅ | Formato "Q[1-4] YYYY" |
-| `status` | enum | ✅ | Pre-Launch / Selling / Under Construction / Last Units |
-| `construction` | integer | ✅ | 0-100 |
-| `available_units` | integer | ✅ | |
-| `total_units` | integer | ✅ | |
-| `price_min` | integer | ✅ | EUR |
-| `price_max` | integer | ✅ | EUR |
-| `image` | file/url | ✅ | Imagen principal (aspect ~16:10) |
-| `description` | text | ✅ | Para detalle y meta description |
-| `trending` | boolean | ❌ | Default false |
-| `typologies` | json/relation | ✅ | Array de {type, from} |
-| `units` | json/relation | ✅ | Array de {ref, type, price, beds, sqm} |
-
-### 10.4 Tabla de Base de Datos Sugerida
+### 10.3 Tabla de Base de Datos Sugerida
 
 ```sql
 CREATE TABLE new_developments (
@@ -377,51 +535,7 @@ CREATE INDEX idx_new_dev_delivery ON new_developments(delivery);
 
 ---
 
-## 11. Paginación (Pendiente)
-
-La versión actual no implementa paginación. Cuando el número de promociones supere ~12, añadir:
-
-- **Desktop**: Paginación numérica debajo de las cards
-- **Móvil**: Botón "Load more" (infinite scroll no recomendado para SEO)
-- **API**: Parámetros `page` y `limit`
-
----
-
-## 12. Diferencias con V1 (`/new-developments`)
-
-| Aspecto | V1 | V2 |
-|---------|----|----|
-| Hero | Sí (70vh con imagen de fondo) | No |
-| Sección "Why Buy Off-Plan" | Sí | No |
-| Sección "Benefits" (4 cards) | Sí | No |
-| CTA final | Sí (dark section) | No |
-| URL params (location slug) | Sí (`/in/:location`) | No |
-| Mobile sticky filter | No | Sí |
-| Mobile filter panel colapsable | No | Sí |
-| Edge-to-edge cards móvil | No | Sí |
-| Price overlay en imagen (móvil) | No | Sí |
-| Typology chips (móvil) | No | Sí |
-
-**Sentido**: V2 es una versión más directa y funcional, ideal para tráfico que ya conoce la marca. V1 es mejor para landing pages orgánicas donde el usuario necesita contexto educativo sobre obra nueva.
-
----
-
-## 13. Assets Requeridos
-
-| Asset | Uso actual | Producción |
-|-------|-----------|------------|
-| `luxury-property-1.jpg` | Imagen mock Marea Residences | Reemplazar por imagen real del proyecto |
-| `luxury-property-2.jpg` | Imagen mock Sky Villas | Reemplazar por imagen real del proyecto |
-| `luxury-property-3.jpg` | Imagen mock Costa Serena | Reemplazar por imagen real del proyecto |
-| `property-detail-1.jpg` | Imagen mock Vista Marina | Reemplazar por imagen real del proyecto |
-| `property-detail-2.jpg` | Imagen mock The View Jávea | Reemplazar por imagen real del proyecto |
-| `property-detail-3.jpg` | Imagen mock One Green Way | Reemplazar por imagen real del proyecto |
-
-**Aspect ratio recomendado**: 16:10 para las imágenes de las tarjetas.
-
----
-
-## 14. SEO
+## 11. SEO
 
 ### Meta Tags
 - **Title**: `"New Developments — Off-Plan Properties in Spain | {SITE_NAME}"`
@@ -429,8 +543,32 @@ La versión actual no implementa paginación. Cuando el número de promociones s
 - **H1**: Único: "Off-Plan Properties in Spain"
 
 ### Internal Linking
-- Sección "Browse by Location" con links a cada municipio (preparado para subrutas)
+- Sección "Browse by Location" con links a cada municipio
 - Cada tarjeta enlaza a `/new-developments/:slug`
 
 ### Preparado para JSON-LD
 Cuando se implemente con datos reales, añadir schema `ItemList` con cada promoción como `ListItem`.
+
+---
+
+## 12. Assets Mock
+
+| Variable | Asset | Uso |
+|----------|-------|-----|
+| `prop1` | `luxury-property-1.jpg` | Marea Residences |
+| `prop2` | `luxury-property-2.jpg` | Sky Villas |
+| `prop3` | `luxury-property-3.jpg` | Costa Serena |
+| `detail1` | `property-detail-1.jpg` | Vista Marina |
+| `detail2` | `property-detail-2.jpg` | The View Jávea |
+| `detail3` | `property-detail-3.jpg` | One Green Way |
+
+**Aspect ratio recomendado**: 16:10 para las imágenes de las tarjetas.
+
+---
+
+## 13. Paginación (Pendiente)
+
+No implementada. Cuando supere ~12 promociones:
+- **Desktop**: Paginación numérica
+- **Móvil**: Botón "Load more" (infinite scroll no recomendado para SEO)
+- **API**: Parámetros `page` y `limit`
