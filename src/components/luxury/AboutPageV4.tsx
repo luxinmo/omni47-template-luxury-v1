@@ -220,7 +220,7 @@ const AboutPageV4 = () => {
         </div>
       </section>
 
-      {/* ═══ 3. LEADERSHIP — BOTH FOUNDER & DIRECTOR ═══ */}
+      {/* ═══ 3. LEADERSHIP ═══ */}
       <section className="py-16 sm:py-24 md:py-32" style={{ background: palette.bg }}>
         <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
           <FadeIn>
@@ -232,44 +232,39 @@ const AboutPageV4 = () => {
             </div>
           </FadeIn>
 
-          <div className="space-y-20 lg:space-y-28">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
             {LEADERSHIP.map((leader, idx) => (
-              <div key={idx} className={`grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center ${idx % 2 === 1 ? "lg:direction-rtl" : ""}`}>
-                <FadeIn delay={0.1}>
-                  <div className={`relative ${idx % 2 === 1 ? "lg:order-2" : ""}`}>
-                    <div className="aspect-[3/4] overflow-hidden">
-                      <img
-                        src={typeof leader.image === "string" ? leader.image : leader.image}
-                        alt={leader.name}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 px-6 py-4" style={{ background: palette.white, border: `1px solid ${palette.border}` }}>
-                      <p className="text-[11px] tracking-[0.2em] uppercase font-normal" style={{ color: palette.accent, fontFamily: F }}>{leader.role}</p>
+              <FadeIn key={idx} delay={idx * 0.15}>
+                <div className="group h-full" style={{ border: `1px solid ${palette.border}`, background: palette.white }}>
+                  <div className="aspect-[4/5] overflow-hidden relative">
+                    <img
+                      src={typeof leader.image === "string" ? leader.image : leader.image}
+                      alt={leader.name}
+                      className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
+                      <h3 className="text-2xl sm:text-3xl font-extralight text-white mb-1" style={{ fontFamily: F, letterSpacing: "0.04em" }}>
+                        {leader.name}
+                      </h3>
+                      <p className="text-[11px] tracking-[0.25em] uppercase text-white/70 font-normal" style={{ fontFamily: F }}>
+                        {leader.role}
+                      </p>
                     </div>
                   </div>
-                </FadeIn>
-                <FadeIn delay={0.05}>
-                  <div className={idx % 2 === 1 ? "lg:order-1" : ""}>
-                    <h3 className="text-3xl md:text-4xl font-extralight leading-[1.15] mb-6" style={{ fontFamily: F, letterSpacing: "0.04em" }}>
-                      {leader.name}
-                    </h3>
-                    <div className="w-12 h-[1px] mb-8" style={{ background: palette.accent }} />
-                    <p className="text-[15px] leading-[1.9] font-light mb-8" style={{ color: palette.textMuted, fontFamily: F }}>
+                  <div className="p-6 sm:p-8">
+                    <p className="text-[14px] leading-[1.85] font-light mb-6" style={{ color: palette.textMuted, fontFamily: F }}>
                       {leader.bio}
                     </p>
-                    <div className="p-6 sm:p-8" style={{ background: palette.white, border: `1px solid ${palette.border}` }}>
-                      <Quote className="w-6 h-6 mb-4" style={{ color: palette.accent }} strokeWidth={1} />
-                      <p className="text-[15px] sm:text-[17px] leading-[1.7] font-extralight italic mb-4" style={{ fontFamily: F, color: palette.text }}>
-                        "{leader.quote}"
-                      </p>
-                      <p className="text-[11px] tracking-[0.2em] uppercase font-normal" style={{ color: palette.accent, fontFamily: F }}>
-                        — {leader.name}, {leader.role}
+                    <div className="flex items-start gap-3 pt-5" style={{ borderTop: `1px solid ${palette.border}` }}>
+                      <Quote className="w-4 h-4 mt-1 shrink-0" style={{ color: palette.accent }} strokeWidth={1.5} />
+                      <p className="text-[14px] leading-[1.7] font-extralight italic" style={{ fontFamily: F, color: palette.text }}>
+                        {leader.quote}
                       </p>
                     </div>
                   </div>
-                </FadeIn>
-              </div>
+                </div>
+              </FadeIn>
             ))}
           </div>
         </div>
