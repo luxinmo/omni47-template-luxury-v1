@@ -541,7 +541,7 @@ const AboutPageV3 = () => {
               </p>
             </div>
           </FadeIn>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-8">
             {TEAM_PREVIEW.map((member, i) => (
               <FadeIn key={i} delay={i * 0.06}>
                 <div className="group cursor-pointer">
@@ -553,24 +553,27 @@ const AboutPageV3 = () => {
                     />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
                   </div>
-                  <h3 className="text-[15px] font-light tracking-wide mb-1" style={{ fontFamily: fonts.heading }}>{member.name}</h3>
-                  <p className="text-[11px] tracking-[0.12em] uppercase font-normal mb-2" style={{ color: palette.accent }}>{member.role}</p>
-                  <p className="text-[12px] leading-[1.7] font-light" style={{ color: palette.textMuted }}>{member.desc}</p>
+                  <h3 className="text-[14px] font-light tracking-wide mb-1" style={{ fontFamily: fonts.heading }}>{member.name}</h3>
+                  <p className="text-[10px] tracking-[0.12em] uppercase font-normal" style={{ color: palette.accent }}>{member.role}</p>
                 </div>
               </FadeIn>
             ))}
-          </div>
-          <FadeIn delay={0.4}>
-            <div className="text-center mt-12 sm:mt-16">
-              <a
-                href="/team"
-                className="inline-flex items-center gap-2 text-[11px] tracking-[0.18em] uppercase font-medium px-10 py-4 transition-all duration-300 hover:bg-[#FAF8F5]"
-                style={{ border: `1px solid ${palette.border}`, color: palette.text }}
-              >
-                See Full Team <ArrowRight className="w-4 h-4" />
+            {/* +N card linking to full team */}
+            <FadeIn delay={0.35}>
+              <a href="/team" className="group cursor-pointer block">
+                <div className="relative overflow-hidden mb-4 w-full aspect-[3/4] flex items-center justify-center transition-colors duration-300" style={{ background: palette.bg, border: `1px solid ${palette.border}` }}>
+                  <div className="text-center">
+                    <p className="text-3xl sm:text-4xl font-extralight mb-2" style={{ fontFamily: fonts.heading, color: palette.accent }}>+8</p>
+                    <p className="text-[10px] tracking-[0.2em] uppercase font-normal" style={{ color: palette.textLight }}>Team Members</p>
+                  </div>
+                </div>
+                <h3 className="text-[14px] font-light tracking-wide mb-1 group-hover:opacity-70 transition-opacity" style={{ fontFamily: fonts.heading, color: palette.accent }}>See Full Team</h3>
+                <p className="text-[10px] tracking-[0.12em] uppercase font-normal flex items-center gap-1" style={{ color: palette.textLight }}>
+                  View all <ArrowRight className="w-3 h-3" />
+                </p>
               </a>
-            </div>
-          </FadeIn>
+            </FadeIn>
+          </div>
         </div>
       </section>
 
