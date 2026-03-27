@@ -171,10 +171,10 @@ const AboutPageV3 = () => {
               </h2>
               <div className="w-12 h-[1px] mb-8" style={{ background: palette.accent }} />
               <p className="text-[15px] leading-[1.9] font-light mb-6" style={{ color: palette.textMuted }}>
-                Luxinmo Real Estate is a premium real estate firm operating across the Mediterranean, with a strong presence in Costa Blanca and Ibiza, and an international network spanning Europe.
+                Despite being a relatively young company, Luxinmo Real Estate is backed by a team with more than 25 years of experience in buying and selling luxury residential properties along the Costa Blanca — Alicante, Benidorm, El Albir, Altea, Moraira, Jávea, Denia — and Ibiza.
               </p>
               <p className="text-[15px] leading-[1.9] font-light mb-8" style={{ color: palette.textMuted }}>
-                Founded in 2015, the company has grown into a high-performance structure combining sales, legal expertise, marketing and proprietary technology. Today, Luxinmo operates as a data-driven luxury advisory firm — where every decision is backed by market intelligence and every client receives an experience calibrated to excellence.
+                Within less than a decade since its birth in Altea, our brand has become highly regarded by customers, promoters and investors as one of the leaders in the sector. Today, Luxinmo operates as a data-driven luxury advisory firm — where every decision is backed by market intelligence.
               </p>
               <div className="flex items-center gap-3 cursor-pointer group">
                 <div className="w-12 h-12 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-105" style={{ border: `1px solid ${palette.accent}50` }}>
@@ -187,8 +187,8 @@ const AboutPageV3 = () => {
               <div className="relative">
                 <img src={prop1} alt="Luxinmo team" className="w-full aspect-[4/5] object-cover" />
                 <div className="absolute -bottom-6 -left-6 sm:-bottom-8 sm:-left-8 p-6 sm:p-8" style={{ background: palette.accent }}>
-                  <p className="text-3xl sm:text-4xl font-extralight text-white" style={{ fontFamily: fonts.heading }}>2015</p>
-                  <p className="text-xs tracking-[0.15em] uppercase text-white/70 mt-1">Founded in<br />Costa Blanca</p>
+                  <p className="text-3xl sm:text-4xl font-extralight text-white" style={{ fontFamily: fonts.heading }}>2009</p>
+                  <p className="text-xs tracking-[0.15em] uppercase text-white/70 mt-1">Founded by the<br />Yeghiazaryan Brothers</p>
                 </div>
               </div>
             </FadeIn>
