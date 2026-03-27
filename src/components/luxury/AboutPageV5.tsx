@@ -236,18 +236,18 @@ export default function AboutPageV5() {
       {/* ═══════════════════════════════════════════
           3. ACCESS
       ═══════════════════════════════════════════ */}
-      <section style={{ background: elite.black }}>
+      <section style={{ background: elite.cream }}>
         <div className="max-w-3xl mx-auto px-6 py-24 md:py-32 text-center">
           <FadeIn>
             <p
               className="text-xs uppercase tracking-[0.3em] mb-8"
-              style={{ color: elite.gold, fontFamily: fonts.body }}
+              style={{ color: elite.goldDark, fontFamily: fonts.body }}
             >
               Core Principle
             </p>
             <h2
               className="text-3xl sm:text-4xl md:text-5xl font-extralight uppercase tracking-[0.06em] mb-12"
-              style={{ color: elite.white, fontFamily: fonts.heading }}
+              style={{ color: elite.black, fontFamily: fonts.heading }}
             >
               Access Defines Everything
             </h2>
@@ -256,7 +256,7 @@ export default function AboutPageV5() {
           <FadeIn delay={0.2}>
             <div
               className="text-base sm:text-lg font-light leading-[2] mb-16 space-y-1"
-              style={{ color: elite.lightGray, fontFamily: fonts.body }}
+              style={{ color: elite.midGray, fontFamily: fonts.body }}
             >
               <p>Most luxury properties are never published.</p>
               <p className="mt-4">They are not on portals.</p>
@@ -269,7 +269,7 @@ export default function AboutPageV5() {
           <FadeIn delay={0.35}>
             <blockquote
               className="text-2xl sm:text-3xl md:text-4xl font-extralight italic leading-tight mb-14"
-              style={{ color: elite.gold, fontFamily: fonts.heading }}
+              style={{ color: elite.goldDark, fontFamily: fonts.heading }}
             >
               "The best properties are never online."
             </blockquote>
@@ -280,8 +280,8 @@ export default function AboutPageV5() {
               href="/contact"
               className="inline-flex items-center gap-3 px-8 py-4 text-sm uppercase tracking-[0.2em] font-light border transition-all duration-500 hover:scale-105"
               style={{
-                borderColor: elite.gold,
-                color: elite.gold,
+                borderColor: elite.goldDark,
+                color: elite.goldDark,
                 fontFamily: fonts.body,
               }}
             >
@@ -379,18 +379,18 @@ export default function AboutPageV5() {
       {/* ═══════════════════════════════════════════
           5. TECHNOLOGY — INTELLIGENCE
       ═══════════════════════════════════════════ */}
-      <section style={{ background: elite.black }}>
+      <section style={{ background: elite.white }}>
         <div className="max-w-6xl mx-auto px-6 py-24 md:py-32">
           <FadeIn className="text-center mb-6">
             <p
               className="text-xs uppercase tracking-[0.3em] mb-6"
-              style={{ color: elite.gold, fontFamily: fonts.body }}
+              style={{ color: elite.goldDark, fontFamily: fonts.body }}
             >
               Infrastructure
             </p>
             <h2
               className="text-3xl sm:text-4xl md:text-5xl font-extralight uppercase tracking-[0.06em] mb-6"
-              style={{ color: elite.white, fontFamily: fonts.heading }}
+              style={{ color: elite.black, fontFamily: fonts.heading }}
             >
               Intelligence Behind Every Decision
             </h2>
@@ -399,7 +399,7 @@ export default function AboutPageV5() {
           <FadeIn delay={0.1} className="text-center mb-16">
             <p
               className="text-base font-light max-w-2xl mx-auto leading-relaxed"
-              style={{ color: elite.lightGray, fontFamily: fonts.body }}
+              style={{ color: elite.midGray, fontFamily: fonts.body }}
             >
               Our advantage is not only access.
               <br />
@@ -407,7 +407,7 @@ export default function AboutPageV5() {
             </p>
             <p
               className="text-sm font-light mt-4 max-w-2xl mx-auto"
-              style={{ color: elite.midGray, fontFamily: fonts.body }}
+              style={{ color: elite.lightGray, fontFamily: fonts.body }}
             >
               We have built our own internal systems combining:
             </p>
@@ -418,12 +418,12 @@ export default function AboutPageV5() {
               <FadeIn key={i} delay={i * 0.15 + 0.2}>
                 <div
                   className="p-8 h-full"
-                  style={{ border: `1px solid ${elite.darkGray}`, background: `${elite.charcoal}40` }}
+                  style={{ border: `1px solid ${elite.cream}`, background: elite.cream }}
                 >
-                  <block.icon className="w-5 h-5 mb-5" style={{ color: elite.gold }} />
+                  <block.icon className="w-5 h-5 mb-5" style={{ color: elite.goldDark }} />
                   <h3
                     className="text-sm uppercase tracking-[0.15em] mb-6"
-                    style={{ color: elite.white, fontFamily: fonts.heading }}
+                    style={{ color: elite.black, fontFamily: fonts.heading }}
                   >
                     {block.title}
                   </h3>
@@ -432,7 +432,7 @@ export default function AboutPageV5() {
                       <p
                         key={j}
                         className="text-sm font-light"
-                        style={{ color: elite.lightGray, fontFamily: fonts.body }}
+                        style={{ color: elite.midGray, fontFamily: fonts.body }}
                       >
                         {item}
                       </p>
@@ -446,7 +446,7 @@ export default function AboutPageV5() {
           <FadeIn delay={0.5} className="text-center">
             <p
               className="text-xl sm:text-2xl md:text-3xl font-extralight italic"
-              style={{ color: elite.gold, fontFamily: fonts.heading }}
+              style={{ color: elite.goldDark, fontFamily: fonts.heading }}
             >
               "Precision is the new form of exclusivity."
             </p>
@@ -517,24 +517,24 @@ export default function AboutPageV5() {
       {/* ═══════════════════════════════════════════
           7. FOUNDER — MINIMAL
       ═══════════════════════════════════════════ */}
-      <section style={{ background: elite.black }}>
+      <section style={{ background: elite.cream }}>
         <div className="max-w-3xl mx-auto px-6 py-24 md:py-32 text-center">
           <FadeIn>
             <p
               className="text-xs uppercase tracking-[0.3em] mb-6"
-              style={{ color: elite.gold, fontFamily: fonts.body }}
+              style={{ color: elite.goldDark, fontFamily: fonts.body }}
             >
               Leadership
             </p>
             <p
               className="text-base sm:text-lg font-light leading-relaxed mb-8 max-w-xl mx-auto"
-              style={{ color: elite.lightGray, fontFamily: fonts.body }}
+              style={{ color: elite.midGray, fontFamily: fonts.body }}
             >
               Founded by Arman Yeghiazaryan, Luxinmo is built on execution, negotiation and technology.
             </p>
             <p
               className="text-sm font-light mb-10"
-              style={{ color: elite.midGray, fontFamily: fonts.body }}
+              style={{ color: elite.lightGray, fontFamily: fonts.body }}
             >
               With over 700 closed transactions, his approach combines:
             </p>
@@ -544,10 +544,10 @@ export default function AboutPageV5() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10 mb-14">
               {FOUNDER_QUALITIES.map((q, i) => (
                 <div key={i} className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full" style={{ background: elite.gold }} />
+                  <div className="w-1.5 h-1.5 rounded-full" style={{ background: elite.goldDark }} />
                   <p
                     className="text-sm font-light"
-                    style={{ color: elite.lightGray, fontFamily: fonts.body }}
+                    style={{ color: elite.midGray, fontFamily: fonts.body }}
                   >
                     {q}
                   </p>
@@ -559,7 +559,7 @@ export default function AboutPageV5() {
           <FadeIn delay={0.35}>
             <p
               className="text-xl sm:text-2xl md:text-3xl font-extralight italic"
-              style={{ color: elite.gold, fontFamily: fonts.heading }}
+              style={{ color: elite.goldDark, fontFamily: fonts.heading }}
             >
               "Build the system. Control the outcome."
             </p>
@@ -570,25 +570,25 @@ export default function AboutPageV5() {
       {/* ═══════════════════════════════════════════
           8. EXPERIENCE — BEYOND PROPERTY
       ═══════════════════════════════════════════ */}
-      <section style={{ background: elite.charcoal }}>
+      <section style={{ background: elite.white }}>
         <div className="max-w-5xl mx-auto px-6 py-24 md:py-32">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <FadeIn>
               <p
                 className="text-xs uppercase tracking-[0.3em] mb-6"
-                style={{ color: elite.gold, fontFamily: fonts.body }}
+                style={{ color: elite.goldDark, fontFamily: fonts.body }}
               >
                 Lifestyle
               </p>
               <h2
                 className="text-3xl sm:text-4xl font-extralight uppercase tracking-[0.06em] mb-6"
-                style={{ color: elite.white, fontFamily: fonts.heading }}
+                style={{ color: elite.black, fontFamily: fonts.heading }}
               >
                 Beyond Property
               </h2>
               <p
                 className="text-base font-light leading-relaxed mb-10"
-                style={{ color: elite.lightGray, fontFamily: fonts.body }}
+                style={{ color: elite.midGray, fontFamily: fonts.body }}
               >
                 We design the entire experience around the client.
               </p>
@@ -596,10 +596,10 @@ export default function AboutPageV5() {
               <div className="space-y-5">
                 {EXPERIENCE_SERVICES.map((s, i) => (
                   <div key={i} className="flex items-center gap-4">
-                    <s.icon className="w-4 h-4" style={{ color: elite.gold }} />
+                    <s.icon className="w-4 h-4" style={{ color: elite.goldDark }} />
                     <p
                       className="text-sm font-light"
-                      style={{ color: elite.lightGray, fontFamily: fonts.body }}
+                      style={{ color: elite.midGray, fontFamily: fonts.body }}
                     >
                       {s.label}
                     </p>
@@ -609,7 +609,7 @@ export default function AboutPageV5() {
 
               <p
                 className="text-lg sm:text-xl font-extralight italic mt-12"
-                style={{ color: elite.gold, fontFamily: fonts.heading }}
+                style={{ color: elite.goldDark, fontFamily: fonts.heading }}
               >
                 "Luxury is how the process feels."
               </p>
@@ -621,13 +621,6 @@ export default function AboutPageV5() {
                   src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80"
                   alt="Luxury lifestyle experience"
                   className="w-full h-full object-cover"
-                  style={{ filter: "brightness(0.85) saturate(0.9)" }}
-                />
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background: `linear-gradient(180deg, transparent 60%, ${elite.charcoal}CC 100%)`,
-                  }}
                 />
               </div>
             </FadeIn>
