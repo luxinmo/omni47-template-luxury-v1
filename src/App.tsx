@@ -48,6 +48,7 @@ import AboutPageV5 from "./components/luxury/AboutPageV5";
 import OurOfficesPage from "./components/luxury/OurOfficesPage";
 import IconsPage from "./pages/IconsPage";
 import ChatbotDesignShowcase from "./components/luxury/ChatbotDesignShowcase";
+import TeamPage from "./components/luxury/TeamPage";
 
 const queryClient = new QueryClient();
 
