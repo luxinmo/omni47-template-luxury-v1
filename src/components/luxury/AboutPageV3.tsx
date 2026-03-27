@@ -39,11 +39,12 @@ const TIMELINE = [
 ];
 
 const TEAM_PREVIEW = [
-  { name: "Arman Yeghiazaryan", role: "Founder & CEO", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80", desc: "Visionary leader with 15+ years in luxury real estate and technology innovation." },
-  { name: "Elena Martínez", role: "Managing Director", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80", desc: "Oversees all operations across offices, ensuring the highest standards of client service." },
-  { name: "David van der Berg", role: "Head of International Sales", image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80", desc: "Leads our cross-border transactions connecting European buyers to Mediterranean luxury." },
-  { name: "Sofia Petrova", role: "Head of Technology & AI", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80", desc: "Drives our AI strategy, from predictive analytics to automated client matching." },
-  { name: "Carlos Ruiz", role: "Head of Off-Market & Private Office", image: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=400&q=80", desc: "Manages our exclusive portfolio and confidential client network." },
+  { name: "Arman Yeghiazaryan", role: "Founder & CEO", office: "Altea — HQ", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" },
+  { name: "Elena Martínez", role: "Managing Director", office: "Altea — HQ", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80" },
+  { name: "David van der Berg", role: "Head of International Sales", office: "Netherlands", image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80" },
+  { name: "Sofia Petrova", role: "Head of Technology & AI", office: "Altea — HQ", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80" },
+  { name: "Carlos Ruiz", role: "Head of Off-Market", office: "Ibiza", image: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=400&q=80" },
+  { name: "Anna Johansson", role: "Senior Advisor", office: "Ibiza", image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80" },
 ];
 
 const PHILOSOPHY_PILLARS = [
