@@ -133,6 +133,16 @@ export default function AboutPageV5() {
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
         style={{ background: elite.cream }}
       >
+        {/* Subtle background image */}
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=80"
+            alt="Luxury architecture"
+            className="w-full h-full object-cover"
+            style={{ opacity: 0.08, filter: "saturate(0.3)" }}
+          />
+        </div>
+
         {/* Subtle accent line */}
         <div
           className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-32"
