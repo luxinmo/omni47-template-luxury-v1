@@ -379,18 +379,18 @@ export default function AboutPageV5() {
       {/* ═══════════════════════════════════════════
           5. TECHNOLOGY — INTELLIGENCE
       ═══════════════════════════════════════════ */}
-      <section style={{ background: elite.black }}>
+      <section style={{ background: elite.white }}>
         <div className="max-w-6xl mx-auto px-6 py-24 md:py-32">
           <FadeIn className="text-center mb-6">
             <p
               className="text-xs uppercase tracking-[0.3em] mb-6"
-              style={{ color: elite.gold, fontFamily: fonts.body }}
+              style={{ color: elite.goldDark, fontFamily: fonts.body }}
             >
               Infrastructure
             </p>
             <h2
               className="text-3xl sm:text-4xl md:text-5xl font-extralight uppercase tracking-[0.06em] mb-6"
-              style={{ color: elite.white, fontFamily: fonts.heading }}
+              style={{ color: elite.black, fontFamily: fonts.heading }}
             >
               Intelligence Behind Every Decision
             </h2>
@@ -399,7 +399,7 @@ export default function AboutPageV5() {
           <FadeIn delay={0.1} className="text-center mb-16">
             <p
               className="text-base font-light max-w-2xl mx-auto leading-relaxed"
-              style={{ color: elite.lightGray, fontFamily: fonts.body }}
+              style={{ color: elite.midGray, fontFamily: fonts.body }}
             >
               Our advantage is not only access.
               <br />
@@ -407,7 +407,7 @@ export default function AboutPageV5() {
             </p>
             <p
               className="text-sm font-light mt-4 max-w-2xl mx-auto"
-              style={{ color: elite.midGray, fontFamily: fonts.body }}
+              style={{ color: elite.lightGray, fontFamily: fonts.body }}
             >
               We have built our own internal systems combining:
             </p>
@@ -418,12 +418,12 @@ export default function AboutPageV5() {
               <FadeIn key={i} delay={i * 0.15 + 0.2}>
                 <div
                   className="p-8 h-full"
-                  style={{ border: `1px solid ${elite.darkGray}`, background: `${elite.charcoal}40` }}
+                  style={{ border: `1px solid ${elite.cream}`, background: elite.cream }}
                 >
-                  <block.icon className="w-5 h-5 mb-5" style={{ color: elite.gold }} />
+                  <block.icon className="w-5 h-5 mb-5" style={{ color: elite.goldDark }} />
                   <h3
                     className="text-sm uppercase tracking-[0.15em] mb-6"
-                    style={{ color: elite.white, fontFamily: fonts.heading }}
+                    style={{ color: elite.black, fontFamily: fonts.heading }}
                   >
                     {block.title}
                   </h3>
@@ -432,7 +432,7 @@ export default function AboutPageV5() {
                       <p
                         key={j}
                         className="text-sm font-light"
-                        style={{ color: elite.lightGray, fontFamily: fonts.body }}
+                        style={{ color: elite.midGray, fontFamily: fonts.body }}
                       >
                         {item}
                       </p>
@@ -446,7 +446,7 @@ export default function AboutPageV5() {
           <FadeIn delay={0.5} className="text-center">
             <p
               className="text-xl sm:text-2xl md:text-3xl font-extralight italic"
-              style={{ color: elite.gold, fontFamily: fonts.heading }}
+              style={{ color: elite.goldDark, fontFamily: fonts.heading }}
             >
               "Precision is the new form of exclusivity."
             </p>
