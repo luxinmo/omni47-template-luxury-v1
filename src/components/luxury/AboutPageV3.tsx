@@ -154,7 +154,7 @@ const AboutPageV3 = () => {
       </section>
 
       {/* ═══ STATS RIBBON ═══ */}
-      <section className="py-10 sm:py-14" style={{ background: palette.white, borderBottom: `1px solid ${palette.border}` }}>
+      <section className="py-8 sm:py-10" style={{ background: palette.white, borderBottom: `1px solid ${palette.border}` }}>
         <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
           <FadeIn>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-y-8">
@@ -170,7 +170,7 @@ const AboutPageV3 = () => {
       </section>
 
       {/* ═══ 2. WHO WE ARE ═══ */}
-      <section className="py-16 sm:py-24 md:py-32" style={{ background: palette.white }}>
+      <section className="py-12 sm:py-16 md:py-20" style={{ background: palette.white }}>
         <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
             <FadeIn>
@@ -197,10 +197,10 @@ const AboutPageV3 = () => {
 
 
       {/* ═══ TIMELINE ═══ */}
-      <section className="py-16 sm:py-24 md:py-32" style={{ background: palette.white }}>
+      <section className="py-12 sm:py-16 md:py-20" style={{ background: palette.white }}>
         <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
           <FadeIn>
-            <div className="text-center mb-14 sm:mb-20">
+            <div className="text-center mb-10 sm:mb-14">
               <p className="text-xs tracking-[0.3em] uppercase mb-3 font-normal" style={{ color: palette.accent }}>From 2009 to Today</p>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>Our Journey</h2>
             </div>
@@ -247,10 +247,10 @@ const AboutPageV3 = () => {
       </section>
 
       {/* ═══ OUR TEAM ═══ */}
-      <section className="py-16 sm:py-24 md:py-32" style={{ background: palette.white }}>
+      <section className="py-12 sm:py-16 md:py-20" style={{ background: palette.white }}>
         <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
           <FadeIn>
-            <div className="text-center mb-14 sm:mb-20">
+            <div className="text-center mb-10 sm:mb-14">
               <p className="text-xs tracking-[0.3em] uppercase mb-3 font-normal" style={{ color: palette.accent }}>Our People</p>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight mb-5" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>
                 The Team Behind Luxinmo
@@ -296,12 +296,12 @@ const AboutPageV3 = () => {
       </section>
 
       {/* ═══ 4. LUXURY PHILOSOPHY ═══ */}
-      <section className="relative py-20 sm:py-28 md:py-36 overflow-hidden">
+      <section className="relative py-14 sm:py-18 md:py-24 overflow-hidden">
         <img src={prop2} alt="Luxury philosophy" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0" style={{ background: "rgba(20,18,16,0.75)" }} />
         <div className="relative z-10 max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
           <FadeIn>
-            <div className="text-center mb-14 sm:mb-20">
+            <div className="text-center mb-10 sm:mb-14">
               <p className="text-[11px] tracking-[0.35em] uppercase mb-4 font-normal" style={{ color: palette.offMarketAccent }}>Our Philosophy</p>
               <h2 className="text-2xl sm:text-3xl md:text-[2.8rem] font-extralight text-white leading-[1.2] mb-5" style={{ fontFamily: fonts.heading, letterSpacing: "0.06em" }}>
                 Luxury Is Not Price
@@ -328,10 +328,10 @@ const AboutPageV3 = () => {
       </section>
 
       {/* ═══ 5. TECHNOLOGY & AI ═══ */}
-      <section className="py-16 sm:py-24 md:py-32" style={{ background: palette.offMarketBg }}>
+      <section className="py-12 sm:py-16 md:py-20" style={{ background: palette.offMarketBg }}>
         <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
           <FadeIn>
-            <div className="text-center mb-14 sm:mb-20">
+            <div className="text-center mb-10 sm:mb-14">
               <p className="text-[11px] tracking-[0.35em] uppercase mb-3 font-normal" style={{ color: palette.offMarketAccent }}>Innovation</p>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight text-white mb-5" style={{ fontFamily: fonts.heading, letterSpacing: "0.06em" }}>
                 Technology & AI in<br />Luxury Real Estate
@@ -370,7 +370,7 @@ const AboutPageV3 = () => {
       </section>
 
       {/* ═══ 6. OFF-MARKET ACCESS ═══ */}
-      <section className="py-16 sm:py-24 md:py-32" style={{ background: palette.white }}>
+      <section className="py-12 sm:py-16 md:py-20" style={{ background: palette.white }}>
         <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
             <FadeIn>
@@ -409,10 +409,10 @@ const AboutPageV3 = () => {
       </section>
 
       {/* ═══ 7. SYSTEM / PROCESS ═══ */}
-      <section className="py-16 sm:py-24 md:py-32" style={{ background: palette.bg }}>
+      <section className="py-12 sm:py-16 md:py-20" style={{ background: palette.bg }}>
         <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
           <FadeIn>
-            <div className="text-center mb-14 sm:mb-20">
+            <div className="text-center mb-10 sm:mb-14">
               <p className="text-xs tracking-[0.3em] uppercase mb-3 font-normal" style={{ color: palette.accent }}>Our System</p>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight mb-5" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>Structured for Excellence</h2>
               <p className="text-[15px] font-light max-w-2xl mx-auto leading-[1.8]" style={{ color: palette.textMuted }}>
@@ -435,10 +435,10 @@ const AboutPageV3 = () => {
       </section>
 
       {/* ═══ 8. GLOBAL NETWORK ═══ */}
-      <section className="py-16 sm:py-24 md:py-32" style={{ background: palette.white }}>
+      <section className="py-12 sm:py-16 md:py-20" style={{ background: palette.white }}>
         <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
           <FadeIn>
-            <div className="text-center mb-14 sm:mb-20">
+            <div className="text-center mb-10 sm:mb-14">
               <p className="text-xs tracking-[0.3em] uppercase mb-3 font-normal" style={{ color: palette.accent }}>Global Reach</p>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight mb-5" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>
                 Our Network
@@ -465,7 +465,7 @@ const AboutPageV3 = () => {
       </section>
 
       {/* ═══ 9. EXPERIENCE ═══ */}
-      <section className="py-16 sm:py-24 md:py-32" style={{ background: palette.bg }}>
+      <section className="py-12 sm:py-16 md:py-20" style={{ background: palette.bg }}>
         <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
             <FadeIn>
@@ -501,7 +501,7 @@ const AboutPageV3 = () => {
       </section>
 
       {/* ═══ 10. CONTENT & VIDEO ═══ */}
-      <section className="relative py-20 sm:py-28 overflow-hidden">
+      <section className="relative py-14 sm:py-18 overflow-hidden">
         <img src={heroImg} alt="Cinematic storytelling" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0" style={{ background: "rgba(20,18,16,0.8)" }} />
         <div className="relative z-10 max-w-[900px] mx-auto px-5 sm:px-6 text-center">
@@ -524,10 +524,10 @@ const AboutPageV3 = () => {
       </section>
 
       {/* ═══ 11. ETHICS ═══ */}
-      <section className="py-16 sm:py-24 md:py-32" style={{ background: palette.white }}>
+      <section className="py-12 sm:py-16 md:py-20" style={{ background: palette.white }}>
         <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
           <FadeIn>
-            <div className="text-center mb-14 sm:mb-20">
+            <div className="text-center mb-10 sm:mb-14">
               <p className="text-xs tracking-[0.3em] uppercase mb-3 font-normal" style={{ color: palette.accent }}>Our Values</p>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight mb-5" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>
                 Ethics & Integrity
@@ -576,7 +576,7 @@ const AboutPageV3 = () => {
         </div>
       </section>
 
-      <section className="py-16 sm:py-24 md:py-32" style={{ background: palette.bg }}>
+      <section className="py-12 sm:py-16 md:py-20" style={{ background: palette.bg }}>
         <div className="max-w-[900px] mx-auto px-5 sm:px-6 lg:px-12 text-center">
           <FadeIn>
             <p className="text-xs tracking-[0.3em] uppercase mb-4 font-normal" style={{ color: palette.accent }}>The Future</p>
