@@ -527,6 +527,53 @@ const AboutPageV3 = () => {
         </div>
       </section>
 
+      {/* ═══ OUR TEAM ═══ */}
+      <section className="py-16 sm:py-24 md:py-32" style={{ background: palette.white }}>
+        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
+          <FadeIn>
+            <div className="text-center mb-14 sm:mb-20">
+              <p className="text-xs tracking-[0.3em] uppercase mb-3 font-normal" style={{ color: palette.accent }}>Our People</p>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight mb-5" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>
+                The Team Behind Luxinmo
+              </h2>
+              <p className="text-[15px] font-light max-w-2xl mx-auto leading-[1.8]" style={{ color: palette.textMuted }}>
+                A multilingual, multicultural team united by a shared passion for excellence in luxury real estate.
+              </p>
+            </div>
+          </FadeIn>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8">
+            {TEAM_PREVIEW.map((member, i) => (
+              <FadeIn key={i} delay={i * 0.06}>
+                <div className="group cursor-pointer">
+                  <div className="relative overflow-hidden mb-4">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full aspect-[3/4] object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                  </div>
+                  <h3 className="text-[15px] font-light tracking-wide mb-1" style={{ fontFamily: fonts.heading }}>{member.name}</h3>
+                  <p className="text-[11px] tracking-[0.12em] uppercase font-normal mb-2" style={{ color: palette.accent }}>{member.role}</p>
+                  <p className="text-[12px] leading-[1.7] font-light" style={{ color: palette.textMuted }}>{member.desc}</p>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+          <FadeIn delay={0.4}>
+            <div className="text-center mt-12 sm:mt-16">
+              <a
+                href="/team"
+                className="inline-flex items-center gap-2 text-[11px] tracking-[0.18em] uppercase font-medium px-10 py-4 transition-all duration-300 hover:bg-[#FAF8F5]"
+                style={{ border: `1px solid ${palette.border}`, color: palette.text }}
+              >
+                See Full Team <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
       {/* ═══ 12. CLOSING CTA ═══ */}
       <section className="py-16 sm:py-24 md:py-32" style={{ background: palette.bg }}>
         <div className="max-w-[900px] mx-auto px-5 sm:px-6 lg:px-12 text-center">
