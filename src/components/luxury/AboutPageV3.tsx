@@ -261,7 +261,7 @@ const AboutPageV3 = () => {
               </p>
             </div>
           </FadeIn>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-10 sm:gap-x-8 sm:gap-y-12">
             {TEAM_PREVIEW.map((member, i) => (
               <FadeIn key={i} delay={i * 0.06}>
                 <div className="group cursor-pointer">
@@ -269,30 +269,34 @@ const AboutPageV3 = () => {
                     <img
                       src={member.image}
                       alt={member.name}
-                      className="w-full aspect-[3/4] object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="w-full aspect-[3/4] object-cover transition-all duration-500 grayscale group-hover:grayscale-0 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+                    <div className="absolute bottom-0 left-0 right-0 px-3 py-2 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%)" }}>
+                      <MapPin className="w-3 h-3 text-white/70" strokeWidth={1.5} />
+                      <span className="text-[10px] tracking-[0.1em] uppercase text-white/80 font-light">{member.office}</span>
+                    </div>
                   </div>
                   <h3 className="text-[14px] font-light tracking-wide mb-1" style={{ fontFamily: fonts.heading }}>{member.name}</h3>
                   <p className="text-[10px] tracking-[0.12em] uppercase font-normal" style={{ color: palette.accent }}>{member.role}</p>
+                  <p className="text-[9px] tracking-[0.1em] uppercase font-light mt-1 flex items-center gap-1" style={{ color: palette.textLight }}>
+                    <MapPin className="w-2.5 h-2.5" strokeWidth={1.5} />{member.office}
+                  </p>
                 </div>
               </FadeIn>
             ))}
-            <FadeIn delay={0.35}>
-              <a href="/team" className="group cursor-pointer block">
-                <div className="relative overflow-hidden mb-4 w-full aspect-[3/4] flex items-center justify-center transition-colors duration-300" style={{ background: palette.bg, border: `1px solid ${palette.border}` }}>
-                  <div className="text-center">
-                    <p className="text-3xl sm:text-4xl font-extralight mb-2" style={{ fontFamily: fonts.heading, color: palette.accent }}>+8</p>
-                    <p className="text-[10px] tracking-[0.2em] uppercase font-normal" style={{ color: palette.textLight }}>Team Members</p>
-                  </div>
-                </div>
-                <h3 className="text-[14px] font-light tracking-wide mb-1 group-hover:opacity-70 transition-opacity" style={{ fontFamily: fonts.heading, color: palette.accent }}>See Full Team</h3>
-                <p className="text-[10px] tracking-[0.12em] uppercase font-normal flex items-center gap-1" style={{ color: palette.textLight }}>
-                  View all <ArrowRight className="w-3 h-3" />
-                </p>
-              </a>
-            </FadeIn>
           </div>
+          <FadeIn delay={0.4}>
+            <div className="text-center mt-10 sm:mt-14">
+              <a
+                href="/team"
+                className="inline-flex items-center gap-2 text-[11px] tracking-[0.18em] uppercase font-medium px-10 py-4 transition-all duration-300 hover:bg-[#FAF8F5]"
+                style={{ border: `1px solid ${palette.border}`, color: palette.text }}
+              >
+                See Full Team · +7 more <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+          </FadeIn>
         </div>
       </section>
 
