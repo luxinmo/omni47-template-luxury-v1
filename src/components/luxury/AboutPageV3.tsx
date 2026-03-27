@@ -121,9 +121,9 @@ const AboutPageV3 = () => {
             </p>
           </FadeIn>
           <FadeIn delay={0.1}>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.6rem] font-extralight leading-[1.12] mb-6" style={{ color: "#fff", fontFamily: fonts.heading, letterSpacing: "0.06em" }}>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.6rem] font-extralight leading-[1.12] mb-6 uppercase" style={{ color: "#fff", fontFamily: fonts.heading, letterSpacing: "0.06em" }}>
               Luxury Real Estate,<br />
-              <span className="italic" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>Powered by Intelligence</span>
+              Powered by Intelligence
             </h1>
           </FadeIn>
           <FadeIn delay={0.2}>
