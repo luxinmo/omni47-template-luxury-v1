@@ -517,24 +517,24 @@ export default function AboutPageV5() {
       {/* ═══════════════════════════════════════════
           7. FOUNDER — MINIMAL
       ═══════════════════════════════════════════ */}
-      <section style={{ background: elite.black }}>
+      <section style={{ background: elite.cream }}>
         <div className="max-w-3xl mx-auto px-6 py-24 md:py-32 text-center">
           <FadeIn>
             <p
               className="text-xs uppercase tracking-[0.3em] mb-6"
-              style={{ color: elite.gold, fontFamily: fonts.body }}
+              style={{ color: elite.goldDark, fontFamily: fonts.body }}
             >
               Leadership
             </p>
             <p
               className="text-base sm:text-lg font-light leading-relaxed mb-8 max-w-xl mx-auto"
-              style={{ color: elite.lightGray, fontFamily: fonts.body }}
+              style={{ color: elite.midGray, fontFamily: fonts.body }}
             >
               Founded by Arman Yeghiazaryan, Luxinmo is built on execution, negotiation and technology.
             </p>
             <p
               className="text-sm font-light mb-10"
-              style={{ color: elite.midGray, fontFamily: fonts.body }}
+              style={{ color: elite.lightGray, fontFamily: fonts.body }}
             >
               With over 700 closed transactions, his approach combines:
             </p>
@@ -544,10 +544,10 @@ export default function AboutPageV5() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10 mb-14">
               {FOUNDER_QUALITIES.map((q, i) => (
                 <div key={i} className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full" style={{ background: elite.gold }} />
+                  <div className="w-1.5 h-1.5 rounded-full" style={{ background: elite.goldDark }} />
                   <p
                     className="text-sm font-light"
-                    style={{ color: elite.lightGray, fontFamily: fonts.body }}
+                    style={{ color: elite.midGray, fontFamily: fonts.body }}
                   >
                     {q}
                   </p>
@@ -559,7 +559,7 @@ export default function AboutPageV5() {
           <FadeIn delay={0.35}>
             <p
               className="text-xl sm:text-2xl md:text-3xl font-extralight italic"
-              style={{ color: elite.gold, fontFamily: fonts.heading }}
+              style={{ color: elite.goldDark, fontFamily: fonts.heading }}
             >
               "Build the system. Control the outcome."
             </p>
