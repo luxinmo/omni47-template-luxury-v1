@@ -235,9 +235,9 @@ const ChatHeader = ({ onClose, mobile = false }: { onClose?: () => void; mobile?
 
 /** Property Card Desktop (horizontal) */
 const PropertyCardDesktop = ({
-  image, ref: refId, title, location, price, beds, baths, sqm, saved = false,
+  image, refCode: refId, title, location, price, beds, baths, sqm, saved = false,
 }: {
-  image: string; ref: string; title: string; location: string; price: string;
+  image: string; refCode: string; title: string; location: string; price: string;
   beds: number; baths: number; sqm: number; saved?: boolean;
 }) => (
   <div
@@ -330,9 +330,9 @@ const PropertyCardAnimated = ({
 
 /** Property Card Mobile (vertical) */
 const PropertyCardMobile = ({
-  image, ref: refId, title, location, price, beds, baths, sqm,
+  image, refCode: refId, title, location, price, beds, baths, sqm,
 }: {
-  image: string; ref: string; title: string; location: string; price: string;
+  image: string; refCode: string; title: string; location: string; price: string;
   beds: number; baths: number; sqm: number;
 }) => (
   <div
@@ -858,9 +858,9 @@ export default function ChatbotDesignShowcase() {
             <div className="flex-1 overflow-y-auto p-4 space-y-3" style={{ background: C.bgPage }}>
               <BotBubble text="He encontrado 3 villas excepcionales que encajan con tu búsqueda:" time="12:36" />
               <div className="ml-9 space-y-2">
-                <PropertyCardDesktop image={VILLAS[0]} ref="REF-1234" title="Villa Panorámica" location="Altea, Costa Blanca" price="€1.200.000" beds={4} baths={3} sqm={280} />
-                <PropertyCardDesktop image={VILLAS[1]} ref="REF-2456" title="Villa Mediterránea" location="Altea Hills" price="€980.000" beds={3} baths={2} sqm={220} />
-                <PropertyCardDesktop image={VILLAS[2]} ref="REF-3789" title="Villa Sierra de Altea" location="Sierra de Altea" price="€1.450.000" beds={5} baths={4} sqm={350} />
+                <PropertyCardDesktop image={VILLAS[0]} refCode="REF-1234" title="Villa Panorámica" location="Altea, Costa Blanca" price="€1.200.000" beds={4} baths={3} sqm={280} />
+                <PropertyCardDesktop image={VILLAS[1]} refCode="REF-2456" title="Villa Mediterránea" location="Altea Hills" price="€980.000" beds={3} baths={2} sqm={220} />
+                <PropertyCardDesktop image={VILLAS[2]} refCode="REF-3789" title="Villa Sierra de Altea" location="Sierra de Altea" price="€1.450.000" beds={5} baths={4} sqm={350} />
               </div>
               <button className="ml-9 text-[12px] flex items-center gap-1 mt-2" style={{ color: C.accent }}>
                 <MapPin className="w-3 h-3" /> Ver todas en el mapa
@@ -899,8 +899,8 @@ export default function ChatbotDesignShowcase() {
             <div className="flex-1 overflow-y-auto p-4" style={{ background: C.bgPage }}>
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  { img: VILLAS[0], title: "Villa Panorámica", ref: "REF-1234", price: "€1.200.000", beds: 4, baths: 3, sqm: 280, terrace: "45m²", pool: "Sí", parking: "2" },
-                  { img: VILLAS[2], title: "Villa Sierra", ref: "REF-3789", price: "€1.450.000", beds: 5, baths: 4, sqm: 350, terrace: "60m²", pool: "Sí", parking: "3" },
+                  { img: VILLAS[0], title: "Villa Panorámica", refCode: "REF-1234", price: "€1.200.000", beds: 4, baths: 3, sqm: 280, terrace: "45m²", pool: "Sí", parking: "2" },
+                  { img: VILLAS[2], title: "Villa Sierra", refCode: "REF-3789", price: "€1.450.000", beds: 5, baths: 4, sqm: 350, terrace: "60m²", pool: "Sí", parking: "3" },
                 ].map((p, i) => (
                   <div key={i} className="space-y-2">
                     <img src={p.img} className="w-full h-[100px] object-cover rounded-lg" />
@@ -1105,9 +1105,9 @@ export default function ChatbotDesignShowcase() {
                   <p className="text-[14px]" style={{ color: C.text }}>3 propiedades encontradas</p>
                 </div>
                 <div className="flex-1 overflow-y-auto p-4 space-y-3" style={{ background: C.bgPage }}>
-                  <PropertyCardMobile image={VILLAS[0]} ref="REF-1234" title="Villa Panorámica" location="Altea, Costa Blanca" price="€1.200.000" beds={4} baths={3} sqm={280} />
-                  <PropertyCardMobile image={VILLAS[1]} ref="REF-2456" title="Villa Mediterránea" location="Altea Hills" price="€980.000" beds={3} baths={2} sqm={220} />
-                  <PropertyCardMobile image={VILLAS[2]} ref="REF-3789" title="Villa Sierra" location="Sierra de Altea" price="€1.450.000" beds={5} baths={4} sqm={350} />
+                  <PropertyCardMobile image={VILLAS[0]} refCode="REF-1234" title="Villa Panorámica" location="Altea, Costa Blanca" price="€1.200.000" beds={4} baths={3} sqm={280} />
+                  <PropertyCardMobile image={VILLAS[1]} refCode="REF-2456" title="Villa Mediterránea" location="Altea Hills" price="€980.000" beds={3} baths={2} sqm={220} />
+                  <PropertyCardMobile image={VILLAS[2]} refCode="REF-3789" title="Villa Sierra" location="Sierra de Altea" price="€1.450.000" beds={5} baths={4} sqm={350} />
                 </div>
               </PhoneFrame>
             </div>
@@ -1283,15 +1283,15 @@ export default function ChatbotDesignShowcase() {
           <div className="grid grid-cols-2 gap-6 mb-16" style={{ maxWidth: 700 }}>
             <div>
               <p className="text-[11px] mb-3" style={{ color: C.textDim }}>Desktop Compact</p>
-              <PropertyCardDesktop image={VILLAS[0]} ref="REF-1234" title="Villa Panorámica" location="Altea, Costa Blanca" price="€1.200.000" beds={4} baths={3} sqm={280} />
+              <PropertyCardDesktop image={VILLAS[0]} refCode="REF-1234" title="Villa Panorámica" location="Altea, Costa Blanca" price="€1.200.000" beds={4} baths={3} sqm={280} />
             </div>
             <div>
               <p className="text-[11px] mb-3" style={{ color: C.textDim }}>Saved State</p>
-              <PropertyCardDesktop image={VILLAS[1]} ref="REF-2456" title="Villa Mediterránea" location="Altea Hills" price="€980.000" beds={3} baths={2} sqm={220} saved />
+              <PropertyCardDesktop image={VILLAS[1]} refCode="REF-2456" title="Villa Mediterránea" location="Altea Hills" price="€980.000" beds={3} baths={2} sqm={220} saved />
             </div>
             <div>
               <p className="text-[11px] mb-3" style={{ color: C.textDim }}>Mobile Full-width</p>
-              <PropertyCardMobile image={VILLAS[2]} ref="REF-3789" title="Villa Sierra" location="Sierra de Altea" price="€1.450.000" beds={5} baths={4} sqm={350} />
+              <PropertyCardMobile image={VILLAS[2]} refCode="REF-3789" title="Villa Sierra" location="Sierra de Altea" price="€1.450.000" beds={5} baths={4} sqm={350} />
             </div>
           </div>
 
