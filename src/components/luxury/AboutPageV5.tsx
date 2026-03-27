@@ -236,18 +236,18 @@ export default function AboutPageV5() {
       {/* ═══════════════════════════════════════════
           3. ACCESS
       ═══════════════════════════════════════════ */}
-      <section style={{ background: elite.black }}>
+      <section style={{ background: elite.cream }}>
         <div className="max-w-3xl mx-auto px-6 py-24 md:py-32 text-center">
           <FadeIn>
             <p
               className="text-xs uppercase tracking-[0.3em] mb-8"
-              style={{ color: elite.gold, fontFamily: fonts.body }}
+              style={{ color: elite.goldDark, fontFamily: fonts.body }}
             >
               Core Principle
             </p>
             <h2
               className="text-3xl sm:text-4xl md:text-5xl font-extralight uppercase tracking-[0.06em] mb-12"
-              style={{ color: elite.white, fontFamily: fonts.heading }}
+              style={{ color: elite.black, fontFamily: fonts.heading }}
             >
               Access Defines Everything
             </h2>
@@ -256,7 +256,7 @@ export default function AboutPageV5() {
           <FadeIn delay={0.2}>
             <div
               className="text-base sm:text-lg font-light leading-[2] mb-16 space-y-1"
-              style={{ color: elite.lightGray, fontFamily: fonts.body }}
+              style={{ color: elite.midGray, fontFamily: fonts.body }}
             >
               <p>Most luxury properties are never published.</p>
               <p className="mt-4">They are not on portals.</p>
@@ -269,7 +269,7 @@ export default function AboutPageV5() {
           <FadeIn delay={0.35}>
             <blockquote
               className="text-2xl sm:text-3xl md:text-4xl font-extralight italic leading-tight mb-14"
-              style={{ color: elite.gold, fontFamily: fonts.heading }}
+              style={{ color: elite.goldDark, fontFamily: fonts.heading }}
             >
               "The best properties are never online."
             </blockquote>
@@ -280,8 +280,8 @@ export default function AboutPageV5() {
               href="/contact"
               className="inline-flex items-center gap-3 px-8 py-4 text-sm uppercase tracking-[0.2em] font-light border transition-all duration-500 hover:scale-105"
               style={{
-                borderColor: elite.gold,
-                color: elite.gold,
+                borderColor: elite.goldDark,
+                color: elite.goldDark,
                 fontFamily: fonts.body,
               }}
             >
