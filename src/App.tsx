@@ -41,6 +41,7 @@ import VideosPage from "./components/luxury/VideosPage";
 import OffmarketEmailPreviewPage from "./components/blocks/offmarket/OffmarketEmailTemplate";
 import ResourcesHubPage from "./components/luxury/ResourcesHubPage";
 import AboutPage from "./components/luxury/AboutPage";
+import AboutPageV2 from "./components/luxury/AboutPageV2";
 import OurOfficesPage from "./components/luxury/OurOfficesPage";
 import IconsPage from "./pages/IconsPage";
 
@@ -95,6 +96,7 @@ const App = () => (
             <Route path="/pdf-v3" element={<PropertyPdfV3 />} />
             <Route path="/resources" element={<ResourcesHubPage />} />
             <Route path="/about" element={<AboutPage />} />
+            <Route path="/about2" element={<AboutPageV2 />} />
             <Route path="/our-offices" element={<OurOfficesPage />} />
             <Route path="/email-offmarket" element={<OffmarketEmailPreviewPage />} />
             <Route path="/icons" element={<IconsPage />} />
