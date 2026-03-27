@@ -20,18 +20,20 @@ import detail1 from "@/assets/property-detail-1.jpg";
 /* ─── Data ─── */
 
 const STATS = [
+  { value: "+25", label: "Years of Experience" },
   { value: "+700", label: "Transactions Closed" },
   { value: "€110M", label: "Annual Managed Offers" },
-  { value: "1,000+", label: "Active Properties" },
-  { value: "75%", label: "International Clients" },
+  { value: "5", label: "Offices" },
 ];
 
 const TIMELINE = [
-  { year: "2015", title: "Foundation", desc: "Luxinmo is founded in Costa Blanca with a bold vision: merge technology with luxury real estate to create a new standard of service." },
-  { year: "2017", title: "Ibiza Expansion", desc: "Opened our Ibiza office, bringing our data-driven approach to the Balearic luxury market and strengthening our Mediterranean presence." },
-  { year: "2019", title: "Proprietary CRM Launch", desc: "Launched our custom-built CRM system, automating client communications and enabling AI-powered property matching at scale." },
-  { year: "2021", title: "Off-Market Division", desc: "Created the Private Office — a confidential channel for ultra-prime transactions, encrypted sharing, and discreet deal flow." },
-  { year: "2023", title: "Big Data Integration", desc: "Integrated a dataset of 500,000+ properties, enabling real-time market intelligence and predictive analytics for every client interaction." },
+  { year: "2009", title: "Galaxia XXI", desc: "Brothers Suren and Arman Yeghiazaryan create the first construction company dedicated exclusively to the construction of luxury homes in Alicante province." },
+  { year: "2015", title: "Luxinmo Is Born", desc: "Founded by Arman Yeghiazaryan as part of Grupo Galaxia Development SL, Luxinmo Real Estate quickly positions itself as a leader in the luxury segment." },
+  { year: "2017", title: "Big Data Investment", desc: "Development of proprietary 'Real Estate Market Control' software — monitoring every property on the market, analysing prices and competition in real time." },
+  { year: "2019", title: "Exclusive Services", desc: "Launch of Luxinmo Exclusive Services for clients demanding absolute confidentiality and off-market access." },
+  { year: "2020", title: "Ibiza Expansion", desc: "Second office opens in Sant Rafel De Sa Creu, Ibiza — bringing the data-driven approach to the Balearic luxury market." },
+  { year: "2021", title: "International: Warsaw", desc: "First international office opens in Warsaw, Poland — connecting Eastern European buyers to Mediterranean luxury." },
+  { year: "2022", title: "Jávea & Calpe", desc: "New offices in Jávea and Calpe strengthen total control of the Costa Blanca luxury corridor." },
   { year: "2025", title: "AI-First Agency", desc: "Full AI integration across valuations, buyer matching, marketing automation and market forecasting — setting the industry benchmark." },
 ];
 
@@ -94,7 +96,7 @@ const TESTIMONIALS = [
 
 const AboutPageV3 = () => {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const [activeTimeline, setActiveTimeline] = useState(0);
+  const [activeTimeline, setActiveTimeline] = useState(1);
 
   useEffect(() => {
     const timer = setInterval(() => setActiveTestimonial(p => (p + 1) % TESTIMONIALS.length), 5000);
@@ -115,7 +117,7 @@ const AboutPageV3 = () => {
         <div className="relative z-10 text-center px-5 max-w-3xl">
           <FadeIn>
             <p className="text-[10px] sm:text-[11px] tracking-[0.4em] uppercase font-light mb-6" style={{ color: "rgba(255,255,255,0.45)" }}>
-              Since 2015 · Costa Blanca · Ibiza
+              Since 2009 · Costa Blanca · Ibiza · Warsaw
             </p>
           </FadeIn>
           <FadeIn delay={0.1}>
@@ -169,10 +171,10 @@ const AboutPageV3 = () => {
               </h2>
               <div className="w-12 h-[1px] mb-8" style={{ background: palette.accent }} />
               <p className="text-[15px] leading-[1.9] font-light mb-6" style={{ color: palette.textMuted }}>
-                Luxinmo Real Estate is a premium real estate firm operating across the Mediterranean, with a strong presence in Costa Blanca and Ibiza, and an international network spanning Europe.
+                Despite being a relatively young company, Luxinmo Real Estate is backed by a team with more than 25 years of experience in buying and selling luxury residential properties along the Costa Blanca — Alicante, Benidorm, El Albir, Altea, Moraira, Jávea, Denia — and Ibiza.
               </p>
               <p className="text-[15px] leading-[1.9] font-light mb-8" style={{ color: palette.textMuted }}>
-                Founded in 2015, the company has grown into a high-performance structure combining sales, legal expertise, marketing and proprietary technology. Today, Luxinmo operates as a data-driven luxury advisory firm — where every decision is backed by market intelligence and every client receives an experience calibrated to excellence.
+                Within less than a decade since its birth in Altea, our brand has become highly regarded by customers, promoters and investors as one of the leaders in the sector. Today, Luxinmo operates as a data-driven luxury advisory firm — where every decision is backed by market intelligence.
               </p>
               <div className="flex items-center gap-3 cursor-pointer group">
                 <div className="w-12 h-12 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-105" style={{ border: `1px solid ${palette.accent}50` }}>
@@ -185,8 +187,8 @@ const AboutPageV3 = () => {
               <div className="relative">
                 <img src={prop1} alt="Luxinmo team" className="w-full aspect-[4/5] object-cover" />
                 <div className="absolute -bottom-6 -left-6 sm:-bottom-8 sm:-left-8 p-6 sm:p-8" style={{ background: palette.accent }}>
-                  <p className="text-3xl sm:text-4xl font-extralight text-white" style={{ fontFamily: fonts.heading }}>2015</p>
-                  <p className="text-xs tracking-[0.15em] uppercase text-white/70 mt-1">Founded in<br />Costa Blanca</p>
+                  <p className="text-3xl sm:text-4xl font-extralight text-white" style={{ fontFamily: fonts.heading }}>2009</p>
+                  <p className="text-xs tracking-[0.15em] uppercase text-white/70 mt-1">Founded by the<br />Yeghiazaryan Brothers</p>
                 </div>
               </div>
             </FadeIn>
@@ -233,8 +235,8 @@ const AboutPageV3 = () => {
         <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
           <FadeIn>
             <div className="text-center mb-14 sm:mb-20">
-              <p className="text-xs tracking-[0.3em] uppercase mb-3 font-normal" style={{ color: palette.accent }}>Milestones</p>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>Our Journey</h2>
+              <p className="text-xs tracking-[0.3em] uppercase mb-3 font-normal" style={{ color: palette.accent }}>From 2009 to Today</p>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>Building the Future of Luxury Real Estate</h2>
             </div>
           </FadeIn>
 
