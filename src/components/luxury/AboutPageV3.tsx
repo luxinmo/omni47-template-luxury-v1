@@ -96,7 +96,7 @@ const TESTIMONIALS = [
 
 const AboutPageV3 = () => {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const [activeTimeline, setActiveTimeline] = useState(0);
+  const [activeTimeline, setActiveTimeline] = useState(1);
 
   useEffect(() => {
     const timer = setInterval(() => setActiveTestimonial(p => (p + 1) % TESTIMONIALS.length), 5000);
