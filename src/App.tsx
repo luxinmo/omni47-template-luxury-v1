@@ -109,6 +109,7 @@ const App = () => (
             <Route path="/email-offmarket" element={<OffmarketEmailPreviewPage />} />
             <Route path="/icons" element={<IconsPage />} />
             <Route path="/chatbot-design" element={<ChatbotDesignShowcase />} />
+            <Route path="/team" element={<TeamPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
