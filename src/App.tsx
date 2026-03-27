@@ -96,6 +96,7 @@ const App = () => (
             <Route path="/pdf-v3" element={<PropertyPdfV3 />} />
             <Route path="/resources" element={<ResourcesHubPage />} />
             <Route path="/about" element={<AboutPage />} />
+            <Route path="/about2" element={<AboutPageV2 />} />
             <Route path="/our-offices" element={<OurOfficesPage />} />
             <Route path="/email-offmarket" element={<OffmarketEmailPreviewPage />} />
             <Route path="/icons" element={<IconsPage />} />
