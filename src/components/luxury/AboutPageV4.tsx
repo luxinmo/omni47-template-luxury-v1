@@ -37,22 +37,8 @@ const TIMELINE = [
   { year: "2025", title: "AI-First Agency", desc: "Full AI integration across valuations, buyer matching, marketing automation and market forecasting — setting the industry benchmark." },
 ];
 
-const LEADERSHIP = [
-  {
-    name: "Arman Yeghiazaryan",
-    role: "Founder & CEO",
-    image: "https://www.luxinmo.com/images/pages/aboutus/arman.webp",
-    quote: "Build the systems you need — don't depend on the ones that already exist.",
-    bio: "Arman founded Luxinmo with a clear vision: merge technology with luxury real estate to create a new standard of service. His leadership has transformed the company from a local agency into a Mediterranean-wide technology-powered real estate firm, integrating proprietary CRM, Big Data analytics, and AI-driven processes.",
-  },
-  {
-    name: "Suren Yeghiazaryan",
-    role: "Co-Founder & Director",
-    image: detail1,
-    quote: "Excellence is not a goal — it's a system we build and refine every day.",
-    bio: "Suren co-founded Galaxia XXI in 2009, pioneering the construction of contemporary luxury homes in Alicante. With deep expertise in high-quality materials and construction processes, he brings an unmatched understanding of what defines true luxury in residential architecture.",
-  },
-];
+
+
 
 const PHILOSOPHY_PILLARS = [
   { icon: MapPin, title: "Location", desc: "Prime addresses that define prestige and hold enduring value across market cycles." },
