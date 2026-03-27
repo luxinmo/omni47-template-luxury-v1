@@ -126,28 +126,18 @@ export default function AboutPageV5() {
       />
 
       {/* ═══════════════════════════════════════════
-          1. HERO — CINEMATIC
+          1. HERO — LUMINOUS
       ═══════════════════════════════════════════ */}
       <section
         ref={heroRef}
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
-        style={{ background: elite.black }}
+        style={{ background: elite.cream }}
       >
-        {/* Video / image background */}
-        <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=80"
-            alt="Luxury property at dusk"
-            className="w-full h-full object-cover"
-            style={{ opacity: 0.35, filter: "brightness(0.6) saturate(0.8)" }}
-          />
-          <div
-            className="absolute inset-0"
-            style={{
-              background: `linear-gradient(180deg, ${elite.black}CC 0%, ${elite.black}88 40%, ${elite.black}DD 100%)`,
-            }}
-          />
-        </div>
+        {/* Subtle accent line */}
+        <div
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-32"
+          style={{ background: `linear-gradient(180deg, ${elite.goldDark}00 0%, ${elite.goldDark}40 100%)` }}
+        />
 
         {/* Content */}
         <div
@@ -160,16 +150,16 @@ export default function AboutPageV5() {
         >
           <h1
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extralight leading-[1.1] mb-8 uppercase tracking-[0.08em]"
-            style={{ color: elite.white, fontFamily: fonts.heading }}
+            style={{ color: elite.black, fontFamily: fonts.heading }}
           >
             Luxury Is Not Listed.
             <br />
-            <span style={{ color: elite.gold }}>It's Accessed.</span>
+            <span style={{ color: elite.goldDark }}>It's Accessed.</span>
           </h1>
 
           <p
             className="text-base sm:text-lg md:text-xl font-light leading-relaxed mb-6 max-w-2xl mx-auto"
-            style={{ color: elite.lightGray, fontFamily: fonts.body }}
+            style={{ color: elite.midGray, fontFamily: fonts.body }}
           >
             We give our clients access to properties that never reach the market
             — through data, technology and private networks.
@@ -177,7 +167,7 @@ export default function AboutPageV5() {
 
           <p
             className="text-xs sm:text-sm uppercase tracking-[0.3em] mb-12"
-            style={{ color: elite.midGray, fontFamily: fonts.body }}
+            style={{ color: elite.lightGray, fontFamily: fonts.body }}
           >
             Off-Market · Private Clients · Strategic Advisory
           </p>
@@ -186,8 +176,8 @@ export default function AboutPageV5() {
             href="/contact"
             className="inline-flex items-center gap-3 px-8 py-4 text-sm uppercase tracking-[0.2em] font-light transition-all duration-500 hover:scale-105"
             style={{
-              background: elite.gold,
-              color: elite.black,
+              background: elite.goldDark,
+              color: elite.white,
               fontFamily: fonts.body,
             }}
           >
@@ -201,7 +191,7 @@ export default function AboutPageV5() {
           <div
             className="w-px h-12"
             style={{
-              background: `linear-gradient(180deg, transparent 0%, ${elite.gold}60 100%)`,
+              background: `linear-gradient(180deg, transparent 0%, ${elite.goldDark}60 100%)`,
             }}
           />
         </div>
