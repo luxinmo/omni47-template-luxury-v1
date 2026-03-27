@@ -185,20 +185,10 @@ const AboutPageV3 = () => {
               <p className="text-[15px] leading-[1.9] font-light mb-8" style={{ color: palette.textMuted }}>
                 Within less than a decade since its birth in Altea, our brand has become highly regarded by customers, promoters and investors as one of the leaders in the sector. Today, Luxinmo operates as a data-driven luxury advisory firm — where every decision is backed by market intelligence.
               </p>
-              <div className="flex items-center gap-3 cursor-pointer group">
-                <div className="w-12 h-12 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-105" style={{ border: `1px solid ${palette.accent}50` }}>
-                  <Play className="w-4 h-4 ml-0.5" style={{ color: palette.accent }} />
-                </div>
-                <span className="text-xs tracking-[0.12em] uppercase font-light group-hover:opacity-70 transition-opacity" style={{ color: palette.accent }}>Watch Our Story</span>
-              </div>
             </FadeIn>
             <FadeIn delay={0.15}>
               <div className="relative">
                 <img src={prop1} alt="Luxinmo team" className="w-full aspect-[4/5] object-cover" />
-                <div className="absolute -bottom-6 -left-6 sm:-bottom-8 sm:-left-8 p-6 sm:p-8" style={{ background: palette.accent }}>
-                  <p className="text-3xl sm:text-4xl font-extralight text-white" style={{ fontFamily: fonts.heading }}>2009</p>
-                  <p className="text-xs tracking-[0.15em] uppercase text-white/70 mt-1">Founded by the<br />Yeghiazaryan Brothers</p>
-                </div>
               </div>
             </FadeIn>
           </div>
