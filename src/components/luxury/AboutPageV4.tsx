@@ -37,22 +37,8 @@ const TIMELINE = [
   { year: "2025", title: "AI-First Agency", desc: "Full AI integration across valuations, buyer matching, marketing automation and market forecasting — setting the industry benchmark." },
 ];
 
-const LEADERSHIP = [
-  {
-    name: "Arman Yeghiazaryan",
-    role: "Founder & CEO",
-    image: "https://www.luxinmo.com/images/pages/aboutus/arman.webp",
-    quote: "Build the systems you need — don't depend on the ones that already exist.",
-    bio: "Arman founded Luxinmo with a clear vision: merge technology with luxury real estate to create a new standard of service. His leadership has transformed the company from a local agency into a Mediterranean-wide technology-powered real estate firm, integrating proprietary CRM, Big Data analytics, and AI-driven processes.",
-  },
-  {
-    name: "Suren Yeghiazaryan",
-    role: "Co-Founder & Director",
-    image: detail1,
-    quote: "Excellence is not a goal — it's a system we build and refine every day.",
-    bio: "Suren co-founded Galaxia XXI in 2009, pioneering the construction of contemporary luxury homes in Alicante. With deep expertise in high-quality materials and construction processes, he brings an unmatched understanding of what defines true luxury in residential architecture.",
-  },
-];
+
+
 
 const PHILOSOPHY_PILLARS = [
   { icon: MapPin, title: "Location", desc: "Prime addresses that define prestige and hold enduring value across market cycles." },
@@ -216,56 +202,6 @@ const AboutPageV4 = () => {
                 </div>
               </div>
             </FadeIn>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ 3. LEADERSHIP ═══ */}
-      <section className="py-16 sm:py-24 md:py-32" style={{ background: palette.bg }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
-          <FadeIn>
-            <div className="text-center mb-14 sm:mb-20">
-              <p className="text-xs tracking-[0.3em] uppercase mb-3 font-normal" style={{ color: palette.accent, fontFamily: F }}>Leadership</p>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: F, letterSpacing: "0.04em" }}>
-                The Visionaries Behind Luxinmo
-              </h2>
-            </div>
-          </FadeIn>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-            {LEADERSHIP.map((leader, idx) => (
-              <FadeIn key={idx} delay={idx * 0.15}>
-                <div className="group h-full" style={{ border: `1px solid ${palette.border}`, background: palette.white }}>
-                  <div className="aspect-[4/5] overflow-hidden relative">
-                    <img
-                      src={typeof leader.image === "string" ? leader.image : leader.image}
-                      alt={leader.name}
-                      className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-                      <h3 className="text-2xl sm:text-3xl font-extralight text-white mb-1" style={{ fontFamily: F, letterSpacing: "0.04em" }}>
-                        {leader.name}
-                      </h3>
-                      <p className="text-[11px] tracking-[0.25em] uppercase text-white/70 font-normal" style={{ fontFamily: F }}>
-                        {leader.role}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="p-6 sm:p-8">
-                    <p className="text-[14px] leading-[1.85] font-light mb-6" style={{ color: palette.textMuted, fontFamily: F }}>
-                      {leader.bio}
-                    </p>
-                    <div className="flex items-start gap-3 pt-5" style={{ borderTop: `1px solid ${palette.border}` }}>
-                      <Quote className="w-4 h-4 mt-1 shrink-0" style={{ color: palette.accent }} strokeWidth={1.5} />
-                      <p className="text-[14px] leading-[1.7] font-extralight italic" style={{ fontFamily: F, color: palette.text }}>
-                        {leader.quote}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </FadeIn>
-            ))}
           </div>
         </div>
       </section>
