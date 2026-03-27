@@ -20,10 +20,10 @@ import detail1 from "@/assets/property-detail-1.jpg";
 /* ─── Data ─── */
 
 const STATS = [
-  { value: "+25", label: "Years of Experience" },
   { value: "+700", label: "Transactions Closed" },
   { value: "€110M", label: "Annual Managed Offers" },
-  { value: "5", label: "Offices" },
+  { value: "1,000+", label: "Active Properties" },
+  { value: "75%", label: "International Clients" },
 ];
 
 const TIMELINE = [
