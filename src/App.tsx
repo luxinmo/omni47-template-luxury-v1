@@ -43,6 +43,7 @@ import ResourcesHubPage from "./components/luxury/ResourcesHubPage";
 import AboutPage from "./components/luxury/AboutPage";
 import AboutPageV2 from "./components/luxury/AboutPageV2";
 import AboutPageV3 from "./components/luxury/AboutPageV3";
+import AboutPageV4 from "./components/luxury/AboutPageV4";
 import OurOfficesPage from "./components/luxury/OurOfficesPage";
 import IconsPage from "./pages/IconsPage";
 import ChatbotDesignShowcase from "./components/luxury/ChatbotDesignShowcase";

@@ -904,7 +904,7 @@ export default function ChatbotDesignShowcase() {
                 ].map((p, i) => (
                   <div key={i} className="space-y-2">
                     <img src={p.img} className="w-full h-[100px] object-cover rounded-lg" />
-                    <p className="text-[10px]" style={{ color: C.textMuted }}>{p.ref}</p>
+                    <p className="text-[10px]" style={{ color: C.textMuted }}>{p.refCode}</p>
                     <p className="text-[13px] font-medium" style={{ color: C.text }}>{p.title}</p>
                     <p className="text-[15px] font-semibold" style={{ color: i === 0 ? C.green : C.accent }}>
                       {p.price}
