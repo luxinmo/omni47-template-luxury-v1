@@ -42,6 +42,7 @@ import OffmarketEmailPreviewPage from "./components/blocks/offmarket/OffmarketEm
 import ResourcesHubPage from "./components/luxury/ResourcesHubPage";
 import AboutPage from "./components/luxury/AboutPage";
 import AboutPageV2 from "./components/luxury/AboutPageV2";
+import AboutPageV3 from "./components/luxury/AboutPageV3";
 import OurOfficesPage from "./components/luxury/OurOfficesPage";
 import IconsPage from "./pages/IconsPage";
 
@@ -97,6 +98,7 @@ const App = () => (
             <Route path="/resources" element={<ResourcesHubPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/about2" element={<AboutPageV2 />} />
+            <Route path="/about3" element={<AboutPageV3 />} />
             <Route path="/our-offices" element={<OurOfficesPage />} />
             <Route path="/email-offmarket" element={<OffmarketEmailPreviewPage />} />
             <Route path="/icons" element={<IconsPage />} />
