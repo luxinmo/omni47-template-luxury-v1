@@ -117,7 +117,7 @@ const AboutPageV3 = () => {
         <div className="relative z-10 text-center px-5 max-w-3xl">
           <FadeIn>
             <p className="text-[10px] sm:text-[11px] tracking-[0.4em] uppercase font-light mb-6" style={{ color: "rgba(255,255,255,0.45)" }}>
-              Since 2015 · Costa Blanca · Ibiza
+              Since 2009 · Costa Blanca · Ibiza · Warsaw
             </p>
           </FadeIn>
           <FadeIn delay={0.1}>
