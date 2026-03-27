@@ -202,7 +202,7 @@ const AboutPageV3 = () => {
           <FadeIn>
             <div className="text-center mb-14 sm:mb-20">
               <p className="text-xs tracking-[0.3em] uppercase mb-3 font-normal" style={{ color: palette.accent }}>From 2009 to Today</p>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>Building the Future of Luxury Real Estate</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>Our Journey</h2>
             </div>
           </FadeIn>
 
