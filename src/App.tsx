@@ -45,6 +45,7 @@ import AboutPageV2 from "./components/luxury/AboutPageV2";
 import AboutPageV3 from "./components/luxury/AboutPageV3";
 import OurOfficesPage from "./components/luxury/OurOfficesPage";
 import IconsPage from "./pages/IconsPage";
+import ChatbotDesignShowcase from "./components/luxury/ChatbotDesignShowcase";
 
 const queryClient = new QueryClient();
 
@@ -102,6 +103,7 @@ const App = () => (
             <Route path="/our-offices" element={<OurOfficesPage />} />
             <Route path="/email-offmarket" element={<OffmarketEmailPreviewPage />} />
             <Route path="/icons" element={<IconsPage />} />
+            <Route path="/chatbot-design" element={<ChatbotDesignShowcase />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
