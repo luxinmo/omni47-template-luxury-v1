@@ -20,18 +20,20 @@ import detail1 from "@/assets/property-detail-1.jpg";
 /* ─── Data ─── */
 
 const STATS = [
+  { value: "+25", label: "Years of Experience" },
   { value: "+700", label: "Transactions Closed" },
   { value: "€110M", label: "Annual Managed Offers" },
-  { value: "1,000+", label: "Active Properties" },
-  { value: "75%", label: "International Clients" },
+  { value: "5", label: "Offices" },
 ];
 
 const TIMELINE = [
-  { year: "2015", title: "Foundation", desc: "Luxinmo is founded in Costa Blanca with a bold vision: merge technology with luxury real estate to create a new standard of service." },
-  { year: "2017", title: "Ibiza Expansion", desc: "Opened our Ibiza office, bringing our data-driven approach to the Balearic luxury market and strengthening our Mediterranean presence." },
-  { year: "2019", title: "Proprietary CRM Launch", desc: "Launched our custom-built CRM system, automating client communications and enabling AI-powered property matching at scale." },
-  { year: "2021", title: "Off-Market Division", desc: "Created the Private Office — a confidential channel for ultra-prime transactions, encrypted sharing, and discreet deal flow." },
-  { year: "2023", title: "Big Data Integration", desc: "Integrated a dataset of 500,000+ properties, enabling real-time market intelligence and predictive analytics for every client interaction." },
+  { year: "2009", title: "Galaxia XXI", desc: "Brothers Suren and Arman Yeghiazaryan create the first construction company dedicated exclusively to the construction of luxury homes in Alicante province." },
+  { year: "2015", title: "Luxinmo Is Born", desc: "Founded by Arman Yeghiazaryan as part of Grupo Galaxia Development SL, Luxinmo Real Estate quickly positions itself as a leader in the luxury segment." },
+  { year: "2017", title: "Big Data Investment", desc: "Development of proprietary 'Real Estate Market Control' software — monitoring every property on the market, analysing prices and competition in real time." },
+  { year: "2019", title: "Exclusive Services", desc: "Launch of Luxinmo Exclusive Services for clients demanding absolute confidentiality and off-market access." },
+  { year: "2020", title: "Ibiza Expansion", desc: "Second office opens in Sant Rafel De Sa Creu, Ibiza — bringing the data-driven approach to the Balearic luxury market." },
+  { year: "2021", title: "International: Warsaw", desc: "First international office opens in Warsaw, Poland — connecting Eastern European buyers to Mediterranean luxury." },
+  { year: "2022", title: "Jávea & Calpe", desc: "New offices in Jávea and Calpe strengthen total control of the Costa Blanca luxury corridor." },
   { year: "2025", title: "AI-First Agency", desc: "Full AI integration across valuations, buyer matching, marketing automation and market forecasting — setting the industry benchmark." },
 ];
 
