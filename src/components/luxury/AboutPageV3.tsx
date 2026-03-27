@@ -34,7 +34,16 @@ const TIMELINE = [
   { year: "2020", title: "Ibiza Expansion", desc: "Second office opens in Sant Rafel De Sa Creu, Ibiza — bringing the data-driven approach to the Balearic luxury market." },
   { year: "2021", title: "International: Warsaw", desc: "First international office opens in Warsaw, Poland — connecting Eastern European buyers to Mediterranean luxury." },
   { year: "2022", title: "Jávea & Calpe", desc: "New offices in Jávea and Calpe strengthen total control of the Costa Blanca luxury corridor." },
+  { year: "2024", title: "International: Netherlands", desc: "Expansion into the Netherlands market — connecting Dutch buyers and investors with Mediterranean luxury properties." },
   { year: "2025", title: "AI-First Agency", desc: "Full AI integration across valuations, buyer matching, marketing automation and market forecasting — setting the industry benchmark." },
+];
+
+const TEAM_PREVIEW = [
+  { name: "Arman Yeghiazaryan", role: "Founder & CEO", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80", desc: "Visionary leader with 15+ years in luxury real estate and technology innovation." },
+  { name: "Elena Martínez", role: "Managing Director", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80", desc: "Oversees all operations across offices, ensuring the highest standards of client service." },
+  { name: "David van der Berg", role: "Head of International Sales", image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80", desc: "Leads our cross-border transactions connecting European buyers to Mediterranean luxury." },
+  { name: "Sofia Petrova", role: "Head of Technology & AI", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80", desc: "Drives our AI strategy, from predictive analytics to automated client matching." },
+  { name: "Carlos Ruiz", role: "Head of Off-Market & Private Office", image: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=400&q=80", desc: "Manages our exclusive portfolio and confidential client network." },
 ];
 
 const PHILOSOPHY_PILLARS = [
@@ -176,20 +185,10 @@ const AboutPageV3 = () => {
               <p className="text-[15px] leading-[1.9] font-light mb-8" style={{ color: palette.textMuted }}>
                 Within less than a decade since its birth in Altea, our brand has become highly regarded by customers, promoters and investors as one of the leaders in the sector. Today, Luxinmo operates as a data-driven luxury advisory firm — where every decision is backed by market intelligence.
               </p>
-              <div className="flex items-center gap-3 cursor-pointer group">
-                <div className="w-12 h-12 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-105" style={{ border: `1px solid ${palette.accent}50` }}>
-                  <Play className="w-4 h-4 ml-0.5" style={{ color: palette.accent }} />
-                </div>
-                <span className="text-xs tracking-[0.12em] uppercase font-light group-hover:opacity-70 transition-opacity" style={{ color: palette.accent }}>Watch Our Story</span>
-              </div>
             </FadeIn>
             <FadeIn delay={0.15}>
               <div className="relative">
                 <img src={prop1} alt="Luxinmo team" className="w-full aspect-[4/5] object-cover" />
-                <div className="absolute -bottom-6 -left-6 sm:-bottom-8 sm:-left-8 p-6 sm:p-8" style={{ background: palette.accent }}>
-                  <p className="text-3xl sm:text-4xl font-extralight text-white" style={{ fontFamily: fonts.heading }}>2009</p>
-                  <p className="text-xs tracking-[0.15em] uppercase text-white/70 mt-1">Founded by the<br />Yeghiazaryan Brothers</p>
-                </div>
               </div>
             </FadeIn>
           </div>
@@ -203,7 +202,7 @@ const AboutPageV3 = () => {
           <FadeIn>
             <div className="text-center mb-14 sm:mb-20">
               <p className="text-xs tracking-[0.3em] uppercase mb-3 font-normal" style={{ color: palette.accent }}>From 2009 to Today</p>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>Building the Future of Luxury Real Estate</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>Our Journey</h2>
             </div>
           </FadeIn>
 
@@ -523,6 +522,53 @@ const AboutPageV3 = () => {
               {TESTIMONIALS.map((_, i) => (
                 <button key={i} onClick={() => setActiveTestimonial(i)} className="transition-all duration-500" style={{ width: i === activeTestimonial ? 24 : 8, height: 2, borderRadius: 1, background: i === activeTestimonial ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.25)" }} />
               ))}
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ═══ OUR TEAM ═══ */}
+      <section className="py-16 sm:py-24 md:py-32" style={{ background: palette.white }}>
+        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
+          <FadeIn>
+            <div className="text-center mb-14 sm:mb-20">
+              <p className="text-xs tracking-[0.3em] uppercase mb-3 font-normal" style={{ color: palette.accent }}>Our People</p>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight mb-5" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>
+                The Team Behind Luxinmo
+              </h2>
+              <p className="text-[15px] font-light max-w-2xl mx-auto leading-[1.8]" style={{ color: palette.textMuted }}>
+                A multilingual, multicultural team united by a shared passion for excellence in luxury real estate.
+              </p>
+            </div>
+          </FadeIn>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8">
+            {TEAM_PREVIEW.map((member, i) => (
+              <FadeIn key={i} delay={i * 0.06}>
+                <div className="group cursor-pointer">
+                  <div className="relative overflow-hidden mb-4">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full aspect-[3/4] object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                  </div>
+                  <h3 className="text-[15px] font-light tracking-wide mb-1" style={{ fontFamily: fonts.heading }}>{member.name}</h3>
+                  <p className="text-[11px] tracking-[0.12em] uppercase font-normal mb-2" style={{ color: palette.accent }}>{member.role}</p>
+                  <p className="text-[12px] leading-[1.7] font-light" style={{ color: palette.textMuted }}>{member.desc}</p>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+          <FadeIn delay={0.4}>
+            <div className="text-center mt-12 sm:mt-16">
+              <a
+                href="/team"
+                className="inline-flex items-center gap-2 text-[11px] tracking-[0.18em] uppercase font-medium px-10 py-4 transition-all duration-300 hover:bg-[#FAF8F5]"
+                style={{ border: `1px solid ${palette.border}`, color: palette.text }}
+              >
+                See Full Team <ArrowRight className="w-4 h-4" />
+              </a>
             </div>
           </FadeIn>
         </div>
