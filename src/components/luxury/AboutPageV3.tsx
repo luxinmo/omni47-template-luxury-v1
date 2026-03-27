@@ -196,39 +196,6 @@ const AboutPageV3 = () => {
         </div>
       </section>
 
-      {/* ═══ 3. LEADERSHIP ═══ */}
-      <section className="py-16 sm:py-24" style={{ background: palette.bg }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-            <FadeIn delay={0.1}>
-              <div className="relative">
-                <div className="aspect-[3/4] overflow-hidden">
-                  <img src={detail1} alt="Arman Yeghiazaryan" className="w-full h-full object-cover" />
-                </div>
-              </div>
-            </FadeIn>
-            <FadeIn>
-              <p className="text-xs tracking-[0.3em] uppercase mb-4 font-normal" style={{ color: palette.accent }}>Leadership</p>
-              <h2 className="text-3xl md:text-4xl font-extralight leading-[1.15] mb-6" style={{ fontFamily: fonts.heading, letterSpacing: "0.04em" }}>
-                Arman Yeghiazaryan
-              </h2>
-              <div className="w-12 h-[1px] mb-8" style={{ background: palette.accent }} />
-              <p className="text-[15px] leading-[1.9] font-light mb-6" style={{ color: palette.textMuted }}>
-                Founded by Arman Yeghiazaryan, Luxinmo is built on three pillars: technology, execution, and market intelligence. His leadership has transformed the company from a local agency into a Mediterranean-wide technology-powered real estate firm.
-              </p>
-              <div className="p-6 sm:p-8" style={{ background: palette.white, border: `1px solid ${palette.border}` }}>
-                <Quote className="w-6 h-6 mb-4" style={{ color: palette.accent }} strokeWidth={1} />
-                <p className="text-[15px] sm:text-[17px] leading-[1.7] font-extralight italic mb-4" style={{ fontFamily: fonts.heading, color: palette.text }}>
-                  "Build the systems you need — don't depend on the ones that already exist."
-                </p>
-                <p className="text-[11px] tracking-[0.2em] uppercase font-normal" style={{ color: palette.accent }}>
-                  — Arman Yeghiazaryan, Founder & CEO
-                </p>
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
 
       {/* ═══ TIMELINE ═══ */}
       <section className="py-16 sm:py-24 md:py-32" style={{ background: palette.white }}>
