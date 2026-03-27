@@ -34,7 +34,16 @@ const TIMELINE = [
   { year: "2020", title: "Ibiza Expansion", desc: "Second office opens in Sant Rafel De Sa Creu, Ibiza — bringing the data-driven approach to the Balearic luxury market." },
   { year: "2021", title: "International: Warsaw", desc: "First international office opens in Warsaw, Poland — connecting Eastern European buyers to Mediterranean luxury." },
   { year: "2022", title: "Jávea & Calpe", desc: "New offices in Jávea and Calpe strengthen total control of the Costa Blanca luxury corridor." },
+  { year: "2024", title: "International: Netherlands", desc: "Expansion into the Netherlands market — connecting Dutch buyers and investors with Mediterranean luxury properties." },
   { year: "2025", title: "AI-First Agency", desc: "Full AI integration across valuations, buyer matching, marketing automation and market forecasting — setting the industry benchmark." },
+];
+
+const TEAM_PREVIEW = [
+  { name: "Arman Yeghiazaryan", role: "Founder & CEO", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80", desc: "Visionary leader with 15+ years in luxury real estate and technology innovation." },
+  { name: "Elena Martínez", role: "Managing Director", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80", desc: "Oversees all operations across offices, ensuring the highest standards of client service." },
+  { name: "David van der Berg", role: "Head of International Sales", image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80", desc: "Leads our cross-border transactions connecting European buyers to Mediterranean luxury." },
+  { name: "Sofia Petrova", role: "Head of Technology & AI", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80", desc: "Drives our AI strategy, from predictive analytics to automated client matching." },
+  { name: "Carlos Ruiz", role: "Head of Off-Market & Private Office", image: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=400&q=80", desc: "Manages our exclusive portfolio and confidential client network." },
 ];
 
 const PHILOSOPHY_PILLARS = [
