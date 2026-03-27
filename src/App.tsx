@@ -103,6 +103,7 @@ const App = () => (
             <Route path="/our-offices" element={<OurOfficesPage />} />
             <Route path="/email-offmarket" element={<OffmarketEmailPreviewPage />} />
             <Route path="/icons" element={<IconsPage />} />
+            <Route path="/chatbot-design" element={<ChatbotDesignShowcase />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
