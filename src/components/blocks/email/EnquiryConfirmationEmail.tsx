@@ -245,8 +245,8 @@ function Row({ label, value }: { label: string; value?: string }) {
   if (!value) return null;
   return (
     <tr>
-      <td style={st.cellLabel}>{label}</td>
-      <td style={st.cellValue}>{value}</td>
+      <td style={st.cellLabel} className="eq-cell-label">{label}</td>
+      <td style={st.cellValue} className="eq-cell-value">{value}</td>
     </tr>
   );
 }
