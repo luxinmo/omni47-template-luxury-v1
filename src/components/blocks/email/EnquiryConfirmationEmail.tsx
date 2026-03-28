@@ -144,8 +144,9 @@ const st = {
   } as React.CSSProperties,
 
   greetBlock: {
-    marginTop: 24,
-    paddingTop: 20,
+    margin: "0 42px",
+    paddingTop: 24,
+    paddingBottom: 36,
     borderTop: "1px solid hsl(0 0% 100% / 0.09)",
   } as React.CSSProperties,
   greeting: {
