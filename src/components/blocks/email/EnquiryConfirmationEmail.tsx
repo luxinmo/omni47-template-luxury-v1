@@ -57,11 +57,10 @@ const st = {
   /* ── Reinvented top section ── */
   topShell: {
     backgroundColor: B.dark,
-    padding: "34px 42px 36px",
   } as React.CSSProperties,
   logoWrap: {
     textAlign: "center" as const,
-    marginBottom: 24,
+    padding: "34px 42px 24px",
   } as React.CSSProperties,
   logoName: {
     fontSize: 18,
@@ -85,13 +84,13 @@ const st = {
   } as React.CSSProperties,
   heroImage: {
     width: "100%",
-    height: 300,
+    height: 380,
     objectFit: "cover" as const,
     display: "block",
   } as React.CSSProperties,
   heroInfoBar: {
-    padding: "20px 24px",
-    background: "linear-gradient(to top, hsl(24 8% 11% / 0.92), transparent)",
+    padding: "24px 32px 20px",
+    background: "linear-gradient(to top, hsl(24 8% 11% / 0.85) 40%, transparent)",
     position: "absolute" as const,
     bottom: 0, left: 0, right: 0,
   } as React.CSSProperties,
@@ -145,8 +144,9 @@ const st = {
   } as React.CSSProperties,
 
   greetBlock: {
-    marginTop: 24,
-    paddingTop: 20,
+    margin: "0 42px",
+    paddingTop: 24,
+    paddingBottom: 36,
     borderTop: "1px solid hsl(0 0% 100% / 0.09)",
   } as React.CSSProperties,
   greeting: {
