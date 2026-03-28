@@ -256,23 +256,42 @@ export function EnquiryConfirmationEmail({ data }: { data: EnquiryEmailData }) {
 
   return (
     <div style={st.body}>
+      <style>{`
+        @media (max-width: 480px) {
+          .eq-logo-wrap { padding: 24px 20px 18px !important; }
+          .eq-hero-img { height: 220px !important; }
+          .eq-prop-bar { padding: 14px 18px !important; }
+          .eq-prop-title-row { flex-direction: column !important; gap: 4px !important; align-items: flex-start !important; }
+          .eq-prop-title { font-size: 14px !important; }
+          .eq-prop-price { font-size: 14px !important; }
+          .eq-content-inner { padding: 24px 20px 28px !important; }
+          .eq-greeting { font-size: 19px !important; }
+          .eq-greeting-sub { font-size: 12px !important; }
+          .eq-cell-label { font-size: 11px !important; padding: 8px 0 !important; }
+          .eq-cell-value { font-size: 12px !important; padding: 8px 0 !important; }
+          .eq-message-box { padding: 12px 14px !important; font-size: 12px !important; }
+          .eq-cta { padding: 12px 28px !important; font-size: 10px !important; }
+          .eq-footer { padding: 18px 20px !important; }
+          .eq-prop-meta { gap: 10px !important; }
+        }
+      `}</style>
       <div style={st.wrapper}>
         <div style={st.topShell}>
-          <div style={st.logoWrap}>
+          <div style={st.logoWrap} className="eq-logo-wrap">
             <p style={st.logoName}>Prestige</p>
             <p style={st.logoSub}>Real Estate</p>
           </div>
 
           {(data.propertyImage || data.propertyTitle) && (
             <div style={st.heroFrame}>
-              {data.propertyImage && <img src={data.propertyImage} alt="" style={st.heroImage} />}
-              <div style={st.propertyBar}>
+              {data.propertyImage && <img src={data.propertyImage} alt="" style={st.heroImage} className="eq-hero-img" />}
+              <div style={st.propertyBar} className="eq-prop-bar">
                 {data.propertyRef && <p style={st.propRef}>REF {data.propertyRef}</p>}
-                <div style={st.propTitleRow}>
-                  <p style={st.propTitle}>{data.propertyTitle || "Selected Property"}</p>
-                  {data.propertyPrice && <p style={st.propPrice}>{data.propertyPrice}</p>}
+                <div style={st.propTitleRow} className="eq-prop-title-row">
+                  <p style={st.propTitle} className="eq-prop-title">{data.propertyTitle || "Selected Property"}</p>
+                  {data.propertyPrice && <p style={st.propPrice} className="eq-prop-price">{data.propertyPrice}</p>}
                 </div>
-                <div style={st.propMeta}>
+                <div style={st.propMeta} className="eq-prop-meta">
                   {data.propertyLocation && <span style={st.propMetaItem}>📍 {data.propertyLocation}</span>}
                   {specs?.beds && <span style={st.propMetaItem}>{specs.beds} Beds</span>}
                   {specs?.baths && <span style={st.propMetaItem}>{specs.baths} Baths</span>}
