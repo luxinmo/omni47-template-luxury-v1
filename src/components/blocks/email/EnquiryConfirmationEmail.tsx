@@ -304,9 +304,9 @@ export function EnquiryConfirmationEmail({ data }: { data: EnquiryEmailData }) {
         </div>
 
         <div style={st.contentBody}>
-          <div style={st.contentInner}>
-            <h1 style={st.greeting}>{data.fullName ? `Thank you, ${data.fullName}` : "Thank you for your enquiry"}</h1>
-            <p style={st.greetingSub}>
+          <div style={st.contentInner} className="eq-content-inner">
+            <h1 style={st.greeting} className="eq-greeting">{data.fullName ? `Thank you, ${data.fullName}` : "Thank you for your enquiry"}</h1>
+            <p style={st.greetingSub} className="eq-greeting-sub">
               We've received your {data.enquiryType ? ENQUIRY_LABELS[data.enquiryType]?.toLowerCase() : "enquiry"} request
               {data.propertyTitle ? ` for ${data.propertyTitle}` : ""}. A personal advisor will contact you within 24 hours.
             </p>
@@ -324,7 +324,7 @@ export function EnquiryConfirmationEmail({ data }: { data: EnquiryEmailData }) {
             {data.message && (
               <>
                 <p style={st.sectionLabel}>Your message</p>
-                <div style={st.messageBox}>"{data.message}"</div>
+                <div style={st.messageBox} className="eq-message-box">"{data.message}"</div>
               </>
             )}
 
@@ -342,12 +342,12 @@ export function EnquiryConfirmationEmail({ data }: { data: EnquiryEmailData }) {
             <p style={st.note}>If any details are incorrect, simply reply to this email and we'll update your request immediately.</p>
 
             <div style={st.ctaWrap}>
-              <a href="#" style={st.cta}>View Property</a>
+              <a href="#" style={st.cta} className="eq-cta">View Property</a>
             </div>
           </div>
         </div>
 
-        <div style={st.footer}>
+        <div style={st.footer} className="eq-footer">
           <p style={st.footerText}>+34 600 000 000 · hello@prestigeestates.com</p>
           <p style={st.footerText}>Marbella, Spain</p>
           <p style={{ ...st.footerText, marginTop: 10, color: "hsl(0 0% 83%)" }}>© {new Date().getFullYear()} Prestige Real Estate</p>
