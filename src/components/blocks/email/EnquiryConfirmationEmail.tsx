@@ -143,24 +143,18 @@ const st = {
     letterSpacing: "0.04em",
   } as React.CSSProperties,
 
-  greetBlock: {
-    margin: "0 42px",
-    paddingTop: 24,
-    paddingBottom: 36,
-    borderTop: "1px solid hsl(0 0% 100% / 0.09)",
-  } as React.CSSProperties,
   greeting: {
     fontSize: 22,
     fontWeight: 300,
-    color: B.white,
+    color: B.darkSoft,
     margin: "0 0 8px",
     letterSpacing: "0.01em",
   } as React.CSSProperties,
   greetingSub: {
     fontSize: 13,
-    color: "hsl(0 0% 100% / 0.62)",
+    color: B.muted,
     fontWeight: 300,
-    margin: 0,
+    margin: "0 0 28px",
     lineHeight: 1.72,
   } as React.CSSProperties,
 
@@ -301,17 +295,16 @@ export function EnquiryConfirmationEmail({ data }: { data: EnquiryEmailData }) {
             </div>
           )}
 
-          <div style={st.greetBlock}>
+        </div>
+
+        <div style={st.contentBody}>
+          <div style={st.contentInner}>
             <h1 style={st.greeting}>{data.fullName ? `Thank you, ${data.fullName}` : "Thank you for your enquiry"}</h1>
             <p style={st.greetingSub}>
               We've received your {data.enquiryType ? ENQUIRY_LABELS[data.enquiryType]?.toLowerCase() : "enquiry"} request
               {data.propertyTitle ? ` for ${data.propertyTitle}` : ""}. A personal advisor will contact you within 24 hours.
             </p>
-          </div>
-        </div>
 
-        <div style={st.contentBody}>
-          <div style={st.contentInner}>
             <p style={st.sectionLabel}>Enquiry summary</p>
             <table style={st.table}>
               <tbody>
