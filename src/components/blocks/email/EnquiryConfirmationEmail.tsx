@@ -295,17 +295,16 @@ export function EnquiryConfirmationEmail({ data }: { data: EnquiryEmailData }) {
             </div>
           )}
 
-          <div style={st.greetBlock}>
+        </div>
+
+        <div style={st.contentBody}>
+          <div style={st.contentInner}>
             <h1 style={st.greeting}>{data.fullName ? `Thank you, ${data.fullName}` : "Thank you for your enquiry"}</h1>
             <p style={st.greetingSub}>
               We've received your {data.enquiryType ? ENQUIRY_LABELS[data.enquiryType]?.toLowerCase() : "enquiry"} request
               {data.propertyTitle ? ` for ${data.propertyTitle}` : ""}. A personal advisor will contact you within 24 hours.
             </p>
-          </div>
-        </div>
 
-        <div style={st.contentBody}>
-          <div style={st.contentInner}>
             <p style={st.sectionLabel}>Enquiry summary</p>
             <table style={st.table}>
               <tbody>
