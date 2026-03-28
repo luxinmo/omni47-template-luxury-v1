@@ -80,66 +80,56 @@ const st = {
 
   heroFrame: {
     overflow: "hidden" as const,
-    position: "relative" as const,
   } as React.CSSProperties,
   heroImage: {
     width: "100%",
-    height: 380,
+    height: 360,
     objectFit: "cover" as const,
     display: "block",
   } as React.CSSProperties,
-  heroInfoBar: {
-    padding: "24px 32px 20px",
-    background: "linear-gradient(to top, hsl(24 8% 11% / 0.85) 40%, transparent)",
-    position: "absolute" as const,
-    bottom: 0, left: 0, right: 0,
+  propertyBar: {
+    padding: "18px 28px",
+    backgroundColor: "hsl(24 6% 14%)",
+    borderTop: "1px solid hsl(0 0% 100% / 0.06)",
   } as React.CSSProperties,
-  heroRef: {
-    margin: "0 0 8px",
+  propRef: {
+    margin: "0 0 6px",
     fontSize: 10,
     letterSpacing: "0.22em",
     textTransform: "uppercase" as const,
     color: B.accent,
     fontWeight: 500,
   } as React.CSSProperties,
-  heroTitleRow: {
+  propTitleRow: {
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "flex-end",
+    alignItems: "baseline",
     gap: 16,
-    marginBottom: 6,
+    marginBottom: 8,
   } as React.CSSProperties,
-  heroTitle: {
+  propTitle: {
     margin: 0,
-    fontSize: 19,
-    lineHeight: 1.3,
+    fontSize: 16,
     letterSpacing: "0.02em",
     color: B.white,
     fontWeight: 400,
   } as React.CSSProperties,
-  heroPrice: {
+  propPrice: {
     margin: 0,
-    fontSize: 19,
+    fontSize: 16,
     color: B.white,
     fontWeight: 600,
     letterSpacing: "0.02em",
     whiteSpace: "nowrap" as const,
-    textShadow: "0 1px 4px rgba(0,0,0,0.5)",
   } as React.CSSProperties,
-  heroLocation: {
-    margin: "0 0 10px",
-    fontSize: 12,
-    color: "hsl(0 0% 100% / 0.54)",
-    fontWeight: 300,
-  } as React.CSSProperties,
-  specsRow: {
+  propMeta: {
     display: "flex",
-    gap: 14,
+    gap: 16,
     flexWrap: "wrap" as const,
   } as React.CSSProperties,
-  specItem: {
+  propMetaItem: {
     fontSize: 11,
-    color: "hsl(0 0% 100% / 0.62)",
+    color: "hsl(0 0% 100% / 0.5)",
     fontWeight: 300,
     letterSpacing: "0.04em",
   } as React.CSSProperties,
@@ -276,22 +266,18 @@ export function EnquiryConfirmationEmail({ data }: { data: EnquiryEmailData }) {
           {(data.propertyImage || data.propertyTitle) && (
             <div style={st.heroFrame}>
               {data.propertyImage && <img src={data.propertyImage} alt="" style={st.heroImage} />}
-
-              <div style={st.heroInfoBar}>
-                {data.propertyRef && <p style={st.heroRef}>REF {data.propertyRef}</p>}
-                <div style={st.heroTitleRow}>
-                  <p style={st.heroTitle}>{data.propertyTitle || "Selected Property"}</p>
-                  {data.propertyPrice && <p style={st.heroPrice}>{data.propertyPrice}</p>}
+              <div style={st.propertyBar}>
+                {data.propertyRef && <p style={st.propRef}>REF {data.propertyRef}</p>}
+                <div style={st.propTitleRow}>
+                  <p style={st.propTitle}>{data.propertyTitle || "Selected Property"}</p>
+                  {data.propertyPrice && <p style={st.propPrice}>{data.propertyPrice}</p>}
                 </div>
-                {data.propertyLocation && <p style={st.heroLocation}>📍 {data.propertyLocation}</p>}
-
-                {specs && (
-                  <div style={st.specsRow}>
-                    {specs.beds && <span style={st.specItem}>{specs.beds} Bedrooms</span>}
-                    {specs.baths && <span style={st.specItem}>{specs.baths} Bathrooms</span>}
-                    {specs.sqm && <span style={st.specItem}>{specs.sqm} m²</span>}
-                  </div>
-                )}
+                <div style={st.propMeta}>
+                  {data.propertyLocation && <span style={st.propMetaItem}>📍 {data.propertyLocation}</span>}
+                  {specs?.beds && <span style={st.propMetaItem}>{specs.beds} Beds</span>}
+                  {specs?.baths && <span style={st.propMetaItem}>{specs.baths} Baths</span>}
+                  {specs?.sqm && <span style={st.propMetaItem}>{specs.sqm} m²</span>}
+                </div>
               </div>
             </div>
           )}
