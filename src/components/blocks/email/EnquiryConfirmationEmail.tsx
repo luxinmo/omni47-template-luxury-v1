@@ -119,11 +119,12 @@ const st = {
   } as React.CSSProperties,
   heroPrice: {
     margin: 0,
-    fontSize: 18,
-    color: B.accent,
-    fontWeight: 500,
+    fontSize: 19,
+    color: B.white,
+    fontWeight: 600,
     letterSpacing: "0.02em",
     whiteSpace: "nowrap" as const,
+    textShadow: "0 1px 4px rgba(0,0,0,0.5)",
   } as React.CSSProperties,
   heroLocation: {
     margin: "0 0 10px",
