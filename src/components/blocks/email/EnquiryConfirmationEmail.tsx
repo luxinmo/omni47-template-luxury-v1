@@ -80,20 +80,20 @@ const st = {
   } as React.CSSProperties,
 
   heroFrame: {
-    border: "1px solid hsl(0 0% 100% / 0.12)",
-    borderRadius: 3,
     overflow: "hidden" as const,
-    backgroundColor: "hsl(0 0% 100% / 0.03)",
+    position: "relative" as const,
   } as React.CSSProperties,
   heroImage: {
     width: "100%",
-    height: 320,
+    height: 300,
     objectFit: "cover" as const,
     display: "block",
   } as React.CSSProperties,
   heroInfoBar: {
-    padding: "18px 24px",
-    borderTop: "1px solid hsl(0 0% 100% / 0.08)",
+    padding: "20px 24px",
+    background: "linear-gradient(to top, hsl(24 8% 11% / 0.92), transparent)",
+    position: "absolute" as const,
+    bottom: 0, left: 0, right: 0,
   } as React.CSSProperties,
   heroRef: {
     margin: "0 0 8px",
