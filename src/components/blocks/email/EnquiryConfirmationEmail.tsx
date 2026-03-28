@@ -28,100 +28,140 @@ const ENQUIRY_LABELS: Record<string, string> = {
 };
 
 const B = {
-  accent: "#8B6F47",
-  dark: "#1a1a1a",
-  darkSoft: "#2D2926",
-  muted: "#999999",
-  light: "#bbbbbb",
-  bg: "#f7f7f7",
-  white: "#ffffff",
-  border: "#e5e5e5",
-  borderLight: "#f0f0f0",
+  accent: "hsl(35 32% 41%)",
+  dark: "hsl(24 8% 11%)",
+  darkSoft: "hsl(24 6% 18%)",
+  muted: "hsl(25 5% 49%)",
+  light: "hsl(25 5% 67%)",
+  bg: "hsl(32 20% 96%)",
+  white: "hsl(0 0% 100%)",
+  border: "hsl(28 18% 88%)",
+  borderLight: "hsl(28 18% 93%)",
 };
 
 /* ── Styles ── */
 const st = {
   body: {
-    margin: 0, padding: 0, backgroundColor: B.bg,
-    fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
+    margin: 0,
+    padding: 0,
+    backgroundColor: B.bg,
+    fontFamily: "'Jost', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+    WebkitTextSizeAdjust: "100%" as const,
   } as React.CSSProperties,
   wrapper: {
-    maxWidth: 800, margin: "0 auto", padding: "0",
+    maxWidth: 800,
+    margin: "0 auto",
+    padding: "0",
   } as React.CSSProperties,
 
-  /* ── Dark header band ── */
-  headerBand: {
-    backgroundColor: B.dark, padding: "32px 40px 0",
+  /* ── Reinvented top section ── */
+  topShell: {
+    backgroundColor: B.dark,
+    padding: "34px 42px 36px",
   } as React.CSSProperties,
-  logoRow: {
-    display: "flex", alignItems: "center", justifyContent: "space-between",
-    paddingBottom: 28, borderBottom: "1px solid rgba(255,255,255,0.08)",
+  logoWrap: {
+    textAlign: "center" as const,
+    marginBottom: 24,
   } as React.CSSProperties,
   logoName: {
-    fontSize: 18, fontWeight: 300, letterSpacing: "0.4em",
-    color: B.white, margin: 0, textTransform: "uppercase" as const,
+    fontSize: 18,
+    fontWeight: 300,
+    letterSpacing: "0.42em",
+    color: B.white,
+    margin: "0 0 2px",
+    textTransform: "uppercase" as const,
   } as React.CSSProperties,
   logoSub: {
-    fontSize: 8, letterSpacing: "0.5em", textTransform: "uppercase" as const,
-    color: "rgba(255,255,255,0.35)", margin: 0,
-  } as React.CSSProperties,
-  headerDate: {
-    fontSize: 11, color: "rgba(255,255,255,0.3)",
-    letterSpacing: "0.06em",
+    fontSize: 8,
+    letterSpacing: "0.5em",
+    textTransform: "uppercase" as const,
+    color: "hsl(0 0% 100% / 0.48)",
+    margin: 0,
   } as React.CSSProperties,
 
-  /* ── Property card inside dark header ── */
-  propertySection: {
-    padding: "28px 0 0",
+  heroFrame: {
+    border: "1px solid hsl(0 0% 100% / 0.12)",
+    borderRadius: 3,
+    overflow: "hidden" as const,
+    backgroundColor: "hsl(0 0% 100% / 0.03)",
   } as React.CSSProperties,
-  propertyCard: {
-    display: "flex", gap: 0,
-    backgroundColor: "rgba(255,255,255,0.04)",
-    borderRadius: 3, overflow: "hidden" as const,
+  heroImage: {
+    width: "100%",
+    height: 320,
+    objectFit: "cover" as const,
+    display: "block",
   } as React.CSSProperties,
-  propertyImg: {
-    width: 260, minHeight: 180, objectFit: "cover" as const,
-    display: "block", flexShrink: 0,
+  heroInfoBar: {
+    padding: "18px 24px",
+    borderTop: "1px solid hsl(0 0% 100% / 0.08)",
   } as React.CSSProperties,
-  propertyInfo: {
-    padding: "22px 28px", flex: 1,
-    display: "flex", flexDirection: "column" as const, justifyContent: "center",
+  heroRef: {
+    margin: "0 0 8px",
+    fontSize: 10,
+    letterSpacing: "0.22em",
+    textTransform: "uppercase" as const,
+    color: B.accent,
+    fontWeight: 500,
   } as React.CSSProperties,
-  propRef: {
-    fontSize: 10, letterSpacing: "0.2em", color: B.accent,
-    textTransform: "uppercase" as const, margin: "0 0 8px", fontWeight: 500,
+  heroTitleRow: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+    gap: 16,
+    marginBottom: 6,
   } as React.CSSProperties,
-  propTitle: {
-    fontSize: 17, fontWeight: 400, color: B.white,
-    margin: "0 0 4px", letterSpacing: "0.02em",
+  heroTitle: {
+    margin: 0,
+    fontSize: 19,
+    lineHeight: 1.3,
+    letterSpacing: "0.02em",
+    color: B.white,
+    fontWeight: 400,
   } as React.CSSProperties,
-  propLocation: {
-    fontSize: 12, color: "rgba(255,255,255,0.4)", margin: "0 0 16px",
+  heroPrice: {
+    margin: 0,
+    fontSize: 18,
+    color: B.accent,
+    fontWeight: 500,
+    letterSpacing: "0.02em",
+    whiteSpace: "nowrap" as const,
+  } as React.CSSProperties,
+  heroLocation: {
+    margin: "0 0 10px",
+    fontSize: 12,
+    color: "hsl(0 0% 100% / 0.54)",
     fontWeight: 300,
   } as React.CSSProperties,
-  propPrice: {
-    fontSize: 18, fontWeight: 500, color: B.accent,
-    margin: "0 0 10px", letterSpacing: "0.02em",
-  } as React.CSSProperties,
-  specRow: {
-    display: "flex", gap: 16,
+  specsRow: {
+    display: "flex",
+    gap: 14,
+    flexWrap: "wrap" as const,
   } as React.CSSProperties,
   specItem: {
-    fontSize: 11, color: "rgba(255,255,255,0.45)", fontWeight: 300,
+    fontSize: 11,
+    color: "hsl(0 0% 100% / 0.62)",
+    fontWeight: 300,
     letterSpacing: "0.04em",
   } as React.CSSProperties,
 
-  /* ── Dark header greeting ── */
-  greetingSection: {
-    padding: "28px 0 32px",
+  greetBlock: {
+    marginTop: 24,
+    paddingTop: 20,
+    borderTop: "1px solid hsl(0 0% 100% / 0.09)",
   } as React.CSSProperties,
   greeting: {
-    fontSize: 22, fontWeight: 300, color: B.white,
-    margin: "0 0 8px", letterSpacing: "0.01em",
+    fontSize: 22,
+    fontWeight: 300,
+    color: B.white,
+    margin: "0 0 8px",
+    letterSpacing: "0.01em",
   } as React.CSSProperties,
   greetingSub: {
-    fontSize: 13, color: "rgba(255,255,255,0.4)", fontWeight: 300,
-    margin: 0, lineHeight: 1.7,
+    fontSize: 13,
+    color: "hsl(0 0% 100% / 0.62)",
+    fontWeight: 300,
+    margin: 0,
+    lineHeight: 1.72,
   } as React.CSSProperties,
 
   /* ── White content body ── */
@@ -129,46 +169,76 @@ const st = {
     backgroundColor: B.white,
   } as React.CSSProperties,
   contentInner: {
-    padding: "32px 40px 40px",
+    padding: "34px 42px 42px",
   } as React.CSSProperties,
   sectionLabel: {
-    fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase" as const,
-    color: B.muted, margin: "0 0 14px", fontWeight: 500,
+    fontSize: 10,
+    letterSpacing: "0.22em",
+    textTransform: "uppercase" as const,
+    color: B.muted,
+    margin: "0 0 14px",
+    fontWeight: 500,
   } as React.CSSProperties,
   table: {
-    width: "100%", borderCollapse: "collapse" as const, marginBottom: 28,
+    width: "100%",
+    borderCollapse: "collapse" as const,
+    marginBottom: 28,
   } as React.CSSProperties,
   cellLabel: {
-    padding: "10px 0 10px 0", fontSize: 12, color: B.muted,
-    fontWeight: 400, width: "35%", verticalAlign: "top" as const,
+    padding: "10px 0",
+    fontSize: 12,
+    color: B.muted,
+    fontWeight: 400,
+    width: "35%",
+    verticalAlign: "top" as const,
     borderBottom: `1px solid ${B.borderLight}`,
   } as React.CSSProperties,
   cellValue: {
-    padding: "10px 0", fontSize: 13, color: B.darkSoft,
-    fontWeight: 400, verticalAlign: "top" as const,
+    padding: "10px 0",
+    fontSize: 13,
+    color: B.darkSoft,
+    fontWeight: 400,
+    verticalAlign: "top" as const,
     borderBottom: `1px solid ${B.borderLight}`,
   } as React.CSSProperties,
   messageBox: {
-    backgroundColor: B.bg, borderRadius: 3, padding: "16px 20px",
-    fontSize: 13, color: B.darkSoft, lineHeight: 1.7, fontWeight: 300,
-    margin: "0 0 28px", fontStyle: "italic" as const,
+    backgroundColor: B.bg,
+    borderRadius: 3,
+    padding: "16px 20px",
+    fontSize: 13,
+    color: B.darkSoft,
+    lineHeight: 1.7,
+    fontWeight: 300,
+    margin: "0 0 28px",
+    fontStyle: "italic" as const,
     borderLeft: `3px solid ${B.accent}`,
   } as React.CSSProperties,
   divider: {
-    border: "none", borderTop: `1px solid ${B.border}`, margin: "0 0 24px",
+    border: "none",
+    borderTop: `1px solid ${B.border}`,
+    margin: "0 0 24px",
   } as React.CSSProperties,
   note: {
-    fontSize: 12, color: B.muted, lineHeight: 1.7, margin: "0 0 28px",
+    fontSize: 12,
+    color: B.muted,
+    lineHeight: 1.7,
+    margin: "0 0 28px",
     fontWeight: 300,
   } as React.CSSProperties,
   ctaWrap: {
-    textAlign: "center" as const, padding: "4px 0 0",
+    textAlign: "center" as const,
+    padding: "4px 0 0",
   } as React.CSSProperties,
   cta: {
     display: "inline-block",
-    backgroundColor: B.accent, color: B.white,
-    fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase" as const,
-    fontWeight: 500, padding: "14px 36px", borderRadius: 2,
+    backgroundColor: B.accent,
+    color: B.white,
+    fontSize: 11,
+    letterSpacing: "0.18em",
+    textTransform: "uppercase" as const,
+    fontWeight: 500,
+    padding: "14px 36px",
+    borderRadius: 2,
     textDecoration: "none",
   } as React.CSSProperties,
 
@@ -179,7 +249,10 @@ const st = {
     textAlign: "center" as const,
   } as React.CSSProperties,
   footerText: {
-    fontSize: 11, color: B.light, margin: "0 0 2px", letterSpacing: "0.03em",
+    fontSize: 11,
+    color: B.light,
+    margin: "0 0 2px",
+    letterSpacing: "0.03em",
   } as React.CSSProperties,
 };
 
@@ -193,67 +266,52 @@ function Row({ label, value }: { label: string; value?: string }) {
   );
 }
 
-/* ═══════════════════════════════════════════════════
-   MAIN TEMPLATE
-   ═══════════════════════════════════════════════════ */
 export function EnquiryConfirmationEmail({ data }: { data: EnquiryEmailData }) {
   const specs = data.propertySpecs;
-  const today = new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
 
   return (
     <div style={st.body}>
       <div style={st.wrapper}>
-
-        {/* ═══ DARK HEADER ═══ */}
-        <div style={st.headerBand}>
-
-          {/* Logo + date */}
-          <div style={st.logoRow}>
-            <div>
-              <p style={st.logoName}>Prestige</p>
-              <p style={st.logoSub}>Real Estate</p>
-            </div>
-            <span style={st.headerDate}>{today}</span>
+        <div style={st.topShell}>
+          <div style={st.logoWrap}>
+            <p style={st.logoName}>Prestige</p>
+            <p style={st.logoSub}>Real Estate</p>
           </div>
 
-          {/* Property card */}
-          {data.propertyImage && (
-            <div style={st.propertySection}>
-              <div style={st.propertyCard}>
-                <img src={data.propertyImage} alt="" style={st.propertyImg} />
-                <div style={st.propertyInfo}>
-                  {data.propertyRef && <p style={st.propRef}>REF {data.propertyRef}</p>}
-                  <p style={st.propTitle}>{data.propertyTitle}</p>
-                  {data.propertyLocation && <p style={st.propLocation}>{data.propertyLocation}</p>}
-                  <p style={st.propPrice}>{data.propertyPrice || "Price on request"}</p>
-                  {specs && (
-                    <div style={st.specRow}>
-                      {specs.beds && <span style={st.specItem}>{specs.beds} Bedrooms</span>}
-                      {specs.baths && <span style={st.specItem}>{specs.baths} Bathrooms</span>}
-                      {specs.sqm && <span style={st.specItem}>{specs.sqm} m²</span>}
-                    </div>
-                  )}
+          {(data.propertyImage || data.propertyTitle) && (
+            <div style={st.heroFrame}>
+              {data.propertyImage && <img src={data.propertyImage} alt="" style={st.heroImage} />}
+
+              <div style={st.heroInfoBar}>
+                {data.propertyRef && <p style={st.heroRef}>REF {data.propertyRef}</p>}
+                <div style={st.heroTitleRow}>
+                  <p style={st.heroTitle}>{data.propertyTitle || "Selected Property"}</p>
+                  {data.propertyPrice && <p style={st.heroPrice}>{data.propertyPrice}</p>}
                 </div>
+                {data.propertyLocation && <p style={st.heroLocation}>📍 {data.propertyLocation}</p>}
+
+                {specs && (
+                  <div style={st.specsRow}>
+                    {specs.beds && <span style={st.specItem}>{specs.beds} Bedrooms</span>}
+                    {specs.baths && <span style={st.specItem}>{specs.baths} Bathrooms</span>}
+                    {specs.sqm && <span style={st.specItem}>{specs.sqm} m²</span>}
+                  </div>
+                )}
               </div>
             </div>
           )}
 
-          {/* Greeting in dark area */}
-          <div style={st.greetingSection}>
-            <h1 style={st.greeting}>
-              {data.fullName ? `Thank you, ${data.fullName}` : "Thank you for your enquiry"}
-            </h1>
+          <div style={st.greetBlock}>
+            <h1 style={st.greeting}>{data.fullName ? `Thank you, ${data.fullName}` : "Thank you for your enquiry"}</h1>
             <p style={st.greetingSub}>
               We've received your {data.enquiryType ? ENQUIRY_LABELS[data.enquiryType]?.toLowerCase() : "enquiry"} request
-              {data.propertyTitle ? ` for ${data.propertyTitle}` : ""}. A personal advisor will be in touch within 24 hours.
+              {data.propertyTitle ? ` for ${data.propertyTitle}` : ""}. A personal advisor will contact you within 24 hours.
             </p>
           </div>
         </div>
 
-        {/* ═══ WHITE CONTENT ═══ */}
         <div style={st.contentBody}>
           <div style={st.contentInner}>
-
             <p style={st.sectionLabel}>Enquiry summary</p>
             <table style={st.table}>
               <tbody>
@@ -282,9 +340,7 @@ export function EnquiryConfirmationEmail({ data }: { data: EnquiryEmailData }) {
               </tbody>
             </table>
 
-            <p style={st.note}>
-              If any details are incorrect, simply reply to this email and we'll update your request immediately.
-            </p>
+            <p style={st.note}>If any details are incorrect, simply reply to this email and we'll update your request immediately.</p>
 
             <div style={st.ctaWrap}>
               <a href="#" style={st.cta}>View Property</a>
@@ -292,29 +348,24 @@ export function EnquiryConfirmationEmail({ data }: { data: EnquiryEmailData }) {
           </div>
         </div>
 
-        {/* ═══ FOOTER ═══ */}
         <div style={st.footer}>
           <p style={st.footerText}>+34 600 000 000 · hello@prestigeestates.com</p>
           <p style={st.footerText}>Marbella, Spain</p>
-          <p style={{ ...st.footerText, marginTop: 10, color: "#d4d4d4" }}>
-            © {new Date().getFullYear()} Prestige Real Estate
-          </p>
+          <p style={{ ...st.footerText, marginTop: 10, color: "hsl(0 0% 83%)" }}>© {new Date().getFullYear()} Prestige Real Estate</p>
         </div>
       </div>
     </div>
   );
 }
 
-/* ═══════════════════════════════════════════════════
-   SAMPLE DATA
-   ═══════════════════════════════════════════════════ */
+/* ── Sample data for preview ── */
 const SAMPLE_VISIT: EnquiryEmailData = {
   enquiryType: "visit",
   propertyTitle: "Panoramic Sea View Villa",
   propertyLocation: "Sierra Blanca, Marbella",
   propertyPrice: "€4,950,000",
   propertyRef: "4521",
-  propertyImage: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=640&h=360&fit=crop",
+  propertyImage: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1280&h=720&fit=crop",
   propertySpecs: { beds: 5, baths: 4, sqm: 620 },
   fullName: "James Whitfield",
   email: "j.whitfield@email.com",
@@ -328,7 +379,7 @@ const SAMPLE_INFO: EnquiryEmailData = {
   propertyLocation: "Puerto Banús, Marbella",
   propertyPrice: "€2,800,000",
   propertyRef: "3887",
-  propertyImage: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=640&h=360&fit=crop",
+  propertyImage: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1280&h=720&fit=crop",
   propertySpecs: { beds: 3, baths: 3, sqm: 285 },
   fullName: "María García Fernández",
   email: "maria.garcia@email.com",
@@ -344,12 +395,11 @@ const SAMPLE_GENERAL: EnquiryEmailData = {
 };
 
 const SAMPLES: Record<string, EnquiryEmailData> = {
-  visit: SAMPLE_VISIT, info: SAMPLE_INFO, general: SAMPLE_GENERAL,
+  visit: SAMPLE_VISIT,
+  info: SAMPLE_INFO,
+  general: SAMPLE_GENERAL,
 };
 
-/* ═══════════════════════════════════════════════════
-   PREVIEW PAGE
-   ═══════════════════════════════════════════════════ */
 export default function EnquiryEmailPreviewPage() {
   const [params] = useSearchParams();
   const type = (params.get("type") as string) || "visit";
@@ -362,24 +412,29 @@ export default function EnquiryEmailPreviewPage() {
   ];
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "#e7e5e4" }}>
+    <div style={{ minHeight: "100vh", backgroundColor: "hsl(30 7% 89%)" }}>
       <div style={{ display: "flex", justifyContent: "center", gap: 8, padding: "20px 16px", flexWrap: "wrap" as const }}>
         {tabs.map((tab) => (
           <a
             key={tab.key}
             href={`?type=${tab.key}`}
             style={{
-              padding: "8px 20px", fontSize: 12, letterSpacing: "0.12em",
-              textTransform: "uppercase" as const, textDecoration: "none", borderRadius: 2,
-              backgroundColor: type === tab.key ? "#1a1a1a" : "#ffffff",
-              color: type === tab.key ? "#ffffff" : "#6B6560",
-              border: "1px solid #d4d4d4",
+              padding: "8px 20px",
+              fontSize: 12,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase" as const,
+              textDecoration: "none",
+              borderRadius: 2,
+              backgroundColor: type === tab.key ? "hsl(24 8% 11%)" : "hsl(0 0% 100%)",
+              color: type === tab.key ? "hsl(0 0% 100%)" : "hsl(25 5% 49%)",
+              border: "1px solid hsl(0 0% 83%)",
             }}
           >
             {tab.label}
           </a>
         ))}
       </div>
+
       <EnquiryConfirmationEmail data={current} />
     </div>
   );
