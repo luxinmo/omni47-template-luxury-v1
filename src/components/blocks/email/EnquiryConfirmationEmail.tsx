@@ -2,26 +2,21 @@
  * ENQUIRY CONFIRMATION EMAIL TEMPLATE
  * Sent to the lead after they submit a property enquiry.
  * Uses inline styles only (email-client compatible, no Tailwind).
- * Renders as a preview page or can be converted to HTML for sending.
  */
 
 import { useSearchParams } from "react-router-dom";
 
-/* ── Data interface ── */
 interface EnquiryEmailData {
-  /** Lead info */
   fullName?: string;
   email?: string;
   phone?: string;
   message?: string;
-  /** Property info */
   propertyTitle?: string;
   propertyLocation?: string;
   propertyPrice?: string;
   propertyRef?: string;
   propertyImage?: string;
   propertySpecs?: { beds?: number; baths?: number; sqm?: number };
-  /** Meta */
   enquiryType?: "visit" | "info" | "offer" | "general";
 }
 
@@ -32,267 +27,278 @@ const ENQUIRY_LABELS: Record<string, string> = {
   general: "General Enquiry",
 };
 
-/* ── Brand constants (mirroring template.ts) ── */
-const BRAND = {
-  name: "PRESTIGE",
-  subtitle: "REAL ESTATE",
-  email: "hello@prestigeestates.com",
-  phone: "+34 600 000 000",
-  city: "Marbella, Spain",
+const B = {
   accent: "#8B6F47",
-  accentDark: "#6E5636",
-  dark: "#2D2926",
-  muted: "#6B6560",
-  light: "#9A938B",
-  bg: "#FAF8F5",
-  bgAlt: "#F0ECE6",
-  border: "#E2DCD4",
-  white: "#FFFFFF",
+  dark: "#1a1a1a",
+  darkSoft: "#2D2926",
+  muted: "#999999",
+  light: "#bbbbbb",
+  bg: "#f7f7f7",
+  white: "#ffffff",
+  border: "#e5e5e5",
+  borderLight: "#f0f0f0",
 };
 
-/* ── Inline styles (email-safe) ── */
-const s = {
+/* ── Styles ── */
+const st = {
   body: {
-    margin: 0, padding: 0,
-    backgroundColor: BRAND.bg,
-    fontFamily: "'Jost', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-    WebkitTextSizeAdjust: "100%" as const,
+    margin: 0, padding: 0, backgroundColor: B.bg,
+    fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
   } as React.CSSProperties,
   wrapper: {
-    maxWidth: 640, margin: "0 auto", padding: "32px 16px",
-  } as React.CSSProperties,
-  card: {
-    backgroundColor: BRAND.white,
-    borderRadius: 2,
-    overflow: "hidden" as const,
-    border: `1px solid ${BRAND.border}`,
+    maxWidth: 800, margin: "0 auto", padding: "0",
   } as React.CSSProperties,
 
-  /* ── Header / Logo ── */
-  header: {
-    padding: "28px 32px",
-    borderBottom: `1px solid ${BRAND.border}`,
-    textAlign: "center" as const,
+  /* ── Dark header band ── */
+  headerBand: {
+    backgroundColor: B.dark, padding: "32px 40px 0",
+  } as React.CSSProperties,
+  logoRow: {
+    display: "flex", alignItems: "center", justifyContent: "space-between",
+    paddingBottom: 28, borderBottom: "1px solid rgba(255,255,255,0.08)",
   } as React.CSSProperties,
   logoName: {
-    fontSize: 20, fontWeight: 300, letterSpacing: "0.35em",
-    color: BRAND.dark, margin: 0, textTransform: "uppercase" as const,
+    fontSize: 18, fontWeight: 300, letterSpacing: "0.4em",
+    color: B.white, margin: 0, textTransform: "uppercase" as const,
   } as React.CSSProperties,
   logoSub: {
-    fontSize: 9, letterSpacing: "0.4em", textTransform: "uppercase" as const,
-    color: BRAND.accent, margin: "2px 0 0", fontWeight: 400,
+    fontSize: 8, letterSpacing: "0.5em", textTransform: "uppercase" as const,
+    color: "rgba(255,255,255,0.35)", margin: 0,
+  } as React.CSSProperties,
+  headerDate: {
+    fontSize: 11, color: "rgba(255,255,255,0.3)",
+    letterSpacing: "0.06em",
   } as React.CSSProperties,
 
-  /* ── Property hero ── */
-  propertyImage: {
-    width: "100%", height: 260, objectFit: "cover" as const,
-    display: "block",
+  /* ── Property card inside dark header ── */
+  propertySection: {
+    padding: "28px 0 0",
   } as React.CSSProperties,
-  propertyOverlay: {
-    backgroundColor: BRAND.dark,
-    padding: "16px 24px",
-    display: "flex", justifyContent: "space-between", alignItems: "center",
+  propertyCard: {
+    display: "flex", gap: 0,
+    backgroundColor: "rgba(255,255,255,0.04)",
+    borderRadius: 3, overflow: "hidden" as const,
   } as React.CSSProperties,
-  propertyTitle: {
-    fontSize: 15, fontWeight: 400, color: BRAND.white,
-    margin: 0, letterSpacing: "0.03em",
+  propertyImg: {
+    width: 260, minHeight: 180, objectFit: "cover" as const,
+    display: "block", flexShrink: 0,
   } as React.CSSProperties,
-  propertyPrice: {
-    fontSize: 15, fontWeight: 500, color: BRAND.accent,
-    margin: 0, letterSpacing: "0.02em",
+  propertyInfo: {
+    padding: "22px 28px", flex: 1,
+    display: "flex", flexDirection: "column" as const, justifyContent: "center",
   } as React.CSSProperties,
-  propertyMeta: {
-    padding: "12px 24px",
-    backgroundColor: BRAND.bgAlt,
-    display: "flex", gap: 20,
-    borderBottom: `1px solid ${BRAND.border}`,
+  propRef: {
+    fontSize: 10, letterSpacing: "0.2em", color: B.accent,
+    textTransform: "uppercase" as const, margin: "0 0 8px", fontWeight: 500,
   } as React.CSSProperties,
-  metaItem: {
-    fontSize: 12, color: BRAND.muted, fontWeight: 400,
+  propTitle: {
+    fontSize: 17, fontWeight: 400, color: B.white,
+    margin: "0 0 4px", letterSpacing: "0.02em",
+  } as React.CSSProperties,
+  propLocation: {
+    fontSize: 12, color: "rgba(255,255,255,0.4)", margin: "0 0 16px",
+    fontWeight: 300,
+  } as React.CSSProperties,
+  propPrice: {
+    fontSize: 18, fontWeight: 500, color: B.accent,
+    margin: "0 0 10px", letterSpacing: "0.02em",
+  } as React.CSSProperties,
+  specRow: {
+    display: "flex", gap: 16,
+  } as React.CSSProperties,
+  specItem: {
+    fontSize: 11, color: "rgba(255,255,255,0.45)", fontWeight: 300,
+    letterSpacing: "0.04em",
   } as React.CSSProperties,
 
-  /* ── Content ── */
-  content: {
-    padding: "28px 32px 36px",
+  /* ── Dark header greeting ── */
+  greetingSection: {
+    padding: "28px 0 32px",
   } as React.CSSProperties,
   greeting: {
-    fontSize: 20, fontWeight: 300, color: BRAND.dark,
-    margin: "0 0 6px", letterSpacing: "0.02em",
+    fontSize: 22, fontWeight: 300, color: B.white,
+    margin: "0 0 8px", letterSpacing: "0.01em",
   } as React.CSSProperties,
-  intro: {
-    fontSize: 14, color: BRAND.muted, fontWeight: 300,
-    margin: "0 0 24px", lineHeight: 1.65,
+  greetingSub: {
+    fontSize: 13, color: "rgba(255,255,255,0.4)", fontWeight: 300,
+    margin: 0, lineHeight: 1.7,
   } as React.CSSProperties,
-  sectionTitle: {
-    fontSize: 10, letterSpacing: "0.25em", textTransform: "uppercase" as const,
-    color: BRAND.light, margin: "0 0 12px", fontWeight: 500,
+
+  /* ── White content body ── */
+  contentBody: {
+    backgroundColor: B.white,
+  } as React.CSSProperties,
+  contentInner: {
+    padding: "32px 40px 40px",
+  } as React.CSSProperties,
+  sectionLabel: {
+    fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase" as const,
+    color: B.muted, margin: "0 0 14px", fontWeight: 500,
   } as React.CSSProperties,
   table: {
-    width: "100%", borderCollapse: "collapse" as const,
-    marginBottom: 24,
+    width: "100%", borderCollapse: "collapse" as const, marginBottom: 28,
   } as React.CSSProperties,
-  rowEven: { backgroundColor: BRAND.bg } as React.CSSProperties,
-  rowOdd: { backgroundColor: BRAND.white } as React.CSSProperties,
   cellLabel: {
-    padding: "10px 16px", fontSize: 12, color: BRAND.light,
-    fontWeight: 400, width: "38%", verticalAlign: "top" as const,
-    borderBottom: `1px solid ${BRAND.bg}`,
+    padding: "10px 0 10px 0", fontSize: 12, color: B.muted,
+    fontWeight: 400, width: "35%", verticalAlign: "top" as const,
+    borderBottom: `1px solid ${B.borderLight}`,
   } as React.CSSProperties,
   cellValue: {
-    padding: "10px 16px", fontSize: 13, color: BRAND.dark,
+    padding: "10px 0", fontSize: 13, color: B.darkSoft,
     fontWeight: 400, verticalAlign: "top" as const,
-    borderBottom: `1px solid ${BRAND.bg}`,
+    borderBottom: `1px solid ${B.borderLight}`,
+  } as React.CSSProperties,
+  messageBox: {
+    backgroundColor: B.bg, borderRadius: 3, padding: "16px 20px",
+    fontSize: 13, color: B.darkSoft, lineHeight: 1.7, fontWeight: 300,
+    margin: "0 0 28px", fontStyle: "italic" as const,
+    borderLeft: `3px solid ${B.accent}`,
   } as React.CSSProperties,
   divider: {
-    border: "none", borderTop: `1px solid ${BRAND.border}`,
-    margin: "0 0 24px",
+    border: "none", borderTop: `1px solid ${B.border}`, margin: "0 0 24px",
   } as React.CSSProperties,
   note: {
-    fontSize: 13, color: BRAND.muted, lineHeight: 1.65,
-    margin: "0 0 24px", fontWeight: 300,
+    fontSize: 12, color: B.muted, lineHeight: 1.7, margin: "0 0 28px",
+    fontWeight: 300,
+  } as React.CSSProperties,
+  ctaWrap: {
+    textAlign: "center" as const, padding: "4px 0 0",
   } as React.CSSProperties,
   cta: {
     display: "inline-block",
-    backgroundColor: BRAND.accent, color: BRAND.white,
-    fontSize: 11, letterSpacing: "0.16em", textTransform: "uppercase" as const,
-    fontWeight: 500, padding: "13px 28px", borderRadius: 2,
-    textDecoration: "none", marginTop: 4,
-  } as React.CSSProperties,
-
-  /* ── Ref badge ── */
-  refBadge: {
-    display: "inline-block",
-    fontSize: 10, letterSpacing: "0.15em", color: BRAND.light,
-    border: `1px solid ${BRAND.border}`, borderRadius: 2,
-    padding: "4px 10px", marginBottom: 16, textTransform: "uppercase" as const,
+    backgroundColor: B.accent, color: B.white,
+    fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase" as const,
+    fontWeight: 500, padding: "14px 36px", borderRadius: 2,
+    textDecoration: "none",
   } as React.CSSProperties,
 
   /* ── Footer ── */
   footer: {
-    padding: "20px 32px",
-    borderTop: `1px solid ${BRAND.border}`,
+    padding: "24px 40px",
+    backgroundColor: B.bg,
     textAlign: "center" as const,
   } as React.CSSProperties,
   footerText: {
-    fontSize: 11, color: BRAND.light, margin: "0 0 3px",
-    letterSpacing: "0.04em",
-  } as React.CSSProperties,
-  footerLink: {
-    fontSize: 11, color: BRAND.accent, textDecoration: "none",
-    letterSpacing: "0.04em",
+    fontSize: 11, color: B.light, margin: "0 0 2px", letterSpacing: "0.03em",
   } as React.CSSProperties,
 };
 
-/* ── Row helper ── */
-function Row({ label, value, even }: { label: string; value?: string; even: boolean }) {
+function Row({ label, value }: { label: string; value?: string }) {
   if (!value) return null;
   return (
-    <tr style={even ? s.rowEven : s.rowOdd}>
-      <td style={s.cellLabel}>{label}</td>
-      <td style={s.cellValue}>{value}</td>
+    <tr>
+      <td style={st.cellLabel}>{label}</td>
+      <td style={st.cellValue}>{value}</td>
     </tr>
   );
 }
 
 /* ═══════════════════════════════════════════════════
-   MAIN TEMPLATE COMPONENT
+   MAIN TEMPLATE
    ═══════════════════════════════════════════════════ */
 export function EnquiryConfirmationEmail({ data }: { data: EnquiryEmailData }) {
   const specs = data.propertySpecs;
+  const today = new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
 
   return (
-    <div style={s.body}>
-      <div style={s.wrapper}>
-        <div style={s.card}>
+    <div style={st.body}>
+      <div style={st.wrapper}>
 
-          {/* ── Brand header ── */}
-          <div style={s.header}>
-            <p style={s.logoName}>{BRAND.name}</p>
-            <p style={s.logoSub}>{BRAND.subtitle}</p>
+        {/* ═══ DARK HEADER ═══ */}
+        <div style={st.headerBand}>
+
+          {/* Logo + date */}
+          <div style={st.logoRow}>
+            <div>
+              <p style={st.logoName}>Prestige</p>
+              <p style={st.logoSub}>Real Estate</p>
+            </div>
+            <span style={st.headerDate}>{today}</span>
           </div>
 
-          {/* ── Property hero ── */}
+          {/* Property card */}
           {data.propertyImage && (
-            <>
-              <img src={data.propertyImage} alt={data.propertyTitle || "Property"} style={s.propertyImage} />
-              <div style={s.propertyOverlay}>
-                <p style={s.propertyTitle}>{data.propertyTitle}</p>
-                <p style={s.propertyPrice}>{data.propertyPrice || "Price on request"}</p>
-              </div>
-              {specs && (
-                <div style={s.propertyMeta}>
-                  {data.propertyLocation && <span style={s.metaItem}>📍 {data.propertyLocation}</span>}
-                  {specs.beds && <span style={s.metaItem}>{specs.beds} Beds</span>}
-                  {specs.baths && <span style={s.metaItem}>{specs.baths} Baths</span>}
-                  {specs.sqm && <span style={s.metaItem}>{specs.sqm} m²</span>}
+            <div style={st.propertySection}>
+              <div style={st.propertyCard}>
+                <img src={data.propertyImage} alt="" style={st.propertyImg} />
+                <div style={st.propertyInfo}>
+                  {data.propertyRef && <p style={st.propRef}>REF {data.propertyRef}</p>}
+                  <p style={st.propTitle}>{data.propertyTitle}</p>
+                  {data.propertyLocation && <p style={st.propLocation}>{data.propertyLocation}</p>}
+                  <p style={st.propPrice}>{data.propertyPrice || "Price on request"}</p>
+                  {specs && (
+                    <div style={st.specRow}>
+                      {specs.beds && <span style={st.specItem}>{specs.beds} Bedrooms</span>}
+                      {specs.baths && <span style={st.specItem}>{specs.baths} Bathrooms</span>}
+                      {specs.sqm && <span style={st.specItem}>{specs.sqm} m²</span>}
+                    </div>
+                  )}
                 </div>
-              )}
-            </>
+              </div>
+            </div>
           )}
 
-          {/* ── Content ── */}
-          <div style={s.content}>
-
-            {data.propertyRef && (
-              <span style={s.refBadge}>REF {data.propertyRef}</span>
-            )}
-
-            <h1 style={s.greeting}>
+          {/* Greeting in dark area */}
+          <div style={st.greetingSection}>
+            <h1 style={st.greeting}>
               {data.fullName ? `Thank you, ${data.fullName}` : "Thank you for your enquiry"}
             </h1>
-            <p style={s.intro}>
+            <p style={st.greetingSub}>
               We've received your {data.enquiryType ? ENQUIRY_LABELS[data.enquiryType]?.toLowerCase() : "enquiry"} request
-              {data.propertyTitle ? ` for ${data.propertyTitle}` : ""}. A personal advisor will be in touch within 24 hours to assist you further.
+              {data.propertyTitle ? ` for ${data.propertyTitle}` : ""}. A personal advisor will be in touch within 24 hours.
             </p>
+          </div>
+        </div>
 
-            {/* Enquiry details */}
-            <p style={s.sectionTitle}>Your enquiry details</p>
-            <table style={s.table}>
+        {/* ═══ WHITE CONTENT ═══ */}
+        <div style={st.contentBody}>
+          <div style={st.contentInner}>
+
+            <p style={st.sectionLabel}>Enquiry summary</p>
+            <table style={st.table}>
               <tbody>
-                <Row label="Type" value={data.enquiryType ? ENQUIRY_LABELS[data.enquiryType] : undefined} even={false} />
-                <Row label="Property" value={data.propertyTitle} even />
-                <Row label="Location" value={data.propertyLocation} even={false} />
-                <Row label="Reference" value={data.propertyRef ? `REF-${data.propertyRef}` : undefined} even />
+                <Row label="Request type" value={data.enquiryType ? ENQUIRY_LABELS[data.enquiryType] : undefined} />
+                <Row label="Property" value={data.propertyTitle} />
+                <Row label="Location" value={data.propertyLocation} />
+                <Row label="Reference" value={data.propertyRef ? `REF-${data.propertyRef}` : undefined} />
               </tbody>
             </table>
 
             {data.message && (
               <>
-                <p style={s.sectionTitle}>Your message</p>
-                <p style={{ ...s.note, backgroundColor: BRAND.bg, padding: "14px 16px", borderRadius: 2, margin: "0 0 24px" }}>
-                  "{data.message}"
-                </p>
+                <p style={st.sectionLabel}>Your message</p>
+                <div style={st.messageBox}>"{data.message}"</div>
               </>
             )}
 
-            <hr style={s.divider} />
+            <hr style={st.divider} />
 
-            <p style={s.sectionTitle}>Your contact details</p>
-            <table style={s.table}>
+            <p style={st.sectionLabel}>Contact details</p>
+            <table style={st.table}>
               <tbody>
-                <Row label="Name" value={data.fullName} even={false} />
-                <Row label="Email" value={data.email} even />
-                <Row label="Phone" value={data.phone} even={false} />
+                <Row label="Name" value={data.fullName} />
+                <Row label="Email" value={data.email} />
+                <Row label="Phone" value={data.phone} />
               </tbody>
             </table>
 
-            <p style={s.note}>
-              If any of the above details are incorrect, simply reply to this email and we'll update your request.
+            <p style={st.note}>
+              If any details are incorrect, simply reply to this email and we'll update your request immediately.
             </p>
 
-            <div style={{ textAlign: "center" as const, margin: "8px 0 0" }}>
-              <a href="#" style={s.cta}>View Property Details</a>
+            <div style={st.ctaWrap}>
+              <a href="#" style={st.cta}>View Property</a>
             </div>
           </div>
+        </div>
 
-          {/* ── Footer ── */}
-          <div style={s.footer}>
-            <p style={s.footerText}>{BRAND.phone} · {BRAND.email}</p>
-            <p style={s.footerText}>{BRAND.city}</p>
-            <p style={{ ...s.footerText, marginTop: 8, color: BRAND.border }}>
-              © {new Date().getFullYear()} {BRAND.name} {BRAND.subtitle}
-            </p>
-          </div>
+        {/* ═══ FOOTER ═══ */}
+        <div style={st.footer}>
+          <p style={st.footerText}>+34 600 000 000 · hello@prestigeestates.com</p>
+          <p style={st.footerText}>Marbella, Spain</p>
+          <p style={{ ...st.footerText, marginTop: 10, color: "#d4d4d4" }}>
+            © {new Date().getFullYear()} Prestige Real Estate
+          </p>
         </div>
       </div>
     </div>
@@ -338,9 +344,7 @@ const SAMPLE_GENERAL: EnquiryEmailData = {
 };
 
 const SAMPLES: Record<string, EnquiryEmailData> = {
-  visit: SAMPLE_VISIT,
-  info: SAMPLE_INFO,
-  general: SAMPLE_GENERAL,
+  visit: SAMPLE_VISIT, info: SAMPLE_INFO, general: SAMPLE_GENERAL,
 };
 
 /* ═══════════════════════════════════════════════════
@@ -359,8 +363,7 @@ export default function EnquiryEmailPreviewPage() {
 
   return (
     <div style={{ minHeight: "100vh", backgroundColor: "#e7e5e4" }}>
-      {/* Toggle bar */}
-      <div style={{ display: "flex", justifyContent: "center", gap: 8, padding: "20px 16px 0", flexWrap: "wrap" as const }}>
+      <div style={{ display: "flex", justifyContent: "center", gap: 8, padding: "20px 16px", flexWrap: "wrap" as const }}>
         {tabs.map((tab) => (
           <a
             key={tab.key}
@@ -368,7 +371,7 @@ export default function EnquiryEmailPreviewPage() {
             style={{
               padding: "8px 20px", fontSize: 12, letterSpacing: "0.12em",
               textTransform: "uppercase" as const, textDecoration: "none", borderRadius: 2,
-              backgroundColor: type === tab.key ? "#2D2926" : "#ffffff",
+              backgroundColor: type === tab.key ? "#1a1a1a" : "#ffffff",
               color: type === tab.key ? "#ffffff" : "#6B6560",
               border: "1px solid #d4d4d4",
             }}
@@ -377,7 +380,6 @@ export default function EnquiryEmailPreviewPage() {
           </a>
         ))}
       </div>
-
       <EnquiryConfirmationEmail data={current} />
     </div>
   );
