@@ -266,22 +266,18 @@ export function EnquiryConfirmationEmail({ data }: { data: EnquiryEmailData }) {
           {(data.propertyImage || data.propertyTitle) && (
             <div style={st.heroFrame}>
               {data.propertyImage && <img src={data.propertyImage} alt="" style={st.heroImage} />}
-
-              <div style={st.heroInfoBar}>
-                {data.propertyRef && <p style={st.heroRef}>REF {data.propertyRef}</p>}
-                <div style={st.heroTitleRow}>
-                  <p style={st.heroTitle}>{data.propertyTitle || "Selected Property"}</p>
-                  {data.propertyPrice && <p style={st.heroPrice}>{data.propertyPrice}</p>}
+              <div style={st.propertyBar}>
+                {data.propertyRef && <p style={st.propRef}>REF {data.propertyRef}</p>}
+                <div style={st.propTitleRow}>
+                  <p style={st.propTitle}>{data.propertyTitle || "Selected Property"}</p>
+                  {data.propertyPrice && <p style={st.propPrice}>{data.propertyPrice}</p>}
                 </div>
-                {data.propertyLocation && <p style={st.heroLocation}>📍 {data.propertyLocation}</p>}
-
-                {specs && (
-                  <div style={st.specsRow}>
-                    {specs.beds && <span style={st.specItem}>{specs.beds} Bedrooms</span>}
-                    {specs.baths && <span style={st.specItem}>{specs.baths} Bathrooms</span>}
-                    {specs.sqm && <span style={st.specItem}>{specs.sqm} m²</span>}
-                  </div>
-                )}
+                <div style={st.propMeta}>
+                  {data.propertyLocation && <span style={st.propMetaItem}>📍 {data.propertyLocation}</span>}
+                  {specs?.beds && <span style={st.propMetaItem}>{specs.beds} Beds</span>}
+                  {specs?.baths && <span style={st.propMetaItem}>{specs.baths} Baths</span>}
+                  {specs?.sqm && <span style={st.propMetaItem}>{specs.sqm} m²</span>}
+                </div>
               </div>
             </div>
           )}
