@@ -39,6 +39,7 @@ import SellPropertyPage from "./components/luxury/SellPropertyPage";
 import UserDashboardPage from "./components/luxury/UserDashboardPage";
 import VideosPage from "./components/luxury/VideosPage";
 import OffmarketEmailPreviewPage from "./components/blocks/offmarket/OffmarketEmailTemplate";
+import EnquiryEmailPreviewPage from "./components/blocks/email/EnquiryConfirmationEmail";
 import ResourcesHubPage from "./components/luxury/ResourcesHubPage";
 import AboutPage from "./components/luxury/AboutPage";
 import AboutPageV2 from "./components/luxury/AboutPageV2";
@@ -107,6 +108,7 @@ const App = () => (
             <Route path="/about5" element={<AboutPageV5 />} />
             <Route path="/our-offices" element={<OurOfficesPage />} />
             <Route path="/email-offmarket" element={<OffmarketEmailPreviewPage />} />
+            <Route path="/email-enquiry" element={<EnquiryEmailPreviewPage />} />
             <Route path="/icons" element={<IconsPage />} />
             <Route path="/chatbot-design" element={<ChatbotDesignShowcase />} />
             <Route path="/team" element={<TeamPage />} />
