@@ -245,8 +245,8 @@ function Row({ label, value }: { label: string; value?: string }) {
   if (!value) return null;
   return (
     <tr>
-      <td style={st.cellLabel}>{label}</td>
-      <td style={st.cellValue}>{value}</td>
+      <td style={st.cellLabel} className="eq-cell-label">{label}</td>
+      <td style={st.cellValue} className="eq-cell-value">{value}</td>
     </tr>
   );
 }
@@ -256,23 +256,42 @@ export function EnquiryConfirmationEmail({ data }: { data: EnquiryEmailData }) {
 
   return (
     <div style={st.body}>
+      <style>{`
+        @media (max-width: 480px) {
+          .eq-logo-wrap { padding: 24px 20px 18px !important; }
+          .eq-hero-img { height: 220px !important; }
+          .eq-prop-bar { padding: 14px 18px !important; }
+          .eq-prop-title-row { flex-direction: column !important; gap: 4px !important; align-items: flex-start !important; }
+          .eq-prop-title { font-size: 14px !important; }
+          .eq-prop-price { font-size: 14px !important; }
+          .eq-content-inner { padding: 24px 20px 28px !important; }
+          .eq-greeting { font-size: 19px !important; }
+          .eq-greeting-sub { font-size: 12px !important; }
+          .eq-cell-label { font-size: 11px !important; padding: 8px 0 !important; }
+          .eq-cell-value { font-size: 12px !important; padding: 8px 0 !important; }
+          .eq-message-box { padding: 12px 14px !important; font-size: 12px !important; }
+          .eq-cta { padding: 12px 28px !important; font-size: 10px !important; }
+          .eq-footer { padding: 18px 20px !important; }
+          .eq-prop-meta { gap: 10px !important; }
+        }
+      `}</style>
       <div style={st.wrapper}>
         <div style={st.topShell}>
-          <div style={st.logoWrap}>
+          <div style={st.logoWrap} className="eq-logo-wrap">
             <p style={st.logoName}>Prestige</p>
             <p style={st.logoSub}>Real Estate</p>
           </div>
 
           {(data.propertyImage || data.propertyTitle) && (
             <div style={st.heroFrame}>
-              {data.propertyImage && <img src={data.propertyImage} alt="" style={st.heroImage} />}
-              <div style={st.propertyBar}>
+              {data.propertyImage && <img src={data.propertyImage} alt="" style={st.heroImage} className="eq-hero-img" />}
+              <div style={st.propertyBar} className="eq-prop-bar">
                 {data.propertyRef && <p style={st.propRef}>REF {data.propertyRef}</p>}
-                <div style={st.propTitleRow}>
-                  <p style={st.propTitle}>{data.propertyTitle || "Selected Property"}</p>
-                  {data.propertyPrice && <p style={st.propPrice}>{data.propertyPrice}</p>}
+                <div style={st.propTitleRow} className="eq-prop-title-row">
+                  <p style={st.propTitle} className="eq-prop-title">{data.propertyTitle || "Selected Property"}</p>
+                  {data.propertyPrice && <p style={st.propPrice} className="eq-prop-price">{data.propertyPrice}</p>}
                 </div>
-                <div style={st.propMeta}>
+                <div style={st.propMeta} className="eq-prop-meta">
                   {data.propertyLocation && <span style={st.propMetaItem}>📍 {data.propertyLocation}</span>}
                   {specs?.beds && <span style={st.propMetaItem}>{specs.beds} Beds</span>}
                   {specs?.baths && <span style={st.propMetaItem}>{specs.baths} Baths</span>}
@@ -285,9 +304,9 @@ export function EnquiryConfirmationEmail({ data }: { data: EnquiryEmailData }) {
         </div>
 
         <div style={st.contentBody}>
-          <div style={st.contentInner}>
-            <h1 style={st.greeting}>{data.fullName ? `Thank you, ${data.fullName}` : "Thank you for your enquiry"}</h1>
-            <p style={st.greetingSub}>
+          <div style={st.contentInner} className="eq-content-inner">
+            <h1 style={st.greeting} className="eq-greeting">{data.fullName ? `Thank you, ${data.fullName}` : "Thank you for your enquiry"}</h1>
+            <p style={st.greetingSub} className="eq-greeting-sub">
               We've received your {data.enquiryType ? ENQUIRY_LABELS[data.enquiryType]?.toLowerCase() : "enquiry"} request
               {data.propertyTitle ? ` for ${data.propertyTitle}` : ""}. A personal advisor will contact you within 24 hours.
             </p>
@@ -305,7 +324,7 @@ export function EnquiryConfirmationEmail({ data }: { data: EnquiryEmailData }) {
             {data.message && (
               <>
                 <p style={st.sectionLabel}>Your message</p>
-                <div style={st.messageBox}>"{data.message}"</div>
+                <div style={st.messageBox} className="eq-message-box">"{data.message}"</div>
               </>
             )}
 
@@ -323,12 +342,12 @@ export function EnquiryConfirmationEmail({ data }: { data: EnquiryEmailData }) {
             <p style={st.note}>If any details are incorrect, simply reply to this email and we'll update your request immediately.</p>
 
             <div style={st.ctaWrap}>
-              <a href="#" style={st.cta}>View Property</a>
+              <a href="#" style={st.cta} className="eq-cta">View Property</a>
             </div>
           </div>
         </div>
 
-        <div style={st.footer}>
+        <div style={st.footer} className="eq-footer">
           <p style={st.footerText}>+34 600 000 000 · hello@prestigeestates.com</p>
           <p style={st.footerText}>Marbella, Spain</p>
           <p style={{ ...st.footerText, marginTop: 10, color: "hsl(0 0% 83%)" }}>© {new Date().getFullYear()} Prestige Real Estate</p>
