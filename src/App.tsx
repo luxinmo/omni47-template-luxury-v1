@@ -51,6 +51,7 @@ import OurOfficesPage from "./components/luxury/OurOfficesPage";
 import IconsPage from "./pages/IconsPage";
 import ChatbotDesignShowcase from "./components/luxury/ChatbotDesignShowcase";
 import TeamPage from "./components/luxury/TeamPage";
+import MunicipalityPage from "./components/luxury/MunicipalityPage";
 
 const queryClient = new QueryClient();
 
@@ -114,6 +115,7 @@ const App = () => (
             <Route path="/icons" element={<IconsPage />} />
             <Route path="/chatbot-design" element={<ChatbotDesignShowcase />} />
             <Route path="/team" element={<TeamPage />} />
+            <Route path="/municipality/:slug" element={<MunicipalityPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
