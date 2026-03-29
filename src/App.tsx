@@ -51,6 +51,7 @@ import OurOfficesPage from "./components/luxury/OurOfficesPage";
 import IconsPage from "./pages/IconsPage";
 import ChatbotDesignShowcase from "./components/luxury/ChatbotDesignShowcase";
 import TeamPage from "./components/luxury/TeamPage";
+import MunicipalityPage from "./components/luxury/MunicipalityPage";
 
 const queryClient = new QueryClient();
 
