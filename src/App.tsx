@@ -38,6 +38,7 @@ import FavoritesPage from "./components/luxury/FavoritesPage";
 import SellPropertyPage from "./components/luxury/SellPropertyPage";
 import UserDashboardPage from "./components/luxury/UserDashboardPage";
 import VideosPage from "./components/luxury/VideosPage";
+import VideosPageV2 from "./components/luxury/VideosPageV2";
 import OffmarketEmailPreviewPage from "./components/blocks/offmarket/OffmarketEmailTemplate";
 import EnquiryEmailPreviewPage from "./components/blocks/email/EnquiryConfirmationEmail";
 import ResourcesHubPage from "./components/luxury/ResourcesHubPage";
