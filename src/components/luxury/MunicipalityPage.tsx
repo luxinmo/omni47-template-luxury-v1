@@ -5,7 +5,7 @@
  */
 
 import { useState, useEffect, useRef } from "react";
-import { ChevronDown, ChevronRight, Play, Sun, Thermometer, Home, MapPin, Plane, Train, Anchor, GraduationCap, ShoppingBag, Hospital, Trees, Utensils, Waves, ArrowRight, Phone, TrendingUp, Users, Building2, Landmark, Star } from "lucide-react";
+import { ChevronDown, ChevronRight, Play, Sun, Thermometer, Home, MapPin, Plane, Train, Anchor, GraduationCap, ShoppingBag, Hospital, Trees, Utensils, Waves, ArrowRight, Phone, TrendingUp, Users, Building2, Landmark, Star, Wine, Sailboat, Dumbbell } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import SEOHead from "@/components/shared/SEOHead";
 import FadeIn from "@/components/shared/FadeIn";
