@@ -212,8 +212,10 @@ const SectionTitle = ({ title, subtitle, align = "left" }: { title: string; subt
 /* ─── Main Component ─── */
 
 const MunicipalityPage = () => {
+  const [stickyVisible, setStickyVisible] = useState(false);
   const [activeDining, setActiveDining] = useState<POICategory>("All");
   const filteredDining = activeDining === "All" ? DINING_POIS : DINING_POIS.filter(p => p.category === activeDining);
+
 
   const heroRef = useRef<HTMLDivElement>(null);
   const maxResidents = Math.max(...DEMOGRAPHICS.nationalities.map((n) => n.residents));
