@@ -608,133 +608,122 @@ const MunicipalityPage = () => {
       </section>
 
       {/* ═══ SECTION 6B — Dining & Leisure ═══ */}
-      {(() => {
-        const [activeDining, setActiveDining] = useState<POICategory>("All");
-        const filtered = activeDining === "All" ? DINING_POIS : DINING_POIS.filter(p => p.category === activeDining);
+      <section className="py-20 lg:py-28" style={{ background: palette.bg }}>
+        <div className="max-w-[1280px] mx-auto px-6">
+          <FadeIn>
+            <SectionTitle title="Dining & Leisure" subtitle={`The best experiences in and around ${MUNICIPALITY.name}`} align="center" />
+            <p className="text-center text-[14px] font-light -mt-8 mb-10" style={{ color: palette.textMuted }}>
+              Curated by locals
+            </p>
+          </FadeIn>
 
-        return (
-          <section className="py-20 lg:py-28" style={{ background: palette.bg }}>
-            <div className="max-w-[1280px] mx-auto px-6">
-              <FadeIn>
-                <SectionTitle title="Dining & Leisure" subtitle={`The best experiences in and around ${MUNICIPALITY.name}`} align="center" />
-                <p className="text-center text-[14px] font-light -mt-8 mb-10" style={{ color: palette.textMuted }}>
-                  Curated by locals
-                </p>
-              </FadeIn>
+          {/* Category pills */}
+          <FadeIn>
+            <div className="flex items-center justify-center gap-2 flex-wrap mb-12 overflow-x-auto scrollbar-hide">
+              {DINING_CATEGORIES.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveDining(cat)}
+                  className="px-4 py-2 text-[11px] tracking-[0.06em] uppercase font-medium rounded-sm border transition-all duration-300 whitespace-nowrap"
+                  style={{
+                    background: activeDining === cat ? palette.accent : "transparent",
+                    color: activeDining === cat ? palette.white : palette.textMuted,
+                    borderColor: activeDining === cat ? palette.accent : palette.border,
+                  }}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          </FadeIn>
 
-              {/* Category pills */}
-              <FadeIn>
-                <div className="flex items-center justify-center gap-2 flex-wrap mb-12">
-                  {DINING_CATEGORIES.map((cat) => (
-                    <button
-                      key={cat}
-                      onClick={() => setActiveDining(cat)}
-                      className="px-4 py-2 text-[11px] tracking-[0.06em] uppercase font-medium rounded-sm border transition-all duration-300"
-                      style={{
-                        background: activeDining === cat ? palette.accent : "transparent",
-                        color: activeDining === cat ? palette.white : palette.textMuted,
-                        borderColor: activeDining === cat ? palette.accent : palette.border,
-                      }}
+          {/* POI Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {filteredDining.map((poi, i) => (
+              <FadeIn key={poi.name} delay={i * 0.04}>
+                <a
+                  href={poi.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block rounded-[6px] overflow-hidden transition-all duration-300 hover:-translate-y-1"
+                  style={{
+                    background: palette.white,
+                    boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+                  }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 24px rgba(0,0,0,0.08)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "0 1px 3px rgba(0,0,0,0.04)"; }}
+                >
+                  {/* Image */}
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <img
+                      src={poi.image}
+                      alt={poi.name}
+                      className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700"
+                    />
+                    <span
+                      className="absolute top-3 left-3 px-2.5 py-1 text-[10px] tracking-[0.08em] uppercase font-medium rounded-sm"
+                      style={{ background: "rgba(0,0,0,0.65)", color: palette.white }}
                     >
-                      {cat}
-                    </button>
-                  ))}
-                </div>
-              </FadeIn>
-
-              {/* POI Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                {filtered.map((poi, i) => (
-                  <FadeIn key={poi.name} delay={i * 0.04}>
-                    <a
-                      href={poi.mapsUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group block rounded-[6px] overflow-hidden transition-all duration-300 hover:-translate-y-1"
-                      style={{
-                        background: palette.white,
-                        boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
-                      }}
-                      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 24px rgba(0,0,0,0.08)"; }}
-                      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "0 1px 3px rgba(0,0,0,0.04)"; }}
-                    >
-                      {/* Image */}
-                      <div className="relative aspect-[16/10] overflow-hidden">
-                        <img
-                          src={poi.image}
-                          alt={poi.name}
-                          className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700"
-                        />
-                        {/* Category badge */}
-                        <span
-                          className="absolute top-3 left-3 px-2.5 py-1 text-[10px] tracking-[0.08em] uppercase font-medium rounded-sm"
-                          style={{ background: "rgba(0,0,0,0.65)", color: palette.white }}
-                        >
-                          {poi.category}
-                        </span>
-                      </div>
-
-                      {/* Info */}
-                      <div className="p-4">
-                        <h3
-                          className="text-[16px] font-medium leading-tight mb-1.5"
-                          style={{ color: palette.text, fontFamily: fonts.heading }}
-                        >
-                          {poi.name}
-                        </h3>
-
-                        {/* Rating */}
-                        <div className="flex items-center gap-1.5 mb-2.5">
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill={palette.accent} stroke="none">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                          </svg>
-                          <span className="text-[13px] font-medium" style={{ color: palette.text }}>{poi.rating}</span>
-                          <span className="text-[12px]" style={{ color: palette.textLight }}>· {poi.reviews.toLocaleString()} reviews</span>
-                        </div>
-
-                        {/* Description */}
-                        <p className="text-[13px] font-light leading-[1.6] line-clamp-2 mb-3" style={{ color: palette.textMuted }}>
-                          {poi.type}
-                        </p>
-
-                        {/* Address */}
-                        <div className="flex items-center gap-1.5">
-                          <MapPin className="w-3 h-3 shrink-0" style={{ color: palette.textLight }} />
-                          <span className="text-[12px] font-light" style={{ color: palette.textLight }}>{poi.address}</span>
-                        </div>
-                      </div>
-                    </a>
-                  </FadeIn>
-                ))}
-              </div>
-
-              {/* Featured Review */}
-              <FadeIn>
-                <div className="max-w-[680px] mx-auto mt-16 text-center">
-                  <p
-                    className="text-[22px] lg:text-[26px] font-light leading-[1.5] italic mb-5"
-                    style={{ color: palette.text, fontFamily: fonts.heading }}
-                  >
-                    &ldquo;Food was exquisite. Rich flavors, wonderful and attentive service, perfect timing, and great cocktails.&rdquo;
-                  </p>
-                  <div className="flex items-center justify-center gap-2">
-                    <span className="text-[12px] tracking-[0.04em] uppercase font-light" style={{ color: palette.textMuted }}>
-                      Google Review about Rumors Altea
+                      {poi.category}
                     </span>
-                    <span style={{ color: palette.textLight }}>·</span>
-                    <div className="flex items-center gap-1">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill={palette.accent} stroke="none">
+                  </div>
+
+                  {/* Info */}
+                  <div className="p-4">
+                    <h3
+                      className="text-[16px] font-medium leading-tight mb-1.5"
+                      style={{ color: palette.text, fontFamily: fonts.heading }}
+                    >
+                      {poi.name}
+                    </h3>
+
+                    <div className="flex items-center gap-1.5 mb-2.5">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill={palette.accent} stroke="none">
                         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                       </svg>
-                      <span className="text-[12px] font-medium" style={{ color: palette.text }}>4.8</span>
+                      <span className="text-[13px] font-medium" style={{ color: palette.text }}>{poi.rating}</span>
+                      <span className="text-[12px]" style={{ color: palette.textLight }}>· {poi.reviews.toLocaleString()} reviews</span>
+                    </div>
+
+                    <p className="text-[13px] font-light leading-[1.6] line-clamp-2 mb-3" style={{ color: palette.textMuted }}>
+                      {poi.type}
+                    </p>
+
+                    <div className="flex items-center gap-1.5">
+                      <MapPin className="w-3 h-3 shrink-0" style={{ color: palette.textLight }} />
+                      <span className="text-[12px] font-light" style={{ color: palette.textLight }}>{poi.address}</span>
                     </div>
                   </div>
-                </div>
+                </a>
               </FadeIn>
+            ))}
+          </div>
+
+          {/* Featured Review */}
+          <FadeIn>
+            <div className="max-w-[680px] mx-auto mt-16 text-center">
+              <p
+                className="text-[22px] lg:text-[26px] font-light leading-[1.5] italic mb-5"
+                style={{ color: palette.text, fontFamily: fonts.heading }}
+              >
+                &ldquo;Food was exquisite. Rich flavors, wonderful and attentive service, perfect timing, and great cocktails.&rdquo;
+              </p>
+              <div className="flex items-center justify-center gap-2">
+                <span className="text-[12px] tracking-[0.04em] uppercase font-light" style={{ color: palette.textMuted }}>
+                  Google Review about Rumors Altea
+                </span>
+                <span style={{ color: palette.textLight }}>·</span>
+                <div className="flex items-center gap-1">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill={palette.accent} stroke="none">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                  </svg>
+                  <span className="text-[12px] font-medium" style={{ color: palette.text }}>4.8</span>
+                </div>
+              </div>
             </div>
-          </section>
-        );
-      })()}
+          </FadeIn>
+        </div>
+      </section>
 
       {/* ═══ SECTION 7 — Infrastructure ═══ */}
       <section className="py-20 lg:py-28" style={{ background: palette.bg }}>
