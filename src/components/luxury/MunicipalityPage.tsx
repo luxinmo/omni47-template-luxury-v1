@@ -260,7 +260,7 @@ const MunicipalityPage = () => {
       </div>
 
       {/* ═══ SECTION 1 — Hero ═══ */}
-      <section ref={heroRef} className="relative h-screen min-h-[600px] max-h-[1000px] overflow-hidden">
+      <section ref={heroRef} className="relative h-[85vh] sm:h-screen min-h-[500px] max-h-[1000px] overflow-hidden">
         {MUNICIPALITY.heroVideo ? (
           <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover">
             <source src={MUNICIPALITY.heroVideo} type="video/mp4" />
@@ -268,7 +268,7 @@ const MunicipalityPage = () => {
         ) : (
           <img src={MUNICIPALITY.heroImage} alt={MUNICIPALITY.name} className="absolute inset-0 w-full h-full object-cover" />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/5" />
 
         {/* Breadcrumb */}
         <div className="absolute top-24 left-0 right-0 z-10 hidden sm:block">
@@ -284,34 +284,34 @@ const MunicipalityPage = () => {
         </div>
 
         {/* Content */}
-        <div className="absolute inset-0 flex flex-col items-center justify-end px-4 sm:px-6 pb-14 sm:pb-16 lg:pb-20 z-10 text-center">
+        <div className="absolute inset-0 flex flex-col items-center justify-end px-5 sm:px-6 pb-16 sm:pb-16 lg:pb-20 z-10 text-center">
           <h1
-            className="text-[36px] sm:text-[64px] lg:text-[80px] font-light tracking-[0.04em] uppercase text-white mb-2"
+            className="text-[40px] sm:text-[64px] lg:text-[80px] font-light tracking-[0.04em] uppercase text-white mb-1 sm:mb-2"
             style={{ fontFamily: fonts.heading }}
           >
             {MUNICIPALITY.name}
           </h1>
-          <p className="text-[14px] sm:text-[16px] lg:text-[18px] text-white/80 font-light tracking-[0.02em] mb-8 sm:mb-10" style={{ fontFamily: fonts.heading }}>
+          <p className="text-[13px] sm:text-[16px] lg:text-[18px] text-white/70 font-light tracking-[0.04em] mb-6 sm:mb-10" style={{ fontFamily: fonts.heading }}>
             {MUNICIPALITY.tagline}
           </p>
 
           {/* Key Facts */}
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:gap-10 max-w-[560px]">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-10">
             {[
               { icon: Thermometer, label: MUNICIPALITY.avgTemp + " average" },
               { icon: Sun, label: MUNICIPALITY.sunnyDays + " sunny days" },
               { icon: Home, label: `€${MUNICIPALITY.avgPriceM2.toLocaleString()}/m²` },
             ].map((fact, i) => (
-              <div key={i} className="flex items-center gap-2.5 text-white/90">
-                <fact.icon className="w-4 h-4 text-white/60" />
-                <span className="text-[12px] sm:text-[13px] tracking-[0.02em] font-light">{fact.label}</span>
+              <div key={i} className="flex items-center gap-2 text-white/80">
+                <fact.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white/50" />
+                <span className="text-[11px] sm:text-[13px] tracking-[0.03em] font-light">{fact.label}</span>
               </div>
             ))}
           </div>
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 animate-bounce">
+        <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-10 animate-bounce">
           <ChevronDown className="w-5 h-5 text-white/50" />
         </div>
       </section>
