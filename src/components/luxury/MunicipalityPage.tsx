@@ -132,7 +132,7 @@ const DINING_POIS: POI[] = [
   { name: "Senses Spa Experience", rating: 4.2, reviews: 67, category: "Wellness & Spa", type: "Resort spa, massage & thermal circuit", address: "Cam. Vell d'Altea, 51", image: "https://images.unsplash.com/photo-1540555700478-4be289fbec6d?w=600&q=80", mapsUrl: "https://maps.google.com/?q=Senses+Spa+Experience+Altea" },
   { name: "Puerto Deportivo de Altea", rating: 4.4, reviews: 1350, category: "Marinas", type: "Public marina with waterfront restaurants", address: "Altea Port", image: "https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?w=600&q=80", mapsUrl: "https://maps.google.com/?q=Puerto+Deportivo+de+Altea" },
   { name: "Club Náutico de Altea", rating: 4.4, reviews: 776, category: "Marinas", type: "Yacht club, sailing school & charter", address: "Avinguda del Port, 50", image: "https://images.unsplash.com/photo-1540946485063-a40da27545f8?w=600&q=80", mapsUrl: "https://maps.google.com/?q=Club+Nautico+de+Altea" },
-].filter(p => p.rating >= 4.0 && p.reviews >= 50).sort((a, b) => b.rating - a.rating || b.reviews - a.reviews);
+].filter(p => p.rating >= 4.0 && p.reviews >= 50).sort((a, b) => b.rating - a.rating || b.reviews - a.reviews) as POI[];
 
 
 
