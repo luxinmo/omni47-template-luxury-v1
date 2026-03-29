@@ -242,18 +242,19 @@ const MunicipalityPage = () => {
           borderBottom: `1px solid ${palette.border}`,
         }}
       >
-        <div className="max-w-[1280px] mx-auto px-6 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-3">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3 min-w-0">
             <MapPin className="w-4 h-4" style={{ color: palette.accent }} />
             <span className="text-[14px] font-medium" style={{ color: palette.text }}>{MUNICIPALITY.name}</span>
-            <span className="text-[12px]" style={{ color: palette.textMuted }}>{MUNICIPALITY.region}</span>
+            <span className="hidden sm:inline text-[12px]" style={{ color: palette.textMuted }}>{MUNICIPALITY.region}</span>
           </div>
           <a
             href="/properties"
-            className="text-[12px] tracking-[0.06em] uppercase font-medium px-5 py-2 rounded-sm transition-opacity hover:opacity-80"
+            className="text-[11px] sm:text-[12px] tracking-[0.06em] uppercase font-medium px-3 sm:px-5 py-2 rounded-sm transition-opacity hover:opacity-80 whitespace-nowrap"
             style={{ background: palette.accent, color: palette.white }}
           >
-            View Properties
+            <span className="sm:hidden">View</span>
+            <span className="hidden sm:inline">View Properties</span>
           </a>
         </div>
       </div>
@@ -270,8 +271,8 @@ const MunicipalityPage = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/10" />
 
         {/* Breadcrumb */}
-        <div className="absolute top-24 left-0 right-0 z-10">
-          <div className="max-w-[1280px] mx-auto px-6">
+        <div className="absolute top-24 left-0 right-0 z-10 hidden sm:block">
+          <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
             <nav className="flex items-center gap-2 text-[11px] tracking-[0.06em] uppercase text-white/60">
               <a href="/" className="hover:text-white/90 transition-colors">{MUNICIPALITY.country}</a>
               <ChevronRight className="w-3 h-3" />
@@ -283,19 +284,19 @@ const MunicipalityPage = () => {
         </div>
 
         {/* Content */}
-        <div className="absolute inset-0 flex flex-col items-center justify-end pb-16 lg:pb-20 z-10">
+        <div className="absolute inset-0 flex flex-col items-center justify-end px-4 sm:px-6 pb-14 sm:pb-16 lg:pb-20 z-10 text-center">
           <h1
-            className="text-[48px] sm:text-[64px] lg:text-[80px] font-light tracking-[0.04em] uppercase text-white mb-2"
+            className="text-[36px] sm:text-[64px] lg:text-[80px] font-light tracking-[0.04em] uppercase text-white mb-2"
             style={{ fontFamily: fonts.heading }}
           >
             {MUNICIPALITY.name}
           </h1>
-          <p className="text-[16px] lg:text-[18px] text-white/80 font-light tracking-[0.02em] mb-10" style={{ fontFamily: fonts.heading }}>
+          <p className="text-[14px] sm:text-[16px] lg:text-[18px] text-white/80 font-light tracking-[0.02em] mb-8 sm:mb-10" style={{ fontFamily: fonts.heading }}>
             {MUNICIPALITY.tagline}
           </p>
 
           {/* Key Facts */}
-          <div className="flex items-center gap-6 sm:gap-10">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:gap-10 max-w-[560px]">
             {[
               { icon: Thermometer, label: MUNICIPALITY.avgTemp + " average" },
               { icon: Sun, label: MUNICIPALITY.sunnyDays + " sunny days" },
@@ -303,7 +304,7 @@ const MunicipalityPage = () => {
             ].map((fact, i) => (
               <div key={i} className="flex items-center gap-2.5 text-white/90">
                 <fact.icon className="w-4 h-4 text-white/60" />
-                <span className="text-[13px] tracking-[0.02em] font-light">{fact.label}</span>
+                <span className="text-[12px] sm:text-[13px] tracking-[0.02em] font-light">{fact.label}</span>
               </div>
             ))}
           </div>
@@ -317,7 +318,7 @@ const MunicipalityPage = () => {
 
       {/* ═══ SECTION 2 — Editorial Intro ═══ */}
       <section className="py-20 lg:py-28" style={{ background: palette.white }}>
-        <div className="max-w-[1280px] mx-auto px-6">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
             {/* Text */}
             <FadeIn className="lg:col-span-7">
@@ -363,7 +364,7 @@ const MunicipalityPage = () => {
 
       {/* ═══ SECTION 3 — Market Intelligence ═══ */}
       <section className="py-20 lg:py-28" style={{ background: palette.bg }}>
-        <div className="max-w-[1280px] mx-auto px-6">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <FadeIn>
             <SectionTitle title="Market Data" subtitle="Real Estate Market Overview" align="center" />
             <p className="text-center text-[14px] font-light -mt-8 mb-12" style={{ color: palette.textMuted }}>
@@ -375,7 +376,7 @@ const MunicipalityPage = () => {
             {/* Price Trend */}
             <FadeIn>
               <div className="p-6 lg:p-8 rounded-sm" style={{ background: palette.white, border: `1px solid ${palette.border}` }}>
-                <div className="flex items-start justify-between mb-4">
+                <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
                   <div>
                     <p className="text-[32px] lg:text-[38px] font-light" style={{ color: palette.text }}>{MARKET_DATA.priceM2.value}<span className="text-[16px]">/m²</span></p>
                     <p className="text-[13px] font-light mt-1" style={{ color: palette.textMuted }}>{MARKET_DATA.priceM2.label}</p>
@@ -399,7 +400,7 @@ const MunicipalityPage = () => {
                   <div className="h-full rounded-l-full" style={{ width: `${MARKET_DATA.transactions.resale}%`, background: palette.accent }} />
                   <div className="h-full rounded-r-full" style={{ width: `${MARKET_DATA.transactions.newBuild}%`, background: "#1B365D" }} />
                 </div>
-                <div className="flex items-center gap-4 mt-3">
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-3">
                   <span className="flex items-center gap-1.5 text-[12px]" style={{ color: palette.textMuted }}>
                     <span className="w-2 h-2 rounded-full" style={{ background: palette.accent }} /> {MARKET_DATA.transactions.resale}% Resale
                   </span>
@@ -442,7 +443,7 @@ const MunicipalityPage = () => {
 
           <FadeIn>
             <div className="text-center mt-10">
-              <a href="/contact" className="inline-flex items-center gap-2 text-[13px] tracking-[0.04em] font-medium transition-opacity hover:opacity-70" style={{ color: palette.accent }}>
+              <a href="/contact" className="inline-flex flex-wrap items-center justify-center gap-2 text-[12px] sm:text-[13px] tracking-[0.04em] font-medium transition-opacity hover:opacity-70 text-center" style={{ color: palette.accent }}>
                 Want to know more about investing in {MUNICIPALITY.name}? Talk to our advisors
                 <ArrowRight className="w-4 h-4" />
               </a>
@@ -453,7 +454,7 @@ const MunicipalityPage = () => {
 
       {/* ═══ SECTION 4 — Demographics ═══ */}
       <section className="py-20 lg:py-28" style={{ background: palette.white }}>
-        <div className="max-w-[1280px] mx-auto px-6">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <FadeIn>
             <SectionTitle title="Community" subtitle={`Who Lives in ${MUNICIPALITY.name}`} />
             <p className="text-[14px] font-light -mt-8 mb-12" style={{ color: palette.textMuted }}>A vibrant international community</p>
@@ -463,9 +464,9 @@ const MunicipalityPage = () => {
             {/* Donut */}
             <FadeIn className="flex flex-col items-center">
               <DonutChart segments={DEMOGRAPHICS.segments} centerLabel={DEMOGRAPHICS.total.toLocaleString()} />
-              <div className="flex items-center gap-6 mt-6">
+              <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 mt-6">
                 {DEMOGRAPHICS.segments.map((s, i) => (
-                  <span key={i} className="flex items-center gap-2 text-[12px]" style={{ color: palette.textMuted }}>
+                  <span key={i} className="flex items-center gap-2 text-[11px] sm:text-[12px]" style={{ color: palette.textMuted }}>
                     <span className="w-2.5 h-2.5 rounded-full" style={{ background: s.color }} />
                     {s.label} {s.pct}%
                   </span>
@@ -477,16 +478,16 @@ const MunicipalityPage = () => {
             <FadeIn delay={0.1}>
               <div className="space-y-3">
                 {DEMOGRAPHICS.nationalities.map((n, i) => (
-                  <div key={i} className="flex items-center gap-4">
-                    <span className="text-[18px] w-7 text-center">{n.flag}</span>
-                    <span className="text-[13px] font-light w-28 shrink-0" style={{ color: palette.text }}>{n.country}</span>
+                  <div key={i} className="flex items-center gap-2.5 sm:gap-4">
+                    <span className="text-[16px] sm:text-[18px] w-6 sm:w-7 text-center">{n.flag}</span>
+                    <span className="text-[12px] sm:text-[13px] font-light w-24 sm:w-28 shrink-0" style={{ color: palette.text }}>{n.country}</span>
                     <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: palette.bgAlt }}>
                       <div
                         className="h-full rounded-full transition-all duration-1000"
                         style={{ width: `${(n.residents / maxResidents) * 100}%`, background: palette.accent }}
                       />
                     </div>
-                    <span className="text-[13px] font-medium w-12 text-right" style={{ color: palette.text }}>{n.residents.toLocaleString()}</span>
+                    <span className="text-[12px] sm:text-[13px] font-medium w-10 sm:w-12 text-right" style={{ color: palette.text }}>{n.residents.toLocaleString()}</span>
                   </div>
                 ))}
               </div>
@@ -498,7 +499,7 @@ const MunicipalityPage = () => {
 
       {/* ═══ SECTION 5 — Neighborhoods ═══ */}
       <section className="py-20 lg:py-28" style={{ background: palette.bg }}>
-        <div className="max-w-[1280px] mx-auto px-6">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <FadeIn>
             <SectionTitle title="Explore" subtitle="Neighbourhoods & Areas" />
           </FadeIn>
@@ -527,7 +528,7 @@ const MunicipalityPage = () => {
 
       {/* ═══ SECTION 6 — Lifestyle ═══ */}
       <section className="py-20 lg:py-28" style={{ background: palette.white }}>
-        <div className="max-w-[1280px] mx-auto px-6">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <FadeIn>
             <SectionTitle title="Lifestyle" subtitle="The Mediterranean Lifestyle" align="center" />
           </FadeIn>
@@ -609,7 +610,7 @@ const MunicipalityPage = () => {
 
       {/* ═══ SECTION 6B — Dining & Leisure ═══ */}
       <section className="py-20 lg:py-28" style={{ background: palette.bg }}>
-        <div className="max-w-[1280px] mx-auto px-6">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <FadeIn>
             <SectionTitle title="Dining & Leisure" subtitle={`The best experiences in and around ${MUNICIPALITY.name}`} align="center" />
             <p className="text-center text-[14px] font-light -mt-8 mb-10" style={{ color: palette.textMuted }}>
@@ -619,21 +620,23 @@ const MunicipalityPage = () => {
 
           {/* Category pills */}
           <FadeIn>
-            <div className="flex items-center justify-center gap-2 flex-wrap mb-12 overflow-x-auto scrollbar-hide">
-              {DINING_CATEGORIES.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveDining(cat)}
-                  className="px-4 py-2 text-[11px] tracking-[0.06em] uppercase font-medium rounded-sm border transition-all duration-300 whitespace-nowrap"
-                  style={{
-                    background: activeDining === cat ? palette.accent : "transparent",
-                    color: activeDining === cat ? palette.white : palette.textMuted,
-                    borderColor: activeDining === cat ? palette.accent : palette.border,
-                  }}
-                >
-                  {cat}
-                </button>
-              ))}
+            <div className="mb-12 overflow-x-auto scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
+              <div className="flex w-max min-w-full items-center gap-2 pb-1 sm:w-full sm:justify-center">
+                {DINING_CATEGORIES.map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setActiveDining(cat)}
+                    className="px-3.5 sm:px-4 py-2 text-[10px] sm:text-[11px] tracking-[0.06em] uppercase font-medium rounded-sm border transition-all duration-300 whitespace-nowrap"
+                    style={{
+                      background: activeDining === cat ? palette.accent : "transparent",
+                      color: activeDining === cat ? palette.white : palette.textMuted,
+                      borderColor: activeDining === cat ? palette.accent : palette.border,
+                    }}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
             </div>
           </FadeIn>
 
@@ -708,7 +711,7 @@ const MunicipalityPage = () => {
               >
                 &ldquo;Food was exquisite. Rich flavors, wonderful and attentive service, perfect timing, and great cocktails.&rdquo;
               </p>
-              <div className="flex items-center justify-center gap-2">
+              <div className="flex flex-wrap items-center justify-center gap-2">
                 <span className="text-[12px] tracking-[0.04em] uppercase font-light" style={{ color: palette.textMuted }}>
                   Google Review about Rumors Altea
                 </span>
@@ -727,7 +730,7 @@ const MunicipalityPage = () => {
 
       {/* ═══ SECTION 7 — Infrastructure ═══ */}
       <section className="py-20 lg:py-28" style={{ background: palette.bg }}>
-        <div className="max-w-[1280px] mx-auto px-6">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <FadeIn>
             <SectionTitle title="Connectivity" subtitle="Everything Within Reach" align="center" />
           </FadeIn>
@@ -756,7 +759,7 @@ const MunicipalityPage = () => {
 
       {/* ═══ SECTION 8 — Properties ═══ */}
       <section className="py-20 lg:py-28" style={{ background: palette.white }}>
-        <div className="max-w-[1280px] mx-auto px-6">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <FadeIn>
             <SectionTitle title="For Sale" subtitle={`Properties for Sale in ${MUNICIPALITY.name}`} />
           </FadeIn>
@@ -801,7 +804,7 @@ const MunicipalityPage = () => {
 
       {/* ═══ SECTION 9 — Guides ═══ */}
       <section className="py-20 lg:py-28" style={{ background: palette.bg }}>
-        <div className="max-w-[1280px] mx-auto px-6">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <FadeIn>
             <SectionTitle title="Guides" subtitle="Expert Guides" />
           </FadeIn>
@@ -840,7 +843,7 @@ const MunicipalityPage = () => {
         />
         <div className="absolute inset-0 bg-black/65" />
 
-        <div className="relative z-10 max-w-[700px] mx-auto px-6 text-center">
+        <div className="relative z-10 max-w-[700px] mx-auto px-4 sm:px-6 text-center">
           <h2
             className="text-[30px] lg:text-[42px] font-light tracking-[0.02em] text-white mb-4"
             style={{ fontFamily: fonts.heading }}
