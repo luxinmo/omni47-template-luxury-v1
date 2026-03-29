@@ -12,6 +12,7 @@
 |----------|-------|------|---------|
 | Off-Market Confirmation | `/email-offmarket` | `src/components/blocks/offmarket/OffmarketEmailTemplate.tsx` | User submits the off-market sell/buy wizard |
 | Enquiry Confirmation | `/email-enquiry` | `src/components/blocks/email/EnquiryConfirmationEmail.tsx` | User submits a property enquiry (visit, info, offer, general) |
+| Price Alert | `/email-alert` | `src/components/blocks/email/PriceAlertEmail.tsx` | Property on user's watchlist changes price or is withdrawn |
 | Newsletter Welcome | *(planned)* | — | User subscribes to newsletter |
 
 ---
