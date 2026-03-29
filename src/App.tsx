@@ -115,6 +115,7 @@ const App = () => (
             <Route path="/icons" element={<IconsPage />} />
             <Route path="/chatbot-design" element={<ChatbotDesignShowcase />} />
             <Route path="/team" element={<TeamPage />} />
+            <Route path="/municipality/:slug" element={<MunicipalityPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
