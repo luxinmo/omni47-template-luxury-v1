@@ -12,6 +12,7 @@
 |----------|-------|------|---------|
 | Off-Market Confirmation | `/email-offmarket` | `src/components/blocks/offmarket/OffmarketEmailTemplate.tsx` | User submits the off-market sell/buy wizard |
 | Enquiry Confirmation | `/email-enquiry` | `src/components/blocks/email/EnquiryConfirmationEmail.tsx` | User submits a property enquiry (visit, info, offer, general) |
+| Price Alert | `/email-alert` | `src/components/blocks/email/PriceAlertEmail.tsx` | Property on user's watchlist changes price or is withdrawn |
 | Newsletter Welcome | *(planned)* | — | User subscribes to newsletter |
 
 ---
@@ -162,7 +163,119 @@ const ENQUIRY_LABELS = {
 
 ---
 
-## 3. Newsletter Welcome Email *(planned)*
+## 3. Price Alert Email
+
+### When it's sent
+When a property on the user's watchlist undergoes a **price change** or is **withdrawn** from the market. Triggered by the price-alert subscription system.
+
+### Variants
+| Variant | Query | Description |
+|---------|-------|-------------|
+| Price Drop | `?variant=price-drop` | Property asking price has been reduced |
+| Withdrawn | `?variant=withdrawn` | Property has been removed from the market |
+
+### Data model (`PriceAlertEmailData`)
+
+```ts
+interface PriceAlertEmailData {
+  variant: "price-drop" | "withdrawn";
+  fullName?: string;
+  propertyTitle?: string;
+  propertyLocation?: string;
+  propertyRef?: string;
+  propertyImage?: string;        // Full URL to property image
+  propertySpecs?: {
+    beds?: number;
+    baths?: number;
+    sqm?: number;
+  };
+  // Price-drop specific
+  previousPrice?: string;        // e.g. "€1.400.000"
+  newPrice?: string;             // e.g. "€1.200.000"
+  dropPercent?: string;          // e.g. "14%"
+  // Withdrawn specific
+  lastKnownPrice?: string;       // e.g. "€2.800.000"
+}
+```
+
+### Visual structure (800px max-width)
+
+> **Key difference from other emails:** No large hero image. The property is
+> shown as a **compact inline card** (image + data side by side) inside the
+> white content body, keeping the email lightweight and scannable.
+
+#### A — Dark header (`hsl(24 8% 11%)`)
+1. **Logo** — centered, "PRESTIGE" + "REAL ESTATE" subtitle (identical to enquiry email)
+
+#### B — White content body (`hsl(0 0% 100%)`)
+1. **Variant badge** — pill-shaped label:
+   - Price Drop → green bg (`hsl(145 40% 95%)`), green text (`hsl(145 45% 38%)`), "▼ Price Drop"
+   - Withdrawn → red bg (`hsl(0 40% 96%)`), red text (`hsl(0 55% 48%)`), "● Withdrawn"
+2. **Greeting** — personalized (e.g. "Great news, James" or "Dear María")
+3. **Intro paragraph** — contextual copy per variant
+4. **Compact property card** — flex row layout:
+   - Left: property image (180px wide, cover)
+   - Right: REF badge, title, location with 📍, specs (beds 🛏, baths 🚿, m²), price row
+   - Price row behavior per variant:
+     - **Price Drop:** new price (green, bold 18px) + old price (strikethrough) + drop % badge
+     - **Withdrawn:** last price (strikethrough, muted) + "No longer available" label (red)
+5. **Info box** — left gold border (`hsl(35 32% 41%)`), light bg, contextual advisory text
+6. **Divider** — 1px border
+7. **CTA buttons** — centered:
+   - Price Drop: "View Property" (gold bg) + "Contact Advisor" (gold outline)
+   - Withdrawn: "View Similar Properties" (gold bg) + "Contact Advisor" (gold outline)
+8. **Note** — subscription reminder + "Manage your alerts" link
+
+#### C — Footer (`hsl(32 20% 96%)`)
+- Phone + email
+- City
+- Copyright
+
+### Design tokens
+
+```
+Accent:       hsl(35 32% 41%)     — CTA buttons, info box border
+Dark:         hsl(24 8% 11%)      — header background
+Dark text:    hsl(24 6% 18%)      — greeting, card title, info box text
+Muted:        hsl(25 5% 49%)      — labels, REF badge, note text
+Light:        hsl(25 5% 67%)      — specs, footer text, old price
+Background:   hsl(32 20% 96%)     — body bg, footer, info box bg
+White:        hsl(0 0% 100%)      — content body, button text
+Border:       hsl(28 18% 88%)     — card border, divider
+Green:        hsl(145 45% 38%)    — price-drop badge text, new price
+Green bg:     hsl(145 40% 95%)    — price-drop badge background
+Red:          hsl(0 55% 48%)      — withdrawn badge text, status label
+Red bg:       hsl(0 40% 96%)      — withdrawn badge background
+Font:         'Jost', 'Helvetica Neue', Helvetica, Arial, sans-serif
+```
+
+### Responsive behavior (≤480px)
+- Header padding reduced (24px 20px)
+- Property card stacks vertically (`flex-direction: column`)
+- Card image becomes full-width, 180px height
+- Card body padding reduced (14px 16px)
+- Greeting font: 19px, intro font: 12px
+- "Contact Advisor" button becomes `display: block` and centers below primary CTA
+- Footer padding reduced (18px 20px)
+
+### CTA link targets
+| Variant | Primary CTA | Target |
+|---------|-------------|--------|
+| Price Drop | "View Property" | Property detail page |
+| Withdrawn | "View Similar Properties" | Listing page (filtered by area/type) |
+| Both | "Contact Advisor" | Contact page or advisor direct link |
+
+### Subject line suggestions
+```ts
+const SUBJECTS = {
+  "price-drop": "Price drop: {propertyTitle} is now {newPrice}",
+  withdrawn: "Update: {propertyTitle} has been withdrawn",
+};
+```
+
+---
+
+## 4. Newsletter Welcome Email *(planned)*
 
 To be created following the same design language. Will confirm subscription
 and include preference management link.
@@ -177,17 +290,17 @@ and include preference management link.
 2. Each template exports a `component` and `subject`
 3. Templates use `@react-email/components` (Html, Head, Body, Container, Text, Button, Img, etc.)
 4. All styles must be inline objects (same as the preview components)
-5. The preview pages (`/email-offmarket`, `/email-enquiry`) serve as the visual reference — the Edge Function templates should match pixel-for-pixel
+5. The preview pages (`/email-offmarket`, `/email-enquiry`, `/email-alert`) serve as the visual reference — the Edge Function templates should match pixel-for-pixel
 
 ### Data flow
 
 ```
 User submits form → supabase.functions.invoke('send-transactional-email', {
   body: {
-    templateName: 'enquiry-confirmation',   // or 'offmarket-confirmation'
+    templateName: 'enquiry-confirmation',   // or 'offmarket-confirmation' or 'price-alert'
     recipientEmail: formData.email,
     idempotencyKey: `enquiry-${submissionId}`,
-    templateData: { ...EnquiryEmailData }
+    templateData: { ...EmailData }
   }
 })
 ```
@@ -195,6 +308,8 @@ User submits form → supabase.functions.invoke('send-transactional-email', {
 ### CTA links
 - **Enquiry email** → "View Property" links to the property detail page
 - **Off-Market email** → No CTA (confidential, advisor-driven)
+- **Price Alert (price-drop)** → "View Property" links to the property detail page
+- **Price Alert (withdrawn)** → "View Similar Properties" links to listings filtered by area
 
 ### Logo
 When implementing in production, upload the brand logo to storage and include
@@ -209,10 +324,12 @@ it as an `<Img>` component at the top of each template, replacing the text-only
 |------|-------|---------|
 | `src/components/blocks/offmarket/OffmarketEmailTemplate.tsx` | ~292 | Off-market email + preview page |
 | `src/components/blocks/email/EnquiryConfirmationEmail.tsx` | ~440 | Enquiry email + preview page |
+| `src/components/blocks/email/PriceAlertEmail.tsx` | ~446 | Price alert email (price-drop & withdrawn) + preview page |
 
 ### Routes (App.tsx)
 
 ```tsx
 <Route path="/email-offmarket" element={<OffmarketEmailPreviewPage />} />
 <Route path="/email-enquiry" element={<EnquiryEmailPreviewPage />} />
+<Route path="/email-alert" element={<PriceAlertEmailPreviewPage />} />
 ```
