@@ -14,7 +14,7 @@ interface BlogArticle {
   image: string;
   category: string;
   title: string;
-  excerpt: string;
+  excerpt?: string;
   href?: string;
   readTime?: string;
 }
