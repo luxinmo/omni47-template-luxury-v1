@@ -275,7 +275,112 @@ const SUBJECTS = {
 
 ---
 
-## 4. Newsletter Welcome Email *(planned)*
+## 4. Newsletter Email Templates
+
+### When they're sent
+Sent periodically to subscribers. Two variants cover the main newsletter use cases.
+
+### Variants
+| Variant | Query | Description |
+|---------|-------|-------------|
+| Blog / News Digest | `?variant=blog` | Monthly editorial digest with featured + secondary articles |
+| Featured Property | `?variant=property` | Spotlight on a single handpicked property |
+
+### Data model — Blog Digest (`NewsletterBlogData`)
+
+```ts
+interface BlogArticle {
+  image: string;
+  category: string;
+  title: string;
+  excerpt?: string;
+  href?: string;
+  readTime?: string;
+}
+
+interface NewsletterBlogData {
+  variant: "blog";
+  fullName?: string;
+  issueNumber?: string;
+  issueDate?: string;
+  editorialIntro?: string;
+  featuredArticle: BlogArticle;
+  articles: BlogArticle[];
+  ctaText?: string;
+  ctaHref?: string;
+}
+```
+
+### Data model — Featured Property (`NewsletterPropertyData`)
+
+```ts
+interface NewsletterPropertyData {
+  variant: "property";
+  fullName?: string;
+  propertyTitle: string;
+  propertyLocation: string;
+  propertyPrice: string;
+  propertyRef?: string;
+  propertyImage: string;
+  propertySpecs?: { beds?: number; baths?: number; sqm?: number };
+  propertyDescription?: string;
+  highlights?: string[];
+  ctaText?: string;
+  ctaHref?: string;
+  agentName?: string;
+  agentTitle?: string;
+}
+```
+
+### Visual structure — Blog Digest (800px max-width)
+
+#### A — Dark header (`hsl(24 8% 11%)`)
+1. **Logo** — centered, "PRESTIGE" + "REAL ESTATE"
+2. **Issue bar** — slightly lighter dark, "The Journal · Nº X" left + date right
+
+#### B — White content body
+1. **Greeting** — personalized
+2. **Editorial intro** — curated summary paragraph
+3. **Featured story card** — full-width image (280px), category label (gold), title, excerpt, "Read Article →"
+4. **Secondary articles** — compact rows: thumbnail (120×84) + category + title + read time
+5. **CTA button** — "Explore The Journal" (gold)
+6. **Manage preferences / Unsubscribe** links
+
+#### C — Footer (same as other emails)
+
+### Visual structure — Featured Property (800px max-width)
+
+#### A — Dark header + Property hero
+1. **Logo** — centered
+2. **Property image** — full-width, 340px height
+3. **Property info bar** — REF badge, title + price row, location + specs
+
+#### B — White content body
+1. **Greeting** — "Exclusively for you, {name}"
+2. **About this property** — description paragraph
+3. **Key highlights** — pill badges (light gold bg)
+4. **Agent info** — avatar initial + name + title, gold left border
+5. **CTA buttons** — "View Full Details" (gold) + "Schedule a Visit" (outline)
+6. **Manage preferences / Unsubscribe** links
+
+#### C — Footer
+
+### Design tokens
+Same as enquiry and price-alert emails plus:
+```
+Accent light:  hsl(35 28% 92%)    — highlight pills background
+```
+
+### Responsive behavior (≤480px)
+- Featured image: 200px height (blog), 220px (property)
+- Article rows stack vertically, thumbnails become full-width
+- Property title/price stack vertically
+- CTA buttons stack centered
+- Padding and font sizes reduced proportionally
+
+---
+
+## 5. Newsletter Welcome Email *(planned)*
 
 To be created following the same design language. Will confirm subscription
 and include preference management link.
@@ -290,14 +395,14 @@ and include preference management link.
 2. Each template exports a `component` and `subject`
 3. Templates use `@react-email/components` (Html, Head, Body, Container, Text, Button, Img, etc.)
 4. All styles must be inline objects (same as the preview components)
-5. The preview pages (`/email-offmarket`, `/email-enquiry`, `/email-alert`) serve as the visual reference — the Edge Function templates should match pixel-for-pixel
+5. The preview pages (`/email-offmarket`, `/email-enquiry`, `/email-alert`, `/email-newsletter`) serve as the visual reference — the Edge Function templates should match pixel-for-pixel
 
 ### Data flow
 
 ```
 User submits form → supabase.functions.invoke('send-transactional-email', {
   body: {
-    templateName: 'enquiry-confirmation',   // or 'offmarket-confirmation' or 'price-alert'
+    templateName: 'enquiry-confirmation',   // or 'offmarket-confirmation' or 'price-alert' or 'newsletter-blog' or 'newsletter-property'
     recipientEmail: formData.email,
     idempotencyKey: `enquiry-${submissionId}`,
     templateData: { ...EmailData }
@@ -310,6 +415,8 @@ User submits form → supabase.functions.invoke('send-transactional-email', {
 - **Off-Market email** → No CTA (confidential, advisor-driven)
 - **Price Alert (price-drop)** → "View Property" links to the property detail page
 - **Price Alert (withdrawn)** → "View Similar Properties" links to listings filtered by area
+- **Newsletter (blog)** → "Explore The Journal" links to the blog listing page
+- **Newsletter (property)** → "View Full Details" links to property detail page
 
 ### Logo
 When implementing in production, upload the brand logo to storage and include
@@ -325,6 +432,7 @@ it as an `<Img>` component at the top of each template, replacing the text-only
 | `src/components/blocks/offmarket/OffmarketEmailTemplate.tsx` | ~292 | Off-market email + preview page |
 | `src/components/blocks/email/EnquiryConfirmationEmail.tsx` | ~440 | Enquiry email + preview page |
 | `src/components/blocks/email/PriceAlertEmail.tsx` | ~446 | Price alert email (price-drop & withdrawn) + preview page |
+| `src/components/blocks/email/NewsletterEmail.tsx` | ~520 | Newsletter email (blog digest & featured property) + preview page |
 
 ### Routes (App.tsx)
 
@@ -332,4 +440,5 @@ it as an `<Img>` component at the top of each template, replacing the text-only
 <Route path="/email-offmarket" element={<OffmarketEmailPreviewPage />} />
 <Route path="/email-enquiry" element={<EnquiryEmailPreviewPage />} />
 <Route path="/email-alert" element={<PriceAlertEmailPreviewPage />} />
+<Route path="/email-newsletter" element={<NewsletterEmailPreviewPage />} />
 ```
