@@ -889,11 +889,117 @@ const SAMPLE_PROPERTY: NewsletterPropertyData = {
   agentTitle: "Senior Property Advisor · La Zagaleta Specialist",
 };
 
+const SAMPLE_PROPERTIES: NewsletterPropertiesData = {
+  variant: "properties",
+  fullName: "Alexander von Berg",
+  introTitle: "Your curated selection",
+  introText:
+    "Following our conversation last week, I've personally selected five properties that match your criteria — modern architecture, sea views, and within 15 minutes of Marbella centre. Each has been vetted by our team and is available for private viewings at your convenience.",
+  properties: [
+    {
+      image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&h=500&fit=crop",
+      title: "Villa Horizon — Contemporary Sea-View Estate",
+      location: "Sierra Blanca, Marbella",
+      price: "€5,900,000",
+      ref: "PRE-4821",
+      specs: { beds: 5, baths: 6, sqm: 920 },
+      tag: "New Listing",
+    },
+    {
+      image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=500&fit=crop",
+      title: "Penthouse Azure — Beachfront Duplex",
+      location: "Puerto Banús, Marbella",
+      price: "€3,450,000",
+      ref: "PRE-3917",
+      specs: { beds: 4, baths: 4, sqm: 480 },
+      tag: "Price Reduced",
+    },
+    {
+      image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=500&fit=crop",
+      title: "Casa Serena — Minimalist Villa with Infinity Pool",
+      location: "Los Monteros, Marbella",
+      price: "€4,200,000",
+      ref: "PRE-5102",
+      specs: { beds: 5, baths: 5, sqm: 750 },
+    },
+    {
+      image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=500&fit=crop",
+      title: "Villa Lumière — Architect-Designed Masterpiece",
+      location: "Cascada de Camoján, Marbella",
+      price: "€8,750,000",
+      ref: "PRE-5388",
+      specs: { beds: 7, baths: 8, sqm: 1380 },
+      tag: "Exclusive",
+    },
+    {
+      image: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800&h=500&fit=crop",
+      title: "The Glass House — Ultra-Modern Living",
+      location: "La Quinta, Benahavís",
+      price: "€3,950,000",
+      ref: "PRE-4653",
+      specs: { beds: 4, baths: 5, sqm: 620 },
+    },
+  ],
+  agentName: "Carlos Mendoza",
+  agentTitle: "Senior Property Advisor · Marbella Specialist",
+};
+
 const SAMPLES: Record<string, NewsletterEmailData> = {
   blog: SAMPLE_BLOG,
   property: SAMPLE_PROPERTY,
+  properties: SAMPLE_PROPERTIES,
 };
 
+/* ── Preview page ── */
+export default function NewsletterEmailPreviewPage() {
+  const [params] = useSearchParams();
+  const raw = params.get("variant");
+  const variant = raw === "property" ? "property" : raw === "properties" ? "properties" : "blog";
+  const current = SAMPLES[variant]!;
+
+  const tabs = [
+    { key: "blog", label: "Blog / News Digest" },
+    { key: "property", label: "Featured Property" },
+    { key: "properties", label: "Curated Selection" },
+  ];
+
+  return (
+    <div style={{ minHeight: "100vh", backgroundColor: "hsl(30 7% 89%)" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: 8,
+          padding: "20px 16px",
+          flexWrap: "wrap" as const,
+        }}
+      >
+        {tabs.map((tab) => (
+          <a
+            key={tab.key}
+            href={`?variant=${tab.key}`}
+            style={{
+              padding: "8px 20px",
+              fontSize: 12,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase" as const,
+              textDecoration: "none",
+              borderRadius: 2,
+              backgroundColor:
+                variant === tab.key ? "hsl(24 8% 11%)" : "hsl(0 0% 100%)",
+              color:
+                variant === tab.key ? "hsl(0 0% 100%)" : "hsl(25 5% 49%)",
+              border: "1px solid hsl(0 0% 83%)",
+            }}
+          >
+            {tab.label}
+          </a>
+        ))}
+      </div>
+      <NewsletterEmail data={current} />
+    </div>
+  );
+}
 /* ── Preview page ── */
 export default function NewsletterEmailPreviewPage() {
   const [params] = useSearchParams();
