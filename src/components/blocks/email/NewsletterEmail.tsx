@@ -49,7 +49,30 @@ interface NewsletterPropertyData {
   agentTitle?: string;
 }
 
-type NewsletterEmailData = NewsletterBlogData | NewsletterPropertyData;
+interface CuratedProperty {
+  image: string;
+  title: string;
+  location: string;
+  price: string;
+  ref?: string;
+  specs?: { beds?: number; baths?: number; sqm?: number };
+  href?: string;
+  tag?: string;
+}
+
+interface NewsletterPropertiesData {
+  variant: "properties";
+  fullName?: string;
+  introTitle?: string;
+  introText?: string;
+  properties: CuratedProperty[];
+  ctaText?: string;
+  ctaHref?: string;
+  agentName?: string;
+  agentTitle?: string;
+}
+
+type NewsletterEmailData = NewsletterBlogData | NewsletterPropertyData | NewsletterPropertiesData;
 
 /* ── Palette (consistent with other emails) ── */
 const B = {
@@ -625,9 +648,179 @@ function PropertyNewsletterEmail({ data }: { data: NewsletterPropertyData }) {
   );
 }
 
+/* ══════════════════════════════════════════════
+   CURATED PROPERTIES VARIANT
+   ══════════════════════════════════════════════ */
+function PropertiesNewsletterEmail({ data }: { data: NewsletterPropertiesData }) {
+  return (
+    <div style={st.body}>
+      <style>{`
+        @media (max-width: 480px) {
+          .nl-header { padding: 24px 20px 20px !important; }
+          .nl-content-inner { padding: 24px 20px 28px !important; }
+          .nl-greeting { font-size: 19px !important; }
+          .nl-intro { font-size: 12px !important; }
+          .nl-cta { padding: 12px 28px !important; font-size: 10px !important; }
+          .nl-footer { padding: 18px 20px !important; }
+          .nl-cp-card { flex-direction: column !important; }
+          .nl-cp-img { width: 100% !important; height: 180px !important; }
+          .nl-cp-body { padding: 14px 16px !important; }
+          .nl-cp-title { font-size: 14px !important; }
+          .nl-cp-price { font-size: 15px !important; }
+        }
+      `}</style>
+      <div style={st.wrapper}>
+        {/* Header */}
+        <div style={st.header} className="nl-header">
+          <p style={st.logoName}>Prestige</p>
+          <p style={st.logoSub}>Real Estate</p>
+        </div>
+
+        {/* Accent bar */}
+        <div style={{
+          padding: "14px 42px",
+          backgroundColor: "hsl(24 6% 14%)",
+          borderTop: "1px solid hsl(0 0% 100% / 0.06)",
+          textAlign: "center" as const,
+        }}>
+          <p style={{ fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase" as const, color: B.accent, fontWeight: 500, margin: 0 }}>
+            Curated Selection
+          </p>
+        </div>
+
+        {/* Content */}
+        <div style={st.contentBody}>
+          <div style={st.contentInner} className="nl-content-inner">
+            <h1 style={st.greeting} className="nl-greeting">
+              {data.fullName
+                ? `${data.introTitle || "Handpicked for you"}, ${data.fullName}`
+                : data.introTitle || "Properties handpicked for you"}
+            </h1>
+            <p style={st.intro} className="nl-intro">
+              {data.introText ||
+                "Based on your preferences and our latest conversations, we've curated a selection of properties that we believe perfectly match what you're looking for. Each one has been personally reviewed by your advisor."}
+            </p>
+
+            <p style={st.sectionLabel}>{data.properties.length} Properties Selected</p>
+
+            {/* Property cards */}
+            {data.properties.map((prop, i) => (
+              <div
+                key={i}
+                style={{
+                  display: "flex",
+                  border: `1px solid ${B.border}`,
+                  borderRadius: 3,
+                  overflow: "hidden" as const,
+                  marginBottom: i < data.properties.length - 1 ? 18 : 28,
+                }}
+                className="nl-cp-card"
+              >
+                {/* Image */}
+                <div style={{ position: "relative" as const, flexShrink: 0 }}>
+                  <img
+                    src={prop.image}
+                    alt=""
+                    style={{
+                      width: 220, height: "100%", minHeight: 180,
+                      objectFit: "cover" as const, display: "block",
+                    }}
+                    className="nl-cp-img"
+                  />
+                  {prop.tag && (
+                    <span style={{
+                      position: "absolute" as const, top: 10, left: 10,
+                      fontSize: 9, letterSpacing: "0.15em",
+                      textTransform: "uppercase" as const,
+                      padding: "4px 10px", borderRadius: 2,
+                      backgroundColor: B.accent, color: B.white, fontWeight: 500,
+                    }}>
+                      {prop.tag}
+                    </span>
+                  )}
+                </div>
+                {/* Body */}
+                <div style={{ flex: 1, padding: "18px 22px", display: "flex", flexDirection: "column" as const, justifyContent: "center" }} className="nl-cp-body">
+                  {prop.ref && (
+                    <p style={{ margin: "0 0 5px", fontSize: 9, letterSpacing: "0.2em", textTransform: "uppercase" as const, color: B.accent, fontWeight: 500 }}>
+                      REF {prop.ref}
+                    </p>
+                  )}
+                  <p style={{ margin: "0 0 4px", fontSize: 16, fontWeight: 400, color: B.darkSoft, letterSpacing: "0.01em", lineHeight: 1.3 }} className="nl-cp-title">
+                    {prop.title}
+                  </p>
+                  <p style={{ margin: "0 0 10px", fontSize: 11, color: B.light, fontWeight: 300, letterSpacing: "0.04em" }}>
+                    📍 {prop.location}
+                  </p>
+                  {/* Specs */}
+                  {prop.specs && (
+                    <div style={{ display: "flex", gap: 12, marginBottom: 10, flexWrap: "wrap" as const }}>
+                      {prop.specs.beds && <span style={{ fontSize: 11, color: B.muted, fontWeight: 300 }}>🛏 {prop.specs.beds} Beds</span>}
+                      {prop.specs.baths && <span style={{ fontSize: 11, color: B.muted, fontWeight: 300 }}>🚿 {prop.specs.baths} Baths</span>}
+                      {prop.specs.sqm && <span style={{ fontSize: 11, color: B.muted, fontWeight: 300 }}>📐 {prop.specs.sqm} m²</span>}
+                    </div>
+                  )}
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <p style={{ margin: 0, fontSize: 17, fontWeight: 600, color: B.darkSoft, letterSpacing: "0.01em" }} className="nl-cp-price">
+                      {prop.price}
+                    </p>
+                    <a href={prop.href || "#"} style={{ fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase" as const, color: B.accent, fontWeight: 500, textDecoration: "none" }}>
+                      View →
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            {/* Agent */}
+            {data.agentName && (
+              <div style={st.agentRow}>
+                <div style={st.agentIcon}>
+                  {data.agentName.charAt(0).toUpperCase()}
+                </div>
+                <div>
+                  <p style={st.agentName}>{data.agentName}</p>
+                  <p style={st.agentTitle}>{data.agentTitle || "Property Advisor"}</p>
+                </div>
+              </div>
+            )}
+
+            <hr style={st.divider} />
+
+            {/* CTA */}
+            <div style={st.ctaWrap}>
+              <a href={data.ctaHref || "#"} style={st.cta} className="nl-cta">
+                {data.ctaText || "Browse All Properties"}
+              </a>
+            </div>
+
+            <p style={st.note}>
+              This selection was curated specifically for you by your advisor.
+              <br />
+              <a href="#" style={{ color: B.muted, fontSize: 12 }}>Manage preferences</a>
+              {" · "}
+              <a href="#" style={{ color: B.muted, fontSize: 12 }}>Unsubscribe</a>
+            </p>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div style={st.footer} className="nl-footer">
+          <p style={st.footerText}>+34 600 000 000 · hello@prestigeestates.com</p>
+          <p style={st.footerText}>Marbella, Spain</p>
+          <p style={{ ...st.footerText, marginTop: 10, color: "hsl(0 0% 83%)" }}>
+            © {new Date().getFullYear()} Prestige Real Estate
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ── Main router ── */
 export function NewsletterEmail({ data }: { data: NewsletterEmailData }) {
   if (data.variant === "blog") return <BlogNewsletterEmail data={data} />;
+  if (data.variant === "properties") return <PropertiesNewsletterEmail data={data} />;
   return <PropertyNewsletterEmail data={data} />;
 }
 
@@ -696,20 +889,78 @@ const SAMPLE_PROPERTY: NewsletterPropertyData = {
   agentTitle: "Senior Property Advisor · La Zagaleta Specialist",
 };
 
+const SAMPLE_PROPERTIES: NewsletterPropertiesData = {
+  variant: "properties",
+  fullName: "Alexander von Berg",
+  introTitle: "Your curated selection",
+  introText:
+    "Following our conversation last week, I've personally selected five properties that match your criteria — modern architecture, sea views, and within 15 minutes of Marbella centre. Each has been vetted by our team and is available for private viewings at your convenience.",
+  properties: [
+    {
+      image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&h=500&fit=crop",
+      title: "Villa Horizon — Contemporary Sea-View Estate",
+      location: "Sierra Blanca, Marbella",
+      price: "€5,900,000",
+      ref: "PRE-4821",
+      specs: { beds: 5, baths: 6, sqm: 920 },
+      tag: "New Listing",
+    },
+    {
+      image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=500&fit=crop",
+      title: "Penthouse Azure — Beachfront Duplex",
+      location: "Puerto Banús, Marbella",
+      price: "€3,450,000",
+      ref: "PRE-3917",
+      specs: { beds: 4, baths: 4, sqm: 480 },
+      tag: "Price Reduced",
+    },
+    {
+      image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=500&fit=crop",
+      title: "Casa Serena — Minimalist Villa with Infinity Pool",
+      location: "Los Monteros, Marbella",
+      price: "€4,200,000",
+      ref: "PRE-5102",
+      specs: { beds: 5, baths: 5, sqm: 750 },
+    },
+    {
+      image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=500&fit=crop",
+      title: "Villa Lumière — Architect-Designed Masterpiece",
+      location: "Cascada de Camoján, Marbella",
+      price: "€8,750,000",
+      ref: "PRE-5388",
+      specs: { beds: 7, baths: 8, sqm: 1380 },
+      tag: "Exclusive",
+    },
+    {
+      image: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800&h=500&fit=crop",
+      title: "The Glass House — Ultra-Modern Living",
+      location: "La Quinta, Benahavís",
+      price: "€3,950,000",
+      ref: "PRE-4653",
+      specs: { beds: 4, baths: 5, sqm: 620 },
+    },
+  ],
+  agentName: "Carlos Mendoza",
+  agentTitle: "Senior Property Advisor · Marbella Specialist",
+};
+
 const SAMPLES: Record<string, NewsletterEmailData> = {
   blog: SAMPLE_BLOG,
   property: SAMPLE_PROPERTY,
+  properties: SAMPLE_PROPERTIES,
 };
 
 /* ── Preview page ── */
 export default function NewsletterEmailPreviewPage() {
   const [params] = useSearchParams();
-  const variant = params.get("variant") === "property" ? "property" : "blog";
+  const raw = params.get("variant");
+  const variant = raw === "property" ? "property" : raw === "properties" ? "properties" : "blog";
   const current = SAMPLES[variant]!;
 
   const tabs = [
     { key: "blog", label: "Blog / News Digest" },
     { key: "property", label: "Featured Property" },
+    { key: "properties", label: "Curated Selection" },
   ];
 
   return (
