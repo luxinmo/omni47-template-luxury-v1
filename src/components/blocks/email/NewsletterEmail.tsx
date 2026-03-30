@@ -49,7 +49,30 @@ interface NewsletterPropertyData {
   agentTitle?: string;
 }
 
-type NewsletterEmailData = NewsletterBlogData | NewsletterPropertyData;
+interface CuratedProperty {
+  image: string;
+  title: string;
+  location: string;
+  price: string;
+  ref?: string;
+  specs?: { beds?: number; baths?: number; sqm?: number };
+  href?: string;
+  tag?: string;
+}
+
+interface NewsletterPropertiesData {
+  variant: "properties";
+  fullName?: string;
+  introTitle?: string;
+  introText?: string;
+  properties: CuratedProperty[];
+  ctaText?: string;
+  ctaHref?: string;
+  agentName?: string;
+  agentTitle?: string;
+}
+
+type NewsletterEmailData = NewsletterBlogData | NewsletterPropertyData | NewsletterPropertiesData;
 
 /* ── Palette (consistent with other emails) ── */
 const B = {
