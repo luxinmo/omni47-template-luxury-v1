@@ -42,6 +42,7 @@ import VideosPageV2 from "./components/luxury/VideosPageV2";
 import OffmarketEmailPreviewPage from "./components/blocks/offmarket/OffmarketEmailTemplate";
 import EnquiryEmailPreviewPage from "./components/blocks/email/EnquiryConfirmationEmail";
 import PriceAlertEmailPreviewPage from "./components/blocks/email/PriceAlertEmail";
+import NewsletterEmailPreviewPage from "./components/blocks/email/NewsletterEmail";
 import ResourcesHubPage from "./components/luxury/ResourcesHubPage";
 import AboutPage from "./components/luxury/AboutPage";
 import AboutPageV2 from "./components/luxury/AboutPageV2";
