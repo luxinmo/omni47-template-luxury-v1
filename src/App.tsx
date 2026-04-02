@@ -39,6 +39,7 @@ import SellPropertyPage from "./components/luxury/SellPropertyPage";
 import UserDashboardPage from "./components/luxury/UserDashboardPage";
 import VideosPage from "./components/luxury/VideosPage";
 import VideosPageV2 from "./components/luxury/VideosPageV2";
+import VideosPageV3 from "./components/luxury/VideosPageV3";
 import OffmarketEmailPreviewPage from "./components/blocks/offmarket/OffmarketEmailTemplate";
 import EnquiryEmailPreviewPage from "./components/blocks/email/EnquiryConfirmationEmail";
 import PriceAlertEmailPreviewPage from "./components/blocks/email/PriceAlertEmail";
