@@ -258,7 +258,7 @@ export function DeveloperAvailabilityEmail({ data }: { data: DeveloperAvailabili
 
   return (
     <div style={st.body}>
-      <style>{`@media(max-width:480px){.da-stats-row{flex-direction:column!important}.da-stat-cell{border-right:none!important;border-bottom:1px solid hsl(24 6% 20%)!important;padding:10px 20px!important;text-align:left!important}.da-content{padding:24px 20px!important}.da-hero-img{height:220px!important}.da-info-bar{padding:16px 20px!important}.da-table-hide{display:none!important}.da-cards-show{display:block!important}.da-cta-stack{display:block!important;text-align:center!important}.da-cta-stack a{display:block!important;margin:0 0 10px!important;width:100%!important;text-align:center!important}}`}</style>
+      <style>{`@media(max-width:480px){.da-stats-row{flex-wrap:wrap!important}.da-stat-cell{flex:1 1 45%!important;box-sizing:border-box!important;border-right:none!important;border-bottom:1px solid hsl(24 6% 20%)!important;padding:12px 16px!important;text-align:center!important}.da-content{padding:20px 18px!important}.da-hero-img{height:200px!important}.da-info-bar{padding:14px 18px!important}.da-table-hide{display:none!important}.da-cards-show{display:block!important}.da-unit-card{padding:12px 14px!important;margin-bottom:8px!important}.da-unit-card p{margin:0!important}.da-cta-stack{display:flex!important;flex-direction:column!important;gap:8px!important;align-items:stretch!important}.da-cta-stack a{display:block!important;margin:0!important;width:100%!important;text-align:center!important;box-sizing:border-box!important;padding:13px 20px!important}.da-footer{padding:18px 18px!important}.da-greeting{font-size:19px!important}.da-intro{font-size:13px!important}.da-contact-box{padding:14px 16px!important}}`}</style>
       <div style={st.wrapper}>
 
         {/* ── A: Dark header ── */}
@@ -323,10 +323,10 @@ export function DeveloperAvailabilityEmail({ data }: { data: DeveloperAvailabili
         <div style={st.content} className="da-content">
 
           {/* Greeting */}
-          <p style={st.greeting}>
+          <p style={st.greeting} className="da-greeting">
             {d.recipientName ? `Dear ${d.recipientName},` : "Dear Partner,"}
           </p>
-          <p style={st.intro}>
+          <p style={st.intro} className="da-intro">
             We're pleased to share the latest availability update for <strong style={{ color: B.darkText }}>{d.projectName}</strong>.
             {keyReadyCount > 0 && (
               <> We currently have <strong style={{ color: "hsl(38 70% 38%)" }}>{keyReadyCount} key-ready {keyReadyCount === 1 ? "unit" : "units"}</strong> available for immediate delivery.</>
@@ -388,20 +388,24 @@ export function DeveloperAvailabilityEmail({ data }: { data: DeveloperAvailabili
           {/* Units cards (mobile) */}
           <div className="da-cards-show" style={{ display: "none" }}>
             {d.units.map((u, i) => (
-              <div key={i} style={{
-                padding: "14px 16px", marginBottom: 10, borderRadius: 4,
+              <div key={i} className="da-unit-card" style={{
+                padding: "12px 14px", marginBottom: 8, borderRadius: 3,
                 border: `1px solid ${B.borderLight}`,
                 backgroundColor: u.status === "key-ready" ? B.amberBg : B.white,
               }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
-                  <span style={{ fontSize: 11, fontWeight: 600, color: B.muted, letterSpacing: "0.08em" }}>{u.ref}</span>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
+                  <span style={{ fontSize: 10, fontWeight: 600, color: B.muted, letterSpacing: "0.08em" }}>{u.ref}</span>
                   <StatusBadge status={u.status} />
                 </div>
-                <p style={{ fontSize: 14, fontWeight: 500, color: B.darkText, margin: "0 0 4px" }}>{u.type}</p>
-                <p style={{ fontSize: 12, color: B.muted, margin: "0 0 8px" }}>
-                  {u.sqm} m²{u.terrace ? ` + ${u.terrace} m² terrace` : ""}{u.floor ? ` · Floor ${u.floor}` : ""}
-                </p>
-                <p style={{ fontSize: 16, fontWeight: 600, color: B.darkText, margin: 0 }}>{u.price}</p>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                  <div>
+                    <p style={{ fontSize: 13, fontWeight: 500, color: B.darkText, margin: "0 0 2px" }}>{u.type}</p>
+                    <p style={{ fontSize: 11, color: B.muted, margin: 0 }}>
+                      {u.sqm} m²{u.terrace ? ` + ${u.terrace} m² ter.` : ""}{u.floor ? ` · ${u.floor}` : ""}
+                    </p>
+                  </div>
+                  <p style={{ fontSize: 15, fontWeight: 600, color: B.darkText, margin: 0, whiteSpace: "nowrap" as const }}>{u.price}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -418,20 +422,20 @@ export function DeveloperAvailabilityEmail({ data }: { data: DeveloperAvailabili
 
           {/* Contact */}
           {d.contactName && (
-            <div style={{
-              marginTop: 28, padding: "18px 24px", borderLeft: `3px solid ${B.accent}`,
+            <div className="da-contact-box" style={{
+              marginTop: 24, padding: "16px 20px", borderLeft: `3px solid ${B.accent}`,
               backgroundColor: B.bg, borderRadius: "0 4px 4px 0",
             }}>
-              <p style={{ fontSize: 10, textTransform: "uppercase" as const, letterSpacing: "0.12em", color: B.muted, margin: "0 0 6px" }}>Your Contact</p>
-              <p style={{ fontSize: 14, fontWeight: 500, color: B.darkText, margin: "0 0 2px" }}>{d.contactName}</p>
-              {d.contactPhone && <p style={{ fontSize: 13, color: B.muted, margin: "0 0 1px" }}>📞 {d.contactPhone}</p>}
-              {d.contactEmail && <p style={{ fontSize: 13, color: B.muted, margin: 0 }}>✉ {d.contactEmail}</p>}
+              <p style={{ fontSize: 10, textTransform: "uppercase" as const, letterSpacing: "0.12em", color: B.muted, margin: "0 0 5px" }}>Your Contact</p>
+              <p style={{ fontSize: 13, fontWeight: 500, color: B.darkText, margin: "0 0 2px" }}>{d.contactName}</p>
+              {d.contactPhone && <p style={{ fontSize: 12, color: B.muted, margin: "0 0 1px" }}>📞 {d.contactPhone}</p>}
+              {d.contactEmail && <p style={{ fontSize: 12, color: B.muted, margin: 0 }}>✉ {d.contactEmail}</p>}
             </div>
           )}
         </div>
 
         {/* ── C: Footer ── */}
-        <div style={st.footer}>
+        <div style={st.footer} className="da-footer">
           <p style={st.footerText}>This is a confidential communication intended for real estate professionals.</p>
           <p style={st.footerText}>© {new Date().getFullYear()} Prestige Real Estate · Marbella</p>
         </div>
