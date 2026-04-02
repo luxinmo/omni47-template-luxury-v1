@@ -112,6 +112,7 @@ const Home3LandingPage = () => {
   const [offmarketWizardOpen, setOffmarketWizardOpen] = useState(false);
   const [nlEmail, setNlEmail] = useState("");
   const [nlModalOpen, setNlModalOpen] = useState(false);
+  const [showShowreel, setShowShowreel] = useState(false);
   const heroImages = [heroImg, prop1, prop2, prop3];
 
   useEffect(() => {
