@@ -3,7 +3,6 @@ import NewsletterPreferencesModal from "@/components/blocks/cta/NewsletterPrefer
 import { Link } from "react-router-dom";
 import {
   Bed, Bath, Maximize, ArrowRight, ArrowUpRight, Lock, EyeOff,
-  Bed, Bath, Maximize, ArrowRight, ArrowUpRight, Lock, EyeOff,
   Play, Quote, MapPin, ChevronRight, Home, Building2, Waves,
   Mountain, PenTool, Sun, Eye, TreePine, Cpu, TrendingUp,
   BarChart3, Activity, Target, Send, Crown, X, Film,
