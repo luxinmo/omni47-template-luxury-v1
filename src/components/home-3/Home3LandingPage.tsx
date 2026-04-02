@@ -112,7 +112,7 @@ const Home3LandingPage = () => {
   const [offmarketWizardOpen, setOffmarketWizardOpen] = useState(false);
   const [nlEmail, setNlEmail] = useState("");
   const [nlModalOpen, setNlModalOpen] = useState(false);
-  const [showShowreel, setShowShowreel] = useState(false);
+  
   const heroImages = [heroImg, prop1, prop2, prop3];
 
   useEffect(() => {
@@ -583,57 +583,51 @@ const Home3LandingPage = () => {
       {/* ═══════════════════════════════════════════════════════
           12. CINEMATIC BRAND POSITIONING
           ═══════════════════════════════════════════════════════ */}
-      <section className="relative py-20 sm:py-28 md:py-36 overflow-hidden">
+      <section className="relative overflow-hidden">
+        {/* Background image behind everything */}
         <img src={heroImg} alt="" loading="lazy" className="absolute inset-0 w-full h-full object-cover scale-105" />
         <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(20,18,16,0.75) 0%, rgba(20,18,16,0.85) 100%)" }} />
-        <div className="relative z-10 max-w-[900px] mx-auto px-5 sm:px-6 text-center">
-          <FadeIn>
-            <div className="flex items-center justify-center gap-3 mb-6">
-              <Film className="w-4 h-4" style={{ color: palette.offMarketAccent, opacity: 0.6 }} />
-              <p className="text-[11px] tracking-[0.35em] uppercase font-normal" style={{ color: palette.offMarketAccent }}>Content & Storytelling</p>
-            </div>
-            <h2 className="text-2xl sm:text-3xl md:text-[2.8rem] font-extralight text-white leading-[1.2] mb-6" style={{ fontFamily: fonts.heading, letterSpacing: "0.06em" }}>
-              Cinematic Brand Positioning
-            </h2>
-            <p className="text-[14px] sm:text-[15px] font-light leading-[1.85] mb-12 max-w-lg mx-auto" style={{ color: "rgba(255,255,255,0.5)" }}>
-              Every property deserves a story. Our in-house production team creates cinematic video content and editorial photography that positions each listing as a work of art.
-            </p>
 
-            {/* Play button */}
-            <button
-              onClick={() => setShowShowreel(true)}
-              className="group inline-flex flex-col items-center gap-4 cursor-pointer"
-              aria-label="Play showreel"
-            >
-              <div className="w-20 h-20 rounded-full flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:bg-white/10 backdrop-blur-sm" style={{ border: `1.5px solid rgba(201,169,110,0.4)` }}>
-                <Play className="w-7 h-7 ml-1 transition-transform duration-300 group-hover:scale-110" style={{ color: palette.offMarketAccent }} fill="rgba(201,169,110,0.15)" />
+        <div className="relative z-10 max-w-[1100px] mx-auto px-5 sm:px-6 py-20 sm:py-28 md:py-36">
+          <FadeIn>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+              {/* Left — Text */}
+              <div className="text-center lg:text-left">
+                <div className="flex items-center justify-center lg:justify-start gap-3 mb-6">
+                  <Film className="w-4 h-4" style={{ color: palette.offMarketAccent, opacity: 0.6 }} />
+                  <p className="text-[11px] tracking-[0.35em] uppercase font-normal" style={{ color: palette.offMarketAccent }}>Content & Storytelling</p>
+                </div>
+                <h2 className="text-2xl sm:text-3xl md:text-[2.6rem] font-extralight text-white leading-[1.2] mb-6" style={{ fontFamily: fonts.heading, letterSpacing: "0.06em" }}>
+                  Cinematic Brand Positioning
+                </h2>
+                <p className="text-[14px] sm:text-[15px] font-light leading-[1.85] mb-10 max-w-md mx-auto lg:mx-0" style={{ color: "rgba(255,255,255,0.5)" }}>
+                  Every property deserves a story. Our in-house production team creates cinematic video content and editorial photography that positions each listing as a work of art.
+                </p>
+                <Link
+                  to="/videos2"
+                  className="inline-flex items-center gap-3 text-[11px] tracking-[0.2em] uppercase font-medium transition-all duration-300 hover:gap-4 px-7 py-3.5"
+                  style={{ color: palette.offMarketAccent, border: `1px solid rgba(201,169,110,0.35)` }}
+                >
+                  Explore All Videos <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
               </div>
-              <span className="text-[11px] tracking-[0.2em] uppercase font-light transition-opacity group-hover:opacity-70" style={{ color: palette.offMarketAccent }}>
-                Watch Showreel
-              </span>
-            </button>
+
+              {/* Right — Embedded Video */}
+              <div className="relative aspect-video rounded-sm overflow-hidden shadow-2xl" style={{ border: "1px solid rgba(255,255,255,0.08)" }}>
+                <iframe
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1"
+                  title="Showreel"
+                  allow="autoplay; fullscreen"
+                  allowFullScreen
+                  className="w-full h-full"
+                  style={{ border: "none" }}
+                  loading="lazy"
+                />
+              </div>
+            </div>
           </FadeIn>
         </div>
       </section>
-
-      {/* YouTube Showreel Lightbox */}
-      {showShowreel && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 backdrop-blur-sm" onClick={() => setShowShowreel(false)}>
-          <button onClick={() => setShowShowreel(false)} className="absolute top-6 right-6 text-white/60 hover:text-white transition-colors z-10" aria-label="Close">
-            <X className="w-7 h-7" />
-          </button>
-          <div className="w-full max-w-4xl aspect-video mx-4" onClick={e => e.stopPropagation()}>
-            <iframe
-              src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0&modestbranding=1"
-              title="Showreel"
-              allow="autoplay; fullscreen"
-              allowFullScreen
-              className="w-full h-full rounded-sm"
-              style={{ border: "none" }}
-            />
-          </div>
-        </div>
-      )}
 
       {/* ═══════════════════════════════════════════════════════
           13. AREAS WE COVER
