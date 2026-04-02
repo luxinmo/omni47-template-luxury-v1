@@ -323,10 +323,10 @@ export function DeveloperAvailabilityEmail({ data }: { data: DeveloperAvailabili
         <div style={st.content} className="da-content">
 
           {/* Greeting */}
-          <p style={st.greeting}>
+          <p style={st.greeting} className="da-greeting">
             {d.recipientName ? `Dear ${d.recipientName},` : "Dear Partner,"}
           </p>
-          <p style={st.intro}>
+          <p style={st.intro} className="da-intro">
             We're pleased to share the latest availability update for <strong style={{ color: B.darkText }}>{d.projectName}</strong>.
             {keyReadyCount > 0 && (
               <> We currently have <strong style={{ color: "hsl(38 70% 38%)" }}>{keyReadyCount} key-ready {keyReadyCount === 1 ? "unit" : "units"}</strong> available for immediate delivery.</>
