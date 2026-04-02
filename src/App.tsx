@@ -44,6 +44,7 @@ import OffmarketEmailPreviewPage from "./components/blocks/offmarket/OffmarketEm
 import EnquiryEmailPreviewPage from "./components/blocks/email/EnquiryConfirmationEmail";
 import PriceAlertEmailPreviewPage from "./components/blocks/email/PriceAlertEmail";
 import NewsletterEmailPreviewPage from "./components/blocks/email/NewsletterEmail";
+import DeveloperAvailabilityPreviewPage from "./components/blocks/email/DeveloperAvailabilityEmail";
 import ResourcesHubPage from "./components/luxury/ResourcesHubPage";
 import AboutPage from "./components/luxury/AboutPage";
 import AboutPageV2 from "./components/luxury/AboutPageV2";
@@ -118,6 +119,7 @@ const App = () => (
             <Route path="/email-enquiry" element={<EnquiryEmailPreviewPage />} />
             <Route path="/email-alert" element={<PriceAlertEmailPreviewPage />} />
             <Route path="/email-newsletter" element={<NewsletterEmailPreviewPage />} />
+            <Route path="/email-developer" element={<DeveloperAvailabilityPreviewPage />} />
             <Route path="/icons" element={<IconsPage />} />
             <Route path="/chatbot-design" element={<ChatbotDesignShowcase />} />
             <Route path="/team" element={<TeamPage />} />
