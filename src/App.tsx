@@ -44,6 +44,7 @@ import OffmarketEmailPreviewPage from "./components/blocks/offmarket/OffmarketEm
 import EnquiryEmailPreviewPage from "./components/blocks/email/EnquiryConfirmationEmail";
 import PriceAlertEmailPreviewPage from "./components/blocks/email/PriceAlertEmail";
 import NewsletterEmailPreviewPage from "./components/blocks/email/NewsletterEmail";
+import DeveloperAvailabilityPreviewPage from "./components/blocks/email/DeveloperAvailabilityEmail";
 import ResourcesHubPage from "./components/luxury/ResourcesHubPage";
 import AboutPage from "./components/luxury/AboutPage";
 import AboutPageV2 from "./components/luxury/AboutPageV2";
