@@ -422,20 +422,20 @@ export function DeveloperAvailabilityEmail({ data }: { data: DeveloperAvailabili
 
           {/* Contact */}
           {d.contactName && (
-            <div style={{
-              marginTop: 28, padding: "18px 24px", borderLeft: `3px solid ${B.accent}`,
+            <div className="da-contact-box" style={{
+              marginTop: 24, padding: "16px 20px", borderLeft: `3px solid ${B.accent}`,
               backgroundColor: B.bg, borderRadius: "0 4px 4px 0",
             }}>
-              <p style={{ fontSize: 10, textTransform: "uppercase" as const, letterSpacing: "0.12em", color: B.muted, margin: "0 0 6px" }}>Your Contact</p>
-              <p style={{ fontSize: 14, fontWeight: 500, color: B.darkText, margin: "0 0 2px" }}>{d.contactName}</p>
-              {d.contactPhone && <p style={{ fontSize: 13, color: B.muted, margin: "0 0 1px" }}>📞 {d.contactPhone}</p>}
-              {d.contactEmail && <p style={{ fontSize: 13, color: B.muted, margin: 0 }}>✉ {d.contactEmail}</p>}
+              <p style={{ fontSize: 10, textTransform: "uppercase" as const, letterSpacing: "0.12em", color: B.muted, margin: "0 0 5px" }}>Your Contact</p>
+              <p style={{ fontSize: 13, fontWeight: 500, color: B.darkText, margin: "0 0 2px" }}>{d.contactName}</p>
+              {d.contactPhone && <p style={{ fontSize: 12, color: B.muted, margin: "0 0 1px" }}>📞 {d.contactPhone}</p>}
+              {d.contactEmail && <p style={{ fontSize: 12, color: B.muted, margin: 0 }}>✉ {d.contactEmail}</p>}
             </div>
           )}
         </div>
 
         {/* ── C: Footer ── */}
-        <div style={st.footer}>
+        <div style={st.footer} className="da-footer">
           <p style={st.footerText}>This is a confidential communication intended for real estate professionals.</p>
           <p style={st.footerText}>© {new Date().getFullYear()} Prestige Real Estate · Marbella</p>
         </div>
