@@ -218,6 +218,11 @@ export function OffmarketEmailTemplate({ data }: { data: EmailData }) {
 
           {/* Footer */}
           <div style={styles.footer}>
+            <img
+              src="/luxinmo-logo.png"
+              alt="Luxinmo Real Estate"
+              style={{ width: 120, height: "auto", margin: "0 auto 12px", display: "block", opacity: 0.45 }}
+            />
             <p style={styles.footerText}>© {new Date().getFullYear()} · Off-Market Division</p>
             <p style={{ ...styles.footerText, color: "#e5e5e5" }}>This is a confidential communication</p>
           </div>
