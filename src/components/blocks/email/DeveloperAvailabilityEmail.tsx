@@ -388,20 +388,24 @@ export function DeveloperAvailabilityEmail({ data }: { data: DeveloperAvailabili
           {/* Units cards (mobile) */}
           <div className="da-cards-show" style={{ display: "none" }}>
             {d.units.map((u, i) => (
-              <div key={i} style={{
-                padding: "14px 16px", marginBottom: 10, borderRadius: 4,
+              <div key={i} className="da-unit-card" style={{
+                padding: "12px 14px", marginBottom: 8, borderRadius: 3,
                 border: `1px solid ${B.borderLight}`,
                 backgroundColor: u.status === "key-ready" ? B.amberBg : B.white,
               }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
-                  <span style={{ fontSize: 11, fontWeight: 600, color: B.muted, letterSpacing: "0.08em" }}>{u.ref}</span>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
+                  <span style={{ fontSize: 10, fontWeight: 600, color: B.muted, letterSpacing: "0.08em" }}>{u.ref}</span>
                   <StatusBadge status={u.status} />
                 </div>
-                <p style={{ fontSize: 14, fontWeight: 500, color: B.darkText, margin: "0 0 4px" }}>{u.type}</p>
-                <p style={{ fontSize: 12, color: B.muted, margin: "0 0 8px" }}>
-                  {u.sqm} m²{u.terrace ? ` + ${u.terrace} m² terrace` : ""}{u.floor ? ` · Floor ${u.floor}` : ""}
-                </p>
-                <p style={{ fontSize: 16, fontWeight: 600, color: B.darkText, margin: 0 }}>{u.price}</p>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                  <div>
+                    <p style={{ fontSize: 13, fontWeight: 500, color: B.darkText, margin: "0 0 2px" }}>{u.type}</p>
+                    <p style={{ fontSize: 11, color: B.muted, margin: 0 }}>
+                      {u.sqm} m²{u.terrace ? ` + ${u.terrace} m² ter.` : ""}{u.floor ? ` · ${u.floor}` : ""}
+                    </p>
+                  </div>
+                  <p style={{ fontSize: 15, fontWeight: 600, color: B.darkText, margin: 0, whiteSpace: "nowrap" as const }}>{u.price}</p>
+                </div>
               </div>
             ))}
           </div>
