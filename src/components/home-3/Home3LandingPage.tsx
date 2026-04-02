@@ -604,7 +604,7 @@ const Home3LandingPage = () => {
                   Every property deserves a story. Our in-house production team creates cinematic video content and editorial photography that positions each listing as a work of art.
                 </p>
                 <Link
-                  to="/videos2"
+                  to="/videos3"
                   className="inline-flex items-center gap-3 text-[11px] tracking-[0.2em] uppercase font-medium transition-all duration-300 hover:gap-4 px-7 py-3.5"
                   style={{ color: palette.offMarketAccent, border: `1px solid rgba(201,169,110,0.35)` }}
                 >
