@@ -134,7 +134,7 @@ export default function VideosPageV3() {
         </div>
       </section>
 
-      {/* ═══ Video Grid — Elegant 3-Column ═══ */}
+      {/* ═══ Video Grid — Featured + 2-Column ═══ */}
       <section className="py-14 sm:py-20 md:py-28" style={{ background: palette.white }}>
         <div className="max-w-[1200px] mx-auto px-6 sm:px-8 lg:px-12">
           {filtered.length === 0 ? (
@@ -142,63 +142,106 @@ export default function VideosPageV3() {
               <p className="text-sm font-light" style={{ color: palette.textMuted }}>No videos found in this category.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 lg:gap-x-8 gap-y-12 lg:gap-y-16">
-              {filtered.map((video, i) => (
-                <FadeIn key={video.id} delay={i * 0.06}>
-                  <article className="group cursor-pointer" onClick={() => setPlayingId(video.youtubeId)}>
-                    {/* Thumbnail */}
-                    <div className="relative overflow-hidden aspect-[16/10] mb-5">
+            <>
+              {/* ── First video: Featured (full width) ── */}
+              <FadeIn>
+                <article className="group cursor-pointer mb-14 sm:mb-20" onClick={() => setPlayingId(filtered[0].youtubeId)}>
+                  <div className="grid grid-cols-1 lg:grid-cols-[1.3fr,1fr] gap-6 lg:gap-10 items-center">
+                    <div className="relative overflow-hidden aspect-[16/10]">
                       <img
-                        src={getThumb(video.youtubeId)}
-                        alt={video.title}
-                        loading="lazy"
-                        className="w-full h-full object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.06]"
+                        src={getThumb(filtered[0].youtubeId)}
+                        alt={filtered[0].title}
+                        className="w-full h-full object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.04]"
                       />
-                      {/* Hover overlay */}
-                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-600 flex items-center justify-center" style={{ background: "rgba(15,13,11,0.35)" }}>
-                        <div className="w-14 h-14 rounded-full flex items-center justify-center backdrop-blur-sm transition-transform duration-500 scale-90 group-hover:scale-100" style={{ background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.3)" }}>
-                          <Play className="w-5 h-5 text-white ml-0.5" fill="white" />
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-700 flex items-center justify-center" style={{ background: "rgba(15,13,11,0.3)" }}>
+                        <div className="w-16 h-16 rounded-full flex items-center justify-center backdrop-blur-sm" style={{ background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.3)" }}>
+                          <Play className="w-6 h-6 text-white ml-0.5" fill="white" />
                         </div>
                       </div>
-                      {/* Duration badge */}
-                      <span className="absolute bottom-2.5 right-2.5 text-[10px] text-white/90 font-medium px-2 py-0.5 backdrop-blur-sm" style={{ background: "rgba(0,0,0,0.5)" }}>
-                        {video.duration}
+                      <span className="absolute bottom-3 right-3 text-[10px] text-white/90 font-medium px-2 py-0.5 backdrop-blur-sm" style={{ background: "rgba(0,0,0,0.5)" }}>
+                        {filtered[0].duration}
                       </span>
                     </div>
-
-                    {/* Info */}
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <span className="text-[9px] tracking-[0.18em] uppercase font-medium px-2.5 py-1" style={{ color: palette.accent, background: palette.bgAlt }}>
-                          {video.category}
-                        </span>
-                        {video.location && (
-                          <span className="flex items-center gap-1 text-[10px] tracking-[0.1em] uppercase font-light" style={{ color: palette.textLight }}>
-                            <MapPin className="w-3 h-3" /> {video.location}
-                          </span>
-                        )}
-                      </div>
-                      <h3 className="text-[15px] sm:text-base font-light tracking-wide leading-snug group-hover:opacity-70 transition-opacity" style={{ fontFamily: fonts.heading, color: palette.text }}>
-                        {video.title}
+                    <div className="space-y-3">
+                      <span className="text-[9px] tracking-[0.18em] uppercase font-medium px-2.5 py-1 inline-block" style={{ color: palette.accent, background: palette.bgAlt }}>
+                        {filtered[0].category}
+                      </span>
+                      {filtered[0].location && (
+                        <div className="flex items-center gap-1.5">
+                          <MapPin className="w-3 h-3" style={{ color: palette.textLight }} />
+                          <span className="text-[11px] tracking-[0.12em] uppercase font-light" style={{ color: palette.textLight }}>{filtered[0].location}</span>
+                        </div>
+                      )}
+                      <h3 className="text-xl sm:text-2xl font-extralight tracking-wide leading-snug group-hover:opacity-70 transition-opacity" style={{ fontFamily: fonts.heading, color: palette.text }}>
+                        {filtered[0].title}
                       </h3>
-                      <p className="text-[13px] font-light leading-[1.65] line-clamp-2" style={{ color: palette.textMuted }}>
-                        {video.description}
+                      <p className="text-[13px] sm:text-[14px] font-light leading-[1.7]" style={{ color: palette.textMuted }}>
+                        {filtered[0].description}
                       </p>
-                      <div className="flex items-center gap-4 pt-1 text-[11px] font-light" style={{ color: palette.textLight }}>
-                        <span>{video.date}</span>
-                        <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {video.duration}</span>
-                        <span className="flex items-center gap-1"><Eye className="w-3 h-3" /> {video.views}</span>
+                      <div className="flex items-center gap-5 pt-2 text-[11px] font-light" style={{ color: palette.textLight }}>
+                        <span>{filtered[0].date}</span>
+                        <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {filtered[0].duration}</span>
+                        <span className="flex items-center gap-1"><Eye className="w-3 h-3" /> {filtered[0].views}</span>
                       </div>
                     </div>
-                  </article>
-                </FadeIn>
-              ))}
-            </div>
+                  </div>
+                </article>
+              </FadeIn>
+
+              {/* ── Rest: 2-column grid ── */}
+              {filtered.length > 1 && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 lg:gap-x-8 gap-y-12 lg:gap-y-16">
+                  {filtered.slice(1).map((video, i) => (
+                    <FadeIn key={video.id} delay={i * 0.06}>
+                      <article className="group cursor-pointer" onClick={() => setPlayingId(video.youtubeId)}>
+                        <div className="relative overflow-hidden aspect-[16/10] mb-5">
+                          <img
+                            src={getThumb(video.youtubeId)}
+                            alt={video.title}
+                            loading="lazy"
+                            className="w-full h-full object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.06]"
+                          />
+                          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-600 flex items-center justify-center" style={{ background: "rgba(15,13,11,0.35)" }}>
+                            <div className="w-14 h-14 rounded-full flex items-center justify-center backdrop-blur-sm transition-transform duration-500 scale-90 group-hover:scale-100" style={{ background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.3)" }}>
+                              <Play className="w-5 h-5 text-white ml-0.5" fill="white" />
+                            </div>
+                          </div>
+                          <span className="absolute bottom-2.5 right-2.5 text-[10px] text-white/90 font-medium px-2 py-0.5 backdrop-blur-sm" style={{ background: "rgba(0,0,0,0.5)" }}>
+                            {video.duration}
+                          </span>
+                        </div>
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between">
+                            <span className="text-[9px] tracking-[0.18em] uppercase font-medium px-2.5 py-1" style={{ color: palette.accent, background: palette.bgAlt }}>
+                              {video.category}
+                            </span>
+                            {video.location && (
+                              <span className="flex items-center gap-1 text-[10px] tracking-[0.1em] uppercase font-light" style={{ color: palette.textLight }}>
+                                <MapPin className="w-3 h-3" /> {video.location}
+                              </span>
+                            )}
+                          </div>
+                          <h3 className="text-[15px] sm:text-base font-light tracking-wide leading-snug group-hover:opacity-70 transition-opacity" style={{ fontFamily: fonts.heading, color: palette.text }}>
+                            {video.title}
+                          </h3>
+                          <p className="text-[13px] font-light leading-[1.65] line-clamp-2" style={{ color: palette.textMuted }}>
+                            {video.description}
+                          </p>
+                          <div className="flex items-center gap-4 pt-1 text-[11px] font-light" style={{ color: palette.textLight }}>
+                            <span>{video.date}</span>
+                            <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {video.duration}</span>
+                            <span className="flex items-center gap-1"><Eye className="w-3 h-3" /> {video.views}</span>
+                          </div>
+                        </div>
+                      </article>
+                    </FadeIn>
+                  ))}
+                </div>
+              )}
+            </>
           )}
         </div>
       </section>
-
-      {/* ═══ CTA — YouTube Subscribe ═══ */}
       <section className="py-14 sm:py-20" style={{ background: palette.bg, borderTop: `1px solid ${palette.border}` }}>
         <div className="max-w-[600px] mx-auto px-6 text-center">
           <FadeIn>
