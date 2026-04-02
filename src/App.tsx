@@ -119,6 +119,7 @@ const App = () => (
             <Route path="/email-enquiry" element={<EnquiryEmailPreviewPage />} />
             <Route path="/email-alert" element={<PriceAlertEmailPreviewPage />} />
             <Route path="/email-newsletter" element={<NewsletterEmailPreviewPage />} />
+            <Route path="/email-developer" element={<DeveloperAvailabilityPreviewPage />} />
             <Route path="/icons" element={<IconsPage />} />
             <Route path="/chatbot-design" element={<ChatbotDesignShowcase />} />
             <Route path="/team" element={<TeamPage />} />
