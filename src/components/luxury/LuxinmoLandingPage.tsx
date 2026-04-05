@@ -613,61 +613,6 @@ const LuxinmoLandingPage = () => {
         </div>
       </section>
 
-      {/* ─── §16 FOOTER ─── */}
-      <footer className="py-12 sm:py-16" style={{ background: palette.footer, color: "rgba(255,255,255,0.5)" }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
-            {/* Brand */}
-            <div className="md:col-span-1">
-              <p className="text-[18px] tracking-[0.2em] uppercase font-light mb-1" style={{ color: "#fff", fontFamily: fonts.heading }}>LUXINMO</p>
-              <p className="text-[11px] tracking-[0.15em] uppercase font-light mb-4" style={{ color: "rgba(255,255,255,0.3)" }}>Real Estate</p>
-              <p className="text-[12px] leading-[1.8] font-light">
-                C/ La Mar, 100<br />
-                03590 Altea, Alicante<br />
-                España
-              </p>
-            </div>
-            {/* Contact */}
-            <div>
-              <p className="text-[11px] tracking-[0.12em] uppercase font-medium mb-4" style={{ color: "rgba(255,255,255,0.7)" }}>Contacto</p>
-              <div className="space-y-2 text-[12px] font-light">
-                <p className="flex items-center gap-2"><Phone className="w-3.5 h-3.5" /> +34 966 000 000</p>
-                <p className="flex items-center gap-2"><Mail className="w-3.5 h-3.5" /> info@luxinmo.com</p>
-                <p className="flex items-center gap-2"><MessageCircle className="w-3.5 h-3.5" /> WhatsApp</p>
-              </div>
-            </div>
-            {/* Social */}
-            <div>
-              <p className="text-[11px] tracking-[0.12em] uppercase font-medium mb-4" style={{ color: "rgba(255,255,255,0.7)" }}>Síguenos</p>
-              <div className="flex gap-3">
-                {[Instagram, Linkedin, Facebook, Twitter].map((Icon, i) => (
-                  <a key={i} href="#" className="w-8 h-8 rounded-full flex items-center justify-center transition-all hover:opacity-80" style={{ background: "rgba(255,255,255,0.08)" }}>
-                    <Icon className="w-3.5 h-3.5" style={{ color: "rgba(255,255,255,0.6)" }} />
-                  </a>
-                ))}
-              </div>
-              <div className="mt-5">
-                <p className="text-[10px] tracking-[0.1em] uppercase font-light mb-2" style={{ color: "rgba(255,255,255,0.3)" }}>Asociaciones</p>
-                <p className="text-[11px] font-light">API · AIPP</p>
-              </div>
-            </div>
-            {/* Languages */}
-            <div>
-              <p className="text-[11px] tracking-[0.12em] uppercase font-medium mb-4" style={{ color: "rgba(255,255,255,0.7)" }}>Idiomas</p>
-              <div className="flex flex-wrap gap-2">
-                {["🇪🇸", "🇬🇧", "🇩🇪", "🇫🇷", "🇳🇱", "🇷🇺", "🇸🇪", "🇳🇴", "🇩🇰"].map((flag, i) => (
-                  <span key={i} className="text-[16px] cursor-pointer hover:scale-110 transition-transform">{flag}</span>
-                ))}
-              </div>
-            </div>
-          </div>
-          <div className="pt-6" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
-            <p className="text-[11px] font-light text-center" style={{ color: "rgba(255,255,255,0.3)" }}>
-              © {new Date().getFullYear()} Luxinmo Real Estate. Todos los derechos reservados.
-            </p>
-          </div>
-        </div>
-      </footer>
 
       {/* ─── MOBILE STICKY CTA ─── */}
       <div
