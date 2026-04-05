@@ -19,6 +19,7 @@ import FadeIn from "@/components/shared/FadeIn";
 import SEOHead from "@/components/shared/SEOHead";
 import { palette, fonts } from "@/config/template";
 import ListingPropertyCard from "@/components/blocks/listing/ListingPropertyCard";
+import ConsultationWizardModal from "@/components/blocks/contact/ConsultationWizardModal";
 
 /* ─── Data ─── */
 const PROPERTIES = [
@@ -83,15 +84,24 @@ const MARKET_STATS = [
   { value: "285 m²", label: "Superficie Media" },
 ];
 
+const TEAM_PHOTOS = [
+  { name: "Ana García", role: "Javea", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80" },
+  { name: "Marco Bernardi", role: "Javea", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80" },
+  { name: "Elena Martínez", role: "Altea", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&q=80" },
+  { name: "Carlos Ruiz", role: "Moraira", image: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=200&q=80" },
+  { name: "Anna Johansson", role: "Calpe", image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80" },
+];
+
 /* ════════════════════════════ COMPONENT ════════════════════════════ */
 
 const LuxinmoLandingPage = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [appointmentType, setAppointmentType] = useState("videocall");
+  const [wizardOpen, setWizardOpen] = useState(false);
 
   const accentColor = palette.accent;
 
   return (
+    <>
     <Layout navVariant="solid" activePath="/" showBackToTop>
       <SEOHead
         title="Villas de Lujo en Venta en Javea | Luxinmo"
@@ -349,135 +359,58 @@ const LuxinmoLandingPage = () => {
         </div>
       </section>
 
-      {/* ─── §10 CONTACTO + OFF-MARKET ─── */}
+      {/* ─── §10 CITA PRIVADA ─── */}
       <section className="py-14 sm:py-20" style={{ background: palette.bgAlt }}>
         <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <FadeIn>
-            <div className="text-center mb-10">
-              <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-2" style={{ color: accentColor }}>Colección Privada</p>
+            <div className="text-center">
+              <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-3" style={{ color: accentColor }}>Atención Personalizada</p>
               <h2 className="text-[24px] sm:text-[30px] font-light mb-4" style={{ fontFamily: fonts.heading, color: palette.text }}>
-                ¿No encuentra lo que busca?
+                Su Cita Privada con un Especialista
               </h2>
-              <p className="text-[14px] leading-[1.85] font-light max-w-[680px] mx-auto" style={{ color: palette.textMuted }}>
-                Tenemos más de 300 propiedades en nuestra colección privada que no aparecen en línea, por petición de los propietarios. Envíenos un mensaje y nuestro equipo le ayudará a encontrar la propiedad perfecta para usted.
+              <p className="text-[14px] leading-[1.85] font-light max-w-[640px] mx-auto mb-3" style={{ color: palette.textMuted }}>
+                En el mercado inmobiliario de lujo, las mejores oportunidades no se publican. Una cita privada le garantiza acceso exclusivo a más de 300 propiedades fuera de mercado, asesoramiento confidencial y atención dedicada de un especialista local.
               </p>
-            </div>
-          </FadeIn>
+              <p className="text-[13px] leading-[1.8] font-light max-w-[580px] mx-auto mb-10" style={{ color: palette.textLight }}>
+                Ya sea que busque comprar o vender, nuestro equipo le acompañará en cada paso del proceso con total discreción.
+              </p>
 
-          <FadeIn delay={0.05}>
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 border border-neutral-200 rounded-sm overflow-hidden bg-white">
-              {/* Left — Advisor */}
-              <div className="lg:col-span-4 p-6 sm:p-8 border-b lg:border-b-0 lg:border-r border-neutral-200 bg-neutral-50">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-16 h-16 rounded-full flex items-center justify-center shrink-0 bg-white border border-neutral-200">
-                    <Users className="w-7 h-7 text-neutral-400" />
-                  </div>
-                  <div>
-                    <h3 className="text-[16px] font-medium text-neutral-900" style={{ fontFamily: fonts.heading }}>Ana García</h3>
-                    <p className="text-[12px] font-light text-neutral-500">Especialista en Javea · 12 años</p>
-                  </div>
-                </div>
-
-                <div className="space-y-2 mb-6">
-                  {[
-                    { key: "office", label: "Presencial en oficina", icon: Building2 },
-                    { key: "videocall", label: "Videollamada", icon: Video },
-                    { key: "visit", label: "Visita a propiedades", icon: Eye },
-                  ].map(opt => (
-                    <button
-                      key={opt.key}
-                      onClick={() => setAppointmentType(opt.key)}
-                      className="w-full flex items-center gap-3 px-4 py-2.5 rounded-sm text-left text-[13px] font-light transition-all"
-                      style={{
-                        background: appointmentType === opt.key ? "#fff" : "transparent",
-                        border: `1px solid ${appointmentType === opt.key ? accentColor : "rgb(229,231,235)"}`,
-                        color: appointmentType === opt.key ? accentColor : "rgb(115,115,115)",
-                      }}
-                    >
-                      <opt.icon className="w-4 h-4" />
-                      {opt.label}
-                    </button>
+              {/* Team photos */}
+              <div className="flex items-center justify-center mb-8">
+                <div className="flex -space-x-3">
+                  {TEAM_PHOTOS.map((member, i) => (
+                    <img
+                      key={i}
+                      src={member.image}
+                      alt={member.name}
+                      className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-[3px] border-white object-cover shadow-sm grayscale hover:grayscale-0 transition-all duration-300"
+                      title={`${member.name} — ${member.role}`}
+                    />
                   ))}
                 </div>
-
-                <div className="space-y-2">
-                  <a href="https://wa.me/34966000000" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 py-3 text-[13px] font-medium tracking-[0.05em] rounded-sm transition-all hover:opacity-90 w-full" style={{ background: "#25D366", color: "#fff" }}>
-                    <MessageCircle className="w-4 h-4" /> Escribir por WhatsApp
-                  </a>
-                  <a href="tel:+34966000000" className="flex items-center justify-center gap-2 py-3 text-[13px] font-medium tracking-[0.05em] rounded-sm transition-all hover:opacity-90 w-full bg-neutral-900 text-white">
-                    <Phone className="w-4 h-4" /> Llamar +34 966 XXX XXX
-                  </a>
-                </div>
               </div>
 
-              {/* Right — Form */}
-              <div className="lg:col-span-8 p-6 sm:p-8">
-                <p className="text-[11px] tracking-[0.15em] uppercase text-neutral-400 font-medium mb-4">Enviar consulta</p>
-                <form className="space-y-3" onSubmit={e => e.preventDefault()}>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <input type="text" placeholder="Nombre completo" className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:border-neutral-500 transition-colors rounded-sm" style={{ fontSize: "16px" }} />
-                    <input type="email" placeholder="Email" className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:border-neutral-500 transition-colors rounded-sm" style={{ fontSize: "16px" }} />
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div className="flex rounded-sm overflow-hidden border border-neutral-300">
-                      <select className="px-2.5 py-2.5 text-[13px] font-light outline-none border-r border-neutral-300 bg-neutral-50 text-neutral-700" style={{ fontSize: "16px" }} defaultValue="+34">
-                        <option value="+34">🇪🇸 +34</option>
-                        <option value="+44">🇬🇧 +44</option>
-                        <option value="+49">🇩🇪 +49</option>
-                        <option value="+33">🇫🇷 +33</option>
-                        <option value="+31">🇳🇱 +31</option>
-                        <option value="+46">🇸🇪 +46</option>
-                        <option value="+47">🇳🇴 +47</option>
-                        <option value="+7">🇷🇺 +7</option>
-                        <option value="+1">🇺🇸 +1</option>
-                      </select>
-                      <input type="tel" placeholder="Teléfono" className="flex-1 px-3 py-2.5 text-[14px] text-neutral-900 placeholder:text-neutral-400 outline-none bg-white" style={{ fontSize: "16px" }} />
-                    </div>
-                    <input type="date" className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-neutral-900 focus:outline-none focus:border-neutral-500 transition-colors rounded-sm bg-white" style={{ fontSize: "16px" }} />
-                  </div>
-                  <textarea rows={3} placeholder="Cuéntenos qué tipo de propiedad busca: ubicación, presupuesto, características..." className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:border-neutral-500 transition-colors resize-none rounded-sm" style={{ fontSize: "16px" }} />
-                  <button type="submit" className="w-full py-3 text-[12px] tracking-[0.15em] uppercase font-medium transition-all hover:opacity-90 rounded-sm" style={{ background: accentColor, color: palette.white }}>
-                    Enviar Consulta
-                  </button>
-                </form>
-              </div>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* ─── §11 VENDER PROPIEDAD ─── */}
-      <section className="py-12 sm:py-16" style={{ background: palette.white, borderTop: `1px solid ${palette.border}` }}>
-        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
-          <FadeIn>
-            <div className="max-w-[700px] mx-auto text-center">
-              <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-2" style={{ color: accentColor }}>Propietarios</p>
-              <h2 className="text-[24px] sm:text-[30px] font-light mb-3" style={{ fontFamily: fonts.heading, color: palette.text }}>
-                ¿Tiene una propiedad en Javea?
-              </h2>
-              <p className="text-[14px] leading-[1.8] font-light mb-8" style={{ color: palette.textMuted }}>
-                Nuestro equipo le ofrece una valoración gratuita y un plan de venta personalizado.
+              <p className="text-[12px] font-light mb-8" style={{ color: palette.textLight }}>
+                Equipo especialista en la Costa Blanca · 14 idiomas · Respuesta en 24h
               </p>
-            </div>
-          </FadeIn>
-          <FadeIn delay={0.05}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-              {[
-                { icon: CheckCircle2, text: "Valoración gratuita" },
-                { icon: Globe, text: "Red de compradores en 30 países" },
-                { icon: Camera, text: "Marketing premium: fotos, video, dron" },
-                { icon: Globe, text: "Presencia en 9 idiomas" },
-              ].map((item, i) => (
-                <div key={i} className="flex items-center gap-3 p-4 rounded-sm bg-neutral-50 border border-neutral-200">
-                  <item.icon className="w-5 h-5 shrink-0" style={{ color: accentColor }} />
-                  <span className="text-[13px] font-light text-neutral-900">{item.text}</span>
-                </div>
-              ))}
-            </div>
-            <div className="text-center">
-              <a href="#" className="inline-flex items-center gap-2 px-8 py-3.5 text-[13px] tracking-[0.1em] uppercase font-medium transition-all hover:opacity-90" style={{ background: accentColor, color: palette.white }}>
-                Solicitar valoración gratuita <ArrowRight className="w-4 h-4" />
-              </a>
+
+              <button
+                onClick={() => setWizardOpen(true)}
+                className="inline-flex items-center gap-2.5 px-10 py-4 text-[13px] tracking-[0.12em] uppercase font-medium rounded-sm transition-all hover:opacity-90 hover:shadow-lg"
+                style={{ background: accentColor, color: palette.white }}
+              >
+                <MessageCircle className="w-4 h-4" />
+                Solicitar Cita Privada
+              </button>
+
+              <div className="flex items-center justify-center gap-6 mt-6">
+                <a href="https://wa.me/34966000000" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-[12px] font-light transition-colors hover:opacity-70" style={{ color: "#25D366" }}>
+                  <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
+                </a>
+                <a href="tel:+34966000000" className="flex items-center gap-1.5 text-[12px] font-light transition-colors hover:opacity-70" style={{ color: palette.textMuted }}>
+                  <Phone className="w-3.5 h-3.5" /> +34 966 XXX XXX
+                </a>
+              </div>
             </div>
           </FadeIn>
         </div>
@@ -670,6 +603,9 @@ const LuxinmoLandingPage = () => {
         </a>
       </div>
     </Layout>
+
+    <ConsultationWizardModal open={wizardOpen} onClose={() => setWizardOpen(false)} />
+    </>
   );
 };
 
