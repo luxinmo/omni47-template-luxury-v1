@@ -18,6 +18,7 @@ import { Layout } from "@/components/layout";
 import FadeIn from "@/components/shared/FadeIn";
 import SEOHead from "@/components/shared/SEOHead";
 import { palette, fonts } from "@/config/template";
+import ListingPropertyCard from "@/components/blocks/listing/ListingPropertyCard";
 
 /* ─── Data ─── */
 const PROPERTIES = [
