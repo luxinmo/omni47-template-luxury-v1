@@ -92,7 +92,7 @@ const LuxinmoLandingPage = () => {
   const accentColor = palette.accent;
 
   return (
-    <Layout navVariant="solid" activePath="/" showBackToTop showFooter={false}>
+    <Layout navVariant="solid" activePath="/" showBackToTop>
       <SEOHead
         title="Villas de Lujo en Venta en Javea | Luxinmo"
         description="Descubre las mejores villas de lujo en venta en Javea. 45 propiedades exclusivas desde €690,000. Asesoramiento personalizado con Luxinmo."
