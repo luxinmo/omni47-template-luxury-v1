@@ -602,7 +602,9 @@ const LuxinmoLandingPage = () => {
             </div>
           </FadeIn>
         </div>
-      {/* ─── §12 BLOG ─── */}
+      </section>
+
+      {/* ─── §14 BLOG ─── */}
       <section className="py-12 sm:py-16" style={{ background: palette.white, borderTop: `1px solid ${palette.border}` }}>
         <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <FadeIn>
