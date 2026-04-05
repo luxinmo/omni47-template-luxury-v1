@@ -56,6 +56,7 @@ import IconsPage from "./pages/IconsPage";
 import ChatbotDesignShowcase from "./components/luxury/ChatbotDesignShowcase";
 import TeamPage from "./components/luxury/TeamPage";
 import MunicipalityPage from "./components/luxury/MunicipalityPage";
+import LuxinmoLandingPage from "./components/luxury/LuxinmoLandingPage";
 
 const queryClient = new QueryClient();
 
@@ -124,6 +125,7 @@ const App = () => (
             <Route path="/chatbot-design" element={<ChatbotDesignShowcase />} />
             <Route path="/team" element={<TeamPage />} />
             <Route path="/municipality/:slug" element={<MunicipalityPage />} />
+            <Route path="/luxinmo" element={<LuxinmoLandingPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
