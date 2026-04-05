@@ -353,7 +353,7 @@ const LuxinmoLandingPage = () => {
       <section className="py-14 sm:py-20" style={{ background: palette.bgAlt }}>
         <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <FadeIn>
-            <div className="text-center mb-12">
+            <div className="text-center mb-10">
               <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-2" style={{ color: accentColor }}>Colección Privada</p>
               <h2 className="text-[24px] sm:text-[30px] font-light mb-4" style={{ fontFamily: fonts.heading, color: palette.text }}>
                 ¿No encuentra lo que busca?
@@ -365,16 +365,20 @@ const LuxinmoLandingPage = () => {
           </FadeIn>
 
           <FadeIn delay={0.05}>
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 p-6 sm:p-10 rounded-sm" style={{ background: palette.white, border: `1px solid ${palette.border}` }}>
-              {/* Left — Advisor + options */}
-              <div className="lg:col-span-2 flex flex-col items-center lg:items-start text-center lg:text-left">
-                <div className="w-24 h-24 rounded-full mb-4 flex items-center justify-center" style={{ background: palette.bgAlt, border: `2px solid ${palette.border}` }}>
-                  <Users className="w-10 h-10" style={{ color: palette.textLight }} />
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 border border-neutral-200 rounded-sm overflow-hidden bg-white">
+              {/* Left — Advisor */}
+              <div className="lg:col-span-4 p-6 sm:p-8 border-b lg:border-b-0 lg:border-r border-neutral-200 bg-neutral-50">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-16 h-16 rounded-full flex items-center justify-center shrink-0 bg-white border border-neutral-200">
+                    <Users className="w-7 h-7 text-neutral-400" />
+                  </div>
+                  <div>
+                    <h3 className="text-[16px] font-medium text-neutral-900" style={{ fontFamily: fonts.heading }}>Ana García</h3>
+                    <p className="text-[12px] font-light text-neutral-500">Especialista en Javea · 12 años</p>
+                  </div>
                 </div>
-                <h3 className="text-[18px] font-medium mb-0.5" style={{ color: palette.text, fontFamily: fonts.heading }}>Ana García</h3>
-                <p className="text-[13px] font-light mb-6" style={{ color: palette.textMuted }}>Especialista en Javea · 12 años de experiencia</p>
 
-                <div className="w-full space-y-2 mb-6">
+                <div className="space-y-2 mb-6">
                   {[
                     { key: "office", label: "Presencial en oficina", icon: Building2 },
                     { key: "videocall", label: "Videollamada", icon: Video },
@@ -383,11 +387,11 @@ const LuxinmoLandingPage = () => {
                     <button
                       key={opt.key}
                       onClick={() => setAppointmentType(opt.key)}
-                      className="w-full flex items-center gap-3 px-4 py-3 rounded-sm text-left text-[13px] font-light transition-all"
+                      className="w-full flex items-center gap-3 px-4 py-2.5 rounded-sm text-left text-[13px] font-light transition-all"
                       style={{
-                        background: appointmentType === opt.key ? `${accentColor}10` : palette.bg,
-                        border: `1px solid ${appointmentType === opt.key ? accentColor : palette.border}`,
-                        color: appointmentType === opt.key ? accentColor : palette.textMuted,
+                        background: appointmentType === opt.key ? "#fff" : "transparent",
+                        border: `1px solid ${appointmentType === opt.key ? accentColor : "rgb(229,231,235)"}`,
+                        color: appointmentType === opt.key ? accentColor : "rgb(115,115,115)",
                       }}
                     >
                       <opt.icon className="w-4 h-4" />
@@ -396,51 +400,27 @@ const LuxinmoLandingPage = () => {
                   ))}
                 </div>
 
-                {/* WhatsApp + Call — always visible, extra prominent on mobile */}
-                <div className="w-full space-y-2.5">
-                  <a
-                    href="https://wa.me/34966000000"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 py-3.5 text-[13px] font-medium tracking-[0.05em] rounded-sm transition-all hover:opacity-90 w-full"
-                    style={{ background: "#25D366", color: "#fff" }}
-                  >
+                <div className="space-y-2">
+                  <a href="https://wa.me/34966000000" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 py-3 text-[13px] font-medium tracking-[0.05em] rounded-sm transition-all hover:opacity-90 w-full" style={{ background: "#25D366", color: "#fff" }}>
                     <MessageCircle className="w-4 h-4" /> Escribir por WhatsApp
                   </a>
-                  <a
-                    href="tel:+34966000000"
-                    className="flex items-center justify-center gap-2 py-3.5 text-[13px] font-medium tracking-[0.05em] rounded-sm transition-all hover:opacity-90 w-full"
-                    style={{ background: palette.text, color: palette.white }}
-                  >
-                    <Phone className="w-4 h-4" /> Llamar ahora +34 966 XXX XXX
+                  <a href="tel:+34966000000" className="flex items-center justify-center gap-2 py-3 text-[13px] font-medium tracking-[0.05em] rounded-sm transition-all hover:opacity-90 w-full bg-neutral-900 text-white">
+                    <Phone className="w-4 h-4" /> Llamar +34 966 XXX XXX
                   </a>
                 </div>
               </div>
 
               {/* Right — Form */}
-              <div className="lg:col-span-3">
-                <form className="space-y-4" onSubmit={e => e.preventDefault()}>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <input
-                      type="text"
-                      placeholder="Nombre completo"
-                      className="w-full px-4 py-3 text-[14px] font-light rounded-sm outline-none transition-all focus:ring-1"
-                      style={{ background: palette.bg, border: `1px solid ${palette.border}`, color: palette.text, fontSize: "16px" }}
-                    />
-                    <input
-                      type="email"
-                      placeholder="Email"
-                      className="w-full px-4 py-3 text-[14px] font-light rounded-sm outline-none transition-all focus:ring-1"
-                      style={{ background: palette.bg, border: `1px solid ${palette.border}`, color: palette.text, fontSize: "16px" }}
-                    />
+              <div className="lg:col-span-8 p-6 sm:p-8">
+                <p className="text-[11px] tracking-[0.15em] uppercase text-neutral-400 font-medium mb-4">Enviar consulta</p>
+                <form className="space-y-3" onSubmit={e => e.preventDefault()}>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <input type="text" placeholder="Nombre completo" className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:border-neutral-500 transition-colors rounded-sm" style={{ fontSize: "16px" }} />
+                    <input type="email" placeholder="Email" className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:border-neutral-500 transition-colors rounded-sm" style={{ fontSize: "16px" }} />
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="flex rounded-sm overflow-hidden" style={{ border: `1px solid ${palette.border}` }}>
-                      <select
-                        className="px-2 py-3 text-[13px] font-light outline-none border-r"
-                        style={{ background: palette.bg, color: palette.text, borderColor: palette.border, fontSize: "16px" }}
-                        defaultValue="+34"
-                      >
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="flex rounded-sm overflow-hidden border border-neutral-300">
+                      <select className="px-2.5 py-2.5 text-[13px] font-light outline-none border-r border-neutral-300 bg-neutral-50 text-neutral-700" style={{ fontSize: "16px" }} defaultValue="+34">
                         <option value="+34">🇪🇸 +34</option>
                         <option value="+44">🇬🇧 +44</option>
                         <option value="+49">🇩🇪 +49</option>
@@ -451,31 +431,12 @@ const LuxinmoLandingPage = () => {
                         <option value="+7">🇷🇺 +7</option>
                         <option value="+1">🇺🇸 +1</option>
                       </select>
-                      <input
-                        type="tel"
-                        placeholder="Teléfono"
-                        className="flex-1 px-3 py-3 text-[14px] font-light outline-none"
-                        style={{ background: palette.bg, color: palette.text, fontSize: "16px" }}
-                      />
+                      <input type="tel" placeholder="Teléfono" className="flex-1 px-3 py-2.5 text-[14px] text-neutral-900 placeholder:text-neutral-400 outline-none bg-white" style={{ fontSize: "16px" }} />
                     </div>
-                    <input
-                      type="date"
-                      placeholder="Fecha preferida"
-                      className="w-full px-4 py-3 text-[14px] font-light rounded-sm outline-none transition-all focus:ring-1"
-                      style={{ background: palette.bg, border: `1px solid ${palette.border}`, color: palette.text, fontSize: "16px" }}
-                    />
+                    <input type="date" className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-neutral-900 focus:outline-none focus:border-neutral-500 transition-colors rounded-sm bg-white" style={{ fontSize: "16px" }} />
                   </div>
-                  <textarea
-                    rows={3}
-                    placeholder="Cuéntenos qué tipo de propiedad busca: ubicación, presupuesto, características..."
-                    className="w-full px-4 py-3 text-[14px] font-light rounded-sm outline-none transition-all focus:ring-1 resize-none"
-                    style={{ background: palette.bg, border: `1px solid ${palette.border}`, color: palette.text, fontSize: "16px" }}
-                  />
-                  <button
-                    type="submit"
-                    className="w-full py-3.5 text-[13px] tracking-[0.1em] uppercase font-medium transition-all hover:opacity-90"
-                    style={{ background: accentColor, color: palette.white }}
-                  >
+                  <textarea rows={3} placeholder="Cuéntenos qué tipo de propiedad busca: ubicación, presupuesto, características..." className="w-full border border-neutral-300 px-4 py-2.5 text-[14px] text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:border-neutral-500 transition-colors resize-none rounded-sm" style={{ fontSize: "16px" }} />
+                  <button type="submit" className="w-full py-3 text-[12px] tracking-[0.15em] uppercase font-medium transition-all hover:opacity-90 rounded-sm" style={{ background: accentColor, color: palette.white }}>
                     Enviar Consulta
                   </button>
                 </form>
@@ -486,7 +447,7 @@ const LuxinmoLandingPage = () => {
       </section>
 
       {/* ─── §11 VENDER PROPIEDAD ─── */}
-      <section className="py-12 sm:py-16" style={{ background: palette.bgAlt }}>
+      <section className="py-12 sm:py-16" style={{ background: palette.white, borderTop: `1px solid ${palette.border}` }}>
         <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <FadeIn>
             <div className="max-w-[700px] mx-auto text-center">
@@ -507,18 +468,14 @@ const LuxinmoLandingPage = () => {
                 { icon: Camera, text: "Marketing premium: fotos, video, dron" },
                 { icon: Globe, text: "Presencia en 9 idiomas" },
               ].map((item, i) => (
-                <div key={i} className="flex items-center gap-3 p-4 rounded-sm" style={{ background: palette.white, border: `1px solid ${palette.border}` }}>
+                <div key={i} className="flex items-center gap-3 p-4 rounded-sm bg-neutral-50 border border-neutral-200">
                   <item.icon className="w-5 h-5 shrink-0" style={{ color: accentColor }} />
-                  <span className="text-[13px] font-light" style={{ color: palette.text }}>{item.text}</span>
+                  <span className="text-[13px] font-light text-neutral-900">{item.text}</span>
                 </div>
               ))}
             </div>
             <div className="text-center">
-              <a
-                href="#"
-                className="inline-flex items-center gap-2 px-8 py-3.5 text-[13px] tracking-[0.1em] uppercase font-medium transition-all hover:opacity-90"
-                style={{ background: accentColor, color: palette.white }}
-              >
+              <a href="#" className="inline-flex items-center gap-2 px-8 py-3.5 text-[13px] tracking-[0.1em] uppercase font-medium transition-all hover:opacity-90" style={{ background: accentColor, color: palette.white }}>
                 Solicitar valoración gratuita <ArrowRight className="w-4 h-4" />
               </a>
             </div>
@@ -526,101 +483,55 @@ const LuxinmoLandingPage = () => {
         </div>
       </section>
 
-      {/* ─── §12 GUÍA DEL COMPRADOR ─── */}
-      <section className="py-12 sm:py-16" style={{ background: palette.white, borderTop: `1px solid ${palette.border}` }}>
-        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
-          <FadeIn>
-            <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-2" style={{ color: accentColor }}>Proceso de Compra</p>
-            <h2 className="text-[24px] sm:text-[30px] font-light mb-10" style={{ fontFamily: fonts.heading, color: palette.text }}>
-              Guía para Comprar una Propiedad en Javea
-            </h2>
-          </FadeIn>
-          <FadeIn delay={0.05}>
-            <div className="relative">
-              {/* Vertical line */}
-              <div className="absolute left-[19px] top-0 bottom-0 w-px hidden sm:block" style={{ background: palette.border }} />
-              <div className="space-y-6">
-                {[
-                  { step: 1, title: "Definir presupuesto y requisitos", desc: "Establezca su rango de inversión, tipo de propiedad deseada, ubicación preferida y características imprescindibles." },
-                  { step: 2, title: "Obtener NIE y abrir cuenta bancaria", desc: "El NIE (Número de Identificación de Extranjero) es obligatorio para cualquier transacción inmobiliaria en España." },
-                  { step: 3, title: "Buscar propiedades con asesor local", desc: "Nuestros asesores especializados en Javea le mostrarán propiedades que se ajusten exactamente a sus criterios." },
-                  { step: 4, title: "Reserva y contrato de arras", desc: "Una vez encontrada la propiedad ideal, se firma un contrato de arras con un depósito habitual del 10%." },
-                  { step: 5, title: "Due diligence legal", desc: "Su abogado verificará la nota simple, cargas, licencias urbanísticas y situación fiscal de la propiedad." },
-                  { step: 6, title: "Escritura ante notario", desc: "La firma de la escritura pública de compraventa se realiza ante notario, con pago del precio restante." },
-                  { step: 7, title: "Registro de la propiedad e impuestos", desc: "Se inscribe la escritura en el Registro de la Propiedad y se liquidan los impuestos correspondientes (ITP o IVA)." },
-                  { step: 8, title: "Entrega de llaves", desc: "Reciba las llaves de su nueva propiedad en Javea. Le ayudamos con altas de suministros y servicios." },
-                ].map(s => (
-                  <div key={s.step} className="flex gap-4 sm:gap-6 items-start">
-                    <div
-                      className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-[14px] font-medium relative z-10"
-                      style={{ background: accentColor, color: palette.white }}
-                    >
-                      {s.step}
-                    </div>
-                    <div className="pt-1.5">
-                      <h3 className="text-[15px] font-medium mb-1" style={{ color: palette.text }}>{s.title}</h3>
-                      <p className="text-[13px] leading-[1.7] font-light" style={{ color: palette.textMuted }}>{s.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="mt-10 text-center sm:text-left sm:pl-16">
-              <a
-                href="#"
-                className="inline-flex items-center gap-2 px-8 py-3.5 text-[13px] tracking-[0.1em] uppercase font-medium transition-all hover:opacity-90"
-                style={{ background: accentColor, color: palette.white }}
-              >
-                Descargar guía completa en PDF <ArrowRight className="w-4 h-4" />
-              </a>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* ─── §13 GUÍA DEL VENDEDOR ─── */}
+      {/* ─── §12-13 GUÍAS COMPRADOR + VENDEDOR ─── */}
       <section className="py-12 sm:py-16" style={{ background: palette.bg }}>
         <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <FadeIn>
-            <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-2" style={{ color: accentColor }}>Proceso de Venta</p>
-            <h2 className="text-[24px] sm:text-[30px] font-light mb-10" style={{ fontFamily: fonts.heading, color: palette.text }}>
-              Guía para Vender su Propiedad en Javea
-            </h2>
-          </FadeIn>
-          <FadeIn delay={0.05}>
-            <div className="relative">
-              <div className="absolute left-[19px] top-0 bottom-0 w-px hidden sm:block" style={{ background: palette.border }} />
-              <div className="space-y-6">
-                {[
-                  { step: 1, title: "Valoración profesional gratuita", desc: "Realizamos un análisis comparativo de mercado para determinar el precio óptimo de venta de su propiedad." },
-                  { step: 2, title: "Preparación del inmueble", desc: "Home staging profesional, sesión fotográfica HD, vídeo cinematográfico y tomas con dron para maximizar el atractivo." },
-                  { step: 3, title: "Plan de marketing en 9 idiomas", desc: "Su propiedad se presenta en español, inglés, alemán, francés, holandés, ruso, sueco, noruego y danés." },
-                  { step: 4, title: "Publicación en portales y red de compradores", desc: "Difusión en los principales portales internacionales y acceso a nuestra base de datos de compradores cualificados en 30 países." },
-                  { step: 5, title: "Gestión de visitas y negociación", desc: "Coordinamos todas las visitas, filtramos compradores y gestionamos las negociaciones para obtener las mejores condiciones." },
-                  { step: 6, title: "Cierre de la venta ante notario", desc: "Acompañamiento completo en la firma de escrituras, gestión documental y entrega de llaves al nuevo propietario." },
-                ].map(s => (
-                  <div key={s.step} className="flex gap-4 sm:gap-6 items-start">
-                    <div
-                      className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-[14px] font-medium relative z-10"
-                      style={{ background: palette.text, color: palette.white }}
-                    >
-                      {s.step}
-                    </div>
-                    <div className="pt-1.5">
-                      <h3 className="text-[15px] font-medium mb-1" style={{ color: palette.text }}>{s.title}</h3>
-                      <p className="text-[13px] leading-[1.7] font-light" style={{ color: palette.textMuted }}>{s.desc}</p>
-                    </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <a href="/guia-comprador-javea" className="group block p-7 sm:p-8 rounded-sm transition-all hover:shadow-md bg-white border border-neutral-200">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: `${accentColor}12` }}>
+                    <CheckCircle2 className="w-5 h-5" style={{ color: accentColor }} />
                   </div>
-                ))}
-              </div>
-            </div>
-            <div className="mt-10 text-center sm:text-left sm:pl-16">
-              <a
-                href="#"
-                className="inline-flex items-center gap-2 px-8 py-3.5 text-[13px] tracking-[0.1em] uppercase font-medium transition-all hover:opacity-90"
-                style={{ background: accentColor, color: palette.white }}
-              >
-                Solicitar valoración gratuita <ArrowRight className="w-4 h-4" />
+                  <p className="text-[11px] tracking-[0.12em] uppercase font-medium" style={{ color: accentColor }}>Proceso de Compra</p>
+                </div>
+                <h3 className="text-[18px] sm:text-[20px] font-light mb-3 text-neutral-900 group-hover:opacity-80 transition-opacity" style={{ fontFamily: fonts.heading }}>
+                  Guía para Comprar una Propiedad en Javea
+                </h3>
+                <p className="text-[13px] leading-[1.75] font-light text-neutral-500 mb-5">
+                  8 pasos esenciales: desde la obtención del NIE hasta la entrega de llaves. Todo lo que necesita saber como comprador internacional.
+                </p>
+                <div className="flex flex-wrap gap-2 mb-5">
+                  {["NIE y cuenta bancaria", "Contrato de arras", "Due diligence", "Notario y registro"].map(tag => (
+                    <span key={tag} className="text-[11px] tracking-[0.05em] px-2.5 py-1 rounded-sm bg-neutral-50 text-neutral-500 border border-neutral-200">{tag}</span>
+                  ))}
+                </div>
+                <span className="inline-flex items-center gap-1.5 text-[12px] tracking-[0.1em] uppercase font-medium group-hover:gap-2.5 transition-all" style={{ color: accentColor }}>
+                  Leer guía completa <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </a>
+
+              <a href="/guia-vendedor-javea" className="group block p-7 sm:p-8 rounded-sm transition-all hover:shadow-md bg-white border border-neutral-200">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center bg-neutral-900/5">
+                    <TrendingUp className="w-5 h-5 text-neutral-700" />
+                  </div>
+                  <p className="text-[11px] tracking-[0.12em] uppercase font-medium text-neutral-500">Proceso de Venta</p>
+                </div>
+                <h3 className="text-[18px] sm:text-[20px] font-light mb-3 text-neutral-900 group-hover:opacity-80 transition-opacity" style={{ fontFamily: fonts.heading }}>
+                  Guía para Vender su Propiedad en Javea
+                </h3>
+                <p className="text-[13px] leading-[1.75] font-light text-neutral-500 mb-5">
+                  6 pasos para una venta exitosa: valoración gratuita, marketing en 9 idiomas, red de compradores en 30 países.
+                </p>
+                <div className="flex flex-wrap gap-2 mb-5">
+                  {["Valoración gratuita", "Fotos y vídeo HD", "9 idiomas", "30 países"].map(tag => (
+                    <span key={tag} className="text-[11px] tracking-[0.05em] px-2.5 py-1 rounded-sm bg-neutral-50 text-neutral-500 border border-neutral-200">{tag}</span>
+                  ))}
+                </div>
+                <span className="inline-flex items-center gap-1.5 text-[12px] tracking-[0.1em] uppercase font-medium group-hover:gap-2.5 transition-all" style={{ color: accentColor }}>
+                  Leer guía completa <ArrowRight className="w-3.5 h-3.5" />
+                </span>
               </a>
             </div>
           </FadeIn>
