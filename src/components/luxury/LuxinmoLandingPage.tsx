@@ -92,7 +92,7 @@ const LuxinmoLandingPage = () => {
   const accentColor = palette.accent;
 
   return (
-    <Layout navVariant="solid" activePath="/" showBackToTop showFooter={false}>
+    <Layout navVariant="solid" activePath="/" showBackToTop>
       <SEOHead
         title="Villas de Lujo en Venta en Javea | Luxinmo"
         description="Descubre las mejores villas de lujo en venta en Javea. 45 propiedades exclusivas desde €690,000. Asesoramiento personalizado con Luxinmo."
@@ -100,7 +100,7 @@ const LuxinmoLandingPage = () => {
 
       {/* ─── §2 BREADCRUMB ─── */}
       <section className="pt-4 pb-2" style={{ background: palette.bg }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <div className="flex items-center gap-1.5">
             {["Home", "Costa Blanca", "Javea", "Villas de Lujo"].map((item, i, arr) => (
               <span key={i} className="flex items-center gap-1.5">
@@ -120,7 +120,7 @@ const LuxinmoLandingPage = () => {
 
       {/* ─── §3 H1 + INTRO ─── */}
       <section className="pt-6 pb-8 sm:pt-8 sm:pb-10" style={{ background: palette.bg }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <FadeIn>
             <h1
               className="text-[28px] sm:text-[36px] md:text-[44px] font-light leading-[1.15] mb-3"
@@ -167,7 +167,7 @@ const LuxinmoLandingPage = () => {
 
       {/* ─── §4 PROPIEDADES DESTACADAS ─── */}
       <section className="pb-12 sm:pb-16" style={{ background: palette.bg }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <FadeIn>
             <div className="flex flex-col gap-4">
               {PROPERTIES.map(p => (
@@ -211,7 +211,7 @@ const LuxinmoLandingPage = () => {
 
       {/* ─── §5 DATOS DE MERCADO ─── */}
       <section className="py-12 sm:py-16" style={{ background: palette.white, borderTop: `1px solid ${palette.border}`, borderBottom: `1px solid ${palette.border}` }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <FadeIn>
             <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-2" style={{ color: accentColor }}>Datos del Mercado</p>
             <h2 className="text-[24px] sm:text-[30px] font-light mb-8" style={{ fontFamily: fonts.heading, color: palette.text }}>
@@ -233,7 +233,7 @@ const LuxinmoLandingPage = () => {
 
       {/* ─── §6 OFF-MARKET ─── */}
       <section className="py-14 sm:py-20" style={{ background: palette.offMarketBg }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12 text-center">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10 text-center">
           <FadeIn>
             <Lock className="w-8 h-8 mx-auto mb-5" style={{ color: palette.offMarketAccent }} />
             <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-3" style={{ color: palette.offMarketAccent }}>Acceso Exclusivo</p>
@@ -256,7 +256,7 @@ const LuxinmoLandingPage = () => {
 
       {/* ─── §7 ZONAS / BARRIOS ─── */}
       <section className="py-12 sm:py-16" style={{ background: palette.bg }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <FadeIn>
             <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-2" style={{ color: accentColor }}>Guía de Zonas</p>
             <h2 className="text-[24px] sm:text-[30px] font-light mb-8" style={{ fontFamily: fonts.heading, color: palette.text }}>
@@ -282,7 +282,7 @@ const LuxinmoLandingPage = () => {
 
       {/* ─── §8 POR QUÉ INVERTIR ─── */}
       <section className="py-12 sm:py-16" style={{ background: palette.white, borderTop: `1px solid ${palette.border}` }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <FadeIn>
             <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-2" style={{ color: accentColor }}>Inversión</p>
             <h2 className="text-[24px] sm:text-[30px] font-light mb-8" style={{ fontFamily: fonts.heading, color: palette.text }}>
@@ -351,7 +351,7 @@ const LuxinmoLandingPage = () => {
 
       {/* ─── §10 CITA PERSONALIZADA ─── */}
       <section className="py-14 sm:py-20" style={{ background: palette.white, borderTop: `1px solid ${palette.border}` }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <FadeIn>
             <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-2 text-center" style={{ color: accentColor }}>Atención Personalizada</p>
             <h2 className="text-[24px] sm:text-[30px] font-light mb-10 text-center" style={{ fontFamily: fonts.heading, color: palette.text }}>
@@ -464,7 +464,7 @@ const LuxinmoLandingPage = () => {
 
       {/* ─── §11 VENDER PROPIEDAD ─── */}
       <section className="py-12 sm:py-16" style={{ background: palette.bgAlt }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <FadeIn>
             <div className="max-w-[700px] mx-auto text-center">
               <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-2" style={{ color: accentColor }}>Propietarios</p>
@@ -505,7 +505,7 @@ const LuxinmoLandingPage = () => {
 
       {/* ─── §12 BLOG ─── */}
       <section className="py-12 sm:py-16" style={{ background: palette.white, borderTop: `1px solid ${palette.border}` }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <FadeIn>
             <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-2" style={{ color: accentColor }}>Blog</p>
             <h2 className="text-[24px] sm:text-[30px] font-light mb-8" style={{ fontFamily: fonts.heading, color: palette.text }}>
@@ -533,7 +533,7 @@ const LuxinmoLandingPage = () => {
 
       {/* ─── §13 INTERNAL LINKS ─── */}
       <section className="py-10 sm:py-12" style={{ background: palette.bg, borderTop: `1px solid ${palette.border}` }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <FadeIn>
             <p className="text-[14px] font-light mb-4" style={{ color: palette.textMuted }}>
               Descubre más propiedades en la Costa Blanca:
@@ -556,7 +556,7 @@ const LuxinmoLandingPage = () => {
 
       {/* ─── §14 MAPA ─── */}
       <section className="py-12 sm:py-16" style={{ background: palette.white, borderTop: `1px solid ${palette.border}` }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <FadeIn>
             <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-2" style={{ color: accentColor }}>Ubicación</p>
             <h2 className="text-[24px] sm:text-[30px] font-light mb-6" style={{ fontFamily: fonts.heading, color: palette.text }}>
@@ -577,7 +577,7 @@ const LuxinmoLandingPage = () => {
 
       {/* ─── §15 TESTIMONIOS ─── */}
       <section className="py-12 sm:py-16" style={{ background: palette.bg, borderTop: `1px solid ${palette.border}` }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <FadeIn>
             <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-2 text-center" style={{ color: accentColor }}>Testimonios</p>
             <h2 className="text-[24px] sm:text-[30px] font-light mb-10 text-center" style={{ fontFamily: fonts.heading, color: palette.text }}>
@@ -613,61 +613,6 @@ const LuxinmoLandingPage = () => {
         </div>
       </section>
 
-      {/* ─── §16 FOOTER ─── */}
-      <footer className="py-12 sm:py-16" style={{ background: palette.footer, color: "rgba(255,255,255,0.5)" }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
-            {/* Brand */}
-            <div className="md:col-span-1">
-              <p className="text-[18px] tracking-[0.2em] uppercase font-light mb-1" style={{ color: "#fff", fontFamily: fonts.heading }}>LUXINMO</p>
-              <p className="text-[11px] tracking-[0.15em] uppercase font-light mb-4" style={{ color: "rgba(255,255,255,0.3)" }}>Real Estate</p>
-              <p className="text-[12px] leading-[1.8] font-light">
-                C/ La Mar, 100<br />
-                03590 Altea, Alicante<br />
-                España
-              </p>
-            </div>
-            {/* Contact */}
-            <div>
-              <p className="text-[11px] tracking-[0.12em] uppercase font-medium mb-4" style={{ color: "rgba(255,255,255,0.7)" }}>Contacto</p>
-              <div className="space-y-2 text-[12px] font-light">
-                <p className="flex items-center gap-2"><Phone className="w-3.5 h-3.5" /> +34 966 000 000</p>
-                <p className="flex items-center gap-2"><Mail className="w-3.5 h-3.5" /> info@luxinmo.com</p>
-                <p className="flex items-center gap-2"><MessageCircle className="w-3.5 h-3.5" /> WhatsApp</p>
-              </div>
-            </div>
-            {/* Social */}
-            <div>
-              <p className="text-[11px] tracking-[0.12em] uppercase font-medium mb-4" style={{ color: "rgba(255,255,255,0.7)" }}>Síguenos</p>
-              <div className="flex gap-3">
-                {[Instagram, Linkedin, Facebook, Twitter].map((Icon, i) => (
-                  <a key={i} href="#" className="w-8 h-8 rounded-full flex items-center justify-center transition-all hover:opacity-80" style={{ background: "rgba(255,255,255,0.08)" }}>
-                    <Icon className="w-3.5 h-3.5" style={{ color: "rgba(255,255,255,0.6)" }} />
-                  </a>
-                ))}
-              </div>
-              <div className="mt-5">
-                <p className="text-[10px] tracking-[0.1em] uppercase font-light mb-2" style={{ color: "rgba(255,255,255,0.3)" }}>Asociaciones</p>
-                <p className="text-[11px] font-light">API · AIPP</p>
-              </div>
-            </div>
-            {/* Languages */}
-            <div>
-              <p className="text-[11px] tracking-[0.12em] uppercase font-medium mb-4" style={{ color: "rgba(255,255,255,0.7)" }}>Idiomas</p>
-              <div className="flex flex-wrap gap-2">
-                {["🇪🇸", "🇬🇧", "🇩🇪", "🇫🇷", "🇳🇱", "🇷🇺", "🇸🇪", "🇳🇴", "🇩🇰"].map((flag, i) => (
-                  <span key={i} className="text-[16px] cursor-pointer hover:scale-110 transition-transform">{flag}</span>
-                ))}
-              </div>
-            </div>
-          </div>
-          <div className="pt-6" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
-            <p className="text-[11px] font-light text-center" style={{ color: "rgba(255,255,255,0.3)" }}>
-              © {new Date().getFullYear()} Luxinmo Real Estate. Todos los derechos reservados.
-            </p>
-          </div>
-        </div>
-      </footer>
 
       {/* ─── MOBILE STICKY CTA ─── */}
       <div
