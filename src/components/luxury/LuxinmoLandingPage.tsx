@@ -101,6 +101,7 @@ const LuxinmoLandingPage = () => {
   const accentColor = palette.accent;
 
   return (
+    <>
     <Layout navVariant="solid" activePath="/" showBackToTop>
       <SEOHead
         title="Villas de Lujo en Venta en Javea | Luxinmo"
