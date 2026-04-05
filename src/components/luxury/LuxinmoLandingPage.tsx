@@ -88,7 +88,7 @@ const MARKET_STATS = [
 
 const LuxinmoLandingPage = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [appointmentType, setAppointmentType] = useState("videocall");
+  const [wizardOpen, setWizardOpen] = useState(false);
 
   const accentColor = palette.accent;
 
