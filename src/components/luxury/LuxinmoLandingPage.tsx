@@ -100,7 +100,7 @@ const LuxinmoLandingPage = () => {
 
       {/* ─── §2 BREADCRUMB ─── */}
       <section className="pt-4 pb-2" style={{ background: palette.bg }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <div className="flex items-center gap-1.5">
             {["Home", "Costa Blanca", "Javea", "Villas de Lujo"].map((item, i, arr) => (
               <span key={i} className="flex items-center gap-1.5">
@@ -120,7 +120,7 @@ const LuxinmoLandingPage = () => {
 
       {/* ─── §3 H1 + INTRO ─── */}
       <section className="pt-6 pb-8 sm:pt-8 sm:pb-10" style={{ background: palette.bg }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <FadeIn>
             <h1
               className="text-[28px] sm:text-[36px] md:text-[44px] font-light leading-[1.15] mb-3"
@@ -167,7 +167,7 @@ const LuxinmoLandingPage = () => {
 
       {/* ─── §4 PROPIEDADES DESTACADAS ─── */}
       <section className="pb-12 sm:pb-16" style={{ background: palette.bg }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <FadeIn>
             <div className="flex flex-col gap-4">
               {PROPERTIES.map(p => (
@@ -211,7 +211,7 @@ const LuxinmoLandingPage = () => {
 
       {/* ─── §5 DATOS DE MERCADO ─── */}
       <section className="py-12 sm:py-16" style={{ background: palette.white, borderTop: `1px solid ${palette.border}`, borderBottom: `1px solid ${palette.border}` }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <FadeIn>
             <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-2" style={{ color: accentColor }}>Datos del Mercado</p>
             <h2 className="text-[24px] sm:text-[30px] font-light mb-8" style={{ fontFamily: fonts.heading, color: palette.text }}>
@@ -233,7 +233,7 @@ const LuxinmoLandingPage = () => {
 
       {/* ─── §6 OFF-MARKET ─── */}
       <section className="py-14 sm:py-20" style={{ background: palette.offMarketBg }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12 text-center">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10 text-center">
           <FadeIn>
             <Lock className="w-8 h-8 mx-auto mb-5" style={{ color: palette.offMarketAccent }} />
             <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-3" style={{ color: palette.offMarketAccent }}>Acceso Exclusivo</p>
@@ -256,7 +256,7 @@ const LuxinmoLandingPage = () => {
 
       {/* ─── §7 ZONAS / BARRIOS ─── */}
       <section className="py-12 sm:py-16" style={{ background: palette.bg }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <FadeIn>
             <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-2" style={{ color: accentColor }}>Guía de Zonas</p>
             <h2 className="text-[24px] sm:text-[30px] font-light mb-8" style={{ fontFamily: fonts.heading, color: palette.text }}>
@@ -282,7 +282,7 @@ const LuxinmoLandingPage = () => {
 
       {/* ─── §8 POR QUÉ INVERTIR ─── */}
       <section className="py-12 sm:py-16" style={{ background: palette.white, borderTop: `1px solid ${palette.border}` }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <FadeIn>
             <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-2" style={{ color: accentColor }}>Inversión</p>
             <h2 className="text-[24px] sm:text-[30px] font-light mb-8" style={{ fontFamily: fonts.heading, color: palette.text }}>
@@ -351,7 +351,7 @@ const LuxinmoLandingPage = () => {
 
       {/* ─── §10 CITA PERSONALIZADA ─── */}
       <section className="py-14 sm:py-20" style={{ background: palette.white, borderTop: `1px solid ${palette.border}` }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <FadeIn>
             <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-2 text-center" style={{ color: accentColor }}>Atención Personalizada</p>
             <h2 className="text-[24px] sm:text-[30px] font-light mb-10 text-center" style={{ fontFamily: fonts.heading, color: palette.text }}>
@@ -464,7 +464,7 @@ const LuxinmoLandingPage = () => {
 
       {/* ─── §11 VENDER PROPIEDAD ─── */}
       <section className="py-12 sm:py-16" style={{ background: palette.bgAlt }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <FadeIn>
             <div className="max-w-[700px] mx-auto text-center">
               <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-2" style={{ color: accentColor }}>Propietarios</p>
@@ -505,7 +505,7 @@ const LuxinmoLandingPage = () => {
 
       {/* ─── §12 BLOG ─── */}
       <section className="py-12 sm:py-16" style={{ background: palette.white, borderTop: `1px solid ${palette.border}` }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <FadeIn>
             <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-2" style={{ color: accentColor }}>Blog</p>
             <h2 className="text-[24px] sm:text-[30px] font-light mb-8" style={{ fontFamily: fonts.heading, color: palette.text }}>
@@ -533,7 +533,7 @@ const LuxinmoLandingPage = () => {
 
       {/* ─── §13 INTERNAL LINKS ─── */}
       <section className="py-10 sm:py-12" style={{ background: palette.bg, borderTop: `1px solid ${palette.border}` }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <FadeIn>
             <p className="text-[14px] font-light mb-4" style={{ color: palette.textMuted }}>
               Descubre más propiedades en la Costa Blanca:
@@ -556,7 +556,7 @@ const LuxinmoLandingPage = () => {
 
       {/* ─── §14 MAPA ─── */}
       <section className="py-12 sm:py-16" style={{ background: palette.white, borderTop: `1px solid ${palette.border}` }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <FadeIn>
             <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-2" style={{ color: accentColor }}>Ubicación</p>
             <h2 className="text-[24px] sm:text-[30px] font-light mb-6" style={{ fontFamily: fonts.heading, color: palette.text }}>
@@ -577,7 +577,7 @@ const LuxinmoLandingPage = () => {
 
       {/* ─── §15 TESTIMONIOS ─── */}
       <section className="py-12 sm:py-16" style={{ background: palette.bg, borderTop: `1px solid ${palette.border}` }}>
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <FadeIn>
             <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-2 text-center" style={{ color: accentColor }}>Testimonios</p>
             <h2 className="text-[24px] sm:text-[30px] font-light mb-10 text-center" style={{ fontFamily: fonts.heading, color: palette.text }}>
