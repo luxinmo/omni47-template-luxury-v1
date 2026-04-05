@@ -56,6 +56,7 @@ import IconsPage from "./pages/IconsPage";
 import ChatbotDesignShowcase from "./components/luxury/ChatbotDesignShowcase";
 import TeamPage from "./components/luxury/TeamPage";
 import MunicipalityPage from "./components/luxury/MunicipalityPage";
+import LuxinmoLandingPage from "./components/luxury/LuxinmoLandingPage";
 
 const queryClient = new QueryClient();
 
