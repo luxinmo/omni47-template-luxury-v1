@@ -377,16 +377,23 @@ const LuxinmoLandingPage = () => {
 
               {/* Team photos */}
               <div className="flex items-center justify-center mb-8">
-                <div className="flex -space-x-3">
-                  {TEAM_PHOTOS.map((member, i) => (
-                    <img
-                      key={i}
-                      src={member.image}
-                      alt={member.name}
-                      className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-[3px] border-white object-cover shadow-sm grayscale hover:grayscale-0 transition-all duration-300"
-                      title={`${member.name} — ${member.role}`}
-                    />
-                  ))}
+                <div className="flex items-center -space-x-3">
+                  {TEAM_PHOTOS.map((member, i) => {
+                    const isCenter = i === Math.floor(TEAM_PHOTOS.length / 2);
+                    return (
+                      <img
+                        key={i}
+                        src={member.image}
+                        alt={member.name}
+                        className={`rounded-full border-white object-cover shadow-sm grayscale hover:grayscale-0 transition-all duration-300 ${
+                          isCenter
+                            ? "w-[72px] h-[72px] sm:w-[82px] sm:h-[82px] border-[4px] z-10 relative"
+                            : "w-12 h-12 sm:w-14 sm:h-14 border-[3px]"
+                        }`}
+                        title={`${member.name} — ${member.role}`}
+                      />
+                    );
+                  })}
                 </div>
               </div>
 
