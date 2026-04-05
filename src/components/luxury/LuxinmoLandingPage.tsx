@@ -349,19 +349,24 @@ const LuxinmoLandingPage = () => {
         </div>
       </section>
 
-      {/* ─── §10 CITA PERSONALIZADA ─── */}
-      <section className="py-14 sm:py-20" style={{ background: palette.white, borderTop: `1px solid ${palette.border}` }}>
+      {/* ─── §10 CONTACTO + OFF-MARKET ─── */}
+      <section className="py-14 sm:py-20" style={{ background: palette.bgAlt }}>
         <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
           <FadeIn>
-            <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-2 text-center" style={{ color: accentColor }}>Atención Personalizada</p>
-            <h2 className="text-[24px] sm:text-[30px] font-light mb-10 text-center" style={{ fontFamily: fonts.heading, color: palette.text }}>
-              Agenda una Cita Personalizada
-            </h2>
+            <div className="text-center mb-12">
+              <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-2" style={{ color: accentColor }}>Colección Privada</p>
+              <h2 className="text-[24px] sm:text-[30px] font-light mb-4" style={{ fontFamily: fonts.heading, color: palette.text }}>
+                ¿No encuentra lo que busca?
+              </h2>
+              <p className="text-[14px] leading-[1.85] font-light max-w-[680px] mx-auto" style={{ color: palette.textMuted }}>
+                Tenemos más de 300 propiedades en nuestra colección privada que no aparecen en línea, por petición de los propietarios. Envíenos un mensaje y nuestro equipo le ayudará a encontrar la propiedad perfecta para usted.
+              </p>
+            </div>
           </FadeIn>
 
           <FadeIn delay={0.05}>
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
-              {/* Left — Advisor */}
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 p-6 sm:p-10 rounded-sm" style={{ background: palette.white, border: `1px solid ${palette.border}` }}>
+              {/* Left — Advisor + options */}
               <div className="lg:col-span-2 flex flex-col items-center lg:items-start text-center lg:text-left">
                 <div className="w-24 h-24 rounded-full mb-4 flex items-center justify-center" style={{ background: palette.bgAlt, border: `2px solid ${palette.border}` }}>
                   <Users className="w-10 h-10" style={{ color: palette.textLight }} />
@@ -369,7 +374,7 @@ const LuxinmoLandingPage = () => {
                 <h3 className="text-[18px] font-medium mb-0.5" style={{ color: palette.text, fontFamily: fonts.heading }}>Ana García</h3>
                 <p className="text-[13px] font-light mb-6" style={{ color: palette.textMuted }}>Especialista en Javea · 12 años de experiencia</p>
 
-                <div className="w-full space-y-2">
+                <div className="w-full space-y-2 mb-6">
                   {[
                     { key: "office", label: "Presencial en oficina", icon: Building2 },
                     { key: "videocall", label: "Videollamada", icon: Video },
@@ -389,6 +394,26 @@ const LuxinmoLandingPage = () => {
                       {opt.label}
                     </button>
                   ))}
+                </div>
+
+                {/* WhatsApp + Call — always visible, extra prominent on mobile */}
+                <div className="w-full space-y-2.5">
+                  <a
+                    href="https://wa.me/34966000000"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 py-3.5 text-[13px] font-medium tracking-[0.05em] rounded-sm transition-all hover:opacity-90 w-full"
+                    style={{ background: "#25D366", color: "#fff" }}
+                  >
+                    <MessageCircle className="w-4 h-4" /> Escribir por WhatsApp
+                  </a>
+                  <a
+                    href="tel:+34966000000"
+                    className="flex items-center justify-center gap-2 py-3.5 text-[13px] font-medium tracking-[0.05em] rounded-sm transition-all hover:opacity-90 w-full"
+                    style={{ background: palette.text, color: palette.white }}
+                  >
+                    <Phone className="w-4 h-4" /> Llamar ahora +34 966 XXX XXX
+                  </a>
                 </div>
               </div>
 
@@ -410,12 +435,29 @@ const LuxinmoLandingPage = () => {
                     />
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <input
-                      type="tel"
-                      placeholder="Teléfono con prefijo"
-                      className="w-full px-4 py-3 text-[14px] font-light rounded-sm outline-none transition-all focus:ring-1"
-                      style={{ background: palette.bg, border: `1px solid ${palette.border}`, color: palette.text, fontSize: "16px" }}
-                    />
+                    <div className="flex rounded-sm overflow-hidden" style={{ border: `1px solid ${palette.border}` }}>
+                      <select
+                        className="px-2 py-3 text-[13px] font-light outline-none border-r"
+                        style={{ background: palette.bg, color: palette.text, borderColor: palette.border, fontSize: "16px" }}
+                        defaultValue="+34"
+                      >
+                        <option value="+34">🇪🇸 +34</option>
+                        <option value="+44">🇬🇧 +44</option>
+                        <option value="+49">🇩🇪 +49</option>
+                        <option value="+33">🇫🇷 +33</option>
+                        <option value="+31">🇳🇱 +31</option>
+                        <option value="+46">🇸🇪 +46</option>
+                        <option value="+47">🇳🇴 +47</option>
+                        <option value="+7">🇷🇺 +7</option>
+                        <option value="+1">🇺🇸 +1</option>
+                      </select>
+                      <input
+                        type="tel"
+                        placeholder="Teléfono"
+                        className="flex-1 px-3 py-3 text-[14px] font-light outline-none"
+                        style={{ background: palette.bg, color: palette.text, fontSize: "16px" }}
+                      />
+                    </div>
                     <input
                       type="date"
                       placeholder="Fecha preferida"
@@ -425,7 +467,7 @@ const LuxinmoLandingPage = () => {
                   </div>
                   <textarea
                     rows={3}
-                    placeholder="Mensaje (opcional)"
+                    placeholder="Cuéntenos qué tipo de propiedad busca: ubicación, presupuesto, características..."
                     className="w-full px-4 py-3 text-[14px] font-light rounded-sm outline-none transition-all focus:ring-1 resize-none"
                     style={{ background: palette.bg, border: `1px solid ${palette.border}`, color: palette.text, fontSize: "16px" }}
                   />
@@ -434,28 +476,9 @@ const LuxinmoLandingPage = () => {
                     className="w-full py-3.5 text-[13px] tracking-[0.1em] uppercase font-medium transition-all hover:opacity-90"
                     style={{ background: accentColor, color: palette.white }}
                   >
-                    Solicitar Cita
+                    Enviar Consulta
                   </button>
                 </form>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-5">
-                  <a
-                    href="https://wa.me/34966000000"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 py-3 text-[13px] font-medium tracking-[0.05em] rounded-sm transition-all hover:opacity-90"
-                    style={{ background: "#25D366", color: "#fff" }}
-                  >
-                    <MessageCircle className="w-4 h-4" /> Escribir por WhatsApp
-                  </a>
-                  <a
-                    href="tel:+34966000000"
-                    className="flex items-center justify-center gap-2 py-3 text-[13px] font-medium tracking-[0.05em] rounded-sm transition-all hover:opacity-90"
-                    style={{ background: palette.text, color: palette.white }}
-                  >
-                    <Phone className="w-4 h-4" /> Llamar ahora +34 966 XXX XXX
-                  </a>
-                </div>
               </div>
             </div>
           </FadeIn>
