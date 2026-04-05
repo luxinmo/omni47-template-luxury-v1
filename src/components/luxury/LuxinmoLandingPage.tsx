@@ -84,6 +84,14 @@ const MARKET_STATS = [
   { value: "285 m²", label: "Superficie Media" },
 ];
 
+const TEAM_PHOTOS = [
+  { name: "Ana García", role: "Javea", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80" },
+  { name: "Marco Bernardi", role: "Javea", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80" },
+  { name: "Elena Martínez", role: "Altea", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&q=80" },
+  { name: "Carlos Ruiz", role: "Moraira", image: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=200&q=80" },
+  { name: "Anna Johansson", role: "Calpe", image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80" },
+];
+
 /* ════════════════════════════ COMPONENT ════════════════════════════ */
 
 const LuxinmoLandingPage = () => {
