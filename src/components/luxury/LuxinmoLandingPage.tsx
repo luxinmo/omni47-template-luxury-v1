@@ -22,12 +22,12 @@ import ListingPropertyCard from "@/components/blocks/listing/ListingPropertyCard
 
 /* ─── Data ─── */
 const PROPERTIES = [
-  { id: 1, name: "Villa Portichol", zone: "Portichol", price: "€2,450,000", beds: 5, baths: 4, sqm: 420, ref: "LX-4501" },
-  { id: 2, name: "Villa La Corona", zone: "La Corona", price: "€1,890,000", beds: 4, baths: 3, sqm: 350, ref: "LX-4502" },
-  { id: 3, name: "Villa Montgó", zone: "Montgó", price: "€1,350,000", beds: 4, baths: 3, sqm: 285, ref: "LX-4503" },
-  { id: 4, name: "Villa Tosalet", zone: "Tosalet", price: "€980,000", beds: 3, baths: 2, sqm: 220, ref: "LX-4504" },
-  { id: 5, name: "Villa Cap Martí", zone: "Cap Martí", price: "€1,650,000", beds: 5, baths: 4, sqm: 380, ref: "LX-4505" },
-  { id: 6, name: "Villa Ambolo", zone: "Ambolo", price: "€3,200,000", beds: 6, baths: 5, sqm: 520, ref: "LX-4506" },
+  { id: 1, name: "STUNNING VILLA WITH SEA VIEWS IN PORTICHOL", zone: "Portichol · Javea", price: "€2,450,000", beds: 5, baths: 4, sqm: 420, plot: 1200, ref: "LX-4501", style: "Contemporary", excerpt: "Excepcional villa contemporánea en primera línea con vistas panorámicas al Mediterráneo y acceso privado a la bahía.", features: ["Sea Views", "Infinity Pool", "Smart Home"] },
+  { id: 2, name: "PANORAMIC VILLA IN LA CORONA", zone: "La Corona · Javea", price: "€1,890,000", beds: 4, baths: 3, sqm: 350, plot: 900, ref: "LX-4502", style: "Mediterranean", excerpt: "Villa mediterránea con vistas panorámicas 360° desde las terrazas. Parcela grande con jardín tropical y piscina infinity.", features: ["Panoramic Views", "Pool", "Garden"] },
+  { id: 3, name: "SOUTH-FACING VILLA ON MONTGÓ", zone: "Montgó · Javea", price: "€1,350,000", beds: 4, baths: 3, sqm: 285, plot: 800, ref: "LX-4503", style: "Modern", excerpt: "Villa moderna con orientación sur en las laderas del Parque Natural del Montgó. Amplios jardines y total privacidad.", features: ["South Facing", "Natural Park", "Privacy"] },
+  { id: 4, name: "ELEGANT VILLA IN TOSALET", zone: "Tosalet · Javea", price: "€980,000", beds: 3, baths: 2, sqm: 220, plot: 600, ref: "LX-4504", style: "Classic", excerpt: "Elegante villa clásica en la tranquila urbanización de Tosalet, a pocos minutos de Cala Blanca.", features: ["Near Beach", "Quiet Area", "Renovated"] },
+  { id: 5, name: "LUXURY VILLA WITH PORT VIEWS IN CAP MARTÍ", zone: "Cap Martí · Javea", price: "€1,650,000", beds: 5, baths: 4, sqm: 380, plot: 1000, ref: "LX-4505", style: "Contemporary", excerpt: "Villa de lujo con vistas al puerto deportivo en zona residencial consolidada. Acabados de alta gama.", features: ["Port Views", "High-End Finishes", "Garage"] },
+  { id: 6, name: "EXCLUSIVE CLIFF-TOP VILLA IN AMBOLO", zone: "Ambolo · Javea", price: "€3,200,000", beds: 6, baths: 5, sqm: 520, plot: 1500, ref: "LX-4506", style: "Avant-Garde", excerpt: "Espectacular villa sobre los acantilados de Ambolo con acceso a calas vírgenes. Diseño de autor.", features: ["Cliff Views", "Architect Design", "Infinity Pool"] },
 ];
 
 const ZONES = [
