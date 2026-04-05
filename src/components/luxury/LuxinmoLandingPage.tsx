@@ -602,6 +602,9 @@ const LuxinmoLandingPage = () => {
         </a>
       </div>
     </Layout>
+
+    <ConsultationWizardModal open={wizardOpen} onClose={() => setWizardOpen(false)} />
+    </>
   );
 };
 
