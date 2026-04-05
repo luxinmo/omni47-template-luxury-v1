@@ -238,7 +238,7 @@ const LuxinmoLandingPage = () => {
             <Lock className="w-8 h-8 mx-auto mb-5" style={{ color: palette.offMarketAccent }} />
             <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-3" style={{ color: palette.offMarketAccent }}>Acceso Exclusivo</p>
             <h2 className="text-[24px] sm:text-[32px] font-light mb-5 max-w-lg mx-auto" style={{ fontFamily: fonts.heading, color: "#fff" }}>
-              25 Propiedades Exclusivas Fuera de Mercado
+              25 Propiedades Exclusivas Fuera de Mercado en Javea
             </h2>
             <p className="text-[14px] leading-[1.8] font-light max-w-xl mx-auto mb-8" style={{ color: "rgba(255,255,255,0.55)" }}>
               Disponemos de propiedades que no aparecen en ningún portal inmobiliario. Acceso reservado exclusivamente para compradores cualificados.
@@ -503,6 +503,105 @@ const LuxinmoLandingPage = () => {
         </div>
       </section>
 
+      {/* ─── §12 GUÍA DEL COMPRADOR ─── */}
+      <section className="py-12 sm:py-16" style={{ background: palette.white, borderTop: `1px solid ${palette.border}` }}>
+        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
+          <FadeIn>
+            <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-2" style={{ color: accentColor }}>Proceso de Compra</p>
+            <h2 className="text-[24px] sm:text-[30px] font-light mb-10" style={{ fontFamily: fonts.heading, color: palette.text }}>
+              Guía para Comprar una Propiedad en Javea
+            </h2>
+          </FadeIn>
+          <FadeIn delay={0.05}>
+            <div className="relative">
+              {/* Vertical line */}
+              <div className="absolute left-[19px] top-0 bottom-0 w-px hidden sm:block" style={{ background: palette.border }} />
+              <div className="space-y-6">
+                {[
+                  { step: 1, title: "Definir presupuesto y requisitos", desc: "Establezca su rango de inversión, tipo de propiedad deseada, ubicación preferida y características imprescindibles." },
+                  { step: 2, title: "Obtener NIE y abrir cuenta bancaria", desc: "El NIE (Número de Identificación de Extranjero) es obligatorio para cualquier transacción inmobiliaria en España." },
+                  { step: 3, title: "Buscar propiedades con asesor local", desc: "Nuestros asesores especializados en Javea le mostrarán propiedades que se ajusten exactamente a sus criterios." },
+                  { step: 4, title: "Reserva y contrato de arras", desc: "Una vez encontrada la propiedad ideal, se firma un contrato de arras con un depósito habitual del 10%." },
+                  { step: 5, title: "Due diligence legal", desc: "Su abogado verificará la nota simple, cargas, licencias urbanísticas y situación fiscal de la propiedad." },
+                  { step: 6, title: "Escritura ante notario", desc: "La firma de la escritura pública de compraventa se realiza ante notario, con pago del precio restante." },
+                  { step: 7, title: "Registro de la propiedad e impuestos", desc: "Se inscribe la escritura en el Registro de la Propiedad y se liquidan los impuestos correspondientes (ITP o IVA)." },
+                  { step: 8, title: "Entrega de llaves", desc: "Reciba las llaves de su nueva propiedad en Javea. Le ayudamos con altas de suministros y servicios." },
+                ].map(s => (
+                  <div key={s.step} className="flex gap-4 sm:gap-6 items-start">
+                    <div
+                      className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-[14px] font-medium relative z-10"
+                      style={{ background: accentColor, color: palette.white }}
+                    >
+                      {s.step}
+                    </div>
+                    <div className="pt-1.5">
+                      <h3 className="text-[15px] font-medium mb-1" style={{ color: palette.text }}>{s.title}</h3>
+                      <p className="text-[13px] leading-[1.7] font-light" style={{ color: palette.textMuted }}>{s.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="mt-10 text-center sm:text-left sm:pl-16">
+              <a
+                href="#"
+                className="inline-flex items-center gap-2 px-8 py-3.5 text-[13px] tracking-[0.1em] uppercase font-medium transition-all hover:opacity-90"
+                style={{ background: accentColor, color: palette.white }}
+              >
+                Descargar guía completa en PDF <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ─── §13 GUÍA DEL VENDEDOR ─── */}
+      <section className="py-12 sm:py-16" style={{ background: palette.bg }}>
+        <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
+          <FadeIn>
+            <p className="text-[11px] tracking-[0.15em] uppercase font-medium mb-2" style={{ color: accentColor }}>Proceso de Venta</p>
+            <h2 className="text-[24px] sm:text-[30px] font-light mb-10" style={{ fontFamily: fonts.heading, color: palette.text }}>
+              Guía para Vender su Propiedad en Javea
+            </h2>
+          </FadeIn>
+          <FadeIn delay={0.05}>
+            <div className="relative">
+              <div className="absolute left-[19px] top-0 bottom-0 w-px hidden sm:block" style={{ background: palette.border }} />
+              <div className="space-y-6">
+                {[
+                  { step: 1, title: "Valoración profesional gratuita", desc: "Realizamos un análisis comparativo de mercado para determinar el precio óptimo de venta de su propiedad." },
+                  { step: 2, title: "Preparación del inmueble", desc: "Home staging profesional, sesión fotográfica HD, vídeo cinematográfico y tomas con dron para maximizar el atractivo." },
+                  { step: 3, title: "Plan de marketing en 9 idiomas", desc: "Su propiedad se presenta en español, inglés, alemán, francés, holandés, ruso, sueco, noruego y danés." },
+                  { step: 4, title: "Publicación en portales y red de compradores", desc: "Difusión en los principales portales internacionales y acceso a nuestra base de datos de compradores cualificados en 30 países." },
+                  { step: 5, title: "Gestión de visitas y negociación", desc: "Coordinamos todas las visitas, filtramos compradores y gestionamos las negociaciones para obtener las mejores condiciones." },
+                  { step: 6, title: "Cierre de la venta ante notario", desc: "Acompañamiento completo en la firma de escrituras, gestión documental y entrega de llaves al nuevo propietario." },
+                ].map(s => (
+                  <div key={s.step} className="flex gap-4 sm:gap-6 items-start">
+                    <div
+                      className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-[14px] font-medium relative z-10"
+                      style={{ background: palette.text, color: palette.white }}
+                    >
+                      {s.step}
+                    </div>
+                    <div className="pt-1.5">
+                      <h3 className="text-[15px] font-medium mb-1" style={{ color: palette.text }}>{s.title}</h3>
+                      <p className="text-[13px] leading-[1.7] font-light" style={{ color: palette.textMuted }}>{s.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="mt-10 text-center sm:text-left sm:pl-16">
+              <a
+                href="#"
+                className="inline-flex items-center gap-2 px-8 py-3.5 text-[13px] tracking-[0.1em] uppercase font-medium transition-all hover:opacity-90"
+                style={{ background: accentColor, color: palette.white }}
+              >
+                Solicitar valoración gratuita <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+          </FadeIn>
+        </div>
       {/* ─── §12 BLOG ─── */}
       <section className="py-12 sm:py-16" style={{ background: palette.white, borderTop: `1px solid ${palette.border}` }}>
         <div className="max-w-[1400px] mx-auto px-5 md:px-6 lg:px-10">
