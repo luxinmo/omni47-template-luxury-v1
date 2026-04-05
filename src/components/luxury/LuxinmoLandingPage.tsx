@@ -19,6 +19,7 @@ import FadeIn from "@/components/shared/FadeIn";
 import SEOHead from "@/components/shared/SEOHead";
 import { palette, fonts } from "@/config/template";
 import ListingPropertyCard from "@/components/blocks/listing/ListingPropertyCard";
+import ConsultationWizardModal from "@/components/blocks/contact/ConsultationWizardModal";
 
 /* ─── Data ─── */
 const PROPERTIES = [
