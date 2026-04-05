@@ -18,15 +18,16 @@ import { Layout } from "@/components/layout";
 import FadeIn from "@/components/shared/FadeIn";
 import SEOHead from "@/components/shared/SEOHead";
 import { palette, fonts } from "@/config/template";
+import ListingPropertyCard from "@/components/blocks/listing/ListingPropertyCard";
 
 /* ─── Data ─── */
 const PROPERTIES = [
-  { id: 1, name: "Villa Portichol", zone: "Portichol", price: "€2,450,000", beds: 5, baths: 4, sqm: 420, ref: "LX-4501" },
-  { id: 2, name: "Villa La Corona", zone: "La Corona", price: "€1,890,000", beds: 4, baths: 3, sqm: 350, ref: "LX-4502" },
-  { id: 3, name: "Villa Montgó", zone: "Montgó", price: "€1,350,000", beds: 4, baths: 3, sqm: 285, ref: "LX-4503" },
-  { id: 4, name: "Villa Tosalet", zone: "Tosalet", price: "€980,000", beds: 3, baths: 2, sqm: 220, ref: "LX-4504" },
-  { id: 5, name: "Villa Cap Martí", zone: "Cap Martí", price: "€1,650,000", beds: 5, baths: 4, sqm: 380, ref: "LX-4505" },
-  { id: 6, name: "Villa Ambolo", zone: "Ambolo", price: "€3,200,000", beds: 6, baths: 5, sqm: 520, ref: "LX-4506" },
+  { id: 1, name: "STUNNING VILLA WITH SEA VIEWS IN PORTICHOL", zone: "Portichol · Javea", price: "€2,450,000", beds: 5, baths: 4, sqm: 420, plot: 1200, ref: "LX-4501", style: "Contemporary", excerpt: "Excepcional villa contemporánea en primera línea con vistas panorámicas al Mediterráneo y acceso privado a la bahía.", features: ["Sea Views", "Infinity Pool", "Smart Home"] },
+  { id: 2, name: "PANORAMIC VILLA IN LA CORONA", zone: "La Corona · Javea", price: "€1,890,000", beds: 4, baths: 3, sqm: 350, plot: 900, ref: "LX-4502", style: "Mediterranean", excerpt: "Villa mediterránea con vistas panorámicas 360° desde las terrazas. Parcela grande con jardín tropical y piscina infinity.", features: ["Panoramic Views", "Pool", "Garden"] },
+  { id: 3, name: "SOUTH-FACING VILLA ON MONTGÓ", zone: "Montgó · Javea", price: "€1,350,000", beds: 4, baths: 3, sqm: 285, plot: 800, ref: "LX-4503", style: "Modern", excerpt: "Villa moderna con orientación sur en las laderas del Parque Natural del Montgó. Amplios jardines y total privacidad.", features: ["South Facing", "Natural Park", "Privacy"] },
+  { id: 4, name: "ELEGANT VILLA IN TOSALET", zone: "Tosalet · Javea", price: "€980,000", beds: 3, baths: 2, sqm: 220, plot: 600, ref: "LX-4504", style: "Classic", excerpt: "Elegante villa clásica en la tranquila urbanización de Tosalet, a pocos minutos de Cala Blanca.", features: ["Near Beach", "Quiet Area", "Renovated"] },
+  { id: 5, name: "LUXURY VILLA WITH PORT VIEWS IN CAP MARTÍ", zone: "Cap Martí · Javea", price: "€1,650,000", beds: 5, baths: 4, sqm: 380, plot: 1000, ref: "LX-4505", style: "Contemporary", excerpt: "Villa de lujo con vistas al puerto deportivo en zona residencial consolidada. Acabados de alta gama.", features: ["Port Views", "High-End Finishes", "Garage"] },
+  { id: 6, name: "EXCLUSIVE CLIFF-TOP VILLA IN AMBOLO", zone: "Ambolo · Javea", price: "€3,200,000", beds: 6, baths: 5, sqm: 520, plot: 1500, ref: "LX-4506", style: "Avant-Garde", excerpt: "Espectacular villa sobre los acantilados de Ambolo con acceso a calas vírgenes. Diseño de autor.", features: ["Cliff Views", "Architect Design", "Infinity Pool"] },
 ];
 
 const ZONES = [
@@ -168,34 +169,25 @@ const LuxinmoLandingPage = () => {
       <section className="pb-12 sm:pb-16" style={{ background: palette.bg }}>
         <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
           <FadeIn>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="flex flex-col gap-4">
               {PROPERTIES.map(p => (
-                <a key={p.id} href="#" className="group block">
-                  <div className="relative aspect-[4/3] overflow-hidden rounded-sm mb-3" style={{ background: palette.bgAlt }}>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <Camera className="w-10 h-10" style={{ color: palette.border }} />
-                    </div>
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-500" />
-                    <span className="absolute top-3 left-3 text-[10px] tracking-[0.1em] uppercase font-medium px-2.5 py-1 rounded-sm" style={{ background: "rgba(255,255,255,0.92)", color: palette.text }}>
-                      {p.ref}
-                    </span>
-                  </div>
-                  <p className="text-[13px] tracking-[0.08em] uppercase font-medium mb-0.5" style={{ color: accentColor }}>
-                    {p.price}
-                  </p>
-                  <p className="text-[15px] font-medium mb-1" style={{ color: palette.text, fontFamily: fonts.heading }}>
-                    {p.name}
-                  </p>
-                  <div className="flex items-center gap-1 mb-1.5">
-                    <MapPin className="w-3 h-3" style={{ color: palette.textLight }} />
-                    <span className="text-[12px] font-light" style={{ color: palette.textLight }}>{p.zone}, Javea</span>
-                  </div>
-                  <div className="flex items-center gap-4 text-[12px] font-light" style={{ color: palette.textMuted }}>
-                    <span className="flex items-center gap-1"><Bed className="w-3.5 h-3.5" /> {p.beds}</span>
-                    <span className="flex items-center gap-1"><Bath className="w-3.5 h-3.5" /> {p.baths}</span>
-                    <span className="flex items-center gap-1"><Maximize className="w-3.5 h-3.5" /> {p.sqm} m²</span>
-                  </div>
-                </a>
+                <ListingPropertyCard
+                  key={p.id}
+                  tag="FOR SALE"
+                  style={p.style}
+                  location={p.zone}
+                  title={p.name}
+                  excerpt={p.excerpt}
+                  beds={p.beds}
+                  baths={p.baths}
+                  sqm={p.sqm}
+                  plot={p.plot}
+                  price={p.price}
+                  features={p.features}
+                  ref_code={p.ref}
+                  href="#"
+                  galleryCount={12}
+                />
               ))}
             </div>
           </FadeIn>
