@@ -169,34 +169,25 @@ const LuxinmoLandingPage = () => {
       <section className="pb-12 sm:pb-16" style={{ background: palette.bg }}>
         <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-12">
           <FadeIn>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="flex flex-col gap-4">
               {PROPERTIES.map(p => (
-                <a key={p.id} href="#" className="group block">
-                  <div className="relative aspect-[4/3] overflow-hidden rounded-sm mb-3" style={{ background: palette.bgAlt }}>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <Camera className="w-10 h-10" style={{ color: palette.border }} />
-                    </div>
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-500" />
-                    <span className="absolute top-3 left-3 text-[10px] tracking-[0.1em] uppercase font-medium px-2.5 py-1 rounded-sm" style={{ background: "rgba(255,255,255,0.92)", color: palette.text }}>
-                      {p.ref}
-                    </span>
-                  </div>
-                  <p className="text-[13px] tracking-[0.08em] uppercase font-medium mb-0.5" style={{ color: accentColor }}>
-                    {p.price}
-                  </p>
-                  <p className="text-[15px] font-medium mb-1" style={{ color: palette.text, fontFamily: fonts.heading }}>
-                    {p.name}
-                  </p>
-                  <div className="flex items-center gap-1 mb-1.5">
-                    <MapPin className="w-3 h-3" style={{ color: palette.textLight }} />
-                    <span className="text-[12px] font-light" style={{ color: palette.textLight }}>{p.zone}, Javea</span>
-                  </div>
-                  <div className="flex items-center gap-4 text-[12px] font-light" style={{ color: palette.textMuted }}>
-                    <span className="flex items-center gap-1"><Bed className="w-3.5 h-3.5" /> {p.beds}</span>
-                    <span className="flex items-center gap-1"><Bath className="w-3.5 h-3.5" /> {p.baths}</span>
-                    <span className="flex items-center gap-1"><Maximize className="w-3.5 h-3.5" /> {p.sqm} m²</span>
-                  </div>
-                </a>
+                <ListingPropertyCard
+                  key={p.id}
+                  tag="FOR SALE"
+                  style={p.style}
+                  location={p.zone}
+                  title={p.name}
+                  excerpt={p.excerpt}
+                  beds={p.beds}
+                  baths={p.baths}
+                  sqm={p.sqm}
+                  plot={p.plot}
+                  price={p.price}
+                  features={p.features}
+                  ref_code={p.ref}
+                  href="#"
+                  galleryCount={12}
+                />
               ))}
             </div>
           </FadeIn>
